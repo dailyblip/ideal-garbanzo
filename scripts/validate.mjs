@@ -10,6 +10,7 @@ const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
 const ids = new Set();
+const urls = new Set();
 for (const [i, job] of jobs.entries()) {
   for (const key of ['id','title','company','location','type','experience']) {
     if (!String(job[key] || '').trim()) throw new Error(`Job ${i} missing ${key}`);
@@ -19,8 +20,14 @@ for (const [i, job] of jobs.entries()) {
   if (!['entry-level','internship','apprenticeship','trainee'].includes(job.type)) {
     throw new Error(`Unsupported job type: ${job.type}`);
   }
-  if (!['no-experience','0-2-years'].includes(job.experience)) {
+  if (!['no-experience','0-2-years','2-5-years'].includes(job.experience)) {
     throw new Error(`Unsupported experience band: ${job.experience}`);
+  }
+  if (!job.demo) {
+    if (!/^https:\/\//.test(job.sourceUrl || '')) throw new Error(`Real job ${job.id} missing valid sourceUrl`);
+    if (urls.has(job.sourceUrl)) throw new Error(`Duplicate job URL: ${job.sourceUrl}`);
+    urls.add(job.sourceUrl);
+    if (job.active !== true) throw new Error(`Published real job ${job.id} is not active`);
   }
 }
 

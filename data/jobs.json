@@ -1,0 +1,72 @@
+[
+  {
+    "id":"demo-core-1",
+    "title":"Data Center Technician I",
+    "company":"CoreSite Demo",
+    "location":"Dallas, TX",
+    "type":"entry-level",
+    "experience":"0-2-years",
+    "training":true,
+    "pay":"$24–$30 / hr",
+    "salaryMax":30,
+    "postedHours":2,
+    "tags":["0–1 Years","Training Provided","Full-time"],
+    "demo":true
+  },
+  {
+    "id":"demo-intern-1",
+    "title":"Electrical Engineering Intern – Data Centers",
+    "company":"CBRE Demo",
+    "location":"Austin, TX",
+    "type":"internship",
+    "experience":"no-experience",
+    "training":true,
+    "pay":"$20–$25 / hr",
+    "salaryMax":25,
+    "postedHours":3,
+    "tags":["Summer Internship","College Student","Paid"],
+    "demo":true
+  },
+  {
+    "id":"demo-facilities-1",
+    "title":"Facilities Technician (Entry Level)",
+    "company":"QTS Demo",
+    "location":"Atlanta, GA",
+    "type":"entry-level",
+    "experience":"no-experience",
+    "training":true,
+    "pay":"$23–$29 / hr",
+    "salaryMax":29,
+    "postedHours":5,
+    "tags":["No Experience Needed","On-the-Job Training","Full-time"],
+    "demo":true
+  },
+  {
+    "id":"demo-apprentice-1",
+    "title":"Data Center Electrical Apprentice",
+    "company":"Summit Data Centers Demo",
+    "location":"Phoenix, AZ",
+    "type":"apprenticeship",
+    "experience":"no-experience",
+    "training":true,
+    "pay":"$22–$28 / hr",
+    "salaryMax":28,
+    "postedHours":7,
+    "tags":["Paid Apprenticeship","Training Provided","Electrical"],
+    "demo":true
+  },
+  {
+    "id":"demo-trainee-1",
+    "title":"Critical Facilities Technician Trainee",
+    "company":"Atlas Compute Demo",
+    "location":"Columbus, OH",
+    "type":"trainee",
+    "experience":"0-2-years",
+    "training":true,
+    "pay":"$25–$31 / hr",
+    "salaryMax":31,
+    "postedHours":9,
+    "tags":["Trainee Program","UPS & Generators","Full-time"],
+    "demo":true
+  }
+]

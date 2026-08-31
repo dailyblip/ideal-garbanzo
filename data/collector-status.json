@@ -1,6 +1,19 @@
 {
-  "updatedAt": "2026-08-31T23:20:22.078Z",
-  "jobs": 54,
-  "sourcesAttempted": 7,
+  "updatedAt": "2026-08-31T23:42:26.181Z",
+  "jobs": 123,
+  "sourcesAttempted": 10,
+  "providers": {
+    "lever": 5,
+    "greenhouse": 2,
+    "ashby": 3
+  },
+  "countsByType": {
+    "entry-level": 123
+  },
+  "countsByExperience": {
+    "2-5-years": 42,
+    "0-2-years": 80,
+    "no-experience": 1
+  },
   "errors": []
 }

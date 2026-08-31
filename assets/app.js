@@ -78,7 +78,7 @@
   function render() {
     let jobs = filteredJobs();
     jobs.sort((a,b) => state.sort === 'salary'
-      ? (b.salaryMax || 0) - (a.salaryMax || 0)
+      ? (b.salarySortMax ?? b.salaryMax ?? 0) - (a.salarySortMax ?? a.salaryMax ?? 0)
       : (a.postedHours || 9999) - (b.postedHours || 9999));
 
     if (resultCount) resultCount.textContent = jobs.length;

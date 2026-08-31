@@ -9,10 +9,14 @@
   const header = document.querySelector('.site-header');
   const menu = document.querySelector('.menu-button');
 
-  const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  const escapeHtml = value => String(value ?? '').replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));
+  const safeUrl = value => /^https:\/\//i.test(String(value || '')) ? String(value) : '#';
 
   function typeLabel(type) {
-    return ({'entry-level':'ENTRY LEVEL','internship':'INTERNSHIP','apprenticeship':'APPRENTICE','trainee':'TRAINEE'})[type] || type.toUpperCase();
+    return ({'entry-level':'JOB','internship':'INTERNSHIP','apprenticeship':'APPRENTICE','trainee':'TRAINEE'})[type] || type.toUpperCase();
+  }
+  function experienceLabel(value) {
+    return ({'no-experience':'NO EXPERIENCE','0-2-years':'0–2 YEARS','2-5-years':'2–5 YEARS'})[value] || value;
   }
 
   function showToast(message) {
@@ -25,7 +29,7 @@
   function render() {
     const q = state.query.toLowerCase();
     let jobs = state.jobs.filter(job => {
-      const haystack = [job.title, job.company, job.location, ...(job.tags || [])].join(' ').toLowerCase();
+      const haystack = [job.title, job.company, job.location, job.experience, ...(job.tags || [])].join(' ').toLowerCase();
       if (q && !haystack.includes(q)) return false;
       if (!state.filters.size) return true;
       return [...state.filters].every(filter => job.type === filter || job.experience === filter);
@@ -41,11 +45,12 @@
           <div>
             <h3>${escapeHtml(job.title)} <span class="badge badge-blue">${escapeHtml(typeLabel(job.type))}</span></h3>
             <div class="job-meta">${escapeHtml(job.company)} <span>•</span> ${escapeHtml(job.location)}</div>
-            <div class="job-tags">${(job.tags || []).map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
+            <div class="job-tags"><span>${escapeHtml(experienceLabel(job.experience))}</span>${(job.tags || []).map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
             <div class="job-pay">${escapeHtml(job.pay || 'Pay not listed')}</div>
           </div>
-          <div class="posted">${escapeHtml(job.postedHours)}h ago<br><small>${job.demo ? 'DEMO' : ''}</small></div>
+          <div class="posted">${job.postedHours < 9999 ? `${escapeHtml(job.postedHours)}h ago` : 'Recently listed'}<br><small>${job.demo ? 'DEMO' : escapeHtml(job.source || '')}</small></div>
         </div>
+        <div class="job-card-actions">${job.demo ? '' : `<a class="btn btn-outline apply-link" href="${escapeHtml(safeUrl(job.sourceUrl))}" target="_blank" rel="noopener noreferrer">View & Apply ›</a>`}</div>
       </article>`).join('');
     emptyState.hidden = jobs.length > 0;
   }
@@ -91,7 +96,7 @@
     render();
   });
 
-  document.querySelectorAll('.demo-action').forEach(button => button.addEventListener('click', () => showToast('Demo control. Employer and application flows come in Phase 4.')));
+  document.querySelectorAll('.demo-action').forEach(button => button.addEventListener('click', () => showToast('Employer posting and promotion checkout is coming next.')));
 
   menu?.addEventListener('click', () => {
     const open = header.classList.toggle('menu-open');

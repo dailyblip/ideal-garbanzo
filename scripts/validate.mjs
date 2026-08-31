@@ -32,8 +32,8 @@ for (const [i, job] of jobs.entries()) {
 }
 
 const html = await readFile('index.html','utf8');
-for (const phrase of ['Launch Your','Data Center','Career','FEATURED OPPORTUNITY','For Employers']) {
-  if (!html.includes(phrase)) throw new Error(`Locked design marker missing: ${phrase}`);
+for (const phrase of ['DATA CENTER CAREER','Search jobs','FEATURED OPPORTUNITY','CURRENT OPENINGS','CAREER EVENTS','JOB ALERTS','FOR EMPLOYERS']) {
+  if (!html.includes(phrase)) throw new Error(`Required product marker missing: ${phrase}`);
 }
 
 console.log(`Validation passed: ${jobs.length} jobs and ${requiredFiles.length} required files.`);

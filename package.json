@@ -1,0 +1,9 @@
+{
+  "name": "data-center-careers",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "collect": "node scripts/collect-jobs.mjs",
+    "validate": "node scripts/validate.mjs"
+  }
+}

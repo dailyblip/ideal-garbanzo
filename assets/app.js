@@ -1,5 +1,5 @@
 (() => {
-  const state = { jobs: [], filters: new Set(), query: '', sort: 'newest' };
+  const state = { jobs: [], filters: new Set(), query: '', sort: 'newest', region: 'all' };
   const jobList = document.getElementById('jobList');
   const emptyState = document.getElementById('emptyState');
   const search = document.getElementById('jobSearch');
@@ -8,6 +8,11 @@
   const toast = document.getElementById('toast');
   const header = document.querySelector('.site-header');
   const menu = document.querySelector('.menu-button');
+
+  const css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = 'assets/home-tools.css';
+  document.head.appendChild(css);
 
   const escapeHtml = value => String(value ?? '').replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));
   const safeUrl = value => /^https:\/\//i.test(String(value || '')) ? String(value) : '#';
@@ -18,12 +23,81 @@
   function experienceLabel(value) {
     return ({'no-experience':'NO EXPERIENCE','0-2-years':'0–2 YEARS','2-5-years':'2–5 YEARS'})[value] || value;
   }
+  function regionFor(location='') {
+    const l = location.toLowerCase();
+    if (/virginia|maryland|washington, dc|district of columbia|ashburn|manassas/.test(l)) return 'mid-atlantic';
+    if (/texas|oklahoma|louisiana|arkansas/.test(l)) return 'texas-south';
+    if (/arizona|nevada|new mexico/.test(l)) return 'southwest';
+    if (/california|oregon|washington|utah|idaho/.test(l)) return 'west';
+    if (/ohio|illinois|indiana|michigan|iowa|wisconsin|minnesota/.test(l)) return 'midwest';
+    if (/georgia|florida|north carolina|south carolina|tennessee|alabama|mississippi/.test(l)) return 'southeast';
+    if (/new york|new jersey|pennsylvania|massachusetts|connecticut|rhode island|maine|vermont|new hampshire/.test(l)) return 'northeast';
+    return 'other';
+  }
 
   function showToast(message) {
     toast.textContent = message;
     toast.classList.add('show');
     clearTimeout(showToast.timer);
-    showToast.timer = setTimeout(() => toast.classList.remove('show'), 2600);
+    showToast.timer = setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  function injectHomeTools() {
+    const hero = document.querySelector('.hero');
+    if (!hero || document.querySelector('.home-tools')) return;
+    const heading = document.createElement('div');
+    heading.className = 'top-tools-heading';
+    heading.innerHTML = '<h2>Start with what matters to you</h2><span>Jobs, events and updates in your area</span>';
+    const tools = document.createElement('section');
+    tools.className = 'home-tools';
+    tools.innerHTML = `
+      <div class="home-tool region-tool">
+        <span class="tool-kicker">FIND WORK NEAR YOU</span>
+        <h3>Search by region</h3>
+        <p>Jump straight to openings in major data center markets.</p>
+        <div class="tool-row"><select id="topRegion" aria-label="Choose region">
+          <option value="all">All regions</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas-south">Texas / South Central</option><option value="southwest">Arizona / Southwest</option><option value="west">West</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option>
+        </select><a class="btn btn-gold" href="#jobs" id="regionGo">Show Jobs</a></div>
+      </div>
+      <div class="home-tool events-tool" id="events">
+        <span class="tool-kicker">CAREER EVENTS</span>
+        <h3>Job fairs & hiring events</h3>
+        <p>Meet employers, recruiters and training programs in person or online.</p>
+        <div class="event-preview"><div><strong>Upcoming events</strong><small>Regional events feed is being added next.</small></div><button class="btn btn-outline" type="button" id="eventNotify">See Events</button></div>
+      </div>
+      <div class="home-tool signup-tool">
+        <span class="tool-kicker">STAY IN THE LOOP</span>
+        <h3>Get new jobs & events by email</h3>
+        <p>Simple updates for new openings, internships, apprenticeships and nearby career events.</p>
+        <form class="tool-row" id="emailSignup"><input type="email" id="signupEmail" placeholder="you@email.com" aria-label="Email address" required><button class="btn btn-gold" type="submit">Sign Up</button></form>
+      </div>`;
+    hero.insertAdjacentElement('afterend', tools);
+    tools.insertAdjacentElement('beforebegin', heading);
+
+    const filters = document.querySelector('.filters');
+    if (filters && !document.getElementById('sideRegion')) {
+      const block = document.createElement('div');
+      block.className = 'region-filter-block';
+      block.innerHTML = `<label for="sideRegion">Region</label><select id="sideRegion"><option value="all">All regions</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas-south">Texas / South Central</option><option value="southwest">Arizona / Southwest</option><option value="west">West</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option></select>`;
+      filters.insertBefore(block, filters.children[1] || null);
+    }
+
+    const topRegion = document.getElementById('topRegion');
+    const sideRegion = document.getElementById('sideRegion');
+    const setRegion = value => {
+      state.region = value;
+      if (topRegion) topRegion.value = value;
+      if (sideRegion) sideRegion.value = value;
+      render();
+    };
+    topRegion?.addEventListener('change', () => setRegion(topRegion.value));
+    sideRegion?.addEventListener('change', () => setRegion(sideRegion.value));
+    document.getElementById('regionGo')?.addEventListener('click', () => setRegion(topRegion?.value || 'all'));
+    document.getElementById('eventNotify')?.addEventListener('click', () => showToast('Career-event discovery is next in the live-data pipeline.'));
+    document.getElementById('emailSignup')?.addEventListener('submit', event => {
+      event.preventDefault();
+      showToast('Signup form is ready; email delivery backend is the next step.');
+    });
   }
 
   function render() {
@@ -31,6 +105,7 @@
     let jobs = state.jobs.filter(job => {
       const haystack = [job.title, job.company, job.location, job.experience, ...(job.tags || [])].join(' ').toLowerCase();
       if (q && !haystack.includes(q)) return false;
+      if (state.region !== 'all' && regionFor(job.location) !== state.region) return false;
       if (!state.filters.size) return true;
       return [...state.filters].every(filter => job.type === filter || job.experience === filter);
     });
@@ -91,8 +166,11 @@
   clear.addEventListener('click', () => {
     state.filters.clear();
     state.query = '';
+    state.region = 'all';
     search.value = '';
     document.querySelectorAll('.filters input').forEach(input => input.checked = false);
+    const sideRegion = document.getElementById('sideRegion'); if (sideRegion) sideRegion.value = 'all';
+    const topRegion = document.getElementById('topRegion'); if (topRegion) topRegion.value = 'all';
     render();
   });
 
@@ -103,5 +181,6 @@
     menu.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
+  injectHomeTools();
   loadJobs();
 })();

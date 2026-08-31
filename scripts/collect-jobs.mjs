@@ -13,47 +13,58 @@ const greenhouseBoards = [
   ['elementcritical','Element Critical']
 ];
 
-const includeTerms = [
-  'data center','data centre','critical facilities','critical facility','electrical apprentice','electrician','facilities technician','operations technician','infrastructure technician','commissioning technician','low voltage','fiber technician','network technician','field technician'
+// Keep the site centered on hands-on entry through mid-career work. A job description
+// mentioning a data center is not enough; the ROLE TITLE itself must fit the audience.
+const titleIncludeTerms = [
+  'data center','data centre','critical facilities','critical facility','electrician','electrical apprentice',
+  'technician','apprentice','trainee','intern','low voltage','fiber','cabling'
 ];
-const earlyTerms = ['intern','internship','apprentice','apprenticeship','trainee','entry level','entry-level','tier 1','technician i','level 1','junior','associate','no experience','0-2 years','0–2 years','1-2 years','1–2 years','training provided'];
+const earlyTerms = [
+  'intern','internship','apprentice','apprenticeship','trainee','entry level','entry-level','tier 1','technician i',
+  'level 1','junior','associate','no experience','0-2 years','0–2 years','1-2 years','1–2 years','training provided'
+];
 const midTerms = ['2+ years','2 years','3 years','2-3 years','2–3 years','3-5 years','3–5 years','technician ii','level 2','tier 2','journeyman'];
-const seniorTerms = ['senior','sr.','sr ','lead ','principal','manager','director','vice president','vp ','head of','staff engineer','7+ years','8+ years','10+ years'];
+const excludedTitleTerms = [
+  'senior','sr.','sr ','lead ','principal','manager','director','vice president','vp ','head of','staff engineer',
+  'supervisor','superintendent','foreman','counsel','attorney','designer','architect','recruiter','sales','account executive'
+];
+const excessiveExperienceTerms = ['6+ years','7+ years','8+ years','9+ years','10+ years','minimum of 6 years','minimum 6 years'];
 
 const clean = s => String(s ?? '').replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim();
 const lower = s => clean(s).toLowerCase();
 const hash = value => crypto.createHash('sha1').update(value).digest('hex').slice(0,14);
 const hasAny = (text, terms) => terms.some(term => text.includes(term));
 
+function relevant(title) {
+  const t = lower(title);
+  return hasAny(t, titleIncludeTerms) && !hasAny(t, excludedTitleTerms);
+}
+
 function classify(title, description='') {
   const text = lower(`${title} ${description}`);
   const t = lower(title);
-  if (hasAny(t, seniorTerms) || hasAny(text, ['7+ years','8+ years','10+ years'])) return null;
+  if (!relevant(title) || hasAny(text, excessiveExperienceTerms)) return null;
   let type = 'entry-level';
   if (t.includes('intern')) type = 'internship';
   else if (t.includes('apprentice')) type = 'apprenticeship';
   else if (t.includes('trainee')) type = 'trainee';
-  const early = hasAny(text, earlyTerms);
-  const mid = hasAny(text, midTerms);
-  const experience = early ? (hasAny(text,['no experience','entry level','entry-level']) ? 'no-experience' : '0-2-years') : (mid ? '2-5-years' : '0-2-years');
-  return { type, experience };
-}
 
-function relevant(title, description='') {
-  const text = lower(`${title} ${description}`);
-  if (!hasAny(text, includeTerms)) return false;
-  if (hasAny(lower(title), seniorTerms)) return false;
-  return true;
+  let experience = '0-2-years';
+  if (hasAny(text, ['no experience','entry level','entry-level'])) experience = 'no-experience';
+  else if (t.includes('journeyman') || hasAny(text, midTerms)) experience = '2-5-years';
+  else if (hasAny(text, earlyTerms)) experience = '0-2-years';
+  return { type, experience };
 }
 
 function extractPay(text='') {
   const s = clean(text);
-  const range = s.match(/\$([\d,.]+)\s*(?:-|–|to)\s*\$?([\d,.]+)\s*(?:\/|per\s+)?(hour|hr|year|yr|annum)?/i);
-  if (range) {
-    const unit = /year|yr|annum/i.test(range[3]||'') ? 'year' : 'hour';
-    return { pay: `$${range[1]}–$${range[2]} / ${unit === 'year' ? 'year' : 'hr'}`, salaryMin:Number(range[1].replace(/,/g,'')), salaryMax:Number(range[2].replace(/,/g,'')) };
-  }
-  return { pay: 'Pay not listed', salaryMin:null, salaryMax:null };
+  const range = s.match(/\$([\d,.]+)\s*(?:-|–|to)\s*\$?([\d,.]+)\s*(?:\/|per\s+)?(hour|hourly|hr|year|yearly|yr|annum|annual|annually)?/i);
+  if (!range) return { pay: 'Pay not listed', salaryMin:null, salaryMax:null };
+  const min = Number(range[1].replace(/,/g,''));
+  const max = Number(range[2].replace(/,/g,''));
+  const explicit = lower(range[3] || '');
+  const annual = /year|yr|annum|annual/.test(explicit) || (!explicit && max >= 1000);
+  return { pay: `$${range[1]}–$${range[2]} / ${annual ? 'year' : 'hr'}`, salaryMin:min, salaryMax:max };
 }
 
 function tagsFor(title, description, experience, type) {
@@ -80,10 +91,10 @@ async function fetchJson(url) {
 
 async function collectLever(slug, company) {
   const rows = await fetchJson(`https://api.lever.co/v0/postings/${slug}?mode=json`);
-  return rows.filter(r => relevant(r.text, r.descriptionPlain || r.description || '')).map(r => {
+  return rows.filter(r => relevant(r.text)).map(r => {
     const description = clean(r.descriptionPlain || r.description || '');
     const cls = classify(r.text, description); if (!cls) return null;
-    const pay = extractPay(`${r.salaryRange?.min || ''} ${r.salaryRange?.max || ''} ${description}`);
+    const pay = extractPay(description);
     const location = clean(r.categories?.location || r.categories?.allLocations?.join(', ') || 'Location not listed');
     return {
       id: `lever-${slug}-${r.id || hash(r.hostedUrl || r.text)}`,
@@ -100,7 +111,7 @@ async function collectLever(slug, company) {
 
 async function collectGreenhouse(slug, company) {
   const payload = await fetchJson(`https://boards-api.greenhouse.io/v1/boards/${slug}/jobs?content=true`);
-  return (payload.jobs || []).filter(r => relevant(r.title, r.content || '')).map(r => {
+  return (payload.jobs || []).filter(r => relevant(r.title)).map(r => {
     const description = clean(r.content || '');
     const cls = classify(r.title, description); if (!cls) return null;
     const pay = extractPay(description);

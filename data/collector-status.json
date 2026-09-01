@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T04:49:57.261Z",
-  "jobs": 171,
+  "updatedAt": "2026-09-01T04:53:15.573Z",
+  "jobs": 172,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 6,
@@ -10,11 +10,12 @@
   },
   "countsByType": {
     "internship": 2,
+    "trainee": 1,
     "entry-level": 169
   },
   "countsByExperience": {
     "0-2-years": 131,
-    "no-experience": 1,
+    "no-experience": 2,
     "2-5-years": 39
   },
   "errors": [],
@@ -44,13 +45,56 @@
   "priorityEmployerExpansion": {
     "Equinix": {
       "officialSource": "https://careers.equinix.com/",
-      "listingPagesAttempted": 6,
-      "listingPagesSucceeded": 6,
-      "candidateLinks": 20,
-      "qualifyingRoles": 0,
+      "listingPagesAttempted": 7,
+      "listingPagesSucceeded": 7,
+      "candidateLinks": 30,
+      "qualifyingRoles": 1,
       "drops": {
-        "title": 20
+        "context": 2,
+        "non-us": 8,
+        "title": 11,
+        "unknown-experience": 8
       },
+      "dropSamples": [
+        {
+          "title": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
+          "listingLabel": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
+        },
+        {
+          "title": "Intern, IBX Operations",
+          "url": "https://careers.equinix.com/jobs/intern-ibx-operations-tsuen-wan-hong-kong-tseung-kwan-o"
+        },
+        {
+          "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
+        },
+        {
+          "title": "SkillBridge Opportunity: Specialist Accountant & Program Manager – xScale AI Data Center",
+          "listingLabel": "SkillBridge Opportunity: Specialist Accountant & Program Manager – xScale AI Data Center",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/skillbridge-opportunity-specialist-accountant-program-manager-xscale-ai-data-center-dallas-texas-united-states-tampa-florida"
+        },
+        {
+          "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
+        },
+        {
+          "title": "SkillBridge Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
+        },
+        {
+          "title": "Data Center Customer Operations Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
+        }
+      ],
       "errors": []
     }
   }

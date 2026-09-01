@@ -97,6 +97,9 @@ jobs:
           test -s entry-level/index.html
           test -s career-events/index.html
           grep -R -m1 '"@type":"JobPosting"' jobs/*/index.html >/dev/null
+      - name: Stamp deployment revision
+        run: |
+          printf '{"sha":"%s","generatedAt":"%s"}\n' "$(git rev-parse HEAD)" "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" > deployment-version.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

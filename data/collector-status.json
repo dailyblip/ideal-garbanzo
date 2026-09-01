@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T13:55:10.228Z",
-  "jobs": 295,
+  "updatedAt": "2026-09-01T14:52:12.113Z",
+  "jobs": 294,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -13,12 +13,12 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
-    "trainee": 5,
+    "trainee": 4,
     "entry-level": 284
   },
   "countsByExperience": {
     "0-2-years": 220,
-    "no-experience": 6,
+    "no-experience": 5,
     "2-5-years": 69
   },
   "errors": [
@@ -63,11 +63,11 @@
       },
       {
         "query": "data center technician",
-        "rows": 1330
+        "rows": 1329
       },
       {
         "query": "engineering operations technician",
-        "rows": 352
+        "rows": 353
       },
       {
         "query": "work based learning data center",
@@ -75,11 +75,11 @@
       }
     ],
     "candidateRows": 3682,
-    "uniqueCandidates": 1235,
+    "uniqueCandidates": 1238,
     "qualifyingRoles": 18,
     "drops": {
-      "nonUs": 360,
-      "title": 579,
+      "nonUs": 362,
+      "title": 580,
       "context": 0,
       "experience": 0,
       "unknownExperience": 278,
@@ -130,10 +130,10 @@
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
       "candidateLinks": 31,
-      "qualifyingRoles": 1,
+      "qualifyingRoles": 0,
       "drops": {
         "context": 2,
-        "non-us": 8,
+        "non-us": 9,
         "title": 12,
         "unknown-experience": 8
       },
@@ -165,16 +165,16 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
         {
+          "title": "SkillBridge Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
+        },
+        {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
         },
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
-        },
-        {
-          "title": "SkillBridge, Data Center Customer Operations Technician - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-san-jose-california-united-states"
         }
       ],
       "errors": []
@@ -190,7 +190,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T13:55:10.309Z",
+    "updatedAt": "2026-09-01T14:52:12.171Z",
     "changed": 16,
     "samples": [
       {
@@ -234,14 +234,14 @@
         "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 223,
+    "regionAssigned": 222,
     "regionMissing": 72,
     "countsByRegion": {
       "mid-atlantic": 28,
       "texas": 62,
       "southwest": 21,
       "southeast": 50,
-      "west": 26,
+      "west": 25,
       "midwest": 32,
       "northeast": 4
     }

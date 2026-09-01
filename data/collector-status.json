@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T16:52:51.051Z",
-  "jobs": 254,
+  "updatedAt": "2026-09-01T16:56:59.952Z",
+  "jobs": 289,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -13,18 +13,15 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
-    "trainee": 4,
-    "entry-level": 244
+    "trainee": 3,
+    "entry-level": 280
   },
   "countsByExperience": {
-    "0-2-years": 181,
-    "no-experience": 5,
-    "2-5-years": 68
+    "0-2-years": 209,
+    "no-experience": 4,
+    "2-5-years": 76
   },
-  "errors": [
-    "Google Careers: Google Careers returned no parseable early-career data-center results on page 1.",
-    "Google Careers: Retained previous Google snapshot because the official source was unavailable or unparseable."
-  ],
+  "errors": [],
   "majorSources": {
     "attempted": 6,
     "succeeded": 6,
@@ -36,7 +33,7 @@
       "NTT Global Data Centers",
       "Aligned Data Centers"
     ],
-    "jobs": 151
+    "jobs": 152
   },
   "earlyCareerDiscovery": {
     "sourcesAttempted": 4,
@@ -99,84 +96,25 @@
   },
   "googleCareers": {
     "officialSource": "https://www.google.com/about/careers/applications/jobs/results/",
-    "sourceHealthy": false,
-    "pagesAttempted": 1,
-    "pagesSucceeded": 1,
-    "candidateRows": 0,
-    "qualifyingRoles": 1,
+    "sourceHealthy": true,
+    "pagesAttempted": 4,
+    "pagesSucceeded": 4,
+    "candidateRows": 62,
+    "qualifyingRoles": 58,
     "diagnostics": {
-      "canonicalLinks": 20,
-      "linksWithLocation": 0,
-      "linksWithMissionFitTitle": 0,
-      "anchorSamples": [
-        {
-          "href": "https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://www.google.com/about/careers/applications/jobs/results/?q%3Ddata%2Bcenter%26location%3DUnited%2BStates%26target_level%3DEARLY%26page%3D1&followup=https://www.google.com/about/careers/app",
-          "label": "Sign in"
-        },
-        {
-          "href": "jobs/results/115266613283824326-data-center-technician-iii?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/81243295409152710-data-center-technician-operations?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/108619036312380102-data-center-technician-third-party-data-centers?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/133686228535911110-data-center-technician?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/81432623473140422-data-center-facilities-technician-controls?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/97413546094011078-data-center-technician-global-server-operations?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/114533345865409222-data-center-technician-third-shift?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/116632107404403398-data-center-technician?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/127134421282104006-data-center-facilities-technician-electrical?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/136570110096614086-data-center-technician-ii-evening-shift?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        },
-        {
-          "href": "jobs/results/92358051759039174-data-center-technician-iii-networking-infrastructure?q=data+center&location=United+States&target_level=EARLY&page=1",
-          "label": ""
-        }
-      ],
-      "routeSamples": [
-        "/about/careers/applications/jobs/results/?q%3Ddata%2Bcenter%26location%3DUnited%2BStates%26target_level%3DEARLY%26page%3D1&amp",
-        "jobs/results/115266613283824326-data-center-technician-iii?q=data+center&amp",
-        "jobs/results/81243295409152710-data-center-technician-operations?q=data+center&amp",
-        "jobs/results/108619036312380102-data-center-technician-third-party-data-centers?q=data+center&amp",
-        "jobs/results/133686228535911110-data-center-technician?q=data+center&amp",
-        "jobs/results/81432623473140422-data-center-facilities-technician-controls?q=data+center&amp",
-        "jobs/results/97413546094011078-data-center-technician-global-server-operations?q=data+center&amp",
-        "jobs/results/114533345865409222-data-center-technician-third-shift?q=data+center&amp",
-        "jobs/results/116632107404403398-data-center-technician?q=data+center&amp",
-        "jobs/results/127134421282104006-data-center-facilities-technician-electrical?q=data+center&amp",
-        "jobs/results/136570110096614086-data-center-technician-ii-evening-shift?q=data+center&amp",
-        "jobs/results/92358051759039174-data-center-technician-iii-networking-infrastructure?q=data+center&amp"
-      ]
+      "canonicalLinks": 80,
+      "missionFitLinks": 62,
+      "uniqueCandidates": 62,
+      "detailAttempted": 60,
+      "detailVerified": 59,
+      "detailDrops": {
+        "stale": 0,
+        "location": 1,
+        "experience": 0,
+        "fetch": 0
+      }
     },
-    "errors": [
-      "Google Careers returned no parseable early-career data-center results on page 1.",
-      "Retained previous Google snapshot because the official source was unavailable or unparseable."
-    ]
+    "errors": []
   },
   "digitalRealty": {
     "officialSource": "https://www.digitalrealty.com/about/careers",
@@ -259,7 +197,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T16:52:51.105Z",
+    "updatedAt": "2026-09-01T16:57:00.014Z",
     "changed": 16,
     "samples": [
       {
@@ -303,22 +241,22 @@
         "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 200,
+    "regionAssigned": 235,
     "regionMissing": 54,
     "countsByRegion": {
-      "mid-atlantic": 22,
-      "texas": 57,
-      "southwest": 17,
-      "southeast": 50,
-      "west": 23,
-      "midwest": 28,
-      "northeast": 3
+      "mid-atlantic": 27,
+      "texas": 62,
+      "southwest": 30,
+      "southeast": 57,
+      "west": 24,
+      "midwest": 31,
+      "northeast": 4
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T16:53:07.439Z",
-    "publishedJobs": 254,
-    "removedJobs": 37,
+    "checkedAt": "2026-09-01T16:57:16.806Z",
+    "publishedJobs": 289,
+    "removedJobs": 38,
     "activeCareerEvents": 2
   }
 }

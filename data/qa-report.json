@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-01T16:53:07.439Z",
-  "jobsBefore": 291,
-  "jobsAfter": 254,
+  "checkedAt": "2026-09-01T16:57:16.806Z",
+  "jobsBefore": 327,
+  "jobsAfter": 289,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [
     {
@@ -63,6 +63,12 @@
       "company": "Vantage Data Centers",
       "title": "Critical Facilities Technician, Taiwan",
       "location": "Taipei, Taiwan"
+    },
+    {
+      "id": "workday-vantagedc-R20519",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Technician, Malaysia",
+      "location": "Cyberjaya, Malaysia"
     },
     {
       "id": "workday-vantagedc-R15963",
@@ -277,10 +283,10 @@
   "blockedJobLinks": [],
   "transientJobLinks": [
     {
-      "id": "gh-xai-5184586007",
+      "id": "gh-xai-5127519007",
       "company": "xAI",
-      "title": "Reliability Engineer (Data Center Infrastructure)",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5184586007",
+      "title": "Mechanical Commissioning Technician",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5127519007",
       "state": "transient",
       "status": null,
       "error": "timeout"

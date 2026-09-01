@@ -96,8 +96,11 @@ jobs:
           for file in scripts/*.mjs; do
             node --check "$file"
           done
-      - name: Reconcile authoritative major-employer snapshot
-        run: node scripts/reconcile-major-jobs.mjs
+      - name: Reconcile and normalize authoritative snapshots
+        run: |
+          node scripts/reconcile-major-jobs.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/normalize-display-copy.mjs
       - name: Generate crawlable SEO pages
         run: |
           node scripts/generate-seo.mjs

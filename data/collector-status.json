@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T07:52:35.156Z",
-  "jobs": 262,
+  "updatedAt": "2026-09-01T08:46:38.872Z",
+  "jobs": 714,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 6,
@@ -11,13 +11,13 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
-    "trainee": 3,
-    "entry-level": 253
+    "trainee": 4,
+    "entry-level": 704
   },
   "countsByExperience": {
-    "0-2-years": 205,
-    "no-experience": 4,
-    "2-5-years": 53
+    "0-2-years": 535,
+    "no-experience": 113,
+    "2-5-years": 66
   },
   "errors": [],
   "majorSources": {
@@ -31,7 +31,7 @@
       "NTT Global Data Centers",
       "Aligned Data Centers"
     ],
-    "jobs": 154
+    "jobs": 153
   },
   "earlyCareerDiscovery": {
     "sourcesAttempted": 4,
@@ -43,6 +43,46 @@
       "Microsoft",
       "M.C. Dean"
     ],
+    "errors": []
+  },
+  "amazonDatacenter": {
+    "officialSource": "https://www.amazon.jobs/content/en/teams/amazon-web-services/data-centers",
+    "searchSource": "https://www.amazon.jobs/en/search",
+    "sourceHealthy": true,
+    "queriesAttempted": 5,
+    "queriesSucceeded": 5,
+    "queryStats": [
+      {
+        "query": "data center",
+        "rows": 2000
+      },
+      {
+        "query": "data center technician",
+        "rows": 1332
+      },
+      {
+        "query": "engineering operations technician",
+        "rows": 353
+      },
+      {
+        "query": "critical facilities",
+        "rows": 1083
+      },
+      {
+        "query": "work based learning data center",
+        "rows": 0
+      }
+    ],
+    "candidateRows": 4768,
+    "uniqueCandidates": 1416,
+    "qualifyingRoles": 458,
+    "drops": {
+      "nonUs": 412,
+      "title": 401,
+      "context": 143,
+      "experience": 2,
+      "invalidUrl": 0
+    },
     "errors": []
   },
   "microsoftDatacenter": {
@@ -121,7 +161,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T07:52:35.210Z",
+    "updatedAt": "2026-09-01T08:46:38.933Z",
     "changed": 16,
     "samples": [
       {

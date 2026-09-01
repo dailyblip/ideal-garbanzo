@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T19:20:16.673Z",
-  "jobs": 280,
+  "updatedAt": "2026-09-01T19:45:02.067Z",
+  "jobs": 274,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -14,12 +14,12 @@
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 4,
-    "entry-level": 270
+    "entry-level": 264
   },
   "countsByExperience": {
-    "0-2-years": 201,
+    "0-2-years": 196,
     "no-experience": 5,
-    "2-5-years": 74
+    "2-5-years": 73
   },
   "errors": [],
   "majorSources": {
@@ -60,7 +60,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1332
+        "rows": 1320
       },
       {
         "query": "engineering operations technician",
@@ -71,7 +71,7 @@
         "rows": 0
       }
     ],
-    "candidateRows": 3689,
+    "candidateRows": 3677,
     "uniqueCandidates": 1247,
     "qualifyingRoles": 18,
     "drops": {
@@ -197,8 +197,8 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T19:20:16.727Z",
-    "changed": 16,
+    "updatedAt": "2026-09-01T19:45:02.133Z",
+    "changed": 18,
     "samples": [
       {
         "id": "workday-nttglobaldatacenters-JR101540",
@@ -209,6 +209,11 @@
         "id": "workday-qtsdatacenters-R2026-1892",
         "before": "2 Locations",
         "after": "Suwanee, GA"
+      },
+      {
+        "id": "ashby-lambda-70235ad66271f0",
+        "before": "San Jose Office (Zanker)",
+        "after": "San Jose, CA"
       },
       {
         "id": "workday-nttglobaldatacenters-JR101968",
@@ -234,29 +239,24 @@
         "id": "workday-nttglobaldatacenters-JR101533",
         "before": "Ashburn, Virgina",
         "after": "Ashburn, Virginia"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1092",
-        "before": "3 Locations",
-        "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 225,
-    "regionMissing": 55,
+    "regionAssigned": 230,
+    "regionMissing": 44,
     "countsByRegion": {
-      "mid-atlantic": 25,
+      "mid-atlantic": 26,
       "texas": 62,
       "southwest": 27,
-      "southeast": 54,
-      "west": 24,
-      "midwest": 29,
+      "southeast": 56,
+      "west": 27,
+      "midwest": 28,
       "northeast": 4
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T19:20:26.978Z",
-    "publishedJobs": 280,
-    "removedJobs": 37,
+    "checkedAt": "2026-09-01T19:45:11.586Z",
+    "publishedJobs": 274,
+    "removedJobs": 43,
     "activeCareerEvents": 2
   }
 }

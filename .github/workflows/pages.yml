@@ -34,7 +34,7 @@ jobs:
       - name: Add early-career internships and training roles
         run: node scripts/collect-early-career.mjs
       - name: Add official Equinix careers roles
-        run: node scripts/collect-equinix.mjs
+        run: node scripts/collect-equinix-v2.mjs
       - name: Run live link and duplicate QA
         run: node scripts/qa-site.mjs
       - name: Validate site and job data

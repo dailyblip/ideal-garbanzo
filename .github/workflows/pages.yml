@@ -51,6 +51,8 @@ jobs:
         run: node scripts/validate-refresh-health.mjs
       - name: Validate site and job data
         run: node scripts/validate.mjs
+      - name: Validate approved homepage contract
+        run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs when changed
         run: |
           if git diff --quiet -- data/jobs.json data/major-jobs.json data/amazon-jobs.json data/digital-realty-jobs.json data/collector-status.json data/qa-report.json; then
@@ -84,6 +86,7 @@ jobs:
       - name: Validate latest main before deployment
         run: |
           node scripts/validate.mjs
+          node scripts/validate-homepage-contract.mjs
           test -s sitemap.xml
           test -s robots.txt
           test -s jobs/index.html

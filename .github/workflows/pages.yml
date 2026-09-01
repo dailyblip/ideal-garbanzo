@@ -49,6 +49,8 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Run live link, duplicate, and career-event QA
         run: node scripts/qa-site.mjs
+      - name: Refresh post-QA regional coverage
+        run: node scripts/refresh-region-status.mjs
       - name: Guard against refresh regressions
         run: node scripts/validate-refresh-health.mjs
       - name: Validate site and job data

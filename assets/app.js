@@ -29,13 +29,13 @@
   const typeFilters = new Set(['internship','apprenticeship','trainee','entry-level']);
   const experienceFilters = new Set(['no-experience','0-2-years','2-5-years']);
   const regionTerms = {
-    'mid-atlantic':['virginia','maryland','washington, dc','district of columbia','ashburn','manassas'],
-    'texas':['texas','dallas','austin','fort worth','san antonio','houston'],
-    'southwest':['arizona','nevada','new mexico','phoenix'],
-    'midwest':['ohio','illinois','indiana','michigan','iowa','wisconsin','minnesota','missouri'],
-    'southeast':['georgia','florida','north carolina','south carolina','tennessee','alabama','mississippi'],
-    'northeast':['new york','new jersey','pennsylvania','massachusetts','connecticut','rhode island','maine','vermont','new hampshire'],
-    'west':['california','oregon','washington','utah','idaho','colorado']
+    'mid-atlantic':['district of columbia','delaware','maryland','virginia','west virginia',', dc',', de',', md',', va',', wv','ashburn','manassas'],
+    'texas':['texas',', tx','dallas','austin','fort worth','san antonio','houston'],
+    'southwest':['arizona','new mexico','nevada','oklahoma',', az',', nm',', nv',', ok','phoenix','mesa'],
+    'midwest':['illinois','indiana','iowa','kansas','michigan','minnesota','missouri','nebraska','north dakota','ohio','south dakota','wisconsin',', il',', in',', ia',', ks',', mi',', mn',', mo',', ne',', nd',', oh',', sd',', wi'],
+    'southeast':['alabama','arkansas','florida','georgia','kentucky','louisiana','mississippi','north carolina','south carolina','tennessee',', al',', ar',', fl',', ga',', ky',', la',', ms',', nc',', sc',', tn'],
+    'northeast':['connecticut','maine','massachusetts','new hampshire','new jersey','new york','pennsylvania','rhode island','vermont',', ct',', me',', ma',', nh',', nj',', ny',', pa',', ri',', vt'],
+    'west':['alaska','california','colorado','hawaii','idaho','montana','oregon','utah','washington','wyoming',', ak',', ca',', co',', hi',', id',', mt',', or',', ut',', wa',', wy']
   };
   const filterLabels = {
     internship:'Internships', apprenticeship:'Apprenticeships', trainee:'Trainee programs', 'entry-level':'Jobs',
@@ -57,9 +57,11 @@
     clearTimeout(showToast.timer);
     showToast.timer = setTimeout(() => toast.classList.remove('show'), 2600);
   };
-  const matchesRegion = (location, region) => {
+  const matchesRegion = (job, region) => {
     if (!region) return true;
-    const value = String(location || '').toLowerCase();
+    if (job?.region) return job.region === region;
+    const value = String(job?.location || '').toLowerCase();
+    if (value.includes('washington, dc') || value.includes('washington, d.c.')) return region === 'mid-atlantic';
     return (regionTerms[region] || []).some(term => value.includes(term));
   };
   const postedLabel = hours => {
@@ -115,7 +117,7 @@
     return state.jobs.filter(job => {
       const haystack = [job.title, job.company, job.location, job.experience, ...(job.tags || [])].join(' ').toLowerCase();
       if (q && !haystack.includes(q)) return false;
-      if (!matchesRegion(job.location, state.region)) return false;
+      if (!matchesRegion(job, state.region)) return false;
       if (selectedTypes.length && !selectedTypes.includes(job.type)) return false;
       if (selectedExperience.length && !selectedExperience.includes(job.experience)) return false;
       return true;

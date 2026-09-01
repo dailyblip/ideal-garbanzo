@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T19:45:02.067Z",
-  "jobs": 274,
+  "updatedAt": "2026-09-01T20:44:33.237Z",
+  "jobs": 276,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -13,12 +13,12 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
-    "trainee": 4,
-    "entry-level": 264
+    "trainee": 5,
+    "entry-level": 265
   },
   "countsByExperience": {
-    "0-2-years": 196,
-    "no-experience": 5,
+    "0-2-years": 197,
+    "no-experience": 6,
     "2-5-years": 73
   },
   "errors": [],
@@ -60,26 +60,26 @@
       },
       {
         "query": "data center technician",
-        "rows": 1320
+        "rows": 1316
       },
       {
         "query": "engineering operations technician",
-        "rows": 357
+        "rows": 356
       },
       {
         "query": "work based learning data center",
         "rows": 0
       }
     ],
-    "candidateRows": 3677,
-    "uniqueCandidates": 1247,
+    "candidateRows": 3672,
+    "uniqueCandidates": 1246,
     "qualifyingRoles": 18,
     "drops": {
-      "nonUs": 364,
+      "nonUs": 365,
       "title": 582,
       "context": 0,
       "experience": 0,
-      "unknownExperience": 283,
+      "unknownExperience": 281,
       "invalidUrl": 0
     },
     "errors": []
@@ -136,13 +136,12 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 31,
-      "qualifyingRoles": 0,
+      "candidateLinks": 13,
+      "qualifyingRoles": 1,
       "drops": {
         "context": 2,
-        "non-us": 9,
-        "title": 12,
-        "unknown-experience": 8
+        "non-us": 8,
+        "title": 2
       },
       "dropSamples": [
         {
@@ -172,16 +171,16 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
         {
-          "title": "SkillBridge Critical Facilities Engineer - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
-        },
-        {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
         },
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
+        },
+        {
+          "title": "SkillBridge, Data Center Customer Operations Technician - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-san-jose-california-united-states"
         }
       ],
       "errors": []
@@ -197,8 +196,8 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T19:45:02.133Z",
-    "changed": 18,
+    "updatedAt": "2026-09-01T20:44:33.314Z",
+    "changed": 19,
     "samples": [
       {
         "id": "workday-nttglobaldatacenters-JR101540",
@@ -241,22 +240,97 @@
         "after": "Ashburn, Virginia"
       }
     ],
-    "regionAssigned": 230,
+    "regionAssigned": 232,
     "regionMissing": 44,
+    "coveragePct": 79.9,
+    "missingSamples": [
+      {
+        "id": "workday-vantagedc-R23332",
+        "company": "Vantage Data Centers",
+        "location": "2 Locations",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/DUB11/Critical-Facilities-Technician_R23332"
+      },
+      {
+        "id": "workday-vantagedc-R15747",
+        "company": "Vantage Data Centers",
+        "location": "London, England",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/London-England/Critical-Facilities-Technician--EMEA_R15747"
+      },
+      {
+        "id": "workday-vantagedc-R24360",
+        "company": "Vantage Data Centers",
+        "location": "Frankfurt, Germany",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Frankfurt-Germany/Critical-Facilities-Technician---Offenbach_R24360"
+      },
+      {
+        "id": "workday-vantagedc-R23286",
+        "company": "Vantage Data Centers",
+        "location": "Zurich, Switzerland",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Zurich-Switzerland/Critical-Facilities-Technician_R23286"
+      },
+      {
+        "id": "workday-cyrusone-JLL260543",
+        "company": "CyrusOne",
+        "location": "NVA1",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/NVA1/Critical-Environments-Operator-I_JLL260543-1"
+      },
+      {
+        "id": "workday-aligneddc-JR101160",
+        "company": "Aligned Data Centers",
+        "location": "PHX-06",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-06/Critical-Facilities-Technician_JR101160"
+      },
+      {
+        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
+        "company": "Serverfarm",
+        "location": "AMS1",
+        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
+      },
+      {
+        "id": "workday-aligneddc-JR101158",
+        "company": "Aligned Data Centers",
+        "location": "PHX-07",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-07/Critical-Facilities-Maintenance-Technician_JR101158"
+      },
+      {
+        "id": "gh-xai-5169675007",
+        "company": "xAI",
+        "location": "Dublin, Ireland",
+        "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5169675007"
+      },
+      {
+        "id": "workday-aligneddc-JR101148",
+        "company": "Aligned Data Centers",
+        "location": "ORD-03",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-03/Critical-Facilities-Maintenance-Technician_JR101148"
+      },
+      {
+        "id": "workday-vantagedc-R23998",
+        "company": "Vantage Data Centers",
+        "location": "Montreal, Quebec",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Montreal-Quebec/Data-Center-Operator--NA_R23998"
+      },
+      {
+        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
+        "company": "Serverfarm",
+        "location": "Toronto, ON",
+        "sourceUrl": "https://jobs.lever.co/serverfarm/f3e2904a-ad06-45f7-9cbc-a25d9c540656"
+      }
+    ],
     "countsByRegion": {
-      "mid-atlantic": 26,
+      "mid-atlantic": 27,
       "texas": 62,
       "southwest": 27,
       "southeast": 56,
-      "west": 27,
+      "west": 28,
       "midwest": 28,
       "northeast": 4
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T19:45:11.586Z",
-    "publishedJobs": 274,
-    "removedJobs": 43,
+    "checkedAt": "2026-09-01T20:44:39.951Z",
+    "publishedJobs": 276,
+    "removedJobs": 42,
     "activeCareerEvents": 2
   }
 }

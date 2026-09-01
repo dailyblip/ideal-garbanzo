@@ -52,7 +52,7 @@ async function fetchJson(url) {
   const response = await fetch(url, {
     headers: {
       accept: 'application/json,text/plain,*/*',
-      'user-agent': 'DataCenterCareersBot/1.7 (+https://dailyblip.github.io/ideal-garbanzo/)'
+      'user-agent': 'DataCenterCareersBot/1.8 (+https://dailyblip.github.io/ideal-garbanzo/)'
     },
     redirect: 'follow'
   });
@@ -151,6 +151,7 @@ function requiredExperienceYears(text = '') {
   const patterns = [
     /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s*(?:-|–|to)\s*(\d{1,2})\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
     /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
+    /(\d{1,2})\+?\s+years?(?:\s+of)?\s+experience\b/gi,
     /(\d{1,2})\+?\s+years?\s+(?:of\s+)?(?:technical|professional|data center|datacenter|hardware|network|electrical|mechanical|operations)\s+experience/gi
   ];
   for (const pattern of patterns) {
@@ -175,9 +176,8 @@ function classify(row) {
 
   const years = requiredExperienceYears(required);
   if (years.some(year => year >= 6)) return { drop: 'experience' };
-  const earlySignal = /work.?based learning|no experience|training program|high school or equivalent|high school diploma|intern|apprentice|trainee|skillbridge/.test(text);
-  const technicianTitle = /\b(?:technician|tech|operator|installer)\b/i.test(title);
-  if (!years.length && /\bengineer\b/i.test(title) && !technicianTitle && !earlySignal) return { drop: 'unknownExperience' };
+  const earlySignal = /work.?based learning|(?:no|zero) (?:prior )?experience(?: required| needed)?|training program|intern|apprentice|trainee|skillbridge/.test(text);
+  if (!years.length && !earlySignal) return { drop: 'unknownExperience' };
 
   let type = 'entry-level';
   if (/intern|co-?op/.test(t)) type = 'internship';

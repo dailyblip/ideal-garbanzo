@@ -40,22 +40,30 @@
     </div>
   </section>
 
-  <section class="mission-strip" aria-label="Why use this site">
-    <div><strong>Employer-direct listings</strong><span>Apply at the source.</span></div>
-    <div><strong>Early-career focused</strong><span>Less senior-level noise.</span></div>
-    <div><strong>Automatically refreshed</strong><span>Expired listings removed.</span></div>
+  <section class="alert-strip" id="alerts" aria-label="Job alerts">
+    <div class="alert-strip-copy">
+      <span class="utility-kicker">JOB ALERTS</span>
+      <h2>Get new openings by email.</h2>
+      <p>Choose your region and get jobs, internships, apprenticeships and nearby events.</p>
+    </div>
+    <form id="alertForm">
+      <input type="email" id="alertEmail" placeholder="Email address" required aria-label="Email address">
+      <select id="alertRegion" aria-label="Alert region"><option value="">All regions</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select>
+      <button class="btn btn-secondary" type="submit">Create alert</button>
+    </form>
   </section>
 
-  <section class="utility-grid">
-    <article class="utility-card events" id="events">
-      <span class="utility-kicker">VERIFIED CAREER EVENTS</span><h2>Meet the industry.</h2><p>Upcoming career-focused events verified from organizer pages.</p>
-      <a class="event-row" href="https://imasons.org/activity/2026-09-01_armedforcesdatacloudusa_af/" target="_blank" rel="noopener noreferrer"><b>SEP 1</b><div><strong>Careers in Data Centers</strong><span>Austin, TX · iMasons Armed Forces</span></div></a>
-      <a class="event-row" href="https://www.meetup.com/techinmotionatlanta/events/316120635/" target="_blank" rel="noopener noreferrer"><b>SEP 3</b><div><strong>Data Centers & Digital Infrastructure</strong><span>Online · Tech in Motion</span></div></a>
-      <a class="event-row" href="https://azdatacenter.org/career-days.html" target="_blank" rel="noopener noreferrer"><b>NOV 13</b><div><strong>Data Center Career Day</strong><span>Avondale, AZ · Arizona Data Center Alliance</span></div></a>
-    </article>
-    <article class="utility-card alerts" id="alerts">
-      <span class="utility-kicker">JOB ALERTS</span><h2>Get new openings by email.</h2><p>Choose your region and get jobs, internships, apprenticeships and nearby events.</p>
-      <form id="alertForm"><input type="email" id="alertEmail" placeholder="Email address" required aria-label="Email address"><select id="alertRegion" aria-label="Alert region"><option value="">All regions</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select><button class="btn btn-secondary" type="submit">Create alert</button></form>
+  <section class="events-section" id="events">
+    <article class="utility-card events">
+      <div class="events-heading">
+        <div><span class="utility-kicker">VERIFIED CAREER EVENTS</span><h2>Meet the industry.</h2></div>
+        <p>Upcoming career-focused events verified from organizer pages.</p>
+      </div>
+      <div class="events-list">
+        <a class="event-row" href="https://imasons.org/activity/2026-09-01_armedforcesdatacloudusa_af/" target="_blank" rel="noopener noreferrer"><b>SEP 1</b><div><strong>Careers in Data Centers</strong><span>Austin, TX · iMasons Armed Forces</span></div></a>
+        <a class="event-row" href="https://www.meetup.com/techinmotionatlanta/events/316120635/" target="_blank" rel="noopener noreferrer"><b>SEP 3</b><div><strong>Data Centers & Digital Infrastructure</strong><span>Online · Tech in Motion</span></div></a>
+        <a class="event-row" href="https://azdatacenter.org/career-days.html" target="_blank" rel="noopener noreferrer"><b>NOV 13</b><div><strong>Data Center Career Day</strong><span>Avondale, AZ · Arizona Data Center Alliance</span></div></a>
+      </div>
     </article>
   </section>
 

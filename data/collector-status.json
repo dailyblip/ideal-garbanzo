@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T17:01:20.225Z",
+  "updatedAt": "2026-09-01T17:21:41.764Z",
   "jobs": 278,
   "sourcesAttempted": 22,
   "providers": {
@@ -60,26 +60,26 @@
       },
       {
         "query": "data center technician",
-        "rows": 1330
+        "rows": 1331
       },
       {
         "query": "engineering operations technician",
-        "rows": 353
+        "rows": 354
       },
       {
         "query": "work based learning data center",
         "rows": 0
       }
     ],
-    "candidateRows": 3683,
-    "uniqueCandidates": 1242,
+    "candidateRows": 3685,
+    "uniqueCandidates": 1243,
     "qualifyingRoles": 18,
     "drops": {
       "nonUs": 363,
       "title": 581,
       "context": 0,
       "experience": 0,
-      "unknownExperience": 280,
+      "unknownExperience": 281,
       "invalidUrl": 0
     },
     "errors": []
@@ -136,13 +136,12 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 31,
+      "candidateLinks": 13,
       "qualifyingRoles": 0,
       "drops": {
         "context": 2,
         "non-us": 9,
-        "title": 12,
-        "unknown-experience": 8
+        "title": 2
       },
       "dropSamples": [
         {
@@ -197,7 +196,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T17:01:20.290Z",
+    "updatedAt": "2026-09-01T17:21:41.822Z",
     "changed": 16,
     "samples": [
       {
@@ -254,7 +253,7 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T17:01:41.343Z",
+    "checkedAt": "2026-09-01T17:21:58.985Z",
     "publishedJobs": 278,
     "removedJobs": 38,
     "activeCareerEvents": 2

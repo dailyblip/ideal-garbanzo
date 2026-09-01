@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 
 const listingUrls = [
   'https://careers.equinix.com/internships',
+  'https://careers.equinix.com/hiring-operations-us-equinix',
   'https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=1&query=skillbridge',
   'https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=2&query=skillbridge'
 ];
@@ -31,7 +32,7 @@ async function fetchText(url) {
   const timer = setTimeout(() => controller.abort(), 20000);
   try {
     const response = await fetch(url, {
-      headers:{accept:'text/html,application/xhtml+xml','user-agent':'DataCenterCareersBot/1.9 (+https://dailyblip.github.io/ideal-garbanzo/)'},
+      headers:{accept:'text/html,application/xhtml+xml','user-agent':'DataCenterCareersBot/2.0 (+https://dailyblip.github.io/ideal-garbanzo/)'},
       redirect:'follow', signal:controller.signal
     });
     if (!response.ok) throw new Error(`${response.status} ${url}`);
@@ -39,12 +40,17 @@ async function fetchText(url) {
   } finally { clearTimeout(timer); }
 }
 
+function usable(title, url='') {
+  const text = `${clean(title)} ${url}`;
+  return earlySignal.test(text) && roleSignal.test(text) && !excluded.test(clean(title));
+}
+
 function discover(html, baseUrl) {
   const out = new Map();
   for (const match of html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
     const href = clean(match[1]);
     const label = clean(match[2]);
-    if (!href || !earlySignal.test(`${label} ${href}`) || !roleSignal.test(`${label} ${href}`) || excluded.test(label)) continue;
+    if (!href || !usable(label, href)) continue;
     let url;
     try { url = new URL(href, baseUrl).href; } catch { continue; }
     if (!/^https:\/\/careers\.equinix\.com\/(?:[a-z]{2}\/)?jobs\//i.test(url) || !/united-states/i.test(url)) continue;
@@ -57,15 +63,14 @@ function roleHeading(html, fallback) {
   const candidates = [];
   for (const match of html.matchAll(/<h[1-4]\b[^>]*>([\s\S]*?)<\/h[1-4]>/gi)) {
     const value = clean(match[1]);
-    if (value && earlySignal.test(value) && roleSignal.test(value) && !excluded.test(value)) candidates.push(value);
+    if (value && usable(value)) candidates.push(value);
   }
-  const exact = candidates.sort((a,b) => a.length - b.length)[0];
-  return exact || clean(fallback);
+  return candidates.sort((a,b) => a.length - b.length)[0] || clean(fallback);
 }
 
 function locationFromUrl(url) {
   const slug = new URL(url).pathname.toLowerCase();
-  for (const state of states.sort((a,b)=>b.length-a.length)) {
+  for (const state of [...states].sort((a,b)=>b.length-a.length)) {
     if (slug.includes(`-${state}-united-states`)) return state.split('-').map(word => word[0].toUpperCase()+word.slice(1)).join(' ');
   }
   return 'United States';
@@ -105,12 +110,26 @@ for (const listing of listingUrls) {
   } catch (error) { errors.push(`listing ${listing}: ${error.message}`); }
 }
 
+// The broader Equinix collector has already fetched these official job pages.
+// Recover US early-career records that it rejected only because Equinix omitted
+// structured location metadata from the page response. The URL and title are
+// both employer-provided and re-fetched below before publication.
+const priorSamples = status?.priorityEmployerExpansion?.Equinix?.dropSamples || [];
+let recoveredCandidates = 0;
+for (const sample of priorSamples) {
+  const url = clean(sample?.url);
+  const title = clean(sample?.title || sample?.listingLabel);
+  if (!/^https:\/\/careers\.equinix\.com\//i.test(url) || !/united-states/i.test(url) || !usable(title,url)) continue;
+  if (!candidates.has(url)) recoveredCandidates += 1;
+  candidates.set(url,title);
+}
+
 const found = [];
 for (const [url,label] of candidates) {
   try {
     const html = await fetchText(url);
     const title = roleHeading(html,label);
-    if (!title || !earlySignal.test(title) || !roleSignal.test(title) || excluded.test(title)) continue;
+    if (!title || !usable(title,url)) continue;
     let type = 'trainee';
     if (/apprentice/i.test(title)) type = 'apprenticeship';
     else if (/intern|co-?op/i.test(title)) type = 'internship';
@@ -136,7 +155,7 @@ const countsByExperience = merged.reduce((a,j)=>(a[j.experience]=(a[j.experience
 await writeFile('data/jobs.json',JSON.stringify(merged,null,2)+'\n');
 await writeFile('data/collector-status.json',JSON.stringify({
   ...status, updatedAt:new Date().toISOString(), jobs:merged.length, countsByType, countsByExperience,
-  priorityEmployerExpansion:{...(status.priorityEmployerExpansion||{}),EquinixEarlyCareer:{officialSource:'https://careers.equinix.com/',listingPagesAttempted:listingUrls.length,listingPagesSucceeded,candidateLinks:candidates.size,qualifyingRoles:found.length,errors}}
+  priorityEmployerExpansion:{...(status.priorityEmployerExpansion||{}),EquinixEarlyCareer:{officialSource:'https://careers.equinix.com/',listingPagesAttempted:listingUrls.length,listingPagesSucceeded,candidateLinks:candidates.size,recoveredCandidates,qualifyingRoles:found.length,errors}}
 },null,2)+'\n');
-console.log(`Equinix early-career fallback found ${found.length} qualifying US roles from ${candidates.size} candidates.`);
+console.log(`Equinix early-career pass found ${found.length} qualifying US roles from ${candidates.size} candidates (${recoveredCandidates} recovered from verified US URLs).`);
 if(errors.length) console.warn(`Equinix early-career warnings: ${errors.join(' | ')}`);

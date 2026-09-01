@@ -89,9 +89,22 @@ for (const [label, source] of [
   if (source && source.sourceHealthy === false) warnings.push(`${label} source reported degraded health and retained its previous snapshot.`);
 }
 
+const regionAssigned = Number(status?.locationNormalization?.regionAssigned || 0);
+const regionMissing = Number(status?.locationNormalization?.regionMissing || 0);
+const regionTotal = regionAssigned + regionMissing;
+if (regionTotal >= 50) {
+  const coverage = regionAssigned / regionTotal;
+  if (coverage < 0.65) {
+    problems.push(`Regional filter coverage fell to ${Math.round(coverage * 100)}% (${regionAssigned}/${regionTotal} jobs).`);
+  } else if (coverage < 0.80) {
+    warnings.push(`Regional filter coverage is only ${Math.round(coverage * 100)}% (${regionAssigned}/${regionTotal} jobs); review locationNormalization.missingSamples.`);
+  }
+}
+
 console.log(`Refresh health: ${currentJobs.length} total jobs; ${currentMajor.length} major-employer jobs.`);
 if (Array.isArray(previousJobs)) console.log(`Previous committed feed: ${previousJobs.length} total jobs.`);
 if (Array.isArray(previousMajor)) console.log(`Previous committed major-employer feed: ${previousMajor.length} jobs.`);
+if (regionTotal) console.log(`Regional filter coverage: ${regionAssigned}/${regionTotal} jobs (${Math.round((regionAssigned / regionTotal) * 100)}%).`);
 for (const warning of warnings) console.warn(`Refresh health warning: ${warning}`);
 
 if (problems.length) {

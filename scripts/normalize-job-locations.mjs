@@ -8,6 +8,11 @@ const typoFixes = [
   [/\bVirgina\b/g, 'Virginia']
 ];
 
+const locationAliases = [
+  [/^San Jose Office(?:\s*\([^)]*\))?$/i, 'San Jose, CA'],
+  [/^Santa Clara Office(?:\s*\([^)]*\))?$/i, 'Santa Clara, CA']
+];
+
 const regionStates = {
   'mid-atlantic': {
     codes: ['DC','DE','MD','VA','WV'],
@@ -45,6 +50,27 @@ for (const [region, values] of Object.entries(regionStates)) {
   for (const name of values.names) stateToRegion.set(name.toLowerCase(), region);
 }
 
+const cityRegionFallbacks = [
+  [/\bsan jose\b/i, 'west'],
+  [/\bsanta clara\b/i, 'west'],
+  [/\bhillsboro\b/i, 'west'],
+  [/\breno\b/i, 'southwest'],
+  [/\bmesa\b/i, 'southwest'],
+  [/\bphoenix\b/i, 'southwest'],
+  [/\bashburn\b/i, 'mid-atlantic'],
+  [/\bmanassas\b/i, 'mid-atlantic'],
+  [/\bsuwanee\b/i, 'southeast'],
+  [/\batlanta\b/i, 'southeast'],
+  [/\bmemphis\b/i, 'southeast'],
+  [/\birving\b/i, 'texas'],
+  [/\bgarland\b/i, 'texas'],
+  [/\bdallas\b/i, 'texas'],
+  [/\baustin\b/i, 'texas'],
+  [/\bpiscataway\b/i, 'northeast'],
+  [/\bchicago\b/i, 'midwest'],
+  [/\bcolumbus\b/i, 'midwest']
+];
+
 function fromWorkdayUrl(sourceUrl = '') {
   let pathname = '';
   try { pathname = new URL(sourceUrl).pathname; } catch { return null; }
@@ -57,11 +83,22 @@ function fromWorkdayUrl(sourceUrl = '') {
   return city ? `${city}, ${stateMatch[2]}` : null;
 }
 
+function genericLocation(value = '') {
+  const location = String(value || '').trim();
+  return /^\d+\s+locations?$/i.test(location) || /^location not listed$/i.test(location) || /^multiple locations?$/i.test(location);
+}
+
 function normalizeLocation(job) {
   let location = String(job.location || '').trim();
   for (const [pattern, replacement] of typoFixes) location = location.replace(pattern, replacement);
+  for (const [pattern, replacement] of locationAliases) {
+    if (pattern.test(location)) {
+      location = replacement;
+      break;
+    }
+  }
 
-  if (/^\d+\s+locations?$/i.test(location) || /^location not listed$/i.test(location)) {
+  if (genericLocation(location)) {
     const derived = fromWorkdayUrl(job.sourceUrl);
     if (derived) location = derived;
   }
@@ -69,14 +106,18 @@ function normalizeLocation(job) {
   return location;
 }
 
-function inferRegion(location = '') {
-  const value = String(location || '').trim();
-  if (!value || /\bremote\b/i.test(value)) return '';
+function regionFromText(value = '') {
+  const text = String(value || '').trim();
+  if (!text) return '';
 
-  const codeMatch = value.match(/,\s*([A-Z]{2})(?:\b|$)/);
-  if (codeMatch) return stateToRegion.get(codeMatch[1].toLowerCase()) || '';
+  const commaCodeMatch = text.match(/,\s*([A-Z]{2})(?:\b|$)/);
+  if (commaCodeMatch) return stateToRegion.get(commaCodeMatch[1].toLowerCase()) || '';
 
-  const lower = value.toLowerCase();
+  // Some Workday boards return internal labels such as "US GA Atlanta Suwanee 1 DC1".
+  const usCodeMatch = text.match(/\bUS\s+([A-Z]{2})\b/i);
+  if (usCodeMatch) return stateToRegion.get(usCodeMatch[1].toLowerCase()) || '';
+
+  const lower = text.toLowerCase();
   // Test longer state names first so "West Virginia" is not reduced to "Virginia".
   const names = [...stateToRegion.keys()].filter(key => key.length > 2).sort((a,b) => b.length - a.length);
   for (const name of names) {
@@ -84,6 +125,23 @@ function inferRegion(location = '') {
       return stateToRegion.get(name) || '';
     }
   }
+
+  for (const [pattern, region] of cityRegionFallbacks) {
+    if (pattern.test(text)) return region;
+  }
+  return '';
+}
+
+function inferRegion(job) {
+  const location = String(job?.location || '').trim();
+  if (!location || /\bremote\b/i.test(location)) return '';
+
+  const direct = regionFromText(location);
+  if (direct) return direct;
+
+  const derived = fromWorkdayUrl(job?.sourceUrl || '');
+  if (derived) return regionFromText(derived);
+
   return '';
 }
 
@@ -100,7 +158,7 @@ for (const job of jobs) {
     locationChanges.push({ id:job.id, before, after });
   }
 
-  const region = inferRegion(job.location);
+  const region = inferRegion(job);
   if (region) {
     job.region = region;
     regionAssigned += 1;

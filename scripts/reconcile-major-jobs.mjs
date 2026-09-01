@@ -2,6 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
 const MAJOR_PATH = 'data/major-jobs.json';
+const preserveExisting = process.argv.includes('--preserve-existing');
 const majorCompanies = new Set([
   'Vantage Data Centers',
   'QTS Data Centers',
@@ -14,6 +15,7 @@ const majorCompanies = new Set([
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const identity = job => [job?.company, job?.title, job?.location].map(normalize).join('|');
+const jobKey = job => clean(job?.id) || clean(job?.sourceUrl) || identity(job);
 
 async function readJson(path) {
   const value = JSON.parse(await readFile(path, 'utf8'));
@@ -52,10 +54,18 @@ for (const job of majorSnapshot) {
 
 const oldMajor = jobs.filter(job => majorCompanies.has(clean(job?.company)));
 const nonMajor = jobs.filter(job => !majorCompanies.has(clean(job?.company)));
-const currentKeys = new Set(majorSnapshot.map(job => clean(job.id) || clean(job.sourceUrl) || identity(job)));
-const staleRemoved = oldMajor.filter(job => !currentKeys.has(clean(job.id) || clean(job.sourceUrl) || identity(job))).length;
+const currentKeys = new Set(majorSnapshot.map(jobKey));
+const staleRemoved = oldMajor.filter(job => !currentKeys.has(jobKey(job))).length;
 
-const merged = dedupe([...nonMajor, ...majorSnapshot]);
+let authoritativeMajor = majorSnapshot;
+if (preserveExisting) {
+  const retained = oldMajor.filter(job => currentKeys.has(jobKey(job)));
+  const retainedKeys = new Set(retained.map(jobKey));
+  const newJobs = majorSnapshot.filter(job => !retainedKeys.has(jobKey(job)));
+  authoritativeMajor = dedupe([...retained, ...newJobs]);
+}
+
+const merged = dedupe([...nonMajor, ...authoritativeMajor]);
 const now = Date.now();
 for (const job of merged) {
   const posted = job.postedAt ? new Date(job.postedAt).getTime() : NaN;
@@ -69,4 +79,4 @@ if (reconciledMajor.length !== majorSnapshot.length) {
 }
 
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
-console.log(`Reconciled ${majorSnapshot.length} authoritative major-employer jobs into the feed; removed ${staleRemoved} stale major-employer records.`);
+console.log(`Reconciled ${majorSnapshot.length} major-employer jobs into the feed; removed ${staleRemoved} stale records${preserveExisting ? ' while preserving normalized current records' : ''}.`);

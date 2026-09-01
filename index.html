@@ -28,7 +28,7 @@
       </span>
       <span class="brand-copy"><small>LAUNCH YOUR</small><strong>DATA CENTER CAREER</strong></span>
     </a>
-    <nav class="nav" aria-label="Primary"><a href="jobs/">Jobs</a><a href="apprenticeships/">Apprenticeships</a><a href="internships/">Internships</a><a href="career-events/">Career Events</a></nav>
+    <nav class="nav" aria-label="Primary"><a href="jobs/">Jobs</a><a href="apprenticeships/">Apprenticeships</a><a href="internships/">Internships</a><a href="career-events/">Career Events</a><a href="#employers">Employers</a></nav>
     <a class="header-cta" href="jobs/">Browse jobs</a>
     <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
   </div>
@@ -88,10 +88,16 @@
     <section class="jobs-content">
       <div class="jobs-toolbar"><div><span class="section-kicker">CURRENT OPENINGS</span><h2>Top data center opportunities</h2><p><strong id="resultCount">0</strong> matching jobs · <span id="shownCount">0</span> shown here · refreshed from employer career sites</p></div><div class="toolbar-actions"><button class="filter-toggle" id="filterToggle" type="button">Filters</button><label>Sort <select id="sortJobs"><option value="newest">Best early-career fit</option><option value="salary">Highest pay</option></select></label></div></div>
       <div id="activeFilters" class="active-filters" hidden></div><div id="jobList" class="job-list" aria-live="polite"></div><p id="emptyState" class="empty-state" hidden>No opportunities match those filters. Try clearing one or widening your region.</p>
-      <div class="job-card-actions" style="margin-top:18px"><a class="apply-link" href="jobs/">Browse all jobs →</a></div>
+      <div class="job-card-actions browse-all"><a class="apply-link" href="jobs/">Browse all jobs →</a></div>
     </section>
     <aside class="right-rail">
-      <section class="rail-card" id="employers"><span class="utility-kicker">FOR EMPLOYERS</span><h3>Reach people entering the industry.</h3><p>Post, boost or feature internships, apprenticeships and early-career openings.</p></section>
+      <section class="rail-card employer-card" id="employers">
+        <span class="utility-kicker">FOR EMPLOYERS</span>
+        <h3>Make a priority opening stand out.</h3>
+        <p><strong id="featuredJobPrice">$149</strong> for 30 days. Includes a Featured badge, priority placement, homepage priority and eligibility for job-alert emails.</p>
+        <a class="employer-cta" id="employerCheckoutLink" href="#" hidden>Feature a job →</a>
+        <p class="employer-status" id="employerCheckoutStatus">Employer checkout is being finalized.</p>
+      </section>
       <section class="rail-card"><span class="utility-kicker">EXPLORE BY PATH</span><h3>Start where you fit.</h3><p>Jump directly to focused opportunity pages.</p><a class="link-button" href="apprenticeships/">Apprenticeships →</a><a class="link-button" href="internships/">Internships →</a><a class="link-button" href="no-experience/">No-experience jobs →</a><a class="link-button" href="entry-level/">Entry-level jobs →</a></section>
     </aside>
   </section>

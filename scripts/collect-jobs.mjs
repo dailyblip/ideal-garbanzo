@@ -11,7 +11,8 @@ const leverCompanies = [
 ];
 const greenhouseBoards = [
   ['xai','xAI'],
-  ['elementcritical','Element Critical']
+  ['elementcritical','Element Critical'],
+  ['coreweave','CoreWeave']
 ];
 const ashbyBoards = [
   ['lambda','Lambda'],
@@ -48,7 +49,7 @@ const midTerms = [
 const excludedTitleTerms = [
   'senior','sr.','sr ','lead ','principal','manager','director','vice president','vp ','head of','staff engineer',
   'supervisor','superintendent','foreman','counsel','attorney','designer','architect','recruiter','sales','account executive',
-  'future opportunity','future opportunities','talent pool','general application'
+  'future opportunity','future opportunities','talent pool','general application','express your interest'
 ];
 const excludedDescriptionTerms = [
   'this is an evergreen requisition','evergreen requisition','talent pool application','general interest application'

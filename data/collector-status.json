@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-01T03:46:41.061Z",
+  "updatedAt": "2026-09-01T03:47:40.523Z",
   "jobs": 208,
-  "sourcesAttempted": 17,
+  "sourcesAttempted": 18,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
-    "workday": 3
+    "workday": 4
   },
   "countsByType": {
     "entry-level": 206,
@@ -19,12 +19,13 @@
   },
   "errors": [],
   "majorSources": {
-    "attempted": 3,
-    "succeeded": 3,
+    "attempted": 4,
+    "succeeded": 4,
     "employers": [
       "Vantage Data Centers",
       "QTS Data Centers",
-      "CyrusOne"
+      "CyrusOne",
+      "STACK Infrastructure"
     ],
     "jobs": 72
   }

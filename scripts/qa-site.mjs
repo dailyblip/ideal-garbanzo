@@ -40,17 +40,19 @@ function normalizeTitle(title = '') {
 }
 
 const clearlyForeignLocationTerms = [
-  'malaysia', 'india', 'japan', 'taiwan', 'germany', 'england', 'united kingdom', 'netherlands',
-  'switzerland', 'ireland', 'canada', 'hong kong', 'china', 'singapore', 'australia', 'france',
+  'malaysia', 'india', 'indonesia', 'japan', 'taiwan', 'thailand', 'germany', 'england', 'united kingdom', 'uk',
+  'wales', 'netherlands', 'switzerland', 'ireland', 'canada', 'hong kong', 'china', 'singapore', 'australia', 'france',
   'spain', 'italy', 'poland', 'sweden', 'norway', 'denmark', 'belgium', 'austria', 'portugal',
   'brazil', 'mexico', 'south africa', 'united arab emirates',
-  'montreal, quebec', 'toronto, on', 'frankfurt', 'amsterdam', 'bengaluru', 'noida',
-  'navi mumbai', 'mumbai', 'osaka', 'taipei', 'cyberjaya', 'munich', 'zurich'
-];
+  'montreal quebec', 'toronto on', 'frankfurt', 'amsterdam', 'ams1', 'eemshaven', 'bengaluru', 'noida',
+  'navi mumbai', 'mumbai', 'osaka', 'taipei', 'cyberjaya', 'munich', 'zurich', 'jakarta', 'chon buri'
+].map(normalize);
 
 function clearlyOutsideUnitedStates(job) {
-  const text = lower(`${job.location || ''} ${job.sourceUrl || ''}`);
-  return clearlyForeignLocationTerms.some(term => text.includes(term));
+  // Match whole normalized terms rather than raw substrings. This prevents false positives
+  // such as the country name "India" accidentally matching a legitimate Indiana posting.
+  const text = ` ${normalize(`${job.location || ''} ${job.sourceUrl || ''}`)} `;
+  return clearlyForeignLocationTerms.some(term => term && text.includes(` ${term} `));
 }
 
 function unresolvedLocation(job) {

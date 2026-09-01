@@ -17,8 +17,8 @@ const strongTitleTerms = [
   'facilities operations'
 ];
 const contextualTitleTerms = [
-  'technician', 'engineer', 'electrician', 'electrical', 'mechanical', 'facilities',
-  'facility', 'operations', 'operator', 'controls', 'maintenance', 'commissioning',
+  'site engineer', 'technician', 'electrician', 'electrical', 'mechanical', 'facilities',
+  'facility engineer', 'operator', 'controls', 'maintenance', 'commissioning',
   'apprentice', 'trainee', 'intern'
 ];
 const contextTerms = [
@@ -27,12 +27,7 @@ const contextTerms = [
   'colocation', 'colo facility', 'ups', 'switchgear', 'generator', 'chiller', 'crah',
   'crac', 'bms', 'epms', 'dcim', 'power distribution', 'white space', 'server rack'
 ];
-const excludedTitleTerms = [
-  'senior', 'sr.', 'sr ', 'lead ', 'principal', 'manager', 'director', 'vice president',
-  'vp ', 'head of', 'chief', 'supervisor', 'superintendent', 'foreman', 'architect',
-  'sales', 'account executive', 'legal', 'counsel', 'recruiter', 'marketing', 'finance',
-  'product manager', 'program manager', 'project manager'
-];
+const excludedTitlePattern = /(^|[^a-z])(senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|chief|supervisor|superintendent|foreman|architect|sales|account executive|legal|counsel|recruiter|marketing|finance|product manager|program manager|project manager)([^a-z]|$)/i;
 const explicitEarlyTerms = [
   'intern', 'internship', 'apprentice', 'apprenticeship', 'trainee', 'entry level',
   'entry-level', 'no experience', 'level i', 'level 1', 'technician i', 'technician 1',
@@ -59,6 +54,7 @@ const US_STATE_CODES = new Set([
   'LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH',
   'OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'
 ]);
+const US_COUNTRY_LABELS = new Set(['united states', 'united states of america', 'usa', 'us', 'u.s.', 'u.s.a.']);
 
 const clean = value => String(value ?? '')
   .replace(/<[^>]*>/g, ' ')
@@ -129,23 +125,31 @@ function locationFor(req = {}) {
 }
 
 function isUSLocation(location, req = {}) {
-  const combined = lower(`${location} ${firstText(req, ['PrimaryLocationCountry', 'Country'])}`);
-  if (/\b(united states|united states of america|usa|u\.s\.)\b/.test(combined)) return true;
-  if (US_STATE_NAMES.some(name => combined.includes(name))) return true;
-  const tokens = String(location || '').toUpperCase().split(/[^A-Z]+/).filter(Boolean);
-  return tokens.some(token => US_STATE_CODES.has(token));
+  const parts = String(location || '').split(',').map(clean).filter(Boolean);
+  const tail = lower(parts.at(-1) || '');
+  const country = lower(firstText(req, ['PrimaryLocationCountry', 'Country']));
+  if (US_COUNTRY_LABELS.has(tail) || US_COUNTRY_LABELS.has(country)) return true;
+
+  // Oracle commonly returns City, Region, Country. If a three-part location has
+  // an explicit non-US country at the end, reject it before looking at state codes.
+  if (parts.length >= 3 && tail && !US_COUNTRY_LABELS.has(tail)) return false;
+
+  return parts.some(part => {
+    const normalized = lower(part);
+    return US_STATE_NAMES.includes(normalized) || US_STATE_CODES.has(part.toUpperCase());
+  });
 }
 
 function titleCandidate(title = '') {
   const t = lower(title);
-  if (!t || hasAny(t, excludedTitleTerms)) return false;
+  if (!t || excludedTitlePattern.test(t)) return false;
   return hasAny(t, strongTitleTerms) || hasAny(t, contextualTitleTerms);
 }
 
 function relevant(title, description = '') {
   const t = lower(title);
   const d = lower(description);
-  if (!t || hasAny(t, excludedTitleTerms)) return false;
+  if (!t || excludedTitlePattern.test(t)) return false;
   if (hasAny(t, strongTitleTerms)) return true;
   return hasAny(t, contextualTitleTerms) && hasAny(d, contextTerms);
 }

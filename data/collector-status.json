@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T16:45:50.787Z",
+  "updatedAt": "2026-09-01T16:49:51.429Z",
   "jobs": 254,
   "sourcesAttempted": 22,
   "providers": {
@@ -104,6 +104,72 @@
     "pagesSucceeded": 1,
     "candidateRows": 0,
     "qualifyingRoles": 1,
+    "diagnostics": {
+      "anchorSamples": [
+        {
+          "href": "https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://www.google.com/about/careers/applications/jobs/results/?q%3Ddata%2Bcenter%26location%3DUnited%2BStates%26target_level%3DEARLY%26page%3D1&followup=https://www.google.com/about/careers/app",
+          "label": "Sign in"
+        },
+        {
+          "href": "jobs/results/115266613283824326-data-center-technician-iii?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/81243295409152710-data-center-technician-operations?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/108619036312380102-data-center-technician-third-party-data-centers?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/133686228535911110-data-center-technician?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/81432623473140422-data-center-facilities-technician-controls?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/97413546094011078-data-center-technician-global-server-operations?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/114533345865409222-data-center-technician-third-shift?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/116632107404403398-data-center-technician?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/127134421282104006-data-center-facilities-technician-electrical?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/136570110096614086-data-center-technician-ii-evening-shift?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        },
+        {
+          "href": "jobs/results/92358051759039174-data-center-technician-iii-networking-infrastructure?q=data+center&location=United+States&target_level=EARLY&page=1",
+          "label": ""
+        }
+      ],
+      "routeSamples": [
+        "/about/careers/applications/jobs/results/?q%3Ddata%2Bcenter%26location%3DUnited%2BStates%26target_level%3DEARLY%26page%3D1&amp",
+        "jobs/results/115266613283824326-data-center-technician-iii?q=data+center&amp",
+        "jobs/results/81243295409152710-data-center-technician-operations?q=data+center&amp",
+        "jobs/results/108619036312380102-data-center-technician-third-party-data-centers?q=data+center&amp",
+        "jobs/results/133686228535911110-data-center-technician?q=data+center&amp",
+        "jobs/results/81432623473140422-data-center-facilities-technician-controls?q=data+center&amp",
+        "jobs/results/97413546094011078-data-center-technician-global-server-operations?q=data+center&amp",
+        "jobs/results/114533345865409222-data-center-technician-third-shift?q=data+center&amp",
+        "jobs/results/116632107404403398-data-center-technician?q=data+center&amp",
+        "jobs/results/127134421282104006-data-center-facilities-technician-electrical?q=data+center&amp",
+        "jobs/results/136570110096614086-data-center-technician-ii-evening-shift?q=data+center&amp",
+        "jobs/results/92358051759039174-data-center-technician-iii-networking-infrastructure?q=data+center&amp"
+      ]
+    },
     "errors": [
       "Google Careers returned no parseable early-career data-center results on page 1.",
       "Retained previous Google snapshot because the official source was unavailable or unparseable."
@@ -190,7 +256,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T16:45:50.839Z",
+    "updatedAt": "2026-09-01T16:49:51.487Z",
     "changed": 16,
     "samples": [
       {
@@ -247,7 +313,7 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T16:45:58.186Z",
+    "checkedAt": "2026-09-01T16:49:57.193Z",
     "publishedJobs": 254,
     "removedJobs": 38,
     "activeCareerEvents": 2

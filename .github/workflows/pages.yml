@@ -49,6 +49,8 @@ jobs:
         run: node scripts/collect-equinix-early.mjs
       - name: Normalize job locations
         run: node scripts/normalize-job-locations.mjs
+      - name: Normalize display copy punctuation
+        run: node scripts/normalize-display-copy.mjs
       - name: Run live link, duplicate, and career-event QA
         run: node scripts/qa-site.mjs
       - name: Refresh post-QA regional coverage
@@ -99,6 +101,7 @@ jobs:
         run: |
           node scripts/validate.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-site-copy.mjs
           test -s sitemap.xml
           test -s robots.txt
           test -s jobs/index.html

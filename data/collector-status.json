@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T04:11:59.128Z",
-  "jobs": 196,
+  "updatedAt": "2026-09-01T04:17:20.685Z",
+  "jobs": 182,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 6,
@@ -10,12 +10,12 @@
   },
   "countsByType": {
     "internship": 2,
-    "entry-level": 194
+    "entry-level": 180
   },
   "countsByExperience": {
-    "0-2-years": 150,
+    "0-2-years": 139,
     "no-experience": 1,
-    "2-5-years": 45
+    "2-5-years": 42
   },
   "errors": [],
   "majorSources": {
@@ -30,13 +30,14 @@
     "jobs": 72
   },
   "earlyCareerDiscovery": {
-    "sourcesAttempted": 3,
-    "sourcesSucceeded": 3,
+    "sourcesAttempted": 4,
+    "sourcesSucceeded": 4,
     "discovered": 0,
     "companies": [
       "Equinix",
       "Amazon Web Services",
-      "Microsoft"
+      "Microsoft",
+      "M.C. Dean"
     ],
     "errors": []
   }

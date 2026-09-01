@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-const requiredFiles = ['index.html','assets/styles.css','assets/app.js','data/jobs.json','data/amazon-jobs.json','data/google-jobs.json','data/featured-jobs.json','data/employer-products.json'];
+const requiredFiles = ['index.html','assets/styles.css','assets/app.js','data/jobs.json','data/amazon-jobs.json','data/google-jobs.json','data/career-events.json','data/featured-jobs.json','data/employer-products.json'];
 for (const file of requiredFiles) {
   const value = await readFile(file, 'utf8');
   if (!value.trim()) throw new Error(`${file} is empty`);
@@ -19,6 +19,27 @@ if (!Array.isArray(googleJobs)) throw new Error('google-jobs.json must contain a
 for (const [i, job] of googleJobs.entries()) {
   if (job.company !== 'Google') throw new Error(`Google snapshot job ${i} has unexpected company: ${job.company}`);
   if (!/^https:\/\/www\.google\.com\/about\/careers\/applications\/jobs\/results\//i.test(String(job.sourceUrl || ''))) throw new Error(`Google snapshot job ${i} has non-Google Careers sourceUrl`);
+}
+
+const careerEvents = JSON.parse(await readFile('data/career-events.json', 'utf8'));
+if (!Array.isArray(careerEvents)) throw new Error('career-events.json must contain an array');
+const careerEventIds = new Set();
+const isoDate = value => {
+  const text = String(value || '').trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return false;
+  const parsed = new Date(`${text}T00:00:00Z`);
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0,10) === text;
+};
+for (const [i, event] of careerEvents.entries()) {
+  for (const key of ['id','date','name','location','organizer','url','verifiedAt','source']) {
+    if (!String(event?.[key] || '').trim()) throw new Error(`Career event ${i} missing ${key}`);
+  }
+  if (careerEventIds.has(event.id)) throw new Error(`Duplicate career event id: ${event.id}`);
+  careerEventIds.add(event.id);
+  if (!isoDate(event.date)) throw new Error(`Career event ${event.id} has invalid date`);
+  if (!isoDate(event.verifiedAt)) throw new Error(`Career event ${event.id} has invalid verifiedAt date`);
+  if (!/^https:\/\//i.test(String(event.url))) throw new Error(`Career event ${event.id} requires an HTTPS organizer URL`);
+  if (event.source !== 'Organizer page') throw new Error(`Career event ${event.id} must be verified from an organizer page`);
 }
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
@@ -90,6 +111,7 @@ for (const phrase of ['DATA CENTER CAREER','Search jobs','CURRENT OPENINGS','CAR
 for (const phrase of ['SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY','Build your future in <em>data centers.</em>','Real openings for interns, apprentices, first-time applicants and workers ready for their next step.']) {
   if (!html.includes(phrase)) throw new Error(`Approved hero copy changed: ${phrase}`);
 }
+if (!html.includes('id="eventsList"')) throw new Error('Homepage must render verified career events from shared data');
 if (/FEATURED OPPORTUNITY\s*·?\s*DEMO|Summit Data Centers/i.test(html)) throw new Error('Demo featured opportunity must not appear on the production homepage');
 if (/<style[\s>]/i.test(html)) throw new Error('Inline style blocks are prohibited');
 if (/\sstyle=["']/i.test(html)) throw new Error('Inline style attributes are prohibited on the homepage');
@@ -97,4 +119,4 @@ if (/hero-overrides\.css/i.test(html)) throw new Error('Obsolete hero-overrides.
 const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)];
 if (stylesheetLinks.length !== 1 || !stylesheetLinks[0][0].includes('assets/styles.css')) throw new Error('Homepage must use exactly one stylesheet: assets/styles.css');
 
-console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${googleJobs.length} Google jobs, ${featuredJobs.length} featured activations, and ${requiredFiles.length} required files.`);
+console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${googleJobs.length} Google jobs, ${careerEvents.length} verified career events, ${featuredJobs.length} featured activations, and ${requiredFiles.length} required files.`);

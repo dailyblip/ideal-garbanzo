@@ -45,10 +45,17 @@ const regionStates = {
 };
 
 const stateToRegion = new Map();
+const stateNameToCode = new Map();
 for (const [region, values] of Object.entries(regionStates)) {
-  for (const code of values.codes) stateToRegion.set(code.toLowerCase(), region);
+  values.codes.forEach((code, index) => {
+    stateToRegion.set(code.toLowerCase(), region);
+    const name = values.names[index];
+    if (name) stateNameToCode.set(name.toLowerCase(), code);
+  });
   for (const name of values.names) stateToRegion.set(name.toLowerCase(), region);
 }
+
+const stateNamesLongestFirst = [...stateNameToCode.keys()].sort((a,b) => b.length - a.length);
 
 const cityRegionFallbacks = [
   [/\bsan jose\b/i, 'west'],
@@ -71,16 +78,35 @@ const cityRegionFallbacks = [
   [/\bcolumbus\b/i, 'midwest']
 ];
 
+function titleCaseWords(value = '') {
+  return String(value).replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim().replace(/\b\w/g, c => c.toUpperCase());
+}
+
 function fromWorkdayUrl(sourceUrl = '') {
   let pathname = '';
-  try { pathname = new URL(sourceUrl).pathname; } catch { return null; }
+  try { pathname = decodeURIComponent(new URL(sourceUrl).pathname); } catch { return null; }
   const match = pathname.match(/\/job\/([^/]+)\//i);
   if (!match) return null;
-  let slug = decodeURIComponent(match[1]).replace(/_/g, '-').replace(/-+/g, '-');
-  const stateMatch = slug.match(/^(.+)-([A-Z]{2})$/);
-  if (!stateMatch) return null;
-  const city = stateMatch[1].replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).trim();
-  return city ? `${city}, ${stateMatch[2]}` : null;
+
+  let slug = match[1].replace(/_/g, '-').replace(/-+/g, '-').replace(/\bVirgina\b/gi, 'Virginia');
+
+  const stateCodeMatch = slug.match(/^(.+)-([A-Z]{2})$/);
+  if (stateCodeMatch && stateToRegion.has(stateCodeMatch[2].toLowerCase())) {
+    const city = titleCaseWords(stateCodeMatch[1]);
+    return city ? `${city}, ${stateCodeMatch[2]}` : null;
+  }
+
+  const slugLower = slug.toLowerCase();
+  for (const stateName of stateNamesLongestFirst) {
+    const suffix = `-${stateName.replace(/\s+/g, '-')}`;
+    if (!slugLower.endsWith(suffix)) continue;
+    const citySlug = slug.slice(0, -suffix.length);
+    const city = titleCaseWords(citySlug);
+    const code = stateNameToCode.get(stateName);
+    return city && code ? `${city}, ${code}` : null;
+  }
+
+  return null;
 }
 
 function genericLocation(value = '') {
@@ -119,8 +145,7 @@ function regionFromText(value = '') {
 
   const lower = text.toLowerCase();
   // Test longer state names first so "West Virginia" is not reduced to "Virginia".
-  const names = [...stateToRegion.keys()].filter(key => key.length > 2).sort((a,b) => b.length - a.length);
-  for (const name of names) {
+  for (const name of stateNamesLongestFirst) {
     if (new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(lower)) {
       return stateToRegion.get(name) || '';
     }
@@ -132,6 +157,23 @@ function regionFromText(value = '') {
   return '';
 }
 
+function regionFromUrl(sourceUrl = '') {
+  let pathname = '';
+  try { pathname = decodeURIComponent(new URL(sourceUrl).pathname); } catch { return ''; }
+  if (!pathname) return '';
+
+  const fixed = pathname.replace(/\bVirgina\b/gi, 'Virginia');
+  const words = fixed.replace(/[-_/]+/g, ' ');
+  const named = regionFromText(words);
+  if (named) return named;
+
+  // Preserve case here: job-board URLs commonly encode state abbreviations as uppercase path tokens.
+  const codeMatch = fixed.match(/(?:^|[-_/])(?:US[-_/])?([A-Z]{2})(?=[-_/]|$)/);
+  if (codeMatch) return stateToRegion.get(codeMatch[1].toLowerCase()) || '';
+
+  return '';
+}
+
 function inferRegion(job) {
   const location = String(job?.location || '').trim();
   if (!location || /\bremote\b/i.test(location)) return '';
@@ -140,12 +182,16 @@ function inferRegion(job) {
   if (direct) return direct;
 
   const derived = fromWorkdayUrl(job?.sourceUrl || '');
-  if (derived) return regionFromText(derived);
+  if (derived) {
+    const region = regionFromText(derived);
+    if (region) return region;
+  }
 
-  return '';
+  return regionFromUrl(job?.sourceUrl || '');
 }
 
 const locationChanges = [];
+const missingSamples = [];
 let regionAssigned = 0;
 let regionMissing = 0;
 const countsByRegion = {};
@@ -166,6 +212,14 @@ for (const job of jobs) {
   } else {
     delete job.region;
     regionMissing += 1;
+    if (missingSamples.length < 12) {
+      missingSamples.push({
+        id:job.id,
+        company:job.company,
+        location:job.location,
+        sourceUrl:job.sourceUrl
+      });
+    }
   }
 }
 
@@ -178,6 +232,8 @@ await writeFile('data/collector-status.json', JSON.stringify({
     samples:locationChanges.slice(0,8),
     regionAssigned,
     regionMissing,
+    coveragePct:jobs.length ? Math.round((regionAssigned / jobs.length) * 1000) / 10 : 100,
+    missingSamples,
     countsByRegion
   }
 }, null, 2) + '\n');

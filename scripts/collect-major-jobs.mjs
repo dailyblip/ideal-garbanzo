@@ -29,6 +29,20 @@ const workdayBoards = [
     tenant: 'stackinfra',
     site: 'STACK_AMER',
     locale: 'en-US'
+  },
+  {
+    company: 'NTT Global Data Centers',
+    origin: 'https://nttglobaldatacenters.wd501.myworkdayjobs.com',
+    tenant: 'nttglobaldatacenters',
+    site: 'External',
+    locale: 'en-US'
+  },
+  {
+    company: 'Aligned Data Centers',
+    origin: 'https://aligneddc.wd12.myworkdayjobs.com',
+    tenant: 'aligneddc',
+    site: 'aligneddc',
+    locale: 'en-US'
   }
 ];
 

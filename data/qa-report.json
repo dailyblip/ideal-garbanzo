@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-09-01T16:49:57.193Z",
-  "jobsBefore": 292,
+  "checkedAt": "2026-09-01T16:53:07.439Z",
+  "jobsBefore": 291,
   "jobsAfter": 254,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [
@@ -63,12 +63,6 @@
       "company": "Vantage Data Centers",
       "title": "Critical Facilities Technician, Taiwan",
       "location": "Taipei, Taiwan"
-    },
-    {
-      "id": "workday-vantagedc-R20519",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Technician, Malaysia",
-      "location": "Cyberjaya, Malaysia"
     },
     {
       "id": "workday-vantagedc-R15963",
@@ -281,7 +275,17 @@
   ],
   "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5184586007",
+      "company": "xAI",
+      "title": "Reliability Engineer (Data Center Infrastructure)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5184586007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 2,
   "careerEventsAfter": 2,

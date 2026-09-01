@@ -70,33 +70,30 @@ jobs:
           pipeline_title="[Steward] Pipeline incident - run ${RUN_ID}"
           stuck_title="[Steward] Stuck pipeline - run ${RUN_ID}"
 
-          if [ "$RUN_CONCLUSION" = "skipped" ]; then
-            echo "Run ${RUN_ID} was skipped; no steward action is required."
+          newer_run="$(gh api "repos/${REPO}/actions/workflows/${TARGET_WORKFLOW}/runs?per_page=20" \
+            --jq ".workflow_runs[] | select(.id > ${RUN_ID}) | .id" | head -n 1)"
+          if [ -n "$newer_run" ]; then
+            {
+              echo "## Pipeline steward"
+              echo
+              echo "Run ${RUN_ID} has been superseded by newer run ${newer_run}. Steward recovery and deployment verification are deferred to the newer run."
+            } >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
 
-          if [ "$RUN_CONCLUSION" = "cancelled" ]; then
-            newer_run="$(gh api "repos/${REPO}/actions/workflows/${TARGET_WORKFLOW}/runs?per_page=20" \
-              --jq ".workflow_runs[] | select(.id > ${RUN_ID}) | .id" | head -n 1)"
-            if [ -n "$newer_run" ]; then
-              {
-                echo "## Pipeline steward"
-                echo
-                echo "Run ${RUN_ID} was cancelled because a newer run (${newer_run}) superseded it. No retry or incident was created."
-              } >> "$GITHUB_STEP_SUMMARY"
-              exit 0
-            fi
+          if [ "$RUN_CONCLUSION" = "skipped" ]; then
+            echo "Run ${RUN_ID} was skipped; no steward action is required."
+            exit 0
           fi
 
           if [ "$RUN_CONCLUSION" != "success" ]; then
             attempt="${RUN_ATTEMPT:-1}"
             if [ "$attempt" -lt 2 ]; then
               echo "Pipeline run ${RUN_ID} ended ${RUN_CONCLUSION} on attempt ${attempt}; steward is retrying once."
+              retry_ok=false
               if [ "$RUN_CONCLUSION" = "cancelled" ]; then
-                retry_ok=false
                 if gh run rerun "$RUN_ID" --repo "$REPO"; then retry_ok=true; fi
               else
-                retry_ok=false
                 if gh run rerun "$RUN_ID" --repo "$REPO" --failed; then retry_ok=true; fi
               fi
               if [ "$retry_ok" = "true" ]; then

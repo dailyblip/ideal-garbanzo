@@ -1,9 +1,296 @@
 {
-  "checkedAt": "2026-09-01T05:47:29.524Z",
+  "checkedAt": "2026-09-01T06:00:19.988Z",
   "jobsBefore": 261,
-  "jobsAfter": 261,
+  "jobsAfter": 221,
   "demoJobsRemoved": [],
-  "duplicatesRemoved": [],
+  "nonUsJobsRemoved": [
+    {
+      "id": "workday-vantagedc-R23998",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Technician, NA",
+      "location": "Montreal, Quebec"
+    },
+    {
+      "id": "workday-vantagedc-R24360",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Technician - Offenbach",
+      "location": "Frankfurt, Germany"
+    },
+    {
+      "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
+      "company": "Serverfarm",
+      "title": "Data Center Technician",
+      "location": "Toronto, ON"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR101004",
+      "company": "NTT Global Data Centers",
+      "title": "Data Center Technician (m/f/d) - AMS1",
+      "location": "Amsterdam, Netherlands"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR101184",
+      "company": "NTT Global Data Centers",
+      "title": "Specialist - Data Center Operations",
+      "location": "Bengaluru, India"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR101869",
+      "company": "NTT Global Data Centers",
+      "title": "Specialist - Data Center Operations",
+      "location": "Noida, India"
+    },
+    {
+      "id": "workday-vantagedc-R23618",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Engineer, Japan",
+      "location": "Osaka, Japan"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR101801",
+      "company": "NTT Global Data Centers",
+      "title": "Specialist - Data Center Operations",
+      "location": "Navi Mumbai, india"
+    },
+    {
+      "id": "workday-vantagedc-R15747",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Engineer - London, North Acton",
+      "location": "London, England"
+    },
+    {
+      "id": "workday-vantagedc-R23196",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Technician, Taiwan",
+      "location": "Taipei, Taiwan"
+    },
+    {
+      "id": "workday-vantagedc-R21796",
+      "company": "Vantage Data Centers",
+      "title": "Data Centre Technician (HVAP)",
+      "location": "London, England"
+    },
+    {
+      "id": "workday-vantagedc-R20519",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Technician, Malaysia",
+      "location": "Cyberjaya, Malaysia"
+    },
+    {
+      "id": "workday-vantagedc-R15963",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Engineer, Malaysia",
+      "location": "Cyberjaya, Malaysia"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR101614",
+      "company": "NTT Global Data Centers",
+      "title": "Specialist- Data Center Operations",
+      "location": "Mumbai, India"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR101647",
+      "company": "NTT Global Data Centers",
+      "title": "Associate Critical Facilities Maintenance Engineer",
+      "location": "Cyberjaya, Malaysia"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR101626",
+      "company": "NTT Global Data Centers",
+      "title": "Specialist - Data Centre Operations",
+      "location": "Mumbai, India"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR101513",
+      "company": "NTT Global Data Centers",
+      "title": "Data Center Technician (m/w/d)",
+      "location": "Munich, Germany"
+    },
+    {
+      "id": "workday-nttglobaldatacenters-JR100945",
+      "company": "NTT Global Data Centers",
+      "title": "5231 Associate Critical Facilities Maintenance Engineer",
+      "location": "Cyberjaya, Malaysia"
+    }
+  ],
+  "duplicatesRemoved": [
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101968",
+      "keptId": "workday-nttglobaldatacenters-R-138957",
+      "company": "NTT Global Data Centers",
+      "title": "Data Center Technician L1",
+      "location": "Ashburn, Virgina"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101903",
+      "keptId": "workday-nttglobaldatacenters-JR101981",
+      "company": "NTT Global Data Centers",
+      "title": "1077 - Data Center Technician L2",
+      "location": "Mesa, Arizona"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101912",
+      "keptId": "workday-nttglobaldatacenters-JR101861",
+      "company": "NTT Global Data Centers",
+      "title": "1127 - Data Center Technician L2",
+      "location": "Hillsboro, Oregon"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101118",
+      "keptId": "workday-nttglobaldatacenters-JR101342",
+      "company": "NTT Global Data Centers",
+      "title": "5196 - Data Center Technician L1",
+      "location": "Mesa, Arizona"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101573",
+      "keptId": "workday-nttglobaldatacenters-JR101861",
+      "company": "NTT Global Data Centers",
+      "title": "1038 - Data Center Technician L2",
+      "location": "Hillsboro, Oregon"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101533",
+      "keptId": "workday-nttglobaldatacenters-JR101799",
+      "company": "NTT Global Data Centers",
+      "title": "5155 - Data Center IT Infrastructure Technician",
+      "location": "Ashburn, Virgina"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-qtsdatacenters-R2026-0768",
+      "keptId": "workday-qtsdatacenters-R2026-0881",
+      "company": "QTS Data Centers",
+      "title": "Regional Data Center Controls Quality Engineer",
+      "location": "US GA Atlanta Suwanee 1 DC1"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101847",
+      "keptId": "workday-nttglobaldatacenters-JR101198",
+      "company": "NTT Global Data Centers",
+      "title": "Data Center Technician L1",
+      "location": "Chicago, Illinois"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101681",
+      "keptId": "workday-nttglobaldatacenters-R-138957",
+      "company": "NTT Global Data Centers",
+      "title": "989 - Data Center Technician L1",
+      "location": "Ashburn, Virgina"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101746",
+      "keptId": "workday-nttglobaldatacenters-R-138957",
+      "company": "NTT Global Data Centers",
+      "title": "955 - Data Center Technician L1",
+      "location": "Ashburn, Virgina"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101755",
+      "keptId": "workday-nttglobaldatacenters-JR101821",
+      "company": "NTT Global Data Centers",
+      "title": "1162 - Data Center Technician L2",
+      "location": "Garland, Texas"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101610",
+      "keptId": "workday-nttglobaldatacenters-R-138957",
+      "company": "NTT Global Data Centers",
+      "title": "919 - Data Center Technician L1",
+      "location": "Ashburn, Virgina"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101398",
+      "keptId": "workday-nttglobaldatacenters-JR101821",
+      "company": "NTT Global Data Centers",
+      "title": "960 - Data Center Technician L2",
+      "location": "Garland, Texas"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101474",
+      "keptId": "workday-nttglobaldatacenters-JR101859",
+      "company": "NTT Global Data Centers",
+      "title": "5217 - Data Center Technician L1",
+      "location": "Gainesville, Virginia"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101240",
+      "keptId": "workday-nttglobaldatacenters-JR101929",
+      "company": "NTT Global Data Centers",
+      "title": "914 - Data Center Technician L2",
+      "location": "Chicago, Illinois"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101342",
+      "keptId": "workday-nttglobaldatacenters-JR101153",
+      "company": "NTT Global Data Centers",
+      "title": "Data Center Technician L1",
+      "location": "Mesa, Arizona"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101981",
+      "keptId": "workday-nttglobaldatacenters-JR101166",
+      "company": "NTT Global Data Centers",
+      "title": "Data Center Technician L2",
+      "location": "Mesa, Arizona"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR101129",
+      "keptId": "workday-nttglobaldatacenters-JR101929",
+      "company": "NTT Global Data Centers",
+      "title": "5174 - Data Center Technician L2",
+      "location": "Chicago, Illinois"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR100547",
+      "keptId": "workday-nttglobaldatacenters-JR101821",
+      "company": "NTT Global Data Centers",
+      "title": "5203 - Data Center Technician L2",
+      "location": "Garland, Texas"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR100813",
+      "keptId": "workday-nttglobaldatacenters-JR101198",
+      "company": "NTT Global Data Centers",
+      "title": "5166 - Data Center Technician L1",
+      "location": "Chicago, Illinois"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR100434",
+      "keptId": "workday-nttglobaldatacenters-JR101514",
+      "company": "NTT Global Data Centers",
+      "title": "2225 - Data Center Technician L1",
+      "location": "Garland, Texas"
+    },
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-nttglobaldatacenters-JR100436",
+      "keptId": "workday-nttglobaldatacenters-JR101821",
+      "company": "NTT Global Data Centers",
+      "title": "2227 - Data Center Technician L2",
+      "location": "Garland, Texas"
+    }
+  ],
   "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

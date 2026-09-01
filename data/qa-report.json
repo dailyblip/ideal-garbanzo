@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-01T14:52:31.847Z",
+  "checkedAt": "2026-09-01T15:45:14.540Z",
   "jobsBefore": 294,
   "jobsAfter": 255,
   "demoJobsRemoved": [],
@@ -287,19 +287,16 @@
   ],
   "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "gh-xai-5201130007",
-      "company": "xAI",
-      "title": "Facilities Maintenance Technician",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5201130007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
-  "eventLinks": [
+  "careerEventsBefore": 2,
+  "careerEventsAfter": 2,
+  "expiredCareerEventsRemoved": [],
+  "deadCareerEventLinksRemoved": [],
+  "blockedCareerEventLinks": [],
+  "transientCareerEventLinks": [],
+  "warningCareerEventLinks": [],
+  "homepageExternalLinks": [
     {
       "url": "https://dailyblip.github.io/ideal-garbanzo/",
       "state": "ok",

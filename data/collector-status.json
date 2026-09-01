@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T09:00:39.241Z",
+  "updatedAt": "2026-09-01T09:50:09.458Z",
   "jobs": 279,
   "sourcesAttempted": 20,
   "providers": {
@@ -58,7 +58,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1332
+        "rows": 1331
       },
       {
         "query": "engineering operations technician",
@@ -69,7 +69,7 @@
         "rows": 0
       }
     ],
-    "candidateRows": 3685,
+    "candidateRows": 3684,
     "uniqueCandidates": 1235,
     "qualifyingRoles": 18,
     "drops": {
@@ -158,7 +158,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T09:00:39.293Z",
+    "updatedAt": "2026-09-01T09:50:09.499Z",
     "changed": 16,
     "samples": [
       {
@@ -201,6 +201,17 @@
         "before": "3 Locations",
         "after": "Piscataway, NJ"
       }
-    ]
+    ],
+    "regionAssigned": 208,
+    "regionMissing": 71,
+    "countsByRegion": {
+      "mid-atlantic": 24,
+      "texas": 58,
+      "southwest": 19,
+      "southeast": 50,
+      "west": 23,
+      "midwest": 31,
+      "northeast": 3
+    }
   }
 }

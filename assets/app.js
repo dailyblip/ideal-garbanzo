@@ -1,6 +1,6 @@
 (() => {
   const HOME_LIMIT = 15;
-  const state = { jobs: [], filters: new Set(), query: '', region: '', sort: 'newest' };
+  const state = { jobs: [], featuredIds: new Set(), product: null, filters: new Set(), query: '', region: '', sort: 'newest' };
   const jobList = document.getElementById('jobList');
   const emptyState = document.getElementById('emptyState');
   const search = document.getElementById('jobSearch');
@@ -18,6 +18,9 @@
   const menu = document.querySelector('.menu-button');
   const alertForm = document.getElementById('alertForm');
   const heroSearchForm = document.getElementById('heroSearchForm');
+  const featuredJobPrice = document.getElementById('featuredJobPrice');
+  const employerCheckoutLink = document.getElementById('employerCheckoutLink');
+  const employerCheckoutStatus = document.getElementById('employerCheckoutStatus');
 
   const escapeHtml = value => String(value ?? '').replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));
   const safeUrl = value => /^https:\/\//i.test(String(value || '')) ? String(value) : '#';
@@ -46,6 +49,7 @@
     const experienceRank = {'no-experience':0, '0-2-years':1, '2-5-years':4}[job.experience] ?? 2;
     return typeRank * 10 + experienceRank;
   };
+  const isFeatured = job => state.featuredIds.has(String(job.id));
   const showToast = message => {
     if (!toast) return;
     toast.textContent = message;
@@ -63,6 +67,36 @@
     if (hours < 24) return `${hours}h ago`;
     return `${Math.max(1, Math.round(hours / 24))}d ago`;
   };
+
+  function activeFeaturedIds(records) {
+    const now = Date.now();
+    return new Set((Array.isArray(records) ? records : []).filter(record => {
+      if (!record || !record.jobId) return false;
+      const starts = record.startsAt ? Date.parse(record.startsAt) : null;
+      const expires = record.expiresAt ? Date.parse(record.expiresAt) : null;
+      if (starts && Number.isFinite(starts) && starts > now) return false;
+      if (expires && Number.isFinite(expires) && expires <= now) return false;
+      return true;
+    }).map(record => String(record.jobId)));
+  }
+
+  function configureEmployerProduct(product) {
+    state.product = product || null;
+    if (featuredJobPrice && Number.isFinite(Number(product?.priceUsd))) featuredJobPrice.textContent = `$${Number(product.priceUsd)}`;
+    const enabled = product?.checkoutEnabled === true && /^https:\/\//i.test(String(product?.checkoutUrl || ''));
+    if (employerCheckoutLink) {
+      employerCheckoutLink.hidden = !enabled;
+      if (enabled) {
+        employerCheckoutLink.href = product.checkoutUrl;
+        employerCheckoutLink.target = '_blank';
+        employerCheckoutLink.rel = 'noopener noreferrer';
+      }
+    }
+    if (employerCheckoutStatus) {
+      employerCheckoutStatus.hidden = enabled;
+      if (!enabled) employerCheckoutStatus.textContent = 'Employer checkout is being finalized.';
+    }
+  }
 
   function updateActiveFilters() {
     const chips = [];
@@ -89,20 +123,25 @@
   }
 
   function render() {
-    const jobs = filteredJobs().sort((a,b) => state.sort === 'salary'
-      ? (b.salarySortMax ?? b.salaryMax ?? 0) - (a.salarySortMax ?? a.salaryMax ?? 0)
-      : earlyCareerRank(a) - earlyCareerRank(b) || (a.postedHours || 9999) - (b.postedHours || 9999));
+    const jobs = filteredJobs().sort((a,b) => {
+      const featuredRank = Number(isFeatured(b)) - Number(isFeatured(a));
+      if (featuredRank) return featuredRank;
+      if (state.sort === 'salary') return (b.salarySortMax ?? b.salaryMax ?? 0) - (a.salarySortMax ?? a.salaryMax ?? 0);
+      return earlyCareerRank(a) - earlyCareerRank(b) || (a.postedHours || 9999) - (b.postedHours || 9999);
+    });
     const activeDiscovery = Boolean(state.query || state.region || state.filters.size || state.sort === 'salary');
     const visibleJobs = activeDiscovery ? jobs : jobs.slice(0, HOME_LIMIT);
 
     if (resultCount) resultCount.textContent = jobs.length;
     if (shownCount) shownCount.textContent = visibleJobs.length;
     updateActiveFilters();
-    jobList.innerHTML = visibleJobs.map(job => `
-      <article class="job-card">
+    jobList.innerHTML = visibleJobs.map(job => {
+      const featured = isFeatured(job);
+      return `
+      <article class="job-card${featured ? ' featured-job' : ''}">
         <div class="job-card-top">
           <div>
-            <h3><a href="jobs/${escapeHtml(jobSlug(job))}/">${escapeHtml(job.title)}</a> <span class="badge">${escapeHtml(typeLabel(job.type))}</span></h3>
+            <h3><a href="jobs/${escapeHtml(jobSlug(job))}/">${escapeHtml(job.title)}</a> <span class="badge">${escapeHtml(typeLabel(job.type))}</span>${featured ? ' <span class="featured-badge">FEATURED</span>' : ''}</h3>
             <div class="job-meta">${escapeHtml(job.company)} <span>•</span> ${escapeHtml(job.location)}</div>
             <div class="job-tags"><span>${escapeHtml(experienceLabel(job.experience))}</span>${(job.tags || []).filter(tag => tag !== experienceLabel(job.experience)).map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
             <div class="job-pay">${escapeHtml(job.pay || 'Pay not listed')}</div>
@@ -110,15 +149,25 @@
           <div class="posted">${escapeHtml(postedLabel(job.postedHours))}<br><small>Employer site</small></div>
         </div>
         <div class="job-card-actions"><a class="apply-link" href="jobs/${escapeHtml(jobSlug(job))}/">Job details →</a><a class="apply-link" href="${escapeHtml(safeUrl(job.sourceUrl))}" target="_blank" rel="noopener noreferrer">View & Apply →</a></div>
-      </article>`).join('');
+      </article>`;
+    }).join('');
     emptyState.hidden = jobs.length > 0;
   }
 
-  async function loadJobs() {
+  async function loadSiteData() {
     try {
-      const response = await fetch('data/jobs.json', { cache: 'no-store' });
-      if (!response.ok) throw new Error('Unable to load jobs');
-      state.jobs = await response.json();
+      const [jobsResponse, featuredResponse, productsResponse] = await Promise.all([
+        fetch('data/jobs.json', { cache: 'no-store' }),
+        fetch('data/featured-jobs.json', { cache: 'no-store' }),
+        fetch('data/employer-products.json', { cache: 'no-store' })
+      ]);
+      if (!jobsResponse.ok) throw new Error('Unable to load jobs');
+      state.jobs = await jobsResponse.json();
+      if (featuredResponse.ok) state.featuredIds = activeFeaturedIds(await featuredResponse.json());
+      if (productsResponse.ok) {
+        const products = await productsResponse.json();
+        configureEmployerProduct(products.featuredJob);
+      }
       render();
     } catch {
       emptyState.hidden = false;
@@ -186,7 +235,6 @@
     event.preventDefault();
     showToast('Job alerts are being connected. Your address was not stored yet.');
   });
-  document.querySelectorAll('.demo-action').forEach(button => button.addEventListener('click', () => showToast('This feature is being connected now.')));
 
   filterToggle?.addEventListener('click', () => filtersPanel?.classList.add('open'));
   filterClose?.addEventListener('click', () => filtersPanel?.classList.remove('open'));
@@ -195,5 +243,5 @@
     menu.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
-  loadJobs();
+  loadSiteData();
 })();

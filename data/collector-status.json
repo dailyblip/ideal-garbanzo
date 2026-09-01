@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T16:56:59.952Z",
-  "jobs": 289,
+  "updatedAt": "2026-09-01T17:01:20.225Z",
+  "jobs": 278,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -13,13 +13,13 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
-    "trainee": 3,
-    "entry-level": 280
+    "trainee": 4,
+    "entry-level": 268
   },
   "countsByExperience": {
-    "0-2-years": 209,
-    "no-experience": 4,
-    "2-5-years": 76
+    "0-2-years": 199,
+    "no-experience": 5,
+    "2-5-years": 74
   },
   "errors": [],
   "majorSources": {
@@ -100,13 +100,13 @@
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
     "candidateRows": 62,
-    "qualifyingRoles": 58,
+    "qualifyingRoles": 60,
     "diagnostics": {
       "canonicalLinks": 80,
       "missionFitLinks": 62,
       "uniqueCandidates": 62,
-      "detailAttempted": 60,
-      "detailVerified": 59,
+      "detailAttempted": 62,
+      "detailVerified": 61,
       "detailDrops": {
         "stale": 0,
         "location": 1,
@@ -197,7 +197,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T16:57:00.014Z",
+    "updatedAt": "2026-09-01T17:01:20.290Z",
     "changed": 16,
     "samples": [
       {
@@ -241,21 +241,21 @@
         "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 235,
+    "regionAssigned": 224,
     "regionMissing": 54,
     "countsByRegion": {
-      "mid-atlantic": 27,
+      "mid-atlantic": 25,
       "texas": 62,
-      "southwest": 30,
-      "southeast": 57,
+      "southwest": 27,
+      "southeast": 53,
       "west": 24,
-      "midwest": 31,
+      "midwest": 29,
       "northeast": 4
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T16:57:16.806Z",
-    "publishedJobs": 289,
+    "checkedAt": "2026-09-01T17:01:41.343Z",
+    "publishedJobs": 278,
     "removedJobs": 38,
     "activeCareerEvents": 2
   }

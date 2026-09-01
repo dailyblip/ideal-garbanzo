@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T06:50:05.619Z",
-  "jobs": 261,
+  "updatedAt": "2026-09-01T07:49:33.074Z",
+  "jobs": 262,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 6,
@@ -12,12 +12,12 @@
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 3,
-    "entry-level": 252
+    "entry-level": 253
   },
   "countsByExperience": {
     "0-2-years": 205,
     "no-experience": 4,
-    "2-5-years": 52
+    "2-5-years": 53
   },
   "errors": [],
   "majorSources": {
@@ -44,6 +44,16 @@
       "M.C. Dean"
     ],
     "errors": []
+  },
+  "microsoftDatacenter": {
+    "officialSource": "https://careers.microsoft.com/v2/global/en/datacenters.html",
+    "candidateLinks": 3,
+    "qualifyingRoles": 1,
+    "drops": {
+      "nonUs": 1,
+      "seniorOrIrrelevant": 1,
+      "experience": 0
+    }
   },
   "priorityEmployerExpansion": {
     "Equinix": {

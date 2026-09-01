@@ -7,24 +7,28 @@ const queries = [
   'data center',
   'data center technician',
   'engineering operations technician',
-  'critical facilities',
   'work based learning data center'
 ];
 
-const strongTitleTerms = [
-  'data center', 'datacenter', 'data centre', 'engineering operations technician',
-  'critical facilities', 'critical environment', 'infraops', 'dceo'
-];
-const contextualTitleTerms = [
-  'technician', 'operator', 'operations', 'facilities', 'facility', 'electrical',
-  'mechanical', 'controls', 'fiber', 'cabling', 'logistics', 'maintenance'
+const missionTitlePatterns = [
+  /\bdata cent(?:er|re)\b.*\b(?:technician|tech|operator|operations|facilit(?:y|ies)|controls?|electrical|mechanical|engineer)\b/i,
+  /\b(?:technician|tech|operator|operations|facilit(?:y|ies)|controls?|electrical|mechanical|engineer)\b.*\bdata cent(?:er|re)\b/i,
+  /\bengineering operations? (?:technician|tech)\b/i,
+  /\b(?:dceo|infraops|dcc communities)\b.*\b(?:technician|tech|operator|engineer)\b/i,
+  /\b(?:technician|tech|operator|engineer)\b.*\b(?:dceo|infraops|dcc communities)\b/i,
+  /\bcritical (?:facilit(?:y|ies)|infrastructure)\b.*\b(?:technician|tech|engineer|operator)\b/i,
+  /\b(?:cable|cabling|fiber|network cable)\b.*\b(?:installation|installer|technician|tech)\b/i,
+  /\b(?:installation|installer) technician\b/i,
+  /\bid flex technician\b/i,
+  /\binfrastructure delivery\b.*\b(?:technician|tech)\b/i
 ];
 const contextTerms = [
   'data center', 'datacenter', 'data centre', 'critical facilities', 'critical environment',
   'server rack', 'rack and stack', 'fiber', 'cabling', 'switchgear', 'ups', 'generator',
-  'chiller', 'crah', 'crac', 'mission critical', 'mission-critical', 'infrastructure operations'
+  'chiller', 'crah', 'crac', 'mission critical', 'mission-critical', 'infrastructure operations',
+  'data center operations', 'datacenter operations'
 ];
-const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|staff engineer|supervisor|architect|program manager|product manager|software|developer|scientist|security engineer|sales|account executive|recruiter)\b/i;
+const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|architect|program manager|product manager|software|developer|scientist|security engineer|security specialist|sales|account executive|recruiter|construction manager|project manager)\b/i;
 
 const clean = value => String(value ?? '')
   .replace(/<[^>]*>/g, ' ')
@@ -48,7 +52,7 @@ async function fetchJson(url) {
   const response = await fetch(url, {
     headers: {
       accept: 'application/json,text/plain,*/*',
-      'user-agent': 'DataCenterCareersBot/1.6 (+https://dailyblip.github.io/ideal-garbanzo/)'
+      'user-agent': 'DataCenterCareersBot/1.7 (+https://dailyblip.github.io/ideal-garbanzo/)'
     },
     redirect: 'follow'
   });
@@ -166,10 +170,14 @@ function classify(row) {
   const t = lower(title);
 
   if (!title || excludedTitlePattern.test(title)) return { drop: 'title' };
-  if (!hasAny(t, strongTitleTerms) && !(hasAny(t, contextualTitleTerms) && hasAny(text, contextTerms))) return { drop: 'context' };
+  if (!missionTitlePatterns.some(pattern => pattern.test(title))) return { drop: 'title' };
+  if (!/data cent(?:er|re)|datacenter/i.test(title) && !hasAny(text, contextTerms)) return { drop: 'context' };
 
   const years = requiredExperienceYears(required);
   if (years.some(year => year >= 6)) return { drop: 'experience' };
+  const earlySignal = /work.?based learning|no experience|training program|high school or equivalent|high school diploma|intern|apprentice|trainee|skillbridge/.test(text);
+  const technicianTitle = /\b(?:technician|tech|operator|installer)\b/i.test(title);
+  if (!years.length && /\bengineer\b/i.test(title) && !technicianTitle && !earlySignal) return { drop: 'unknownExperience' };
 
   let type = 'entry-level';
   if (/intern|co-?op/.test(t)) type = 'internship';
@@ -178,7 +186,7 @@ function classify(row) {
 
   let experience = '0-2-years';
   if (years.some(year => year >= 3)) experience = '2-5-years';
-  else if (!years.length && /work.?based learning|no experience|training program|high school or equivalent|high school diploma/.test(text)) experience = 'no-experience';
+  else if (!years.length && earlySignal) experience = 'no-experience';
   else if (years.some(year => year <= 2)) experience = '0-2-years';
 
   return { type, experience };
@@ -271,7 +279,7 @@ const uniqueRaw = dedupe(raw.map(row => ({
 }))).map(item => item.row);
 
 const jobs = [];
-const drops = { nonUs:0, title:0, context:0, experience:0, invalidUrl:0 };
+const drops = { nonUs:0, title:0, context:0, experience:0, unknownExperience:0, invalidUrl:0 };
 for (const row of uniqueRaw) {
   const location = normalizeLocation(row);
   if (!location) { drops.nonUs += 1; continue; }

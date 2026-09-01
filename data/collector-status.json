@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T17:53:37.683Z",
-  "jobs": 278,
+  "updatedAt": "2026-09-01T18:47:28.086Z",
+  "jobs": 280,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -14,10 +14,10 @@
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 4,
-    "entry-level": 268
+    "entry-level": 270
   },
   "countsByExperience": {
-    "0-2-years": 199,
+    "0-2-years": 201,
     "no-experience": 5,
     "2-5-years": 74
   },
@@ -33,7 +33,7 @@
       "NTT Global Data Centers",
       "Aligned Data Centers"
     ],
-    "jobs": 152
+    "jobs": 151
   },
   "earlyCareerDiscovery": {
     "sourcesAttempted": 4,
@@ -64,22 +64,22 @@
       },
       {
         "query": "engineering operations technician",
-        "rows": 354
+        "rows": 356
       },
       {
         "query": "work based learning data center",
         "rows": 0
       }
     ],
-    "candidateRows": 3688,
-    "uniqueCandidates": 1243,
+    "candidateRows": 3690,
+    "uniqueCandidates": 1244,
     "qualifyingRoles": 18,
     "drops": {
       "nonUs": 364,
       "title": 581,
       "context": 0,
       "experience": 0,
-      "unknownExperience": 280,
+      "unknownExperience": 281,
       "invalidUrl": 0
     },
     "errors": []
@@ -197,7 +197,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T17:53:37.746Z",
+    "updatedAt": "2026-09-01T18:47:28.144Z",
     "changed": 16,
     "samples": [
       {
@@ -241,22 +241,22 @@
         "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 224,
-    "regionMissing": 54,
+    "regionAssigned": 225,
+    "regionMissing": 55,
     "countsByRegion": {
       "mid-atlantic": 25,
       "texas": 62,
       "southwest": 27,
-      "southeast": 53,
+      "southeast": 54,
       "west": 24,
       "midwest": 29,
       "northeast": 4
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T17:53:52.114Z",
-    "publishedJobs": 278,
-    "removedJobs": 38,
+    "checkedAt": "2026-09-01T18:47:43.442Z",
+    "publishedJobs": 280,
+    "removedJobs": 37,
     "activeCareerEvents": 2
   }
 }

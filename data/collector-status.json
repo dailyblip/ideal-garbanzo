@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-09-01T02:46:36.842Z",
-  "jobs": 136,
-  "sourcesAttempted": 14,
+  "updatedAt": "2026-09-01T02:47:43.373Z",
+  "jobs": 208,
+  "sourcesAttempted": 17,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
-    "ashby": 5
+    "ashby": 5,
+    "workday": 3
   },
   "countsByType": {
-    "entry-level": 136
+    "entry-level": 206,
+    "internship": 2
   },
   "countsByExperience": {
-    "0-2-years": 88,
-    "2-5-years": 47,
+    "0-2-years": 151,
+    "2-5-years": 56,
     "no-experience": 1
   },
-  "errors": []
+  "errors": [],
+  "majorSources": {
+    "attempted": 3,
+    "succeeded": 3,
+    "employers": [
+      "Vantage Data Centers",
+      "QTS Data Centers",
+      "CyrusOne"
+    ],
+    "jobs": 72
+  }
 }

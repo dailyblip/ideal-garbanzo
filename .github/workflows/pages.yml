@@ -84,7 +84,9 @@ jobs:
         with:
           node-version: 22
       - name: Generate crawlable SEO pages
-        run: node scripts/generate-seo.mjs
+        run: |
+          node scripts/generate-seo.mjs
+          node scripts/generate-career-guide.mjs
       - name: Validate latest main before deployment
         run: |
           node scripts/validate.mjs
@@ -96,6 +98,9 @@ jobs:
           test -s internships/index.html
           test -s entry-level/index.html
           test -s career-events/index.html
+          test -s how-to-get-a-data-center-job/index.html
+          grep -Fq 'How to get a job at a data center' how-to-get-a-data-center-job/index.html
+          grep -Fq '/how-to-get-a-data-center-job/' sitemap.xml
           grep -R -m1 '"@type":"JobPosting"' jobs/*/index.html >/dev/null
       - name: Stamp deployment revision
         run: |

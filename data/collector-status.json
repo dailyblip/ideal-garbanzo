@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T04:56:22.293Z",
-  "jobs": 163,
+  "updatedAt": "2026-09-01T04:58:35.802Z",
+  "jobs": 166,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 6,
@@ -10,11 +10,12 @@
   },
   "countsByType": {
     "internship": 2,
+    "trainee": 3,
     "entry-level": 161
   },
   "countsByExperience": {
     "0-2-years": 123,
-    "no-experience": 1,
+    "no-experience": 4,
     "2-5-years": 39
   },
   "errors": [],
@@ -46,13 +47,13 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 30,
+      "candidateLinks": 34,
       "qualifyingRoles": 0,
       "drops": {
         "context": 2,
         "non-us": 9,
-        "title": 11,
-        "unknown-experience": 8
+        "title": 14,
+        "unknown-experience": 9
       },
       "dropSamples": [
         {
@@ -98,10 +99,11 @@
     },
     "EquinixEarlyCareer": {
       "officialSource": "https://careers.equinix.com/",
-      "listingPagesAttempted": 3,
-      "listingPagesSucceeded": 3,
-      "candidateLinks": 0,
-      "qualifyingRoles": 0,
+      "listingPagesAttempted": 4,
+      "listingPagesSucceeded": 4,
+      "candidateLinks": 3,
+      "recoveredCandidates": 3,
+      "qualifyingRoles": 3,
       "errors": []
     }
   }

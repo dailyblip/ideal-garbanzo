@@ -5,6 +5,18 @@ const REPORT_PATH = 'data/qa-report.json';
 const INDEX_PATH = 'index.html';
 const CONCURRENCY = 10;
 const TIMEOUT_MS = 15000;
+const LIVE_BASE = 'https://dailyblip.github.io/ideal-garbanzo/';
+const CRITICAL_SITE_URLS = [
+  LIVE_BASE,
+  `${LIVE_BASE}assets/styles.css`,
+  `${LIVE_BASE}assets/app.js`,
+  `${LIVE_BASE}hero.jpg`,
+  `${LIVE_BASE}jobs/`,
+  `${LIVE_BASE}apprenticeships/`,
+  `${LIVE_BASE}internships/`,
+  `${LIVE_BASE}entry-level/`,
+  `${LIVE_BASE}career-events/`
+];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const lower = value => clean(value).toLowerCase();
@@ -161,6 +173,7 @@ const finalJobs = dedupedJobs.filter(job => !deadIds.has(job.id));
 const externalLinks = [...html.matchAll(/href=["'](https:\/\/[^"']+)["']/gi)].map(match => match[1]);
 const eventLinks = [...new Set(externalLinks)];
 const eventChecks = await mapLimit(eventLinks, Math.min(5, CONCURRENCY), async url => ({ url, ...(await checkUrl(url)) }));
+const siteChecks = await mapLimit(CRITICAL_SITE_URLS, Math.min(5, CONCURRENCY), async url => ({ url, ...(await checkUrl(url)) }));
 
 const report = {
   checkedAt: new Date().toISOString(),
@@ -173,7 +186,8 @@ const report = {
   blockedJobLinks: jobChecks.filter(check => check.state === 'blocked'),
   transientJobLinks: jobChecks.filter(check => check.state === 'transient'),
   warningJobLinks: jobChecks.filter(check => check.state === 'warning'),
-  eventLinks: eventChecks
+  eventLinks: eventChecks,
+  criticalSiteLinks: siteChecks
 };
 
 await writeFile(JOBS_PATH, JSON.stringify(finalJobs, null, 2) + '\n');
@@ -183,6 +197,8 @@ console.log(`QA complete: ${originalJobs.length} -> ${finalJobs.length} jobs.`);
 console.log(`Removed ${duplicates.length} duplicate(s), ${demoJobs.length} demo job(s), ${nonUsJobs.length} clearly non-US job(s), and ${deadIds.size} confirmed dead job link(s).`);
 const eventDead = eventChecks.filter(check => check.state === 'dead');
 if (eventDead.length) console.warn(`Confirmed dead event links: ${eventDead.map(item => item.url).join(' | ')}`);
+const siteProblems = siteChecks.filter(check => check.state !== 'ok');
+if (siteProblems.length) console.warn(`Critical site link warnings: ${siteProblems.map(item => `${item.status ?? item.state} ${item.url}`).join(' | ')}`);
 const blocked = jobChecks.filter(check => check.state === 'blocked').length;
 const transient = jobChecks.filter(check => check.state === 'transient').length;
 if (blocked || transient) console.warn(`Non-destructive link warnings: ${blocked} blocked, ${transient} transient.`);

@@ -67,8 +67,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Generate crawlable SEO pages
+        run: node scripts/generate-seo.mjs
       - name: Validate latest main before deployment
-        run: node scripts/validate.mjs
+        run: |
+          node scripts/validate.mjs
+          test -s sitemap.xml
+          test -s robots.txt
+          test -s jobs/index.html
+          test -s apprenticeships/index.html
+          test -s internships/index.html
+          test -s entry-level/index.html
+          test -s career-events/index.html
+          grep -R -m1 '"@type":"JobPosting"' jobs/*/index.html >/dev/null
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

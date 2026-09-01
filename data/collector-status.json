@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T08:53:07.839Z",
-  "jobs": 551,
+  "updatedAt": "2026-09-01T08:57:19.264Z",
+  "jobs": 517,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 6,
@@ -12,11 +12,11 @@
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 3,
-    "entry-level": 542
+    "entry-level": 508
   },
   "countsByExperience": {
-    "0-2-years": 228,
-    "no-experience": 262,
+    "0-2-years": 214,
+    "no-experience": 242,
     "2-5-years": 61
   },
   "errors": [],
@@ -71,13 +71,13 @@
     ],
     "candidateRows": 3685,
     "uniqueCandidates": 1235,
-    "qualifyingRoles": 294,
+    "qualifyingRoles": 260,
     "drops": {
       "nonUs": 358,
       "title": 579,
       "context": 0,
       "experience": 0,
-      "unknownExperience": 4,
+      "unknownExperience": 38,
       "invalidUrl": 0
     },
     "errors": []
@@ -158,7 +158,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T08:53:07.898Z",
+    "updatedAt": "2026-09-01T08:57:19.328Z",
     "changed": 16,
     "samples": [
       {

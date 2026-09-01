@@ -98,7 +98,7 @@ jobs:
           done
       - name: Reconcile and normalize authoritative snapshots
         run: |
-          node scripts/reconcile-major-jobs.mjs
+          node scripts/reconcile-major-jobs.mjs --preserve-existing
           node scripts/normalize-job-locations.mjs
           node scripts/normalize-display-copy.mjs
       - name: Generate crawlable SEO pages

@@ -79,13 +79,14 @@ const cityRegionFallbacks = [
 ];
 
 // Major operators sometimes expose only an internal campus/site code. Keep this
-// mapping deliberately limited to well-known U.S. metro prefixes so a generic
-// code never gets guessed into the wrong region.
+// mapping deliberately limited to verified U.S. metro prefixes so a generic
+// code never gets guessed into the wrong region. Aligned NEO-01 is its
+// Sandusky, Ohio campus and belongs in the Midwest filter.
 const siteCodeRegionFallbacks = [
   [/^(?:NVA|IAD)[-_]?\d+/i, 'mid-atlantic'],
   [/^(?:DFW|DAL)[-_]?\d+/i, 'texas'],
   [/^(?:PHX|LAS)[-_]?\d+/i, 'southwest'],
-  [/^(?:ORD|CMH)[-_]?\d+/i, 'midwest'],
+  [/^(?:ORD|CMH|NEO)[-_]?\d+/i, 'midwest'],
   [/^(?:ATL|MIA|CLT|RDU)[-_]?\d+/i, 'southeast'],
   [/^(?:NYC|EWR|BOS)[-_]?\d+/i, 'northeast'],
   [/^(?:SJC|SFO|LAX|SEA|PDX|DEN|SLC)[-_]?\d+/i, 'west']
@@ -153,8 +154,16 @@ function regionFromText(value = '') {
     if (pattern.test(text)) return region;
   }
 
-  const commaCodeMatch = text.match(/,\s*([A-Z]{2})(?:\b|$)/);
-  if (commaCodeMatch) return stateToRegion.get(commaCodeMatch[1].toLowerCase()) || '';
+  // Normal city/state labels as well as semicolon-separated ATS variants such
+  // as "Glendale; AZ". On multi-location Ashby records, the first listed
+  // location is the employer's primary location and is used for filtering.
+  const delimitedCodeMatch = text.match(/[,;]\s*([A-Z]{2})(?:\b|$)/);
+  if (delimitedCodeMatch) return stateToRegion.get(delimitedCodeMatch[1].toLowerCase()) || '';
+
+  // Oracle Recruiting Cloud sometimes emits state-only labels such as
+  // "TX, United States" rather than a city/state pair.
+  const stateOnlyMatch = text.match(/^([A-Z]{2})(?:\s*,|\s*$)/);
+  if (stateOnlyMatch) return stateToRegion.get(stateOnlyMatch[1].toLowerCase()) || '';
 
   // Some Workday boards return internal labels such as "US GA Atlanta Suwanee 1 DC1".
   const usCodeMatch = text.match(/\bUS\s+([A-Z]{2})\b/i);
@@ -191,9 +200,14 @@ function regionFromUrl(sourceUrl = '') {
   return '';
 }
 
+function entirelyRemoteLocation(location = '') {
+  const segments = String(location || '').split(';').map(part => part.trim()).filter(Boolean);
+  return segments.length > 0 && segments.every(part => /\bremote\b/i.test(part));
+}
+
 function inferRegion(job) {
   const location = String(job?.location || '').trim();
-  if (!location || /\bremote\b/i.test(location)) return '';
+  if (!location || entirelyRemoteLocation(location)) return '';
 
   const direct = regionFromText(location);
   if (direct) return direct;

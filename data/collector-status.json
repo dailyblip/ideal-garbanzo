@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T08:46:38.872Z",
-  "jobs": 714,
+  "updatedAt": "2026-09-01T08:53:07.839Z",
+  "jobs": 551,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 6,
@@ -11,13 +11,13 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
-    "trainee": 4,
-    "entry-level": 704
+    "trainee": 3,
+    "entry-level": 542
   },
   "countsByExperience": {
-    "0-2-years": 535,
-    "no-experience": 113,
-    "2-5-years": 66
+    "0-2-years": 228,
+    "no-experience": 262,
+    "2-5-years": 61
   },
   "errors": [],
   "majorSources": {
@@ -49,8 +49,8 @@
     "officialSource": "https://www.amazon.jobs/content/en/teams/amazon-web-services/data-centers",
     "searchSource": "https://www.amazon.jobs/en/search",
     "sourceHealthy": true,
-    "queriesAttempted": 5,
-    "queriesSucceeded": 5,
+    "queriesAttempted": 4,
+    "queriesSucceeded": 4,
     "queryStats": [
       {
         "query": "data center",
@@ -65,22 +65,19 @@
         "rows": 353
       },
       {
-        "query": "critical facilities",
-        "rows": 1083
-      },
-      {
         "query": "work based learning data center",
         "rows": 0
       }
     ],
-    "candidateRows": 4768,
-    "uniqueCandidates": 1416,
-    "qualifyingRoles": 458,
+    "candidateRows": 3685,
+    "uniqueCandidates": 1235,
+    "qualifyingRoles": 294,
     "drops": {
-      "nonUs": 412,
-      "title": 401,
-      "context": 143,
-      "experience": 2,
+      "nonUs": 358,
+      "title": 579,
+      "context": 0,
+      "experience": 0,
+      "unknownExperience": 4,
       "invalidUrl": 0
     },
     "errors": []
@@ -161,7 +158,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T08:46:38.933Z",
+    "updatedAt": "2026-09-01T08:53:07.898Z",
     "changed": 16,
     "samples": [
       {

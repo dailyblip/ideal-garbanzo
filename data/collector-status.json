@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T20:44:33.237Z",
-  "jobs": 276,
+  "updatedAt": "2026-09-01T20:49:51.022Z",
+  "jobs": 275,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -13,12 +13,12 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
-    "trainee": 5,
+    "trainee": 4,
     "entry-level": 265
   },
   "countsByExperience": {
     "0-2-years": 197,
-    "no-experience": 6,
+    "no-experience": 5,
     "2-5-years": 73
   },
   "errors": [],
@@ -60,7 +60,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1316
+        "rows": 1317
       },
       {
         "query": "engineering operations technician",
@@ -71,7 +71,7 @@
         "rows": 0
       }
     ],
-    "candidateRows": 3672,
+    "candidateRows": 3673,
     "uniqueCandidates": 1246,
     "qualifyingRoles": 18,
     "drops": {
@@ -136,12 +136,13 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 13,
-      "qualifyingRoles": 1,
+      "candidateLinks": 31,
+      "qualifyingRoles": 0,
       "drops": {
-        "context": 2,
-        "non-us": 8,
-        "title": 2
+        "context": 3,
+        "non-us": 9,
+        "title": 11,
+        "unknown-experience": 8
       },
       "dropSamples": [
         {
@@ -171,16 +172,16 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
         {
+          "title": "SkillBridge Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
+        },
+        {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
         },
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
-        },
-        {
-          "title": "SkillBridge, Data Center Customer Operations Technician - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-san-jose-california-united-states"
         }
       ],
       "errors": []
@@ -196,7 +197,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T20:44:33.314Z",
+    "updatedAt": "2026-09-01T20:49:51.085Z",
     "changed": 19,
     "samples": [
       {
@@ -240,46 +241,10 @@
         "after": "Ashburn, Virginia"
       }
     ],
-    "regionAssigned": 232,
-    "regionMissing": 44,
-    "coveragePct": 79.9,
+    "regionAssigned": 257,
+    "regionMissing": 18,
+    "coveragePct": 93.5,
     "missingSamples": [
-      {
-        "id": "workday-vantagedc-R23332",
-        "company": "Vantage Data Centers",
-        "location": "2 Locations",
-        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/DUB11/Critical-Facilities-Technician_R23332"
-      },
-      {
-        "id": "workday-vantagedc-R15747",
-        "company": "Vantage Data Centers",
-        "location": "London, England",
-        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/London-England/Critical-Facilities-Technician--EMEA_R15747"
-      },
-      {
-        "id": "workday-vantagedc-R24360",
-        "company": "Vantage Data Centers",
-        "location": "Frankfurt, Germany",
-        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Frankfurt-Germany/Critical-Facilities-Technician---Offenbach_R24360"
-      },
-      {
-        "id": "workday-vantagedc-R23286",
-        "company": "Vantage Data Centers",
-        "location": "Zurich, Switzerland",
-        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Zurich-Switzerland/Critical-Facilities-Technician_R23286"
-      },
-      {
-        "id": "workday-cyrusone-JLL260543",
-        "company": "CyrusOne",
-        "location": "NVA1",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/NVA1/Critical-Environments-Operator-I_JLL260543-1"
-      },
-      {
-        "id": "workday-aligneddc-JR101160",
-        "company": "Aligned Data Centers",
-        "location": "PHX-06",
-        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-06/Critical-Facilities-Technician_JR101160"
-      },
       {
         "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
         "company": "Serverfarm",
@@ -287,49 +252,85 @@
         "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
       },
       {
-        "id": "workday-aligneddc-JR101158",
+        "id": "workday-nttglobaldatacenters-JR100491",
+        "company": "NTT Global Data Centers",
+        "location": "Jakarta, Indonesia",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Jakarta-Indonesia/XMLNAME-276---Skilled-Critical-Facilities-Maintenance-Technician_JR100491"
+      },
+      {
+        "id": "workday-aligneddc-JR100970",
         "company": "Aligned Data Centers",
-        "location": "PHX-07",
-        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-07/Critical-Facilities-Maintenance-Technician_JR101158"
+        "location": "NEO-01",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/NEO-01/Critical-Facilities-Maintenance-Technician_JR100970"
       },
       {
-        "id": "gh-xai-5169675007",
-        "company": "xAI",
-        "location": "Dublin, Ireland",
-        "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5169675007"
-      },
-      {
-        "id": "workday-aligneddc-JR101148",
+        "id": "workday-aligneddc-JR100971",
         "company": "Aligned Data Centers",
-        "location": "ORD-03",
-        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-03/Critical-Facilities-Maintenance-Technician_JR101148"
+        "location": "NEO-01",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/NEO-01/Critical-Facilities-Technician_JR100971"
       },
       {
-        "id": "workday-vantagedc-R23998",
+        "id": "ashby-fluidstack-de506928c0c2c7",
+        "company": "Fluidstack",
+        "location": "Austin, TX; New York, NY; San Francisco, CA; U.S. Remote; Seattle, WA",
+        "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/11bacc03-2a49-4a69-a313-0ad9bb9dbb93"
+      },
+      {
+        "id": "workday-vantagedc-R23378",
         "company": "Vantage Data Centers",
-        "location": "Montreal, Quebec",
-        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Montreal-Quebec/Data-Center-Operator--NA_R23998"
+        "location": "Newport, Wales",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Newport-Wales/Critical-Facilities-Engineer--EMEA_R23378"
       },
       {
-        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
+        "id": "workday-qtsdatacenters-R2024-0682",
+        "company": "QTS Data Centers",
+        "location": "EUR NL Eemshaven 1 DC1",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/EUR-NL-Eemshaven-1-DC1/Data-Center-Facility-Engineer_R2024-0682"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2024-1345",
+        "company": "QTS Data Centers",
+        "location": "EUR NL Eemshaven 1 DC1",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/EUR-NL-Eemshaven-1-DC1/Data-Centre-Technician-I_R2024-1345-1"
+      },
+      {
+        "id": "workday-nttglobaldatacenters-JR101760",
+        "company": "NTT Global Data Centers",
+        "location": "Dagenham, UK",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Dagenham-UK/Critical-Facilities-Maintenance-Shift-Engineer-LON1_JR101760"
+      },
+      {
+        "id": "workday-nttglobaldatacenters-JR100949",
+        "company": "NTT Global Data Centers",
+        "location": "Chon Buri, Thailand",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chon-Buri-Thailand/XMLNAME-5235-Critical-Facilities-Maintenance-Technician_JR100949"
+      },
+      {
+        "id": "workday-nttglobaldatacenters-JR100493",
+        "company": "NTT Global Data Centers",
+        "location": "Jakarta, Indonesia",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Jakarta-Indonesia/XMLNAME-261---Skilled-Critical-Facilities-Maintenance-Technician_JR100493"
+      },
+      {
+        "id": "lever-serverfarm-efee0b18-cf53-4d89-a618-0f782b9a2b3f",
         "company": "Serverfarm",
-        "location": "Toronto, ON",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/f3e2904a-ad06-45f7-9cbc-a25d9c540656"
+        "location": "AMS1",
+        "sourceUrl": "https://jobs.lever.co/serverfarm/efee0b18-cf53-4d89-a618-0f782b9a2b3f"
       }
     ],
     "countsByRegion": {
-      "mid-atlantic": 27,
-      "texas": 62,
-      "southwest": 27,
-      "southeast": 56,
-      "west": 28,
-      "midwest": 28,
+      "mid-atlantic": 37,
+      "texas": 65,
+      "southwest": 32,
+      "southeast": 58,
+      "west": 30,
+      "midwest": 31,
       "northeast": 4
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T20:44:39.951Z",
-    "publishedJobs": 276,
+    "checkedAt": "2026-09-01T20:50:03.552Z",
+    "publishedJobs": 275,
     "removedJobs": 42,
     "activeCareerEvents": 2
   }

@@ -19,6 +19,8 @@
 
   const escapeHtml = value => String(value ?? '').replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));
   const safeUrl = value => /^https:\/\//i.test(String(value || '')) ? String(value) : '#';
+  const typeFilters = new Set(['internship','apprenticeship','trainee','entry-level']);
+  const experienceFilters = new Set(['no-experience','0-2-years','2-5-years']);
   const regionTerms = {
     'mid-atlantic':['virginia','maryland','washington, dc','district of columbia','ashburn','manassas'],
     'texas':['texas','dallas','austin','fort worth','san antonio','houston'],
@@ -50,8 +52,7 @@
   const postedLabel = hours => {
     if (hours >= 9999) return 'Recently listed';
     if (hours < 24) return `${hours}h ago`;
-    const days = Math.max(1, Math.round(hours / 24));
-    return `${days}d ago`;
+    return `${Math.max(1, Math.round(hours / 24))}d ago`;
   };
 
   function updateActiveFilters() {
@@ -66,24 +67,25 @@
 
   function filteredJobs() {
     const q = state.query.toLowerCase();
+    const selectedTypes = [...state.filters].filter(filter => typeFilters.has(filter));
+    const selectedExperience = [...state.filters].filter(filter => experienceFilters.has(filter));
     return state.jobs.filter(job => {
       const haystack = [job.title, job.company, job.location, job.experience, ...(job.tags || [])].join(' ').toLowerCase();
       if (q && !haystack.includes(q)) return false;
       if (!matchesRegion(job.location, state.region)) return false;
-      if (!state.filters.size) return true;
-      return [...state.filters].every(filter => job.type === filter || job.experience === filter);
+      if (selectedTypes.length && !selectedTypes.includes(job.type)) return false;
+      if (selectedExperience.length && !selectedExperience.includes(job.experience)) return false;
+      return true;
     });
   }
 
   function render() {
-    let jobs = filteredJobs();
-    jobs.sort((a,b) => state.sort === 'salary'
+    const jobs = filteredJobs().sort((a,b) => state.sort === 'salary'
       ? (b.salarySortMax ?? b.salaryMax ?? 0) - (a.salarySortMax ?? a.salaryMax ?? 0)
       : (a.postedHours || 9999) - (b.postedHours || 9999));
 
     if (resultCount) resultCount.textContent = jobs.length;
     updateActiveFilters();
-
     jobList.innerHTML = jobs.map(job => `
       <article class="job-card">
         <div class="job-card-top">

@@ -31,6 +31,8 @@ jobs:
         run: node scripts/collect-jobs.mjs
       - name: Merge priority major-employer jobs
         run: node scripts/collect-major-jobs.mjs
+      - name: Add early-career internships and training roles
+        run: node scripts/collect-early-career.mjs
       - name: Validate site and job data
         run: node scripts/validate.mjs
       - name: Commit refreshed jobs when changed

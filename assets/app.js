@@ -1,4 +1,5 @@
 (() => {
+  const HOME_LIMIT = 15;
   const state = { jobs: [], filters: new Set(), query: '', region: '', sort: 'newest' };
   const jobList = document.getElementById('jobList');
   const emptyState = document.getElementById('emptyState');
@@ -8,6 +9,7 @@
   const clear = document.getElementById('clearFilters');
   const toast = document.getElementById('toast');
   const resultCount = document.getElementById('resultCount');
+  const shownCount = document.getElementById('shownCount');
   const activeFilters = document.getElementById('activeFilters');
   const filtersPanel = document.getElementById('filtersPanel');
   const filterToggle = document.getElementById('filterToggle');
@@ -19,6 +21,8 @@
 
   const escapeHtml = value => String(value ?? '').replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));
   const safeUrl = value => /^https:\/\//i.test(String(value || '')) ? String(value) : '#';
+  const slugify = value => String(value ?? '').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70) || 'job';
+  const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0,32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g,'').slice(-10)}`;
   const typeFilters = new Set(['internship','apprenticeship','trainee','entry-level']);
   const experienceFilters = new Set(['no-experience','0-2-years','2-5-years']);
   const regionTerms = {
@@ -88,21 +92,24 @@
     const jobs = filteredJobs().sort((a,b) => state.sort === 'salary'
       ? (b.salarySortMax ?? b.salaryMax ?? 0) - (a.salarySortMax ?? a.salaryMax ?? 0)
       : earlyCareerRank(a) - earlyCareerRank(b) || (a.postedHours || 9999) - (b.postedHours || 9999));
+    const activeDiscovery = Boolean(state.query || state.region || state.filters.size || state.sort === 'salary');
+    const visibleJobs = activeDiscovery ? jobs : jobs.slice(0, HOME_LIMIT);
 
     if (resultCount) resultCount.textContent = jobs.length;
+    if (shownCount) shownCount.textContent = visibleJobs.length;
     updateActiveFilters();
-    jobList.innerHTML = jobs.map(job => `
+    jobList.innerHTML = visibleJobs.map(job => `
       <article class="job-card">
         <div class="job-card-top">
           <div>
-            <h3>${escapeHtml(job.title)} <span class="badge">${escapeHtml(typeLabel(job.type))}</span></h3>
+            <h3><a href="jobs/${escapeHtml(jobSlug(job))}/">${escapeHtml(job.title)}</a> <span class="badge">${escapeHtml(typeLabel(job.type))}</span></h3>
             <div class="job-meta">${escapeHtml(job.company)} <span>•</span> ${escapeHtml(job.location)}</div>
             <div class="job-tags"><span>${escapeHtml(experienceLabel(job.experience))}</span>${(job.tags || []).filter(tag => tag !== experienceLabel(job.experience)).map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
             <div class="job-pay">${escapeHtml(job.pay || 'Pay not listed')}</div>
           </div>
-          <div class="posted">${escapeHtml(postedLabel(job.postedHours))}<br><small>${job.demo ? 'DEMO' : 'Employer site'}</small></div>
+          <div class="posted">${escapeHtml(postedLabel(job.postedHours))}<br><small>Employer site</small></div>
         </div>
-        <div class="job-card-actions">${job.demo ? '' : `<a class="btn btn-outline apply-link" href="${escapeHtml(safeUrl(job.sourceUrl))}" target="_blank" rel="noopener noreferrer">View & Apply →</a>`}</div>
+        <div class="job-card-actions"><a class="apply-link" href="jobs/${escapeHtml(jobSlug(job))}/">Job details →</a><a class="apply-link" href="${escapeHtml(safeUrl(job.sourceUrl))}" target="_blank" rel="noopener noreferrer">View & Apply →</a></div>
       </article>`).join('');
     emptyState.hidden = jobs.length > 0;
   }
@@ -157,9 +164,10 @@
   });
 
   clear?.addEventListener('click', () => {
-    state.filters.clear(); state.query = ''; state.region = '';
+    state.filters.clear(); state.query = ''; state.region = ''; state.sort = 'newest';
     if (search) search.value = '';
     if (regionSearch) regionSearch.value = '';
+    if (sort) sort.value = 'newest';
     document.querySelectorAll('.filters input').forEach(input => input.checked = false);
     render();
   });

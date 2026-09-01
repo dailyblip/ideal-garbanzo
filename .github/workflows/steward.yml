@@ -146,7 +146,10 @@ jobs:
             marker="$(curl -fsSL --max-time 15 "${SITE_URL}/deployment-version.json?run=${RUN_ID}-${attempt}" 2>/dev/null || true)"
             live_sha="$(printf '%s' "$marker" | jq -r '.sha // empty' 2>/dev/null || true)"
             homepage="$(curl -fsSL --max-time 15 "${SITE_URL}/?run=${RUN_ID}-${attempt}" 2>/dev/null || true)"
-            if printf '%s' "$homepage" | grep -Fq 'Build your future in data centers.'; then
+            homepage_text="$(printf '%s' "$homepage" | sed -E 's/<[^>]+>/ /g; s/&nbsp;/ /g' | tr '\n' ' ' | sed -E 's/[[:space:]]+/ /g')"
+            if printf '%s' "$homepage_text" | grep -Fq 'Build your future in data centers.' \
+              && printf '%s' "$homepage_text" | grep -Fq 'SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY' \
+              && printf '%s' "$homepage_text" | grep -Fq 'Real openings for interns, apprentices, first-time applicants and workers ready for their next step.'; then
               homepage_ok="true"
             else
               homepage_ok="false"

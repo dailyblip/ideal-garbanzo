@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: data-center-careers
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   refresh:

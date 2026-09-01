@@ -10,6 +10,7 @@ const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|staff engineer|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;
 function canonicalTitle(job) {
   let title = String(job.title || '').trim();
   const location = normalizeIdentity(job.location);
@@ -35,6 +36,7 @@ for (const [i, job] of jobs.entries()) {
   if (!['entry-level','internship','apprenticeship','trainee'].includes(job.type)) throw new Error(`Unsupported job type: ${job.type}`);
   if (!['no-experience','0-2-years','2-5-years'].includes(job.experience)) throw new Error(`Unsupported experience band: ${job.experience}`);
   if (job.demo) throw new Error(`Demo job cannot be published: ${job.id}`);
+  if (seniorTitlePattern.test(String(job.title || ''))) throw new Error(`Senior-title drift in early-career feed: ${job.title}`);
   if (!/^https:\/\//.test(job.sourceUrl || '')) throw new Error(`Real job ${job.id} missing valid sourceUrl`);
   if (urls.has(job.sourceUrl)) throw new Error(`Duplicate job URL: ${job.sourceUrl}`);
   urls.add(job.sourceUrl);

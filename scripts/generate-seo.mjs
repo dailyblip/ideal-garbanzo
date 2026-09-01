@@ -21,6 +21,33 @@ const baseUrl = await getBaseUrl();
 const jobs = JSON.parse(await readFile('data/jobs.json','utf8'));
 const generatedAt = new Date();
 const lastmod = generatedAt.toISOString().slice(0,10);
+const rawCareerEvents = JSON.parse(await readFile('data/career-events.json','utf8'));
+
+function validIsoDate(value) {
+  const text = clean(value);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return false;
+  const parsed = new Date(`${text}T00:00:00Z`);
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0,10) === text;
+}
+
+if (!Array.isArray(rawCareerEvents)) throw new Error('data/career-events.json must contain an array.');
+const eventIds = new Set();
+for (const event of rawCareerEvents) {
+  if (!event || typeof event !== 'object') throw new Error('Career event records must be objects.');
+  const required = ['id','date','name','location','organizer','url','verifiedAt','source'];
+  for (const key of required) {
+    if (!clean(event[key])) throw new Error(`Career event is missing ${key}.`);
+  }
+  if (eventIds.has(event.id)) throw new Error(`Duplicate career event id: ${event.id}`);
+  eventIds.add(event.id);
+  if (!validIsoDate(event.date)) throw new Error(`Career event has invalid date: ${event.id}`);
+  if (!validIsoDate(event.verifiedAt)) throw new Error(`Career event has invalid verifiedAt date: ${event.id}`);
+  if (!/^https:\/\//i.test(clean(event.url))) throw new Error(`Career event must use an HTTPS organizer URL: ${event.id}`);
+  if (event.source !== 'Organizer page') throw new Error(`Career event must be verified from an organizer page: ${event.id}`);
+}
+const events = rawCareerEvents
+  .filter(event => event.date >= lastmod)
+  .sort((a,b) => String(a.date).localeCompare(String(b.date)));
 
 const typeLabel = type => ({internship:'Internship',apprenticeship:'Apprenticeship',trainee:'Trainee program','entry-level':'Entry-level job'})[type] || 'Data center job';
 const experienceLabel = exp => ({'no-experience':'No experience required','0-2-years':'0–2 years','2-5-years':'2–5 years'})[exp] || exp;
@@ -236,10 +263,6 @@ urls.push(...await generateListing({
 }));
 urls.push(...await generateJobPages());
 
-const events = [
-  {date:'2026-09-03',name:'Data Centers & Digital Infrastructure',location:'Online',organizer:'Tech in Motion',url:'https://www.meetup.com/techinmotionatlanta/events/316120635/'},
-  {date:'2026-11-13',name:'Data Center Career Day',location:'Avondale, AZ',organizer:'Arizona Data Center Alliance',url:'https://azdatacenter.org/career-days.html'}
-].filter(event => event.date >= lastmod);
 const eventsCanonical = `${baseUrl}/career-events/`;
 const eventSchema = {'@context':'https://schema.org','@type':'ItemList','itemListElement':events.map((event,index)=>({'@type':'ListItem','position':index+1,'item':{'@type':'Event','name':event.name,'startDate':event.date,'eventAttendanceMode':event.location==='Online'?'https://schema.org/OnlineEventAttendanceMode':'https://schema.org/OfflineEventAttendanceMode','location':event.location==='Online'?{'@type':'VirtualLocation','url':event.url}:{'@type':'Place','name':event.location},'organizer':{'@type':'Organization','name':event.organizer},'url':event.url}}))};
 const eventsHtml = `${head({title:'Data Center Career Events | Hiring, Training & Industry Events',description:'Upcoming verified career-focused data center events, hiring events and industry programs for people entering the field.',canonical:eventsCanonical,schema:json(eventSchema)})}<body>${siteHeader()}<main class="seo-shell"><nav class="breadcrumbs"><a href="${baseUrl}/">Home</a> / <span>Career events</span></nav><header class="seo-page-head"><span class="seo-kicker">VERIFIED CAREER EVENTS</span><h1>Data center career events</h1><p>Upcoming career-focused events verified from organizer pages.</p></header><section class="seo-list">${events.map(e=>`<article class="seo-event"><time datetime="${e.date}">${e.date}</time><div><h2>${esc(e.name)}</h2><p>${esc(e.location)} · ${esc(e.organizer)}</p></div><a href="${esc(e.url)}" target="_blank" rel="noopener">Event details →</a></article>`).join('') || '<p>No verified upcoming events are currently listed. Check back soon.</p>'}</section></main>${footer()}</body></html>`;

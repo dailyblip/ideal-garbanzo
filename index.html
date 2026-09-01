@@ -2,54 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="description" content="Early and mid-career data center jobs, internships, apprenticeships and training-friendly opportunities.">
   <title>Launch Your Data Center Career</title>
   <link rel="stylesheet" href="assets/styles.css">
-  <style>
-    .hero{position:relative;overflow:hidden;min-height:650px;padding:0;border-bottom:1px solid var(--line);background:#fff}
-    .hero-inner{position:relative;z-index:2;max-width:1180px;min-height:650px;margin:0 auto;padding:72px 4vw 54px}
-    .hero-inner:after{content:"";position:absolute;z-index:-2;top:0;bottom:0;left:46%;right:-18vw;background-image:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.96) 6%,rgba(255,255,255,.74) 18%,rgba(255,255,255,.18) 37%,rgba(255,255,255,0) 53%),url('hero.jpg');background-size:cover;background-position:68% 50%;background-repeat:no-repeat}
-    .hero-inner:before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:0;width:58%;background:linear-gradient(90deg,#fff 0%,#fff 73%,rgba(255,255,255,.96) 87%,rgba(255,255,255,0) 100%)}
-    .eyebrow{margin:0 0 18px}
-    .hero h1{max-width:730px;width:auto;margin:0;white-space:normal;font-size:clamp(50px,5.4vw,78px);line-height:.99;letter-spacing:-.05em}
-    .hero-sub{max-width:700px;width:auto;margin:24px 0 30px;white-space:normal;font-size:18px;line-height:1.5}
-    .hero-lower{display:block}
-    .hero-tools{width:min(780px,63%);display:block}
-    .hero-search{width:100%;max-width:none;padding:9px;border-radius:11px;background:rgba(255,255,255,.97);box-shadow:0 12px 30px rgba(23,50,77,.12);backdrop-filter:blur(4px)}
-    .hero-search label{padding:7px 14px}
-    .hero-search input,.hero-search select{font-size:16px}
-    .hero-search .btn{min-width:154px;font-size:16px}
-    .quick-links{margin-top:16px}
-    .hero-photo{display:none}
-    .mission-strip{position:relative;z-index:3;background:#fff}
-    @media(max-width:1040px){.hero{min-height:auto}.hero-inner{min-height:610px;padding:56px 4vw 46px}.hero-inner:after{left:41%;right:-34vw;background-position:66% 50%}.hero-inner:before{width:67%}.hero h1{max-width:650px}.hero-sub{max-width:620px}.hero-tools{width:69%}}
-    @media(max-width:760px){.hero-inner{min-height:auto;padding:38px 18px 0}.hero-inner:before{display:none}.hero-inner:after{position:relative;display:block;left:auto;right:auto;top:auto;bottom:auto;height:245px;margin:28px -18px 0;background-image:linear-gradient(180deg,#fff 0%,rgba(255,255,255,.1) 20%,rgba(255,255,255,0) 40%),url('hero.jpg');background-position:67% 50%;background-size:cover}.hero h1{max-width:none;font-size:44px}.hero-sub{max-width:none;margin:18px 0 22px;font-size:16px}.hero-tools{width:100%}.hero-search{grid-template-columns:1fr;padding:7px}.hero-search .btn{min-width:0}.quick-links{margin-bottom:0}}
-  </style>
-  <link rel="stylesheet" href="assets/hero-overrides.css">
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="#top" aria-label="Launch Your Data Center Career home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 12-14 24h11l-6 18 18-28H33l2-14Z" fill="currentColor"/><path d="M45 18c6 3 10 8 12 14" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="brand-copy"><small>LAUNCH YOUR</small><strong>DATA CENTER CAREER</strong></span></a>
-  <nav class="nav" aria-label="Primary"><a href="#jobs">Jobs</a><a href="#events">Career Events</a><a href="#alerts">Job Alerts</a><a href="#employers">Employers</a></nav><a class="header-cta" href="#jobs">Browse jobs</a><button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <div class="header-inner">
+    <a class="brand" href="#top" aria-label="Launch Your Data Center Career home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 12-14 24h11l-6 18 18-28H33l2-14Z" fill="currentColor"/><path d="M44 17c7 3 11 8 13 15" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </span>
+      <span class="brand-copy"><small>LAUNCH YOUR</small><strong>DATA CENTER CAREER</strong></span>
+    </a>
+    <nav class="nav" aria-label="Primary"><a href="#jobs">Jobs</a><a href="#events">Career Events</a><a href="#alerts">Job Alerts</a><a href="#employers">Employers</a></nav>
+    <a class="header-cta" href="#jobs">Browse jobs</a>
+    <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
 </header>
+
 <main id="top">
   <section class="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY</p>
-      <h1>Build your future in <em>data centers.</em></h1>
-      <p class="hero-sub">Real openings for interns, apprentices, first-time applicants and workers ready for their next step.</p>
-      <div class="hero-lower">
-        <div class="hero-tools">
-          <form class="hero-search" id="heroSearchForm"><label><span>Job or keyword</span><input id="jobSearch" type="search" placeholder="Electrician, technician, internship..." autocomplete="off"></label><label><span>Region</span><select id="regionSearch"><option value="">Anywhere</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select></label><button class="btn btn-primary" type="submit">Search jobs</button></form>
-          <div class="quick-links"><span>Popular:</span><button type="button" data-quick-filter="no-experience">No experience</button><button type="button" data-quick-filter="internship">Internships</button><button type="button" data-quick-filter="apprenticeship">Apprenticeships</button><button type="button" data-quick-filter="0-2-years">0–2 years</button></div>
-        </div>
-        <figure class="hero-photo"><img src="hero.jpg" alt="Data center infrastructure worker watching a rocket launch in the distance"></figure>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY</p>
+        <h1>Build your future in <em>data centers.</em></h1>
+        <p class="hero-sub">Real openings for interns, apprentices, first-time applicants and workers ready for their next step.</p>
+        <form class="hero-search" id="heroSearchForm">
+          <label><span>Job or keyword</span><input id="jobSearch" type="search" placeholder="Electrician, technician, internship..." autocomplete="off"></label>
+          <label><span>Region</span><select id="regionSearch"><option value="">Anywhere</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select></label>
+          <button class="btn btn-primary" type="submit">Search jobs</button>
+        </form>
+        <div class="quick-links"><span>Popular:</span><button type="button" data-quick-filter="no-experience">No experience</button><button type="button" data-quick-filter="internship">Internships</button><button type="button" data-quick-filter="apprenticeship">Apprenticeships</button><button type="button" data-quick-filter="0-2-years">0–2 years</button></div>
       </div>
+      <figure class="hero-media"><img src="hero.jpg" alt="Data center infrastructure worker watching a rocket launch in the distance"></figure>
     </div>
   </section>
-  <section class="mission-strip"><div><strong>Employer-direct listings</strong><span>Apply at the source.</span></div><div><strong>Early-career focused</strong><span>Less senior-level noise.</span></div><div><strong>Automatically refreshed</strong><span>Expired listings removed.</span></div></section>
-  <section class="utility-grid"><article class="utility-card events" id="events"><span class="utility-kicker">VERIFIED CAREER EVENTS</span><h2>Meet the industry.</h2><p>Upcoming career-focused events verified from organizer pages.</p><a class="event-row" href="https://imasons.org/activity/2026-09-01_armedforcesdatacloudusa_af/" target="_blank" rel="noopener noreferrer"><b>SEP 1</b><div><strong>Careers in Data Centers</strong><span>Austin, TX · iMasons Armed Forces</span></div></a><a class="event-row" href="https://www.meetup.com/techinmotionatlanta/events/316120635/" target="_blank" rel="noopener noreferrer"><b>SEP 3</b><div><strong>Data Centers & Digital Infrastructure</strong><span>Online · Tech in Motion</span></div></a><a class="event-row" href="https://azdatacenter.org/career-days.html" target="_blank" rel="noopener noreferrer"><b>NOV 13</b><div><strong>Data Center Career Day</strong><span>Avondale, AZ · Arizona Data Center Alliance</span></div></a></article><article class="utility-card alerts" id="alerts"><span class="utility-kicker">JOB ALERTS</span><h2>Get new openings by email.</h2><p>Choose your region and get jobs, internships, apprenticeships and nearby events.</p><form id="alertForm"><input type="email" id="alertEmail" placeholder="Email address" required aria-label="Email address"><select id="alertRegion" aria-label="Alert region"><option value="">All regions</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select><button class="btn btn-secondary" type="submit">Create alert</button></form></article></section>
-  <section class="featured" aria-label="Featured opportunity"><div><span class="featured-label">FEATURED OPPORTUNITY · DEMO</span><h2>Data Center Electrical Apprentice</h2><p>Summit Data Centers · Phoenix, AZ</p><div class="tags"><span>No experience needed</span><span>Paid apprenticeship</span><span>Training provided</span></div></div><button type="button" class="btn btn-primary demo-action">View featured job</button></section>
-  <section class="jobs-shell" id="jobs"><aside class="filters" id="filtersPanel"><div class="filter-heading"><div><span>REFINE RESULTS</span><h3>Filters</h3></div><button type="button" id="clearFilters">Clear all</button></div><fieldset><legend>Opportunity type</legend><label><input type="checkbox" value="internship"> Internships</label><label><input type="checkbox" value="apprenticeship"> Apprenticeships</label><label><input type="checkbox" value="trainee"> Trainee programs</label><label><input type="checkbox" value="entry-level"> Jobs</label></fieldset><fieldset><legend>Experience</legend><label><input type="checkbox" value="no-experience"> No experience</label><label><input type="checkbox" value="0-2-years"> 0–2 years</label><label><input type="checkbox" value="2-5-years"> 2–5 years</label></fieldset><button class="mobile-filter-close" id="mobileFilterClose" type="button">Show results</button></aside><section class="jobs-content"><div class="jobs-toolbar"><div><span class="section-kicker">CURRENT OPENINGS</span><h2>Data center opportunities</h2><p><strong id="resultCount">0</strong> matching jobs · refreshed from employer career sites</p></div><div class="toolbar-actions"><button class="filter-toggle" id="filterToggle" type="button">Filters</button><label>Sort <select id="sortJobs"><option value="newest">Newest</option><option value="salary">Highest pay</option></select></label></div></div><div id="activeFilters" class="active-filters" hidden></div><div id="jobList" class="job-list" aria-live="polite"></div><p id="emptyState" class="empty-state" hidden>No opportunities match those filters. Try clearing one or widening your region.</p></section><aside class="right-rail"><section class="rail-card" id="employers"><span class="utility-kicker">FOR EMPLOYERS</span><h3>Reach people entering the industry.</h3><p>Post, boost or feature internships, apprenticeships and early-career openings.</p><button type="button" class="link-button demo-action">Employer options →</button></section><section class="rail-card"><span class="utility-kicker">NEW TO DATA CENTERS?</span><h3>Start with beginner-friendly roles.</h3><p>Look for no-experience, trainee, apprentice and 0–2 year openings.</p><button type="button" class="link-button" data-quick-filter="no-experience">Show beginner jobs →</button></section></aside></section>
-</main><footer><span>Launch Your Data Center Career</span><span>Jobs · Internships · Apprenticeships · Career Events</span></footer><div class="toast" id="toast" role="status" aria-live="polite"></div><script src="assets/app.js" defer></script></body></html>
+
+  <section class="mission-strip" aria-label="Why use this site">
+    <div><strong>Employer-direct listings</strong><span>Apply at the source.</span></div>
+    <div><strong>Early-career focused</strong><span>Less senior-level noise.</span></div>
+    <div><strong>Automatically refreshed</strong><span>Expired listings removed.</span></div>
+  </section>
+
+  <section class="utility-grid">
+    <article class="utility-card events" id="events">
+      <span class="utility-kicker">VERIFIED CAREER EVENTS</span><h2>Meet the industry.</h2><p>Upcoming career-focused events verified from organizer pages.</p>
+      <a class="event-row" href="https://imasons.org/activity/2026-09-01_armedforcesdatacloudusa_af/" target="_blank" rel="noopener noreferrer"><b>SEP 1</b><div><strong>Careers in Data Centers</strong><span>Austin, TX · iMasons Armed Forces</span></div></a>
+      <a class="event-row" href="https://www.meetup.com/techinmotionatlanta/events/316120635/" target="_blank" rel="noopener noreferrer"><b>SEP 3</b><div><strong>Data Centers & Digital Infrastructure</strong><span>Online · Tech in Motion</span></div></a>
+      <a class="event-row" href="https://azdatacenter.org/career-days.html" target="_blank" rel="noopener noreferrer"><b>NOV 13</b><div><strong>Data Center Career Day</strong><span>Avondale, AZ · Arizona Data Center Alliance</span></div></a>
+    </article>
+    <article class="utility-card alerts" id="alerts">
+      <span class="utility-kicker">JOB ALERTS</span><h2>Get new openings by email.</h2><p>Choose your region and get jobs, internships, apprenticeships and nearby events.</p>
+      <form id="alertForm"><input type="email" id="alertEmail" placeholder="Email address" required aria-label="Email address"><select id="alertRegion" aria-label="Alert region"><option value="">All regions</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select><button class="btn btn-secondary" type="submit">Create alert</button></form>
+    </article>
+  </section>
+
+  <section class="featured" aria-label="Featured opportunity">
+    <div><span class="featured-label">FEATURED OPPORTUNITY · DEMO</span><h2>Data Center Electrical Apprentice</h2><p>Summit Data Centers · Phoenix, AZ</p><div class="tags"><span>No experience needed</span><span>Paid apprenticeship</span><span>Training provided</span></div></div>
+    <button type="button" class="btn btn-primary demo-action">View featured job</button>
+  </section>
+
+  <section class="jobs-shell" id="jobs">
+    <aside class="filters" id="filtersPanel">
+      <div class="filter-heading"><div><span>REFINE RESULTS</span><h3>Filters</h3></div><button type="button" id="clearFilters">Clear all</button></div>
+      <fieldset><legend>Opportunity type</legend><label><input type="checkbox" value="internship"> Internships</label><label><input type="checkbox" value="apprenticeship"> Apprenticeships</label><label><input type="checkbox" value="trainee"> Trainee programs</label><label><input type="checkbox" value="entry-level"> Jobs</label></fieldset>
+      <fieldset><legend>Experience</legend><label><input type="checkbox" value="no-experience"> No experience</label><label><input type="checkbox" value="0-2-years"> 0–2 years</label><label><input type="checkbox" value="2-5-years"> 2–5 years</label></fieldset>
+      <button class="mobile-filter-close" id="mobileFilterClose" type="button">Show results</button>
+    </aside>
+    <section class="jobs-content">
+      <div class="jobs-toolbar"><div><span class="section-kicker">CURRENT OPENINGS</span><h2>Data center opportunities</h2><p><strong id="resultCount">0</strong> matching jobs · refreshed from employer career sites</p></div><div class="toolbar-actions"><button class="filter-toggle" id="filterToggle" type="button">Filters</button><label>Sort <select id="sortJobs"><option value="newest">Newest</option><option value="salary">Highest pay</option></select></label></div></div>
+      <div id="activeFilters" class="active-filters" hidden></div><div id="jobList" class="job-list" aria-live="polite"></div><p id="emptyState" class="empty-state" hidden>No opportunities match those filters. Try clearing one or widening your region.</p>
+    </section>
+    <aside class="right-rail">
+      <section class="rail-card" id="employers"><span class="utility-kicker">FOR EMPLOYERS</span><h3>Reach people entering the industry.</h3><p>Post, boost or feature internships, apprenticeships and early-career openings.</p><button type="button" class="link-button demo-action">Employer options →</button></section>
+      <section class="rail-card"><span class="utility-kicker">NEW TO DATA CENTERS?</span><h3>Start with beginner-friendly roles.</h3><p>Look for no-experience, trainee, apprentice and 0–2 year openings.</p><button type="button" class="link-button" data-quick-filter="no-experience">Show beginner jobs →</button></section>
+    </aside>
+  </section>
+</main>
+<footer><span>Launch Your Data Center Career</span><span>Jobs · Internships · Apprenticeships · Career Events</span></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

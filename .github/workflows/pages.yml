@@ -90,6 +90,7 @@ jobs:
           base64 -d assets/guides/data-center-career-guide-mentor.webp.b64 > assets/guides/data-center-career-guide-mentor.webp
           base64 -d assets/guides/data-center-internship-training.webp.b64 > assets/guides/data-center-internship-training.webp
           node scripts/generate-career-guide.mjs
+          node scripts/generate-internship-guide.mjs
       - name: Validate latest main before deployment
         run: |
           node scripts/validate.mjs
@@ -102,10 +103,14 @@ jobs:
           test -s entry-level/index.html
           test -s career-events/index.html
           test -s how-to-get-a-data-center-job/index.html
+          test -s how-to-get-a-data-center-internship/index.html
           test -s assets/guides/data-center-career-guide-mentor.webp
           test -s assets/guides/data-center-internship-training.webp
           grep -Fq 'How to get a job at a data center' how-to-get-a-data-center-job/index.html
+          grep -Fq 'How to get a data center internship' how-to-get-a-data-center-internship/index.html
           grep -Fq '/how-to-get-a-data-center-job/' sitemap.xml
+          grep -Fq '/how-to-get-a-data-center-internship/' sitemap.xml
+          grep -Fq '/how-to-get-a-data-center-internship/' internships/index.html
           grep -R -m1 '"@type":"JobPosting"' jobs/*/index.html >/dev/null
       - name: Stamp deployment revision
         run: |

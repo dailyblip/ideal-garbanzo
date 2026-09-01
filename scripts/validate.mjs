@@ -17,12 +17,8 @@ for (const [i, job] of jobs.entries()) {
   }
   if (ids.has(job.id)) throw new Error(`Duplicate job id: ${job.id}`);
   ids.add(job.id);
-  if (!['entry-level','internship','apprenticeship','trainee'].includes(job.type)) {
-    throw new Error(`Unsupported job type: ${job.type}`);
-  }
-  if (!['no-experience','0-2-years','2-5-years'].includes(job.experience)) {
-    throw new Error(`Unsupported experience band: ${job.experience}`);
-  }
+  if (!['entry-level','internship','apprenticeship','trainee'].includes(job.type)) throw new Error(`Unsupported job type: ${job.type}`);
+  if (!['no-experience','0-2-years','2-5-years'].includes(job.experience)) throw new Error(`Unsupported experience band: ${job.experience}`);
   if (!job.demo) {
     if (!/^https:\/\//.test(job.sourceUrl || '')) throw new Error(`Real job ${job.id} missing valid sourceUrl`);
     if (urls.has(job.sourceUrl)) throw new Error(`Duplicate job URL: ${job.sourceUrl}`);
@@ -35,5 +31,12 @@ const html = await readFile('index.html','utf8');
 for (const phrase of ['DATA CENTER CAREER','Search jobs','FEATURED OPPORTUNITY','CURRENT OPENINGS','CAREER EVENTS','JOB ALERTS','FOR EMPLOYERS']) {
   if (!html.includes(phrase)) throw new Error(`Required product marker missing: ${phrase}`);
 }
+for (const phrase of ['SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY','Build your future in <em>data centers.</em>','Real openings for interns, apprentices, first-time applicants and workers ready for their next step.']) {
+  if (!html.includes(phrase)) throw new Error(`Approved hero copy changed: ${phrase}`);
+}
+if (/<style[\s>]/i.test(html)) throw new Error('Inline <style> blocks are prohibited; keep the UI in assets/styles.css');
+if (/hero-overrides\.css/i.test(html)) throw new Error('Obsolete hero-overrides.css must not be linked');
+const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)];
+if (stylesheetLinks.length !== 1 || !stylesheetLinks[0][0].includes('assets/styles.css')) throw new Error('Homepage must use exactly one stylesheet: assets/styles.css');
 
 console.log(`Validation passed: ${jobs.length} jobs and ${requiredFiles.length} required files.`);

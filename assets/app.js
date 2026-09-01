@@ -37,6 +37,11 @@
 
   const typeLabel = type => ({'entry-level':'JOB','internship':'INTERNSHIP','apprenticeship':'APPRENTICE','trainee':'TRAINEE'})[type] || String(type || '').toUpperCase();
   const experienceLabel = value => ({'no-experience':'NO EXPERIENCE','0-2-years':'0–2 YEARS','2-5-years':'2–5 YEARS'})[value] || value;
+  const earlyCareerRank = job => {
+    const typeRank = {apprenticeship:0, internship:1, trainee:2, 'entry-level':3}[job.type] ?? 4;
+    const experienceRank = {'no-experience':0, '0-2-years':1, '2-5-years':4}[job.experience] ?? 2;
+    return typeRank * 10 + experienceRank;
+  };
   const showToast = message => {
     if (!toast) return;
     toast.textContent = message;
@@ -82,7 +87,7 @@
   function render() {
     const jobs = filteredJobs().sort((a,b) => state.sort === 'salary'
       ? (b.salarySortMax ?? b.salaryMax ?? 0) - (a.salarySortMax ?? a.salaryMax ?? 0)
-      : (a.postedHours || 9999) - (b.postedHours || 9999));
+      : earlyCareerRank(a) - earlyCareerRank(b) || (a.postedHours || 9999) - (b.postedHours || 9999));
 
     if (resultCount) resultCount.textContent = jobs.length;
     updateActiveFilters();

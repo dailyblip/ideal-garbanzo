@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 const JOBS_PATH = 'data/jobs.json';
 const EVENTS_PATH = 'data/career-events.json';
 const REPORT_PATH = 'data/qa-report.json';
+const STATUS_PATH = 'data/collector-status.json';
 const INDEX_PATH = 'index.html';
 const CONCURRENCY = 10;
 const TIMEOUT_MS = 15000;
@@ -154,6 +155,7 @@ async function mapLimit(items, limit, fn) {
 
 const originalJobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 const originalEvents = JSON.parse(await readFile(EVENTS_PATH, 'utf8'));
+const collectorStatus = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
 const html = await readFile(INDEX_PATH, 'utf8');
 if (!Array.isArray(originalJobs)) throw new Error('jobs.json must be an array');
 if (!Array.isArray(originalEvents)) throw new Error('career-events.json must be an array');
@@ -192,8 +194,31 @@ const homepageExternalUrls = [...new Set(externalLinks)];
 const homepageExternalChecks = await mapLimit(homepageExternalUrls, Math.min(5, CONCURRENCY), async url => ({ url, ...(await checkUrl(url)) }));
 const siteChecks = await mapLimit(CRITICAL_SITE_URLS, Math.min(5, CONCURRENCY), async url => ({ url, ...(await checkUrl(url)) }));
 
+const checkedAt = new Date().toISOString();
+const countBy = (items, key) => items.reduce((counts, item) => {
+  const value = clean(item?.[key]);
+  if (value) counts[value] = (counts[value] || 0) + 1;
+  return counts;
+}, {});
+
+collectorStatus.jobs = finalJobs.length;
+collectorStatus.countsByType = countBy(finalJobs, 'type');
+collectorStatus.countsByExperience = countBy(finalJobs, 'experience');
+collectorStatus.postQa = {
+  checkedAt,
+  publishedJobs: finalJobs.length,
+  removedJobs: originalJobs.length - finalJobs.length,
+  activeCareerEvents: finalCareerEvents.length
+};
+if (collectorStatus.locationNormalization && typeof collectorStatus.locationNormalization === 'object') {
+  const jobsWithRegion = finalJobs.filter(job => clean(job.region));
+  collectorStatus.locationNormalization.regionAssigned = jobsWithRegion.length;
+  collectorStatus.locationNormalization.regionMissing = finalJobs.length - jobsWithRegion.length;
+  collectorStatus.locationNormalization.countsByRegion = countBy(jobsWithRegion, 'region');
+}
+
 const report = {
-  checkedAt: new Date().toISOString(),
+  checkedAt,
   jobsBefore: originalJobs.length,
   jobsAfter: finalJobs.length,
   demoJobsRemoved: demoJobs.map(job => ({ id: job.id, title: job.title })),
@@ -216,6 +241,7 @@ const report = {
 
 await writeFile(JOBS_PATH, JSON.stringify(finalJobs, null, 2) + '\n');
 await writeFile(EVENTS_PATH, JSON.stringify(finalCareerEvents, null, 2) + '\n');
+await writeFile(STATUS_PATH, JSON.stringify(collectorStatus, null, 2) + '\n');
 await writeFile(REPORT_PATH, JSON.stringify(report, null, 2) + '\n');
 
 console.log(`QA complete: ${originalJobs.length} -> ${finalJobs.length} jobs; ${originalEvents.length} -> ${finalCareerEvents.length} career events.`);

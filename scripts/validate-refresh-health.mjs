@@ -94,10 +94,10 @@ const regionMissing = Number(status?.locationNormalization?.regionMissing || 0);
 const regionTotal = regionAssigned + regionMissing;
 if (regionTotal >= 50) {
   const coverage = regionAssigned / regionTotal;
-  if (coverage < 0.65) {
+  if (coverage < 0.80) {
     problems.push(`Regional filter coverage fell to ${Math.round(coverage * 100)}% (${regionAssigned}/${regionTotal} jobs).`);
-  } else if (coverage < 0.80) {
-    warnings.push(`Regional filter coverage is only ${Math.round(coverage * 100)}% (${regionAssigned}/${regionTotal} jobs); review locationNormalization.missingSamples.`);
+  } else if (coverage < 0.95) {
+    warnings.push(`Regional filter coverage fell below the 95% quality target: ${Math.round(coverage * 100)}% (${regionAssigned}/${regionTotal} jobs); review locationNormalization.missingSamples.`);
   }
 }
 

@@ -12,10 +12,23 @@ const normalize = value => lower(value).replace(/&amp;/g, '&').replace(/[^a-z0-9
 
 function normalizeTitle(title = '') {
   return normalize(title)
+    .replace(/^\d{2,5}\s+/, ' ')
+    .replace(/\bcbqe\b/g, ' ')
     .replace(/\b(?:remote|onsite|on site|hybrid)\b/g, ' ')
     .replace(/\b(?:phoenix|dallas|austin|irving|atlanta|memphis|sandusky|dalton|afton|ellendale|ashburn|manassas|suwanee)\s+(?:az|tx|ga|tn|oh|nd|va)?\b/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+const clearlyForeignLocationTerms = [
+  'malaysia', 'india', 'japan', 'taiwan', 'germany', 'england', 'united kingdom', 'netherlands',
+  'montreal, quebec', 'toronto, on', 'frankfurt', 'amsterdam', 'bengaluru', 'noida',
+  'navi mumbai', 'mumbai', 'osaka', 'taipei', 'cyberjaya', 'munich'
+];
+
+function clearlyOutsideUnitedStates(job) {
+  const text = lower(`${job.location || ''} ${job.sourceUrl || ''}`);
+  return clearlyForeignLocationTerms.some(term => text.includes(term));
 }
 
 function reqId(url = '') {
@@ -45,6 +58,7 @@ function chooseBetter(a, b) {
     else if (job.experience === '0-2-years') value += 10;
     if (job.pay && job.pay !== 'Pay not listed') value += 2;
     if (job.postedAt) value += 1;
+    if (!/^\s*\d{2,5}\s*[-–—]/.test(String(job.title || ''))) value += 4;
     return value;
   };
   return score(b) > score(a) ? b : a;
@@ -129,7 +143,9 @@ const html = await readFile(INDEX_PATH, 'utf8');
 if (!Array.isArray(originalJobs)) throw new Error('jobs.json must be an array');
 
 const demoJobs = originalJobs.filter(job => job.demo === true);
-const { jobs: dedupedJobs, duplicates } = dedupeJobs(originalJobs.filter(job => job.demo !== true));
+const nonUsJobs = originalJobs.filter(job => job.demo !== true && clearlyOutsideUnitedStates(job));
+const eligibleJobs = originalJobs.filter(job => job.demo !== true && !clearlyOutsideUnitedStates(job));
+const { jobs: dedupedJobs, duplicates } = dedupeJobs(eligibleJobs);
 
 const jobChecks = await mapLimit(dedupedJobs, CONCURRENCY, async job => ({
   id: job.id,
@@ -151,6 +167,7 @@ const report = {
   jobsBefore: originalJobs.length,
   jobsAfter: finalJobs.length,
   demoJobsRemoved: demoJobs.map(job => ({ id: job.id, title: job.title })),
+  nonUsJobsRemoved: nonUsJobs.map(job => ({ id: job.id, company: job.company, title: job.title, location: job.location })),
   duplicatesRemoved: duplicates,
   deadJobLinksRemoved: jobChecks.filter(check => check.state === 'dead'),
   blockedJobLinks: jobChecks.filter(check => check.state === 'blocked'),
@@ -163,7 +180,7 @@ await writeFile(JOBS_PATH, JSON.stringify(finalJobs, null, 2) + '\n');
 await writeFile(REPORT_PATH, JSON.stringify(report, null, 2) + '\n');
 
 console.log(`QA complete: ${originalJobs.length} -> ${finalJobs.length} jobs.`);
-console.log(`Removed ${duplicates.length} duplicate(s), ${demoJobs.length} demo job(s), and ${deadIds.size} confirmed dead job link(s).`);
+console.log(`Removed ${duplicates.length} duplicate(s), ${demoJobs.length} demo job(s), ${nonUsJobs.length} clearly non-US job(s), and ${deadIds.size} confirmed dead job link(s).`);
 const eventDead = eventChecks.filter(check => check.state === 'dead');
 if (eventDead.length) console.warn(`Confirmed dead event links: ${eventDead.map(item => item.url).join(' | ')}`);
 const blocked = jobChecks.filter(check => check.state === 'blocked').length;

@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-01T13:55:17.928Z",
-  "jobsBefore": 295,
-  "jobsAfter": 256,
+  "checkedAt": "2026-09-01T14:52:31.847Z",
+  "jobsBefore": 294,
+  "jobsAfter": 255,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [
     {
@@ -287,7 +287,17 @@
   ],
   "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5201130007",
+      "company": "xAI",
+      "title": "Facilities Maintenance Technician",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5201130007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "eventLinks": [
     {
@@ -295,18 +305,6 @@
       "state": "ok",
       "status": 200,
       "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/"
-    },
-    {
-      "url": "https://www.meetup.com/techinmotionatlanta/events/316120635/",
-      "state": "ok",
-      "status": 200,
-      "finalUrl": "https://www.meetup.com/techinmotionatlanta/events/316120635/"
-    },
-    {
-      "url": "https://azdatacenter.org/career-days.html",
-      "state": "ok",
-      "status": 200,
-      "finalUrl": "https://azdatacenter.org/career-days.html"
     }
   ],
   "criticalSiteLinks": [

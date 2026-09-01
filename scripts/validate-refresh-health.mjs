@@ -83,6 +83,7 @@ if (attempted && succeeded < attempted) {
 
 for (const [label, source] of [
   ['AWS', status?.amazonDatacenter],
+  ['Google Careers', status?.googleCareers],
   ['Digital Realty', status?.digitalRealty]
 ]) {
   if (source && source.sourceHealthy === false) warnings.push(`${label} source reported degraded health and retained its previous snapshot.`);

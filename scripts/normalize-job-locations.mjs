@@ -78,6 +78,19 @@ const cityRegionFallbacks = [
   [/\bcolumbus\b/i, 'midwest']
 ];
 
+// Major operators sometimes expose only an internal campus/site code. Keep this
+// mapping deliberately limited to well-known U.S. metro prefixes so a generic
+// code never gets guessed into the wrong region.
+const siteCodeRegionFallbacks = [
+  [/^(?:NVA|IAD)[-_]?\d+/i, 'mid-atlantic'],
+  [/^(?:DFW|DAL)[-_]?\d+/i, 'texas'],
+  [/^(?:PHX|LAS)[-_]?\d+/i, 'southwest'],
+  [/^(?:ORD|CMH)[-_]?\d+/i, 'midwest'],
+  [/^(?:ATL|MIA|CLT|RDU)[-_]?\d+/i, 'southeast'],
+  [/^(?:NYC|EWR|BOS)[-_]?\d+/i, 'northeast'],
+  [/^(?:SJC|SFO|LAX|SEA|PDX|DEN|SLC)[-_]?\d+/i, 'west']
+];
+
 function titleCaseWords(value = '') {
   return String(value).replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim().replace(/\b\w/g, c => c.toUpperCase());
 }
@@ -135,6 +148,10 @@ function normalizeLocation(job) {
 function regionFromText(value = '') {
   const text = String(value || '').trim();
   if (!text) return '';
+
+  for (const [pattern, region] of siteCodeRegionFallbacks) {
+    if (pattern.test(text)) return region;
+  }
 
   const commaCodeMatch = text.match(/,\s*([A-Z]{2})(?:\b|$)/);
   if (commaCodeMatch) return stateToRegion.get(commaCodeMatch[1].toLowerCase()) || '';

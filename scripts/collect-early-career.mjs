@@ -58,6 +58,20 @@ const hasAny = (text, terms) => terms.some(term => text.includes(term));
 const hash = value => crypto.createHash('sha1').update(String(value)).digest('hex').slice(0,14);
 const normalizeIdentity = value => lower(value).replace(/[^a-z0-9]+/g,' ').trim();
 
+function canonicalTitle(job) {
+  let title = clean(job.title);
+  const location = normalizeIdentity(job.location);
+  const locationTokens = new Set(location.split(' ').filter(token => token.length > 1));
+  const tailBelongsToLocation = tail => {
+    const tokens = normalizeIdentity(tail).split(' ').filter(token => token.length > 1);
+    return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
+  };
+
+  title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  return normalizeIdentity(title);
+}
+
 async function fetchText(url) {
   const response = await fetch(url, {
     headers: {
@@ -77,7 +91,7 @@ function discoverJobLinks(html, baseUrl, allow) {
   for (const match of html.matchAll(anchorPattern)) {
     const label = clean(match[2]);
     const href = clean(match[1]);
-    if (!href || !allow.test(label) && !allow.test(href)) continue;
+    if (!href || (!allow.test(label) && !allow.test(href))) continue;
     let absolute;
     try { absolute = new URL(href, baseUrl).href; } catch { continue; }
     if (!/^https:\/\//i.test(absolute)) continue;
@@ -221,7 +235,7 @@ function dedupe(jobs) {
   const out = [];
   for (const job of jobs) {
     const url = clean(job.sourceUrl);
-    const identity = [job.company,job.title,job.location].map(normalizeIdentity).join('|');
+    const identity = [normalizeIdentity(job.company), canonicalTitle(job), normalizeIdentity(job.location)].join('|');
     if ((url && urls.has(url)) || identities.has(identity)) continue;
     if (url) urls.add(url);
     identities.add(identity);
@@ -268,7 +282,6 @@ for (const job of merged) {
   job.postedHours = job.postedAt ? Math.max(0, Math.round((now - new Date(job.postedAt).getTime()) / 36e5)) : (job.postedHours ?? 9999);
 }
 
-// Keep 2–5 year roles available, but stop them from dominating an early-career product.
 const early = merged.filter(job => job.experience !== '2-5-years');
 const mid = merged.filter(job => job.experience === '2-5-years');
 const maxMid = Math.max(12, Math.floor(Math.max(early.length,1) * 0.30));

@@ -44,6 +44,7 @@ for (const [i, event] of careerEvents.entries()) {
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;
+const allowedRegions = new Set(['mid-atlantic','texas','southwest','midwest','southeast','northeast','west']);
 function canonicalTitle(job) {
   let title = String(job.title || '').trim();
   const location = normalizeIdentity(job.location);
@@ -60,6 +61,7 @@ function canonicalTitle(job) {
 const ids = new Set();
 const urls = new Set();
 const semanticJobs = new Set();
+let regionalJobs = 0;
 for (const [i, job] of jobs.entries()) {
   for (const key of ['id','title','company','location','type','experience']) {
     if (!String(job[key] || '').trim()) throw new Error(`Job ${i} missing ${key}`);
@@ -74,10 +76,17 @@ for (const [i, job] of jobs.entries()) {
   if (urls.has(job.sourceUrl)) throw new Error(`Duplicate job URL: ${job.sourceUrl}`);
   urls.add(job.sourceUrl);
   if (job.active !== true) throw new Error(`Published real job ${job.id} is not active`);
+  if (job.region) {
+    if (!allowedRegions.has(job.region)) throw new Error(`Unsupported job region: ${job.region}`);
+    regionalJobs += 1;
+  }
 
   const semanticKey = [normalizeIdentity(job.company), canonicalTitle(job), normalizeIdentity(job.location)].join('|');
   if (semanticJobs.has(semanticKey)) throw new Error(`Near-duplicate published job: ${job.company} / ${job.title} / ${job.location}`);
   semanticJobs.add(semanticKey);
+}
+if (jobs.length >= 50 && regionalJobs / jobs.length < 0.95) {
+  throw new Error(`Regional filter coverage below 95%: ${regionalJobs}/${jobs.length} published jobs have a supported region.`);
 }
 
 const products = JSON.parse(await readFile('data/employer-products.json','utf8'));
@@ -119,4 +128,4 @@ if (/hero-overrides\.css/i.test(html)) throw new Error('Obsolete hero-overrides.
 const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)];
 if (stylesheetLinks.length !== 1 || !stylesheetLinks[0][0].includes('assets/styles.css')) throw new Error('Homepage must use exactly one stylesheet: assets/styles.css');
 
-console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${googleJobs.length} Google jobs, ${careerEvents.length} verified career events, ${featuredJobs.length} featured activations, and ${requiredFiles.length} required files.`);
+console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${googleJobs.length} Google jobs, ${careerEvents.length} verified career events, ${featuredJobs.length} featured activations, ${regionalJobs} region-classified jobs, and ${requiredFiles.length} required files.`);

@@ -7,7 +7,7 @@ const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const SEARCH_BASE = 'https://www.google.com/about/careers/applications/jobs/results/';
 const SEARCH_PAGES = 4;
-const MAX_DETAIL_CANDIDATES = 60;
+const MAX_DETAIL_CANDIDATES = 80;
 const DETAIL_BATCH_SIZE = 6;
 
 const clean = value => String(value ?? '')
@@ -28,7 +28,8 @@ const hash = value => crypto.createHash('sha1').update(String(value)).digest('he
 
 const relevantTitlePattern = /(?:data center|data centre).*(?:technician|facilities|operations|engineer)|(?:facilities technician developmental program)/i;
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|architect|program manager|product manager|security manager)\b/i;
-const usLocationPattern = /([A-Z][A-Za-z.'’()\- ]{1,80},\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)(?:\s+\d{5}(?:-\d{4})?)?,\s*USA\b)/i;
+const usLocationPattern = /([A-Z][A-Za-z.'’()\- ]{1,90},\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)(?:\s+\d{5}(?:-\d{4})?)?,\s*USA\b)/i;
+const experienceYearsPattern = /\b(\d{1,2})\s+years?\s+(?:of\s+)?(?:[A-Za-z0-9/&+(),.'’\-]+\s+){0,8}experience\b/gi;
 
 async function readJson(path, fallback) {
   try { return JSON.parse(await readFile(path, 'utf8')); }
@@ -40,7 +41,7 @@ async function fetchText(url) {
     headers: {
       accept: 'text/html,application/xhtml+xml',
       'accept-language': 'en-US,en;q=0.9',
-      'user-agent': 'DataCenterCareersBot/1.7 (+https://dailyblip.github.io/ideal-garbanzo/)'
+      'user-agent': 'DataCenterCareersBot/1.8 (+https://dailyblip.github.io/ideal-garbanzo/)'
     },
     redirect: 'follow'
   });
@@ -73,6 +74,14 @@ function titleFromSlug(slug) {
   }).join(' ');
 }
 
+function normalizeGoogleLocation(value) {
+  return clean(value)
+    .replace(/^.*?\bplace\s+/i, '')
+    .replace(/\s+\d{5}(?:-\d{4})?(?=,\s*USA\b)/i, '')
+    .replace(/,\s*USA\b.*$/i, '')
+    .trim();
+}
+
 function extractCandidates(html, diagnostics) {
   const rows = [];
   const seen = new Set();
@@ -94,6 +103,13 @@ function extractCandidates(html, diagnostics) {
   return rows;
 }
 
+function extractExperienceYears(text) {
+  experienceYearsPattern.lastIndex = 0;
+  return [...String(text || '').matchAll(experienceYearsPattern)]
+    .map(match => Number(match[1]))
+    .filter(Number.isFinite);
+}
+
 function parseMinimumQualifications(detailText) {
   const text = clean(detailText);
   const normalized = lower(text);
@@ -105,9 +121,7 @@ function parseMinimumQualifications(detailText) {
   const ends = [preferredIndex, aboutIndex].filter(index => index > 0);
   const end = ends.length ? Math.min(...ends) : Math.min(after.length, 5000);
   const minimumText = after.slice(0, end);
-  const years = [...minimumText.matchAll(/\b(\d{1,2})\s+years?\s+of\s+(?:relevant\s+)?experience\b/gi)]
-    .map(match => Number(match[1]))
-    .filter(Number.isFinite);
+  const years = extractExperienceYears(minimumText);
   return { text: minimumText, maxYears: years.length ? Math.max(...years) : null };
 }
 
@@ -119,7 +133,7 @@ function classify(title, minimumText, maxYears) {
   else if (/apprentice/.test(t)) type = 'apprenticeship';
 
   const noExperience = /developmental program|trainee|apprentice/.test(t)
-    && !/\b[1-9]\d*\s+years?\s+of\s+(?:relevant\s+)?experience\b/i.test(minimumText);
+    && extractExperienceYears(minimumText).length === 0;
   if (noExperience) return { type, experience: 'no-experience' };
 
   if (Number.isFinite(maxYears)) {
@@ -174,7 +188,7 @@ function extractDetail(html, row, diagnostics) {
   }
 
   const locationMatch = detailText.match(usLocationPattern);
-  const location = clean(locationMatch?.[1] || '');
+  const location = normalizeGoogleLocation(locationMatch?.[1] || '');
   if (!location) {
     diagnostics.detailDrops.location += 1;
     return null;

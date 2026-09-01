@@ -1,26 +1,30 @@
 {
-  "updatedAt": "2026-09-01T12:47:22.894Z",
-  "jobs": 292,
-  "sourcesAttempted": 21,
+  "updatedAt": "2026-09-01T13:55:10.228Z",
+  "jobs": 295,
+  "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
+    "googleCareers": 1,
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
-    "trainee": 3,
-    "entry-level": 283
+    "trainee": 5,
+    "entry-level": 284
   },
   "countsByExperience": {
     "0-2-years": 220,
-    "no-experience": 4,
-    "2-5-years": 68
+    "no-experience": 6,
+    "2-5-years": 69
   },
-  "errors": [],
+  "errors": [
+    "Google Careers: Google Careers returned no parseable early-career data-center results on page 1.",
+    "Google Careers: Retained previous Google snapshot because the official source was unavailable or unparseable."
+  ],
   "majorSources": {
     "attempted": 6,
     "succeeded": 6,
@@ -71,14 +75,14 @@
       }
     ],
     "candidateRows": 3682,
-    "uniqueCandidates": 1237,
+    "uniqueCandidates": 1235,
     "qualifyingRoles": 18,
     "drops": {
-      "nonUs": 359,
-      "title": 581,
+      "nonUs": 360,
+      "title": 579,
       "context": 0,
       "experience": 0,
-      "unknownExperience": 279,
+      "unknownExperience": 278,
       "invalidUrl": 0
     },
     "errors": []
@@ -92,6 +96,18 @@
       "seniorOrIrrelevant": 1,
       "experience": 0
     }
+  },
+  "googleCareers": {
+    "officialSource": "https://www.google.com/about/careers/applications/jobs/results/",
+    "sourceHealthy": false,
+    "pagesAttempted": 1,
+    "pagesSucceeded": 1,
+    "candidateRows": 0,
+    "qualifyingRoles": 1,
+    "errors": [
+      "Google Careers returned no parseable early-career data-center results on page 1.",
+      "Retained previous Google snapshot because the official source was unavailable or unparseable."
+    ]
   },
   "digitalRealty": {
     "officialSource": "https://www.digitalrealty.com/about/careers",
@@ -113,12 +129,12 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 30,
-      "qualifyingRoles": 0,
+      "candidateLinks": 31,
+      "qualifyingRoles": 1,
       "drops": {
         "context": 2,
-        "non-us": 9,
-        "title": 11,
+        "non-us": 8,
+        "title": 12,
         "unknown-experience": 8
       },
       "dropSamples": [
@@ -149,16 +165,16 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
         {
-          "title": "SkillBridge Critical Facilities Engineer - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
-        },
-        {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
         },
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
+        },
+        {
+          "title": "SkillBridge, Data Center Customer Operations Technician - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-san-jose-california-united-states"
         }
       ],
       "errors": []
@@ -174,7 +190,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T12:47:22.985Z",
+    "updatedAt": "2026-09-01T13:55:10.309Z",
     "changed": 16,
     "samples": [
       {
@@ -218,16 +234,16 @@
         "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 220,
+    "regionAssigned": 223,
     "regionMissing": 72,
     "countsByRegion": {
       "mid-atlantic": 28,
       "texas": 62,
-      "southwest": 20,
+      "southwest": 21,
       "southeast": 50,
-      "west": 25,
+      "west": 26,
       "midwest": 32,
-      "northeast": 3
+      "northeast": 4
     }
   }
 }

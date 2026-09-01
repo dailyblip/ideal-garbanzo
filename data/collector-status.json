@@ -1,34 +1,37 @@
 {
-  "updatedAt": "2026-09-01T04:58:35.802Z",
-  "jobs": 166,
-  "sourcesAttempted": 18,
+  "updatedAt": "2026-09-01T05:47:24.640Z",
+  "jobs": 261,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
-    "workday": 4
+    "workday": 6
   },
   "countsByType": {
+    "apprenticeship": 4,
     "internship": 2,
     "trainee": 3,
-    "entry-level": 161
+    "entry-level": 252
   },
   "countsByExperience": {
-    "0-2-years": 123,
+    "0-2-years": 205,
     "no-experience": 4,
-    "2-5-years": 39
+    "2-5-years": 52
   },
   "errors": [],
   "majorSources": {
-    "attempted": 4,
-    "succeeded": 4,
+    "attempted": 6,
+    "succeeded": 6,
     "employers": [
       "Vantage Data Centers",
       "QTS Data Centers",
       "CyrusOne",
-      "STACK Infrastructure"
+      "STACK Infrastructure",
+      "NTT Global Data Centers",
+      "Aligned Data Centers"
     ],
-    "jobs": 72
+    "jobs": 154
   },
   "earlyCareerDiscovery": {
     "sourcesAttempted": 4,

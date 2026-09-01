@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
+const EVENTS_PATH = 'data/career-events.json';
 const REPORT_PATH = 'data/qa-report.json';
 const INDEX_PATH = 'index.html';
 const CONCURRENCY = 10;
@@ -21,6 +22,7 @@ const CRITICAL_SITE_URLS = [
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const lower = value => clean(value).toLowerCase();
 const normalize = value => lower(value).replace(/&amp;/g, '&').replace(/[^a-z0-9]+/g, ' ').trim();
+const todayIso = () => new Date().toISOString().slice(0, 10);
 
 function normalizeTitle(title = '') {
   return normalize(title)
@@ -151,8 +153,10 @@ async function mapLimit(items, limit, fn) {
 }
 
 const originalJobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
+const originalEvents = JSON.parse(await readFile(EVENTS_PATH, 'utf8'));
 const html = await readFile(INDEX_PATH, 'utf8');
 if (!Array.isArray(originalJobs)) throw new Error('jobs.json must be an array');
+if (!Array.isArray(originalEvents)) throw new Error('career-events.json must be an array');
 
 const demoJobs = originalJobs.filter(job => job.demo === true);
 const nonUsJobs = originalJobs.filter(job => job.demo !== true && clearlyOutsideUnitedStates(job));
@@ -170,9 +174,22 @@ const jobChecks = await mapLimit(dedupedJobs, CONCURRENCY, async job => ({
 const deadIds = new Set(jobChecks.filter(check => check.state === 'dead').map(check => check.id));
 const finalJobs = dedupedJobs.filter(job => !deadIds.has(job.id));
 
+const today = todayIso();
+const expiredCareerEvents = originalEvents.filter(event => clean(event?.date) && clean(event.date) < today);
+const upcomingCareerEvents = originalEvents.filter(event => !clean(event?.date) || clean(event.date) >= today);
+const careerEventChecks = await mapLimit(upcomingCareerEvents, Math.min(5, CONCURRENCY), async event => ({
+  id: event.id,
+  name: event.name,
+  date: event.date,
+  url: event.url,
+  ...(await checkUrl(event.url))
+}));
+const deadCareerEventIds = new Set(careerEventChecks.filter(check => check.state === 'dead').map(check => check.id));
+const finalCareerEvents = upcomingCareerEvents.filter(event => !deadCareerEventIds.has(event.id));
+
 const externalLinks = [...html.matchAll(/href=["'](https:\/\/[^"']+)["']/gi)].map(match => match[1]);
-const eventLinks = [...new Set(externalLinks)];
-const eventChecks = await mapLimit(eventLinks, Math.min(5, CONCURRENCY), async url => ({ url, ...(await checkUrl(url)) }));
+const homepageExternalUrls = [...new Set(externalLinks)];
+const homepageExternalChecks = await mapLimit(homepageExternalUrls, Math.min(5, CONCURRENCY), async url => ({ url, ...(await checkUrl(url)) }));
 const siteChecks = await mapLimit(CRITICAL_SITE_URLS, Math.min(5, CONCURRENCY), async url => ({ url, ...(await checkUrl(url)) }));
 
 const report = {
@@ -186,19 +203,28 @@ const report = {
   blockedJobLinks: jobChecks.filter(check => check.state === 'blocked'),
   transientJobLinks: jobChecks.filter(check => check.state === 'transient'),
   warningJobLinks: jobChecks.filter(check => check.state === 'warning'),
-  eventLinks: eventChecks,
+  careerEventsBefore: originalEvents.length,
+  careerEventsAfter: finalCareerEvents.length,
+  expiredCareerEventsRemoved: expiredCareerEvents.map(event => ({ id: event.id, name: event.name, date: event.date, url: event.url })),
+  deadCareerEventLinksRemoved: careerEventChecks.filter(check => check.state === 'dead'),
+  blockedCareerEventLinks: careerEventChecks.filter(check => check.state === 'blocked'),
+  transientCareerEventLinks: careerEventChecks.filter(check => check.state === 'transient'),
+  warningCareerEventLinks: careerEventChecks.filter(check => check.state === 'warning'),
+  homepageExternalLinks: homepageExternalChecks,
   criticalSiteLinks: siteChecks
 };
 
 await writeFile(JOBS_PATH, JSON.stringify(finalJobs, null, 2) + '\n');
+await writeFile(EVENTS_PATH, JSON.stringify(finalCareerEvents, null, 2) + '\n');
 await writeFile(REPORT_PATH, JSON.stringify(report, null, 2) + '\n');
 
-console.log(`QA complete: ${originalJobs.length} -> ${finalJobs.length} jobs.`);
+console.log(`QA complete: ${originalJobs.length} -> ${finalJobs.length} jobs; ${originalEvents.length} -> ${finalCareerEvents.length} career events.`);
 console.log(`Removed ${duplicates.length} duplicate(s), ${demoJobs.length} demo job(s), ${nonUsJobs.length} clearly non-US job(s), and ${deadIds.size} confirmed dead job link(s).`);
-const eventDead = eventChecks.filter(check => check.state === 'dead');
-if (eventDead.length) console.warn(`Confirmed dead event links: ${eventDead.map(item => item.url).join(' | ')}`);
+console.log(`Removed ${expiredCareerEvents.length} expired career event(s) and ${deadCareerEventIds.size} event(s) with confirmed dead organizer links.`);
+const eventWarnings = careerEventChecks.filter(check => check.state !== 'ok' && check.state !== 'dead');
+if (eventWarnings.length) console.warn(`Career event link warnings: ${eventWarnings.map(item => `${item.status ?? item.state} ${item.url}`).join(' | ')}`);
 const siteProblems = siteChecks.filter(check => check.state !== 'ok');
 if (siteProblems.length) console.warn(`Critical site link warnings: ${siteProblems.map(item => `${item.status ?? item.state} ${item.url}`).join(' | ')}`);
 const blocked = jobChecks.filter(check => check.state === 'blocked').length;
 const transient = jobChecks.filter(check => check.state === 'transient').length;
-if (blocked || transient) console.warn(`Non-destructive link warnings: ${blocked} blocked, ${transient} transient.`);
+if (blocked || transient) console.warn(`Non-destructive job link warnings: ${blocked} blocked, ${transient} transient.`);

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T16:49:51.429Z",
+  "updatedAt": "2026-09-01T16:52:51.051Z",
   "jobs": 254,
   "sourcesAttempted": 22,
   "providers": {
@@ -36,7 +36,7 @@
       "NTT Global Data Centers",
       "Aligned Data Centers"
     ],
-    "jobs": 152
+    "jobs": 151
   },
   "earlyCareerDiscovery": {
     "sourcesAttempted": 4,
@@ -105,6 +105,9 @@
     "candidateRows": 0,
     "qualifyingRoles": 1,
     "diagnostics": {
+      "canonicalLinks": 20,
+      "linksWithLocation": 0,
+      "linksWithMissionFitTitle": 0,
       "anchorSamples": [
         {
           "href": "https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://www.google.com/about/careers/applications/jobs/results/?q%3Ddata%2Bcenter%26location%3DUnited%2BStates%26target_level%3DEARLY%26page%3D1&followup=https://www.google.com/about/careers/app",
@@ -195,13 +198,13 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 35,
+      "candidateLinks": 31,
       "qualifyingRoles": 0,
       "drops": {
         "context": 2,
         "non-us": 9,
-        "title": 15,
-        "unknown-experience": 9
+        "title": 12,
+        "unknown-experience": 8
       },
       "dropSamples": [
         {
@@ -256,7 +259,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T16:49:51.487Z",
+    "updatedAt": "2026-09-01T16:52:51.105Z",
     "changed": 16,
     "samples": [
       {
@@ -313,9 +316,9 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T16:49:57.193Z",
+    "checkedAt": "2026-09-01T16:53:07.439Z",
     "publishedJobs": 254,
-    "removedJobs": 38,
+    "removedJobs": 37,
     "activeCareerEvents": 2
   }
 }

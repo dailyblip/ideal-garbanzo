@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   refresh:
-    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -77,7 +77,7 @@ jobs:
 
   deploy:
     needs: [refresh]
-    if: always() && needs.refresh.result == 'success'
+    if: always() && (github.event_name == 'push' || needs.refresh.result == 'success')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -89,6 +89,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate JavaScript build scripts
+        run: |
+          for file in scripts/*.mjs; do
+            node --check "$file"
+          done
       - name: Generate crawlable SEO pages
         run: |
           node scripts/generate-seo.mjs

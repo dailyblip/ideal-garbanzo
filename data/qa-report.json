@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-01T19:20:26.978Z",
+  "checkedAt": "2026-09-01T19:45:11.586Z",
   "jobsBefore": 317,
-  "jobsAfter": 280,
+  "jobsAfter": 274,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [
     {
@@ -15,6 +15,18 @@
       "company": "Vantage Data Centers",
       "title": "Critical Facilities Technician - Offenbach",
       "location": "Frankfurt, Germany"
+    },
+    {
+      "id": "workday-vantagedc-R23286",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Technician",
+      "location": "Zurich, Switzerland"
+    },
+    {
+      "id": "gh-xai-5169675007",
+      "company": "xAI",
+      "title": "Network Operations Technician (SpaceXAI / Starlink)",
+      "location": "Dublin, Ireland"
     },
     {
       "id": "workday-vantagedc-R23998",
@@ -99,6 +111,32 @@
       "company": "NTT Global Data Centers",
       "title": "5231 Associate Critical Facilities Maintenance Engineer",
       "location": "Cyberjaya, Malaysia"
+    },
+    {
+      "id": "ashby-lambda-8308606de297f6",
+      "company": "Lambda",
+      "title": "Data Center Operations System Engineer III (Querétaro, Mexico)",
+      "location": "Querétaro, Mexico - Data Center"
+    }
+  ],
+  "unresolvedLocationJobsRemoved": [
+    {
+      "id": "workday-vantagedc-R23332",
+      "company": "Vantage Data Centers",
+      "title": "Critical Facilities Technician",
+      "location": "2 Locations"
+    },
+    {
+      "id": "workday-vantagedc-R22993",
+      "company": "Vantage Data Centers",
+      "title": "Transitioning Military | Critical Facilities (Electrical or Mechanical) | 2026 -2027",
+      "location": "7 Locations"
+    },
+    {
+      "id": "workday-qtsdatacenters-R2026-1093",
+      "company": "QTS Data Centers",
+      "title": "Critical Environment Engineer",
+      "location": "2 Locations"
     }
   ],
   "duplicatesRemoved": [
@@ -273,17 +311,7 @@
   ],
   "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "lever-cagents-33bb231e-eadd-4b05-adac-0f2697d1bbe5",
-      "company": "CAI",
-      "title": "Data Center Project Administrator",
-      "url": "https://jobs.lever.co/cagents/33bb231e-eadd-4b05-adac-0f2697d1bbe5",
-      "state": "transient",
-      "status": 502,
-      "finalUrl": "https://jobs.lever.co/cagents/33bb231e-eadd-4b05-adac-0f2697d1bbe5"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 2,
   "careerEventsAfter": 2,
@@ -354,6 +382,30 @@
       "state": "ok",
       "status": 200,
       "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/career-events/"
+    },
+    {
+      "url": "https://dailyblip.github.io/ideal-garbanzo/how-to-get-a-data-center-job/",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/how-to-get-a-data-center-job/"
+    },
+    {
+      "url": "https://dailyblip.github.io/ideal-garbanzo/how-to-get-a-data-center-internship/",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/how-to-get-a-data-center-internship/"
+    },
+    {
+      "url": "https://dailyblip.github.io/ideal-garbanzo/assets/guides/data-center-career-guide-mentor.webp",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/assets/guides/data-center-career-guide-mentor.webp"
+    },
+    {
+      "url": "https://dailyblip.github.io/ideal-garbanzo/assets/guides/data-center-internship-training.webp",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/assets/guides/data-center-internship-training.webp"
     }
   ]
 }

@@ -1,23 +1,24 @@
 {
-  "updatedAt": "2026-09-01T09:50:09.458Z",
-  "jobs": 279,
-  "sourcesAttempted": 20,
+  "updatedAt": "2026-09-01T10:49:34.893Z",
+  "jobs": 295,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
-    "workday": 6
+    "workday": 6,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 3,
-    "entry-level": 270
+    "entry-level": 286
   },
   "countsByExperience": {
-    "0-2-years": 214,
+    "0-2-years": 222,
     "no-experience": 4,
-    "2-5-years": 61
+    "2-5-years": 69
   },
   "errors": [],
   "majorSources": {
@@ -70,11 +71,11 @@
       }
     ],
     "candidateRows": 3684,
-    "uniqueCandidates": 1235,
+    "uniqueCandidates": 1237,
     "qualifyingRoles": 18,
     "drops": {
-      "nonUs": 358,
-      "title": 579,
+      "nonUs": 359,
+      "title": 580,
       "context": 0,
       "experience": 0,
       "unknownExperience": 280,
@@ -92,18 +93,33 @@
       "experience": 0
     }
   },
+  "digitalRealty": {
+    "officialSource": "https://www.digitalrealty.com/about/careers",
+    "boardUrl": "https://hdep.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX",
+    "sourceHealthy": true,
+    "candidateRows": 60,
+    "qualifyingRoles": 19,
+    "drops": {
+      "title": 133,
+      "nonUs": 39,
+      "context": 0,
+      "experience": 0,
+      "missingId": 0
+    },
+    "errors": []
+  },
   "priorityEmployerExpansion": {
     "Equinix": {
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 34,
+      "candidateLinks": 30,
       "qualifyingRoles": 0,
       "drops": {
         "context": 2,
         "non-us": 9,
-        "title": 14,
-        "unknown-experience": 9
+        "title": 11,
+        "unknown-experience": 8
       },
       "dropSamples": [
         {
@@ -158,7 +174,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T09:50:09.499Z",
+    "updatedAt": "2026-09-01T10:49:34.939Z",
     "changed": 16,
     "samples": [
       {
@@ -202,15 +218,15 @@
         "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 208,
-    "regionMissing": 71,
+    "regionAssigned": 220,
+    "regionMissing": 75,
     "countsByRegion": {
-      "mid-atlantic": 24,
-      "texas": 58,
-      "southwest": 19,
+      "mid-atlantic": 27,
+      "texas": 63,
+      "southwest": 20,
       "southeast": 50,
-      "west": 23,
-      "midwest": 31,
+      "west": 25,
+      "midwest": 32,
       "northeast": 3
     }
   }

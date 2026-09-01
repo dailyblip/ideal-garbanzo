@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T17:21:41.764Z",
+  "updatedAt": "2026-09-01T17:43:23.923Z",
   "jobs": 278,
   "sourcesAttempted": 22,
   "providers": {
@@ -60,7 +60,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1331
+        "rows": 1332
       },
       {
         "query": "engineering operations technician",
@@ -71,15 +71,15 @@
         "rows": 0
       }
     ],
-    "candidateRows": 3685,
+    "candidateRows": 3686,
     "uniqueCandidates": 1243,
     "qualifyingRoles": 18,
     "drops": {
-      "nonUs": 363,
+      "nonUs": 364,
       "title": 581,
       "context": 0,
       "experience": 0,
-      "unknownExperience": 281,
+      "unknownExperience": 280,
       "invalidUrl": 0
     },
     "errors": []
@@ -136,12 +136,13 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 13,
+      "candidateLinks": 35,
       "qualifyingRoles": 0,
       "drops": {
         "context": 2,
         "non-us": 9,
-        "title": 2
+        "title": 15,
+        "unknown-experience": 9
       },
       "dropSamples": [
         {
@@ -196,7 +197,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T17:21:41.822Z",
+    "updatedAt": "2026-09-01T17:43:23.966Z",
     "changed": 16,
     "samples": [
       {
@@ -253,7 +254,7 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T17:21:58.985Z",
+    "checkedAt": "2026-09-01T17:43:32.894Z",
     "publishedJobs": 278,
     "removedJobs": 38,
     "activeCareerEvents": 2

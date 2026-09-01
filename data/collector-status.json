@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T15:49:12.388Z",
-  "jobs": 255,
+  "updatedAt": "2026-09-01T16:43:31.716Z",
+  "jobs": 254,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -14,12 +14,12 @@
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 4,
-    "entry-level": 245
+    "entry-level": 244
   },
   "countsByExperience": {
     "0-2-years": 181,
     "no-experience": 5,
-    "2-5-years": 69
+    "2-5-years": 68
   },
   "errors": [
     "Google Careers: Google Careers returned no parseable early-career data-center results on page 1.",
@@ -36,7 +36,7 @@
       "NTT Global Data Centers",
       "Aligned Data Centers"
     ],
-    "jobs": 153
+    "jobs": 152
   },
   "earlyCareerDiscovery": {
     "sourcesAttempted": 4,
@@ -63,7 +63,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1329
+        "rows": 1330
       },
       {
         "query": "engineering operations technician",
@@ -74,15 +74,15 @@
         "rows": 0
       }
     ],
-    "candidateRows": 3682,
-    "uniqueCandidates": 1239,
+    "candidateRows": 3683,
+    "uniqueCandidates": 1242,
     "qualifyingRoles": 18,
     "drops": {
-      "nonUs": 362,
+      "nonUs": 363,
       "title": 581,
       "context": 0,
       "experience": 0,
-      "unknownExperience": 278,
+      "unknownExperience": 280,
       "invalidUrl": 0
     },
     "errors": []
@@ -113,7 +113,7 @@
     "officialSource": "https://www.digitalrealty.com/about/careers",
     "boardUrl": "https://hdep.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX",
     "sourceHealthy": true,
-    "candidateRows": 49,
+    "candidateRows": 48,
     "qualifyingRoles": 14,
     "drops": {
       "title": 143,
@@ -129,13 +129,13 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 35,
+      "candidateLinks": 31,
       "qualifyingRoles": 0,
       "drops": {
         "context": 2,
         "non-us": 9,
-        "title": 15,
-        "unknown-experience": 9
+        "title": 12,
+        "unknown-experience": 8
       },
       "dropSamples": [
         {
@@ -190,7 +190,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T15:49:12.466Z",
+    "updatedAt": "2026-09-01T16:43:31.784Z",
     "changed": 16,
     "samples": [
       {
@@ -234,7 +234,7 @@
         "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 201,
+    "regionAssigned": 200,
     "regionMissing": 54,
     "countsByRegion": {
       "mid-atlantic": 22,
@@ -243,13 +243,13 @@
       "southeast": 50,
       "west": 23,
       "midwest": 28,
-      "northeast": 4
+      "northeast": 3
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T15:49:19.378Z",
-    "publishedJobs": 255,
-    "removedJobs": 39,
+    "checkedAt": "2026-09-01T16:43:40.443Z",
+    "publishedJobs": 254,
+    "removedJobs": 38,
     "activeCareerEvents": 2
   }
 }

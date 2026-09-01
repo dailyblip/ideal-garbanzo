@@ -63,8 +63,19 @@ function canonicalResultUrl(href) {
 
   return {
     id: match[1],
+    slug: match[2],
     url: `${SEARCH_BASE}${match[1]}-${match[2]}`
   };
+}
+
+function titleFromSlug(slug) {
+  const words = String(slug || '').split('-').filter(Boolean);
+  return words.map(word => {
+    const lowerWord = word.toLowerCase();
+    if (/^(?:ii|iii|iv|v)$/.test(lowerWord)) return lowerWord.toUpperCase();
+    if (/^(?:hvac|ups|pdu|dcim|it|ai)$/.test(lowerWord)) return lowerWord.toUpperCase();
+    return lowerWord.charAt(0).toUpperCase() + lowerWord.slice(1);
+  }).join(' ');
 }
 
 function extractResultLinks(html, diagnostics) {
@@ -80,16 +91,20 @@ function extractResultLinks(html, diagnostics) {
 
     const result = canonicalResultUrl(rawHref);
     if (!result || seen.has(result.id)) continue;
+    diagnostics.canonicalLinks += 1;
 
-    const nearby = clean(html.slice(match.index, Math.min(html.length, match.index + 1400)));
+    const nearby = clean(html.slice(match.index, Math.min(html.length, match.index + 1800)));
     const locationMatch = label.match(usLocationPattern) || nearby.match(usLocationPattern);
     const location = clean(locationMatch?.[1] || '');
     if (!location) continue;
+    diagnostics.linksWithLocation += 1;
 
     let title = label;
     const labelLocation = label.match(usLocationPattern)?.[1];
     if (labelLocation) title = clean(label.slice(0, label.indexOf(labelLocation)));
+    if (!title) title = titleFromSlug(result.slug);
     if (!title || title.length > 180 || !relevantTitlePattern.test(title) || excludedTitlePattern.test(title)) continue;
+    diagnostics.linksWithMissionFitTitle += 1;
 
     seen.add(result.id);
     rows.push({ id: result.id, title, location, sourceUrl: result.url });
@@ -156,7 +171,13 @@ const previousSnapshot = await readJson(SNAPSHOT_PATH, []);
 const priorStatus = await readJson(STATUS_PATH, {});
 const errors = [];
 const rawResults = [];
-const diagnostics = { anchorSamples: [], routeSamples: [] };
+const diagnostics = {
+  canonicalLinks: 0,
+  linksWithLocation: 0,
+  linksWithMissionFitTitle: 0,
+  anchorSamples: [],
+  routeSamples: []
+};
 let pagesAttempted = 0;
 let pagesSucceeded = 0;
 let sourceHealthy = true;

@@ -24,7 +24,7 @@ const lower = value => clean(value).toLowerCase();
 const normalizeIdentity = value => lower(value).replace(/[^a-z0-9]+/g, ' ').trim();
 const hash = value => crypto.createHash('sha1').update(String(value)).digest('hex').slice(0, 14);
 
-const relevantTitlePattern = /(?:data center|data centre).*(?:technician|facilities|operations)|(?:facilities technician developmental program)/i;
+const relevantTitlePattern = /(?:data center|data centre).*(?:technician|facilities|operations|engineer)|(?:facilities technician developmental program)/i;
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|architect|program manager|product manager|security manager)\b/i;
 const usLocationPattern = /([A-Z][A-Za-z.'’()\- ]{1,80},\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)(?:\s+\d{5}(?:-\d{4})?)?,\s*USA\b)/i;
 
@@ -47,18 +47,30 @@ async function fetchText(url) {
 }
 
 function canonicalResultUrl(href) {
+  const raw = clean(href);
+  if (!raw) return null;
+
   try {
-    const url = new URL(href, SEARCH_BASE);
-    if (url.hostname !== 'www.google.com') return null;
-    const match = url.pathname.match(/^\/about\/careers\/applications\/jobs\/results\/(\d+)-([^/]+)\/?$/i);
-    if (!match) return null;
-    return {
-      id: match[1],
-      url: `${SEARCH_BASE}${match[1]}-${match[2]}`
-    };
+    const parsed = new URL(raw, SEARCH_BASE);
+    if (parsed.hostname !== 'www.google.com') return null;
   } catch {
     return null;
   }
+
+  // Google Careers currently emits relative result hrefs such as
+  // "jobs/results/<id>-<slug>" from a page whose own path already ends in
+  // /jobs/results/. Resolving those hrefs literally duplicates the path
+  // (…/jobs/results/jobs/results/…) even though the browser app routes them
+  // to the canonical result URL. Extract the result identity from the raw
+  // href instead of trusting normal URL resolution.
+  const match = raw.match(/(?:^|\/)(?:about\/careers\/applications\/)?jobs\/results\/(\d+)-([^/?#]+)/i)
+    || raw.match(/^\/?(\d+)-([^/?#]+)/i);
+  if (!match) return null;
+
+  return {
+    id: match[1],
+    url: `${SEARCH_BASE}${match[1]}-${match[2]}`
+  };
 }
 
 function extractResultLinks(html) {
@@ -66,7 +78,7 @@ function extractResultLinks(html) {
   const seen = new Set();
   const anchorPattern = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   for (const match of html.matchAll(anchorPattern)) {
-    const result = canonicalResultUrl(clean(match[1]));
+    const result = canonicalResultUrl(match[1]);
     if (!result || seen.has(result.id)) continue;
 
     const label = clean(match[2]);

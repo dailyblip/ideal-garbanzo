@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-const requiredFiles = ['index.html','assets/styles.css','assets/app.js','data/jobs.json','data/featured-jobs.json','data/employer-products.json'];
+const requiredFiles = ['index.html','assets/styles.css','assets/app.js','data/jobs.json','data/amazon-jobs.json','data/featured-jobs.json','data/employer-products.json'];
 for (const file of requiredFiles) {
   const value = await readFile(file, 'utf8');
   if (!value.trim()) throw new Error(`${file} is empty`);
@@ -8,6 +8,12 @@ for (const file of requiredFiles) {
 
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
+const amazonJobs = JSON.parse(await readFile('data/amazon-jobs.json', 'utf8'));
+if (!Array.isArray(amazonJobs)) throw new Error('amazon-jobs.json must contain an array');
+for (const [i, job] of amazonJobs.entries()) {
+  if (job.company !== 'Amazon Web Services') throw new Error(`AWS snapshot job ${i} has unexpected company: ${job.company}`);
+  if (!/^https:\/\/(?:www\.)?amazon\.jobs\//i.test(String(job.sourceUrl || ''))) throw new Error(`AWS snapshot job ${i} has non-Amazon sourceUrl`);
+}
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|staff engineer|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;
@@ -85,4 +91,4 @@ if (/hero-overrides\.css/i.test(html)) throw new Error('Obsolete hero-overrides.
 const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)];
 if (stylesheetLinks.length !== 1 || !stylesheetLinks[0][0].includes('assets/styles.css')) throw new Error('Homepage must use exactly one stylesheet: assets/styles.css');
 
-console.log(`Validation passed: ${jobs.length} jobs, ${featuredJobs.length} featured activations, and ${requiredFiles.length} required files.`);
+console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${featuredJobs.length} featured activations, and ${requiredFiles.length} required files.`);

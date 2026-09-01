@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T07:49:33.074Z",
+  "updatedAt": "2026-09-01T07:52:35.156Z",
   "jobs": 262,
   "sourcesAttempted": 20,
   "providers": {
@@ -119,5 +119,51 @@
       "qualifyingRoles": 3,
       "errors": []
     }
+  },
+  "locationNormalization": {
+    "updatedAt": "2026-09-01T07:52:35.210Z",
+    "changed": 16,
+    "samples": [
+      {
+        "id": "workday-nttglobaldatacenters-JR101540",
+        "before": "Ashburn, Virgina",
+        "after": "Ashburn, Virginia"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1892",
+        "before": "2 Locations",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-nttglobaldatacenters-JR101968",
+        "before": "Ashburn, Virgina",
+        "after": "Ashburn, Virginia"
+      },
+      {
+        "id": "workday-nttglobaldatacenters-R-138957",
+        "before": "Ashburn, Virgina",
+        "after": "Ashburn, Virginia"
+      },
+      {
+        "id": "workday-cyrusone-R0007529",
+        "before": "5 Locations",
+        "after": "Carrollton, TX"
+      },
+      {
+        "id": "workday-nttglobaldatacenters-JR101799",
+        "before": "Ashburn, Virgina",
+        "after": "Ashburn, Virginia"
+      },
+      {
+        "id": "workday-nttglobaldatacenters-JR101533",
+        "before": "Ashburn, Virgina",
+        "after": "Ashburn, Virginia"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1092",
+        "before": "3 Locations",
+        "after": "Piscataway, NJ"
+      }
+    ]
   }
 }

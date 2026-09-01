@@ -57,12 +57,6 @@ function canonicalResultUrl(href) {
     return null;
   }
 
-  // Google Careers currently emits relative result hrefs such as
-  // "jobs/results/<id>-<slug>" from a page whose own path already ends in
-  // /jobs/results/. Resolving those hrefs literally duplicates the path
-  // (…/jobs/results/jobs/results/…) even though the browser app routes them
-  // to the canonical result URL. Extract the result identity from the raw
-  // href instead of trusting normal URL resolution.
   const match = raw.match(/(?:^|\/)(?:about\/careers\/applications\/)?jobs\/results\/(\d+)-([^/?#]+)/i)
     || raw.match(/^\/?(\d+)-([^/?#]+)/i);
   if (!match) return null;
@@ -73,15 +67,20 @@ function canonicalResultUrl(href) {
   };
 }
 
-function extractResultLinks(html) {
+function extractResultLinks(html, diagnostics) {
   const rows = [];
   const seen = new Set();
   const anchorPattern = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   for (const match of html.matchAll(anchorPattern)) {
-    const result = canonicalResultUrl(match[1]);
+    const rawHref = clean(match[1]);
+    const label = clean(match[2]);
+    if (diagnostics.anchorSamples.length < 12 && (/jobs\/results/i.test(rawHref) || /data (?:center|centre)/i.test(label))) {
+      diagnostics.anchorSamples.push({ href: rawHref.slice(0, 260), label: label.slice(0, 260) });
+    }
+
+    const result = canonicalResultUrl(rawHref);
     if (!result || seen.has(result.id)) continue;
 
-    const label = clean(match[2]);
     const nearby = clean(html.slice(match.index, Math.min(html.length, match.index + 1400)));
     const locationMatch = label.match(usLocationPattern) || nearby.match(usLocationPattern);
     const location = clean(locationMatch?.[1] || '');
@@ -96,6 +95,17 @@ function extractResultLinks(html) {
     rows.push({ id: result.id, title, location, sourceUrl: result.url });
   }
   return rows;
+}
+
+function collectRouteSamples(html, diagnostics) {
+  if (diagnostics.routeSamples.length >= 12) return;
+  const pattern = /(?:\/about\/careers\/applications\/)?jobs\/results\/[A-Za-z0-9_?&=.%+\/-]{1,260}/gi;
+  for (const match of html.matchAll(pattern)) {
+    const sample = clean(match[0]);
+    if (!sample || diagnostics.routeSamples.includes(sample)) continue;
+    diagnostics.routeSamples.push(sample);
+    if (diagnostics.routeSamples.length >= 12) break;
+  }
 }
 
 function classify(title) {
@@ -146,6 +156,7 @@ const previousSnapshot = await readJson(SNAPSHOT_PATH, []);
 const priorStatus = await readJson(STATUS_PATH, {});
 const errors = [];
 const rawResults = [];
+const diagnostics = { anchorSamples: [], routeSamples: [] };
 let pagesAttempted = 0;
 let pagesSucceeded = 0;
 let sourceHealthy = true;
@@ -160,7 +171,8 @@ for (let page = 1; page <= SEARCH_PAGES; page += 1) {
   try {
     const html = await fetchText(url.href);
     pagesSucceeded += 1;
-    const results = extractResultLinks(html);
+    collectRouteSamples(html, diagnostics);
+    const results = extractResultLinks(html, diagnostics);
     if (!results.length && page === 1) {
       sourceHealthy = false;
       errors.push('Google Careers returned no parseable early-career data-center results on page 1.');
@@ -237,6 +249,7 @@ await writeFile(STATUS_PATH, JSON.stringify({
     pagesSucceeded,
     candidateRows: rawResults.length,
     qualifyingRoles: snapshot.length,
+    diagnostics,
     errors
   },
   errors: [...(priorStatus.errors || []), ...errors.map(error => `Google Careers: ${error}`)]

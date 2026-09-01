@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T20:49:51.022Z",
-  "jobs": 275,
+  "updatedAt": "2026-09-01T20:53:58.561Z",
+  "jobs": 266,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -14,10 +14,10 @@
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 4,
-    "entry-level": 265
+    "entry-level": 256
   },
   "countsByExperience": {
-    "0-2-years": 197,
+    "0-2-years": 188,
     "no-experience": 5,
     "2-5-years": 73
   },
@@ -72,11 +72,11 @@
       }
     ],
     "candidateRows": 3673,
-    "uniqueCandidates": 1246,
+    "uniqueCandidates": 1245,
     "qualifyingRoles": 18,
     "drops": {
       "nonUs": 365,
-      "title": 582,
+      "title": 581,
       "context": 0,
       "experience": 0,
       "unknownExperience": 281,
@@ -139,9 +139,9 @@
       "candidateLinks": 31,
       "qualifyingRoles": 0,
       "drops": {
-        "context": 3,
+        "context": 2,
         "non-us": 9,
-        "title": 11,
+        "title": 12,
         "unknown-experience": 8
       },
       "dropSamples": [
@@ -197,7 +197,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T20:49:51.085Z",
+    "updatedAt": "2026-09-01T20:53:58.620Z",
     "changed": 19,
     "samples": [
       {
@@ -242,21 +242,9 @@
       }
     ],
     "regionAssigned": 257,
-    "regionMissing": 18,
-    "coveragePct": 93.5,
+    "regionMissing": 9,
+    "coveragePct": 96.6,
     "missingSamples": [
-      {
-        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
-      },
-      {
-        "id": "workday-nttglobaldatacenters-JR100491",
-        "company": "NTT Global Data Centers",
-        "location": "Jakarta, Indonesia",
-        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Jakarta-Indonesia/XMLNAME-276---Skilled-Critical-Facilities-Maintenance-Technician_JR100491"
-      },
       {
         "id": "workday-aligneddc-JR100970",
         "company": "Aligned Data Centers",
@@ -276,46 +264,40 @@
         "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/11bacc03-2a49-4a69-a313-0ad9bb9dbb93"
       },
       {
-        "id": "workday-vantagedc-R23378",
-        "company": "Vantage Data Centers",
-        "location": "Newport, Wales",
-        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Newport-Wales/Critical-Facilities-Engineer--EMEA_R23378"
+        "id": "ashby-fluidstack-025a2bb55f3672",
+        "company": "Fluidstack",
+        "location": "Glendale; AZ",
+        "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/64724948-27a1-4457-86d1-3e7fca7ae23f"
       },
       {
-        "id": "workday-qtsdatacenters-R2024-0682",
-        "company": "QTS Data Centers",
-        "location": "EUR NL Eemshaven 1 DC1",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/EUR-NL-Eemshaven-1-DC1/Data-Center-Facility-Engineer_R2024-0682"
+        "id": "ashby-fluidstack-96d256e2f9b6b3",
+        "company": "Fluidstack",
+        "location": "Austin, TX; New York, NY; San Francisco, CA; U.S. Remote; Seattle, WA",
+        "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/6338295c-737f-44f4-898c-711952fd11dc"
       },
       {
-        "id": "workday-qtsdatacenters-R2024-1345",
-        "company": "QTS Data Centers",
-        "location": "EUR NL Eemshaven 1 DC1",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/EUR-NL-Eemshaven-1-DC1/Data-Centre-Technician-I_R2024-1345-1"
+        "id": "ashby-fluidstack-afd8f632f477b0",
+        "company": "Fluidstack",
+        "location": "Austin, TX; New York, NY; San Francisco, CA; U.S. Remote; Seattle, WA",
+        "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/e1048e4d-afa4-44a7-9cfe-321597061a5f"
       },
       {
-        "id": "workday-nttglobaldatacenters-JR101760",
-        "company": "NTT Global Data Centers",
-        "location": "Dagenham, UK",
-        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Dagenham-UK/Critical-Facilities-Maintenance-Shift-Engineer-LON1_JR101760"
+        "id": "ashby-fluidstack-f53d7ea4422bc5",
+        "company": "Fluidstack",
+        "location": "Austin, TX; New York, NY; San Francisco, CA; U.S. Remote; Seattle, WA",
+        "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/985e25a6-5089-451a-ae68-3ebfcd0de52b"
       },
       {
-        "id": "workday-nttglobaldatacenters-JR100949",
-        "company": "NTT Global Data Centers",
-        "location": "Chon Buri, Thailand",
-        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chon-Buri-Thailand/XMLNAME-5235-Critical-Facilities-Maintenance-Technician_JR100949"
+        "id": "ashby-fluidstack-8e4777452b9d02",
+        "company": "Fluidstack",
+        "location": "U.S. Remote; New York, NY; San Francisco, CA; Seattle, WA",
+        "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/921caae6-e07f-4a0b-bfe5-ffc0088f3d11"
       },
       {
-        "id": "workday-nttglobaldatacenters-JR100493",
-        "company": "NTT Global Data Centers",
-        "location": "Jakarta, Indonesia",
-        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Jakarta-Indonesia/XMLNAME-261---Skilled-Critical-Facilities-Maintenance-Technician_JR100493"
-      },
-      {
-        "id": "lever-serverfarm-efee0b18-cf53-4d89-a618-0f782b9a2b3f",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/efee0b18-cf53-4d89-a618-0f782b9a2b3f"
+        "id": "oracle-digitalrealty-8434",
+        "company": "Digital Realty",
+        "location": "TX, United States",
+        "sourceUrl": "https://hdep.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/8434"
       }
     ],
     "countsByRegion": {
@@ -329,9 +311,9 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-01T20:50:03.552Z",
-    "publishedJobs": 275,
-    "removedJobs": 42,
+    "checkedAt": "2026-09-01T20:54:09.025Z",
+    "publishedJobs": 266,
+    "removedJobs": 51,
     "activeCareerEvents": 2
   }
 }

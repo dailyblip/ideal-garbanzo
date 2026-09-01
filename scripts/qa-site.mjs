@@ -17,7 +17,11 @@ const CRITICAL_SITE_URLS = [
   `${LIVE_BASE}apprenticeships/`,
   `${LIVE_BASE}internships/`,
   `${LIVE_BASE}entry-level/`,
-  `${LIVE_BASE}career-events/`
+  `${LIVE_BASE}career-events/`,
+  `${LIVE_BASE}how-to-get-a-data-center-job/`,
+  `${LIVE_BASE}how-to-get-a-data-center-internship/`,
+  `${LIVE_BASE}assets/guides/data-center-career-guide-mentor.webp`,
+  `${LIVE_BASE}assets/guides/data-center-internship-training.webp`
 ];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
@@ -37,13 +41,22 @@ function normalizeTitle(title = '') {
 
 const clearlyForeignLocationTerms = [
   'malaysia', 'india', 'japan', 'taiwan', 'germany', 'england', 'united kingdom', 'netherlands',
+  'switzerland', 'ireland', 'canada', 'hong kong', 'china', 'singapore', 'australia', 'france',
+  'spain', 'italy', 'poland', 'sweden', 'norway', 'denmark', 'belgium', 'austria', 'portugal',
+  'brazil', 'mexico', 'south africa', 'united arab emirates',
   'montreal, quebec', 'toronto, on', 'frankfurt', 'amsterdam', 'bengaluru', 'noida',
-  'navi mumbai', 'mumbai', 'osaka', 'taipei', 'cyberjaya', 'munich'
+  'navi mumbai', 'mumbai', 'osaka', 'taipei', 'cyberjaya', 'munich', 'zurich'
 ];
 
 function clearlyOutsideUnitedStates(job) {
   const text = lower(`${job.location || ''} ${job.sourceUrl || ''}`);
   return clearlyForeignLocationTerms.some(term => text.includes(term));
+}
+
+function unresolvedLocation(job) {
+  const location = clean(job?.location);
+  if (!location) return true;
+  return /^\d+\s+locations?$/i.test(location) || /^location not listed$/i.test(location) || /^multiple locations?$/i.test(location);
 }
 
 function reqId(url = '') {
@@ -162,7 +175,8 @@ if (!Array.isArray(originalEvents)) throw new Error('career-events.json must be 
 
 const demoJobs = originalJobs.filter(job => job.demo === true);
 const nonUsJobs = originalJobs.filter(job => job.demo !== true && clearlyOutsideUnitedStates(job));
-const eligibleJobs = originalJobs.filter(job => job.demo !== true && !clearlyOutsideUnitedStates(job));
+const unresolvedLocationJobs = originalJobs.filter(job => job.demo !== true && !clearlyOutsideUnitedStates(job) && unresolvedLocation(job));
+const eligibleJobs = originalJobs.filter(job => job.demo !== true && !clearlyOutsideUnitedStates(job) && !unresolvedLocation(job));
 const { jobs: dedupedJobs, duplicates } = dedupeJobs(eligibleJobs);
 
 const jobChecks = await mapLimit(dedupedJobs, CONCURRENCY, async job => ({
@@ -223,6 +237,7 @@ const report = {
   jobsAfter: finalJobs.length,
   demoJobsRemoved: demoJobs.map(job => ({ id: job.id, title: job.title })),
   nonUsJobsRemoved: nonUsJobs.map(job => ({ id: job.id, company: job.company, title: job.title, location: job.location })),
+  unresolvedLocationJobsRemoved: unresolvedLocationJobs.map(job => ({ id: job.id, company: job.company, title: job.title, location: job.location })),
   duplicatesRemoved: duplicates,
   deadJobLinksRemoved: jobChecks.filter(check => check.state === 'dead'),
   blockedJobLinks: jobChecks.filter(check => check.state === 'blocked'),
@@ -245,7 +260,7 @@ await writeFile(STATUS_PATH, JSON.stringify(collectorStatus, null, 2) + '\n');
 await writeFile(REPORT_PATH, JSON.stringify(report, null, 2) + '\n');
 
 console.log(`QA complete: ${originalJobs.length} -> ${finalJobs.length} jobs; ${originalEvents.length} -> ${finalCareerEvents.length} career events.`);
-console.log(`Removed ${duplicates.length} duplicate(s), ${demoJobs.length} demo job(s), ${nonUsJobs.length} clearly non-US job(s), and ${deadIds.size} confirmed dead job link(s).`);
+console.log(`Removed ${duplicates.length} duplicate(s), ${demoJobs.length} demo job(s), ${nonUsJobs.length} clearly non-US job(s), ${unresolvedLocationJobs.length} unresolved-location job(s), and ${deadIds.size} confirmed dead job link(s).`);
 console.log(`Removed ${expiredCareerEvents.length} expired career event(s) and ${deadCareerEventIds.size} event(s) with confirmed dead organizer links.`);
 const eventWarnings = careerEventChecks.filter(check => check.state !== 'ok' && check.state !== 'dead');
 if (eventWarnings.length) console.warn(`Career event link warnings: ${eventWarnings.map(item => `${item.status ?? item.state} ${item.url}`).join(' | ')}`);

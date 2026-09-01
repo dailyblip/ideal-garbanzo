@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T10:52:49.763Z",
+  "updatedAt": "2026-09-01T11:48:54.124Z",
   "jobs": 292,
   "sourcesAttempted": 21,
   "providers": {
@@ -59,26 +59,26 @@
       },
       {
         "query": "data center technician",
-        "rows": 1331
+        "rows": 1330
       },
       {
         "query": "engineering operations technician",
-        "rows": 353
+        "rows": 352
       },
       {
         "query": "work based learning data center",
         "rows": 0
       }
     ],
-    "candidateRows": 3684,
-    "uniqueCandidates": 1237,
+    "candidateRows": 3682,
+    "uniqueCandidates": 1236,
     "qualifyingRoles": 18,
     "drops": {
       "nonUs": 359,
       "title": 580,
       "context": 0,
       "experience": 0,
-      "unknownExperience": 280,
+      "unknownExperience": 279,
       "invalidUrl": 0
     },
     "errors": []
@@ -174,7 +174,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T10:52:49.816Z",
+    "updatedAt": "2026-09-01T11:48:54.181Z",
     "changed": 16,
     "samples": [
       {

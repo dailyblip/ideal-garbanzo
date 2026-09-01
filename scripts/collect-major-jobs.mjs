@@ -22,6 +22,13 @@ const workdayBoards = [
     tenant: 'cyrusone',
     site: 'CyrusOneCareerPortal',
     locale: 'en-US'
+  },
+  {
+    company: 'STACK Infrastructure',
+    origin: 'https://stackinfra.wd108.myworkdayjobs.com',
+    tenant: 'stackinfra',
+    site: 'STACK_AMER',
+    locale: 'en-US'
   }
 ];
 

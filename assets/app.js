@@ -21,6 +21,7 @@
   const featuredJobPrice = document.getElementById('featuredJobPrice');
   const employerCheckoutLink = document.getElementById('employerCheckoutLink');
   const employerCheckoutStatus = document.getElementById('employerCheckoutStatus');
+  const eventsList = document.getElementById('eventsList');
 
   const escapeHtml = value => String(value ?? '').replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));
   const safeUrl = value => /^https:\/\//i.test(String(value || '')) ? String(value) : '#';
@@ -69,6 +70,18 @@
     if (hours < 24) return `${hours}h ago`;
     return `${Math.max(1, Math.round(hours / 24))}d ago`;
   };
+  const localIsoDate = date => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  const eventDateLabel = value => {
+    const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return '';
+    const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12));
+    return new Intl.DateTimeFormat('en-US', { month:'short', day:'numeric', timeZone:'UTC' }).format(date).toUpperCase();
+  };
 
   function activeFeaturedIds(records) {
     const now = Date.now();
@@ -80,6 +93,26 @@
       if (expires && Number.isFinite(expires) && expires <= now) return false;
       return true;
     }).map(record => String(record.jobId)));
+  }
+
+  function activeCareerEvents(records) {
+    const today = localIsoDate(new Date());
+    return (Array.isArray(records) ? records : []).filter(event => {
+      if (!event || !/^\d{4}-\d{2}-\d{2}$/.test(String(event.date || ''))) return false;
+      if (!/^https:\/\//i.test(String(event.url || ''))) return false;
+      return event.date >= today && event.name && event.location && event.organizer;
+    }).sort((a,b) => String(a.date).localeCompare(String(b.date)));
+  }
+
+  function renderCareerEvents(records) {
+    if (!eventsList) return;
+    const events = activeCareerEvents(records).slice(0, 3);
+    eventsList.setAttribute('aria-busy', 'false');
+    eventsList.innerHTML = events.length ? events.map(event => `
+      <a class="event-row" href="${escapeHtml(safeUrl(event.url))}" target="_blank" rel="noopener noreferrer">
+        <b>${escapeHtml(eventDateLabel(event.date))}</b>
+        <div><strong>${escapeHtml(event.name)}</strong><span>${escapeHtml(event.location)} · ${escapeHtml(event.organizer)}</span></div>
+      </a>`).join('') : '<p>No verified upcoming events are currently listed. Check back soon.</p>';
   }
 
   function configureEmployerProduct(product) {
@@ -158,10 +191,11 @@
 
   async function loadSiteData() {
     try {
-      const [jobsResponse, featuredResponse, productsResponse] = await Promise.all([
+      const [jobsResponse, featuredResponse, productsResponse, eventsResponse] = await Promise.all([
         fetch('data/jobs.json', { cache: 'no-store' }),
         fetch('data/featured-jobs.json', { cache: 'no-store' }),
-        fetch('data/employer-products.json', { cache: 'no-store' })
+        fetch('data/employer-products.json', { cache: 'no-store' }),
+        fetch('data/career-events.json', { cache: 'no-store' })
       ]);
       if (!jobsResponse.ok) throw new Error('Unable to load jobs');
       state.jobs = await jobsResponse.json();
@@ -170,8 +204,11 @@
         const products = await productsResponse.json();
         configureEmployerProduct(products.featuredJob);
       }
+      if (eventsResponse.ok) renderCareerEvents(await eventsResponse.json());
+      else renderCareerEvents([]);
       render();
     } catch {
+      renderCareerEvents([]);
       emptyState.hidden = false;
       emptyState.textContent = 'Job data could not be loaded. Please refresh.';
     }

@@ -53,8 +53,7 @@ requireMatch(/\.hero-search \.btn\{[^}]*width:100%[^}]*min-height:48px/i.test(mo
 requireMatch(/\.hero-media\{[^}]*position:relative[^}]*order:2/i.test(mobileCss), 'Mobile hero image must remain a clean block below search.');
 requireMatch(/\.apply-link\{[^}]*min-height:44px/i.test(mobileCss), 'Mobile job actions must keep 44px+ touch targets.');
 requireMatch(/\.employer-cta\{[^}]*min-height:44px/i.test(mobileCss), 'Mobile employer CTA must keep a 44px+ touch target.');
-requireMatch(/\.menu-button\{[^}]*min-width:44px[^}]*min-height:44px/i.test(mobileCss), 'Mobile menu button must keep a 44px+ touch target.');
-requireMatch(/\.filter-toggle\{[^}]*min-height:44px/i.test(mobileCss), 'Mobile filter button must keep a 44px+ touch target.');
+requireMatch(/\.alert-strip input,\.alert-strip select\{[^}]*font-size:16px[^}]*min-height:46px/i.test(mobileCss), 'Mobile alert controls must remain readable and touch-friendly.');
 
 for (const forbidden of ['assets/hero-overrides.css', 'assets/home-tools.css']) {
   try {

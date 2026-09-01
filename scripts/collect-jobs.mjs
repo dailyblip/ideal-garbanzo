@@ -6,7 +6,8 @@ const leverCompanies = [
   ['lightedge','LightEdge Solutions'],
   ['cologix','Cologix'],
   ['ecldc','ECL'],
-  ['hive','Hive']
+  ['hive','Hive'],
+  ['cagents','CAI']
 ];
 const greenhouseBoards = [
   ['xai','xAI'],
@@ -15,7 +16,9 @@ const greenhouseBoards = [
 const ashbyBoards = [
   ['lambda','Lambda'],
   ['crusoe','Crusoe'],
-  ['fluidstack','Fluidstack']
+  ['fluidstack','Fluidstack'],
+  ['gimlet','Gimlet Labs'],
+  ['tensorwave','TensorWave']
 ];
 
 // Keep the feed centered on hands-on data-center work. Strong title phrases can
@@ -44,7 +47,11 @@ const midTerms = [
 ];
 const excludedTitleTerms = [
   'senior','sr.','sr ','lead ','principal','manager','director','vice president','vp ','head of','staff engineer',
-  'supervisor','superintendent','foreman','counsel','attorney','designer','architect','recruiter','sales','account executive'
+  'supervisor','superintendent','foreman','counsel','attorney','designer','architect','recruiter','sales','account executive',
+  'future opportunity','future opportunities','talent pool','general application'
+];
+const excludedDescriptionTerms = [
+  'this is an evergreen requisition','evergreen requisition','talent pool application','general interest application'
 ];
 
 const clean = s => String(s ?? '').replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&#39;/g,"'").replace(/&quot;/g,'"').replace(/\s+/g,' ').trim();
@@ -56,7 +63,7 @@ const normalizeIdentity = value => lower(value).replace(/[^a-z0-9]+/g,' ').trim(
 function relevant(title, description='') {
   const t = lower(title);
   const d = lower(description);
-  if (!t || hasAny(t, excludedTitleTerms)) return false;
+  if (!t || hasAny(t, excludedTitleTerms) || hasAny(d, excludedDescriptionTerms)) return false;
   if (hasAny(t, strongTitleTerms)) return true;
   return hasAny(t, contextualTitleTerms) && hasAny(d, dataCenterContextTerms);
 }

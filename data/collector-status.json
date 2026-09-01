@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T04:45:05.082Z",
-  "jobs": 182,
+  "updatedAt": "2026-09-01T04:46:38.016Z",
+  "jobs": 171,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 6,
@@ -10,12 +10,12 @@
   },
   "countsByType": {
     "internship": 2,
-    "entry-level": 180
+    "entry-level": 169
   },
   "countsByExperience": {
-    "0-2-years": 139,
+    "0-2-years": 131,
     "no-experience": 1,
-    "2-5-years": 42
+    "2-5-years": 39
   },
   "errors": [],
   "majorSources": {
@@ -40,5 +40,15 @@
       "M.C. Dean"
     ],
     "errors": []
+  },
+  "priorityEmployerExpansion": {
+    "Equinix": {
+      "officialSource": "https://careers.equinix.com/",
+      "listingPagesAttempted": 6,
+      "listingPagesSucceeded": 6,
+      "candidateLinks": 20,
+      "qualifyingRoles": 0,
+      "errors": []
+    }
   }
 }

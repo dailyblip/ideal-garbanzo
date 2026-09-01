@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T04:53:15.573Z",
-  "jobs": 172,
+  "updatedAt": "2026-09-01T04:56:22.293Z",
+  "jobs": 163,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 6,
@@ -10,12 +10,11 @@
   },
   "countsByType": {
     "internship": 2,
-    "trainee": 1,
-    "entry-level": 169
+    "entry-level": 161
   },
   "countsByExperience": {
-    "0-2-years": 131,
-    "no-experience": 2,
+    "0-2-years": 123,
+    "no-experience": 1,
     "2-5-years": 39
   },
   "errors": [],
@@ -48,10 +47,10 @@
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
       "candidateLinks": 30,
-      "qualifyingRoles": 1,
+      "qualifyingRoles": 0,
       "drops": {
         "context": 2,
-        "non-us": 8,
+        "non-us": 9,
         "title": 11,
         "unknown-experience": 8
       },
@@ -95,6 +94,14 @@
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
+      "errors": []
+    },
+    "EquinixEarlyCareer": {
+      "officialSource": "https://careers.equinix.com/",
+      "listingPagesAttempted": 3,
+      "listingPagesSucceeded": 3,
+      "candidateLinks": 0,
+      "qualifyingRoles": 0,
       "errors": []
     }
   }

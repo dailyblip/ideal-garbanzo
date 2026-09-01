@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T15:45:00.155Z",
-  "jobs": 294,
+  "updatedAt": "2026-09-01T15:49:12.388Z",
+  "jobs": 255,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 6,
@@ -14,10 +14,10 @@
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 4,
-    "entry-level": 284
+    "entry-level": 245
   },
   "countsByExperience": {
-    "0-2-years": 220,
+    "0-2-years": 181,
     "no-experience": 5,
     "2-5-years": 69
   },
@@ -129,13 +129,13 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 31,
+      "candidateLinks": 35,
       "qualifyingRoles": 0,
       "drops": {
         "context": 2,
         "non-us": 9,
-        "title": 12,
-        "unknown-experience": 8
+        "title": 15,
+        "unknown-experience": 9
       },
       "dropSamples": [
         {
@@ -190,7 +190,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T15:45:00.216Z",
+    "updatedAt": "2026-09-01T15:49:12.466Z",
     "changed": 16,
     "samples": [
       {
@@ -234,16 +234,22 @@
         "after": "Piscataway, NJ"
       }
     ],
-    "regionAssigned": 222,
-    "regionMissing": 72,
+    "regionAssigned": 201,
+    "regionMissing": 54,
     "countsByRegion": {
-      "mid-atlantic": 28,
-      "texas": 62,
-      "southwest": 21,
+      "mid-atlantic": 22,
+      "texas": 57,
+      "southwest": 17,
       "southeast": 50,
-      "west": 25,
-      "midwest": 32,
+      "west": 23,
+      "midwest": 28,
       "northeast": 4
     }
+  },
+  "postQa": {
+    "checkedAt": "2026-09-01T15:49:19.378Z",
+    "publishedJobs": 255,
+    "removedJobs": 39,
+    "activeCareerEvents": 2
   }
 }

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T03:47:40.523Z",
-  "jobs": 208,
+  "updatedAt": "2026-09-01T04:01:15.777Z",
+  "jobs": 197,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 6,
@@ -9,13 +9,13 @@
     "workday": 4
   },
   "countsByType": {
-    "entry-level": 206,
-    "internship": 2
+    "internship": 2,
+    "entry-level": 195
   },
   "countsByExperience": {
     "0-2-years": 151,
-    "2-5-years": 56,
-    "no-experience": 1
+    "no-experience": 1,
+    "2-5-years": 45
   },
   "errors": [],
   "majorSources": {
@@ -28,5 +28,16 @@
       "STACK Infrastructure"
     ],
     "jobs": 72
+  },
+  "earlyCareerDiscovery": {
+    "sourcesAttempted": 3,
+    "sourcesSucceeded": 3,
+    "discovered": 0,
+    "companies": [
+      "Equinix",
+      "Amazon Web Services",
+      "Microsoft"
+    ],
+    "errors": []
   }
 }

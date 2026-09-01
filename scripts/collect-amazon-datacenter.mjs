@@ -52,7 +52,7 @@ async function fetchJson(url) {
   const response = await fetch(url, {
     headers: {
       accept: 'application/json,text/plain,*/*',
-      'user-agent': 'DataCenterCareersBot/1.8 (+https://dailyblip.github.io/ideal-garbanzo/)'
+      'user-agent': 'DataCenterCareersBot/1.9 (+https://dailyblip.github.io/ideal-garbanzo/)'
     },
     redirect: 'follow'
   });
@@ -176,13 +176,15 @@ function classify(row) {
 
   const years = requiredExperienceYears(required);
   if (years.some(year => year >= 6)) return { drop: 'experience' };
-  const earlySignal = /work.?based learning|(?:no|zero) (?:prior )?experience(?: required| needed)?|training program|intern|apprentice|trainee|skillbridge/.test(text);
+  const earlyProgramTitle = /work.?based learning|intern|apprentice|trainee|skillbridge/.test(t);
+  const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required/.test(lower(required));
+  const earlySignal = earlyProgramTitle || explicitNoExperience;
   if (!years.length && !earlySignal) return { drop: 'unknownExperience' };
 
   let type = 'entry-level';
   if (/intern|co-?op/.test(t)) type = 'internship';
   else if (/apprentice/.test(t)) type = 'apprenticeship';
-  else if (/trainee|work.?based learning|skillbridge/.test(text)) type = 'trainee';
+  else if (/trainee|work.?based learning|skillbridge/.test(t)) type = 'trainee';
 
   let experience = '0-2-years';
   if (years.some(year => year >= 3)) experience = '2-5-years';
@@ -194,12 +196,13 @@ function classify(row) {
 
 function tagsFor(row, type, experience) {
   const text = lower(`${row.title} ${row.description || ''} ${row.basic_qualifications || ''}`);
+  const title = lower(row.title);
   const tags = [];
   if (type === 'internship') tags.push('Internship');
   if (type === 'apprenticeship') tags.push('Apprenticeship');
-  if (type === 'trainee') tags.push(/work.?based learning/.test(text) ? 'Work-Based Learning' : 'Trainee');
+  if (type === 'trainee') tags.push(/work.?based learning/.test(title) ? 'Work-Based Learning' : 'Trainee');
   tags.push(experience === 'no-experience' ? 'No Experience Needed' : experience === '0-2-years' ? '0–2 Years' : '2–5 Years');
-  if (/skillbridge/.test(text)) tags.push('SkillBridge');
+  if (/skillbridge/.test(title)) tags.push('SkillBridge');
   if (/electrical|switchgear|ups/.test(text)) tags.push('Electrical');
   if (/fiber|cabling|network/.test(text)) tags.push('Network / Cabling');
   if (/critical facilit|generator|hvac|chiller|mechanical|crah|crac/.test(text)) tags.push('Critical Facilities');

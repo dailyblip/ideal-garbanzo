@@ -33,6 +33,8 @@ jobs:
         run: node scripts/collect-major-jobs.mjs
       - name: Add early-career internships and training roles
         run: node scripts/collect-early-career.mjs
+      - name: Add official Microsoft datacenter roles
+        run: node scripts/collect-microsoft-datacenter.mjs
       - name: Add official Equinix careers roles
         run: node scripts/collect-equinix-v2.mjs
       - name: Add Equinix US early-career roles

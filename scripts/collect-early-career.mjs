@@ -25,23 +25,33 @@ const sources = [
       'https://careers.microsoft.com/v2/global/en/datacenters.html'
     ],
     allow: /intern|apprentice|trainee|early.career|data.?center technician|datacenter technician/i
+  },
+  {
+    company: 'M.C. Dean',
+    listings: [
+      'https://careers.mcdean.com/join/jobs/categories',
+      'https://www.mcdean.com/join-us/'
+    ],
+    allow: /apprentice|intern|trainee|entry.?level/i
   }
 ];
 
 const earlySignals = [
   'intern','internship','apprentice','apprenticeship','trainee','skillbridge','fellowship',
   'work based learning','work-based learning','co-op','co op','entry level','entry-level',
-  'no experience','high school diploma','high school or equivalent','training program'
+  'no experience','high school diploma','high school or equivalent','training program','0+ months of experience'
 ];
 const dataCenterSignals = [
   'data center','datacenter','data centre','critical facilities','critical environment',
   'critical environments','server rack','rack and stack','white space','switchgear','ups',
-  'generator','fiber','cabling','colocation','mission critical','mission-critical'
+  'generator','fiber','cabling','colocation','mission critical','mission-critical',
+  'telecommunications','low voltage','automation and controls','complex infrastructure'
 ];
 const excludeSignals = [
   'senior','principal','manager','director','vice president','staff engineer','lead engineer',
   'counsel','attorney','account executive','sales manager'
 ];
+const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|staff engineer|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;
 
 const clean = value => String(value ?? '')
   .replace(/<[^>]*>/g,' ')
@@ -76,7 +86,7 @@ async function fetchText(url) {
   const response = await fetch(url, {
     headers: {
       accept: 'text/html,application/xhtml+xml',
-      'user-agent': 'DataCenterCareersBot/1.3 (+https://dailyblip.github.io/ideal-garbanzo/)'
+      'user-agent': 'DataCenterCareersBot/1.4 (+https://dailyblip.github.io/ideal-garbanzo/)'
     },
     redirect: 'follow'
   });
@@ -100,7 +110,7 @@ function discoverJobLinks(html, baseUrl, allow) {
     seen.add(absolute);
     links.push(absolute);
   }
-  return links.slice(0, 30);
+  return links.slice(0, 50);
 }
 
 function findJobPosting(value) {
@@ -150,7 +160,7 @@ function locationFromPosting(posting) {
 function classify(title, description='') {
   const text = lower(`${title} ${description}`);
   const t = lower(title);
-  if (!hasAny(text, dataCenterSignals) || hasAny(t, excludeSignals)) return null;
+  if (seniorTitlePattern.test(title) || !hasAny(text, dataCenterSignals) || hasAny(t, excludeSignals)) return null;
   if (!hasAny(text, earlySignals)) return null;
 
   let type = 'entry-level';
@@ -158,7 +168,7 @@ function classify(title, description='') {
   else if (/intern|co-op|co op/.test(t)) type = 'internship';
   else if (/trainee|skillbridge|fellowship|work.?based learning/.test(t) || /work.?based learning/.test(text)) type = 'trainee';
 
-  const noExperience = /no experience|high school diploma|high school or equivalent|work.?based learning|skillbridge|apprentice|training program/.test(text);
+  const noExperience = /no experience|high school diploma|high school or equivalent|0\+ months of experience|work.?based learning|skillbridge|apprentice|training program/.test(text);
   const experience = noExperience ? 'no-experience' : '0-2-years';
   return { type, experience };
 }
@@ -173,7 +183,7 @@ function tagsFor(title, description, type, experience) {
   if (/skillbridge/.test(text)) tags.push('SkillBridge');
   if (/training|mentorship|learning program|academy/.test(text)) tags.push('Training / Mentorship');
   if (/electrical|switchgear|ups/.test(text)) tags.push('Electrical');
-  if (/fiber|cabling|network/.test(text)) tags.push('Network / Cabling');
+  if (/fiber|cabling|network|telecommunications|low voltage/.test(text)) tags.push('Network / Cabling');
   if (/critical facilit|generator|hvac|chiller|mechanical/.test(text)) tags.push('Critical Facilities');
   return [...new Set(tags)].slice(0,5);
 }
@@ -234,6 +244,7 @@ function dedupe(jobs) {
   const identities = new Set();
   const out = [];
   for (const job of jobs) {
+    if (seniorTitlePattern.test(clean(job.title))) continue;
     const url = clean(job.sourceUrl);
     const identity = [normalizeIdentity(job.company), canonicalTitle(job), normalizeIdentity(job.location)].join('|');
     if ((url && urls.has(url)) || identities.has(identity)) continue;
@@ -262,7 +273,7 @@ for (const source of sources) {
         errors.push(`${source.company} listing: ${error.message}`);
       }
     }
-    for (const link of [...sourceLinks].slice(0,30)) {
+    for (const link of [...sourceLinks].slice(0,50)) {
       try {
         const job = await hydrate(source, link);
         if (job) discovered.push(job);

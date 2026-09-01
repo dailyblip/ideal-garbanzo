@@ -47,7 +47,7 @@ jobs:
         run: node scripts/collect-equinix-early.mjs
       - name: Normalize job locations
         run: node scripts/normalize-job-locations.mjs
-      - name: Run live link and duplicate QA
+      - name: Run live link, duplicate, and career-event QA
         run: node scripts/qa-site.mjs
       - name: Guard against refresh regressions
         run: node scripts/validate-refresh-health.mjs
@@ -55,15 +55,15 @@ jobs:
         run: node scripts/validate.mjs
       - name: Validate approved homepage contract
         run: node scripts/validate-homepage-contract.mjs
-      - name: Commit refreshed jobs when changed
+      - name: Commit refreshed jobs and events when changed
         run: |
-          if git diff --quiet -- data/jobs.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/digital-realty-jobs.json data/collector-status.json data/qa-report.json; then
-            echo "No job or QA data changes."
+          if git diff --quiet -- data/jobs.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/digital-realty-jobs.json data/career-events.json data/collector-status.json data/qa-report.json; then
+            echo "No job, career-event, or QA data changes."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/digital-realty-jobs.json data/collector-status.json data/qa-report.json
-            git commit -m "Refresh verified jobs and QA report"
+            git add data/jobs.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/digital-realty-jobs.json data/career-events.json data/collector-status.json data/qa-report.json
+            git commit -m "Refresh verified jobs, events, and QA report"
             git fetch origin main
             git rebase origin/main
             git push origin HEAD:main

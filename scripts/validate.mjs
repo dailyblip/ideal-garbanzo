@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-const requiredFiles = ['index.html','assets/styles.css','assets/app.js','data/jobs.json','data/amazon-jobs.json','data/featured-jobs.json','data/employer-products.json'];
+const requiredFiles = ['index.html','assets/styles.css','assets/app.js','data/jobs.json','data/amazon-jobs.json','data/google-jobs.json','data/featured-jobs.json','data/employer-products.json'];
 for (const file of requiredFiles) {
   const value = await readFile(file, 'utf8');
   if (!value.trim()) throw new Error(`${file} is empty`);
@@ -13,6 +13,12 @@ if (!Array.isArray(amazonJobs)) throw new Error('amazon-jobs.json must contain a
 for (const [i, job] of amazonJobs.entries()) {
   if (job.company !== 'Amazon Web Services') throw new Error(`AWS snapshot job ${i} has unexpected company: ${job.company}`);
   if (!/^https:\/\/(?:www\.)?amazon\.jobs\//i.test(String(job.sourceUrl || ''))) throw new Error(`AWS snapshot job ${i} has non-Amazon sourceUrl`);
+}
+const googleJobs = JSON.parse(await readFile('data/google-jobs.json', 'utf8'));
+if (!Array.isArray(googleJobs)) throw new Error('google-jobs.json must contain an array');
+for (const [i, job] of googleJobs.entries()) {
+  if (job.company !== 'Google') throw new Error(`Google snapshot job ${i} has unexpected company: ${job.company}`);
+  if (!/^https:\/\/www\.google\.com\/about\/careers\/applications\/jobs\/results\//i.test(String(job.sourceUrl || ''))) throw new Error(`Google snapshot job ${i} has non-Google Careers sourceUrl`);
 }
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
@@ -91,4 +97,4 @@ if (/hero-overrides\.css/i.test(html)) throw new Error('Obsolete hero-overrides.
 const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)];
 if (stylesheetLinks.length !== 1 || !stylesheetLinks[0][0].includes('assets/styles.css')) throw new Error('Homepage must use exactly one stylesheet: assets/styles.css');
 
-console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${featuredJobs.length} featured activations, and ${requiredFiles.length} required files.`);
+console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${googleJobs.length} Google jobs, ${featuredJobs.length} featured activations, and ${requiredFiles.length} required files.`);

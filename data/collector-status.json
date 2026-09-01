@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T10:49:34.893Z",
-  "jobs": 295,
+  "updatedAt": "2026-09-01T10:52:49.763Z",
+  "jobs": 292,
   "sourcesAttempted": 21,
   "providers": {
     "lever": 6,
@@ -13,12 +13,12 @@
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 3,
-    "entry-level": 286
+    "entry-level": 283
   },
   "countsByExperience": {
-    "0-2-years": 222,
+    "0-2-years": 220,
     "no-experience": 4,
-    "2-5-years": 69
+    "2-5-years": 68
   },
   "errors": [],
   "majorSources": {
@@ -97,11 +97,11 @@
     "officialSource": "https://www.digitalrealty.com/about/careers",
     "boardUrl": "https://hdep.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX",
     "sourceHealthy": true,
-    "candidateRows": 60,
-    "qualifyingRoles": 19,
+    "candidateRows": 49,
+    "qualifyingRoles": 14,
     "drops": {
-      "title": 133,
-      "nonUs": 39,
+      "title": 144,
+      "nonUs": 33,
       "context": 0,
       "experience": 0,
       "missingId": 0
@@ -113,13 +113,13 @@
       "officialSource": "https://careers.equinix.com/",
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 30,
+      "candidateLinks": 34,
       "qualifyingRoles": 0,
       "drops": {
         "context": 2,
         "non-us": 9,
-        "title": 11,
-        "unknown-experience": 8
+        "title": 14,
+        "unknown-experience": 9
       },
       "dropSamples": [
         {
@@ -174,7 +174,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T10:49:34.939Z",
+    "updatedAt": "2026-09-01T10:52:49.816Z",
     "changed": 16,
     "samples": [
       {
@@ -219,10 +219,10 @@
       }
     ],
     "regionAssigned": 220,
-    "regionMissing": 75,
+    "regionMissing": 72,
     "countsByRegion": {
-      "mid-atlantic": 27,
-      "texas": 63,
+      "mid-atlantic": 28,
+      "texas": 62,
       "southwest": 20,
       "southeast": 50,
       "west": 25,

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 const listingUrls = [
   'https://careers.equinix.com/internships',
   'https://careers.equinix.com/hiring-operations-us-equinix',
+  ...[1,2,3,4].map(page => `https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=${page}&query=data+center`),
   'https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=1&query=skillbridge',
   'https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=2&query=skillbridge'
 ];
@@ -119,10 +120,9 @@ for (const listing of listingUrls) {
   } catch (error) { errors.push(`listing ${listing}: ${error.message}`); }
 }
 
-// The broader Equinix collector has already fetched these official job pages.
-// Recover US early-career records that it rejected only because Equinix omitted
-// structured location metadata from the page response. The URL and title are
-// both employer-provided and re-fetched below before publication.
+// Keep the broader Equinix collector's verified US samples as a fallback for
+// employer pages that omit usable links or structured location data. Every
+// recovered role is still re-fetched below before publication.
 const priorSamples = status?.priorityEmployerExpansion?.Equinix?.dropSamples || [];
 let recoveredCandidates = 0;
 for (const sample of priorSamples) {

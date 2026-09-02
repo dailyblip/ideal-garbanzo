@@ -68,6 +68,7 @@ jobs:
           }
 
           pipeline_title="[Steward] Pipeline incident - run ${RUN_ID}"
+          domain_blocker_title="[Steward] Custom-domain deployment blocker"
           stuck_title="[Steward] Stuck pipeline - run ${RUN_ID}"
 
           newer_run="$(gh api "repos/${REPO}/actions/workflows/${TARGET_WORKFLOW}/runs?per_page=20" \
@@ -112,6 +113,10 @@ jobs:
               > /tmp/failed-jobs.txt 2>/dev/null || true
             gh run view "$RUN_ID" --repo "$REPO" --log-failed 2>&1 | tail -n 180 > /tmp/failed-log.txt || true
 
+            if grep -Fq 'Verify custom-domain deployment' /tmp/failed-log.txt; then
+              pipeline_title="$domain_blocker_title"
+            fi
+
             {
               echo "The Data Center Careers refresh/deploy pipeline needs intervention."
               echo
@@ -136,8 +141,8 @@ jobs:
           fi
 
           close_issue "$pipeline_title" "Recovered: pipeline run ${RUN_ID} completed successfully."
+          close_issue "$domain_blocker_title" "Recovered: custom-domain verification passed in pipeline run ${RUN_ID}."
           close_issue "$stuck_title" "Recovered: pipeline run ${RUN_ID} completed successfully."
-
           main_sha="$(gh api "repos/${REPO}/commits/main" --jq .sha)"
           live_sha=""
           homepage_ok="false"

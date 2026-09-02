@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-02T07:50:25.911Z",
-  "jobs": 263,
-  "sourcesAttempted": 27,
+  "updatedAt": "2026-09-02T07:53:12.770Z",
+  "jobs": 262,
+  "sourcesAttempted": 28,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -9,16 +9,16 @@
     "workday": 6,
     "googleCareers": 1,
     "oracleRecruitingCloud": 1,
-    "metaCareers": 5
+    "metaCareers": 6
   },
   "countsByType": {
     "apprenticeship": 4,
     "internship": 2,
     "trainee": 4,
-    "entry-level": 253
+    "entry-level": 252
   },
   "countsByExperience": {
-    "0-2-years": 186,
+    "0-2-years": 185,
     "no-experience": 5,
     "2-5-years": 72
   },
@@ -198,26 +198,10 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-02T07:50:25.971Z",
-    "changed": 3,
-    "samples": [
-      {
-        "id": "workday-qtsdatacenters-R2026-0881",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0917",
-        "before": "US VA Ashburn 1 DC1",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0893",
-        "before": "US OR Hillsboro 1 DC1",
-        "after": "Hillsboro, OR"
-      }
-    ],
-    "regionAssigned": 263,
+    "updatedAt": "2026-09-02T07:53:12.821Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 262,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -226,7 +210,7 @@
       "texas": 68,
       "southwest": 33,
       "southeast": 58,
-      "west": 30,
+      "west": 29,
       "midwest": 33,
       "northeast": 5
     }
@@ -259,9 +243,34 @@
       },
       "titleOrContextSamples": [
         {
+          "id": "2082780019279407",
+          "title": "Software Engineer, Systems",
+          "url": "https://www.metacareers.com/profile/job_details/2082780019279407/"
+        },
+        {
+          "id": "1286818323298472",
+          "title": "Research Scientist, FAIR SGT - Paris",
+          "url": "https://www.metacareers.com/profile/job_details/1286818323298472/"
+        },
+        {
           "id": "1277398403727586",
           "title": "Software Engineer, Infrastructure",
           "url": "https://www.metacareers.com/profile/job_details/1277398403727586/"
+        },
+        {
+          "id": "1334478348668120",
+          "title": "Agency Partner (Short Term Employment)",
+          "url": "https://www.metacareers.com/profile/job_details/1334478348668120/"
+        },
+        {
+          "id": "1769900794137147",
+          "title": "Technical Program Manager — Developer Productivity Cultural Levers",
+          "url": "https://www.metacareers.com/profile/job_details/1769900794137147/"
+        },
+        {
+          "id": "1721254462523213",
+          "title": "Client Solutions Manager, Ecommerce",
+          "url": "https://www.metacareers.com/profile/job_details/1721254462523213/"
         },
         {
           "id": "998357492128826",
@@ -274,29 +283,9 @@
           "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
         },
         {
-          "id": "1721254462523213",
-          "title": "Client Solutions Manager, Ecommerce",
-          "url": "https://www.metacareers.com/profile/job_details/1721254462523213/"
-        },
-        {
-          "id": "2082780019279407",
-          "title": "Software Engineer, Systems",
-          "url": "https://www.metacareers.com/profile/job_details/2082780019279407/"
-        },
-        {
-          "id": "1769900794137147",
-          "title": "Technical Program Manager — Developer Productivity Cultural Levers",
-          "url": "https://www.metacareers.com/profile/job_details/1769900794137147/"
-        },
-        {
-          "id": "1286818323298472",
-          "title": "Research Scientist, FAIR SGT - Paris",
-          "url": "https://www.metacareers.com/profile/job_details/1286818323298472/"
-        },
-        {
-          "id": "1334478348668120",
-          "title": "Agency Partner (Short Term Employment)",
-          "url": "https://www.metacareers.com/profile/job_details/1334478348668120/"
+          "id": "1610059107505555",
+          "title": "Software Engineer, OS",
+          "url": "https://www.metacareers.com/profile/job_details/1610059107505555/"
         },
         {
           "id": "951518494648733",
@@ -304,9 +293,24 @@
           "url": "https://www.metacareers.com/profile/job_details/951518494648733/"
         },
         {
-          "id": "1610059107505555",
-          "title": "Software Engineer, OS",
-          "url": "https://www.metacareers.com/profile/job_details/1610059107505555/"
+          "id": "1715110433259303",
+          "title": "Business Support Engineer - AdTech",
+          "url": "https://www.metacareers.com/profile/job_details/1715110433259303/"
+        },
+        {
+          "id": "1480651869941122",
+          "title": "Energy Portfolio Manager, Wholesale",
+          "url": "https://www.metacareers.com/profile/job_details/1480651869941122/"
+        },
+        {
+          "id": "961472602841468",
+          "title": "Product Manager",
+          "url": "https://www.metacareers.com/profile/job_details/961472602841468/"
+        },
+        {
+          "id": "1578492430645643",
+          "title": "Energy Portfolio Manager, Energy Supply and Interconnection Contracts",
+          "url": "https://www.metacareers.com/profile/job_details/1578492430645643/"
         },
         {
           "id": "1074111708385844",
@@ -319,34 +323,14 @@
           "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
         },
         {
-          "id": "1480651869941122",
-          "title": "Energy Portfolio Manager, Wholesale",
-          "url": "https://www.metacareers.com/profile/job_details/1480651869941122/"
-        },
-        {
-          "id": "1578492430645643",
-          "title": "Energy Portfolio Manager, Energy Supply and Interconnection Contracts",
-          "url": "https://www.metacareers.com/profile/job_details/1578492430645643/"
-        },
-        {
-          "id": "961472602841468",
-          "title": "Product Manager",
-          "url": "https://www.metacareers.com/profile/job_details/961472602841468/"
-        },
-        {
-          "id": "1715110433259303",
-          "title": "Business Support Engineer - AdTech",
-          "url": "https://www.metacareers.com/profile/job_details/1715110433259303/"
-        },
-        {
           "id": "1144873634774403",
           "title": "Campus Construction Manager",
           "url": "https://www.metacareers.com/profile/job_details/1144873634774403/"
         },
         {
-          "id": "2471900343171573",
-          "title": "Product Designer, Meta",
-          "url": "https://www.metacareers.com/profile/job_details/2471900343171573/"
+          "id": "1405524448080606",
+          "title": "Performance & Capacity Engineering - Capacity Planning Optimization",
+          "url": "https://www.metacareers.com/profile/job_details/1405524448080606/"
         },
         {
           "id": "704019139159184",
@@ -354,9 +338,9 @@
           "url": "https://www.metacareers.com/profile/job_details/704019139159184/"
         },
         {
-          "id": "1405524448080606",
-          "title": "Performance & Capacity Engineering - Capacity Planning Optimization",
-          "url": "https://www.metacareers.com/profile/job_details/1405524448080606/"
+          "id": "2471900343171573",
+          "title": "Product Designer, Meta",
+          "url": "https://www.metacareers.com/profile/job_details/2471900343171573/"
         }
       ],
       "locationSamples": [
@@ -517,19 +501,10 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-02T07:50:26.023Z",
-    "before": 263,
+    "checkedAt": "2026-09-02T07:53:12.864Z",
+    "before": 262,
     "after": 262,
-    "removed": 1,
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0982",
-        "keptId": "workday-qtsdatacenters-R2026-0893",
-        "company": "QTS Data Centers",
-        "title": "Critical Environment Engineer",
-        "location": "Hillsboro, OR"
-      }
-    ]
+    "removed": 0,
+    "examples": []
   }
 }

@@ -1,0 +1,37 @@
+name: Monday weekly job digest
+
+on:
+  schedule:
+    - cron: '0 16 * * 1'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Preview the digest in workflow logs without sending'
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: monday-weekly-job-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate weekly digest script
+        run: node --check scripts/send-weekly-digest.mjs
+      - name: Build and send Monday roundup
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+        run: node scripts/send-weekly-digest.mjs

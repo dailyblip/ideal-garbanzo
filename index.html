@@ -52,16 +52,17 @@
     </div>
   </section>
 
-  <section class="alert-strip" id="alerts" aria-label="Job alerts">
+  <section class="alert-strip" id="alerts" aria-label="Weekly job email">
     <div class="alert-strip-copy">
       <span class="utility-kicker">JOB ALERTS</span>
-      <h2>Get new openings by email.</h2>
-      <p>Choose your region and get jobs, internships, apprenticeships and nearby events.</p>
+      <h2>Get new openings every Monday.</h2>
+      <p>One weekly email with newly listed jobs, internships, apprenticeships and trainee opportunities.</p>
     </div>
-    <form id="alertForm">
-      <input type="email" id="alertEmail" placeholder="Email address" required aria-label="Email address">
-      <select id="alertRegion" aria-label="Alert region"><option value="">All regions</option><option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select>
-      <button class="btn btn-secondary" type="submit">Create alert</button>
+    <form id="weeklyAlertForm">
+      <input type="email" id="alertEmail" name="email" placeholder="Email address" required aria-label="Email address" autocomplete="email">
+      <select aria-label="Delivery schedule" disabled><option>Every Monday</option></select>
+      <input type="hidden" name="embed" value="1">
+      <button class="btn btn-secondary" type="submit">Join weekly list</button>
     </form>
   </section>
 
@@ -106,5 +107,6 @@
 <footer><span>Launch Your Data Center Career</span><span><a href="jobs/">Jobs</a> · <a href="internships/">Internships</a> · <a href="apprenticeships/">Apprenticeships</a> · <a href="how-to-get-a-data-center-job/">Career Guide</a> · <a href="career-events/">Career Events</a></span></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="assets/app.js" defer></script>
+<script src="assets/mailing-list.js" defer></script>
 </body>
 </html>

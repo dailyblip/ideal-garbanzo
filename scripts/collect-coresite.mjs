@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 
+const exec = promisify(execFile);
 const COMPANY = 'CoreSite';
 const SEARCH_ORIGIN = 'https://jobs.coresite.com';
 const SEARCH_PATH = '/search/data-center-operations/jobs/in';
-const SNAPSHOT_PATH = 'data/coresite-jobs.json';
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const MAX_PAGES = 6;
@@ -33,6 +35,16 @@ async function readJson(path, fallback) {
   catch { return fallback; }
 }
 
+async function readCommittedJobs() {
+  try {
+    const { stdout } = await exec('git', ['show', `HEAD:${JOBS_PATH}`], { maxBuffer: 30 * 1024 * 1024 });
+    const jobs = JSON.parse(stdout);
+    return Array.isArray(jobs) ? jobs : [];
+  } catch {
+    return [];
+  }
+}
+
 async function fetchText(url) {
   const response = await fetch(url, {
     headers: {
@@ -56,10 +68,6 @@ function canonicalJobUrl(value) {
   } catch {
     return '';
   }
-}
-
-function jobId(value) {
-  return canonicalJobUrl(value).match(/\/jobs\/(\d+)/)?.[1] || '';
 }
 
 function parseListingCandidates(html) {
@@ -221,7 +229,8 @@ function dedupe(jobs) {
 }
 
 const currentJobs = await readJson(JOBS_PATH, []);
-const previousSnapshot = await readJson(SNAPSHOT_PATH, []);
+const committedJobs = await readCommittedJobs();
+const previousSnapshot = committedJobs.filter(job => job.company === COMPANY || /(^|\.)jobs\.coresite\.com\//i.test(String(job.sourceUrl || '')));
 const priorStatus = await readJson(STATUS_PATH, {});
 const previousById = new Map(previousSnapshot.map(job => [String(job.id || '').replace(/^coresite-/, ''), job]));
 const errors = [];
@@ -317,7 +326,7 @@ for (let i = 0; i < detailSeeds.length; i += DETAIL_BATCH_SIZE) {
 let snapshot;
 if (!sourceHealthy) {
   snapshot = previousSnapshot;
-  if (previousSnapshot.length) errors.push('Retained previous CoreSite snapshot because the official listing source could not be verified.');
+  if (previousSnapshot.length) errors.push('Retained previous CoreSite roles because the official listing source could not be verified.');
 } else if (diagnostics.listingComplete) {
   const activeIds = new Set(seeds.keys());
   snapshot = dedupe(verified).filter(job => activeIds.has(String(job.id).replace(/^coresite-/, '')));
@@ -337,7 +346,6 @@ const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
 const cleanGlobalErrors = (priorStatus.errors || []).filter(error => !String(error).startsWith('CoreSite Careers:'));
 
-await writeFile(SNAPSHOT_PATH, JSON.stringify(snapshot, null, 2) + '\n');
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify({
   ...priorStatus,

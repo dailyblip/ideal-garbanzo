@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-const SITE_URL = 'https://dailyblip.github.io/ideal-garbanzo';
+const SITE_URL = 'https://datacentercareers.us';
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 const MAX_JOBS = 50;
 const REGION_LABELS = {

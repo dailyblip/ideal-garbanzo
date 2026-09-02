@@ -114,6 +114,8 @@ jobs:
           for file in scripts/*.mjs; do
             node --check "$file"
           done
+      - name: Normalize job locations for the build
+        run: node scripts/normalize-job-locations.mjs
       - name: Restore job discovery history for the build
         run: node scripts/stamp-job-history.mjs
       - name: Validate committed feed before build

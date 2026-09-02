@@ -49,6 +49,7 @@ const midTerms = [
 const excludedTitleTerms = [
   'senior','sr.','sr ','lead ','principal','manager','director','vice president','vp ','head of','staff engineer',
   'supervisor','superintendent','foreman','counsel','attorney','designer','architect','recruiter','sales','account executive',
+  'software engineer','software developer','machine learning engineer','ml engineer',
   'future opportunity','future opportunities','talent pool','general application','express your interest'
 ];
 const excludedDescriptionTerms = [

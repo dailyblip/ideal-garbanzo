@@ -256,59 +256,66 @@ async function listRequisitions() {
 
 async function hydrateCandidate(row) {
   const id = String(row?.Id ?? row?.RequisitionNumber ?? '').trim();
-  if (!id) return { job: null, reason: 'missingId' };
+  const requisitionKey = String(row?.RequisitionNumber ?? id).replace(/[^a-zA-Z0-9_-]/g, '') || hash(id);
+  const jobId = `oracle-digitalrealty-${requisitionKey}`;
+  if (!id) return { job: null, reason: 'missingId', jobId, detailAttempted: false, detailError: null };
+
   let detail = {};
+  let detailError = null;
   try {
     const json = await fetchJson(buildDetailUrl(id));
     detail = Array.isArray(json?.items) ? (json.items[0] || {}) : {};
-  } catch {
+  } catch (error) {
+    detailError = error.message;
     // Listing data still supplies title/location/short description. Keep going;
     // classification below will reject the row if experience fit is not explicit.
   }
 
+  const result = (job, reason) => ({ job, reason, jobId, detailAttempted: true, detailError });
   const merged = { ...row, ...detail };
   const title = firstText(merged, ['Title', 'title']);
   const location = locationFor(merged) || locationFor(row);
-  if (!isUSLocation(location, merged)) return { job: null, reason: 'nonUs' };
+  if (!isUSLocation(location, merged)) return result(null, 'nonUs');
 
   const description = [
     firstText(merged, ['ExternalDescriptionStr','Description','JobDescription','ShortDescriptionStr']),
     firstText(merged, ['ExternalQualificationsStr','Qualifications','RequiredQualifications']),
     firstText(merged, ['ExternalResponsibilitiesStr','Responsibilities','JobResponsibilities'])
   ].filter(Boolean).join(' ');
-  if (!relevant(title, description)) return { job: null, reason: 'context' };
+  if (!relevant(title, description)) return result(null, 'context');
 
   const cls = classify(title, description, firstText(merged, ['JobSchedule','FullPartTime','RegularTemporary']));
-  if (!cls) return { job: null, reason: 'experience' };
+  if (!cls) return result(null, 'experience');
 
   const postedAt = firstText(merged, ['PostedDate','PostingDate','postedDate']) || null;
-  return {
-    reason: null,
-    job: {
-      id: `oracle-digitalrealty-${String(row?.RequisitionNumber ?? id).replace(/[^a-zA-Z0-9_-]/g, '') || hash(id)}`,
-      title,
-      company: COMPANY,
-      location: location || 'Location not listed',
-      type: cls.type,
-      experience: cls.experience,
-      tags: tagsFor(title, description, cls.type, cls.experience),
-      ...extractPay(description),
-      postedAt,
-      source: 'Employer career site',
-      sourceUrl: buildJobUrl(id),
-      active: true,
-      demo: false
-    }
-  };
+  return result({
+    id: jobId,
+    title,
+    company: COMPANY,
+    location: location || 'Location not listed',
+    type: cls.type,
+    experience: cls.experience,
+    tags: tagsFor(title, description, cls.type, cls.experience),
+    ...extractPay(description),
+    postedAt,
+    source: 'Employer career site',
+    sourceUrl: buildJobUrl(id),
+    active: true,
+    demo: false
+  }, null);
 }
 
 const currentJobs = await readJson('data/jobs.json', []);
 const previousSnapshot = await readJson('data/digital-realty-jobs.json', []);
 const priorStatus = await readJson('data/collector-status.json', {});
+const previousById = new Map(previousSnapshot.map(job => [String(job.id || ''), job]));
 const errors = [];
 const drops = { title: 0, nonUs: 0, context: 0, experience: 0, missingId: 0 };
 let sourceHealthy = false;
 let candidateRows = 0;
+let detailAttempts = 0;
+let detailFailures = 0;
+let preservedPrevious = 0;
 let snapshot = [];
 
 try {
@@ -326,6 +333,19 @@ try {
     const batch = candidates.slice(index, index + 5);
     const results = await Promise.all(batch.map(hydrateCandidate));
     for (const result of results) {
+      if (result.detailAttempted) detailAttempts += 1;
+      if (result.detailError) {
+        detailFailures += 1;
+        errors.push(`detail ${result.jobId}: ${result.detailError}`);
+        const previous = previousById.get(result.jobId);
+        if (previous) {
+          // The requisition still exists in Digital Realty's current official listing,
+          // so keep the previously verified record until its detail page recovers.
+          jobs.push(previous);
+          preservedPrevious += 1;
+          continue;
+        }
+      }
       if (result.job) jobs.push(result.job);
       else if (result.reason && result.reason in drops) drops[result.reason] += 1;
     }
@@ -369,6 +389,9 @@ await writeFile('data/collector-status.json', JSON.stringify({
     boardUrl: `https://${HOST}/hcmUI/CandidateExperience/${LANG}/sites/${SITE}`,
     sourceHealthy,
     candidateRows,
+    detailAttempts,
+    detailFailures,
+    preservedPrevious,
     qualifyingRoles: snapshot.length,
     drops,
     errors
@@ -376,4 +399,4 @@ await writeFile('data/collector-status.json', JSON.stringify({
   errors: [...(priorStatus.errors || []), ...errors.map(error => `Digital Realty: ${error}`)]
 }, null, 2) + '\n');
 
-console.log(`Digital Realty official source ${sourceHealthy ? 'succeeded' : 'fell back to prior snapshot'}; ${snapshot.length} qualifying roles; ${merged.length} total jobs.`);
+console.log(`Digital Realty official source ${sourceHealthy ? 'succeeded' : 'fell back to prior snapshot'}; ${snapshot.length} qualifying roles; ${merged.length} total jobs; ${detailFailures} detail failures; ${preservedPrevious} preserved previous roles.`);

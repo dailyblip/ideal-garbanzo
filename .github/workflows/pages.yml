@@ -169,20 +169,54 @@ jobs:
         run: |
           printf '{"sha":"%s","generatedAt":"%s"}\n' "$(git rev-parse HEAD)" "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" > deployment-version.json
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
+          name: github-pages-${{ github.run_attempt }}
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
       - name: Verify custom-domain deployment
         run: |
           set -euo pipefail
-          base='https://datacentercareers.us'
+          base='${{ steps.deployment.outputs.page_url }}'
+          base="${base%/}"
           expected_sha="$(git rev-parse HEAD)"
-          cache_key="${expected_sha}-$(date +%s)"
-          curl_args=(--fail --silent --show-error --location --retry 12 --retry-all-errors --retry-delay 10 --header 'Cache-Control: no-cache')
 
+          case "$base" in
+            *datacentercareers.us*) ;;
+            *)
+              echo "::error::Pages reported an unexpected public URL: $base"
+              exit 1
+              ;;
+          esac
+
+          curl_args=(--fail --silent --show-error --location --connect-timeout 10 --max-time 30 --header 'Cache-Control: no-cache')
+          ready=false
+          actual_sha=''
+
+          for attempt in $(seq 1 18); do
+            cache_key="${expected_sha}-$(date +%s)-${attempt}"
+            if curl "${curl_args[@]}" "${base}/deployment-version.json?deploy=${cache_key}" -o /tmp/deployment-version.json; then
+              actual_sha="$(node -e "try { console.log(require('/tmp/deployment-version.json').sha || '') } catch { console.log('') }" 2>/dev/null)"
+              if [ "$actual_sha" = "$expected_sha" ]; then
+                ready=true
+                break
+              fi
+            fi
+            echo "Waiting for custom-domain edge to serve revision ${expected_sha:0:8} (attempt ${attempt}/18; saw ${actual_sha:-none})."
+            sleep 10
+          done
+
+          if [ "$ready" != true ]; then
+            echo "::error::Custom domain did not serve the deployed revision ${expected_sha} within the propagation window; last revision was ${actual_sha:-unreadable}."
+            exit 1
+          fi
+
+          cache_key="${expected_sha}-verified"
           curl "${curl_args[@]}" "${base}/?deploy=${cache_key}" -o /tmp/homepage.html
           grep -Fq 'Build your future in data centers.' /tmp/homepage.html
 
@@ -192,6 +226,4 @@ jobs:
           curl "${curl_args[@]}" "${base}/data/jobs.json?deploy=${cache_key}" -o /tmp/jobs.json
           node -e "const jobs=require('/tmp/jobs.json'); if (!Array.isArray(jobs) || jobs.length === 0) process.exit(1);"
 
-          curl "${curl_args[@]}" "${base}/deployment-version.json?deploy=${cache_key}" -o /tmp/deployment-version.json
-          actual_sha="$(node -e "console.log(require('/tmp/deployment-version.json').sha || '')")"
-          test "$actual_sha" = "$expected_sha"
+          echo "Custom-domain smoke test passed for ${base} at revision ${expected_sha:0:8}."

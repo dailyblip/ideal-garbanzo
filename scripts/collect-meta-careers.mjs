@@ -11,7 +11,7 @@ const SEARCH_URLS = [
 ];
 const SITEMAP_URL = 'https://www.metacareers.com/jobsearch/sitemap.xml';
 const DETAIL_BATCH_SIZE = 8;
-const MAX_SITEMAP_DETAILS = 700;
+const MAX_SITEMAP_DETAILS = 1000;
 
 const clean = value => String(value ?? '')
   .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
@@ -192,7 +192,9 @@ function parseMinimumQualifications(detailText) {
   const text = clean(detailText);
   const normalized = lower(text);
   const start = normalized.indexOf('minimum qualifications');
-  if (start < 0) return { text: '', years: [] };
+  if (start < 0) {
+    return { text, years: experienceYears(text), scoped: false };
+  }
 
   const after = text.slice(start);
   const afterLower = lower(after);
@@ -209,7 +211,7 @@ function parseMinimumQualifications(detailText) {
     .filter(index => index > 25);
   const end = ends.length ? Math.min(...ends) : Math.min(after.length, 7000);
   const minimumText = after.slice(0, end);
-  return { text: minimumText, years: experienceYears(minimumText) };
+  return { text: minimumText, years: experienceYears(minimumText), scoped: true };
 }
 
 function classify(title, minimum) {
@@ -231,7 +233,7 @@ function classify(title, minimum) {
 
   // Meta facilities postings sometimes state a higher baseline followed by a
   // degree-plus-lower-experience route. Only use the lower threshold when the
-  // minimum-qualification text explicitly describes an alternative route.
+  // qualification text explicitly describes an alternative route.
   if (maxYears > 5 && minYears <= 5 && !/\b(?:in lieu of|will be considered in lieu|or (?:an? )?(?:associate|bachelor|master)|(?:associate|bachelor|master)(?:'s)? degree[^.]{0,120}(?:plus|\+))\b/i.test(minimum.text)) {
     return null;
   }

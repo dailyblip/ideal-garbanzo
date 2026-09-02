@@ -143,6 +143,7 @@ const dedicatedSources = [
   ['Meta Careers', status?.metaCareers, previousStatus?.metaCareers],
   ['Oracle Careers', status?.oracleCareers, previousStatus?.oracleCareers],
   ['Digital Realty', status?.digitalRealty, previousStatus?.digitalRealty],
+  ['CoreSite', status?.coreSite, previousStatus?.coreSite],
   ['Equinix', status?.priorityEmployerExpansion?.Equinix, previousStatus?.priorityEmployerExpansion?.Equinix]
 ];
 

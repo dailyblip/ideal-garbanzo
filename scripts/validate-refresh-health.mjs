@@ -31,6 +31,16 @@ function companyCounts(jobs = []) {
   return counts;
 }
 
+function fieldCounts(jobs = [], field) {
+  const counts = new Map();
+  for (const job of jobs) {
+    const value = String(job?.[field] || '').trim();
+    if (!value) continue;
+    counts.set(value, (counts.get(value) || 0) + 1);
+  }
+  return counts;
+}
+
 function pct(current, previous) {
   return previous > 0 ? Math.round((current / previous) * 100) : 100;
 }
@@ -40,6 +50,7 @@ const currentMajor = await readJson(MAJOR_PATH, []);
 const status = await readJson(STATUS_PATH, {});
 const previousJobs = await readCommittedJson(JOBS_PATH);
 const previousMajor = await readCommittedJson(MAJOR_PATH);
+const previousStatus = await readCommittedJson(STATUS_PATH);
 
 if (!Array.isArray(currentJobs) || !Array.isArray(currentMajor)) {
   throw new Error('Refresh health check requires jobs.json and major-jobs.json arrays.');
@@ -52,6 +63,31 @@ if (Array.isArray(previousJobs) && previousJobs.length >= 50) {
   const ratio = currentJobs.length / previousJobs.length;
   if (ratio < 0.60) {
     problems.push(`Total feed collapsed from ${previousJobs.length} to ${currentJobs.length} jobs (${pct(currentJobs.length, previousJobs.length)}% of prior snapshot).`);
+  }
+
+  // The product is specifically for people entering the field. A healthy total
+  // job count can hide a broken internship/apprenticeship collector, so protect
+  // those opportunity types independently from the overall feed-size guard.
+  const beforeTypes = fieldCounts(previousJobs, 'type');
+  const afterTypes = fieldCounts(currentJobs, 'type');
+  for (const type of ['apprenticeship', 'internship', 'trainee']) {
+    const previousCount = beforeTypes.get(type) || 0;
+    const currentCount = afterTypes.get(type) || 0;
+    if (previousCount >= 2 && currentCount === 0) {
+      problems.push(`${type} opportunities dropped from ${previousCount} to zero in one refresh.`);
+    } else if (previousCount >= 4 && currentCount < Math.ceil(previousCount * 0.40)) {
+      warnings.push(`${type} opportunities dropped from ${previousCount} to ${currentCount}; verify the early-career collectors.`);
+    }
+  }
+
+  const beforeExperience = fieldCounts(previousJobs, 'experience');
+  const afterExperience = fieldCounts(currentJobs, 'experience');
+  for (const experience of ['no-experience', '0-2-years']) {
+    const previousCount = beforeExperience.get(experience) || 0;
+    const currentCount = afterExperience.get(experience) || 0;
+    if (previousCount >= 5 && currentCount < Math.ceil(previousCount * 0.35)) {
+      problems.push(`${experience} opportunities dropped from ${previousCount} to ${currentCount} in one refresh.`);
+    }
   }
 }
 
@@ -81,12 +117,69 @@ if (attempted && succeeded < attempted) {
   warnings.push(`Major-employer source health: ${succeeded}/${attempted} collectors succeeded; failed sources should be running from their retained snapshot.`);
 }
 
-for (const [label, source] of [
-  ['AWS', status?.amazonDatacenter],
-  ['Google Careers', status?.googleCareers],
-  ['Digital Realty', status?.digitalRealty]
-]) {
-  if (source && source.sourceHealthy === false) warnings.push(`${label} source reported degraded health and retained its previous snapshot.`);
+const expectedMajorEmployers = [
+  'Vantage Data Centers',
+  'QTS Data Centers',
+  'CyrusOne',
+  'STACK Infrastructure',
+  'NTT Global Data Centers',
+  'Aligned Data Centers'
+];
+const configuredMajorEmployers = new Set(Array.isArray(status?.majorSources?.employers) ? status.majorSources.employers : []);
+for (const employer of expectedMajorEmployers) {
+  if (!configuredMajorEmployers.has(employer)) {
+    problems.push(`Priority major-employer coverage is missing ${employer} from collector status.`);
+  }
+}
+
+// Dedicated official-source collectors are the backbone for the largest
+// operators. Missing status entirely means a collector did not execute or its
+// result was overwritten, which is different from a healthy collector finding
+// zero qualifying 0–5 year roles on a given day.
+const dedicatedSources = [
+  ['AWS', status?.amazonDatacenter, previousStatus?.amazonDatacenter],
+  ['Microsoft', status?.microsoftDatacenter, previousStatus?.microsoftDatacenter],
+  ['Google Careers', status?.googleCareers, previousStatus?.googleCareers],
+  ['Meta Careers', status?.metaCareers, previousStatus?.metaCareers],
+  ['Oracle Careers', status?.oracleCareers, previousStatus?.oracleCareers],
+  ['Digital Realty', status?.digitalRealty, previousStatus?.digitalRealty],
+  ['Equinix', status?.priorityEmployerExpansion?.Equinix, previousStatus?.priorityEmployerExpansion?.Equinix]
+];
+
+for (const [label, source, previousSource] of dedicatedSources) {
+  if (!source || typeof source !== 'object') {
+    problems.push(`${label} official-source collector status is missing after refresh.`);
+    continue;
+  }
+
+  if (source.sourceHealthy === false) {
+    warnings.push(`${label} source reported degraded health and should retain its previous snapshot.`);
+  }
+
+  if (label === 'Equinix') {
+    const listingAttempted = Number(source.listingPagesAttempted || 0);
+    const listingSucceeded = Number(source.listingPagesSucceeded || 0);
+    if (listingAttempted > 0 && listingSucceeded === 0) {
+      warnings.push('Equinix listing pages all failed during this refresh.');
+    }
+  }
+
+  const currentQualifying = Number(source.qualifyingRoles);
+  const previousQualifying = Number(previousSource?.qualifyingRoles);
+  if (Number.isFinite(previousQualifying) && previousQualifying >= 3 && Number.isFinite(currentQualifying) && currentQualifying === 0) {
+    warnings.push(`${label} dropped from ${previousQualifying} qualifying roles to zero; confirm this is a real hiring change rather than parser drift.`);
+  }
+}
+
+const equinixEarly = status?.priorityEmployerExpansion?.EquinixEarlyCareer;
+if (!equinixEarly || typeof equinixEarly !== 'object') {
+  problems.push('Equinix early-career recovery collector status is missing after refresh.');
+} else {
+  const attemptedPages = Number(equinixEarly.listingPagesAttempted || 0);
+  const succeededPages = Number(equinixEarly.listingPagesSucceeded || 0);
+  if (attemptedPages > 0 && succeededPages === 0) {
+    warnings.push('Equinix early-career listing pages all failed during this refresh.');
+  }
 }
 
 const regionAssigned = Number(status?.locationNormalization?.regionAssigned || 0);

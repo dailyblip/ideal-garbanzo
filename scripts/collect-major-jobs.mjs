@@ -2,48 +2,12 @@ import { readFile, writeFile } from 'node:fs/promises';
 import crypto from 'node:crypto';
 
 const workdayBoards = [
-  {
-    company: 'Vantage Data Centers',
-    origin: 'https://vantagedc.wd1.myworkdayjobs.com',
-    tenant: 'vantagedc',
-    site: 'Vantage',
-    locale: 'en-US'
-  },
-  {
-    company: 'QTS Data Centers',
-    origin: 'https://qtsdatacenters.wd5.myworkdayjobs.com',
-    tenant: 'qtsdatacenters',
-    site: 'QTS',
-    locale: 'en-US'
-  },
-  {
-    company: 'CyrusOne',
-    origin: 'https://cyrusone.wd1.myworkdayjobs.com',
-    tenant: 'cyrusone',
-    site: 'CyrusOneCareerPortal',
-    locale: 'en-US'
-  },
-  {
-    company: 'STACK Infrastructure',
-    origin: 'https://stackinfra.wd108.myworkdayjobs.com',
-    tenant: 'stackinfra',
-    site: 'STACK_AMER',
-    locale: 'en-US'
-  },
-  {
-    company: 'NTT Global Data Centers',
-    origin: 'https://nttglobaldatacenters.wd501.myworkdayjobs.com',
-    tenant: 'nttglobaldatacenters',
-    site: 'External',
-    locale: 'en-US'
-  },
-  {
-    company: 'Aligned Data Centers',
-    origin: 'https://aligneddc.wd12.myworkdayjobs.com',
-    tenant: 'aligneddc',
-    site: 'aligneddc',
-    locale: 'en-US'
-  }
+  { company: 'Vantage Data Centers', origin: 'https://vantagedc.wd1.myworkdayjobs.com', tenant: 'vantagedc', site: 'Vantage', locale: 'en-US' },
+  { company: 'QTS Data Centers', origin: 'https://qtsdatacenters.wd5.myworkdayjobs.com', tenant: 'qtsdatacenters', site: 'QTS', locale: 'en-US' },
+  { company: 'CyrusOne', origin: 'https://cyrusone.wd1.myworkdayjobs.com', tenant: 'cyrusone', site: 'CyrusOneCareerPortal', locale: 'en-US' },
+  { company: 'STACK Infrastructure', origin: 'https://stackinfra.wd108.myworkdayjobs.com', tenant: 'stackinfra', site: 'STACK_AMER', locale: 'en-US' },
+  { company: 'NTT Global Data Centers', origin: 'https://nttglobaldatacenters.wd501.myworkdayjobs.com', tenant: 'nttglobaldatacenters', site: 'External', locale: 'en-US' },
+  { company: 'Aligned Data Centers', origin: 'https://aligneddc.wd12.myworkdayjobs.com', tenant: 'aligneddc', site: 'aligneddc', locale: 'en-US' }
 ];
 
 const strongTitleTerms = [
@@ -197,7 +161,7 @@ function relativePostedAt(label = '') {
 async function fetchJson(url, options = {}) {
   const headers = {
     accept: 'application/json',
-    'user-agent': 'DataCenterCareersBot/1.2 (+https://datacentercareers.us/)',
+    'user-agent': 'DataCenterCareersBot/1.3 (+https://datacentercareers.us/)',
     ...(options.headers || {})
   };
   const response = await fetch(url, { ...options, headers });
@@ -210,9 +174,19 @@ async function listWorkday(board) {
   const postings = [];
   const seen = new Set();
   let offset = 0;
-  let total = Infinity;
+  let total = null;
+  let pagesAttempted = 0;
+  let pagesSucceeded = 0;
+  let complete = false;
+  let incompleteReason = '';
 
-  for (let page = 0; page < 100 && offset < total; page += 1) {
+  for (let page = 0; page < 100; page += 1) {
+    if (Number.isFinite(total) && offset >= total) {
+      complete = true;
+      break;
+    }
+
+    pagesAttempted += 1;
     const payload = await fetchJson(endpoint, {
       method: 'POST',
       headers: {
@@ -221,8 +195,21 @@ async function listWorkday(board) {
       },
       body: JSON.stringify({ appliedFacets: {}, limit: 20, offset, searchText: '' })
     });
+    pagesSucceeded += 1;
+
     const rows = Array.isArray(payload.jobPostings) ? payload.jobPostings : [];
-    if (page === 0 && Number.isFinite(Number(payload.total))) total = Number(payload.total);
+    if (page === 0) {
+      const reported = Number(payload.total);
+      if (!Number.isFinite(reported) || reported < 0) {
+        incompleteReason = 'Workday did not return a valid total count';
+        break;
+      }
+      total = reported;
+      if (total === 0) {
+        complete = true;
+        break;
+      }
+    }
 
     let fresh = 0;
     for (const row of rows) {
@@ -232,29 +219,66 @@ async function listWorkday(board) {
       postings.push(row);
       fresh += 1;
     }
-    if (rows.length < 20 || fresh === 0) break;
-    offset += 20;
+
+    offset += rows.length;
+    if (offset >= total) {
+      complete = true;
+      break;
+    }
+    if (rows.length === 0) {
+      incompleteReason = `listing ended at ${offset}/${total} rows`;
+      break;
+    }
+    if (rows.length < 20) {
+      incompleteReason = `short page returned ${rows.length} rows at ${offset}/${total}`;
+      break;
+    }
+    if (fresh === 0) {
+      incompleteReason = `duplicate page before reaching reported total (${offset}/${total})`;
+      break;
+    }
   }
-  return postings;
+
+  if (!complete && !incompleteReason) {
+    incompleteReason = `pagination cap reached at ${offset}/${Number.isFinite(total) ? total : 'unknown'} rows`;
+  }
+
+  return {
+    postings,
+    total: Number.isFinite(total) ? total : null,
+    pagesAttempted,
+    pagesSucceeded,
+    complete,
+    incompleteReason
+  };
 }
 
 async function collectWorkday(board, previousCompanyJobs = []) {
-  const rows = (await listWorkday(board)).filter(row => titleCandidate(row.title));
+  const listing = await listWorkday(board);
+  if (!listing.complete) {
+    return {
+      jobs: previousCompanyJobs,
+      errors: [`incomplete Workday listing (${listing.incompleteReason}); kept previous employer snapshot`],
+      listing,
+      usedFallback: true
+    };
+  }
+
+  const rows = listing.postings.filter(row => titleCandidate(row.title));
   const jobs = [];
   const errors = [];
   const previousByUrl = new Map(previousCompanyJobs.map(job => [clean(job.sourceUrl), job]));
 
   // Detail requests are intentionally limited to plausible hands-on titles.
-  // One transient detail failure must not discard an otherwise healthy employer scan.
+  // A transient detail failure may preserve only a role that is still present
+  // in the current complete Workday listing. Closed roles still disappear.
   for (let index = 0; index < rows.length; index += 5) {
     const batch = rows.slice(index, index + 5);
     const hydrated = await Promise.all(batch.map(async row => {
       const sourceUrl = `${board.origin}/${board.locale}/${board.site}${row.externalPath}`;
       try {
         const detailUrl = `${board.origin}/wday/cxs/${board.tenant}/${board.site}${row.externalPath}`;
-        const detail = await fetchJson(detailUrl, {
-          headers: { referer: sourceUrl }
-        });
+        const detail = await fetchJson(detailUrl, { headers: { referer: sourceUrl } });
         const info = detail.jobInfo || detail;
         const description = clean(info.jobDescription || info.description || '');
         const cls = classify(row.title, description, info.timeType || '');
@@ -283,7 +307,7 @@ async function collectWorkday(board, previousCompanyJobs = []) {
         const previous = previousByUrl.get(clean(sourceUrl));
         return {
           job: previous || null,
-          error: `${clean(row.title)}: ${error.message}${previous ? ' (kept previous verified record)' : ''}`
+          error: `${clean(row.title)}: ${error.message}${previous ? ' (kept previous verified record because role remains listed)' : ''}`
         };
       }
     }));
@@ -293,7 +317,8 @@ async function collectWorkday(board, previousCompanyJobs = []) {
       if (result.error) errors.push(result.error);
     }
   }
-  return { jobs, errors };
+
+  return { jobs, errors, listing, usedFallback: false };
 }
 
 function dedupe(jobs) {
@@ -321,20 +346,44 @@ const previousMajor = await readJson('data/major-jobs.json', []);
 const priorStatus = await readJson('data/collector-status.json', {});
 const majorJobs = [];
 const errors = [];
+const employerDiagnostics = {};
 let succeeded = 0;
 let detailFailures = 0;
+let listingFallbacks = 0;
 
 for (const board of workdayBoards) {
   const previousCompanyJobs = previousMajor.filter(job => job.company === board.company);
   try {
     const result = await collectWorkday(board, previousCompanyJobs);
     majorJobs.push(...result.jobs);
-    succeeded += 1;
-    detailFailures += result.errors.length;
+    detailFailures += result.errors.filter(error => !error.startsWith('incomplete Workday listing')).length;
     errors.push(...result.errors.map(error => `${board.company}: ${error}`));
+
+    if (result.usedFallback) listingFallbacks += 1;
+    else succeeded += 1;
+
+    employerDiagnostics[board.company] = {
+      sourceHealthy: !result.usedFallback,
+      listingComplete: result.listing.complete,
+      reportedRows: result.listing.total,
+      uniqueRows: result.listing.postings.length,
+      pagesAttempted: result.listing.pagesAttempted,
+      pagesSucceeded: result.listing.pagesSucceeded,
+      qualifyingRoles: result.jobs.length,
+      usedPreviousSnapshot: result.usedFallback,
+      ...(result.listing.incompleteReason ? { incompleteReason: result.listing.incompleteReason } : {})
+    };
   } catch (error) {
+    listingFallbacks += 1;
     errors.push(`${board.company}: ${error.message} (kept previous employer snapshot)`);
     majorJobs.push(...previousCompanyJobs);
+    employerDiagnostics[board.company] = {
+      sourceHealthy: false,
+      listingComplete: false,
+      qualifyingRoles: previousCompanyJobs.length,
+      usedPreviousSnapshot: true,
+      error: error.message
+    };
   }
 }
 
@@ -343,6 +392,10 @@ if (!succeeded && !majorSnapshot.length) {
   throw new Error(`All major-employer collectors failed and no prior snapshot exists: ${errors.join(' | ')}`);
 }
 
+// Reconciliation runs immediately after this script and makes majorSnapshot
+// authoritative for these six employers. Keeping baseJobs here preserves the
+// existing pipeline contract while still allowing the next step to remove stale
+// major-employer records safely.
 const merged = dedupe([...baseJobs, ...majorSnapshot]);
 const now = Date.now();
 for (const job of merged) {
@@ -373,13 +426,15 @@ await writeFile('data/collector-status.json', JSON.stringify({
   majorSources: {
     attempted: workdayBoards.length,
     succeeded,
+    listingFallbacks,
     detailFailures,
     employers: workdayBoards.map(board => board.company),
-    jobs: majorSnapshot.length
+    jobs: majorSnapshot.length,
+    employerDiagnostics
   },
   countsByType,
   countsByExperience,
   errors: [...(priorStatus.errors || []), ...errors]
 }, null, 2) + '\n');
 
-console.log(`Merged ${majorSnapshot.length} qualifying jobs from ${succeeded}/${workdayBoards.length} major Workday employers with ${detailFailures} detail fetch failures; ${merged.length} total jobs.`);
+console.log(`Merged ${majorSnapshot.length} qualifying jobs from ${succeeded}/${workdayBoards.length} complete major Workday scans; ${listingFallbacks} employer snapshot fallback(s), ${detailFailures} detail fetch failure(s); ${merged.length} total jobs.`);

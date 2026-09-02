@@ -1,0 +1,25 @@
+name: CoreSite collector smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-coresite.mjs'
+      - '.github/workflows/coresite-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run CoreSite collector
+        run: node scripts/collect-coresite.mjs
+      - name: Require healthy official source
+        run: |
+          node -e "const s=require('./data/collector-status.json').coreSite; console.log(JSON.stringify(s,null,2)); if(!s?.sourceHealthy) process.exit(1); if(!(s?.qualifyingRoles>0)) process.exit(1);"

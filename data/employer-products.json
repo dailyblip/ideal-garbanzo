@@ -1,15 +1,40 @@
 {
+  "highlightedJob": {
+    "name": "Highlighted job",
+    "priceUsd": 99,
+    "durationDays": 30,
+    "benefits": [
+      "Bold job title",
+      "Highlighted listing treatment",
+      "Priority placement in matching job results"
+    ]
+  },
+  "spotlightJob": {
+    "name": "Spotlight position",
+    "priceUsd": 149,
+    "durationDays": 30,
+    "benefits": [
+      "Premium Spotlight badge",
+      "Highest priority in matching job results",
+      "Homepage priority while active",
+      "Eligible for inclusion in job-alert emails"
+    ]
+  },
   "featuredJob": {
-    "name": "Featured job",
+    "name": "Spotlight position",
     "priceUsd": 149,
     "durationDays": 30,
     "checkoutEnabled": false,
     "checkoutUrl": "",
     "benefits": [
-      "Featured badge",
-      "Priority placement in matching job results",
+      "Premium Spotlight badge",
+      "Highest priority in matching job results",
       "Homepage priority while active",
       "Eligible for inclusion in job-alert emails"
     ]
-  }
+  },
+  "checkoutOptions": [
+    "highlightedJob",
+    "spotlightJob"
+  ]
 }

@@ -1,6 +1,7 @@
 (() => {
   const HOME_LIMIT = 15;
-  const state = { jobs: [], featuredIds: new Set(), product: null, filters: new Set(), query: '', region: '', sort: 'newest' };
+  const PROMOTION_RANK = { highlightedJob: 1, spotlightJob: 2 };
+  const state = { jobs: [], promotions: new Map(), products: null, filters: new Set(), query: '', region: '', sort: 'newest' };
   const jobList = document.getElementById('jobList');
   const emptyState = document.getElementById('emptyState');
   const search = document.getElementById('jobSearch');
@@ -18,9 +19,8 @@
   const menu = document.querySelector('.menu-button');
   const alertForm = document.getElementById('alertForm');
   const heroSearchForm = document.getElementById('heroSearchForm');
-  const featuredJobPrice = document.getElementById('featuredJobPrice');
   const employerCheckoutLink = document.getElementById('employerCheckoutLink');
-  const employerCheckoutStatus = document.getElementById('employerCheckoutStatus');
+  const employerPlacementStatus = document.getElementById('employerPlacementStatus');
   const eventsList = document.getElementById('eventsList');
 
   const escapeHtml = value => String(value ?? '').replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));
@@ -50,7 +50,8 @@
     const experienceRank = {'no-experience':0, '0-2-years':1, '2-5-years':4}[job.experience] ?? 2;
     return typeRank * 10 + experienceRank;
   };
-  const isFeatured = job => state.featuredIds.has(String(job.id));
+  const promotionFor = job => state.promotions.get(String(job.id)) || null;
+  const promotionRank = job => PROMOTION_RANK[promotionFor(job)?.tier] || 0;
   const showToast = message => {
     if (!toast) return;
     toast.textContent = message;
@@ -83,16 +84,20 @@
     return new Intl.DateTimeFormat('en-US', { month:'short', day:'numeric', timeZone:'UTC' }).format(date).toUpperCase();
   };
 
-  function activeFeaturedIds(records) {
+  function activePromotions(records) {
     const now = Date.now();
-    return new Set((Array.isArray(records) ? records : []).filter(record => {
-      if (!record || !record.jobId) return false;
+    const active = new Map();
+    for (const record of Array.isArray(records) ? records : []) {
+      if (!record?.jobId) continue;
       const starts = record.startsAt ? Date.parse(record.startsAt) : null;
       const expires = record.expiresAt ? Date.parse(record.expiresAt) : null;
-      if (starts && Number.isFinite(starts) && starts > now) return false;
-      if (expires && Number.isFinite(expires) && expires <= now) return false;
-      return true;
-    }).map(record => String(record.jobId)));
+      if (starts && Number.isFinite(starts) && starts > now) continue;
+      if (expires && Number.isFinite(expires) && expires <= now) continue;
+      const tier = PROMOTION_RANK[record.tier] ? record.tier : 'spotlightJob';
+      const prior = active.get(String(record.jobId));
+      if (!prior || PROMOTION_RANK[tier] > PROMOTION_RANK[prior.tier]) active.set(String(record.jobId), { ...record, tier });
+    }
+    return active;
   }
 
   function activeCareerEvents(records) {
@@ -115,21 +120,25 @@
       </a>`).join('') : '<p>No verified upcoming events are currently listed. Check back soon.</p>';
   }
 
-  function configureEmployerProduct(product) {
-    state.product = product || null;
-    if (featuredJobPrice && Number.isFinite(Number(product?.priceUsd))) featuredJobPrice.textContent = `$${Number(product.priceUsd)}`;
-    const enabled = product?.checkoutEnabled === true && /^https:\/\//i.test(String(product?.checkoutUrl || ''));
+  function configureEmployerProducts(products) {
+    state.products = products || null;
+    const checkout = products?.checkout || {};
+    const legacy = products?.featuredJob || {};
+    const enabled = (checkout.enabled === true && /^https:\/\//i.test(String(checkout.url || ''))) ||
+      (legacy.checkoutEnabled === true && /^https:\/\//i.test(String(legacy.checkoutUrl || '')));
+    const url = checkout.enabled === true ? checkout.url : legacy.checkoutUrl;
     if (employerCheckoutLink) {
       employerCheckoutLink.hidden = !enabled;
       if (enabled) {
-        employerCheckoutLink.href = product.checkoutUrl;
+        employerCheckoutLink.href = url;
         employerCheckoutLink.target = '_blank';
         employerCheckoutLink.rel = 'noopener noreferrer';
+        employerCheckoutLink.textContent = 'View promotion options →';
       }
     }
-    if (employerCheckoutStatus) {
-      employerCheckoutStatus.hidden = enabled;
-      if (!enabled) employerCheckoutStatus.textContent = 'Employer checkout is being finalized.';
+    if (employerPlacementStatus) {
+      employerPlacementStatus.hidden = enabled;
+      if (!enabled) employerPlacementStatus.textContent = 'Promotion checkout is opening soon.';
     }
   }
 
@@ -159,8 +168,8 @@
 
   function render() {
     const jobs = filteredJobs().sort((a,b) => {
-      const featuredRank = Number(isFeatured(b)) - Number(isFeatured(a));
-      if (featuredRank) return featuredRank;
+      const promotedRank = promotionRank(b) - promotionRank(a);
+      if (promotedRank) return promotedRank;
       if (state.sort === 'salary') return (b.salarySortMax ?? b.salaryMax ?? 0) - (a.salarySortMax ?? a.salaryMax ?? 0);
       return earlyCareerRank(a) - earlyCareerRank(b) || (a.postedHours || 9999) - (b.postedHours || 9999);
     });
@@ -171,12 +180,18 @@
     if (shownCount) shownCount.textContent = visibleJobs.length;
     updateActiveFilters();
     jobList.innerHTML = visibleJobs.map(job => {
-      const featured = isFeatured(job);
+      const promotion = promotionFor(job);
+      const highlighted = promotion?.tier === 'highlightedJob';
+      const spotlight = promotion?.tier === 'spotlightJob';
+      const promoted = highlighted || spotlight;
+      const title = escapeHtml(job.title);
+      const titleMarkup = highlighted ? `<strong>${title}</strong>` : title;
+      const promotionBadge = spotlight ? ' <span class="featured-badge">SPOTLIGHT</span>' : highlighted ? ' <span class="featured-badge">HIGHLIGHTED</span>' : '';
       return `
-      <article class="job-card${featured ? ' featured-job' : ''}">
+      <article class="job-card${promoted ? ' featured-job' : ''}">
         <div class="job-card-top">
           <div>
-            <h3><a href="jobs/${escapeHtml(jobSlug(job))}/">${escapeHtml(job.title)}</a> <span class="badge">${escapeHtml(typeLabel(job.type))}</span>${featured ? ' <span class="featured-badge">FEATURED</span>' : ''}</h3>
+            <h3><a href="jobs/${escapeHtml(jobSlug(job))}/">${titleMarkup}</a> <span class="badge">${escapeHtml(typeLabel(job.type))}</span>${promotionBadge}</h3>
             <div class="job-meta">${escapeHtml(job.company)} <span>•</span> ${escapeHtml(job.location)}</div>
             <div class="job-tags"><span>${escapeHtml(experienceLabel(job.experience))}</span>${(job.tags || []).filter(tag => tag !== experienceLabel(job.experience)).map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
             <div class="job-pay">${escapeHtml(job.pay || 'Pay not listed')}</div>
@@ -191,7 +206,7 @@
 
   async function loadSiteData() {
     try {
-      const [jobsResponse, featuredResponse, productsResponse, eventsResponse] = await Promise.all([
+      const [jobsResponse, promotionsResponse, productsResponse, eventsResponse] = await Promise.all([
         fetch('data/jobs.json', { cache: 'no-store' }),
         fetch('data/featured-jobs.json', { cache: 'no-store' }),
         fetch('data/employer-products.json', { cache: 'no-store' }),
@@ -199,11 +214,8 @@
       ]);
       if (!jobsResponse.ok) throw new Error('Unable to load jobs');
       state.jobs = await jobsResponse.json();
-      if (featuredResponse.ok) state.featuredIds = activeFeaturedIds(await featuredResponse.json());
-      if (productsResponse.ok) {
-        const products = await productsResponse.json();
-        configureEmployerProduct(products.featuredJob);
-      }
+      if (promotionsResponse.ok) state.promotions = activePromotions(await promotionsResponse.json());
+      if (productsResponse.ok) configureEmployerProducts(await productsResponse.json());
       if (eventsResponse.ok) renderCareerEvents(await eventsResponse.json());
       else renderCareerEvents([]);
       render();

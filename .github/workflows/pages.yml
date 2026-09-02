@@ -55,6 +55,8 @@ jobs:
         run: node scripts/collect-oracle-careers.mjs
       - name: Add official Digital Realty roles
         run: node scripts/collect-digital-realty.mjs
+      - name: Add official CoreSite operations roles
+        run: node scripts/collect-coresite.mjs
       - name: Add official Equinix careers roles
         run: node scripts/collect-equinix-v2.mjs
       - name: Add Equinix US early-career roles

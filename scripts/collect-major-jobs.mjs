@@ -197,7 +197,7 @@ function relativePostedAt(label = '') {
 async function fetchJson(url, options = {}) {
   const headers = {
     accept: 'application/json',
-    'user-agent': 'DataCenterCareersBot/1.2 (+https://dailyblip.github.io/ideal-garbanzo/)',
+    'user-agent': 'DataCenterCareersBot/1.2 (+https://datacentercareers.us/)',
     ...(options.headers || {})
   };
   const response = await fetch(url, { ...options, headers });
@@ -238,47 +238,62 @@ async function listWorkday(board) {
   return postings;
 }
 
-async function collectWorkday(board) {
+async function collectWorkday(board, previousCompanyJobs = []) {
   const rows = (await listWorkday(board)).filter(row => titleCandidate(row.title));
   const jobs = [];
+  const errors = [];
+  const previousByUrl = new Map(previousCompanyJobs.map(job => [clean(job.sourceUrl), job]));
 
   // Detail requests are intentionally limited to plausible hands-on titles.
+  // One transient detail failure must not discard an otherwise healthy employer scan.
   for (let index = 0; index < rows.length; index += 5) {
     const batch = rows.slice(index, index + 5);
     const hydrated = await Promise.all(batch.map(async row => {
+      const sourceUrl = `${board.origin}/${board.locale}/${board.site}${row.externalPath}`;
       try {
         const detailUrl = `${board.origin}/wday/cxs/${board.tenant}/${board.site}${row.externalPath}`;
         const detail = await fetchJson(detailUrl, {
-          headers: { referer: `${board.origin}/${board.locale}/${board.site}${row.externalPath}` }
+          headers: { referer: sourceUrl }
         });
         const info = detail.jobInfo || detail;
         const description = clean(info.jobDescription || info.description || '');
         const cls = classify(row.title, description, info.timeType || '');
-        if (!cls) return null;
+        if (!cls) return { job: null, error: null };
         const location = clean(row.locationsText || info.location || 'Location not listed');
         const externalId = clean(row.bulletFields?.[0] || row.externalPath?.split('_').pop() || hash(row.externalPath || row.title));
         return {
-          id: `workday-${board.tenant}-${externalId}`,
-          title: clean(row.title),
-          company: board.company,
-          location,
-          type: cls.type,
-          experience: cls.experience,
-          tags: tagsFor(row.title, description, cls.experience, cls.type),
-          ...extractPay(description),
-          postedAt: relativePostedAt(row.postedOn),
-          source: 'Employer career site',
-          sourceUrl: `${board.origin}/${board.locale}/${board.site}${row.externalPath}`,
-          active: true,
-          demo: false
+          job: {
+            id: `workday-${board.tenant}-${externalId}`,
+            title: clean(row.title),
+            company: board.company,
+            location,
+            type: cls.type,
+            experience: cls.experience,
+            tags: tagsFor(row.title, description, cls.experience, cls.type),
+            ...extractPay(description),
+            postedAt: relativePostedAt(row.postedOn),
+            source: 'Employer career site',
+            sourceUrl,
+            active: true,
+            demo: false
+          },
+          error: null
         };
       } catch (error) {
-        throw new Error(`${clean(row.title)}: ${error.message}`);
+        const previous = previousByUrl.get(clean(sourceUrl));
+        return {
+          job: previous || null,
+          error: `${clean(row.title)}: ${error.message}${previous ? ' (kept previous verified record)' : ''}`
+        };
       }
     }));
-    jobs.push(...hydrated.filter(Boolean));
+
+    for (const result of hydrated) {
+      if (result.job) jobs.push(result.job);
+      if (result.error) errors.push(result.error);
+    }
   }
-  return jobs;
+  return { jobs, errors };
 }
 
 function dedupe(jobs) {
@@ -307,15 +322,19 @@ const priorStatus = await readJson('data/collector-status.json', {});
 const majorJobs = [];
 const errors = [];
 let succeeded = 0;
+let detailFailures = 0;
 
 for (const board of workdayBoards) {
+  const previousCompanyJobs = previousMajor.filter(job => job.company === board.company);
   try {
-    const jobs = await collectWorkday(board);
-    majorJobs.push(...jobs);
+    const result = await collectWorkday(board, previousCompanyJobs);
+    majorJobs.push(...result.jobs);
     succeeded += 1;
+    detailFailures += result.errors.length;
+    errors.push(...result.errors.map(error => `${board.company}: ${error}`));
   } catch (error) {
-    errors.push(`${board.company}: ${error.message}`);
-    majorJobs.push(...previousMajor.filter(job => job.company === board.company));
+    errors.push(`${board.company}: ${error.message} (kept previous employer snapshot)`);
+    majorJobs.push(...previousCompanyJobs);
   }
 }
 
@@ -354,6 +373,7 @@ await writeFile('data/collector-status.json', JSON.stringify({
   majorSources: {
     attempted: workdayBoards.length,
     succeeded,
+    detailFailures,
     employers: workdayBoards.map(board => board.company),
     jobs: majorSnapshot.length
   },
@@ -362,4 +382,4 @@ await writeFile('data/collector-status.json', JSON.stringify({
   errors: [...(priorStatus.errors || []), ...errors]
 }, null, 2) + '\n');
 
-console.log(`Merged ${majorSnapshot.length} qualifying jobs from ${succeeded}/${workdayBoards.length} major Workday employers; ${merged.length} total jobs.`);
+console.log(`Merged ${majorSnapshot.length} qualifying jobs from ${succeeded}/${workdayBoards.length} major Workday employers with ${detailFailures} detail fetch failures; ${merged.length} total jobs.`);

@@ -1,0 +1,9 @@
+{
+  "provider": "buttondown",
+  "enabled": false,
+  "username": "",
+  "cadence": "weekly",
+  "sendDay": "Monday",
+  "sendTimeUtc": "16:00",
+  "description": "Weekly roundup of newly listed Data Center Careers jobs. Enable after the Buttondown newsletter username and GitHub BUTTONDOWN_API_KEY secret are configured."
+}

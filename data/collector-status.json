@@ -1,14 +1,15 @@
 {
-  "updatedAt": "2026-09-01T21:46:42.104Z",
+  "updatedAt": "2026-09-02T05:51:38.774Z",
   "jobs": 263,
-  "sourcesAttempted": 22,
+  "sourcesAttempted": 23,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
     "googleCareers": 1,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "metaCareers": 1
   },
   "countsByType": {
     "apprenticeship": 4,
@@ -197,50 +198,9 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-01T21:46:42.168Z",
-    "changed": 19,
-    "samples": [
-      {
-        "id": "workday-nttglobaldatacenters-JR101540",
-        "before": "Ashburn, Virgina",
-        "after": "Ashburn, Virginia"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1892",
-        "before": "2 Locations",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "ashby-lambda-70235ad66271f0",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
-      },
-      {
-        "id": "workday-nttglobaldatacenters-JR101968",
-        "before": "Ashburn, Virgina",
-        "after": "Ashburn, Virginia"
-      },
-      {
-        "id": "workday-nttglobaldatacenters-R-138957",
-        "before": "Ashburn, Virgina",
-        "after": "Ashburn, Virginia"
-      },
-      {
-        "id": "workday-cyrusone-R0007529",
-        "before": "5 Locations",
-        "after": "Carrollton, TX"
-      },
-      {
-        "id": "workday-nttglobaldatacenters-JR101799",
-        "before": "Ashburn, Virgina",
-        "after": "Ashburn, Virginia"
-      },
-      {
-        "id": "workday-nttglobaldatacenters-JR101533",
-        "before": "Ashburn, Virgina",
-        "after": "Ashburn, Virginia"
-      }
-    ],
+    "updatedAt": "2026-09-02T05:51:38.838Z",
+    "changed": 0,
+    "samples": [],
     "regionAssigned": 263,
     "regionMissing": 0,
     "coveragePct": 100,
@@ -260,5 +220,28 @@
     "publishedJobs": 263,
     "removedJobs": 51,
     "activeCareerEvents": 2
+  },
+  "metaCareers": {
+    "officialSource": "https://www.metacareers.com/jobsearch/",
+    "sourceHealthy": true,
+    "qualifyingRoles": 0,
+    "diagnostics": {
+      "searchPagesAttempted": 2,
+      "searchPagesSucceeded": 2,
+      "embeddedCandidates": 0,
+      "sitemapFetched": true,
+      "sitemapJobs": 881,
+      "detailAttempted": 700,
+      "detailSucceeded": 700,
+      "reusedFromSitemap": 0,
+      "verified": 0,
+      "drops": {
+        "titleOrContext": 686,
+        "nonUsOrUnknownLocation": 1,
+        "experience": 13,
+        "fetch": 0
+      }
+    },
+    "errors": []
   }
 }

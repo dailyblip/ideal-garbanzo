@@ -7,6 +7,7 @@ on:
       - '.github/workflows/meta-bootstrap.yml'
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
 
 permissions:
   contents: write
@@ -32,6 +33,8 @@ jobs:
         run: node scripts/recover-meta-structured.mjs
       - name: Normalize locations and regions
         run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
       - name: Validate refreshed feed
         run: |
           node scripts/validate.mjs

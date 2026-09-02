@@ -67,6 +67,14 @@ function chooseBetter(a, b) {
   return a;
 }
 
+function countBy(values, key) {
+  return values.reduce((counts, item) => {
+    const value = String(item?.[key] || '').trim();
+    if (value) counts[value] = (counts[value] || 0) + 1;
+    return counts;
+  }, {});
+}
+
 const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('data/jobs.json must contain an array.');
 
@@ -123,6 +131,9 @@ await writeFile(JOBS_PATH, JSON.stringify(kept, null, 2) + '\n');
 
 try {
   const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
+  status.jobs = kept.length;
+  status.countsByType = countBy(kept, 'type');
+  status.countsByExperience = countBy(kept, 'experience');
   status.normalizationDedupe = {
     checkedAt: new Date().toISOString(),
     before: jobs.length,

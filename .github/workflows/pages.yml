@@ -57,6 +57,8 @@ jobs:
         run: node scripts/collect-digital-realty.mjs
       - name: Add official CoreSite operations roles
         run: node scripts/collect-coresite.mjs
+      - name: Preserve freshly verified CoreSite roles when GitHub is blocked
+        run: node scripts/apply-coresite-verified-fallback.mjs
       - name: Add official Equinix careers roles
         run: node scripts/collect-equinix-v2.mjs
       - name: Add Equinix US early-career roles

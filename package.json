@@ -4,6 +4,6 @@
   "type": "module",
   "scripts": {
     "collect": "node scripts/collect-jobs.mjs",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs && node scripts/validate-promotions.mjs"
   }
 }

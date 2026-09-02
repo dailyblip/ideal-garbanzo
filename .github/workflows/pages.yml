@@ -60,7 +60,9 @@ jobs:
       - name: Guard against refresh regressions
         run: node scripts/validate-refresh-health.mjs
       - name: Validate site and job data
-        run: node scripts/validate.mjs
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-promotions.mjs
       - name: Validate approved homepage contract
         run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs and events when changed
@@ -99,6 +101,7 @@ jobs:
       - name: Validate committed feed before build
         run: |
           node scripts/validate.mjs
+          node scripts/validate-promotions.mjs
           node scripts/validate-homepage-contract.mjs
       - name: Generate crawlable SEO pages
         run: |
@@ -111,6 +114,7 @@ jobs:
       - name: Validate latest main before deployment
         run: |
           node scripts/validate.mjs
+          node scripts/validate-promotions.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-site-copy.mjs
           expected_jobs=$(node -e "console.log(require('./data/jobs.json').length)")

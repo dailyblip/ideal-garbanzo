@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-02T07:56:57.514Z",
+  "updatedAt": "2026-09-02T10:45:49.161Z",
   "jobs": 262,
-  "sourcesAttempted": 29,
+  "sourcesAttempted": 30,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -9,7 +9,7 @@
     "workday": 6,
     "googleCareers": 1,
     "oracleRecruitingCloud": 1,
-    "metaCareers": 7
+    "metaCareers": 8
   },
   "countsByType": {
     "apprenticeship": 4,
@@ -198,9 +198,25 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-02T07:56:57.573Z",
-    "changed": 0,
-    "samples": [],
+    "updatedAt": "2026-09-02T10:45:49.231Z",
+    "changed": 3,
+    "samples": [
+      {
+        "id": "equinix-early-b16fe208641d0f",
+        "before": "California",
+        "after": "San Jose, CA"
+      },
+      {
+        "id": "equinix-early-e04d9a6f0b9933",
+        "before": "Virginia",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "equinix-early-d1865bd35ec94c",
+        "before": "Texas",
+        "after": "Dallas, TX"
+      }
+    ],
     "regionAssigned": 262,
     "regionMissing": 0,
     "coveragePct": 100,
@@ -230,13 +246,13 @@
       "searchPagesSucceeded": 2,
       "embeddedCandidates": 0,
       "sitemapFetched": true,
-      "sitemapJobs": 879,
-      "detailAttempted": 879,
-      "detailSucceeded": 879,
+      "sitemapJobs": 877,
+      "detailAttempted": 877,
+      "detailSucceeded": 877,
       "reusedFromSitemap": 0,
       "verified": 0,
       "drops": {
-        "titleOrContext": 863,
+        "titleOrContext": 861,
         "nonUsOrUnknownLocation": 2,
         "experience": 14,
         "fetch": 0
@@ -248,29 +264,14 @@
           "url": "https://www.metacareers.com/profile/job_details/1286818323298472/"
         },
         {
-          "id": "998357492128826",
-          "title": "Software Engineer, Machine Learning",
-          "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
-        },
-        {
-          "id": "1769900794137147",
-          "title": "Technical Program Manager — Developer Productivity Cultural Levers",
-          "url": "https://www.metacareers.com/profile/job_details/1769900794137147/"
-        },
-        {
-          "id": "1334478348668120",
-          "title": "Agency Partner (Short Term Employment)",
-          "url": "https://www.metacareers.com/profile/job_details/1334478348668120/"
-        },
-        {
-          "id": "1277398403727586",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/1277398403727586/"
-        },
-        {
           "id": "1721254462523213",
           "title": "Client Solutions Manager, Ecommerce",
           "url": "https://www.metacareers.com/profile/job_details/1721254462523213/"
+        },
+        {
+          "id": "612870871828801",
+          "title": "Software Engineer, Product",
+          "url": "https://www.metacareers.com/profile/job_details/612870871828801/"
         },
         {
           "id": "9657291271065759",
@@ -278,14 +279,24 @@
           "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
         },
         {
+          "id": "435020605866341",
+          "title": "Data Scientist, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/435020605866341/"
+        },
+        {
+          "id": "1041419164930367",
+          "title": "Senior Strategic Sourcing Manager, Custom Mechanicals",
+          "url": "https://www.metacareers.com/profile/job_details/1041419164930367/"
+        },
+        {
           "id": "2082780019279407",
           "title": "Software Engineer, Systems",
           "url": "https://www.metacareers.com/profile/job_details/2082780019279407/"
         },
         {
-          "id": "1610059107505555",
-          "title": "Software Engineer, OS",
-          "url": "https://www.metacareers.com/profile/job_details/1610059107505555/"
+          "id": "1277398403727586",
+          "title": "Software Engineer, Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/1277398403727586/"
         },
         {
           "id": "951518494648733",
@@ -293,24 +304,9 @@
           "url": "https://www.metacareers.com/profile/job_details/951518494648733/"
         },
         {
-          "id": "961472602841468",
-          "title": "Product Manager",
-          "url": "https://www.metacareers.com/profile/job_details/961472602841468/"
-        },
-        {
-          "id": "1074111708385844",
-          "title": "Program Manager",
-          "url": "https://www.metacareers.com/profile/job_details/1074111708385844/"
-        },
-        {
-          "id": "2486789151677735",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
-        },
-        {
-          "id": "1578492430645643",
-          "title": "Energy Portfolio Manager, Energy Supply and Interconnection Contracts",
-          "url": "https://www.metacareers.com/profile/job_details/1578492430645643/"
+          "id": "1334478348668120",
+          "title": "Agency Partner (Short Term Employment)",
+          "url": "https://www.metacareers.com/profile/job_details/1334478348668120/"
         },
         {
           "id": "1715110433259303",
@@ -318,29 +314,49 @@
           "url": "https://www.metacareers.com/profile/job_details/1715110433259303/"
         },
         {
-          "id": "1480651869941122",
-          "title": "Energy Portfolio Manager, Wholesale",
-          "url": "https://www.metacareers.com/profile/job_details/1480651869941122/"
+          "id": "1610059107505555",
+          "title": "Software Engineer, OS",
+          "url": "https://www.metacareers.com/profile/job_details/1610059107505555/"
         },
         {
-          "id": "1538483417962712",
-          "title": "Network Implementation Engineer",
-          "url": "https://www.metacareers.com/profile/job_details/1538483417962712/"
+          "id": "998357492128826",
+          "title": "Software Engineer, Machine Learning",
+          "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
         },
         {
-          "id": "1203016587809246",
-          "title": "Software Engineer, iOS",
-          "url": "https://www.metacareers.com/profile/job_details/1203016587809246/"
+          "id": "2486789151677735",
+          "title": "Software Engineer, Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
         },
         {
-          "id": "435020605866341",
-          "title": "Data Scientist, Product Analytics",
-          "url": "https://www.metacareers.com/profile/job_details/435020605866341/"
+          "id": "961472602841468",
+          "title": "Product Manager",
+          "url": "https://www.metacareers.com/profile/job_details/961472602841468/"
         },
         {
-          "id": "1405524448080606",
-          "title": "Performance & Capacity Engineering - Capacity Planning Optimization",
-          "url": "https://www.metacareers.com/profile/job_details/1405524448080606/"
+          "id": "1769900794137147",
+          "title": "Technical Program Manager — Developer Productivity Cultural Levers",
+          "url": "https://www.metacareers.com/profile/job_details/1769900794137147/"
+        },
+        {
+          "id": "704019139159184",
+          "title": "Software Engineer (Leadership) - Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/704019139159184/"
+        },
+        {
+          "id": "2471900343171573",
+          "title": "Product Designer, Meta",
+          "url": "https://www.metacareers.com/profile/job_details/2471900343171573/"
+        },
+        {
+          "id": "1144873634774403",
+          "title": "Campus Construction Manager",
+          "url": "https://www.metacareers.com/profile/job_details/1144873634774403/"
+        },
+        {
+          "id": "1578492430645643",
+          "title": "Energy Portfolio Manager, Energy Supply and Interconnection Contracts",
+          "url": "https://www.metacareers.com/profile/job_details/1578492430645643/"
         }
       ],
       "locationSamples": [
@@ -501,10 +517,19 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-02T07:56:57.625Z",
+    "checkedAt": "2026-09-02T10:45:49.273Z",
     "before": 262,
     "after": 262,
     "removed": 0,
     "examples": []
+  },
+  "jobHistory": {
+    "initializedAt": "2026-09-02T10:45:49.306Z",
+    "trackedJobs": 262,
+    "currentJobs": 262,
+    "newJobsThisRun": 0,
+    "seededExistingThisRun": 262,
+    "repairedEntriesThisRun": 0,
+    "updatedAt": "2026-09-02T10:45:49.306Z"
   }
 }

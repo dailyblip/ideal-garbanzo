@@ -308,14 +308,30 @@ for (const row of uniqueRaw) {
   });
 }
 
+const freshSnapshot = dedupe(jobs);
+const fullQuerySetHealthy = successfulQueries === queries.length;
 let snapshot;
-let sourceHealthy = true;
+let sourceHealthy = fullQuerySetHealthy;
+let preservedPreviousRoles = 0;
+
 if (!successfulQueries || (!raw.length && previous.length)) {
   snapshot = previous;
   sourceHealthy = false;
+  preservedPreviousRoles = previous.length;
   if (!raw.length) errors.push('Amazon Jobs returned no rows; retained previous AWS snapshot.');
+} else if (!fullQuerySetHealthy) {
+  const freshIds = new Set(freshSnapshot.map(job => clean(job.id)).filter(Boolean));
+  const freshUrls = new Set(freshSnapshot.map(job => clean(job.sourceUrl)).filter(Boolean));
+  const retained = previous.filter(job => {
+    const id = clean(job.id);
+    const url = clean(job.sourceUrl);
+    return !freshIds.has(id) && !(url && freshUrls.has(url));
+  });
+  preservedPreviousRoles = retained.length;
+  snapshot = dedupe([...freshSnapshot, ...retained]);
+  errors.push(`Amazon Jobs partial search: ${successfulQueries}/${queries.length} queries succeeded; retained ${preservedPreviousRoles} previously verified AWS roles until a complete scan succeeds.`);
 } else {
-  snapshot = dedupe(jobs);
+  snapshot = freshSnapshot;
 }
 
 const withoutAmazon = current.filter(job => job.company !== COMPANY && !/amazon\.jobs\//i.test(String(job.sourceUrl || '')));
@@ -345,6 +361,8 @@ await writeFile('data/collector-status.json', JSON.stringify({
     queryStats,
     candidateRows:raw.length,
     uniqueCandidates:uniqueRaw.length,
+    freshQualifyingRoles:freshSnapshot.length,
+    preservedPreviousRoles,
     qualifyingRoles:snapshot.length,
     drops,
     errors

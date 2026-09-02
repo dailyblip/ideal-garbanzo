@@ -137,6 +137,44 @@ function fromWorkdayUrl(sourceUrl = '') {
   return null;
 }
 
+function slugify(value = '') {
+  return String(value)
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function fromEquinixUrl(job = {}) {
+  let url;
+  try { url = new URL(job.sourceUrl || ''); } catch { return null; }
+  if (url.hostname.toLowerCase() !== 'careers.equinix.com') return null;
+
+  const segment = decodeURIComponent(url.pathname.split('/').filter(Boolean).at(-1) || '');
+  const segmentLower = segment.toLowerCase();
+  const titleSlug = slugify(job.title || '');
+  if (!segment || !titleSlug) return null;
+
+  for (const stateName of stateNamesLongestFirst) {
+    const stateSlug = stateName.replace(/\s+/g, '-');
+    const marker = `-${stateSlug}-united-states`;
+    const markerIndex = segmentLower.indexOf(marker);
+    if (markerIndex < 0) continue;
+
+    const beforeState = segment.slice(0, markerIndex);
+    const titlePrefix = `${titleSlug}-`;
+    if (!beforeState.toLowerCase().startsWith(titlePrefix)) continue;
+
+    const citySlug = beforeState.slice(titlePrefix.length);
+    const city = titleCaseWords(citySlug);
+    const code = stateNameToCode.get(stateName);
+    return city && code ? `${city}, ${code}` : null;
+  }
+
+  return null;
+}
+
 function genericLocation(value = '') {
   const location = String(value || '').trim();
   return /^\d+\s+locations?$/i.test(location) || /^location not listed$/i.test(location) || /^multiple locations?$/i.test(location);
@@ -152,8 +190,9 @@ function normalizeLocation(job) {
     }
   }
 
-  if (genericLocation(location)) {
-    const derived = fromWorkdayUrl(job.sourceUrl);
+  const stateOnly = stateNameToCode.has(location.toLowerCase());
+  if (genericLocation(location) || stateOnly || /^United States$/i.test(location)) {
+    const derived = fromWorkdayUrl(job.sourceUrl) || fromEquinixUrl(job);
     if (derived) location = derived;
   }
 
@@ -226,7 +265,7 @@ function inferRegion(job) {
   const direct = regionFromText(location);
   if (direct) return direct;
 
-  const derived = fromWorkdayUrl(job?.sourceUrl || '');
+  const derived = fromWorkdayUrl(job?.sourceUrl || '') || fromEquinixUrl(job);
   if (derived) {
     const region = regionFromText(derived);
     if (region) return region;

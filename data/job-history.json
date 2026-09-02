@@ -1,5 +1,792 @@
 {
   "version": 1,
-  "initializedAt": null,
-  "jobs": {}
+  "initializedAt": "2026-09-02T10:45:49.306Z",
+  "jobs": {
+    "amazon-10460368": {
+      "firstSeenAt": "2026-06-26T00:00:00.000Z"
+    },
+    "amazon-10469916": {
+      "firstSeenAt": "2026-07-09T00:00:00.000Z"
+    },
+    "amazon-10473681": {
+      "firstSeenAt": "2026-07-14T00:00:00.000Z"
+    },
+    "amazon-10477731": {
+      "firstSeenAt": "2026-07-17T00:00:00.000Z"
+    },
+    "amazon-10488291": {
+      "firstSeenAt": "2026-07-30T00:00:00.000Z"
+    },
+    "amazon-10488293": {
+      "firstSeenAt": "2026-07-30T00:00:00.000Z"
+    },
+    "amazon-10492473": {
+      "firstSeenAt": "2026-08-05T00:00:00.000Z"
+    },
+    "amazon-10493203": {
+      "firstSeenAt": "2026-08-05T00:00:00.000Z"
+    },
+    "amazon-10503583": {
+      "firstSeenAt": "2026-08-17T00:00:00.000Z"
+    },
+    "amazon-10509782": {
+      "firstSeenAt": "2026-08-21T00:00:00.000Z"
+    },
+    "amazon-10509788": {
+      "firstSeenAt": "2026-08-21T00:00:00.000Z"
+    },
+    "amazon-10509792": {
+      "firstSeenAt": "2026-08-21T00:00:00.000Z"
+    },
+    "amazon-10510179": {
+      "firstSeenAt": "2026-08-21T00:00:00.000Z"
+    },
+    "amazon-10510180": {
+      "firstSeenAt": "2026-08-21T00:00:00.000Z"
+    },
+    "amazon-10512849": {
+      "firstSeenAt": "2026-08-24T00:00:00.000Z"
+    },
+    "amazon-10521889": {
+      "firstSeenAt": "2026-08-31T00:00:00.000Z"
+    },
+    "amazon-10521901": {
+      "firstSeenAt": "2026-08-31T00:00:00.000Z"
+    },
+    "amazon-3187191": {
+      "firstSeenAt": "2026-02-23T00:00:00.000Z"
+    },
+    "ashby-crusoe-129b9fd8c0d03e": {
+      "firstSeenAt": "2026-08-21T20:15:33.982Z"
+    },
+    "ashby-crusoe-316d2a228cba07": {
+      "firstSeenAt": "2026-08-21T20:10:33.089Z"
+    },
+    "ashby-crusoe-33219bc49e3d7a": {
+      "firstSeenAt": "2026-06-24T17:08:31.137Z"
+    },
+    "ashby-crusoe-45bdc4bbccd2c3": {
+      "firstSeenAt": "2026-08-06T17:35:34.309Z"
+    },
+    "ashby-crusoe-55e8ca08729b80": {
+      "firstSeenAt": "2026-08-28T23:34:42.555Z"
+    },
+    "ashby-crusoe-70b01f17d09a8b": {
+      "firstSeenAt": "2026-08-17T21:23:21.319Z"
+    },
+    "ashby-crusoe-70ba1809ab44f2": {
+      "firstSeenAt": "2026-08-06T19:38:22.514Z"
+    },
+    "ashby-crusoe-890bc8b226f70b": {
+      "firstSeenAt": "2026-08-28T23:23:21.008Z"
+    },
+    "ashby-crusoe-8d30086e281f80": {
+      "firstSeenAt": "2026-07-28T20:47:10.068Z"
+    },
+    "ashby-crusoe-ab810e7251cc10": {
+      "firstSeenAt": "2026-07-29T19:59:39.535Z"
+    },
+    "ashby-crusoe-d87b832291bdc4": {
+      "firstSeenAt": "2026-06-23T22:02:33.283Z"
+    },
+    "ashby-fluidstack-025a2bb55f3672": {
+      "firstSeenAt": "2026-07-20T14:54:10.234Z"
+    },
+    "ashby-fluidstack-033a02e92d9319": {
+      "firstSeenAt": "2026-07-17T23:20:16.442Z"
+    },
+    "ashby-fluidstack-06a398398b21b5": {
+      "firstSeenAt": "2026-07-17T01:51:24.687Z"
+    },
+    "ashby-fluidstack-16c450b39d87ed": {
+      "firstSeenAt": "2026-07-17T01:23:27.107Z"
+    },
+    "ashby-fluidstack-358b995c1ddf48": {
+      "firstSeenAt": "2026-07-17T23:23:24.588Z"
+    },
+    "ashby-fluidstack-36e1b81f198a78": {
+      "firstSeenAt": "2026-07-17T23:20:32.360Z"
+    },
+    "ashby-fluidstack-400849c8d09b4d": {
+      "firstSeenAt": "2026-08-23T00:58:39.542Z"
+    },
+    "ashby-fluidstack-4796acb04f75e2": {
+      "firstSeenAt": "2026-08-16T08:24:52.838Z"
+    },
+    "ashby-fluidstack-57cc9ea1de20c0": {
+      "firstSeenAt": "2026-07-17T23:43:26.239Z"
+    },
+    "ashby-fluidstack-62fa3623e0102b": {
+      "firstSeenAt": "2026-07-17T23:18:24.544Z"
+    },
+    "ashby-fluidstack-68c859d4e58334": {
+      "firstSeenAt": "2026-07-17T23:15:20.895Z"
+    },
+    "ashby-fluidstack-6ea35c48053398": {
+      "firstSeenAt": "2026-08-16T08:24:02.867Z"
+    },
+    "ashby-fluidstack-77972990e2af8c": {
+      "firstSeenAt": "2026-07-17T23:15:34.012Z"
+    },
+    "ashby-fluidstack-7943ad0cae4c83": {
+      "firstSeenAt": "2026-07-17T23:22:27.597Z"
+    },
+    "ashby-fluidstack-7c870ffe4efe13": {
+      "firstSeenAt": "2026-08-16T08:23:50.187Z"
+    },
+    "ashby-fluidstack-7d7865b8e8f328": {
+      "firstSeenAt": "2026-07-16T23:02:22.794Z"
+    },
+    "ashby-fluidstack-7e1aafc0f866c2": {
+      "firstSeenAt": "2026-07-17T23:20:11.470Z"
+    },
+    "ashby-fluidstack-80e28e3335dac9": {
+      "firstSeenAt": "2026-07-17T23:23:58.515Z"
+    },
+    "ashby-fluidstack-821953ac02c749": {
+      "firstSeenAt": "2026-07-17T23:24:19.114Z"
+    },
+    "ashby-fluidstack-8d185e2db6b025": {
+      "firstSeenAt": "2026-07-17T23:22:35.268Z"
+    },
+    "ashby-fluidstack-8e4777452b9d02": {
+      "firstSeenAt": "2026-08-03T21:20:09.220Z"
+    },
+    "ashby-fluidstack-96d256e2f9b6b3": {
+      "firstSeenAt": "2026-07-17T01:15:06.099Z"
+    },
+    "ashby-fluidstack-97cc1b9a51a5ae": {
+      "firstSeenAt": "2026-07-17T23:21:11.438Z"
+    },
+    "ashby-fluidstack-983560a842e64f": {
+      "firstSeenAt": "2026-07-17T23:23:33.798Z"
+    },
+    "ashby-fluidstack-aad6896e839ea0": {
+      "firstSeenAt": "2026-07-17T23:20:20.607Z"
+    },
+    "ashby-fluidstack-abdafcb0e1923b": {
+      "firstSeenAt": "2026-07-17T23:23:17.248Z"
+    },
+    "ashby-fluidstack-afd8f632f477b0": {
+      "firstSeenAt": "2026-07-17T01:12:28.309Z"
+    },
+    "ashby-fluidstack-b19ff0746b6154": {
+      "firstSeenAt": "2026-07-17T23:19:55.169Z"
+    },
+    "ashby-fluidstack-da3933578cabf1": {
+      "firstSeenAt": "2026-08-22T11:56:55.553Z"
+    },
+    "ashby-fluidstack-dd483c4475ffd8": {
+      "firstSeenAt": "2026-07-27T20:04:57.581Z"
+    },
+    "ashby-fluidstack-de506928c0c2c7": {
+      "firstSeenAt": "2026-08-03T21:20:05.512Z"
+    },
+    "ashby-fluidstack-e31441e51b83fb": {
+      "firstSeenAt": "2026-08-26T19:56:16.175Z"
+    },
+    "ashby-fluidstack-eb49bf1dbcd0bd": {
+      "firstSeenAt": "2026-08-16T08:24:00.040Z"
+    },
+    "ashby-fluidstack-f53d7ea4422bc5": {
+      "firstSeenAt": "2026-08-03T21:20:09.531Z"
+    },
+    "ashby-fluidstack-fbad3fdfca1cdd": {
+      "firstSeenAt": "2026-07-17T01:15:59.759Z"
+    },
+    "ashby-fluidstack-fcb688e2b10952": {
+      "firstSeenAt": "2026-07-17T23:21:27.610Z"
+    },
+    "ashby-fluidstack-ffb874066918b5": {
+      "firstSeenAt": "2026-07-17T23:18:44.068Z"
+    },
+    "ashby-fluidstack-fffbca6eac6e2a": {
+      "firstSeenAt": "2026-07-17T23:23:37.901Z"
+    },
+    "ashby-lambda-0bdbbcbdc49122": {
+      "firstSeenAt": "2026-08-11T20:57:08.606Z"
+    },
+    "ashby-lambda-623bc02be173a8": {
+      "firstSeenAt": "2026-07-28T18:57:41.147Z"
+    },
+    "ashby-lambda-637eb59fd23a0f": {
+      "firstSeenAt": "2026-08-03T19:00:08.611Z"
+    },
+    "ashby-lambda-64f00788cf32e4": {
+      "firstSeenAt": "2026-07-24T21:25:27.384Z"
+    },
+    "ashby-lambda-70235ad66271f0": {
+      "firstSeenAt": "2026-09-01T18:26:47.353Z"
+    },
+    "ashby-lambda-a3f00d5f2ebea9": {
+      "firstSeenAt": "2026-07-24T21:23:57.716Z"
+    },
+    "ashby-lambda-c500032ab67636": {
+      "firstSeenAt": "2026-08-28T18:16:25.603Z"
+    },
+    "ashby-tensorwave-3731c4ccf4b096": {
+      "firstSeenAt": "2026-08-24T15:45:16.315Z"
+    },
+    "ashby-tensorwave-6ee3a9fbafb8a0": {
+      "firstSeenAt": "2026-08-25T22:43:34.787Z"
+    },
+    "equinix-early-b16fe208641d0f": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "equinix-early-d1865bd35ec94c": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "equinix-early-e04d9a6f0b9933": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "gh-coreweave-4579319006": {
+      "firstSeenAt": "2026-08-31T21:31:09.000Z"
+    },
+    "gh-coreweave-4687824006": {
+      "firstSeenAt": "2026-08-31T21:31:09.000Z"
+    },
+    "gh-coreweave-4699663006": {
+      "firstSeenAt": "2026-08-31T21:31:09.000Z"
+    },
+    "gh-coreweave-4701744006": {
+      "firstSeenAt": "2026-08-31T21:31:09.000Z"
+    },
+    "gh-coreweave-4702795006": {
+      "firstSeenAt": "2026-08-31T21:31:09.000Z"
+    },
+    "gh-coreweave-4708211006": {
+      "firstSeenAt": "2026-08-31T21:31:09.000Z"
+    },
+    "gh-coreweave-4709264006": {
+      "firstSeenAt": "2026-08-31T21:31:09.000Z"
+    },
+    "gh-elementcritical-4579075005": {
+      "firstSeenAt": "2026-07-17T20:00:00.000Z"
+    },
+    "gh-elementcritical-4684121005": {
+      "firstSeenAt": "2026-07-17T20:00:59.000Z"
+    },
+    "gh-elementcritical-4691807005": {
+      "firstSeenAt": "2026-07-17T19:55:43.000Z"
+    },
+    "gh-elementcritical-4721207005": {
+      "firstSeenAt": "2026-08-26T22:26:00.000Z"
+    },
+    "gh-xai-4538639007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-4611087007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-4741579007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-4939298007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5064636007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5134220007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5136043007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5142979007": {
+      "firstSeenAt": "2026-08-28T18:47:58.000Z"
+    },
+    "gh-xai-5148882007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5150932007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5168434007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5169674007": {
+      "firstSeenAt": "2026-08-31T21:00:20.000Z"
+    },
+    "gh-xai-5182046007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5182357007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5182374007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5184586007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5189147007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5189148007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5201130007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5205550007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5206940007": {
+      "firstSeenAt": "2026-08-28T01:15:48.000Z"
+    },
+    "gh-xai-5207067007": {
+      "firstSeenAt": "2026-09-01T18:26:30.000Z"
+    },
+    "gh-xai-5209858007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5211587007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5212253007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5212286007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5214280007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5214372007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5215038007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5215585007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5219540007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5219541007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5219754007": {
+      "firstSeenAt": "2026-08-27T22:09:48.000Z"
+    },
+    "gh-xai-5225824007": {
+      "firstSeenAt": "2026-08-29T02:44:13.000Z"
+    },
+    "gh-xai-5225839007": {
+      "firstSeenAt": "2026-08-31T16:58:12.000Z"
+    },
+    "gh-xai-5225844007": {
+      "firstSeenAt": "2026-08-29T02:43:56.000Z"
+    },
+    "gh-xai-5226371007": {
+      "firstSeenAt": "2026-08-31T23:58:56.000Z"
+    },
+    "gh-xai-5227684007": {
+      "firstSeenAt": "2026-09-01T19:25:38.000Z"
+    },
+    "gh-xai-5227699007": {
+      "firstSeenAt": "2026-09-01T19:40:08.000Z"
+    },
+    "google-100681386993558214": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-101926895297143494": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-106249206502433478": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-106300408955052742": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-106886914656608966": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-110758776134345414": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-114533345865409222": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-115266613283824326": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-116632107404403398": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-118548807427203782": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-127134421282104006": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-133686228535911110": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-136570110096614086": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-140196211398189766": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-142791441091830470": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-77675229853164230": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-81243295409152710": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-81432623473140422": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-87308051224109766": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-94030873338225350": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-95464687503581894": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-97413546094011078": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "google-99083588829356742": {
+      "firstSeenAt": "2026-09-02T10:45:49.306Z"
+    },
+    "lever-cagents-33bb231e-eadd-4b05-adac-0f2697d1bbe5": {
+      "firstSeenAt": "2026-08-12T20:35:39.391Z"
+    },
+    "lever-cologix-0217b3d0-a5b0-4204-a7ce-5f9f9a844645": {
+      "firstSeenAt": "2026-08-17T17:01:49.130Z"
+    },
+    "lever-cologix-3caaef1b-97bc-4a26-8185-8f529380356a": {
+      "firstSeenAt": "2026-08-24T14:21:23.119Z"
+    },
+    "lever-cologix-aba6d50a-467f-4f68-a402-39249bf42337": {
+      "firstSeenAt": "2026-08-06T20:01:53.994Z"
+    },
+    "lever-lightedge-3800ca63-d408-496e-b0bc-4afad2653c55": {
+      "firstSeenAt": "2026-08-10T14:45:10.498Z"
+    },
+    "lever-lightedge-572330d1-551e-4d19-a251-6878821d498a": {
+      "firstSeenAt": "2026-08-25T13:42:23.521Z"
+    },
+    "lever-serverfarm-094527f2-8967-4b11-a437-81c9428f98f7": {
+      "firstSeenAt": "2026-07-20T16:59:11.365Z"
+    },
+    "lever-serverfarm-fccd5935-a558-4975-99c2-94906266f182": {
+      "firstSeenAt": "2026-07-10T16:55:48.240Z"
+    },
+    "microsoft-1970393556982498": {
+      "firstSeenAt": "2026-08-31T12:00:00.000Z"
+    },
+    "oracle-digitalrealty-7440": {
+      "firstSeenAt": "2026-03-11T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-7789": {
+      "firstSeenAt": "2026-04-28T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8220": {
+      "firstSeenAt": "2026-06-25T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8327": {
+      "firstSeenAt": "2026-07-23T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8346": {
+      "firstSeenAt": "2026-07-20T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8400": {
+      "firstSeenAt": "2026-07-23T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8407": {
+      "firstSeenAt": "2026-07-23T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8434": {
+      "firstSeenAt": "2026-07-29T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8435": {
+      "firstSeenAt": "2026-07-30T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8542": {
+      "firstSeenAt": "2026-08-13T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8622": {
+      "firstSeenAt": "2026-08-28T00:00:00.000Z"
+    },
+    "oracle-digitalrealty-8632": {
+      "firstSeenAt": "2026-09-01T00:00:00.000Z"
+    },
+    "workday-aligneddc-JR100431": {
+      "firstSeenAt": "2026-08-02T21:46:01.223Z"
+    },
+    "workday-aligneddc-JR100727": {
+      "firstSeenAt": "2026-08-02T21:46:00.603Z"
+    },
+    "workday-aligneddc-JR100737": {
+      "firstSeenAt": "2026-08-06T21:45:53.151Z"
+    },
+    "workday-aligneddc-JR100832": {
+      "firstSeenAt": "2026-08-02T21:45:59.690Z"
+    },
+    "workday-aligneddc-JR100891": {
+      "firstSeenAt": "2026-08-02T21:45:59.269Z"
+    },
+    "workday-aligneddc-JR100927": {
+      "firstSeenAt": "2026-08-02T21:45:58.416Z"
+    },
+    "workday-aligneddc-JR100928": {
+      "firstSeenAt": "2026-08-14T21:45:52.097Z"
+    },
+    "workday-aligneddc-JR100936": {
+      "firstSeenAt": "2026-08-02T21:45:58.010Z"
+    },
+    "workday-aligneddc-JR100954": {
+      "firstSeenAt": "2026-08-02T21:45:56.942Z"
+    },
+    "workday-aligneddc-JR100955": {
+      "firstSeenAt": "2026-08-02T21:45:56.932Z"
+    },
+    "workday-aligneddc-JR100970": {
+      "firstSeenAt": "2026-08-13T21:45:52.621Z"
+    },
+    "workday-aligneddc-JR100971": {
+      "firstSeenAt": "2026-08-13T21:45:52.625Z"
+    },
+    "workday-aligneddc-JR101013": {
+      "firstSeenAt": "2026-08-02T21:45:56.091Z"
+    },
+    "workday-aligneddc-JR101015": {
+      "firstSeenAt": "2026-08-02T21:45:56.043Z"
+    },
+    "workday-aligneddc-JR101027": {
+      "firstSeenAt": "2026-08-02T21:45:56.077Z"
+    },
+    "workday-aligneddc-JR101066": {
+      "firstSeenAt": "2026-08-13T21:45:52.860Z"
+    },
+    "workday-aligneddc-JR101067": {
+      "firstSeenAt": "2026-08-13T21:45:52.621Z"
+    },
+    "workday-aligneddc-JR101068": {
+      "firstSeenAt": "2026-08-13T21:45:52.625Z"
+    },
+    "workday-aligneddc-JR101072": {
+      "firstSeenAt": "2026-08-13T21:45:52.373Z"
+    },
+    "workday-aligneddc-JR101074": {
+      "firstSeenAt": "2026-08-13T21:45:52.376Z"
+    },
+    "workday-aligneddc-JR101077": {
+      "firstSeenAt": "2026-08-13T21:45:52.135Z"
+    },
+    "workday-aligneddc-JR101084": {
+      "firstSeenAt": "2026-08-14T21:45:52.120Z"
+    },
+    "workday-aligneddc-JR101088": {
+      "firstSeenAt": "2026-08-14T21:45:51.853Z"
+    },
+    "workday-aligneddc-JR101091": {
+      "firstSeenAt": "2026-08-14T21:45:51.591Z"
+    },
+    "workday-aligneddc-JR101096": {
+      "firstSeenAt": "2026-08-14T21:45:51.605Z"
+    },
+    "workday-aligneddc-JR101108": {
+      "firstSeenAt": "2026-08-17T21:45:50.953Z"
+    },
+    "workday-aligneddc-JR101115": {
+      "firstSeenAt": "2026-08-17T21:45:50.547Z"
+    },
+    "workday-aligneddc-JR101148": {
+      "firstSeenAt": "2026-08-25T21:45:50.296Z"
+    },
+    "workday-aligneddc-JR101158": {
+      "firstSeenAt": "2026-08-28T21:45:50.135Z"
+    },
+    "workday-aligneddc-JR101160": {
+      "firstSeenAt": "2026-08-31T21:45:50.117Z"
+    },
+    "workday-cyrusone-JLL260543": {
+      "firstSeenAt": "2026-08-31T21:45:29.704Z"
+    },
+    "workday-cyrusone-JLL260551": {
+      "firstSeenAt": "2026-08-18T21:45:31.347Z"
+    },
+    "workday-cyrusone-R0006416": {
+      "firstSeenAt": "2026-08-02T21:45:37.177Z"
+    },
+    "workday-cyrusone-R0007173": {
+      "firstSeenAt": "2026-08-02T21:45:33.517Z"
+    },
+    "workday-cyrusone-R0007175": {
+      "firstSeenAt": "2026-08-02T21:45:36.567Z"
+    },
+    "workday-cyrusone-R0007415": {
+      "firstSeenAt": "2026-08-02T21:45:33.765Z"
+    },
+    "workday-cyrusone-R0007418": {
+      "firstSeenAt": "2026-08-02T21:45:36.005Z"
+    },
+    "workday-cyrusone-R0007526": {
+      "firstSeenAt": "2026-08-02T21:45:33.532Z"
+    },
+    "workday-cyrusone-R0007529": {
+      "firstSeenAt": "2026-08-10T21:45:32.399Z"
+    },
+    "workday-cyrusone-R0007582": {
+      "firstSeenAt": "2026-08-13T21:45:31.793Z"
+    },
+    "workday-cyrusone-R0007589": {
+      "firstSeenAt": "2026-08-02T21:45:35.555Z"
+    },
+    "workday-cyrusone-R0007608": {
+      "firstSeenAt": "2026-08-02T21:45:35.450Z"
+    },
+    "workday-cyrusone-R0007615": {
+      "firstSeenAt": "2026-08-02T21:45:33.872Z"
+    },
+    "workday-cyrusone-R0007616": {
+      "firstSeenAt": "2026-08-02T21:45:33.834Z"
+    },
+    "workday-cyrusone-R0007619": {
+      "firstSeenAt": "2026-08-02T21:45:32.841Z"
+    },
+    "workday-cyrusone-R0007628": {
+      "firstSeenAt": "2026-08-02T21:45:33.572Z"
+    },
+    "workday-cyrusone-R0007668": {
+      "firstSeenAt": "2026-08-02T21:45:32.593Z"
+    },
+    "workday-cyrusone-R0007762": {
+      "firstSeenAt": "2026-08-02T21:45:33.361Z"
+    },
+    "workday-cyrusone-R0007763": {
+      "firstSeenAt": "2026-08-25T21:45:30.527Z"
+    },
+    "workday-cyrusone-R0007803": {
+      "firstSeenAt": "2026-08-02T21:45:31.994Z"
+    },
+    "workday-cyrusone-R0007951": {
+      "firstSeenAt": "2026-08-26T21:45:29.967Z"
+    },
+    "workday-cyrusone-R0007968": {
+      "firstSeenAt": "2026-08-27T21:45:29.745Z"
+    },
+    "workday-cyrusone-R0007970": {
+      "firstSeenAt": "2026-08-27T21:45:29.683Z"
+    },
+    "workday-nttglobaldatacenters-JR101153": {
+      "firstSeenAt": "2026-08-02T21:45:45.611Z"
+    },
+    "workday-nttglobaldatacenters-JR101166": {
+      "firstSeenAt": "2026-08-02T21:45:45.634Z"
+    },
+    "workday-nttglobaldatacenters-JR101198": {
+      "firstSeenAt": "2026-08-02T21:45:44.521Z"
+    },
+    "workday-nttglobaldatacenters-JR101252": {
+      "firstSeenAt": "2026-08-02T21:45:45.629Z"
+    },
+    "workday-nttglobaldatacenters-JR101475": {
+      "firstSeenAt": "2026-08-02T21:45:45.406Z"
+    },
+    "workday-nttglobaldatacenters-JR101514": {
+      "firstSeenAt": "2026-08-02T21:45:45.406Z"
+    },
+    "workday-nttglobaldatacenters-JR101538": {
+      "firstSeenAt": "2026-08-02T21:45:44.976Z"
+    },
+    "workday-nttglobaldatacenters-JR101540": {
+      "firstSeenAt": "2026-08-02T21:45:44.764Z"
+    },
+    "workday-nttglobaldatacenters-JR101541": {
+      "firstSeenAt": "2026-08-02T21:45:44.976Z"
+    },
+    "workday-nttglobaldatacenters-JR101543": {
+      "firstSeenAt": "2026-08-02T21:45:44.975Z"
+    },
+    "workday-nttglobaldatacenters-JR101799": {
+      "firstSeenAt": "2026-08-07T21:45:44.018Z"
+    },
+    "workday-nttglobaldatacenters-JR101821": {
+      "firstSeenAt": "2026-08-03T21:45:44.251Z"
+    },
+    "workday-nttglobaldatacenters-JR101839": {
+      "firstSeenAt": "2026-08-04T21:45:44.239Z"
+    },
+    "workday-nttglobaldatacenters-JR101859": {
+      "firstSeenAt": "2026-08-07T21:45:44.045Z"
+    },
+    "workday-nttglobaldatacenters-JR101861": {
+      "firstSeenAt": "2026-08-25T21:45:43.573Z"
+    },
+    "workday-nttglobaldatacenters-JR101929": {
+      "firstSeenAt": "2026-08-17T21:45:43.811Z"
+    },
+    "workday-nttglobaldatacenters-JR101974": {
+      "firstSeenAt": "2026-08-25T21:45:43.328Z"
+    },
+    "workday-nttglobaldatacenters-R-138957": {
+      "firstSeenAt": "2026-08-25T21:45:43.364Z"
+    },
+    "workday-qtsdatacenters-R2025-1243": {
+      "firstSeenAt": "2026-08-02T21:45:22.400Z"
+    },
+    "workday-qtsdatacenters-R2026-0881": {
+      "firstSeenAt": "2026-08-02T21:45:21.262Z"
+    },
+    "workday-qtsdatacenters-R2026-0893": {
+      "firstSeenAt": "2026-08-02T21:45:22.101Z"
+    },
+    "workday-qtsdatacenters-R2026-0917": {
+      "firstSeenAt": "2026-08-02T21:45:21.564Z"
+    },
+    "workday-qtsdatacenters-R2026-0983": {
+      "firstSeenAt": "2026-08-02T21:45:22.030Z"
+    },
+    "workday-qtsdatacenters-R2026-1092": {
+      "firstSeenAt": "2026-08-02T21:45:21.274Z"
+    },
+    "workday-qtsdatacenters-R2026-1101": {
+      "firstSeenAt": "2026-08-02T21:45:21.710Z"
+    },
+    "workday-qtsdatacenters-R2026-1395": {
+      "firstSeenAt": "2026-08-27T21:45:17.407Z"
+    },
+    "workday-qtsdatacenters-R2026-1409": {
+      "firstSeenAt": "2026-08-02T21:45:21.278Z"
+    },
+    "workday-qtsdatacenters-R2026-1730": {
+      "firstSeenAt": "2026-08-06T21:45:20.318Z"
+    },
+    "workday-qtsdatacenters-R2026-1892": {
+      "firstSeenAt": "2026-08-26T21:45:18.578Z"
+    },
+    "workday-qtsdatacenters-R2026-1906": {
+      "firstSeenAt": "2026-08-26T21:45:18.201Z"
+    },
+    "workday-vantagedc-R21351": {
+      "firstSeenAt": "2026-08-26T21:45:04.635Z"
+    },
+    "workday-vantagedc-R22993": {
+      "firstSeenAt": "2026-08-02T21:45:06.116Z"
+    },
+    "workday-vantagedc-R23169": {
+      "firstSeenAt": "2026-09-01T21:45:04.353Z"
+    },
+    "workday-vantagedc-R24063": {
+      "firstSeenAt": "2026-08-02T21:45:06.096Z"
+    },
+    "workday-vantagedc-R24221": {
+      "firstSeenAt": "2026-08-26T21:45:04.683Z"
+    },
+    "workday-vantagedc-R24281": {
+      "firstSeenAt": "2026-08-20T21:45:04.926Z"
+    }
+  }
 }

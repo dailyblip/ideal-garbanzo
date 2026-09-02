@@ -1,0 +1,46 @@
+name: Bootstrap Meta Careers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/meta-bootstrap.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: meta-careers-bootstrap
+  cancel-in-progress: true
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect official Meta Careers roles
+        run: node scripts/collect-meta-careers.mjs
+      - name: Normalize locations and regions
+        run: node scripts/normalize-job-locations.mjs
+      - name: Validate refreshed feed
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Commit Meta snapshot when changed
+        run: |
+          if [ -z "$(git status --porcelain -- data/meta-jobs.json data/jobs.json data/collector-status.json)" ]; then
+            echo "No Meta Careers data changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/meta-jobs.json data/jobs.json data/collector-status.json
+          git commit -m "Bootstrap verified Meta Careers roles"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

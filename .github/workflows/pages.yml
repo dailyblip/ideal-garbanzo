@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      deploy_only:
+        description: 'Deploy current main without running a full job refresh'
+        required: false
+        default: false
+        type: boolean
   schedule:
     - cron: '17 13 * * *'
 
@@ -18,7 +24,7 @@ concurrency:
 
 jobs:
   refresh:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only != true)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -91,7 +97,7 @@ jobs:
 
   deploy:
     needs: [refresh]
-    if: always() && (github.event_name == 'push' || needs.refresh.result == 'success')
+    if: always() && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only == true) || needs.refresh.result == 'success')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

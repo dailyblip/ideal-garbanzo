@@ -40,7 +40,6 @@ const explicitMidTerms = [
   'operator ii', 'operator 2', 'journeyman', '3 years', '4 years', '5 years',
   '2-5 years', '2–5 years', '3-5 years', '3–5 years'
 ];
-
 const US_STATE_NAMES = [
   'alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware',
   'district of columbia','florida','georgia','hawaii','idaho','illinois','indiana','iowa',
@@ -82,7 +81,7 @@ async function fetchJson(url) {
     headers: {
       accept: 'application/json',
       'accept-language': 'en-US,en;q=0.9',
-      'user-agent': 'Mozilla/5.0 (compatible; DataCenterCareersBot/1.9; +https://dailyblip.github.io/ideal-garbanzo/)'
+      'user-agent': 'Mozilla/5.0 (compatible; DataCenterCareersBot/2.0; +https://dailyblip.github.io/ideal-garbanzo/)'
     },
     redirect: 'follow'
   });
@@ -254,6 +253,36 @@ function dedupe(jobs) {
   return out;
 }
 
+function oracleJobKey(job = {}) {
+  const idMatch = String(job.id || '').match(/^oracle-careers-(.+)$/i);
+  if (idMatch) return `req:${normalizeIdentity(idMatch[1])}`;
+  const urlMatch = String(job.sourceUrl || '').match(/\/job\/([^/?#]+)/i);
+  if (urlMatch) return `job:${decodeURIComponent(urlMatch[1]).toLowerCase()}`;
+  return '';
+}
+
+function priorOracleIndex(snapshot = []) {
+  const index = new Map();
+  for (const job of snapshot) {
+    const requisitionKey = oracleJobKey(job);
+    if (requisitionKey) index.set(requisitionKey, job);
+    const urlMatch = String(job.sourceUrl || '').match(/\/job\/([^/?#]+)/i);
+    if (urlMatch) index.set(`job:${decodeURIComponent(urlMatch[1]).toLowerCase()}`, job);
+  }
+  return index;
+}
+
+function priorForRow(row, index) {
+  const id = String(row?.Id ?? '').trim();
+  const requisition = String(row?.RequisitionNumber ?? '').trim();
+  if (id && index.has(`job:${id.toLowerCase()}`)) return index.get(`job:${id.toLowerCase()}`);
+  if (requisition) {
+    const normalized = normalizeIdentity(requisition);
+    if (index.has(`req:${normalized}`)) return index.get(`req:${normalized}`);
+  }
+  return null;
+}
+
 async function listRequisitions(site) {
   const rows = [];
   let total = null;
@@ -284,38 +313,62 @@ async function discoverSite() {
   throw new Error(failures.join(' | '));
 }
 
-async function hydrateCandidate(site, row) {
+async function hydrateCandidate(site, row, previousIndex) {
   const id = String(row?.Id ?? row?.RequisitionNumber ?? '').trim();
-  if (!id) return { job: null, reason: 'missingId' };
-  let detail = {};
+  if (!id) return { job: null, reason: 'missingId', detailAttempted: false, detailFailed: false, preserved: false };
+
+  let detail;
   try {
     const json = await fetchJson(buildDetailUrl(site, id));
     detail = Array.isArray(json?.items) ? (json.items[0] || {}) : {};
-  } catch {}
+  } catch (error) {
+    const prior = priorForRow(row, previousIndex);
+    if (prior) {
+      return {
+        job: { ...prior, active: true },
+        reason: null,
+        detailAttempted: true,
+        detailFailed: true,
+        preserved: true,
+        error: error.message
+      };
+    }
+    return {
+      job: null,
+      reason: 'fetch',
+      detailAttempted: true,
+      detailFailed: true,
+      preserved: false,
+      error: error.message
+    };
+  }
 
   const merged = { ...row, ...detail };
   const title = firstText(merged, ['Title', 'title']);
   const location = locationFor(merged) || locationFor(row);
-  if (!isUSLocation(location, merged)) return { job: null, reason: 'nonUs' };
+  if (!isUSLocation(location, merged)) return { job: null, reason: 'nonUs', detailAttempted: true, detailFailed: false, preserved: false };
 
   const description = [
     firstText(merged, ['ExternalDescriptionStr','Description','JobDescription','ShortDescriptionStr']),
     firstText(merged, ['ExternalQualificationsStr','Qualifications','RequiredQualifications']),
     firstText(merged, ['ExternalResponsibilitiesStr','Responsibilities','JobResponsibilities'])
   ].filter(Boolean).join(' ');
-  if (!relevant(title, description)) return { job: null, reason: 'context' };
+  if (!relevant(title, description)) return { job: null, reason: 'context', detailAttempted: true, detailFailed: false, preserved: false };
 
   const metadata = [
     firstText(merged, ['CareerLevel','CareerLevelName','ManagerLevel','Role','JobFunction']),
     firstText(merged, ['YearsOfExperience','Experience','ExperienceLevel'])
   ].filter(Boolean).join(' ');
   const cls = classify(title, description, metadata);
-  if (!cls) return { job: null, reason: 'experience' };
+  if (!cls) return { job: null, reason: 'experience', detailAttempted: true, detailFailed: false, preserved: false };
 
   const postedAt = firstText(merged, ['PostedDate','PostingDate','postedDate']) || null;
   const requisition = String(row?.RequisitionNumber ?? id).replace(/[^a-zA-Z0-9_-]/g, '') || hash(id);
   return {
     reason: null,
+    detailAttempted: true,
+    detailFailed: false,
+    preserved: false,
     job: {
       id: `oracle-careers-${requisition}`,
       title,
@@ -336,13 +389,17 @@ async function hydrateCandidate(site, row) {
 
 const currentJobs = await readJson(JOBS_PATH, []);
 const previousSnapshot = await readJson(SNAPSHOT_PATH, []);
+const previousIndex = priorOracleIndex(previousSnapshot);
 const priorStatus = await readJson(STATUS_PATH, {});
 const errors = [];
-const drops = { title: 0, nonUs: 0, context: 0, experience: 0, missingId: 0 };
+const drops = { title: 0, nonUs: 0, context: 0, experience: 0, missingId: 0, fetch: 0 };
 let sourceHealthy = false;
 let site = null;
 let totalOpenRoles = null;
 let candidateRows = 0;
+let detailAttempted = 0;
+let detailFailed = 0;
+let preservedFromPrevious = 0;
 let snapshot = previousSnapshot;
 
 try {
@@ -362,8 +419,12 @@ try {
   const jobs = [];
   for (let index = 0; index < candidates.length; index += DETAIL_BATCH_SIZE) {
     const batch = candidates.slice(index, index + DETAIL_BATCH_SIZE);
-    const results = await Promise.all(batch.map(row => hydrateCandidate(site, row)));
+    const results = await Promise.all(batch.map(row => hydrateCandidate(site, row, previousIndex)));
     for (const result of results) {
+      if (result.detailAttempted) detailAttempted += 1;
+      if (result.detailFailed) detailFailed += 1;
+      if (result.preserved) preservedFromPrevious += 1;
+      if (result.error) errors.push(`detail ${result.error}`);
       if (result.job) jobs.push(result.job);
       else if (result.reason && result.reason in drops) drops[result.reason] += 1;
     }
@@ -373,7 +434,7 @@ try {
   errors.push(error.message);
 }
 
-const withoutOracle = currentJobs.filter(job => job.company !== COMPANY && !/^https:\/\/(?:www\.)?careers\.oracle\.com\//i.test(String(job.sourceUrl || '')));
+const withoutOracle = currentJobs.filter(job => job.company !== COMPANY && !/oraclecloud\.com\/hcmUI\/CandidateExperience\/.*\/job\//i.test(String(job.sourceUrl || '')) && !/^https:\/\/(?:www\.)?careers\.oracle\.com\//i.test(String(job.sourceUrl || '')));
 const merged = dedupe([...withoutOracle, ...snapshot]);
 const now = Date.now();
 for (const job of merged) {
@@ -403,6 +464,9 @@ await writeFile(STATUS_PATH, JSON.stringify({
     sourceHealthy,
     totalOpenRoles,
     candidateRows,
+    detailAttempted,
+    detailFailed,
+    preservedFromPrevious,
     qualifyingRoles: snapshot.length,
     drops,
     errors
@@ -411,7 +475,7 @@ await writeFile(STATUS_PATH, JSON.stringify({
 }, null, 2) + '\n');
 
 if (sourceHealthy) {
-  console.log(`Oracle Careers succeeded on ${site}; ${snapshot.length} qualifying U.S. data-center roles; ${merged.length} total jobs.`);
+  console.log(`Oracle Careers succeeded on ${site}; ${snapshot.length} qualifying U.S. data-center roles; ${detailFailed} detail failures (${preservedFromPrevious} preserved); ${merged.length} total jobs.`);
 } else {
   console.warn(`Oracle Careers unavailable; retained ${snapshot.length} prior roles. ${errors.join(' | ')}`);
 }

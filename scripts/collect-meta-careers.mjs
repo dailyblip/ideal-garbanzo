@@ -12,6 +12,7 @@ const SEARCH_URLS = [
 const SITEMAP_URL = 'https://www.metacareers.com/jobsearch/sitemap.xml';
 const DETAIL_BATCH_SIZE = 8;
 const MAX_SITEMAP_DETAILS = 1000;
+const SAMPLE_LIMIT = 20;
 
 const clean = value => String(value ?? '')
   .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
@@ -231,9 +232,6 @@ function classify(title, minimum) {
   const maxYears = Math.max(...years);
   if (minYears > 5) return null;
 
-  // Meta facilities postings sometimes state a higher baseline followed by a
-  // degree-plus-lower-experience route. Only use the lower threshold when the
-  // qualification text explicitly describes an alternative route.
   if (maxYears > 5 && minYears <= 5 && !/\b(?:in lieu of|will be considered in lieu|or (?:an? )?(?:associate|bachelor|master)|(?:associate|bachelor|master)(?:'s)? degree[^.]{0,120}(?:plus|\+))\b/i.test(minimum.text)) {
     return null;
   }
@@ -279,6 +277,10 @@ function missionFit(title, detailText = '', teams = []) {
   return /data center/i.test(teamText) || physicalContextPattern.test(`${title} ${detailText}`);
 }
 
+function addSample(list, value) {
+  if (list.length < SAMPLE_LIMIT) list.push(value);
+}
+
 function extractDetail(html, seed, diagnostics) {
   const embedded = parseEmbeddedCandidates(html).find(row => row.id === seed.id) || {};
   const title = clean(embedded.title || metaContent(html, 'og:title') || metaContent(html, 'twitter:title') || seed.title || '')
@@ -290,6 +292,7 @@ function extractDetail(html, seed, diagnostics) {
   const teams = [...new Set([...(seed.teams || []), ...(embedded.teams || [])])];
   if (!title || !missionFit(title, detailText, teams)) {
     diagnostics.drops.titleOrContext += 1;
+    addSample(diagnostics.titleOrContextSamples, { id: seed.id, title, url: seed.url });
     return null;
   }
 
@@ -297,6 +300,7 @@ function extractDetail(html, seed, diagnostics) {
   const location = selectUsLocation(locations, detailText);
   if (!location) {
     diagnostics.drops.nonUsOrUnknownLocation += 1;
+    addSample(diagnostics.locationSamples, { id: seed.id, title, locations, url: seed.url });
     return null;
   }
 
@@ -304,11 +308,29 @@ function extractDetail(html, seed, diagnostics) {
   const cls = classify(title, minimum);
   if (!cls) {
     diagnostics.drops.experience += 1;
+    addSample(diagnostics.experienceSamples, {
+      id: seed.id,
+      title,
+      location,
+      years: minimum.years,
+      scoped: minimum.scoped,
+      qualifications: clean(minimum.text).slice(0, 800),
+      url: seed.url
+    });
     return null;
   }
 
   const pay = parsePay(detailText);
   diagnostics.verified += 1;
+  addSample(diagnostics.verifiedSamples, {
+    id: seed.id,
+    title,
+    location,
+    experience: cls.experience,
+    minYears: cls.minYears,
+    maxYears: cls.maxYears,
+    url: seed.url
+  });
   return {
     id: `meta-${seed.id || hash(seed.url)}`,
     title,
@@ -359,7 +381,11 @@ const diagnostics = {
   detailSucceeded: 0,
   reusedFromSitemap: 0,
   verified: 0,
-  drops: { titleOrContext: 0, nonUsOrUnknownLocation: 0, experience: 0, fetch: 0 }
+  drops: { titleOrContext: 0, nonUsOrUnknownLocation: 0, experience: 0, fetch: 0 },
+  titleOrContextSamples: [],
+  locationSamples: [],
+  experienceSamples: [],
+  verifiedSamples: []
 };
 let sourceHealthy = false;
 const seeds = new Map();

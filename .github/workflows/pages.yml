@@ -175,3 +175,23 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify custom-domain deployment
+        run: |
+          set -euo pipefail
+          base='https://datacentercareers.us'
+          expected_sha="$(git rev-parse HEAD)"
+          cache_key="${expected_sha}-$(date +%s)"
+          curl_args=(--fail --silent --show-error --location --retry 12 --retry-all-errors --retry-delay 10 --header 'Cache-Control: no-cache')
+
+          curl "${curl_args[@]}" "${base}/?deploy=${cache_key}" -o /tmp/homepage.html
+          grep -Fq 'Build your future in data centers.' /tmp/homepage.html
+
+          curl "${curl_args[@]}" "${base}/assets/styles.css?deploy=${cache_key}" -o /tmp/styles.css
+          test -s /tmp/styles.css
+
+          curl "${curl_args[@]}" "${base}/data/jobs.json?deploy=${cache_key}" -o /tmp/jobs.json
+          node -e "const jobs=require('/tmp/jobs.json'); if (!Array.isArray(jobs) || jobs.length === 0) process.exit(1);"
+
+          curl "${curl_args[@]}" "${base}/deployment-version.json?deploy=${cache_key}" -o /tmp/deployment-version.json
+          actual_sha="$(node -e "console.log(require('/tmp/deployment-version.json').sha || '')")"
+          test "$actual_sha" = "$expected_sha"

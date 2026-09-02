@@ -20,6 +20,14 @@
       "Eligible for inclusion in job-alert emails"
     ]
   },
+  "checkout": {
+    "enabled": false,
+    "url": ""
+  },
+  "checkoutOptions": [
+    "highlightedJob",
+    "spotlightJob"
+  ],
   "featuredJob": {
     "name": "Spotlight position",
     "priceUsd": 149,
@@ -32,9 +40,5 @@
       "Homepage priority while active",
       "Eligible for inclusion in job-alert emails"
     ]
-  },
-  "checkoutOptions": [
-    "highlightedJob",
-    "spotlightJob"
-  ]
+  }
 }

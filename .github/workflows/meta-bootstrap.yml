@@ -8,6 +8,7 @@ on:
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/stamp-job-history.mjs'
 
 permissions:
   actions: write
@@ -36,21 +37,24 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Persist first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs
       - name: Validate refreshed feed
         run: |
           node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
           node scripts/validate-homepage-contract.mjs
       - name: Commit Meta snapshot when changed
         id: commit
         run: |
-          if [ -z "$(git status --porcelain -- data/meta-jobs.json data/jobs.json data/collector-status.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/meta-jobs.json data/jobs.json data/job-history.json data/collector-status.json)" ]; then
             echo "No Meta Careers data changes."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/meta-jobs.json data/jobs.json data/collector-status.json
+          git add data/meta-jobs.json data/jobs.json data/job-history.json data/collector-status.json
           git commit -m "Bootstrap verified Meta Careers roles"
           git fetch origin main
           git rebase origin/main

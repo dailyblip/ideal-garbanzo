@@ -188,21 +188,55 @@ function experienceYears(text) {
     .filter(years => Number.isFinite(years) && years >= 0);
 }
 
-function classify(title, detailText) {
+function parseMinimumQualifications(detailText) {
+  const text = clean(detailText);
+  const normalized = lower(text);
+  const start = normalized.indexOf('minimum qualifications');
+  if (start < 0) return { text: '', years: [] };
+
+  const after = text.slice(start);
+  const afterLower = lower(after);
+  const markers = [
+    'preferred qualifications',
+    'about meta',
+    'equal employment opportunity',
+    'individual compensation',
+    'locations',
+    'related jobs'
+  ];
+  const ends = markers
+    .map(marker => afterLower.indexOf(marker, 25))
+    .filter(index => index > 25);
+  const end = ends.length ? Math.min(...ends) : Math.min(after.length, 7000);
+  const minimumText = after.slice(0, end);
+  return { text: minimumText, years: experienceYears(minimumText) };
+}
+
+function classify(title, minimum) {
   const t = lower(title);
   let type = 'entry-level';
   if (/intern(?:ship)?\b/.test(t)) type = 'internship';
   else if (/apprentice/.test(t)) type = 'apprenticeship';
   else if (/trainee|developmental program|skillbridge/.test(t)) type = 'trainee';
 
-  const years = experienceYears(detailText);
-  const maxYears = years.length ? Math.max(...years) : null;
-  if (type !== 'entry-level' && (!Number.isFinite(maxYears) || maxYears <= 1)) {
-    return { type, experience: /apprentice|trainee|developmental program|skillbridge/.test(t) ? 'no-experience' : '0-2-years', maxYears };
+  const years = minimum.years || [];
+  if (type !== 'entry-level' && !years.length) {
+    return { type, experience: /apprentice|trainee|developmental program|skillbridge/.test(t) ? 'no-experience' : '0-2-years', minYears: null, maxYears: null };
   }
-  if (!Number.isFinite(maxYears)) return null;
-  if (maxYears > 5) return null;
-  return { type, experience: maxYears >= 3 ? '2-5-years' : '0-2-years', maxYears };
+  if (!years.length) return null;
+
+  const minYears = Math.min(...years);
+  const maxYears = Math.max(...years);
+  if (minYears > 5) return null;
+
+  // Meta facilities postings sometimes state a higher baseline followed by a
+  // degree-plus-lower-experience route. Only use the lower threshold when the
+  // minimum-qualification text explicitly describes an alternative route.
+  if (maxYears > 5 && minYears <= 5 && !/\b(?:in lieu of|will be considered in lieu|or (?:an? )?(?:associate|bachelor|master)|(?:associate|bachelor|master)(?:'s)? degree[^.]{0,120}(?:plus|\+))\b/i.test(minimum.text)) {
+    return null;
+  }
+
+  return { type, experience: minYears >= 3 ? '2-5-years' : '0-2-years', minYears, maxYears };
 }
 
 function parsePay(text) {
@@ -264,7 +298,8 @@ function extractDetail(html, seed, diagnostics) {
     return null;
   }
 
-  const cls = classify(title, detailText);
+  const minimum = parseMinimumQualifications(detailText);
+  const cls = classify(title, minimum);
   if (!cls) {
     diagnostics.drops.experience += 1;
     return null;

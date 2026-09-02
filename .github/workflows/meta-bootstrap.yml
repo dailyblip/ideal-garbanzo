@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/meta-bootstrap.yml'
+      - 'scripts/collect-meta-careers.mjs'
+      - 'scripts/recover-meta-structured.mjs'
 
 permissions:
   contents: write
@@ -26,6 +28,8 @@ jobs:
           node-version: 22
       - name: Collect official Meta Careers roles
         run: node scripts/collect-meta-careers.mjs
+      - name: Recover Meta requirements from structured data
+        run: node scripts/recover-meta-structured.mjs
       - name: Normalize locations and regions
         run: node scripts/normalize-job-locations.mjs
       - name: Validate refreshed feed

@@ -43,6 +43,8 @@ jobs:
         run: node scripts/collect-google-careers.mjs
       - name: Add official Meta Careers roles
         run: node scripts/collect-meta-careers.mjs
+      - name: Recover Meta requirements from structured data
+        run: node scripts/recover-meta-structured.mjs
       - name: Add official Oracle Careers roles
         run: node scripts/collect-oracle-careers.mjs
       - name: Add official Digital Realty roles

@@ -7,7 +7,7 @@ const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const SEARCH_BASE = 'https://www.google.com/about/careers/applications/jobs/results/';
 const SEARCH_PAGES = 4;
-const MAX_DETAIL_CANDIDATES = 80;
+const MAX_DETAIL_CANDIDATES = 120;
 const DETAIL_BATCH_SIZE = 6;
 
 const clean = value => String(value ?? '')
@@ -41,7 +41,7 @@ async function fetchText(url) {
     headers: {
       accept: 'text/html,application/xhtml+xml',
       'accept-language': 'en-US,en;q=0.9',
-      'user-agent': 'DataCenterCareersBot/1.8 (+https://dailyblip.github.io/ideal-garbanzo/)'
+      'user-agent': 'DataCenterCareersBot/1.9 (+https://datacentercareers.us/)'
     },
     redirect: 'follow'
   });
@@ -63,6 +63,12 @@ function canonicalResultUrl(href) {
     || raw.match(/^\/?(\d+)-([^/?#]+)/i);
   if (!match) return null;
   return { id: match[1], slug: match[2], url: `${SEARCH_BASE}${match[1]}-${match[2]}` };
+}
+
+function googleIdFromJob(job) {
+  const direct = String(job?.id || '').match(/^google-(\d+)$/i)?.[1];
+  if (direct) return direct;
+  return String(job?.sourceUrl || '').match(/\/jobs\/results\/(\d+)-/i)?.[1] || null;
 }
 
 function titleFromSlug(slug) {
@@ -87,8 +93,7 @@ function extractCandidates(html, diagnostics) {
   const seen = new Set();
   const anchorPattern = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   for (const match of html.matchAll(anchorPattern)) {
-    const rawHref = clean(match[1]);
-    const result = canonicalResultUrl(rawHref);
+    const result = canonicalResultUrl(clean(match[1]));
     if (!result || seen.has(result.id)) continue;
     diagnostics.canonicalLinks += 1;
 
@@ -116,8 +121,9 @@ function parseMinimumQualifications(detailText) {
   const start = normalized.indexOf('minimum qualifications');
   if (start < 0) return { text: '', maxYears: null };
   const after = text.slice(start);
-  const preferredIndex = lower(after).indexOf('preferred qualifications');
-  const aboutIndex = lower(after).indexOf('about the job');
+  const afterLower = lower(after);
+  const preferredIndex = afterLower.indexOf('preferred qualifications');
+  const aboutIndex = afterLower.indexOf('about the job');
   const ends = [preferredIndex, aboutIndex].filter(index => index > 0);
   const end = ends.length ? Math.min(...ends) : Math.min(after.length, 5000);
   const minimumText = after.slice(0, end);
@@ -135,10 +141,8 @@ function classify(title, minimumText, maxYears) {
   const noExperience = /developmental program|trainee|apprentice/.test(t)
     && extractExperienceYears(minimumText).length === 0;
   if (noExperience) return { type, experience: 'no-experience' };
+  if (Number.isFinite(maxYears)) return { type, experience: maxYears >= 3 ? '2-5-years' : '0-2-years' };
 
-  if (Number.isFinite(maxYears)) {
-    return { type, experience: maxYears >= 3 ? '2-5-years' : '0-2-years' };
-  }
   const levelTwoPlus = /\b(?:ii|iii|2|3)\b/.test(t);
   return { type, experience: levelTwoPlus ? '2-5-years' : '0-2-years' };
 }
@@ -182,6 +186,7 @@ function extractDetail(html, row, diagnostics) {
   const detailTitle = heading?.title || row.title;
   const detailStart = heading?.index ?? 0;
   const detailText = clean(html.slice(detailStart, Math.min(html.length, detailStart + 30000)));
+
   if (/job not found|this job may have been taken down/i.test(detailText.slice(0, 2500))) {
     diagnostics.detailDrops.stale += 1;
     return null;
@@ -240,6 +245,7 @@ function dedupe(jobs) {
 
 const currentJobs = await readJson(JOBS_PATH, []);
 const previousSnapshot = await readJson(SNAPSHOT_PATH, []);
+const previousById = new Map(previousSnapshot.map(job => [googleIdFromJob(job), job]).filter(([id]) => id));
 const priorStatus = await readJson(STATUS_PATH, {});
 const errors = [];
 const diagnostics = {
@@ -248,6 +254,7 @@ const diagnostics = {
   uniqueCandidates: 0,
   detailAttempted: 0,
   detailVerified: 0,
+  preservedFromPrevious: 0,
   detailDrops: { stale: 0, location: 0, experience: 0, fetch: 0 }
 };
 let pagesAttempted = 0;
@@ -267,8 +274,8 @@ for (let page = 1; page <= SEARCH_PAGES; page += 1) {
     pagesSucceeded += 1;
     for (const row of extractCandidates(html, diagnostics)) candidatesById.set(row.id, row);
   } catch (error) {
+    sourceHealthy = false;
     errors.push(`search page ${page}: ${error.message}`);
-    if (page === 1) sourceHealthy = false;
     break;
   }
 }
@@ -278,31 +285,44 @@ if (!candidatesById.size) {
   sourceHealthy = false;
   errors.push('Google Careers returned no mission-fit early-career result links.');
 }
+if (pagesSucceeded !== pagesAttempted) sourceHealthy = false;
 
 const detailCandidates = [...candidatesById.values()].slice(0, MAX_DETAIL_CANDIDATES);
-const verified = [];
-for (let i = 0; i < detailCandidates.length; i += DETAIL_BATCH_SIZE) {
-  const batch = detailCandidates.slice(i, i + DETAIL_BATCH_SIZE);
-  const settled = await Promise.all(batch.map(async row => {
-    diagnostics.detailAttempted += 1;
-    try {
-      const html = await fetchText(row.sourceUrl);
-      return extractDetail(html, row, diagnostics);
-    } catch (error) {
-      diagnostics.detailDrops.fetch += 1;
-      errors.push(`detail ${row.id}: ${error.message}`);
-      return null;
-    }
-  }));
-  verified.push(...settled.filter(Boolean));
+const accepted = [];
+if (sourceHealthy) {
+  for (let i = 0; i < detailCandidates.length; i += DETAIL_BATCH_SIZE) {
+    const batch = detailCandidates.slice(i, i + DETAIL_BATCH_SIZE);
+    const settled = await Promise.all(batch.map(async row => {
+      diagnostics.detailAttempted += 1;
+      try {
+        const html = await fetchText(row.sourceUrl);
+        return extractDetail(html, row, diagnostics);
+      } catch (error) {
+        diagnostics.detailDrops.fetch += 1;
+        const prior = previousById.get(String(row.id));
+        if (prior) {
+          diagnostics.preservedFromPrevious += 1;
+          errors.push(`detail ${row.id}: ${error.message}; retained prior verified role because the requisition is still in Google's current results.`);
+          return { ...prior, active: true, sourceUrl: row.sourceUrl };
+        }
+        errors.push(`detail ${row.id}: ${error.message}`);
+        return null;
+      }
+    }));
+    accepted.push(...settled.filter(Boolean));
+  }
 }
 
 let snapshot;
-if (!sourceHealthy || !pagesSucceeded || (!verified.length && previousSnapshot.length)) {
-  snapshot = previousSnapshot;
-  if (!verified.length && previousSnapshot.length) errors.push('Retained previous Google snapshot because no current detail pages could be verified.');
+if (!sourceHealthy) {
+  if (previousSnapshot.length) {
+    snapshot = previousSnapshot;
+    errors.push('Retained previous Google snapshot because the current listing scan was incomplete.');
+  } else {
+    snapshot = dedupe(accepted);
+  }
 } else {
-  snapshot = dedupe(verified);
+  snapshot = dedupe(accepted);
 }
 
 if (!snapshot.length) {
@@ -319,6 +339,7 @@ for (const job of merged) {
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
 const cleanGlobalErrors = (priorStatus.errors || []).filter(error => !String(error).startsWith('Google Careers:'));
+const freshDetailHealthy = sourceHealthy && diagnostics.detailVerified > 0;
 
 await writeFile(SNAPSHOT_PATH, JSON.stringify(snapshot, null, 2) + '\n');
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
@@ -335,7 +356,8 @@ await writeFile(STATUS_PATH, JSON.stringify({
   countsByExperience,
   googleCareers: {
     officialSource: SEARCH_BASE,
-    sourceHealthy: sourceHealthy && verified.length > 0,
+    sourceHealthy: freshDetailHealthy,
+    listingComplete: sourceHealthy,
     pagesAttempted,
     pagesSucceeded,
     candidateRows: candidatesById.size,
@@ -346,5 +368,8 @@ await writeFile(STATUS_PATH, JSON.stringify({
   errors: [...cleanGlobalErrors, ...errors.map(error => `Google Careers: ${error}`)]
 }, null, 2) + '\n');
 
-console.log(`Google Careers ${sourceHealthy && verified.length ? 'succeeded' : 'used prior snapshot'}; ${snapshot.length} verified early-career U.S. data-center roles; ${merged.length} total jobs.`);
+const outcome = sourceHealthy
+  ? `succeeded with ${diagnostics.preservedFromPrevious} current-listed role(s) preserved after detail fetch failures`
+  : 'used prior snapshot because the listing scan was incomplete';
+console.log(`Google Careers ${outcome}; ${snapshot.length} verified early-career U.S. data-center roles; ${merged.length} total jobs.`);
 if (errors.length) console.warn(`Google Careers warnings: ${errors.join(' | ')}`);

@@ -41,6 +41,8 @@ jobs:
         run: node scripts/collect-microsoft-datacenter.mjs
       - name: Add official Google Careers roles
         run: node scripts/collect-google-careers.mjs
+      - name: Add official Meta Careers roles
+        run: node scripts/collect-meta-careers.mjs
       - name: Add official Oracle Careers roles
         run: node scripts/collect-oracle-careers.mjs
       - name: Add official Digital Realty roles
@@ -71,12 +73,12 @@ jobs:
         run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs and events when changed
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/career-events.json data/collector-status.json data/qa-report.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/career-events.json data/collector-status.json data/qa-report.json)" ]; then
             echo "No job, career-event, or QA data changes."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/career-events.json data/collector-status.json data/qa-report.json
+            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/career-events.json data/collector-status.json data/qa-report.json
             git commit -m "Refresh verified jobs, events, and QA report"
             git fetch origin main
             git rebase origin/main

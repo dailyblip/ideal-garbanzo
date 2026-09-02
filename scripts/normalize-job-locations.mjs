@@ -10,8 +10,19 @@ const typoFixes = [
 
 const locationAliases = [
   [/^San Jose Office(?:\s*\([^)]*\))?$/i, 'San Jose, CA'],
-  [/^Santa Clara Office(?:\s*\([^)]*\))?$/i, 'Santa Clara, CA']
+  [/^Santa Clara Office(?:\s*\([^)]*\))?$/i, 'Santa Clara, CA'],
+  [/^US\s+GA\s+Atlanta\s+Suwanee\s+1\s+DC1$/i, 'Suwanee, GA'],
+  [/^US\s+VA\s+Manassas\s+1\s+DC1$/i, 'Manassas, VA'],
+  [/^US\s+VA\s+Ashburn\s+1\s+DC1$/i, 'Ashburn, VA'],
+  [/^US\s+OR\s+Hillsboro\s+1\s+DC1$/i, 'Hillsboro, OR']
 ];
+
+const qtsCampusSlugAliases = new Map([
+  ['us-ga-atlanta-suwanee-1-dc1', 'Suwanee, GA'],
+  ['us-va-manassas-1-dc1', 'Manassas, VA'],
+  ['us-va-ashburn-1-dc1', 'Ashburn, VA'],
+  ['us-or-hillsboro-1-dc1', 'Hillsboro, OR']
+]);
 
 const regionStates = {
   'mid-atlantic': {
@@ -103,6 +114,9 @@ function fromWorkdayUrl(sourceUrl = '') {
   if (!match) return null;
 
   let slug = match[1].replace(/_/g, '-').replace(/-+/g, '-').replace(/\bVirgina\b/gi, 'Virginia');
+
+  const qtsAlias = qtsCampusSlugAliases.get(slug.toLowerCase());
+  if (qtsAlias) return qtsAlias;
 
   const stateCodeMatch = slug.match(/^(.+)-([A-Z]{2})$/);
   if (stateCodeMatch && stateToRegion.has(stateCodeMatch[2].toLowerCase())) {

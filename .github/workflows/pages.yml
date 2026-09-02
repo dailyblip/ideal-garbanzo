@@ -105,7 +105,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event_name == 'push' && github.sha || 'main' }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -200,7 +200,9 @@ jobs:
 
           for attempt in $(seq 1 18); do
             cache_key="${expected_sha}-$(date +%s)-${attempt}"
-            if curl "${curl_args[@]}" "${base}/deployment-version.json?deploy=${cache_key}" -o /tmp/deployment-version.json; then
+            curl_status=0
+            curl "${curl_args[@]}" "${base}/deployment-version.json?deploy=${cache_key}" -o /tmp/deployment-version.json || curl_status=$?
+            if [ "$curl_status" -eq 0 ]; then
               actual_sha="$(node -e "try { console.log(require('/tmp/deployment-version.json').sha || '') } catch { console.log('') }" 2>/dev/null)"
               if [ "$actual_sha" = "$expected_sha" ]; then
                 ready=true

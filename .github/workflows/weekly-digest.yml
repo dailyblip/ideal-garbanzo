@@ -30,6 +30,8 @@ jobs:
           node-version: 22
       - name: Validate weekly mailing configuration
         run: node scripts/validate-mailing-list.mjs
+      - name: Validate persisted first-seen job history
+        run: node scripts/validate-job-history.mjs
       - name: Validate weekly digest script
         run: node --check scripts/send-weekly-digest.mjs
       - name: Build and send Monday roundup

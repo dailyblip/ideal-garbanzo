@@ -118,6 +118,8 @@ jobs:
           for file in scripts/*.mjs; do
             node --check "$file"
           done
+      - name: Apply current CoreSite verified fallback for the build
+        run: node scripts/apply-coresite-verified-fallback.mjs
       - name: Normalize job locations for the build
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs for the build

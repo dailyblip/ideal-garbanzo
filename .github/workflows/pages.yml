@@ -55,6 +55,8 @@ jobs:
         run: node scripts/collect-equinix-early.mjs
       - name: Normalize job locations
         run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
       - name: Normalize display copy punctuation
         run: node scripts/normalize-display-copy.mjs
       - name: Run live link, duplicate, and career-event QA

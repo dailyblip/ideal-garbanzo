@@ -28,6 +28,7 @@ if (!config.enabled && !dryRun) {
 
 const now = Date.now();
 const cutoff = now - WEEK_MS;
+const futureGrace = 6 * 60 * 60 * 1000;
 const activePaidPromotions = new Map();
 for (const record of Array.isArray(promotions) ? promotions : []) {
   if (!record?.jobId || record.example === true) continue;
@@ -38,10 +39,19 @@ for (const record of Array.isArray(promotions) ? promotions : []) {
   activePaidPromotions.set(String(record.jobId), record.tier);
 }
 
+const inWeeklyWindow = value => {
+  const parsed = Date.parse(String(value || ''));
+  return Number.isFinite(parsed) && parsed >= cutoff && parsed <= now + futureGrace;
+};
+
 const isNewThisWeek = job => {
-  const posted = Date.parse(job.postedAt || '');
-  if (Number.isFinite(posted)) return posted >= cutoff && posted <= now + 6 * 60 * 60 * 1000;
-  const hours = Number(job.postedHours);
+  // firstSeenAt is stamped from persistent discovery history after each refresh.
+  // This captures jobs that are genuinely new to this site even when the employer
+  // posting itself is older than seven days. postedAt/postedHours remain fallbacks
+  // for the transition period before discovery history has been initialized.
+  if (job?.firstSeenAt) return inWeeklyWindow(job.firstSeenAt);
+  if (job?.postedAt) return inWeeklyWindow(job.postedAt);
+  const hours = Number(job?.postedHours);
   return Number.isFinite(hours) && hours >= 0 && hours <= 168;
 };
 
@@ -50,9 +60,12 @@ const slugify = value => String(value ?? '')
 const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0, 32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g, '').slice(-10)}`;
 const promotionRank = job => PROMOTION_RANK[activePaidPromotions.get(String(job.id))] ?? 9;
 const experienceRank = job => ({ 'no-experience': 0, '0-2-years': 1, '2-5-years': 2 })[job.experience] ?? 3;
-const postedSort = job => {
-  const parsed = Date.parse(job.postedAt || '');
-  return Number.isFinite(parsed) ? parsed : now - Number(job.postedHours || 9999) * 3600000;
+const discoverySort = job => {
+  const firstSeen = Date.parse(job.firstSeenAt || '');
+  if (Number.isFinite(firstSeen)) return firstSeen;
+  const posted = Date.parse(job.postedAt || '');
+  if (Number.isFinite(posted)) return posted;
+  return now - Number(job.postedHours || 9999) * 3600000;
 };
 
 let weeklyJobs = jobs
@@ -61,11 +74,11 @@ let weeklyJobs = jobs
     promotionRank(a) - promotionRank(b) ||
     (TYPE_RANK[a.type] ?? 9) - (TYPE_RANK[b.type] ?? 9) ||
     experienceRank(a) - experienceRank(b) ||
-    postedSort(b) - postedSort(a)
+    discoverySort(b) - discoverySort(a)
   );
 
 if (!weeklyJobs.length) {
-  console.log('No newly listed jobs in the last seven days; no weekly email sent.');
+  console.log('No jobs were newly added to the site in the last seven days; no weekly email sent.');
   process.exit(0);
 }
 
@@ -81,7 +94,7 @@ for (const job of weeklyJobs) {
 const lines = [
   '# New data center jobs this week',
   '',
-  `We found **${totalJobs} newly listed ${totalJobs === 1 ? 'opportunity' : 'opportunities'}** over the last seven days for people building careers in data centers.`,
+  `We added **${totalJobs} new ${totalJobs === 1 ? 'opportunity' : 'opportunities'}** to Data Center Careers over the last seven days.`,
   ''
 ];
 
@@ -98,7 +111,7 @@ for (const [region, regionJobs] of grouped) {
   lines.push('');
 }
 
-if (totalJobs > MAX_JOBS) lines.push(`Plus ${totalJobs - MAX_JOBS} more newly listed roles on the site.`, '');
+if (totalJobs > MAX_JOBS) lines.push(`Plus ${totalJobs - MAX_JOBS} more newly added roles on the site.`, '');
 lines.push(
   `[Browse all current data center jobs](${SITE_URL}/jobs/)`,
   '',
@@ -138,4 +151,4 @@ const publish = await fetch(`https://api.buttondown.com/v1/emails/${encodeURICom
 });
 if (!publish.ok) throw new Error(`Buttondown publish failed (${publish.status}): ${await publish.text()}`);
 
-console.log(`Sent Monday weekly digest ${email.id} with ${totalJobs} newly listed jobs.`);
+console.log(`Sent Monday weekly digest ${email.id} with ${totalJobs} newly added jobs.`);

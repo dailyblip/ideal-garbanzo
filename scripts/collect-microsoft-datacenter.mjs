@@ -2,6 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const SOURCE_URL = 'https://careers.microsoft.com/v2/global/en/datacenters.html';
 const APPLY_ORIGIN = 'https://apply.careers.microsoft.com';
+const COMPANY = 'Microsoft';
 
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|staff engineer|supervisor|superintendent|foreman|architect|program manager)\b/i;
 const relevantTitlePattern = /\b(?:data\s*center|datacenter|critical environment|critical facilities|field service engineer|inventory and asset|technician|operations technician)\b/i;
@@ -26,7 +27,7 @@ async function fetchText(url) {
   const response = await fetch(url, {
     headers: {
       accept: 'text/html,application/xhtml+xml',
-      'user-agent': 'DataCenterCareersBot/1.6 (+https://dailyblip.github.io/ideal-garbanzo/)'
+      'user-agent': 'DataCenterCareersBot/1.7 (+https://datacentercareers.us/)'
     },
     redirect: 'follow'
   });
@@ -167,44 +168,73 @@ function dedupe(jobs) {
   return out;
 }
 
-const html = await fetchText(SOURCE_URL);
-const links = extractApplyLinks(html);
-if (!links.length) throw new Error('Microsoft datacenter page returned no job detail links');
-
-const discovered = [];
-const drops = { nonUs:0, seniorOrIrrelevant:0, experience:0 };
-for (const link of links) {
-  const segmentHtml = roleSegment(html, link.index);
-  const text = clean(segmentHtml);
-  const title = lastHeadingBefore(html, link.index);
-  const location = parseLocation(text);
-  if (!location) { drops.nonUs += 1; continue; }
-  if (!title || seniorTitlePattern.test(title) || !relevantTitlePattern.test(title)) { drops.seniorOrIrrelevant += 1; continue; }
-  const cls = classify(title, text);
-  if (!cls) { drops.experience += 1; continue; }
-  const postedDate = text.match(/\b(20\d{2}-\d{2}-\d{2})\b/)?.[1] || null;
-  discovered.push({
-    id:`microsoft-${link.id}`,
-    title,
-    company:'Microsoft',
-    location,
-    type:cls.type,
-    experience:cls.experience,
-    tags:tagsFor(title, text, cls.experience),
-    ...extractPay(text),
-    postedAt:postedDate ? new Date(`${postedDate}T12:00:00Z`).toISOString() : null,
-    source:'Microsoft Datacenter Careers',
-    sourceUrl:link.href,
-    active:true,
-    demo:false
-  });
-}
-
 const current = JSON.parse(await readFile('data/jobs.json','utf8'));
+if (!Array.isArray(current)) throw new Error('data/jobs.json must contain an array.');
 let status = {};
 try { status = JSON.parse(await readFile('data/collector-status.json','utf8')); } catch {}
 
-const merged = dedupe([...discovered, ...current]);
+const previousMicrosoft = current.filter(job =>
+  clean(job?.company) === COMPANY || /^https:\/\/apply\.careers\.microsoft\.com\//i.test(String(job?.sourceUrl || ''))
+);
+const drops = { nonUs:0, seniorOrIrrelevant:0, experience:0 };
+const discovered = [];
+const errors = [];
+let links = [];
+let sourceHealthy = true;
+
+try {
+  const html = await fetchText(SOURCE_URL);
+  links = extractApplyLinks(html);
+  if (!links.length) throw new Error('Microsoft datacenter page returned no job detail links');
+
+  for (const link of links) {
+    const segmentHtml = roleSegment(html, link.index);
+    const text = clean(segmentHtml);
+    const title = lastHeadingBefore(html, link.index);
+    const location = parseLocation(text);
+    if (!location) { drops.nonUs += 1; continue; }
+    if (!title || seniorTitlePattern.test(title) || !relevantTitlePattern.test(title)) { drops.seniorOrIrrelevant += 1; continue; }
+    const cls = classify(title, text);
+    if (!cls) { drops.experience += 1; continue; }
+    const postedDate = text.match(/\b(20\d{2}-\d{2}-\d{2})\b/)?.[1] || null;
+    discovered.push({
+      id:`microsoft-${link.id}`,
+      title,
+      company:COMPANY,
+      location,
+      type:cls.type,
+      experience:cls.experience,
+      tags:tagsFor(title, text, cls.experience),
+      ...extractPay(text),
+      postedAt:postedDate ? new Date(`${postedDate}T12:00:00Z`).toISOString() : null,
+      source:'Microsoft Datacenter Careers',
+      sourceUrl:link.href,
+      active:true,
+      demo:false
+    });
+  }
+} catch (error) {
+  sourceHealthy = false;
+  errors.push(error.message);
+}
+
+let snapshot;
+if (sourceHealthy) {
+  // A healthy Microsoft datacenter page is authoritative, including a legitimate zero-result day.
+  // This prevents closed Microsoft roles from lingering in the combined feed after they disappear.
+  snapshot = dedupe(discovered);
+} else if (previousMicrosoft.length) {
+  // A transient source failure should not erase previously verified Microsoft opportunities.
+  snapshot = dedupe(previousMicrosoft);
+  errors.push(`Retained ${snapshot.length} previously verified Microsoft role(s) because the source could not be refreshed.`);
+} else {
+  throw new Error(`Microsoft datacenter collector failed and no prior verified roles exist: ${errors.join(' | ')}`);
+}
+
+const withoutMicrosoft = current.filter(job =>
+  clean(job?.company) !== COMPANY && !/^https:\/\/apply\.careers\.microsoft\.com\//i.test(String(job?.sourceUrl || ''))
+);
+const merged = dedupe([...withoutMicrosoft, ...snapshot]);
 const now = Date.now();
 for (const job of merged) {
   job.postedHours = job.postedAt ? Math.max(0, Math.round((now - new Date(job.postedAt).getTime()) / 36e5)) : (job.postedHours ?? 9999);
@@ -212,6 +242,7 @@ for (const job of merged) {
 
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
+const cleanGlobalErrors = (status.errors || []).filter(error => !String(error).startsWith('Microsoft Datacenter:'));
 
 await writeFile('data/jobs.json', JSON.stringify(merged, null, 2) + '\n');
 await writeFile('data/collector-status.json', JSON.stringify({
@@ -222,10 +253,18 @@ await writeFile('data/collector-status.json', JSON.stringify({
   countsByExperience,
   microsoftDatacenter:{
     officialSource:SOURCE_URL,
+    sourceHealthy,
     candidateLinks:links.length,
-    qualifyingRoles:discovered.length,
-    drops
-  }
+    qualifyingRoles:snapshot.length,
+    currentQualifyingRoles:discovered.length,
+    retainedPrevious:!sourceHealthy && previousMicrosoft.length > 0,
+    drops,
+    errors
+  },
+  errors:[...cleanGlobalErrors, ...errors.map(error => `Microsoft Datacenter: ${error}`)]
 }, null, 2) + '\n');
 
-console.log(`Microsoft datacenter source found ${links.length} official role links; added ${discovered.length} qualifying U.S. 0–5 year roles.`);
+console.log(sourceHealthy
+  ? `Microsoft datacenter source refreshed authoritatively: ${links.length} official role links, ${snapshot.length} qualifying U.S. 0–5 year roles.`
+  : `Microsoft datacenter source unavailable; retained ${snapshot.length} previously verified role(s).`);
+if (errors.length) console.warn(`Microsoft datacenter warnings: ${errors.join(' | ')}`);

@@ -96,11 +96,10 @@ jobs:
           for file in scripts/*.mjs; do
             node --check "$file"
           done
-      - name: Reconcile and normalize authoritative snapshots
+      - name: Validate committed feed before build
         run: |
-          node scripts/reconcile-major-jobs.mjs --preserve-existing
-          node scripts/normalize-job-locations.mjs
-          node scripts/normalize-display-copy.mjs
+          node scripts/validate.mjs
+          node scripts/validate-homepage-contract.mjs
       - name: Generate crawlable SEO pages
         run: |
           node scripts/generate-seo.mjs
@@ -114,6 +113,9 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-site-copy.mjs
+          expected_jobs=$(node -e "console.log(require('./data/jobs.json').length)")
+          generated_jobs=$(find jobs -mindepth 2 -maxdepth 2 -type f -name index.html | wc -l)
+          test "$expected_jobs" -eq "$generated_jobs"
           test -s sitemap.xml
           test -s robots.txt
           test -s jobs/index.html

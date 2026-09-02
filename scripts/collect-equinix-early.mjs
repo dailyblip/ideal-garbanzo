@@ -11,7 +11,7 @@ const listingUrls = [
 const roleSignal = /data\s*center|datacenter|critical facilit|customer operations/i;
 const earlySignal = /skillbridge|intern|apprentice|trainee|fellowship|work.?based learning|co-?op/i;
 const excluded = /\b(?:senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|staff|supervisor|accountant|security|iam|sales)\b/i;
-const states = ['alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware','florida','georgia','hawaii','idaho','illinois','indiana','iowa','kansas','kentucky','louisiana','maine','maryland','massachusetts','michigan','minnesota','mississippi','missouri','montana','nebraska','nevada','new-hampshire','new-jersey','new-mexico','new-york','north-carolina','north-dakota','ohio','oklahoma','oregon','pennsylvania','rhode-island','south-carolina','south-dakota','tennessee','texas','utah','vermont','virginia','washington','west-virginia','wisconsin','wyoming','district-of-columbia'];
+const states = ['alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware','florida','georgia','hawaii','idaho','illinois','indiana','iowa','kansas','kentucky','louisiana','maine','maryland','massachusetts','michigan','minnesota','missouri','montana','nebraska','nevada','new-hampshire','new-jersey','new-mexico','new-york','north-carolina','north-dakota','ohio','oklahoma','oregon','pennsylvania','rhode-island','south-carolina','south-dakota','tennessee','texas','utah','vermont','virginia','washington','west-virginia','wisconsin','wyoming','district-of-columbia'];
 
 const clean = value => String(value ?? '')
   .replace(/<script\b[\s\S]*?<\/script>/gi,' ')
@@ -80,6 +80,13 @@ function canonicalTitle(job) {
   return normalize(job.title.replace(/\s+[-–—]\s+(?:[A-Z][A-Za-z .'-]+,?\s*)+$/,'').trim());
 }
 
+function isManagedEarly(job) {
+  return job?.company === 'Equinix' && (
+    /^equinix-early-/i.test(String(job?.id || '')) ||
+    job?.source === 'Equinix official early-career program'
+  );
+}
+
 function dedupe(jobs) {
   const urls = new Set();
   const identities = new Set();
@@ -98,6 +105,8 @@ function dedupe(jobs) {
 const current = JSON.parse(await readFile('data/jobs.json','utf8'));
 let status = {};
 try { status = JSON.parse(await readFile('data/collector-status.json','utf8')); } catch {}
+const previousEarly = current.filter(isManagedEarly);
+const previousEarlyByUrl = new Map(previousEarly.map(job => [clean(job.sourceUrl), job]));
 
 const candidates = new Map();
 const errors = [];
@@ -125,9 +134,15 @@ for (const sample of priorSamples) {
 }
 
 const found = [];
+const preservedOnFailure = [];
+let detailAttempted = 0;
+let detailSucceeded = 0;
+let detailFailed = 0;
 for (const [url,label] of candidates) {
+  detailAttempted += 1;
   try {
     const html = await fetchText(url);
+    detailSucceeded += 1;
     const title = roleHeading(html,label);
     if (!title || !usable(title,url)) continue;
     let type = 'trainee';
@@ -143,10 +158,31 @@ for (const [url,label] of candidates) {
       tags:[...new Set(tags)].slice(0,5), pay:'Pay not listed', salaryMin:null, salaryMax:null, salarySortMax:null,
       postedAt:null, postedHours:9999, source:'Equinix official early-career program', sourceUrl:url, active:true, demo:false
     });
-  } catch (error) { errors.push(`job ${url}: ${error.message}`); }
+  } catch (error) {
+    detailFailed += 1;
+    errors.push(`job ${url}: ${error.message}`);
+    const prior = previousEarlyByUrl.get(url);
+    if (prior) preservedOnFailure.push({ ...prior, active:true, demo:false });
+  }
 }
 
-let merged = dedupe([...found,...current]);
+// A complete official listing pass is authoritative: managed Equinix early-career
+// records that no longer appear are allowed to disappear. If even one listing
+// page fails, retain unmatched prior records so a partial scan cannot wipe them.
+// A failed detail fetch likewise retains only that still-listed prior role.
+const listingComplete = listingPagesSucceeded === listingUrls.length;
+const candidateUrls = new Set(candidates.keys());
+const alreadyRetainedUrls = new Set([...found, ...preservedOnFailure].map(job => clean(job.sourceUrl)));
+const fallbackRetained = listingComplete ? [] : previousEarly.filter(job => {
+  const url = clean(job.sourceUrl);
+  return !candidateUrls.has(url) && !alreadyRetainedUrls.has(url);
+}).map(job => ({ ...job, active:true, demo:false }));
+const managedNext = dedupe([...found, ...preservedOnFailure, ...fallbackRetained]);
+const managedNextUrls = new Set(managedNext.map(job => clean(job.sourceUrl)));
+const staleRemoved = listingComplete ? previousEarly.filter(job => !managedNextUrls.has(clean(job.sourceUrl))).length : 0;
+const currentWithoutManagedEarly = current.filter(job => !isManagedEarly(job));
+
+let merged = dedupe([...managedNext,...currentWithoutManagedEarly]);
 const rank = job => ({apprenticeship:0,internship:1,trainee:2,'entry-level':3}[job.type]??4)*10 + ({'no-experience':0,'0-2-years':1,'2-5-years':3}[job.experience]??2);
 merged.sort((a,b)=>rank(a)-rank(b)||(a.postedHours??9999)-(b.postedHours??9999));
 const countsByType = merged.reduce((a,j)=>(a[j.type]=(a[j.type]||0)+1,a),{});
@@ -155,7 +191,23 @@ const countsByExperience = merged.reduce((a,j)=>(a[j.experience]=(a[j.experience
 await writeFile('data/jobs.json',JSON.stringify(merged,null,2)+'\n');
 await writeFile('data/collector-status.json',JSON.stringify({
   ...status, updatedAt:new Date().toISOString(), jobs:merged.length, countsByType, countsByExperience,
-  priorityEmployerExpansion:{...(status.priorityEmployerExpansion||{}),EquinixEarlyCareer:{officialSource:'https://careers.equinix.com/',listingPagesAttempted:listingUrls.length,listingPagesSucceeded,candidateLinks:candidates.size,recoveredCandidates,qualifyingRoles:found.length,errors}}
+  priorityEmployerExpansion:{...(status.priorityEmployerExpansion||{}),EquinixEarlyCareer:{
+    officialSource:'https://careers.equinix.com/',
+    sourceHealthy:listingPagesSucceeded>0,
+    listingComplete,
+    listingPagesAttempted:listingUrls.length,
+    listingPagesSucceeded,
+    candidateLinks:candidates.size,
+    recoveredCandidates,
+    detailAttempted,
+    detailSucceeded,
+    detailFailed,
+    preservedOnFailure:preservedOnFailure.length,
+    fallbackRetained:fallbackRetained.length,
+    staleRemoved,
+    qualifyingRoles:managedNext.length,
+    errors
+  }}
 },null,2)+'\n');
-console.log(`Equinix early-career pass found ${found.length} qualifying US roles from ${candidates.size} candidates (${recoveredCandidates} recovered from verified US URLs).`);
+console.log(`Equinix early-career pass found ${managedNext.length} qualifying US roles from ${candidates.size} candidates (${recoveredCandidates} recovered from verified US URLs; ${staleRemoved} stale removed).`);
 if(errors.length) console.warn(`Equinix early-career warnings: ${errors.join(' | ')}`);

@@ -1,0 +1,35 @@
+import { readFile } from 'node:fs/promises';
+
+const config = JSON.parse(await readFile('data/mailing-list.json', 'utf8'));
+const homepage = await readFile('index.html', 'utf8');
+const signupScript = await readFile('assets/mailing-list.js', 'utf8');
+const digestScript = await readFile('scripts/send-weekly-digest.mjs', 'utf8');
+const workflow = await readFile('.github/workflows/weekly-digest.yml', 'utf8');
+
+const fail = message => { throw new Error(message); };
+
+if (config.provider !== 'buttondown') fail('Mailing list provider must be Buttondown.');
+if (config.enabled !== true) fail('Mailing list must be enabled once the Buttondown account is configured.');
+if (!/^[a-z0-9][a-z0-9_-]{1,62}$/i.test(String(config.username || ''))) fail('Buttondown username is missing or invalid.');
+if (config.cadence !== 'weekly') fail('Mailing list cadence must remain weekly.');
+if (config.sendDay !== 'Monday') fail('Weekly digest must send on Monday.');
+if (config.sendTimeUtc !== '16:00') fail('Weekly digest send time must remain 16:00 UTC.');
+
+for (const marker of ['id="weeklyAlertForm"', 'id="alertEmail"', 'Join weekly list', 'Get new openings every Monday.']) {
+  if (!homepage.includes(marker)) fail(`Homepage weekly signup is missing: ${marker}`);
+}
+if (!signupScript.includes('data/mailing-list.json')) fail('Signup script must load the mailing-list configuration.');
+if (!signupScript.includes('buttondown.com/api/emails/embed-subscribe/')) fail('Signup script must submit to Buttondown embedded subscribe.');
+if (!signupScript.includes('config?.enabled === true')) fail('Signup script must respect the enabled flag.');
+
+if (!workflow.includes("cron: '0 16 * * 1'")) fail('Weekly digest workflow must run Mondays at 16:00 UTC.');
+if (!workflow.includes('BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}')) fail('Weekly digest workflow must use the Buttondown API secret.');
+if (!workflow.includes('default: true')) fail('Manual weekly digest runs must default to dry-run mode.');
+
+for (const marker of ['BUTTONDOWN_API_KEY', 'X-Buttondown-Live-Dangerously', '/v1/emails', '/publish', "status: 'draft'"]) {
+  if (!digestScript.includes(marker)) fail(`Weekly digest sender is missing safety/integration marker: ${marker}`);
+}
+if (!digestScript.includes("if (!config.enabled && !dryRun)")) fail('Weekly digest sender must stop when the mailing list is disabled.');
+if (!digestScript.includes('if (!weeklyJobs.length)')) fail('Weekly digest sender must skip empty newsletters.');
+
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: Mondays at ${config.sendTimeUtc} UTC.`);

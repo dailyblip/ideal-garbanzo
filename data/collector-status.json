@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-02T19:55:55.335Z",
+  "updatedAt": "2026-09-02T19:59:31.229Z",
   "jobs": 262,
-  "sourcesAttempted": 31,
+  "sourcesAttempted": 32,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -9,7 +9,7 @@
     "workday": 6,
     "googleCareers": 1,
     "oracleRecruitingCloud": 1,
-    "metaCareers": 9
+    "metaCareers": 10
   },
   "countsByType": {
     "apprenticeship": 4,
@@ -200,7 +200,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-02T19:55:55.397Z",
+    "updatedAt": "2026-09-02T19:59:31.283Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 262,
@@ -245,11 +245,6 @@
       },
       "titleOrContextSamples": [
         {
-          "id": "4043567932553615",
-          "title": "Software Engineer - Product (Technical Leadership)",
-          "url": "https://www.metacareers.com/profile/job_details/4043567932553615/"
-        },
-        {
           "id": "1622961289617613",
           "title": "Sensor Hardware Integration Engineer",
           "url": "https://www.metacareers.com/profile/job_details/1622961289617613/"
@@ -260,9 +255,9 @@
           "url": "https://www.metacareers.com/profile/job_details/1023297133814750/"
         },
         {
-          "id": "2330934470984938",
-          "title": "Localization Program Manager",
-          "url": "https://www.metacareers.com/profile/job_details/2330934470984938/"
+          "id": "1075389717795087",
+          "title": "Software Engineer (Technical Leadership) - Machine Learning",
+          "url": "https://www.metacareers.com/profile/job_details/1075389717795087/"
         },
         {
           "id": "3414246448833665",
@@ -270,24 +265,24 @@
           "url": "https://www.metacareers.com/profile/job_details/3414246448833665/"
         },
         {
-          "id": "1296230207698571",
-          "title": "Technical Program Manager",
-          "url": "https://www.metacareers.com/profile/job_details/1296230207698571/"
-        },
-        {
           "id": "1048284581217404",
           "title": "Data Scientist (Technical Leadership)",
           "url": "https://www.metacareers.com/profile/job_details/1048284581217404/"
         },
         {
-          "id": "1641729270190677",
-          "title": "Product Marketing Manager",
-          "url": "https://www.metacareers.com/profile/job_details/1641729270190677/"
+          "id": "1296230207698571",
+          "title": "Technical Program Manager",
+          "url": "https://www.metacareers.com/profile/job_details/1296230207698571/"
         },
         {
-          "id": "821569440304193",
-          "title": "Enterprise Technical Sales Specialist, LATAM",
-          "url": "https://www.metacareers.com/profile/job_details/821569440304193/"
+          "id": "4043567932553615",
+          "title": "Software Engineer - Product (Technical Leadership)",
+          "url": "https://www.metacareers.com/profile/job_details/4043567932553615/"
+        },
+        {
+          "id": "1120530887203915",
+          "title": "Research Scientist, AI & Systems Co-Design (PhD)",
+          "url": "https://www.metacareers.com/profile/job_details/1120530887203915/"
         },
         {
           "id": "1367519598428328",
@@ -295,14 +290,14 @@
           "url": "https://www.metacareers.com/profile/job_details/1367519598428328/"
         },
         {
+          "id": "1420853345578936",
+          "title": "Product Manager",
+          "url": "https://www.metacareers.com/profile/job_details/1420853345578936/"
+        },
+        {
           "id": "1736158034450556",
           "title": "Facility Project Manager",
           "url": "https://www.metacareers.com/profile/job_details/1736158034450556/"
-        },
-        {
-          "id": "2176819739360965",
-          "title": "Production Engineering",
-          "url": "https://www.metacareers.com/profile/job_details/2176819739360965/"
         },
         {
           "id": "1969235800437950",
@@ -310,14 +305,9 @@
           "url": "https://www.metacareers.com/profile/job_details/1969235800437950/"
         },
         {
-          "id": "1420853345578936",
-          "title": "Product Manager",
-          "url": "https://www.metacareers.com/profile/job_details/1420853345578936/"
-        },
-        {
-          "id": "2486789151677735",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
+          "id": "2330934470984938",
+          "title": "Localization Program Manager",
+          "url": "https://www.metacareers.com/profile/job_details/2330934470984938/"
         },
         {
           "id": "998357492128826",
@@ -325,9 +315,24 @@
           "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
         },
         {
-          "id": "9657291271065759",
-          "title": "Software Engineer, Product",
-          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
+          "id": "2486789151677735",
+          "title": "Software Engineer, Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
+        },
+        {
+          "id": "1641729270190677",
+          "title": "Product Marketing Manager",
+          "url": "https://www.metacareers.com/profile/job_details/1641729270190677/"
+        },
+        {
+          "id": "1088914916985500",
+          "title": "Research Engineer, Machine Perception (Project Aria)",
+          "url": "https://www.metacareers.com/profile/job_details/1088914916985500/"
+        },
+        {
+          "id": "821569440304193",
+          "title": "Enterprise Technical Sales Specialist, LATAM",
+          "url": "https://www.metacareers.com/profile/job_details/821569440304193/"
         },
         {
           "id": "4043311922471726",
@@ -335,14 +340,9 @@
           "url": "https://www.metacareers.com/profile/job_details/4043311922471726/"
         },
         {
-          "id": "1050587157626836",
-          "title": "Member of Product Staff",
-          "url": "https://www.metacareers.com/profile/job_details/1050587157626836/"
-        },
-        {
-          "id": "1088914916985500",
-          "title": "Research Engineer, Machine Perception (Project Aria)",
-          "url": "https://www.metacareers.com/profile/job_details/1088914916985500/"
+          "id": "9657291271065759",
+          "title": "Software Engineer, Product",
+          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
         }
       ],
       "locationSamples": [
@@ -503,7 +503,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-02T19:55:55.451Z",
+    "checkedAt": "2026-09-02T19:59:31.329Z",
     "before": 262,
     "after": 262,
     "removed": 0,
@@ -516,7 +516,7 @@
     "newJobsThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-02T19:55:55.500Z"
+    "updatedAt": "2026-09-02T19:59:31.368Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

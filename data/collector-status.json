@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-02T06:08:03.483Z",
+  "updatedAt": "2026-09-02T07:50:25.911Z",
   "jobs": 263,
-  "sourcesAttempted": 26,
+  "sourcesAttempted": 27,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -9,7 +9,7 @@
     "workday": 6,
     "googleCareers": 1,
     "oracleRecruitingCloud": 1,
-    "metaCareers": 4
+    "metaCareers": 5
   },
   "countsByType": {
     "apprenticeship": 4,
@@ -198,9 +198,25 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-02T06:08:03.551Z",
-    "changed": 0,
-    "samples": [],
+    "updatedAt": "2026-09-02T07:50:25.971Z",
+    "changed": 3,
+    "samples": [
+      {
+        "id": "workday-qtsdatacenters-R2026-0881",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
+      }
+    ],
     "regionAssigned": 263,
     "regionMissing": 0,
     "coveragePct": 100,
@@ -230,47 +246,22 @@
       "searchPagesSucceeded": 2,
       "embeddedCandidates": 0,
       "sitemapFetched": true,
-      "sitemapJobs": 881,
-      "detailAttempted": 881,
-      "detailSucceeded": 881,
+      "sitemapJobs": 879,
+      "detailAttempted": 879,
+      "detailSucceeded": 879,
       "reusedFromSitemap": 0,
       "verified": 0,
       "drops": {
-        "titleOrContext": 865,
+        "titleOrContext": 863,
         "nonUsOrUnknownLocation": 2,
         "experience": 14,
         "fetch": 0
       },
       "titleOrContextSamples": [
         {
-          "id": "1715110433259303",
-          "title": "Business Support Engineer - AdTech",
-          "url": "https://www.metacareers.com/profile/job_details/1715110433259303/"
-        },
-        {
           "id": "1277398403727586",
           "title": "Software Engineer, Infrastructure",
           "url": "https://www.metacareers.com/profile/job_details/1277398403727586/"
-        },
-        {
-          "id": "1610059107505555",
-          "title": "Software Engineer, OS",
-          "url": "https://www.metacareers.com/profile/job_details/1610059107505555/"
-        },
-        {
-          "id": "1605939717763950",
-          "title": "Account Manager, Mid-Market, Japan",
-          "url": "https://www.metacareers.com/profile/job_details/1605939717763950/"
-        },
-        {
-          "id": "2486789151677735",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
-        },
-        {
-          "id": "951518494648733",
-          "title": "Supplier Development Engineer, Robotics",
-          "url": "https://www.metacareers.com/profile/job_details/951518494648733/"
         },
         {
           "id": "998357492128826",
@@ -278,14 +269,44 @@
           "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
         },
         {
-          "id": "961472602841468",
-          "title": "Product Manager",
-          "url": "https://www.metacareers.com/profile/job_details/961472602841468/"
+          "id": "9657291271065759",
+          "title": "Software Engineer, Product",
+          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
         },
         {
-          "id": "880517521414442",
-          "title": "Integrated Marketing Manager Generalist, Facebook",
-          "url": "https://www.metacareers.com/profile/job_details/880517521414442/"
+          "id": "1721254462523213",
+          "title": "Client Solutions Manager, Ecommerce",
+          "url": "https://www.metacareers.com/profile/job_details/1721254462523213/"
+        },
+        {
+          "id": "2082780019279407",
+          "title": "Software Engineer, Systems",
+          "url": "https://www.metacareers.com/profile/job_details/2082780019279407/"
+        },
+        {
+          "id": "1769900794137147",
+          "title": "Technical Program Manager — Developer Productivity Cultural Levers",
+          "url": "https://www.metacareers.com/profile/job_details/1769900794137147/"
+        },
+        {
+          "id": "1286818323298472",
+          "title": "Research Scientist, FAIR SGT - Paris",
+          "url": "https://www.metacareers.com/profile/job_details/1286818323298472/"
+        },
+        {
+          "id": "1334478348668120",
+          "title": "Agency Partner (Short Term Employment)",
+          "url": "https://www.metacareers.com/profile/job_details/1334478348668120/"
+        },
+        {
+          "id": "951518494648733",
+          "title": "Supplier Development Engineer, Robotics",
+          "url": "https://www.metacareers.com/profile/job_details/951518494648733/"
+        },
+        {
+          "id": "1610059107505555",
+          "title": "Software Engineer, OS",
+          "url": "https://www.metacareers.com/profile/job_details/1610059107505555/"
         },
         {
           "id": "1074111708385844",
@@ -293,24 +314,14 @@
           "url": "https://www.metacareers.com/profile/job_details/1074111708385844/"
         },
         {
+          "id": "2486789151677735",
+          "title": "Software Engineer, Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
+        },
+        {
           "id": "1480651869941122",
           "title": "Energy Portfolio Manager, Wholesale",
           "url": "https://www.metacareers.com/profile/job_details/1480651869941122/"
-        },
-        {
-          "id": "2471900343171573",
-          "title": "Product Designer, Meta",
-          "url": "https://www.metacareers.com/profile/job_details/2471900343171573/"
-        },
-        {
-          "id": "9657291271065759",
-          "title": "Software Engineer, Product",
-          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
-        },
-        {
-          "id": "1203016587809246",
-          "title": "Software Engineer, iOS",
-          "url": "https://www.metacareers.com/profile/job_details/1203016587809246/"
         },
         {
           "id": "1578492430645643",
@@ -318,24 +329,29 @@
           "url": "https://www.metacareers.com/profile/job_details/1578492430645643/"
         },
         {
-          "id": "435020605866341",
-          "title": "Data Scientist, Product Analytics",
-          "url": "https://www.metacareers.com/profile/job_details/435020605866341/"
+          "id": "961472602841468",
+          "title": "Product Manager",
+          "url": "https://www.metacareers.com/profile/job_details/961472602841468/"
+        },
+        {
+          "id": "1715110433259303",
+          "title": "Business Support Engineer - AdTech",
+          "url": "https://www.metacareers.com/profile/job_details/1715110433259303/"
+        },
+        {
+          "id": "1144873634774403",
+          "title": "Campus Construction Manager",
+          "url": "https://www.metacareers.com/profile/job_details/1144873634774403/"
+        },
+        {
+          "id": "2471900343171573",
+          "title": "Product Designer, Meta",
+          "url": "https://www.metacareers.com/profile/job_details/2471900343171573/"
         },
         {
           "id": "704019139159184",
           "title": "Software Engineer (Leadership) - Infrastructure",
           "url": "https://www.metacareers.com/profile/job_details/704019139159184/"
-        },
-        {
-          "id": "817488728088813",
-          "title": "ASIC Engineer, EDA Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/817488728088813/"
-        },
-        {
-          "id": "1583872179812244",
-          "title": "Program Manager, Global Immigration",
-          "url": "https://www.metacareers.com/profile/job_details/1583872179812244/"
         },
         {
           "id": "1405524448080606",
@@ -487,8 +503,33 @@
           "url": "https://www.metacareers.com/profile/job_details/1539518854614296/"
         }
       ],
-      "verifiedSamples": []
+      "verifiedSamples": [],
+      "recoveredFromStructuredData": 0
     },
-    "errors": []
+    "errors": [],
+    "structuredRecovery": {
+      "attempted": 14,
+      "fetched": 14,
+      "recovered": 0,
+      "noMinimumQualifications": 14,
+      "noSupportedExperience": 0,
+      "fetchErrors": []
+    }
+  },
+  "normalizationDedupe": {
+    "checkedAt": "2026-09-02T07:50:26.023Z",
+    "before": 263,
+    "after": 262,
+    "removed": 1,
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0982",
+        "keptId": "workday-qtsdatacenters-R2026-0893",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      }
+    ]
   }
 }

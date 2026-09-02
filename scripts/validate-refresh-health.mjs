@@ -183,6 +183,42 @@ if (!equinixEarly || typeof equinixEarly !== 'object') {
   }
 }
 
+// The broad early-career pass supplements the dedicated collectors with
+// internships, apprenticeships, training programs, and no-experience roles.
+// Its old success counter could report a source as healthy even when every
+// listing request failed, so require the per-source listing diagnostics now.
+const earlyDiscovery = status?.earlyCareerDiscovery;
+if (!earlyDiscovery || typeof earlyDiscovery !== 'object') {
+  problems.push('Early-career discovery collector status is missing after refresh.');
+} else {
+  const sourceStats = Array.isArray(earlyDiscovery.sourceStats) ? earlyDiscovery.sourceStats : [];
+  if (!sourceStats.length) {
+    problems.push('Early-career discovery did not report per-source listing health.');
+  } else {
+    const listingPagesAttempted = sourceStats.reduce((sum, source) => sum + Number(source?.listingPagesAttempted || 0), 0);
+    const listingPagesSucceeded = sourceStats.reduce((sum, source) => sum + Number(source?.listingPagesSucceeded || 0), 0);
+
+    if (listingPagesAttempted > 0 && listingPagesSucceeded === 0) {
+      problems.push(`All ${listingPagesAttempted} early-career listing page requests failed; do not trust this refresh as complete.`);
+    }
+
+    for (const source of sourceStats) {
+      const label = String(source?.company || 'Unknown early-career source');
+      const sourceAttempted = Number(source?.listingPagesAttempted || 0);
+      const sourceSucceeded = Number(source?.listingPagesSucceeded || 0);
+      if (sourceAttempted > 0 && sourceSucceeded === 0) {
+        warnings.push(`${label} early-career listings all failed (${sourceSucceeded}/${sourceAttempted}); current roles may be incomplete.`);
+      }
+    }
+
+    const reportedAttempted = Number(earlyDiscovery.sourcesAttempted || 0);
+    const reportedSucceeded = Number(earlyDiscovery.sourcesSucceeded || 0);
+    if (reportedAttempted > 0 && reportedSucceeded === 0) {
+      problems.push(`Early-career discovery reported 0/${reportedAttempted} reachable sources.`);
+    }
+  }
+}
+
 const regionAssigned = Number(status?.locationNormalization?.regionAssigned || 0);
 const regionMissing = Number(status?.locationNormalization?.regionMissing || 0);
 const regionTotal = regionAssigned + regionMissing;

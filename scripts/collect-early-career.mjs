@@ -260,31 +260,52 @@ let status = {};
 try { status = JSON.parse(await readFile('data/collector-status.json','utf8')); } catch {}
 const discovered = [];
 const errors = [];
+const sourceStats = [];
 let sourcesSucceeded = 0;
 
 for (const source of sources) {
   const sourceLinks = new Set();
-  try {
-    for (const listing of source.listings) {
-      try {
-        const html = await fetchText(listing);
-        for (const link of discoverJobLinks(html, listing, source.allow)) sourceLinks.add(link);
-      } catch (error) {
-        errors.push(`${source.company} listing: ${error.message}`);
-      }
+  const stats = {
+    company: source.company,
+    listingPagesAttempted: 0,
+    listingPagesSucceeded: 0,
+    candidateLinks: 0,
+    detailPagesAttempted: 0,
+    detailPagesSucceeded: 0,
+    detailPagesFailed: 0,
+    discovered: 0
+  };
+
+  for (const listing of source.listings) {
+    stats.listingPagesAttempted += 1;
+    try {
+      const html = await fetchText(listing);
+      stats.listingPagesSucceeded += 1;
+      for (const link of discoverJobLinks(html, listing, source.allow)) sourceLinks.add(link);
+    } catch (error) {
+      errors.push(`${source.company} listing: ${error.message}`);
     }
-    for (const link of [...sourceLinks].slice(0,50)) {
-      try {
-        const job = await hydrate(source, link);
-        if (job) discovered.push(job);
-      } catch (error) {
-        errors.push(`${source.company} job: ${error.message}`);
-      }
-    }
-    sourcesSucceeded += 1;
-  } catch (error) {
-    errors.push(`${source.company}: ${error.message}`);
   }
+
+  stats.candidateLinks = sourceLinks.size;
+  if (stats.listingPagesSucceeded > 0) sourcesSucceeded += 1;
+
+  for (const link of [...sourceLinks].slice(0,50)) {
+    stats.detailPagesAttempted += 1;
+    try {
+      const job = await hydrate(source, link);
+      stats.detailPagesSucceeded += 1;
+      if (job) {
+        discovered.push(job);
+        stats.discovered += 1;
+      }
+    } catch (error) {
+      stats.detailPagesFailed += 1;
+      errors.push(`${source.company} job: ${error.message}`);
+    }
+  }
+
+  sourceStats.push(stats);
 }
 
 let merged = dedupe([...discovered, ...current]);
@@ -313,8 +334,9 @@ await writeFile('data/collector-status.json', JSON.stringify({
     sourcesSucceeded,
     discovered:discovered.length,
     companies:sources.map(source => source.company),
+    sourceStats,
     errors
   }
 }, null, 2) + '\n');
-console.log(`Early-career pass added ${discovered.length} current roles; final feed has ${merged.length} jobs.`);
+console.log(`Early-career pass added ${discovered.length} current roles; ${sourcesSucceeded}/${sources.length} sources reachable; final feed has ${merged.length} jobs.`);
 if (errors.length) console.warn(`Early-career source warnings: ${errors.join(' | ')}`);

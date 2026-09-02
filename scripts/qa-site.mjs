@@ -7,17 +7,22 @@ const STATUS_PATH = 'data/collector-status.json';
 const INDEX_PATH = 'index.html';
 const CONCURRENCY = 10;
 const TIMEOUT_MS = 15000;
-const LIVE_BASE = 'https://dailyblip.github.io/ideal-garbanzo/';
+const LIVE_BASE = 'https://datacentercareers.us/';
 const CRITICAL_SITE_URLS = [
   LIVE_BASE,
   `${LIVE_BASE}assets/styles.css`,
   `${LIVE_BASE}assets/app.js`,
+  `${LIVE_BASE}assets/mailing-list.js`,
+  `${LIVE_BASE}assets/seo.css`,
   `${LIVE_BASE}hero.jpg`,
+  `${LIVE_BASE}data/jobs.json`,
+  `${LIVE_BASE}data/career-events.json`,
   `${LIVE_BASE}jobs/`,
   `${LIVE_BASE}apprenticeships/`,
   `${LIVE_BASE}internships/`,
   `${LIVE_BASE}entry-level/`,
   `${LIVE_BASE}career-events/`,
+  `${LIVE_BASE}employers/`,
   `${LIVE_BASE}how-to-get-a-data-center-job/`,
   `${LIVE_BASE}how-to-get-a-data-center-internship/`,
   `${LIVE_BASE}assets/guides/data-center-career-guide-mentor.webp`,
@@ -137,7 +142,7 @@ async function checkUrl(url) {
       redirect: 'follow',
       signal: controller.signal,
       headers: {
-        'user-agent': 'Mozilla/5.0 (compatible; DataCenterCareersQA/1.0; +https://dailyblip.github.io/ideal-garbanzo/)',
+        'user-agent': 'Mozilla/5.0 (compatible; DataCenterCareersQA/1.0; +https://datacentercareers.us/)',
         accept: 'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8'
       }
     });

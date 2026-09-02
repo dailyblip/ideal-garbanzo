@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-02T05:57:11.392Z",
+  "updatedAt": "2026-09-02T06:02:43.976Z",
   "jobs": 263,
-  "sourcesAttempted": 24,
+  "sourcesAttempted": 25,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -9,7 +9,7 @@
     "workday": 6,
     "googleCareers": 1,
     "oracleRecruitingCloud": 1,
-    "metaCareers": 2
+    "metaCareers": 3
   },
   "countsByType": {
     "apprenticeship": 4,
@@ -198,7 +198,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-02T05:57:11.449Z",
+    "updatedAt": "2026-09-02T06:02:44.039Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 263,
@@ -231,14 +231,14 @@
       "embeddedCandidates": 0,
       "sitemapFetched": true,
       "sitemapJobs": 881,
-      "detailAttempted": 700,
-      "detailSucceeded": 700,
+      "detailAttempted": 881,
+      "detailSucceeded": 881,
       "reusedFromSitemap": 0,
       "verified": 0,
       "drops": {
-        "titleOrContext": 686,
-        "nonUsOrUnknownLocation": 1,
-        "experience": 13,
+        "titleOrContext": 865,
+        "nonUsOrUnknownLocation": 2,
+        "experience": 14,
         "fetch": 0
       }
     },

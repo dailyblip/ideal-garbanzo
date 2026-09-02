@@ -10,6 +10,7 @@ on:
       - 'scripts/dedupe-normalized-jobs.mjs'
 
 permissions:
+  actions: write
   contents: write
 
 concurrency:
@@ -40,9 +41,11 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-homepage-contract.mjs
       - name: Commit Meta snapshot when changed
+        id: commit
         run: |
           if [ -z "$(git status --porcelain -- data/meta-jobs.json data/jobs.json data/collector-status.json)" ]; then
             echo "No Meta Careers data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -52,3 +55,9 @@ jobs:
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy committed Meta data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-coresite.mjs'
+      - 'scripts/apply-coresite-verified-fallback.mjs'
+      - 'data/coresite-verified-fallback.json'
       - '.github/workflows/coresite-smoke.yml'
 
 permissions:
@@ -18,8 +20,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Run CoreSite collector
+      - name: Run CoreSite official collector
         run: node scripts/collect-coresite.mjs
-      - name: Require healthy official source
+      - name: Apply verified fallback if the official host blocks GitHub
+        run: node scripts/apply-coresite-verified-fallback.mjs
+      - name: Normalize and validate fallback feed
         run: |
-          node -e "const s=require('./data/collector-status.json').coreSite; console.log(JSON.stringify(s,null,2)); if(!s?.sourceHealthy) process.exit(1); if(!(s?.qualifyingRoles>0)) process.exit(1);"
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/refresh-region-status.mjs
+          node scripts/validate.mjs
+      - name: Require current verified CoreSite coverage
+        run: |
+          node - <<'NODE'
+          const jobs = require('./data/jobs.json').filter(job => job.company === 'CoreSite');
+          const status = require('./data/collector-status.json').coreSite;
+          console.log(JSON.stringify({jobs: jobs.map(({id,title,location,experience}) => ({id,title,location,experience})), status}, null, 2));
+          if (jobs.length < 5) process.exit(1);
+          if (!status?.sourceHealthy && !status?.verifiedFallback?.active) process.exit(1);
+          if (jobs.some(job => !job.region)) process.exit(1);
+          NODE

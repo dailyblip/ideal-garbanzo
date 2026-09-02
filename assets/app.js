@@ -183,12 +183,12 @@
       const promotion = promotionFor(job);
       const highlighted = promotion?.tier === 'highlightedJob';
       const spotlight = promotion?.tier === 'spotlightJob';
-      const promoted = highlighted || spotlight;
       const title = escapeHtml(job.title);
       const titleMarkup = highlighted ? `<strong>${title}</strong>` : title;
-      const promotionBadge = spotlight ? ' <span class="featured-badge">SPOTLIGHT</span>' : highlighted ? ' <span class="featured-badge">HIGHLIGHTED</span>' : '';
+      const promotionBadge = spotlight ? ' <span class="featured-badge spotlight-badge">SPOTLIGHT</span>' : highlighted ? ' <span class="featured-badge highlighted-badge">HIGHLIGHTED</span>' : '';
+      const promotionClass = spotlight ? ' spotlight-job' : highlighted ? ' highlighted-job' : '';
       return `
-      <article class="job-card${promoted ? ' featured-job' : ''}">
+      <article class="job-card${promotionClass}">
         <div class="job-card-top">
           <div>
             <h3><a href="jobs/${escapeHtml(jobSlug(job))}/">${titleMarkup}</a> <span class="badge">${escapeHtml(typeLabel(job.type))}</span>${promotionBadge}</h3>

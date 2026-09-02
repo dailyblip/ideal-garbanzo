@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-const requiredFiles = ['index.html','assets/styles.css','assets/app.js','data/jobs.json','data/amazon-jobs.json','data/google-jobs.json','data/career-events.json','data/featured-jobs.json','data/employer-products.json'];
+const requiredFiles = ['index.html','employers/index.html','assets/styles.css','assets/app.js','data/jobs.json','data/amazon-jobs.json','data/google-jobs.json','data/career-events.json','data/featured-jobs.json','data/employer-products.json'];
 for (const file of requiredFiles) {
   const value = await readFile(file, 'utf8');
   if (!value.trim()) throw new Error(`${file} is empty`);
@@ -90,8 +90,19 @@ if (jobs.length >= 50 && regionalJobs / jobs.length < 0.95) {
 }
 
 const products = JSON.parse(await readFile('data/employer-products.json','utf8'));
+const highlightedProduct = products?.highlightedJob;
+const spotlightProduct = products?.spotlightJob;
+if (!highlightedProduct || !spotlightProduct) throw new Error('Both employer promotion tiers are required');
+if (Number(highlightedProduct.priceUsd) !== 99) throw new Error('Highlighted Job must be priced at $99');
+if (Number(spotlightProduct.priceUsd) !== 149) throw new Error('Spotlight Position must be priced at $149');
+for (const [key, product] of [['highlightedJob', highlightedProduct], ['spotlightJob', spotlightProduct]]) {
+  if (!Number.isInteger(Number(product.durationDays)) || Number(product.durationDays) !== 30) throw new Error(`${key} must run for 30 days`);
+  if (!Array.isArray(product.benefits) || product.benefits.length < 3) throw new Error(`${key} must define promotion benefits`);
+}
+if (products.landingPage !== 'employers/') throw new Error('Employer promotion landing page must be employers/');
+if (!Array.isArray(products.checkoutOptions) || !products.checkoutOptions.includes('highlightedJob') || !products.checkoutOptions.includes('spotlightJob')) throw new Error('Checkout options must include both promotion tiers');
 const featuredProduct = products?.featuredJob;
-if (!featuredProduct) throw new Error('Featured-job employer product is missing');
+if (!featuredProduct) throw new Error('Featured-job compatibility product is missing');
 if (!Number.isFinite(Number(featuredProduct.priceUsd)) || Number(featuredProduct.priceUsd) <= 0) throw new Error('Featured-job price must be positive');
 if (!Number.isInteger(Number(featuredProduct.durationDays)) || Number(featuredProduct.durationDays) <= 0) throw new Error('Featured-job duration must be positive');
 if (typeof featuredProduct.checkoutEnabled !== 'boolean') throw new Error('Featured-job checkoutEnabled must be boolean');
@@ -100,18 +111,22 @@ if (featuredProduct.checkoutEnabled && !/^https:\/\//.test(String(featuredProduc
 const featuredJobs = JSON.parse(await readFile('data/featured-jobs.json','utf8'));
 if (!Array.isArray(featuredJobs)) throw new Error('featured-jobs.json must contain an array');
 const featuredIds = new Set();
+const allowedPromotionTiers = new Set(['highlightedJob','spotlightJob']);
 for (const [i, record] of featuredJobs.entries()) {
   if (!record || !String(record.jobId || '').trim()) throw new Error(`Featured job ${i} missing jobId`);
   const id = String(record.jobId);
   if (featuredIds.has(id)) throw new Error(`Duplicate featured job activation: ${id}`);
   featuredIds.add(id);
-  if (![...ids].some(jobId => String(jobId) === id)) throw new Error(`Featured activation points to missing job: ${id}`);
+  if (!allowedPromotionTiers.has(record.tier)) throw new Error(`Featured activation ${id} has unsupported tier: ${record.tier}`);
+  if (!ids.has(id) && record.example !== true) throw new Error(`Paid featured activation points to missing job: ${id}`);
   const starts = record.startsAt ? Date.parse(record.startsAt) : null;
   const expires = record.expiresAt ? Date.parse(record.expiresAt) : null;
   if (record.startsAt && !Number.isFinite(starts)) throw new Error(`Featured job ${id} has invalid startsAt`);
   if (record.expiresAt && !Number.isFinite(expires)) throw new Error(`Featured job ${id} has invalid expiresAt`);
   if (starts && expires && expires <= starts) throw new Error(`Featured job ${id} expires before it starts`);
 }
+if (featuredJobs.filter(record => record.example === true && record.tier === 'spotlightJob').length < 1) throw new Error('At least one Spotlight launch example is required');
+if (featuredJobs.filter(record => record.example === true && record.tier === 'highlightedJob').length < 2) throw new Error('At least two Highlighted launch examples are required');
 
 const html = await readFile('index.html','utf8');
 for (const phrase of ['DATA CENTER CAREER','Search jobs','CURRENT OPENINGS','CAREER EVENTS','JOB ALERTS','FOR EMPLOYERS']) {
@@ -121,6 +136,7 @@ for (const phrase of ['SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY
   if (!html.includes(phrase)) throw new Error(`Approved hero copy changed: ${phrase}`);
 }
 if (!html.includes('id="eventsList"')) throw new Error('Homepage must render verified career events from shared data');
+if (!html.includes('href="employers/">Feature a job →</a>')) throw new Error('Homepage Feature a job CTA must link to employers/');
 if (/FEATURED OPPORTUNITY\s*·?\s*DEMO|Summit Data Centers/i.test(html)) throw new Error('Demo featured opportunity must not appear on the production homepage');
 if (/<style[\s>]/i.test(html)) throw new Error('Inline style blocks are prohibited');
 if (/\sstyle=["']/i.test(html)) throw new Error('Inline style attributes are prohibited on the homepage');
@@ -128,4 +144,12 @@ if (/hero-overrides\.css/i.test(html)) throw new Error('Obsolete hero-overrides.
 const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)];
 if (stylesheetLinks.length !== 1 || !stylesheetLinks[0][0].includes('assets/styles.css')) throw new Error('Homepage must use exactly one stylesheet: assets/styles.css');
 
-console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${googleJobs.length} Google jobs, ${careerEvents.length} verified career events, ${featuredJobs.length} featured activations, ${regionalJobs} region-classified jobs, and ${requiredFiles.length} required files.`);
+const employerHtml = await readFile('employers/index.html','utf8');
+for (const phrase of ['FEATURE A JOB','$99','$149','HIGHLIGHTED JOB','SPOTLIGHT POSITION','LIVE PLACEMENT EXAMPLES']) {
+  if (!employerHtml.includes(phrase)) throw new Error(`Employer promotion page missing: ${phrase}`);
+}
+if (/<style[\s>]/i.test(employerHtml) || /\sstyle=["']/i.test(employerHtml)) throw new Error('Employer promotion page must not use inline styles');
+const employerStylesheets = [...employerHtml.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)];
+if (employerStylesheets.length !== 1 || !employerStylesheets[0][0].includes('../assets/styles.css')) throw new Error('Employer promotion page must use the shared assets/styles.css stylesheet');
+
+console.log(`Validation passed: ${jobs.length} jobs, ${amazonJobs.length} AWS jobs, ${googleJobs.length} Google jobs, ${careerEvents.length} verified career events, ${featuredJobs.length} promotion activations, ${regionalJobs} region-classified jobs, and ${requiredFiles.length} required files.`);

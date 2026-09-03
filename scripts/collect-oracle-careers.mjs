@@ -283,20 +283,69 @@ function priorForRow(row, index) {
   return null;
 }
 
+function requisitionIdentity(row = {}) {
+  const id = String(row?.Id ?? '').trim();
+  if (id) return `id:${id.toLowerCase()}`;
+  const requisition = String(row?.RequisitionNumber ?? '').trim();
+  if (requisition) return `req:${normalizeIdentity(requisition)}`;
+  return `fallback:${hash(`${firstText(row, ['Title','title'])}|${locationFor(row)}`)}`;
+}
+
 async function listRequisitions(site) {
   const rows = [];
+  const seen = new Set();
   let total = null;
+  let pagesAttempted = 0;
+  let pagesSucceeded = 0;
+  let complete = false;
+  let incompleteReason = null;
+
   for (let page = 0; page < MAX_PAGES; page += 1) {
     const offset = page * PAGE_SIZE;
+    pagesAttempted += 1;
     const json = await fetchJson(buildListUrl(site, offset));
+    pagesSucceeded += 1;
     const item = Array.isArray(json?.items) ? json.items[0] : null;
     const pageRows = item && Array.isArray(item.requisitionList) ? item.requisitionList : [];
     if (total === null && Number.isFinite(Number(item?.TotalJobsCount))) total = Number(item.TotalJobsCount);
-    rows.push(...pageRows);
-    if (!pageRows.length || pageRows.length < PAGE_SIZE) break;
-    if (total !== null && offset + PAGE_SIZE >= total) break;
+
+    let fresh = 0;
+    for (const row of pageRows) {
+      const key = requisitionIdentity(row);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      rows.push(row);
+      fresh += 1;
+    }
+
+    if (total !== null && rows.length >= total) {
+      complete = true;
+      break;
+    }
+
+    if (pageRows.length === 0) {
+      if (total === null && rows.length > 0) complete = true;
+      else incompleteReason = `listing ended at ${rows.length}/${total ?? 'unknown'} unique rows`;
+      break;
+    }
+
+    if (fresh === 0) {
+      incompleteReason = `duplicate page before reaching reported total (${rows.length}/${total ?? 'unknown'})`;
+      break;
+    }
+
+    if (pageRows.length < PAGE_SIZE) {
+      if (total === null) complete = true;
+      else incompleteReason = `short page returned ${pageRows.length} rows at ${rows.length}/${total}`;
+      break;
+    }
   }
-  return { rows, total };
+
+  if (!complete && !incompleteReason) {
+    incompleteReason = `pagination cap reached at ${rows.length}/${total ?? 'unknown'} unique rows`;
+  }
+
+  return { rows, total, pagesAttempted, pagesSucceeded, complete, incompleteReason };
 }
 
 async function discoverSite() {
@@ -304,8 +353,9 @@ async function discoverSite() {
   for (const site of SITE_CANDIDATES) {
     try {
       const result = await listRequisitions(site);
-      if (result.rows.length) return { site, ...result, failures };
-      failures.push(`${site}: returned no requisitions`);
+      if (result.rows.length && result.complete) return { site, ...result, failures };
+      if (result.rows.length) failures.push(`${site}: incomplete listing (${result.incompleteReason})`);
+      else failures.push(`${site}: returned no requisitions`);
     } catch (error) {
       failures.push(`${site}: ${error.message}`);
     }
@@ -396,6 +446,11 @@ const drops = { title: 0, nonUs: 0, context: 0, experience: 0, missingId: 0, fet
 let sourceHealthy = false;
 let site = null;
 let totalOpenRoles = null;
+let listingRows = 0;
+let listingComplete = false;
+let pagesAttempted = 0;
+let pagesSucceeded = 0;
+let incompleteReason = null;
 let candidateRows = 0;
 let detailAttempted = 0;
 let detailFailed = 0;
@@ -406,7 +461,12 @@ try {
   const discovery = await discoverSite();
   site = discovery.site;
   totalOpenRoles = discovery.total;
-  sourceHealthy = true;
+  listingRows = discovery.rows.length;
+  listingComplete = discovery.complete;
+  pagesAttempted = discovery.pagesAttempted;
+  pagesSucceeded = discovery.pagesSucceeded;
+  incompleteReason = discovery.incompleteReason;
+  sourceHealthy = discovery.complete;
   if (discovery.failures.length) errors.push(...discovery.failures.map(message => `site probe ${message}`));
 
   const candidates = discovery.rows.filter(row => {
@@ -432,6 +492,8 @@ try {
   snapshot = dedupe(jobs);
 } catch (error) {
   errors.push(error.message);
+  const partial = SITE_CANDIDATES.map(candidate => String(error.message).includes(`${candidate}: incomplete listing`)).some(Boolean);
+  if (partial) incompleteReason = error.message;
 }
 
 const withoutOracle = currentJobs.filter(job => job.company !== COMPANY && !/oraclecloud\.com\/hcmUI\/CandidateExperience\/.*\/job\//i.test(String(job.sourceUrl || '')) && !/^https:\/\/(?:www\.)?careers\.oracle\.com\//i.test(String(job.sourceUrl || '')));
@@ -462,7 +524,12 @@ await writeFile(STATUS_PATH, JSON.stringify({
     boardUrl: site ? `https://${HOST}/hcmUI/CandidateExperience/${LANG}/sites/${site}` : `https://${HOST}/hcmUI/CandidateExperience/${LANG}/sites/jobsearch`,
     site,
     sourceHealthy,
+    listingComplete,
     totalOpenRoles,
+    listingRows,
+    pagesAttempted,
+    pagesSucceeded,
+    ...(incompleteReason ? { incompleteReason } : {}),
     candidateRows,
     detailAttempted,
     detailFailed,
@@ -475,7 +542,7 @@ await writeFile(STATUS_PATH, JSON.stringify({
 }, null, 2) + '\n');
 
 if (sourceHealthy) {
-  console.log(`Oracle Careers succeeded on ${site}; ${snapshot.length} qualifying U.S. data-center roles; ${detailFailed} detail failures (${preservedFromPrevious} preserved); ${merged.length} total jobs.`);
+  console.log(`Oracle Careers complete scan succeeded on ${site}; ${listingRows}/${totalOpenRoles ?? 'unknown'} listing rows; ${snapshot.length} qualifying U.S. data-center roles; ${detailFailed} detail failures (${preservedFromPrevious} preserved); ${merged.length} total jobs.`);
 } else {
-  console.warn(`Oracle Careers unavailable; retained ${snapshot.length} prior roles. ${errors.join(' | ')}`);
+  console.warn(`Oracle Careers listing was unavailable or incomplete; retained ${snapshot.length} prior roles. ${errors.join(' | ')}`);
 }

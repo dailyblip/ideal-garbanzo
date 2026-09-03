@@ -296,6 +296,8 @@ const priority = job => ({ apprenticeship: 0, internship: 1, trainee: 2, 'entry-
 const current = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 let status = {};
 try { status = JSON.parse(await readFile('data/collector-status.json', 'utf8')); } catch {}
+const previousEquinix = current.filter(job => job?.company === COMPANY);
+const previousByUrl = new Map(previousEquinix.map(job => [clean(job.sourceUrl), job]));
 
 const candidates = new Map();
 const errors = [];
@@ -316,20 +318,45 @@ for (const listing of listings) {
 }
 
 const discovered = [];
+const preservedOnFailure = [];
+let detailAttempted = 0;
+let detailSucceeded = 0;
+let detailFailed = 0;
 for (const [url, label] of [...candidates.entries()].slice(0, 90)) {
+  detailAttempted += 1;
   try {
     const result = await hydrate(url, label);
+    detailSucceeded += 1;
     if (result.job) discovered.push(result.job);
     else if (result.drop) {
       drops[result.drop] = (drops[result.drop] || 0) + 1;
       if (result.sample && dropSamples.length < 8) dropSamples.push(result.sample);
     }
   } catch (error) {
+    detailFailed += 1;
     errors.push(`job ${url}: ${error.message}`);
+    const prior = previousByUrl.get(clean(url));
+    if (prior) preservedOnFailure.push({ ...prior, active: true, demo: false });
   }
 }
 
-let merged = dedupe([...discovered, ...current]);
+const listingComplete = listingPagesSucceeded === listings.length;
+const authoritative = listingComplete && candidates.size > 0;
+if (listingComplete && candidates.size === 0) {
+  errors.push('complete listing pass returned zero mission-fit candidates; retaining prior Equinix roles');
+}
+const candidateUrls = new Set(candidates.keys());
+const retainedUrls = new Set([...discovered, ...preservedOnFailure].map(job => clean(job.sourceUrl)));
+const fallbackRetained = authoritative ? [] : previousEquinix.filter(job => {
+  const url = clean(job.sourceUrl);
+  return !candidateUrls.has(url) && !retainedUrls.has(url);
+}).map(job => ({ ...job, active: true, demo: false }));
+const managedNext = dedupe([...discovered, ...preservedOnFailure, ...fallbackRetained]);
+const managedNextUrls = new Set(managedNext.map(job => clean(job.sourceUrl)));
+const staleRemoved = authoritative ? previousEquinix.filter(job => !managedNextUrls.has(clean(job.sourceUrl))).length : 0;
+const currentWithoutEquinix = current.filter(job => job?.company !== COMPANY);
+
+let merged = dedupe([...managedNext, ...currentWithoutEquinix]);
 const now = Date.now();
 for (const job of merged) {
   job.postedHours = job.postedAt ? Math.max(0, Math.round((now - new Date(job.postedAt).getTime()) / 36e5)) : (job.postedHours ?? 9999);
@@ -354,10 +381,19 @@ await writeFile('data/collector-status.json', JSON.stringify({
     ...(status.priorityEmployerExpansion || {}),
     Equinix: {
       officialSource: 'https://careers.equinix.com/',
+      sourceHealthy: listingPagesSucceeded > 0,
+      listingComplete,
+      authoritative,
       listingPagesAttempted: listings.length,
       listingPagesSucceeded,
       candidateLinks: candidates.size,
-      qualifyingRoles: discovered.length,
+      detailAttempted,
+      detailSucceeded,
+      detailFailed,
+      preservedOnFailure: preservedOnFailure.length,
+      fallbackRetained: fallbackRetained.length,
+      staleRemoved,
+      qualifyingRoles: managedNext.length,
       drops,
       dropSamples,
       errors
@@ -365,6 +401,6 @@ await writeFile('data/collector-status.json', JSON.stringify({
   }
 }, null, 2) + '\n');
 
-console.log(`Equinix official-source pass found ${candidates.size} candidates and ${discovered.length} qualifying US roles. Drops: ${JSON.stringify(drops)}`);
+console.log(`Equinix official-source pass found ${candidates.size} candidates and ${managedNext.length} qualifying/retained US roles (${staleRemoved} stale removed; ${preservedOnFailure.length} detail failures preserved). Drops: ${JSON.stringify(drops)}`);
 if (dropSamples.length) console.log(`Equinix drop samples: ${JSON.stringify(dropSamples)}`);
 if (errors.length) console.warn(`Equinix warnings: ${errors.join(' | ')}`);

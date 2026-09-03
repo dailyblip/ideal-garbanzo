@@ -148,6 +148,7 @@ jobs:
           node scripts/generate-career-guide.mjs
           node scripts/generate-internship-guide.mjs
           node scripts/harden-seo.mjs
+          node scripts/inject-google-analytics.mjs
       - name: Validate latest main before deployment
         run: |
           node scripts/validate.mjs
@@ -157,6 +158,7 @@ jobs:
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-site-copy.mjs
           node scripts/validate-technical-seo.mjs
+          node scripts/validate-google-analytics.mjs
           expected_jobs=$(node -e "console.log(require('./data/jobs.json').length)")
           generated_jobs=$(find jobs -mindepth 2 -maxdepth 2 -type f -name index.html | wc -l)
           test "$expected_jobs" -eq "$generated_jobs"
@@ -239,6 +241,7 @@ jobs:
           printf '%s' "$homepage_text" | grep -Fq 'SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY'
           printf '%s' "$homepage_text" | grep -Fq 'Build your future in data centers.'
           printf '%s' "$homepage_text" | grep -Fq 'Real openings for interns, apprentices, first-time applicants and workers ready for their next step.'
+          grep -Fq 'G-TD86GFYGW5' /tmp/homepage.html
 
           curl "${curl_args[@]}" "${base}/assets/styles.css?deploy=${cache_key}" -o /tmp/styles.css
           test -s /tmp/styles.css

@@ -308,7 +308,8 @@ async function listRequisitions(site) {
     pagesSucceeded += 1;
     const item = Array.isArray(json?.items) ? json.items[0] : null;
     const pageRows = item && Array.isArray(item.requisitionList) ? item.requisitionList : [];
-    if (total === null && Number.isFinite(Number(item?.TotalJobsCount))) total = Number(item.TotalJobsCount);
+    const reportedTotal = Number(item?.TotalJobsCount);
+    if (Number.isFinite(reportedTotal)) total = reportedTotal;
 
     let fresh = 0;
     for (const row of pageRows) {
@@ -325,7 +326,12 @@ async function listRequisitions(site) {
     }
 
     if (pageRows.length === 0) {
+      const shortfall = total === null ? null : total - rows.length;
+      // The Oracle CE count can drift by a few requisitions while a long paginated
+      // scan is running. Only accept an exhausted listing when that drift is tiny;
+      // larger gaps remain a hard failure so partial feeds cannot replace the snapshot.
       if (total === null && rows.length > 0) complete = true;
+      else if (Number.isFinite(shortfall) && shortfall >= 0 && shortfall <= 5) complete = true;
       else incompleteReason = `listing ended at ${rows.length}/${total ?? 'unknown'} unique rows`;
       break;
     }

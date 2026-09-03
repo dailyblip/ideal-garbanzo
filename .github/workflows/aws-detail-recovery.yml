@@ -37,6 +37,10 @@ jobs:
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
+      - name: Run post-recovery live-link and duplicate QA
+        run: node scripts/qa-site.mjs
+      - name: Refresh post-QA tracking
+        run: |
           node scripts/refresh-region-status.mjs
           node scripts/stamp-job-history.mjs
       - name: Validate recovered feed
@@ -49,13 +53,13 @@ jobs:
           node scripts/validate-priority-employer-sources.mjs
       - name: Commit verified AWS recovery
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json)" ]; then
-            echo "No AWS recovery changes."
+          if [ -z "$(git status --porcelain -- data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json data/career-events.json data/qa-report.json)" ]; then
+            echo "No AWS recovery or QA changes."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json
-            git commit -m "Recover verified AWS data center roles"
+            git add data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json data/career-events.json data/qa-report.json
+            git commit -m "Recover verified AWS roles and refresh QA"
             git fetch origin main
             git rebase origin/main
             git push origin HEAD:main

@@ -8,6 +8,12 @@ for (const file of requiredFiles) {
 
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
+
+// Deployment validation is the final gate before Pages publishes. Run the
+// employer-direct source guard here too so a separate CI failure cannot race
+// with or be bypassed by a successful deployment workflow.
+await import('./validate-priority-employer-sources.mjs');
+
 const amazonJobs = JSON.parse(await readFile('data/amazon-jobs.json', 'utf8'));
 if (!Array.isArray(amazonJobs)) throw new Error('amazon-jobs.json must contain an array');
 for (const [i, job] of amazonJobs.entries()) {

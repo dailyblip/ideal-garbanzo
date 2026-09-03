@@ -31,6 +31,42 @@ const protectedSnapshots = [
   { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' }
 ];
 
+// The six major Workday operators share one snapshot. Protect each employer
+// independently so one reconciliation mistake cannot erase STACK, NTT, Aligned,
+// Vantage, QTS, or CyrusOne while the aggregate source still looks healthy.
+const protectedMajorWorkdayCompanies = [
+  'Vantage Data Centers',
+  'QTS Data Centers',
+  'CyrusOne',
+  'STACK Infrastructure',
+  'NTT Global Data Centers',
+  'Aligned Data Centers'
+];
+
+const usStateNames = [
+  'alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware','florida','georgia',
+  'hawaii','idaho','illinois','indiana','iowa','kansas','kentucky','louisiana','maine','maryland','massachusetts',
+  'michigan','minnesota','mississippi','missouri','montana','nebraska','nevada','new hampshire','new jersey',
+  'new mexico','new york','north carolina','north dakota','ohio','oklahoma','oregon','pennsylvania','rhode island',
+  'south carolina','south dakota','tennessee','texas','utah','vermont','virginia','washington','west virginia',
+  'wisconsin','wyoming','district of columbia'
+];
+const usStateAbbreviations = new Set([
+  'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI',
+  'MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT',
+  'VT','VA','WA','WV','WI','WY','DC'
+]);
+
+function confidentUsLocation(value = '') {
+  const text = String(value || '').trim();
+  if (!text) return false;
+  const lower = text.toLowerCase().replace(/[-_/]+/g, ' ').replace(/\s+/g, ' ');
+  if (/\b(?:united states|usa|u\.s\.a\.|u\.s\.)\b/i.test(text)) return true;
+  if (usStateNames.some(state => new RegExp(`\\b${state.replace(/ /g, '\\s+')}\\b`, 'i').test(lower))) return true;
+  const abbreviationMatch = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
+  return Boolean(abbreviationMatch && usStateAbbreviations.has(abbreviationMatch[1]));
+}
+
 const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs) || jobs.length === 0) throw new Error('Priority-source guard requires a non-empty jobs.json array.');
 
@@ -78,6 +114,31 @@ for (const { company, path } of protectedSnapshots) {
     violations.push(`${company}: ${snapshotCount} dedicated snapshot roles collapsed to zero in the public feed`);
   } else if (snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
     violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} dedicated snapshot roles`);
+  }
+}
+
+let majorSnapshot = [];
+try {
+  majorSnapshot = JSON.parse(await readFile('data/major-jobs.json', 'utf8'));
+  if (!Array.isArray(majorSnapshot)) {
+    violations.push('Major Workday snapshot data/major-jobs.json is not an array');
+    majorSnapshot = [];
+  }
+} catch (error) {
+  violations.push(`Major Workday snapshot data/major-jobs.json could not be read (${error.message})`);
+}
+
+for (const company of protectedMajorWorkdayCompanies) {
+  const companySnapshot = majorSnapshot.filter(job => String(job?.company || '').trim() === company);
+  const usSnapshot = companySnapshot.filter(job => confidentUsLocation(job?.location));
+  const publicCount = counts.get(company) || 0;
+
+  // Hiring can legitimately reach zero. Only enforce retention when the shared
+  // snapshot itself contains a meaningful number of confidently U.S. roles.
+  if (usSnapshot.length >= 3 && publicCount === 0) {
+    violations.push(`${company}: ${usSnapshot.length} U.S. roles in the major Workday snapshot collapsed to zero in the public feed`);
+  } else if (usSnapshot.length >= 8 && publicCount < Math.ceil(usSnapshot.length * 0.40)) {
+    violations.push(`${company}: public feed retained only ${publicCount}/${usSnapshot.length} confidently U.S. major Workday roles`);
   }
 }
 

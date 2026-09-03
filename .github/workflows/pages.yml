@@ -235,7 +235,10 @@ jobs:
 
           cache_key="${expected_sha}-verified"
           curl "${curl_args[@]}" "${base}/?deploy=${cache_key}" -o /tmp/homepage.html
-          grep -Fq 'Build your future in data centers.' /tmp/homepage.html
+          homepage_text="$(sed -E 's/<[^>]+>/ /g; s/&nbsp;/ /g' /tmp/homepage.html | tr '\n' ' ' | sed -E 's/[[:space:]]+/ /g')"
+          printf '%s' "$homepage_text" | grep -Fq 'SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY'
+          printf '%s' "$homepage_text" | grep -Fq 'Build your future in data centers.'
+          printf '%s' "$homepage_text" | grep -Fq 'Real openings for interns, apprentices, first-time applicants and workers ready for their next step.'
 
           curl "${curl_args[@]}" "${base}/assets/styles.css?deploy=${cache_key}" -o /tmp/styles.css
           test -s /tmp/styles.css

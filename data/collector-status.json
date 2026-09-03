@@ -1,30 +1,29 @@
 {
-  "updatedAt": "2026-09-03T23:53:38.652Z",
-  "jobs": 423,
-  "sourcesAttempted": 38,
+  "updatedAt": "2026-09-03T23:58:44.725Z",
+  "jobs": 454,
+  "sourcesAttempted": 39,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
     "googleCareers": 1,
-    "oracleRecruitingCloud": 4,
+    "oracleRecruitingCloud": 5,
     "metaCareers": 13
   },
   "countsByType": {
-    "entry-level": 412,
+    "entry-level": 442,
     "trainee": 5,
     "apprenticeship": 4,
-    "internship": 2
+    "internship": 3
   },
   "countsByExperience": {
-    "2-5-years": 90,
-    "no-experience": 6,
-    "0-2-years": 327
+    "2-5-years": 102,
+    "no-experience": 7,
+    "0-2-years": 345
   },
   "errors": [
-    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in",
-    "Oracle Careers: jobsearch: incomplete listing (listing ended at 2265/2268 unique rows) | CX_1: incomplete listing (listing ended at 2265/2268 unique rows)"
+    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
   ],
   "majorSources": {
     "attempted": 6,
@@ -204,21 +203,40 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-03T23:53:38.713Z",
+    "updatedAt": "2026-09-03T23:58:44.789Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 423,
-    "regionMissing": 0,
-    "coveragePct": 100,
-    "missingSamples": [],
+    "regionAssigned": 451,
+    "regionMissing": 3,
+    "coveragePct": 99.3,
+    "missingSamples": [
+      {
+        "id": "oracle-careers-344376",
+        "company": "Oracle",
+        "location": "United States",
+        "sourceUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/344376"
+      },
+      {
+        "id": "oracle-careers-344469",
+        "company": "Oracle",
+        "location": "United States",
+        "sourceUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/344469"
+      },
+      {
+        "id": "oracle-careers-330537",
+        "company": "Oracle",
+        "location": "United States",
+        "sourceUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/330537"
+      }
+    ],
     "countsByRegion": {
-      "southeast": 70,
-      "midwest": 72,
-      "west": 56,
-      "southwest": 46,
+      "southeast": 75,
+      "midwest": 81,
+      "west": 57,
+      "southwest": 51,
       "northeast": 10,
-      "mid-atlantic": 81,
-      "texas": 88
+      "mid-atlantic": 84,
+      "texas": 93
     }
   },
   "postQa": {
@@ -578,20 +596,20 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-03T23:53:38.773Z",
-    "before": 423,
-    "after": 423,
+    "checkedAt": "2026-09-03T23:58:44.844Z",
+    "before": 454,
+    "after": 454,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 432,
-    "currentJobs": 423,
-    "newJobsThisRun": 0,
+    "trackedJobs": 463,
+    "currentJobs": 454,
+    "newJobsThisRun": 31,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-03T23:53:38.825Z"
+    "updatedAt": "2026-09-03T23:58:44.893Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -697,29 +715,26 @@
   "oracleCareers": {
     "officialSource": "https://careers.oracle.com/",
     "boardUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch",
-    "site": null,
-    "sourceHealthy": false,
-    "listingComplete": false,
-    "totalOpenRoles": null,
-    "listingRows": 0,
-    "pagesAttempted": 0,
-    "pagesSucceeded": 0,
-    "incompleteReason": "jobsearch: incomplete listing (listing ended at 2265/2268 unique rows) | CX_1: incomplete listing (listing ended at 2265/2268 unique rows)",
-    "candidateRows": 0,
-    "detailAttempted": 0,
+    "site": "jobsearch",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "totalOpenRoles": 2268,
+    "listingRows": 2265,
+    "pagesAttempted": 13,
+    "pagesSucceeded": 13,
+    "candidateRows": 86,
+    "detailAttempted": 86,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
-    "qualifyingRoles": 0,
+    "qualifyingRoles": 31,
     "drops": {
-      "title": 0,
-      "nonUs": 0,
-      "context": 0,
-      "experience": 0,
+      "title": 2179,
+      "nonUs": 33,
+      "context": 14,
+      "experience": 6,
       "missingId": 0,
       "fetch": 0
     },
-    "errors": [
-      "jobsearch: incomplete listing (listing ended at 2265/2268 unique rows) | CX_1: incomplete listing (listing ended at 2265/2268 unique rows)"
-    ]
+    "errors": []
   }
 }

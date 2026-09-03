@@ -14,6 +14,11 @@ if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 // with or be bypassed by a successful deployment workflow.
 await import('./validate-priority-employer-sources.mjs');
 
+// A syntactically healthy feed can still be operationally stale if scheduled
+// collection/QA has stopped. Refuse to deploy snapshots older than the agreed
+// freshness window so expired jobs cannot silently linger through later pushes.
+await import('./validate-data-freshness.mjs');
+
 const amazonJobs = JSON.parse(await readFile('data/amazon-jobs.json', 'utf8'));
 if (!Array.isArray(amazonJobs)) throw new Error('amazon-jobs.json must contain an array');
 for (const [i, job] of amazonJobs.entries()) {

@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-09-03T18:45:45.761Z",
+  "updatedAt": "2026-09-03T23:53:38.652Z",
   "jobs": 423,
-  "sourcesAttempted": 37,
+  "sourcesAttempted": 38,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
     "googleCareers": 1,
-    "oracleRecruitingCloud": 3,
+    "oracleRecruitingCloud": 4,
     "metaCareers": 13
   },
   "countsByType": {
@@ -24,7 +24,7 @@
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in",
-    "Oracle Careers: jobsearch: incomplete listing (short page returned 199 rows at 2199/2248) | CX_1: incomplete listing (short page returned 199 rows at 2199/2248)"
+    "Oracle Careers: jobsearch: incomplete listing (listing ended at 2265/2268 unique rows) | CX_1: incomplete listing (listing ended at 2265/2268 unique rows)"
   ],
   "majorSources": {
     "attempted": 6,
@@ -204,7 +204,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-03T18:45:45.824Z",
+    "updatedAt": "2026-09-03T23:53:38.713Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 423,
@@ -578,7 +578,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-03T18:45:45.880Z",
+    "checkedAt": "2026-09-03T23:53:38.773Z",
     "before": 423,
     "after": 423,
     "removed": 0,
@@ -588,10 +588,10 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 432,
     "currentJobs": 423,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-03T18:45:45.931Z"
+    "updatedAt": "2026-09-03T23:53:38.825Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -704,7 +704,7 @@
     "listingRows": 0,
     "pagesAttempted": 0,
     "pagesSucceeded": 0,
-    "incompleteReason": "jobsearch: incomplete listing (short page returned 199 rows at 2199/2248) | CX_1: incomplete listing (short page returned 199 rows at 2199/2248)",
+    "incompleteReason": "jobsearch: incomplete listing (listing ended at 2265/2268 unique rows) | CX_1: incomplete listing (listing ended at 2265/2268 unique rows)",
     "candidateRows": 0,
     "detailAttempted": 0,
     "detailFailed": 0,
@@ -719,7 +719,7 @@
       "fetch": 0
     },
     "errors": [
-      "jobsearch: incomplete listing (short page returned 199 rows at 2199/2248) | CX_1: incomplete listing (short page returned 199 rows at 2199/2248)"
+      "jobsearch: incomplete listing (listing ended at 2265/2268 unique rows) | CX_1: incomplete listing (listing ended at 2265/2268 unique rows)"
     ]
   }
 }

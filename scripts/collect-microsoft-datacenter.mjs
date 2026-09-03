@@ -1,6 +1,15 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
-const SOURCE_URL = 'https://careers.microsoft.com/v2/global/en/datacenters.html';
+const SOURCE_PAGES = [
+  {
+    url: 'https://careers.microsoft.com/v2/global/en/datacentertechnicians.html',
+    label: 'Microsoft Data Center Technicians'
+  },
+  {
+    url: 'https://careers.microsoft.com/v2/global/en/datacenters.html',
+    label: 'Microsoft Datacenter Careers'
+  }
+];
 const APPLY_ORIGIN = 'https://apply.careers.microsoft.com';
 const COMPANY = 'Microsoft';
 
@@ -179,18 +188,38 @@ const previousMicrosoft = current.filter(job =>
 const drops = { nonUs:0, seniorOrIrrelevant:0, experience:0 };
 const discovered = [];
 const errors = [];
-let links = [];
+const pageStatus = [];
+const candidatesById = new Map();
 let sourceHealthy = true;
 
-try {
-  const html = await fetchText(SOURCE_URL);
-  links = extractApplyLinks(html);
-  if (!links.length) throw new Error('Microsoft datacenter page returned no job detail links');
+for (const sourcePage of SOURCE_PAGES) {
+  try {
+    const html = await fetchText(sourcePage.url);
+    const pageLinks = extractApplyLinks(html);
+    pageStatus.push({ url:sourcePage.url, label:sourcePage.label, healthy:true, candidateLinks:pageLinks.length });
+    for (const link of pageLinks) {
+      // Prefer the first source for duplicate jobs. The technician page comes first because
+      // its role cards expose the clearest early-career qualification context.
+      if (!candidatesById.has(link.id)) candidatesById.set(link.id, { ...link, html, sourcePage });
+    }
+  } catch (error) {
+    sourceHealthy = false;
+    pageStatus.push({ url:sourcePage.url, label:sourcePage.label, healthy:false, candidateLinks:0, error:error.message });
+    errors.push(`${sourcePage.label}: ${error.message}`);
+  }
+}
 
+const links = [...candidatesById.values()];
+if (sourceHealthy && !links.length) {
+  sourceHealthy = false;
+  errors.push('Microsoft official datacenter pages returned no job detail links');
+}
+
+if (sourceHealthy) {
   for (const link of links) {
-    const segmentHtml = roleSegment(html, link.index);
+    const segmentHtml = roleSegment(link.html, link.index);
     const text = clean(segmentHtml);
-    const title = lastHeadingBefore(html, link.index);
+    const title = lastHeadingBefore(link.html, link.index);
     const location = parseLocation(text);
     if (!location) { drops.nonUs += 1; continue; }
     if (!title || seniorTitlePattern.test(title) || !relevantTitlePattern.test(title)) { drops.seniorOrIrrelevant += 1; continue; }
@@ -207,26 +236,23 @@ try {
       tags:tagsFor(title, text, cls.experience),
       ...extractPay(text),
       postedAt:postedDate ? new Date(`${postedDate}T12:00:00Z`).toISOString() : null,
-      source:'Microsoft Datacenter Careers',
+      source:link.sourcePage.label,
       sourceUrl:link.href,
       active:true,
       demo:false
     });
   }
-} catch (error) {
-  sourceHealthy = false;
-  errors.push(error.message);
 }
 
 let snapshot;
 if (sourceHealthy) {
-  // A healthy Microsoft datacenter page is authoritative, including a legitimate zero-result day.
-  // This prevents closed Microsoft roles from lingering in the combined feed after they disappear.
+  // Both official Microsoft source pages must load before treating the combined snapshot as
+  // authoritative. This prevents a partial source outage from silently deleting valid roles.
   snapshot = dedupe(discovered);
 } else if (previousMicrosoft.length) {
   // A transient source failure should not erase previously verified Microsoft opportunities.
   snapshot = dedupe(previousMicrosoft);
-  errors.push(`Retained ${snapshot.length} previously verified Microsoft role(s) because the source could not be refreshed.`);
+  errors.push(`Retained ${snapshot.length} previously verified Microsoft role(s) because the source set could not be refreshed completely.`);
 } else {
   throw new Error(`Microsoft datacenter collector failed and no prior verified roles exist: ${errors.join(' | ')}`);
 }
@@ -252,8 +278,10 @@ await writeFile('data/collector-status.json', JSON.stringify({
   countsByType,
   countsByExperience,
   microsoftDatacenter:{
-    officialSource:SOURCE_URL,
+    officialSource:SOURCE_PAGES[1].url,
+    officialSources:SOURCE_PAGES.map(page => page.url),
     sourceHealthy,
+    pageStatus,
     candidateLinks:links.length,
     qualifyingRoles:snapshot.length,
     currentQualifyingRoles:discovered.length,
@@ -265,6 +293,6 @@ await writeFile('data/collector-status.json', JSON.stringify({
 }, null, 2) + '\n');
 
 console.log(sourceHealthy
-  ? `Microsoft datacenter source refreshed authoritatively: ${links.length} official role links, ${snapshot.length} qualifying U.S. 0–5 year roles.`
-  : `Microsoft datacenter source unavailable; retained ${snapshot.length} previously verified role(s).`);
+  ? `Microsoft datacenter sources refreshed authoritatively: ${links.length} unique official role links, ${snapshot.length} qualifying U.S. 0–5 year roles across ${SOURCE_PAGES.length} source pages.`
+  : `Microsoft datacenter source set unavailable; retained ${snapshot.length} previously verified role(s).`);
 if (errors.length) console.warn(`Microsoft datacenter warnings: ${errors.join(' | ')}`);

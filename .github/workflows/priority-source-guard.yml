@@ -1,0 +1,36 @@
+name: Priority employer source guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'scripts/collect-*.mjs'
+      - 'scripts/apply-coresite-verified-fallback.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/validate-priority-employer-sources.mjs'
+      - '.github/workflows/priority-source-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'scripts/collect-*.mjs'
+      - 'scripts/apply-coresite-verified-fallback.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/validate-priority-employer-sources.mjs'
+      - '.github/workflows/priority-source-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify priority jobs stay employer-direct
+        run: node scripts/validate-priority-employer-sources.mjs

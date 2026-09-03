@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: aws-detail-recovery
@@ -52,9 +53,11 @@ jobs:
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-priority-employer-sources.mjs
       - name: Commit verified AWS recovery
+        id: commit
         run: |
           if [ -z "$(git status --porcelain -- data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json data/career-events.json data/qa-report.json)" ]; then
             echo "No AWS recovery or QA changes."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -63,4 +66,10 @@ jobs:
             git fetch origin main
             git rebase origin/main
             git push origin HEAD:main
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
           fi
+      - name: Deploy recovered feed immediately
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main -f deploy_only=true

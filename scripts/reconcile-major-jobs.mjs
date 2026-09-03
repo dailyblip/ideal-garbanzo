@@ -2,6 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
 const MAJOR_PATH = 'data/major-jobs.json';
+const STATUS_PATH = 'data/collector-status.json';
 const preserveExisting = process.argv.includes('--preserve-existing');
 const majorCompanies = new Set([
   'Vantage Data Centers',
@@ -24,16 +25,59 @@ const clearlyForeignLocationTerms = [
   'montreal quebec', 'toronto on', 'frankfurt', 'amsterdam', 'ams1', 'eemshaven', 'bengaluru', 'noida',
   'navi mumbai', 'mumbai', 'osaka', 'taipei', 'cyberjaya', 'munich', 'zurich', 'jakarta', 'chon buri'
 ].map(normalize);
+const usStateNames = [
+  'alabama', 'alaska', 'arizona', 'arkansas', 'california', 'colorado', 'connecticut', 'delaware',
+  'district of columbia', 'florida', 'georgia', 'hawaii', 'idaho', 'illinois', 'indiana', 'iowa',
+  'kansas', 'kentucky', 'louisiana', 'maine', 'maryland', 'massachusetts', 'michigan', 'minnesota',
+  'mississippi', 'missouri', 'montana', 'nebraska', 'nevada', 'new hampshire', 'new jersey',
+  'new mexico', 'new york', 'north carolina', 'north dakota', 'ohio', 'oklahoma', 'oregon',
+  'pennsylvania', 'rhode island', 'south carolina', 'south dakota', 'tennessee', 'texas', 'utah',
+  'vermont', 'virginia', 'washington', 'west virginia', 'wisconsin', 'wyoming'
+];
+const usStateCodes = new Set([
+  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA',
+  'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM',
+  'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA',
+  'WV', 'WI', 'WY'
+]);
 
 function clearlyOutsideUnitedStates(job) {
   const text = ` ${normalize(`${job?.location || ''} ${job?.sourceUrl || ''}`)} `;
   return clearlyForeignLocationTerms.some(term => term && text.includes(` ${term} `));
 }
 
+function confidentlyInsideUnitedStates(job) {
+  const location = clean(job?.location);
+  if (!location) return false;
+  if (/\b(?:united states(?: of america)?|u\.s\.a\.?|usa)\b/i.test(location)) return true;
+
+  const normalizedLocation = normalize(location);
+  if (/\bus\s+(?:al|ak|az|ar|ca|co|ct|de|dc|fl|ga|hi|id|il|in|ia|ks|ky|la|me|md|ma|mi|mn|ms|mo|mt|ne|nv|nh|nj|nm|ny|nc|nd|oh|ok|or|pa|ri|sc|sd|tn|tx|ut|vt|va|wa|wv|wi|wy)\b/.test(normalizedLocation)) return true;
+
+  const parts = location.split(/[,|/]/).map(part => clean(part)).filter(Boolean);
+  if (parts.some(part => usStateCodes.has(part.toUpperCase()))) return true;
+
+  return usStateNames.some(state =>
+    normalizedLocation === state ||
+    normalizedLocation.startsWith(`${state} `) ||
+    normalizedLocation.endsWith(` ${state}`) ||
+    normalizedLocation.includes(` ${state} `)
+  );
+}
+
 async function readJson(path) {
   const value = JSON.parse(await readFile(path, 'utf8'));
   if (!Array.isArray(value)) throw new Error(`${path} must contain an array.`);
   return value;
+}
+
+async function readJsonObject(path) {
+  try {
+    const value = JSON.parse(await readFile(path, 'utf8'));
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  } catch {
+    return {};
+  }
 }
 
 function dedupe(jobs) {
@@ -58,8 +102,9 @@ function dedupe(jobs) {
 const jobs = await readJson(JOBS_PATH);
 const rawMajorSnapshot = dedupe(await readJson(MAJOR_PATH));
 const foreignMajor = rawMajorSnapshot.filter(clearlyOutsideUnitedStates);
-const majorSnapshot = rawMajorSnapshot.filter(job => !clearlyOutsideUnitedStates(job));
-if (!majorSnapshot.length) throw new Error('Refusing to reconcile an empty U.S. major-employer snapshot.');
+const unresolvedMajor = rawMajorSnapshot.filter(job => !clearlyOutsideUnitedStates(job) && !confidentlyInsideUnitedStates(job));
+const majorSnapshot = rawMajorSnapshot.filter(job => !clearlyOutsideUnitedStates(job) && confidentlyInsideUnitedStates(job));
+if (!majorSnapshot.length) throw new Error('Refusing to reconcile an empty confidently U.S. major-employer snapshot.');
 
 for (const job of majorSnapshot) {
   if (!majorCompanies.has(clean(job.company))) {
@@ -93,6 +138,21 @@ if (reconciledMajor.length !== majorSnapshot.length) {
   throw new Error(`Major-employer reconciliation mismatch: snapshot=${majorSnapshot.length}, feed=${reconciledMajor.length}.`);
 }
 
+const status = await readJsonObject(STATUS_PATH);
+status.majorSources = {
+  ...(status.majorSources || {}),
+  reconciliation: {
+    checkedAt: new Date().toISOString(),
+    rawJobs: rawMajorSnapshot.length,
+    publishedUsJobs: majorSnapshot.length,
+    nonUsRemoved: foreignMajor.length,
+    unresolvedLocationRemoved: unresolvedMajor.length,
+    nonUsSamples: foreignMajor.slice(0, 8).map(job => ({ company: clean(job.company), title: clean(job.title), location: clean(job.location) })),
+    unresolvedLocationSamples: unresolvedMajor.slice(0, 8).map(job => ({ company: clean(job.company), title: clean(job.title), location: clean(job.location) }))
+  }
+};
+
 await writeFile(MAJOR_PATH, JSON.stringify(majorSnapshot, null, 2) + '\n');
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
-console.log(`Reconciled ${majorSnapshot.length} U.S. major-employer jobs into the feed; filtered ${foreignMajor.length} clearly non-U.S. records and removed ${staleRemoved} stale records${preserveExisting ? ' while preserving normalized current records' : ''}.`);
+await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
+console.log(`Reconciled ${majorSnapshot.length} confidently U.S. major-employer jobs into the feed; filtered ${foreignMajor.length} clearly non-U.S. records, removed ${unresolvedMajor.length} unresolved-location records, and removed ${staleRemoved} stale records${preserveExisting ? ' while preserving normalized current records' : ''}.`);

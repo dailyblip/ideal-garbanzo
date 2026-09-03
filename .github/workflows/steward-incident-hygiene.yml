@@ -1,0 +1,56 @@
+name: Steward incident hygiene
+
+on:
+  workflow_run:
+    workflows: ["Refresh jobs and deploy site"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+concurrency:
+  group: steward-incident-hygiene
+  cancel-in-progress: true
+
+jobs:
+  close-superseded-incidents:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close incidents superseded by a healthy pipeline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+
+          current_run="${EVENT_RUN_ID:-}"
+          if [ -z "$current_run" ]; then
+            current_run="$(gh api "repos/${REPO}/actions/workflows/pages.yml/runs?status=success&per_page=1" --jq '.workflow_runs[0].id // empty')"
+          fi
+
+          if [ -z "$current_run" ]; then
+            echo "No successful refresh/deploy run is available; leaving incidents open."
+            exit 0
+          fi
+
+          closed=0
+          while IFS=$'\t' read -r number title; do
+            [ -z "$number" ] && continue
+            if [[ "$title" =~ ^\[Steward\]\ (Pipeline\ incident|Stuck\ pipeline)\ -\ run\ ([0-9]+)$ ]]; then
+              incident_run="${BASH_REMATCH[2]}"
+              if [ "$incident_run" -lt "$current_run" ]; then
+                gh issue comment "$number" --repo "$REPO" --body "Recovered: a newer refresh/deploy pipeline run (${current_run}) completed successfully, so this older incident is superseded."
+                gh issue close "$number" --repo "$REPO" --reason completed
+                closed=$((closed + 1))
+              fi
+            fi
+          done < <(
+            gh issue list --repo "$REPO" --state open --limit 100 --json number,title --jq '.[] | [.number,.title] | @tsv'
+          )
+
+          echo "Closed ${closed} superseded steward incident issue(s) after successful pipeline run ${current_run}."

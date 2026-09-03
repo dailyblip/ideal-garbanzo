@@ -147,6 +147,7 @@ jobs:
           base64 -d assets/guides/data-center-internship-training.webp.b64 > assets/guides/data-center-internship-training.webp
           node scripts/generate-career-guide.mjs
           node scripts/generate-internship-guide.mjs
+          node scripts/harden-seo.mjs
       - name: Validate latest main before deployment
         run: |
           node scripts/validate.mjs
@@ -155,6 +156,7 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-site-copy.mjs
+          node scripts/validate-technical-seo.mjs
           expected_jobs=$(node -e "console.log(require('./data/jobs.json').length)")
           generated_jobs=$(find jobs -mindepth 2 -maxdepth 2 -type f -name index.html | wc -l)
           test "$expected_jobs" -eq "$generated_jobs"

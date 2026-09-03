@@ -1,0 +1,30 @@
+name: Configure Buttondown signup redirects
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/configure-buttondown.mjs'
+      - 'subscribed/**'
+      - '.github/workflows/buttondown-redirect.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Buttondown configuration script
+        run: node --check scripts/configure-buttondown.mjs
+      - name: Point signup flow back to Data Center Careers
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: node scripts/configure-buttondown.mjs

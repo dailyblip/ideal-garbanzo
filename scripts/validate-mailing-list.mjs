@@ -15,12 +15,29 @@ if (config.cadence !== 'weekly') fail('Mailing list cadence must remain weekly.'
 if (config.sendDay !== 'Monday') fail('Weekly digest must send on Monday.');
 if (config.sendTimeUtc !== '16:00') fail('Weekly digest send time must remain 16:00 UTC.');
 
-for (const marker of ['id="weeklyAlertForm"', 'id="alertEmail"', 'Join weekly list', 'Get new openings every Monday.']) {
+const expectedAction = `https://buttondown.com/api/emails/embed-subscribe/${config.username}`;
+for (const marker of [
+  'id="weeklyAlertForm"',
+  'id="alertEmail"',
+  'name="email"',
+  `action="${expectedAction}"`,
+  'method="post"',
+  'name="embed" value="1"',
+  'name="tag" value="weekly-job-alerts"',
+  'name="utm_source" value="datacentercareers.us"',
+  'name="utm_medium" value="website"',
+  'name="utm_campaign" value="weekly-job-alerts"',
+  'Join weekly list',
+  'Get new openings every Monday.'
+]) {
   if (!homepage.includes(marker)) fail(`Homepage weekly signup is missing: ${marker}`);
 }
+
 if (!signupScript.includes('data/mailing-list.json')) fail('Signup script must load the mailing-list configuration.');
 if (!signupScript.includes('buttondown.com/api/emails/embed-subscribe/')) fail('Signup script must submit to Buttondown embedded subscribe.');
 if (!signupScript.includes('config?.enabled === true')) fail('Signup script must respect the enabled flag.');
+if (!signupScript.includes("const fallbackAction = form.getAttribute('action') || '';")) fail('Signup script must preserve the static Buttondown fallback action.');
+if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script must not disable the static fallback when config fetch fails.');
 
 if (!workflow.includes("cron: '0 16 * * 1'")) fail('Weekly digest workflow must run Mondays at 16:00 UTC.');
 if (!workflow.includes('BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}')) fail('Weekly digest workflow must use the Buttondown API secret.');
@@ -32,4 +49,4 @@ for (const marker of ['BUTTONDOWN_API_KEY', 'X-Buttondown-Live-Dangerously', '/v
 if (!digestScript.includes("if (!config.enabled && !dryRun)")) fail('Weekly digest sender must stop when the mailing list is disabled.');
 if (!digestScript.includes('if (!weeklyJobs.length)')) fail('Weekly digest sender must skip empty newsletters.');
 
-console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: Mondays at ${config.sendTimeUtc} UTC.`);
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: resilient static signup fallback with tagged attribution; Mondays at ${config.sendTimeUtc} UTC.`);

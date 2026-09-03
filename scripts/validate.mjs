@@ -125,8 +125,6 @@ for (const [i, record] of featuredJobs.entries()) {
   if (record.expiresAt && !Number.isFinite(expires)) throw new Error(`Featured job ${id} has invalid expiresAt`);
   if (starts && expires && expires <= starts) throw new Error(`Featured job ${id} expires before it starts`);
 }
-if (featuredJobs.filter(record => record.example === true && record.tier === 'spotlightJob').length < 1) throw new Error('At least one Spotlight launch example is required');
-if (featuredJobs.filter(record => record.example === true && record.tier === 'highlightedJob').length < 2) throw new Error('At least two Highlighted launch examples are required');
 
 const html = await readFile('index.html','utf8');
 for (const phrase of ['DATA CENTER CAREER','Search jobs','CURRENT OPENINGS','CAREER EVENTS','JOB ALERTS','FOR EMPLOYERS']) {

@@ -1,14 +1,24 @@
 {
-  "checkedAt": "2026-09-03T14:44:41.258Z",
-  "jobsBefore": 415,
-  "jobsAfter": 415,
+  "checkedAt": "2026-09-03T17:39:37.913Z",
+  "jobsBefore": 422,
+  "jobsAfter": 422,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5227684007",
+      "company": "xAI",
+      "title": "Chiller Technician",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5227684007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 2,
   "careerEventsAfter": 2,

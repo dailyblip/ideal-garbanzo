@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/jobs.json'
       - 'scripts/collect-*.mjs'
+      - 'scripts/recover-*.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
@@ -15,6 +16,7 @@ on:
     paths:
       - 'data/jobs.json'
       - 'scripts/collect-*.mjs'
+      - 'scripts/recover-*.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'

@@ -299,11 +299,12 @@ async function listRequisitions(site) {
   let pagesSucceeded = 0;
   let complete = false;
   let incompleteReason = null;
+  let offset = 0;
 
   for (let page = 0; page < MAX_PAGES; page += 1) {
-    const offset = page * PAGE_SIZE;
+    const currentOffset = offset;
     pagesAttempted += 1;
-    const json = await fetchJson(buildListUrl(site, offset));
+    const json = await fetchJson(buildListUrl(site, currentOffset));
     pagesSucceeded += 1;
     const item = Array.isArray(json?.items) ? json.items[0] : null;
     const pageRows = item && Array.isArray(item.requisitionList) ? item.requisitionList : [];
@@ -334,9 +335,18 @@ async function listRequisitions(site) {
       break;
     }
 
-    if (pageRows.length < PAGE_SIZE) {
-      if (total === null) complete = true;
-      else incompleteReason = `short page returned ${pageRows.length} rows at ${rows.length}/${total}`;
+    if (total === null && pageRows.length < PAGE_SIZE) {
+      complete = true;
+      break;
+    }
+
+    // Oracle Recruiting Cloud occasionally returns a short page before the reported
+    // total is exhausted (for example 199 rows on a 200-row request). Advance by the
+    // number of rows the API actually returned instead of assuming fixed-size pages,
+    // then keep reading until the reported total is reached or the source truly ends.
+    offset = currentOffset + pageRows.length;
+    if (offset <= currentOffset) {
+      incompleteReason = `pagination did not advance at ${rows.length}/${total ?? 'unknown'} unique rows`;
       break;
     }
   }

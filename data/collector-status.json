@@ -1,26 +1,26 @@
 {
-  "updatedAt": "2026-09-03T18:43:17.103Z",
-  "jobs": 410,
-  "sourcesAttempted": 36,
+  "updatedAt": "2026-09-03T18:45:45.761Z",
+  "jobs": 423,
+  "sourcesAttempted": 37,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
     "googleCareers": 1,
-    "oracleRecruitingCloud": 2,
+    "oracleRecruitingCloud": 3,
     "metaCareers": 13
   },
   "countsByType": {
-    "entry-level": 399,
+    "entry-level": 412,
     "trainee": 5,
     "apprenticeship": 4,
     "internship": 2
   },
   "countsByExperience": {
-    "2-5-years": 82,
+    "2-5-years": 90,
     "no-experience": 6,
-    "0-2-years": 322
+    "0-2-years": 327
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -124,10 +124,13 @@
     "officialSource": "https://www.digitalrealty.com/about/careers",
     "boardUrl": "https://hdep.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX",
     "sourceHealthy": true,
-    "candidateRows": 46,
-    "qualifyingRoles": 12,
+    "candidateRows": 47,
+    "detailAttempts": 47,
+    "detailFailures": 0,
+    "preservedPrevious": 0,
+    "qualifyingRoles": 13,
     "drops": {
-      "title": 143,
+      "title": 142,
       "nonUs": 33,
       "context": 0,
       "experience": 0,
@@ -201,21 +204,21 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-03T18:43:17.163Z",
+    "updatedAt": "2026-09-03T18:45:45.824Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 410,
+    "regionAssigned": 423,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 70,
-      "midwest": 71,
-      "west": 54,
-      "southwest": 45,
-      "northeast": 9,
-      "mid-atlantic": 78,
-      "texas": 83
+      "midwest": 72,
+      "west": 56,
+      "southwest": 46,
+      "northeast": 10,
+      "mid-atlantic": 81,
+      "texas": 88
     }
   },
   "postQa": {
@@ -575,20 +578,20 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-03T18:43:17.219Z",
-    "before": 410,
-    "after": 410,
+    "checkedAt": "2026-09-03T18:45:45.880Z",
+    "before": 423,
+    "after": 423,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 431,
-    "currentJobs": 410,
-    "newJobsThisRun": 0,
+    "trackedJobs": 432,
+    "currentJobs": 423,
+    "newJobsThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-03T18:43:17.266Z"
+    "updatedAt": "2026-09-03T18:45:45.931Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

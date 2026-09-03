@@ -496,7 +496,7 @@ try {
   if (partial) incompleteReason = error.message;
 }
 
-const withoutOracle = currentJobs.filter(job => job.company !== COMPANY && !/oraclecloud\.com\/hcmUI\/CandidateExperience\/.*\/job\//i.test(String(job.sourceUrl || '')) && !/^https:\/\/(?:www\.)?careers\.oracle\.com\//i.test(String(job.sourceUrl || '')));
+const withoutOracle = currentJobs.filter(job => job.company !== COMPANY);
 const merged = dedupe([...withoutOracle, ...snapshot]);
 const now = Date.now();
 for (const job of merged) {

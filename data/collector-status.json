@@ -1,29 +1,30 @@
 {
-  "updatedAt": "2026-09-03T17:39:17.602Z",
-  "jobs": 422,
-  "sourcesAttempted": 35,
+  "updatedAt": "2026-09-03T18:43:17.103Z",
+  "jobs": 410,
+  "sourcesAttempted": 36,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
     "googleCareers": 1,
-    "oracleRecruitingCloud": 1,
+    "oracleRecruitingCloud": 2,
     "metaCareers": 13
   },
   "countsByType": {
-    "entry-level": 411,
+    "entry-level": 399,
     "trainee": 5,
     "apprenticeship": 4,
     "internship": 2
   },
   "countsByExperience": {
-    "2-5-years": 89,
+    "2-5-years": 82,
     "no-experience": 6,
-    "0-2-years": 327
+    "0-2-years": 322
   },
   "errors": [
-    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
+    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in",
+    "Oracle Careers: jobsearch: incomplete listing (short page returned 199 rows at 2199/2248) | CX_1: incomplete listing (short page returned 199 rows at 2199/2248)"
   ],
   "majorSources": {
     "attempted": 6,
@@ -200,21 +201,21 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-03T17:39:17.732Z",
+    "updatedAt": "2026-09-03T18:43:17.163Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 422,
+    "regionAssigned": 410,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 70,
-      "midwest": 72,
-      "west": 56,
-      "southwest": 46,
-      "northeast": 10,
-      "mid-atlantic": 81,
-      "texas": 87
+      "midwest": 71,
+      "west": 54,
+      "southwest": 45,
+      "northeast": 9,
+      "mid-atlantic": 78,
+      "texas": 83
     }
   },
   "postQa": {
@@ -574,20 +575,20 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-03T17:39:17.780Z",
-    "before": 422,
-    "after": 422,
+    "checkedAt": "2026-09-03T18:43:17.219Z",
+    "before": 410,
+    "after": 410,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 431,
-    "currentJobs": 422,
-    "newJobsThisRun": 2,
+    "currentJobs": 410,
+    "newJobsThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-03T17:39:38.021Z"
+    "updatedAt": "2026-09-03T18:43:17.266Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -688,6 +689,34 @@
         "company": "Amazon Web Services",
         "title": "Data Center Technician, Human Resources"
       }
+    ]
+  },
+  "oracleCareers": {
+    "officialSource": "https://careers.oracle.com/",
+    "boardUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch",
+    "site": null,
+    "sourceHealthy": false,
+    "listingComplete": false,
+    "totalOpenRoles": null,
+    "listingRows": 0,
+    "pagesAttempted": 0,
+    "pagesSucceeded": 0,
+    "incompleteReason": "jobsearch: incomplete listing (short page returned 199 rows at 2199/2248) | CX_1: incomplete listing (short page returned 199 rows at 2199/2248)",
+    "candidateRows": 0,
+    "detailAttempted": 0,
+    "detailFailed": 0,
+    "preservedFromPrevious": 0,
+    "qualifyingRoles": 0,
+    "drops": {
+      "title": 0,
+      "nonUs": 0,
+      "context": 0,
+      "experience": 0,
+      "missingId": 0,
+      "fetch": 0
+    },
+    "errors": [
+      "jobsearch: incomplete listing (short page returned 199 rows at 2199/2248) | CX_1: incomplete listing (short page returned 199 rows at 2199/2248)"
     ]
   }
 }

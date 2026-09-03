@@ -8,6 +8,8 @@ const normalizeIdentity = value => String(value ?? '')
   .replace(/[^a-z0-9]+/g, ' ')
   .trim();
 
+const hasNumericReqPrefix = title => /^\s*\d{2,5}\s*[-–—]/u.test(String(title || ''));
+
 function canonicalTitle(job) {
   let title = String(job.title || '').trim();
   const location = normalizeIdentity(job.location);
@@ -16,6 +18,11 @@ function canonicalTitle(job) {
     const tokens = normalizeIdentity(tail).split(' ').filter(token => token.length > 1);
     return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
   };
+  // Some Workday boards prepend internal numeric requisition labels to otherwise
+  // identical public titles (for example, "989 - Data Center Technician L1").
+  // QA already treats those labels as non-semantic, so collapse them here too so
+  // duplicate roles never need to reach the live-link QA stage.
+  title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
   title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
   title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
   return normalizeIdentity(title);
@@ -49,6 +56,10 @@ function qualityScore(job) {
   if (Number.isFinite(Number(job.salaryMax))) score += 2;
   if (job.postedAt) score += 2;
   if (job.region) score += 1;
+  // Prefer the clean public-facing title when a duplicate carries an internal
+  // numeric requisition prefix. This mirrors the later QA preference while
+  // removing the duplicate before publication checks.
+  if (!hasNumericReqPrefix(job.title)) score += 4;
   return score;
 }
 

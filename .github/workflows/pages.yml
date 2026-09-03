@@ -63,6 +63,8 @@ jobs:
         run: node scripts/collect-equinix-v2.mjs
       - name: Add Equinix US early-career roles
         run: node scripts/collect-equinix-early.mjs
+      - name: Enforce mission-fit role families
+        run: node scripts/filter-mission-fit.mjs
       - name: Normalize job locations
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
@@ -120,6 +122,8 @@ jobs:
           done
       - name: Apply current CoreSite verified fallback for the build
         run: node scripts/apply-coresite-verified-fallback.mjs
+      - name: Enforce mission-fit role families for the build
+        run: node scripts/filter-mission-fit.mjs
       - name: Normalize job locations for the build
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs for the build

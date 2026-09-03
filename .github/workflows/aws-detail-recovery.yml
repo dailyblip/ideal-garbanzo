@@ -1,0 +1,62 @@
+name: Recover AWS job requirements
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/recover-amazon-details.mjs'
+      - '.github/workflows/aws-detail-recovery.yml'
+  schedule:
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aws-detail-recovery
+  cancel-in-progress: true
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Recover verified AWS requirements
+        run: |
+          node --check scripts/recover-amazon-details.mjs
+          node scripts/recover-amazon-details.mjs
+      - name: Normalize recovered feed
+        run: |
+          node scripts/filter-mission-fit.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/normalize-display-copy.mjs
+          node scripts/refresh-region-status.mjs
+          node scripts/stamp-job-history.mjs
+      - name: Validate recovered feed
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-promotions.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-mailing-list.mjs
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate-priority-employer-sources.mjs
+      - name: Commit verified AWS recovery
+        run: |
+          if [ -z "$(git status --porcelain -- data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json)" ]; then
+            echo "No AWS recovery changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json
+            git commit -m "Recover verified AWS data center roles"
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi

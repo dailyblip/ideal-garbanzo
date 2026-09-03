@@ -118,6 +118,55 @@ function structuredText(html) {
   return clean([...metaDescriptions, ...strings].join(' '));
 }
 
+function findJobPostingObjects(node, out = [], seen = new Set(), depth = 0) {
+  if (!node || typeof node !== 'object' || seen.has(node) || depth > 16) return out;
+  seen.add(node);
+  if (Array.isArray(node)) {
+    for (const item of node) findJobPostingObjects(item, out, seen, depth + 1);
+    return out;
+  }
+
+  const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']];
+  if (types.some(type => /JobPosting/i.test(String(type || '')))) out.push(node);
+  for (const value of Object.values(node)) findJobPostingObjects(value, out, seen, depth + 1);
+  return out;
+}
+
+function jobPostingMinimum(html) {
+  const postings = [];
+  for (const match of String(html || '').matchAll(/<script\b[^>]*type=["']application\/ld\+json[^"']*["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    const raw = match[1] || '';
+    if (!raw.trim()) continue;
+    try {
+      findJobPostingObjects(JSON.parse(raw), postings);
+    } catch {}
+  }
+
+  for (const posting of postings) {
+    const description = clean(decodeEscapes(posting.description || ''));
+    const scoped = minimumBlock(description);
+    if (scoped) return { text: scoped, source: 'jobposting-jsonld' };
+
+    const direct = [];
+    for (const key of ['experienceRequirements', 'qualifications']) {
+      const value = posting[key];
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          const text = clean(decodeEscapes(typeof item === 'string' ? item : item?.name || item?.description || ''));
+          if (text) direct.push(text);
+        }
+      } else {
+        const text = clean(decodeEscapes(typeof value === 'string' ? value : value?.name || value?.description || ''));
+        if (text) direct.push(text);
+      }
+    }
+    const directText = clean(direct.join(' '));
+    if (directText && requiredYears(directText) != null) return { text: directText, source: 'jobposting-jsonld' };
+  }
+
+  return { text: '', source: '' };
+}
+
 function minimumBlock(text) {
   const normalized = clean(decodeEscapes(text));
   const heading = headingPattern.exec(normalized);
@@ -148,6 +197,9 @@ function findMinimumQualifications(html) {
   const visible = visibleText(html);
   const visibleMinimum = minimumBlock(visible);
   if (visibleMinimum) return { text: visibleMinimum, source: 'visible-html' };
+
+  const jobPosting = jobPostingMinimum(html);
+  if (jobPosting.text) return jobPosting;
 
   const structured = structuredText(html);
   const structuredMinimum = minimumBlock(structured);
@@ -230,6 +282,7 @@ const recovery = {
   fetched: 0,
   recovered: 0,
   minimumFromVisibleHtml: 0,
+  minimumFromJobPostingJsonLd: 0,
   minimumFromStructuredData: 0,
   noMinimumQualifications: 0,
   noSupportedExperience: 0,
@@ -251,6 +304,7 @@ for (const sample of candidates) {
       continue;
     }
     if (minimum.source === 'visible-html') recovery.minimumFromVisibleHtml += 1;
+    if (minimum.source === 'jobposting-jsonld') recovery.minimumFromJobPostingJsonLd += 1;
     if (minimum.source === 'structured-data') recovery.minimumFromStructuredData += 1;
 
     const cls = classify(sample.title, minimum.text);

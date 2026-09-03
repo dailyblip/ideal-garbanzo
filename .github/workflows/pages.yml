@@ -192,14 +192,15 @@ jobs:
       - name: Verify custom-domain deployment
         run: |
           set -euo pipefail
-          base='${{ steps.deployment.outputs.page_url }}'
-          base="${base%/}"
+          reported_base='${{ steps.deployment.outputs.page_url }}'
+          reported_base="${reported_base%/}"
+          base='https://datacentercareers.us'
           expected_sha="$(git rev-parse HEAD)"
 
-          case "$base" in
+          case "$reported_base" in
             *datacentercareers.us*) ;;
             *)
-              echo "::error::Pages reported an unexpected public URL: $base"
+              echo "::error::Pages reported an unexpected public URL: $reported_base"
               exit 1
               ;;
           esac
@@ -210,21 +211,23 @@ jobs:
 
           for attempt in $(seq 1 18); do
             cache_key="${expected_sha}-$(date +%s)-${attempt}"
-            curl_status=0
-            curl "${curl_args[@]}" "${base}/deployment-version.json?deploy=${cache_key}" -o /tmp/deployment-version.json || curl_status=$?
-            if [ "$curl_status" -eq 0 ]; then
+            actual_sha=''
+            if curl "${curl_args[@]}" "${base}/deployment-version.json?deploy=${cache_key}" -o /tmp/deployment-version.json; then
               actual_sha="$(node -e "try { console.log(require('/tmp/deployment-version.json').sha || '') } catch { console.log('') }" 2>/dev/null)"
               if [ "$actual_sha" = "$expected_sha" ]; then
                 ready=true
                 break
               fi
+            else
+              curl_status=$?
+              echo "Custom-domain HTTPS check failed (attempt ${attempt}/18; curl exit ${curl_status})."
             fi
             echo "Waiting for custom-domain edge to serve revision ${expected_sha:0:8} (attempt ${attempt}/18; saw ${actual_sha:-none})."
-            sleep 10
+            if [ "$attempt" -lt 18 ]; then sleep 10; fi
           done
 
           if [ "$ready" != true ]; then
-            echo "::error::Custom domain did not serve the deployed revision ${expected_sha} within the propagation window; last revision was ${actual_sha:-unreadable}."
+            echo "::error::Custom domain did not serve the deployed revision ${expected_sha} over verified HTTPS within the propagation window; last revision was ${actual_sha:-unreadable}."
             exit 1
           fi
 

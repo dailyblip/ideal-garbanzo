@@ -16,6 +16,19 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const identity = job => [job?.company, job?.title, job?.location].map(normalize).join('|');
 const jobKey = job => clean(job?.id) || clean(job?.sourceUrl) || identity(job);
+const clearlyForeignLocationTerms = [
+  'malaysia', 'india', 'indonesia', 'japan', 'taiwan', 'thailand', 'germany', 'england', 'united kingdom', 'uk',
+  'wales', 'netherlands', 'switzerland', 'ireland', 'canada', 'hong kong', 'china', 'singapore', 'australia', 'france',
+  'spain', 'italy', 'poland', 'sweden', 'norway', 'denmark', 'belgium', 'austria', 'portugal',
+  'brazil', 'mexico', 'south africa', 'united arab emirates',
+  'montreal quebec', 'toronto on', 'frankfurt', 'amsterdam', 'ams1', 'eemshaven', 'bengaluru', 'noida',
+  'navi mumbai', 'mumbai', 'osaka', 'taipei', 'cyberjaya', 'munich', 'zurich', 'jakarta', 'chon buri'
+].map(normalize);
+
+function clearlyOutsideUnitedStates(job) {
+  const text = ` ${normalize(`${job?.location || ''} ${job?.sourceUrl || ''}`)} `;
+  return clearlyForeignLocationTerms.some(term => term && text.includes(` ${term} `));
+}
 
 async function readJson(path) {
   const value = JSON.parse(await readFile(path, 'utf8'));
@@ -43,8 +56,10 @@ function dedupe(jobs) {
 }
 
 const jobs = await readJson(JOBS_PATH);
-const majorSnapshot = dedupe(await readJson(MAJOR_PATH));
-if (!majorSnapshot.length) throw new Error('Refusing to reconcile an empty major-employer snapshot.');
+const rawMajorSnapshot = dedupe(await readJson(MAJOR_PATH));
+const foreignMajor = rawMajorSnapshot.filter(clearlyOutsideUnitedStates);
+const majorSnapshot = rawMajorSnapshot.filter(job => !clearlyOutsideUnitedStates(job));
+if (!majorSnapshot.length) throw new Error('Refusing to reconcile an empty U.S. major-employer snapshot.');
 
 for (const job of majorSnapshot) {
   if (!majorCompanies.has(clean(job.company))) {
@@ -78,5 +93,6 @@ if (reconciledMajor.length !== majorSnapshot.length) {
   throw new Error(`Major-employer reconciliation mismatch: snapshot=${majorSnapshot.length}, feed=${reconciledMajor.length}.`);
 }
 
+await writeFile(MAJOR_PATH, JSON.stringify(majorSnapshot, null, 2) + '\n');
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
-console.log(`Reconciled ${majorSnapshot.length} major-employer jobs into the feed; removed ${staleRemoved} stale records${preserveExisting ? ' while preserving normalized current records' : ''}.`);
+console.log(`Reconciled ${majorSnapshot.length} U.S. major-employer jobs into the feed; filtered ${foreignMajor.length} clearly non-U.S. records and removed ${staleRemoved} stale records${preserveExisting ? ' while preserving normalized current records' : ''}.`);

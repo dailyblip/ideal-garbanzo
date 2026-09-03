@@ -1,365 +1,34 @@
 {
-  "checkedAt": "2026-09-01T21:47:00.079Z",
-  "jobsBefore": 314,
-  "jobsAfter": 263,
+  "checkedAt": "2026-09-03T14:41:55.777Z",
+  "jobsBefore": 385,
+  "jobsAfter": 384,
   "demoJobsRemoved": [],
-  "nonUsJobsRemoved": [
+  "nonUsJobsRemoved": [],
+  "unresolvedLocationJobsRemoved": [],
+  "duplicatesRemoved": [],
+  "deadJobLinksRemoved": [
     {
-      "id": "workday-vantagedc-R15747",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Engineer - London, North Acton",
-      "location": "London, England"
-    },
-    {
-      "id": "workday-vantagedc-R24360",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Technician - Offenbach",
-      "location": "Frankfurt, Germany"
-    },
-    {
-      "id": "workday-vantagedc-R23286",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Technician",
-      "location": "Zurich, Switzerland"
-    },
-    {
-      "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-      "company": "Serverfarm",
-      "title": "Junior Data Center Shift Engineer",
-      "location": "AMS1"
-    },
-    {
-      "id": "gh-xai-5169675007",
-      "company": "xAI",
-      "title": "Network Operations Technician (SpaceXAI / Starlink)",
-      "location": "Dublin, Ireland"
-    },
-    {
-      "id": "workday-vantagedc-R23998",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Technician, NA",
-      "location": "Montreal, Quebec"
-    },
-    {
-      "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
-      "company": "Serverfarm",
-      "title": "Data Center Technician",
-      "location": "Toronto, ON"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR100491",
-      "company": "NTT Global Data Centers",
-      "title": "276 - Associate Critical Facilities Maintenance Engineer",
-      "location": "Jakarta, Indonesia"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR101004",
-      "company": "NTT Global Data Centers",
-      "title": "Data Center Technician (m/f/d) - AMS1",
-      "location": "Amsterdam, Netherlands"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR101184",
-      "company": "NTT Global Data Centers",
-      "title": "Specialist - Data Center Operations",
-      "location": "Bengaluru, India"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR101869",
-      "company": "NTT Global Data Centers",
-      "title": "Specialist - Data Center Operations",
-      "location": "Noida, India"
-    },
-    {
-      "id": "workday-vantagedc-R23618",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Engineer, Japan",
-      "location": "Osaka, Japan"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR101801",
-      "company": "NTT Global Data Centers",
-      "title": "Specialist - Data Center Operations",
-      "location": "Navi Mumbai, india"
-    },
-    {
-      "id": "workday-vantagedc-R23378",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Engineer, EMEA",
-      "location": "Newport, Wales"
-    },
-    {
-      "id": "workday-vantagedc-R23196",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Technician, Taiwan",
-      "location": "Taipei, Taiwan"
-    },
-    {
-      "id": "workday-vantagedc-R20519",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Technician, Malaysia",
-      "location": "Cyberjaya, Malaysia"
-    },
-    {
-      "id": "workday-vantagedc-R15963",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Engineer, Malaysia",
-      "location": "Cyberjaya, Malaysia"
-    },
-    {
-      "id": "workday-qtsdatacenters-R2024-0682",
-      "company": "QTS Data Centers",
-      "title": "Critical Environment Engineer",
-      "location": "EUR NL Eemshaven 1 DC1"
-    },
-    {
-      "id": "workday-qtsdatacenters-R2024-1345",
-      "company": "QTS Data Centers",
-      "title": "Data Centre Technician I",
-      "location": "EUR NL Eemshaven 1 DC1"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR101760",
-      "company": "NTT Global Data Centers",
-      "title": "Critical Facilities Maintenance Shift Engineer LON1",
-      "location": "Dagenham, UK"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR101614",
-      "company": "NTT Global Data Centers",
-      "title": "Specialist- Data Center Operations",
-      "location": "Mumbai, India"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR101647",
-      "company": "NTT Global Data Centers",
-      "title": "Associate Critical Facilities Maintenance Engineer",
-      "location": "Cyberjaya, Malaysia"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR101626",
-      "company": "NTT Global Data Centers",
-      "title": "Specialist - Data Centre Operations",
-      "location": "Mumbai, India"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR100945",
-      "company": "NTT Global Data Centers",
-      "title": "5231 Associate Critical Facilities Maintenance Engineer",
-      "location": "Cyberjaya, Malaysia"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR100949",
-      "company": "NTT Global Data Centers",
-      "title": "5235 Critical Facilities Maintenance Technician",
-      "location": "Chon Buri, Thailand"
-    },
-    {
-      "id": "workday-nttglobaldatacenters-JR100493",
-      "company": "NTT Global Data Centers",
-      "title": "261 - Skilled Critical Facilities Maintenance Technician",
-      "location": "Jakarta, Indonesia"
-    },
-    {
-      "id": "lever-serverfarm-efee0b18-cf53-4d89-a618-0f782b9a2b3f",
-      "company": "Serverfarm",
-      "title": "Data Center Operations Administrator",
-      "location": "AMS1"
-    },
-    {
-      "id": "ashby-lambda-8308606de297f6",
-      "company": "Lambda",
-      "title": "Data Center Operations System Engineer III (Querétaro, Mexico)",
-      "location": "Querétaro, Mexico - Data Center"
+      "id": "lever-cologix-aba6d50a-467f-4f68-a402-39249bf42337",
+      "company": "Cologix",
+      "title": "Data Center Electrician 1st shift (Monday- Friday)",
+      "url": "https://jobs.lever.co/cologix/aba6d50a-467f-4f68-a402-39249bf42337",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/cologix/aba6d50a-467f-4f68-a402-39249bf42337"
     }
   ],
-  "unresolvedLocationJobsRemoved": [
-    {
-      "id": "workday-vantagedc-R23332",
-      "company": "Vantage Data Centers",
-      "title": "Critical Facilities Technician",
-      "location": "2 Locations"
-    },
-    {
-      "id": "workday-qtsdatacenters-R2026-1093",
-      "company": "QTS Data Centers",
-      "title": "Critical Environment Engineer",
-      "location": "2 Locations"
-    }
-  ],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101968",
-      "keptId": "workday-nttglobaldatacenters-R-138957",
-      "company": "NTT Global Data Centers",
-      "title": "Data Center Technician L1",
-      "location": "Ashburn, Virginia"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101903",
-      "keptId": "workday-nttglobaldatacenters-JR101981",
-      "company": "NTT Global Data Centers",
-      "title": "1077 - Data Center Technician L2",
-      "location": "Mesa, Arizona"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101912",
-      "keptId": "workday-nttglobaldatacenters-JR101861",
-      "company": "NTT Global Data Centers",
-      "title": "1127 - Data Center Technician L2",
-      "location": "Hillsboro, Oregon"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101573",
-      "keptId": "workday-nttglobaldatacenters-JR101861",
-      "company": "NTT Global Data Centers",
-      "title": "1038 - Data Center Technician L2",
-      "location": "Hillsboro, Oregon"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101533",
-      "keptId": "workday-nttglobaldatacenters-JR101799",
-      "company": "NTT Global Data Centers",
-      "title": "5155 - Data Center IT Infrastructure Technician",
-      "location": "Ashburn, Virginia"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "US GA Atlanta Suwanee 1 DC1"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101847",
-      "keptId": "workday-nttglobaldatacenters-JR101198",
-      "company": "NTT Global Data Centers",
-      "title": "Data Center Technician L1",
-      "location": "Chicago, Illinois"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101681",
-      "keptId": "workday-nttglobaldatacenters-R-138957",
-      "company": "NTT Global Data Centers",
-      "title": "989 - Data Center Technician L1",
-      "location": "Ashburn, Virginia"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101746",
-      "keptId": "workday-nttglobaldatacenters-R-138957",
-      "company": "NTT Global Data Centers",
-      "title": "955 - Data Center Technician L1",
-      "location": "Ashburn, Virginia"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101755",
-      "keptId": "workday-nttglobaldatacenters-JR101821",
-      "company": "NTT Global Data Centers",
-      "title": "1162 - Data Center Technician L2",
-      "location": "Garland, Texas"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101610",
-      "keptId": "workday-nttglobaldatacenters-R-138957",
-      "company": "NTT Global Data Centers",
-      "title": "919 - Data Center Technician L1",
-      "location": "Ashburn, Virginia"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101398",
-      "keptId": "workday-nttglobaldatacenters-JR101821",
-      "company": "NTT Global Data Centers",
-      "title": "960 - Data Center Technician L2",
-      "location": "Garland, Texas"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101474",
-      "keptId": "workday-nttglobaldatacenters-JR101859",
-      "company": "NTT Global Data Centers",
-      "title": "5217 - Data Center Technician L1",
-      "location": "Gainesville, Virginia"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101240",
-      "keptId": "workday-nttglobaldatacenters-JR101929",
-      "company": "NTT Global Data Centers",
-      "title": "914 - Data Center Technician L2",
-      "location": "Chicago, Illinois"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101118",
-      "keptId": "workday-nttglobaldatacenters-JR101153",
-      "company": "NTT Global Data Centers",
-      "title": "Data Center Technician L1",
-      "location": "Mesa, Arizona"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101981",
-      "keptId": "workday-nttglobaldatacenters-JR101166",
-      "company": "NTT Global Data Centers",
-      "title": "Data Center Technician L2",
-      "location": "Mesa, Arizona"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR101129",
-      "keptId": "workday-nttglobaldatacenters-JR101929",
-      "company": "NTT Global Data Centers",
-      "title": "5174 - Data Center Technician L2",
-      "location": "Chicago, Illinois"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR100547",
-      "keptId": "workday-nttglobaldatacenters-JR101821",
-      "company": "NTT Global Data Centers",
-      "title": "5203 - Data Center Technician L2",
-      "location": "Garland, Texas"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR100813",
-      "keptId": "workday-nttglobaldatacenters-JR101198",
-      "company": "NTT Global Data Centers",
-      "title": "5166 - Data Center Technician L1",
-      "location": "Chicago, Illinois"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR100434",
-      "keptId": "workday-nttglobaldatacenters-JR101514",
-      "company": "NTT Global Data Centers",
-      "title": "2225 - Data Center Technician L1",
-      "location": "Garland, Texas"
-    },
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-nttglobaldatacenters-JR100436",
-      "keptId": "workday-nttglobaldatacenters-JR101821",
-      "company": "NTT Global Data Centers",
-      "title": "2227 - Data Center Technician L2",
-      "location": "Garland, Texas"
-    }
-  ],
-  "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5182046007",
+      "company": "xAI",
+      "title": "Mechanical Engineer (Data Center Infrastructure)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5182046007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 2,
   "careerEventsAfter": 2,
@@ -370,90 +39,120 @@
   "warningCareerEventLinks": [],
   "homepageExternalLinks": [
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/",
+      "url": "https://datacentercareers.us/",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/"
+      "finalUrl": "https://datacentercareers.us/"
     }
   ],
   "criticalSiteLinks": [
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/",
+      "url": "https://datacentercareers.us/",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/"
+      "finalUrl": "https://datacentercareers.us/"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/assets/styles.css",
+      "url": "https://datacentercareers.us/assets/styles.css",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/assets/styles.css"
+      "finalUrl": "https://datacentercareers.us/assets/styles.css"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/assets/app.js",
+      "url": "https://datacentercareers.us/assets/app.js",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/assets/app.js"
+      "finalUrl": "https://datacentercareers.us/assets/app.js"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/hero.jpg",
+      "url": "https://datacentercareers.us/assets/mailing-list.js",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/hero.jpg"
+      "finalUrl": "https://datacentercareers.us/assets/mailing-list.js"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/jobs/",
+      "url": "https://datacentercareers.us/assets/seo.css",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/jobs/"
+      "finalUrl": "https://datacentercareers.us/assets/seo.css"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/apprenticeships/",
+      "url": "https://datacentercareers.us/hero.jpg",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/apprenticeships/"
+      "finalUrl": "https://datacentercareers.us/hero.jpg"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/internships/",
+      "url": "https://datacentercareers.us/data/jobs.json",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/internships/"
+      "finalUrl": "https://datacentercareers.us/data/jobs.json"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/entry-level/",
+      "url": "https://datacentercareers.us/data/career-events.json",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/entry-level/"
+      "finalUrl": "https://datacentercareers.us/data/career-events.json"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/career-events/",
+      "url": "https://datacentercareers.us/jobs/",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/career-events/"
+      "finalUrl": "https://datacentercareers.us/jobs/"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/how-to-get-a-data-center-job/",
+      "url": "https://datacentercareers.us/apprenticeships/",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/how-to-get-a-data-center-job/"
+      "finalUrl": "https://datacentercareers.us/apprenticeships/"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/how-to-get-a-data-center-internship/",
+      "url": "https://datacentercareers.us/internships/",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/how-to-get-a-data-center-internship/"
+      "finalUrl": "https://datacentercareers.us/internships/"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/assets/guides/data-center-career-guide-mentor.webp",
+      "url": "https://datacentercareers.us/entry-level/",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/assets/guides/data-center-career-guide-mentor.webp"
+      "finalUrl": "https://datacentercareers.us/entry-level/"
     },
     {
-      "url": "https://dailyblip.github.io/ideal-garbanzo/assets/guides/data-center-internship-training.webp",
+      "url": "https://datacentercareers.us/career-events/",
       "state": "ok",
       "status": 200,
-      "finalUrl": "https://dailyblip.github.io/ideal-garbanzo/assets/guides/data-center-internship-training.webp"
+      "finalUrl": "https://datacentercareers.us/career-events/"
+    },
+    {
+      "url": "https://datacentercareers.us/employers/",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://datacentercareers.us/employers/"
+    },
+    {
+      "url": "https://datacentercareers.us/how-to-get-a-data-center-job/",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://datacentercareers.us/how-to-get-a-data-center-job/"
+    },
+    {
+      "url": "https://datacentercareers.us/how-to-get-a-data-center-internship/",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://datacentercareers.us/how-to-get-a-data-center-internship/"
+    },
+    {
+      "url": "https://datacentercareers.us/assets/guides/data-center-career-guide-mentor.webp",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://datacentercareers.us/assets/guides/data-center-career-guide-mentor.webp"
+    },
+    {
+      "url": "https://datacentercareers.us/assets/guides/data-center-internship-training.webp",
+      "state": "ok",
+      "status": 200,
+      "finalUrl": "https://datacentercareers.us/assets/guides/data-center-internship-training.webp"
     }
   ]
 }

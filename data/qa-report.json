@@ -1,34 +1,14 @@
 {
-  "checkedAt": "2026-09-03T14:41:55.777Z",
-  "jobsBefore": 385,
-  "jobsAfter": 384,
+  "checkedAt": "2026-09-03T14:44:41.258Z",
+  "jobsBefore": 415,
+  "jobsAfter": 415,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "lever-cologix-aba6d50a-467f-4f68-a402-39249bf42337",
-      "company": "Cologix",
-      "title": "Data Center Electrician 1st shift (Monday- Friday)",
-      "url": "https://jobs.lever.co/cologix/aba6d50a-467f-4f68-a402-39249bf42337",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://jobs.lever.co/cologix/aba6d50a-467f-4f68-a402-39249bf42337"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "gh-xai-5182046007",
-      "company": "xAI",
-      "title": "Mechanical Engineer (Data Center Infrastructure)",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5182046007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 2,
   "careerEventsAfter": 2,

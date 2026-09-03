@@ -22,6 +22,15 @@ const officialHostsByCompany = new Map([
   ['Aligned Data Centers', new Set(['aligneddc.wd12.myworkdayjobs.com'])]
 ]);
 
+// Oracle and Digital Realty both use Oracle Recruiting Cloud, but on different
+// tenants. Protect their dedicated snapshots independently so a generic
+// oraclecloud.com reconciliation rule cannot silently delete another employer's
+// records. Allow some post-collector QA attrition; block only severe divergence.
+const protectedSnapshots = [
+  { company: 'Oracle', path: 'data/oracle-jobs.json' },
+  { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' }
+];
+
 const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs) || jobs.length === 0) throw new Error('Priority-source guard requires a non-empty jobs.json array.');
 
@@ -46,9 +55,35 @@ for (const job of jobs) {
   }
 }
 
+for (const { company, path } of protectedSnapshots) {
+  let snapshot;
+  try {
+    snapshot = JSON.parse(await readFile(path, 'utf8'));
+  } catch (error) {
+    violations.push(`${company}: dedicated snapshot ${path} could not be read (${error.message})`);
+    continue;
+  }
+  if (!Array.isArray(snapshot)) {
+    violations.push(`${company}: dedicated snapshot ${path} is not an array`);
+    continue;
+  }
+  const foreign = snapshot.filter(job => String(job?.company || '').trim() !== company);
+  if (foreign.length) {
+    violations.push(`${company}: dedicated snapshot contains ${foreign.length} record(s) owned by another company`);
+  }
+
+  const snapshotCount = snapshot.length;
+  const publicCount = counts.get(company) || 0;
+  if (snapshotCount >= 3 && publicCount === 0) {
+    violations.push(`${company}: ${snapshotCount} dedicated snapshot roles collapsed to zero in the public feed`);
+  } else if (snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
+    violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} dedicated snapshot roles`);
+  }
+}
+
 if (violations.length) {
   for (const violation of violations) console.error(`Priority-source violation: ${violation}`);
-  throw new Error(`Blocked ${violations.length} priority-employer job(s) that were not linked directly to an approved employer career host.`);
+  throw new Error(`Blocked ${violations.length} priority-employer source or snapshot integrity violation(s).`);
 }
 
 const represented = [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));

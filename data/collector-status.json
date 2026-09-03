@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-03T05:46:30.273Z",
+  "updatedAt": "2026-09-03T12:49:42.840Z",
   "jobs": 262,
-  "sourcesAttempted": 33,
+  "sourcesAttempted": 34,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -9,7 +9,7 @@
     "workday": 6,
     "googleCareers": 1,
     "oracleRecruitingCloud": 1,
-    "metaCareers": 11
+    "metaCareers": 12
   },
   "countsByType": {
     "apprenticeship": 4,
@@ -200,7 +200,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-03T05:46:30.335Z",
+    "updatedAt": "2026-09-03T12:49:42.902Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 262,
@@ -232,37 +232,52 @@
       "searchPagesSucceeded": 2,
       "embeddedCandidates": 0,
       "sitemapFetched": true,
-      "sitemapJobs": 891,
-      "detailAttempted": 891,
-      "detailSucceeded": 891,
+      "sitemapJobs": 890,
+      "detailAttempted": 890,
+      "detailSucceeded": 890,
       "reusedFromSitemap": 0,
       "verified": 0,
       "drops": {
-        "titleOrContext": 876,
+        "titleOrContext": 875,
         "nonUsOrUnknownLocation": 1,
         "experience": 14,
         "fetch": 0
       },
       "titleOrContextSamples": [
         {
-          "id": "1734358140739006",
-          "title": "Network Engineer, Deployment & Support",
-          "url": "https://www.metacareers.com/profile/job_details/1734358140739006/"
+          "id": "1290978636169314",
+          "title": "Data Scientist, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/1290978636169314/"
         },
         {
-          "id": "1201679578735137",
-          "title": "Network Engineer, Foundations and Support",
-          "url": "https://www.metacareers.com/profile/job_details/1201679578735137/"
+          "id": "1823307875501968",
+          "title": "Software Engineer, SystemML - AI Networking",
+          "url": "https://www.metacareers.com/profile/job_details/1823307875501968/"
         },
         {
-          "id": "1068302586153033",
-          "title": "Data Scientist, Analytics (Ranking, AI)",
-          "url": "https://www.metacareers.com/profile/job_details/1068302586153033/"
+          "id": "1715110433259303",
+          "title": "Business Support Engineer - AdTech",
+          "url": "https://www.metacareers.com/profile/job_details/1715110433259303/"
         },
         {
-          "id": "1283364266159062",
-          "title": "Data Engineer, Product Analytics",
-          "url": "https://www.metacareers.com/profile/job_details/1283364266159062/"
+          "id": "2082780019279407",
+          "title": "Software Engineer, Systems",
+          "url": "https://www.metacareers.com/profile/job_details/2082780019279407/"
+        },
+        {
+          "id": "2104531577114985",
+          "title": "Creative X: Program Manager, APAC Marketing",
+          "url": "https://www.metacareers.com/profile/job_details/2104531577114985/"
+        },
+        {
+          "id": "2101592967909191",
+          "title": "Program Manager, Regional Regulatory Readiness - EMEA",
+          "url": "https://www.metacareers.com/profile/job_details/2101592967909191/"
+        },
+        {
+          "id": "1383499427086968",
+          "title": "Global Business Development Manager, Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/1383499427086968/"
         },
         {
           "id": "2486789151677735",
@@ -270,14 +285,14 @@
           "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
         },
         {
-          "id": "1389328523345705",
-          "title": "Supply Chain Capacity Engineer - Business Enablement",
-          "url": "https://www.metacareers.com/profile/job_details/1389328523345705/"
-        },
-        {
           "id": "1494123969078009",
           "title": "Critical Operations Manager",
           "url": "https://www.metacareers.com/profile/job_details/1494123969078009/"
+        },
+        {
+          "id": "1075389717795087",
+          "title": "Software Engineer (Technical Leadership) - Machine Learning",
+          "url": "https://www.metacareers.com/profile/job_details/1075389717795087/"
         },
         {
           "id": "1364695832515523",
@@ -285,39 +300,29 @@
           "url": "https://www.metacareers.com/profile/job_details/1364695832515523/"
         },
         {
-          "id": "1596778485454042",
-          "title": "Battery Algorithm Engineer",
-          "url": "https://www.metacareers.com/profile/job_details/1596778485454042/"
+          "id": "1283364266159062",
+          "title": "Data Engineer, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/1283364266159062/"
         },
         {
-          "id": "435020605866341",
-          "title": "Data Scientist, Product Analytics",
-          "url": "https://www.metacareers.com/profile/job_details/435020605866341/"
+          "id": "1734358140739006",
+          "title": "Network Engineer, Deployment & Support",
+          "url": "https://www.metacareers.com/profile/job_details/1734358140739006/"
         },
         {
-          "id": "1120530887203915",
-          "title": "Research Scientist, AI & Systems Co-Design (PhD)",
-          "url": "https://www.metacareers.com/profile/job_details/1120530887203915/"
+          "id": "1068302586153033",
+          "title": "Data Scientist, Analytics (Ranking, AI)",
+          "url": "https://www.metacareers.com/profile/job_details/1068302586153033/"
         },
         {
-          "id": "2475298509547164",
-          "title": "Technical Program Manager, Silicon",
-          "url": "https://www.metacareers.com/profile/job_details/2475298509547164/"
+          "id": "1389328523345705",
+          "title": "Supply Chain Capacity Engineer - Business Enablement",
+          "url": "https://www.metacareers.com/profile/job_details/1389328523345705/"
         },
         {
-          "id": "2086647635578383",
-          "title": "Hardware Reliability Engineer",
-          "url": "https://www.metacareers.com/profile/job_details/2086647635578383/"
-        },
-        {
-          "id": "9657291271065759",
-          "title": "Software Engineer, Product",
-          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
-        },
-        {
-          "id": "998357492128826",
-          "title": "Software Engineer, Machine Learning",
-          "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
+          "id": "1201679578735137",
+          "title": "Network Engineer, Foundations and Support",
+          "url": "https://www.metacareers.com/profile/job_details/1201679578735137/"
         },
         {
           "id": "4043567932553615",
@@ -325,24 +330,19 @@
           "url": "https://www.metacareers.com/profile/job_details/4043567932553615/"
         },
         {
-          "id": "699608119727078",
-          "title": "Software Engineer - Android (Technical Leadership)",
-          "url": "https://www.metacareers.com/profile/job_details/699608119727078/"
+          "id": "2475298509547164",
+          "title": "Technical Program Manager, Silicon",
+          "url": "https://www.metacareers.com/profile/job_details/2475298509547164/"
         },
         {
-          "id": "1723615698957769",
-          "title": "Research Scientist, Advanced Control",
-          "url": "https://www.metacareers.com/profile/job_details/1723615698957769/"
+          "id": "1596778485454042",
+          "title": "Battery Algorithm Engineer",
+          "url": "https://www.metacareers.com/profile/job_details/1596778485454042/"
         },
         {
-          "id": "979666788455999",
-          "title": "Materials Program Manager",
-          "url": "https://www.metacareers.com/profile/job_details/979666788455999/"
-        },
-        {
-          "id": "2560531364428830",
-          "title": "Facility Project Manager",
-          "url": "https://www.metacareers.com/profile/job_details/2560531364428830/"
+          "id": "998357492128826",
+          "title": "Software Engineer, Machine Learning",
+          "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
         }
       ],
       "locationSamples": [
@@ -402,15 +402,6 @@
           "url": "https://www.metacareers.com/profile/job_details/2787411734955554/"
         },
         {
-          "id": "1713216779808487",
-          "title": "Critical Facility Engineer",
-          "location": "Temple, TX",
-          "years": [],
-          "scoped": false,
-          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upon... Meta Careers",
-          "url": "https://www.metacareers.com/profile/job_details/1713216779808487/"
-        },
-        {
           "id": "1435494154152569",
           "title": "Critical Facility Engineer",
           "location": "El Paso, TX",
@@ -418,6 +409,15 @@
           "scoped": false,
           "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upo... Meta Careers",
           "url": "https://www.metacareers.com/profile/job_details/1435494154152569/"
+        },
+        {
+          "id": "1713216779808487",
+          "title": "Critical Facility Engineer",
+          "location": "Temple, TX",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upon... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1713216779808487/"
         },
         {
           "id": "795179610064299",
@@ -500,7 +500,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-03T05:46:30.390Z",
+    "checkedAt": "2026-09-03T12:49:42.955Z",
     "before": 262,
     "after": 262,
     "removed": 0,
@@ -513,7 +513,7 @@
     "newJobsThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-03T05:46:30.439Z"
+    "updatedAt": "2026-09-03T12:49:43.004Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

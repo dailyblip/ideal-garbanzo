@@ -14,7 +14,24 @@ const baseUrl = `https://${baseDomain}`;
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 
 function parsePlace(value) {
-  const text = clean(value);
+  let text = clean(value)
+    .replace(/,\s*(?:United States(?: of America)?|USA|US)$/i, '')
+    .replace(/\s*\((?:on[- ]?site|onsite|hybrid)\)$/i, '')
+    .trim();
+  if (!text) return null;
+
+  const stateOnly = /^[A-Z]{2}$/.test(text) ? text : stateCodes.get(text);
+  if (stateOnly) {
+    return {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressRegion: stateOnly,
+        addressCountry: 'US'
+      }
+    };
+  }
+
   const match = text.match(/^(.+?),\s*([^,]+)$/);
   if (!match) return null;
   const locality = clean(match[1]);
@@ -41,7 +58,7 @@ function locationFields(location) {
       applicantLocationRequirements: { '@type': 'Country', name: 'United States' }
     };
   }
-  const places = value.split(/\s*;\s*/).map(parsePlace).filter(Boolean);
+  const places = value.split(/\s*(?:;|\|)\s*/).map(parsePlace).filter(Boolean);
   if (!places.length) return {};
   return { jobLocation: places.length === 1 ? places[0] : places };
 }

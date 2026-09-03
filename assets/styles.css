@@ -46,7 +46,7 @@ footer{border-top:1px solid var(--line);padding:22px 28px;display:flex;justify-c
 @media(max-width:1100px){
   .header-inner{padding:0 22px}.hero{padding:0 22px}.hero h1{font-size:58px}.hero-copy{width:58%}
   .alert-strip,.events-section,.featured,.jobs-shell{width:calc(100% - 44px)}
-  .alert-strip{grid-template-columns:1fr}.alert-strip form{max-width:760px}.events-list{gap:12px}
+  .alert-strip{grid-template-columns:minmax(0,1fr) minmax(500px,1fr);gap:24px}.events-list{gap:12px}
   .highlight-example-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:1040px){

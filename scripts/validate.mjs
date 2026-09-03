@@ -48,6 +48,11 @@ for (const [i, event] of careerEvents.entries()) {
   if (event.source !== 'Organizer page') throw new Error(`Career event ${event.id} must be verified from an organizer page`);
 }
 
+// Keep event quality tied to the same deployment gate as job/source quality.
+// This blocks stale, expired, future-dated, or non-organizer verification from
+// reaching production even if a separate QA workflow is skipped or delayed.
+await import('./validate-career-event-freshness.mjs');
+
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;
 const allowedRegions = new Set(['mid-atlantic','texas','southwest','midwest','southeast','northeast','west']);

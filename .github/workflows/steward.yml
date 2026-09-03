@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SITE_URL: https://dailyblip.github.io/ideal-garbanzo
+  SITE_URL: https://datacentercareers.us
   TARGET_WORKFLOW: pages.yml
   STUCK_AFTER_MINUTES: '45'
 

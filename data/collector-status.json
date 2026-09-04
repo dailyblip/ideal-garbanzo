@@ -203,7 +203,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T05:49:04.299Z",
+    "updatedAt": "2026-09-04T06:49:27.466Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 446,
@@ -222,7 +222,7 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-04T05:49:19.202Z",
+    "checkedAt": "2026-09-04T06:49:43.176Z",
     "publishedJobs": 446,
     "removedJobs": 0,
     "activeCareerEvents": 3
@@ -578,7 +578,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T05:49:04.360Z",
+    "checkedAt": "2026-09-04T06:49:27.510Z",
     "before": 446,
     "after": 446,
     "removed": 0,
@@ -588,12 +588,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 472,
     "currentJobs": 446,
-    "newJobsThisRun": 9,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 446,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-04T05:49:19.382Z"
+    "updatedAt": "2026-09-04T06:49:43.338Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -681,19 +681,10 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T05:49:04.231Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "oracle-careers-334333",
-        "company": "Oracle",
-        "title": "OCI Software Engineer Intern - OVIP",
-        "reason": "non-mission role family"
-      }
-    ]
+    "checkedAt": "2026-09-04T06:49:27.401Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": []
   },
   "oracleCareers": {
     "officialSource": "https://careers.oracle.com/",
@@ -741,5 +732,28 @@
       "fetch": 0
     },
     "errors": []
+  },
+  "compass": {
+    "officialSource": "https://www.compassdatacenters.com/about/contact-us/",
+    "boardUrl": "https://compass-datacenters.breezy.hr/",
+    "sourceHealthy": true,
+    "boardFetched": true,
+    "listedPositions": 7,
+    "detailAttempted": 7,
+    "detailFetched": 7,
+    "structuredDetails": 6,
+    "qualifyingRoles": 0,
+    "preservedPrevious": 0,
+    "drops": {
+      "titleOrContext": 4,
+      "nonUs": 2,
+      "experienceUnknown": 0,
+      "experienceOver5": 0,
+      "structuredData": 1,
+      "fetch": 0
+    },
+    "errors": [
+      "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
+    ]
   }
 }

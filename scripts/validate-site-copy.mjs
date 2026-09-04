@@ -6,7 +6,8 @@ const authoredFiles = [
   'assets/app.js',
   'scripts/generate-seo.mjs',
   'scripts/generate-career-guide.mjs',
-  'scripts/generate-internship-guide.mjs'
+  'scripts/generate-internship-guide.mjs',
+  'scripts/generate-region-seo.mjs'
 ];
 
 const generatedRoots = [
@@ -16,6 +17,7 @@ const generatedRoots = [
   'entry-level',
   'no-experience',
   'career-events',
+  'locations',
   'how-to-get-a-data-center-job',
   'how-to-get-a-data-center-internship'
 ];

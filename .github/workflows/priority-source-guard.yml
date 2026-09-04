@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
+      - 'data/novva-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'
@@ -15,6 +16,7 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
+      - 'data/novva-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'

@@ -1,11 +1,10 @@
 import { readFile } from 'node:fs/promises';
 
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
-const status = JSON.parse(await readFile('data/collector-status.json', 'utf8'));
-const compass = status?.compass;
+const compass = JSON.parse(await readFile('data/compass-status.json', 'utf8'));
 const violations = [];
 
-if (!compass || typeof compass !== 'object') violations.push('collector-status.json is missing compass diagnostics');
+if (!compass || typeof compass !== 'object') violations.push('compass-status.json is missing source diagnostics');
 else {
   if (compass.boardUrl !== 'https://compass-datacenters.breezy.hr/') violations.push(`unexpected Compass board URL: ${compass.boardUrl || '(missing)'}`);
   if (compass.sourceHealthy !== true) violations.push('Compass source is not healthy');

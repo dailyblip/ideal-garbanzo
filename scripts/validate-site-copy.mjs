@@ -60,3 +60,8 @@ if (failures.length) {
 }
 
 console.log(`Site copy check passed across ${new Set(files).size} user-facing files.`);
+
+// Run after SEO and guide generation so every deployable HTML page is checked,
+// not only the authored homepage. Keep this dependency-free so accessibility
+// regressions cannot be skipped because a browser-test package failed to install.
+await import('./validate-accessibility.mjs');

@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-04T00:10:02.250Z",
-  "jobs": 438,
+  "jobs": 446,
   "sourcesAttempted": 40,
   "providers": {
     "lever": 6,
@@ -12,14 +12,14 @@
     "metaCareers": 13
   },
   "countsByType": {
-    "entry-level": 426,
+    "entry-level": 433,
     "trainee": 5,
     "apprenticeship": 4,
-    "internship": 3
+    "internship": 4
   },
   "countsByExperience": {
-    "2-5-years": 103,
-    "no-experience": 6,
+    "2-5-years": 102,
+    "no-experience": 15,
     "0-2-years": 329
   },
   "errors": [
@@ -203,33 +203,27 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T00:10:02.314Z",
+    "updatedAt": "2026-09-04T05:49:04.299Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 437,
-    "regionMissing": 1,
-    "coveragePct": 99.8,
-    "missingSamples": [
-      {
-        "id": "oracle-careers-344376",
-        "company": "Oracle",
-        "location": "United States",
-        "sourceUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/344376"
-      }
-    ],
+    "regionAssigned": 446,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
-      "southeast": 71,
+      "southeast": 74,
       "midwest": 77,
       "west": 57,
-      "southwest": 46,
-      "northeast": 10,
-      "mid-atlantic": 83,
-      "texas": 93
+      "southwest": 48,
+      "northeast": 12,
+      "mid-atlantic": 85,
+      "texas": 92,
+      "nationwide": 1
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-04T05:18:12.972Z",
-    "publishedJobs": 438,
+    "checkedAt": "2026-09-04T05:49:19.202Z",
+    "publishedJobs": 446,
     "removedJobs": 0,
     "activeCareerEvents": 3
   },
@@ -584,20 +578,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T00:10:02.375Z",
-    "before": 442,
-    "after": 442,
+    "checkedAt": "2026-09-04T05:49:04.360Z",
+    "before": 446,
+    "after": 446,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 463,
-    "currentJobs": 442,
-    "newJobsThisRun": 0,
+    "trackedJobs": 472,
+    "currentJobs": 446,
+    "newJobsThisRun": 9,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 446,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-04T00:10:02.429Z"
+    "updatedAt": "2026-09-04T05:49:19.382Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -685,18 +681,17 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-03T17:39:17.677Z",
-    "removedCount": 2,
+    "checkedAt": "2026-09-04T05:49:04.231Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "non-mission role family": 1
+    },
     "removed": [
       {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources"
+        "id": "oracle-careers-334333",
+        "company": "Oracle",
+        "title": "OCI Software Engineer Intern - OVIP",
+        "reason": "non-mission role family"
       }
     ]
   },
@@ -721,6 +716,28 @@
       "context": 14,
       "experience": 18,
       "missingId": 0,
+      "fetch": 0
+    },
+    "errors": []
+  },
+  "ironMountain": {
+    "officialSource": "https://www.ironmountain.com/data-centers",
+    "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
+    "sourceHealthy": true,
+    "listingPagesAttempted": 18,
+    "listingPagesSucceeded": 18,
+    "listingComplete": true,
+    "listedTotal": 352,
+    "candidateRows": 11,
+    "detailAttempted": 11,
+    "detailSucceeded": 11,
+    "qualifyingRoles": 9,
+    "preservedPrevious": 0,
+    "drops": {
+      "titleOrContext": 0,
+      "nonUs": 2,
+      "experienceUnknown": 0,
+      "experienceOver5": 0,
       "fetch": 0
     },
     "errors": []

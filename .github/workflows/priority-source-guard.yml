@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
-      - 'data/novva-jobs.json'
+      - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'
@@ -16,7 +16,7 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
-      - 'data/novva-jobs.json'
+      - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'
@@ -36,5 +36,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Verify priority jobs stay employer-direct
+      - name: Verify priority jobs and snapshots stay employer-direct
         run: node scripts/validate-priority-employer-sources.mjs

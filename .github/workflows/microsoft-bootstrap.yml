@@ -9,6 +9,8 @@ on:
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - '.github/workflows/microsoft-bootstrap.yml'
 
 permissions:
@@ -45,23 +47,26 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Persist first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs
       - name: Validate employer-direct sources and feed
         run: |
           node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-job-history.mjs
           node scripts/validate.mjs
-      - name: Commit refreshed Microsoft roles and deploy current main
+      - name: Commit refreshed Microsoft roles, history, and deploy current main
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/microsoft-jobs.json data/collector-status.json)" ]; then
-            echo "No Microsoft data changes."
+          if [ -z "$(git status --porcelain -- data/jobs.json data/microsoft-jobs.json data/job-history.json data/collector-status.json)" ]; then
+            echo "No Microsoft data or job-history changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.json data/microsoft-jobs.json data/collector-status.json
-          git commit -m "Refresh verified Microsoft jobs"
+          git add data/jobs.json data/microsoft-jobs.json data/job-history.json data/collector-status.json
+          git commit -m "Refresh verified Microsoft jobs and history"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main

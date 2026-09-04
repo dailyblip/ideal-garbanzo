@@ -15,6 +15,7 @@ const officialHostsByCompany = new Map([
   ['Digital Realty', new Set(['hdep.fa.us2.oraclecloud.com'])],
   ['CoreSite', new Set(['jobs.coresite.com'])],
   ['Iron Mountain', new Set(['ironmountain.wd5.myworkdayjobs.com'])],
+  ['Compass Datacenters', new Set(['compass-datacenters.breezy.hr'])],
   ['Vantage Data Centers', new Set(['vantagedc.wd1.myworkdayjobs.com'])],
   ['QTS Data Centers', new Set(['qtsdatacenters.wd5.myworkdayjobs.com'])],
   ['CyrusOne', new Set(['cyrusone.wd1.myworkdayjobs.com'])],

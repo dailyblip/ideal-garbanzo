@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-04T12:47:37.445Z",
-  "jobs": 446,
-  "sourcesAttempted": 41,
+  "updatedAt": "2026-09-04T12:51:13.486Z",
+  "jobs": 456,
+  "sourcesAttempted": 42,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -13,15 +13,15 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 433,
+    "entry-level": 443,
     "trainee": 5,
     "internship": 4,
     "apprenticeship": 4
   },
   "countsByExperience": {
     "0-2-years": 329,
-    "2-5-years": 102,
-    "no-experience": 15
+    "2-5-years": 107,
+    "no-experience": 20
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -204,22 +204,22 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T12:47:37.546Z",
+    "updatedAt": "2026-09-04T12:51:14.235Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 446,
+    "regionAssigned": 456,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 77,
+      "midwest": 81,
       "nationwide": 1,
-      "texas": 92,
-      "southeast": 74,
+      "texas": 95,
+      "southeast": 75,
       "west": 57,
       "southwest": 48,
-      "mid-atlantic": 85,
-      "northeast": 12
+      "mid-atlantic": 86,
+      "northeast": 13
     }
   },
   "postQa": {
@@ -579,9 +579,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T12:47:37.594Z",
-    "before": 446,
-    "after": 446,
+    "checkedAt": "2026-09-04T12:51:14.467Z",
+    "before": 456,
+    "after": 456,
     "removed": 0,
     "examples": []
   },
@@ -682,7 +682,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T12:47:37.492Z",
+    "checkedAt": "2026-09-04T12:51:13.833Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -761,15 +761,46 @@
     "officialSource": "https://www.tierpoint.com/about-us/careers/",
     "boardUrl": "https://careers-tierpoint.icims.com/jobs/search?hashed=-626007049&ss=1",
     "sourceHealthy": true,
-    "qualifyingRoles": 0,
+    "qualifyingRoles": 10,
     "usedPreviousSnapshot": false,
-    "diagnostics": {
-      "pagesAttempted": 1,
-      "pagesSucceeded": 1,
-      "reportedPages": null,
-      "candidateLinks": 20,
-      "detailAttempted": 20,
-      "detailSucceeded": 20
-    }
+    "listing": {
+      "pagesAttempted": 3,
+      "pagesSucceeded": 3,
+      "candidateLinks": 21
+    },
+    "drops": {
+      "parse": 4,
+      "classification": 6
+    },
+    "samples": [
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
+        "title": "Supervisor, Data Center Operations",
+        "location": "Breinigsville, PA",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
+        "location": ""
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
+        "location": ""
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Raleigh, NC",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Hawthorne, NY",
+        "reason": "classification"
+      }
+    ]
   }
 }

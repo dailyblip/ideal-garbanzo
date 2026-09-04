@@ -61,8 +61,10 @@
   };
   const matchesRegion = (job, region) => {
     if (!region) return true;
+    if (job?.region === 'nationwide') return true;
     if (job?.region) return job.region === region;
-    const value = String(job?.location || '').toLowerCase();
+    const value = String(job?.location || '').toLowerCase().trim();
+    if (/^(?:united states|usa|us)$/.test(value)) return true;
     if (value.includes('washington, dc') || value.includes('washington, d.c.')) return region === 'mid-atlantic';
     return (regionTerms[region] || []).some(term => value.includes(term));
   };

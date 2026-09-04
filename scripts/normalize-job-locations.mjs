@@ -260,7 +260,8 @@ function entirelyRemoteLocation(location = '') {
 
 function inferRegion(job) {
   const location = String(job?.location || '').trim();
-  if (!location || entirelyRemoteLocation(location)) return '';
+  if (!location) return '';
+  if (/^(?:United States|USA|US)$/i.test(location) || entirelyRemoteLocation(location)) return 'nationwide';
 
   const direct = regionFromText(location);
   if (direct) return direct;

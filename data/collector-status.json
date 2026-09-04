@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-04T20:48:23.809Z",
+  "updatedAt": "2026-09-04T20:48:41.825Z",
   "jobs": 499,
-  "sourcesAttempted": 46,
+  "sourcesAttempted": 47,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -19,9 +19,9 @@
     "apprenticeship": 4
   },
   "countsByExperience": {
-    "2-5-years": 111,
+    "0-2-years": 367,
     "no-experience": 21,
-    "0-2-years": 367
+    "2-5-years": 111
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -245,7 +245,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T20:48:23.962Z",
+    "updatedAt": "2026-09-04T20:48:41.931Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 499,
@@ -253,14 +253,14 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 81,
       "midwest": 85,
       "west": 64,
-      "southwest": 54,
-      "northeast": 13,
       "mid-atlantic": 102,
+      "southeast": 81,
+      "southwest": 54,
+      "nationwide": 1,
       "texas": 99,
-      "nationwide": 1
+      "northeast": 13
     }
   },
   "postQa": {
@@ -620,7 +620,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T20:48:24.017Z",
+    "checkedAt": "2026-09-04T20:48:41.981Z",
     "before": 499,
     "after": 499,
     "removed": 0,
@@ -630,12 +630,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 527,
     "currentJobs": 499,
-    "newJobsThisRun": 34,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 34,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-04T20:48:24.068Z"
+    "updatedAt": "2026-09-04T20:48:42.026Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -723,7 +723,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T20:48:23.905Z",
+    "checkedAt": "2026-09-04T20:48:41.876Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

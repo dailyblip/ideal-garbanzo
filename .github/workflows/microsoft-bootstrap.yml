@@ -1,0 +1,56 @@
+name: Refresh Microsoft employer-direct feed
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-microsoft-datacenter.mjs'
+      - '.github/workflows/microsoft-bootstrap.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: microsoft-refresh
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Microsoft experience classifier
+        run: |
+          node --check scripts/collect-microsoft-datacenter.mjs
+          node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
+      - name: Collect official Microsoft data center roles
+        run: node scripts/collect-microsoft-datacenter.mjs
+      - name: Enforce mission-fit roles
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize locations
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Validate employer-direct sources and feed
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate.mjs
+      - name: Commit refreshed Microsoft roles
+        run: |
+          if [ -z "$(git status --porcelain -- data/jobs.json data/collector-status.json)" ]; then
+            echo "No Microsoft data changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/jobs.json data/collector-status.json
+          git commit -m "Refresh verified Microsoft jobs"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

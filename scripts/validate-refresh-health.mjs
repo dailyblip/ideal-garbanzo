@@ -59,6 +59,31 @@ if (!Array.isArray(currentJobs) || !Array.isArray(currentMajor)) {
 const problems = [];
 const warnings = [];
 
+// Cologix, T5, and Flexential are collected from shared ATS platforms. If one
+// of those boards is unreachable, the generic collector can otherwise return a
+// healthy overall feed while quietly dropping that employer's known openings.
+// Treat a source error plus a loss of previously published roles as a failed
+// refresh instead of accepting the partial snapshot.
+if (Array.isArray(previousJobs)) {
+  const genericPriorityCompanies = ['Cologix', 'T5 Data Centers', 'Flexential'];
+  const sourceErrors = Array.isArray(status?.errors) ? status.errors.map(error => String(error || '')) : [];
+  const beforeCompanies = companyCounts(previousJobs);
+  const afterCompanies = companyCounts(currentJobs);
+
+  for (const company of genericPriorityCompanies) {
+    const sourceFailed = sourceErrors.some(error => error.startsWith(`${company}:`));
+    if (!sourceFailed) continue;
+
+    const previousCount = beforeCompanies.get(company) || 0;
+    const currentCount = afterCompanies.get(company) || 0;
+    if (previousCount > 0 && currentCount < previousCount) {
+      problems.push(`${company} source failed and published coverage fell from ${previousCount} to ${currentCount}; preserve or reverify the employer-direct board before publishing.`);
+    } else {
+      warnings.push(`${company} shared-ATS source failed, but no previously published roles were lost in this refresh.`);
+    }
+  }
+}
+
 if (Array.isArray(previousJobs) && previousJobs.length >= 50) {
   const ratio = currentJobs.length / previousJobs.length;
   if (ratio < 0.60) {

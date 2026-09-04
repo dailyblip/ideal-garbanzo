@@ -1,26 +1,26 @@
 {
-  "updatedAt": "2026-09-03T23:58:44.725Z",
-  "jobs": 454,
-  "sourcesAttempted": 39,
+  "updatedAt": "2026-09-04T00:10:02.250Z",
+  "jobs": 442,
+  "sourcesAttempted": 40,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
     "googleCareers": 1,
-    "oracleRecruitingCloud": 5,
+    "oracleRecruitingCloud": 6,
     "metaCareers": 13
   },
   "countsByType": {
-    "entry-level": 442,
+    "entry-level": 430,
     "trainee": 5,
     "apprenticeship": 4,
     "internship": 3
   },
   "countsByExperience": {
-    "2-5-years": 102,
-    "no-experience": 7,
-    "0-2-years": 345
+    "2-5-years": 103,
+    "no-experience": 6,
+    "0-2-years": 333
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -203,37 +203,25 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-03T23:58:44.789Z",
+    "updatedAt": "2026-09-04T00:10:02.314Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 451,
-    "regionMissing": 3,
-    "coveragePct": 99.3,
+    "regionAssigned": 441,
+    "regionMissing": 1,
+    "coveragePct": 99.8,
     "missingSamples": [
       {
         "id": "oracle-careers-344376",
         "company": "Oracle",
         "location": "United States",
         "sourceUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/344376"
-      },
-      {
-        "id": "oracle-careers-344469",
-        "company": "Oracle",
-        "location": "United States",
-        "sourceUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/344469"
-      },
-      {
-        "id": "oracle-careers-330537",
-        "company": "Oracle",
-        "location": "United States",
-        "sourceUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/330537"
       }
     ],
     "countsByRegion": {
-      "southeast": 75,
-      "midwest": 81,
+      "southeast": 71,
+      "midwest": 78,
       "west": 57,
-      "southwest": 51,
+      "southwest": 48,
       "northeast": 10,
       "mid-atlantic": 84,
       "texas": 93
@@ -596,20 +584,20 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-03T23:58:44.844Z",
-    "before": 454,
-    "after": 454,
+    "checkedAt": "2026-09-04T00:10:02.375Z",
+    "before": 442,
+    "after": 442,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 463,
-    "currentJobs": 454,
-    "newJobsThisRun": 31,
+    "currentJobs": 442,
+    "newJobsThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-03T23:58:44.893Z"
+    "updatedAt": "2026-09-04T00:10:02.429Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -726,12 +714,12 @@
     "detailAttempted": 86,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
-    "qualifyingRoles": 31,
+    "qualifyingRoles": 19,
     "drops": {
       "title": 2179,
       "nonUs": 33,
       "context": 14,
-      "experience": 6,
+      "experience": 18,
       "missingId": 0,
       "fetch": 0
     },

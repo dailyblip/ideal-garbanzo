@@ -60,7 +60,7 @@ await import('./validate-career-event-freshness.mjs');
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;
-const allowedRegions = new Set(['mid-atlantic','texas','southwest','midwest','southeast','northeast','west']);
+const allowedRegions = new Set(['mid-atlantic','texas','southwest','midwest','southeast','northeast','west','nationwide']);
 function canonicalTitle(job) {
   let title = String(job.title || '').trim();
   const location = normalizeIdentity(job.location);

@@ -1,61 +1,14 @@
 {
-  "checkedAt": "2026-09-04T05:16:45.932Z",
-  "jobsBefore": 442,
+  "checkedAt": "2026-09-04T05:18:12.972Z",
+  "jobsBefore": 438,
   "jobsAfter": 438,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10521937",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician (Nights), DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10521937/data-center-technician-nights-dcc-communities",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10521937/data-center-technician-nights-dcc-communities"
-    },
-    {
-      "id": "amazon-10488293",
-      "company": "Amazon Web Services",
-      "title": "Data Center Controls Tech, Data Center Capacity Delivery - Controls",
-      "url": "https://www.amazon.jobs/en/jobs/10488293/data-center-controls-tech-data-center-capacity-delivery-controls",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10488293/data-center-controls-tech-data-center-capacity-delivery-controls"
-    },
-    {
-      "id": "amazon-10474343",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10474343/engineering-operation-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10474343/engineering-operation-technician"
-    },
-    {
-      "id": "amazon-10465083",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician, Data Center Engineering Operations (DCEO)",
-      "url": "https://www.amazon.jobs/en/jobs/10465083/engineering-operations-technician-data-center-engineering-operations-dceo",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10465083/engineering-operations-technician-data-center-engineering-operations-dceo"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "gh-xai-5227699007",
-      "company": "xAI",
-      "title": "Electrical Technician (Medium Voltage)",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5227699007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 3,
   "careerEventsAfter": 3,

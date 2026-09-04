@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-04T20:48:41.825Z",
-  "jobs": 499,
+  "jobs": 497,
   "sourcesAttempted": 47,
   "providers": {
     "lever": 6,
@@ -13,13 +13,13 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 486,
+    "entry-level": 484,
     "trainee": 5,
     "internship": 4,
     "apprenticeship": 4
   },
   "countsByExperience": {
-    "0-2-years": 367,
+    "0-2-years": 365,
     "no-experience": 21,
     "2-5-years": 111
   },
@@ -248,14 +248,14 @@
     "updatedAt": "2026-09-04T20:48:41.931Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 499,
+    "regionAssigned": 497,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 85,
-      "west": 64,
-      "mid-atlantic": 102,
+      "west": 63,
+      "mid-atlantic": 101,
       "southeast": 81,
       "southwest": 54,
       "nationwide": 1,
@@ -264,9 +264,9 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-04T17:17:16.325Z",
-    "publishedJobs": 465,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-04T21:48:11.272Z",
+    "publishedJobs": 497,
+    "removedJobs": 2,
     "activeCareerEvents": 4
   },
   "metaCareers": {

@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: microsoft-refresh
@@ -41,7 +42,9 @@ jobs:
         run: |
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate.mjs
-      - name: Commit refreshed Microsoft roles
+      - name: Commit refreshed Microsoft roles and deploy current main
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ -z "$(git status --porcelain -- data/jobs.json data/collector-status.json)" ]; then
             echo "No Microsoft data changes."
@@ -54,3 +57,7 @@ jobs:
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
+          # Pushes made with GITHUB_TOKEN do not start another workflow run.
+          # Explicitly dispatch the deploy-only path so the verified data commit
+          # reaches GitHub Pages and the custom-domain smoke test immediately.
+          gh workflow run pages.yml --ref main -f deploy_only=true

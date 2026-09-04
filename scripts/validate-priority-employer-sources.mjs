@@ -37,6 +37,7 @@ const officialHostsByCompany = new Map([
 const protectedSnapshots = [
   { company: 'Amazon Web Services', path: 'data/amazon-jobs.json', enforceRetentionRatio: false },
   { company: 'Google', path: 'data/google-jobs.json', enforceRetentionRatio: false },
+  { company: 'Microsoft', path: 'data/microsoft-jobs.json', enforceRetentionRatio: false },
   { company: 'Meta', path: 'data/meta-jobs.json', enforceRetentionRatio: false },
   { company: 'Oracle', path: 'data/oracle-jobs.json', enforceRetentionRatio: true },
   { company: 'Digital Realty', path: 'data/digital-realty-jobs.json', enforceRetentionRatio: true },

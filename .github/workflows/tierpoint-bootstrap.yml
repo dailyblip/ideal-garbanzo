@@ -1,0 +1,49 @@
+name: Bootstrap TierPoint employer-direct feed
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/collect-tierpoint.mjs'
+      - '.github/workflows/tierpoint-bootstrap.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tierpoint-bootstrap
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect official TierPoint roles
+        run: node scripts/collect-tierpoint.mjs
+      - name: Enforce mission-fit roles
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize locations
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Validate feed
+        run: node scripts/validate.mjs
+      - name: Commit verified TierPoint snapshot
+        run: |
+          if [ -z "$(git status --porcelain -- data/jobs.json data/tierpoint-jobs.json data/collector-status.json)" ]; then
+            echo "No TierPoint data changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/jobs.json data/tierpoint-jobs.json data/collector-status.json
+          git commit -m "Refresh verified TierPoint jobs"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

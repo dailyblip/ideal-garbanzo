@@ -2,7 +2,10 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
-const TIERPOINT_PATH = 'data/tierpoint-jobs.json';
+const SNAPSHOT_SOURCES = [
+  { path: 'data/tierpoint-jobs.json', company: 'TierPoint' },
+  { path: 'data/novva-jobs.json', company: 'Novva Data Centers' }
+];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 
@@ -15,19 +18,21 @@ const obviousSeniorTitlePattern = /\b(?:senior|sr\.?|principal|staff engineer|st
 let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
-// TierPoint's official iCIMS source is refreshed through a dedicated collector.
-// The generic ATS pass runs earlier and rebuilds jobs.json, so restore the latest
-// verified TierPoint snapshot here before the global mission-fit and dedupe gates.
-// This keeps a transient iCIMS outage from erasing already-verified openings.
-try {
-  const tierPointJobs = JSON.parse(await readFile(TIERPOINT_PATH, 'utf8'));
-  if (Array.isArray(tierPointJobs) && tierPointJobs.length) {
-    jobs = [
-      ...jobs.filter(job => String(job?.company || '').trim() !== 'TierPoint'),
-      ...tierPointJobs
-    ];
-  }
-} catch {}
+// Dedicated employer collectors write verified snapshots. Generic ATS passes run
+// earlier and can rebuild jobs.json, so restore those snapshots before the global
+// mission-fit and dedupe gates. This prevents transient source outages from
+// erasing openings that were already verified directly with the employer.
+for (const { path, company } of SNAPSHOT_SOURCES) {
+  try {
+    const snapshotJobs = JSON.parse(await readFile(path, 'utf8'));
+    if (Array.isArray(snapshotJobs) && snapshotJobs.length) {
+      jobs = [
+        ...jobs.filter(job => String(job?.company || '').trim() !== company),
+        ...snapshotJobs
+      ];
+    }
+  } catch {}
+}
 
 const kept = [];
 const removed = [];

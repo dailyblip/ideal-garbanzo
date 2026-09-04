@@ -83,6 +83,47 @@ function reqId(url = '') {
   return '';
 }
 
+function normalizeHost(hostname = '') {
+  return String(hostname).toLowerCase().replace(/^www\./, '');
+}
+
+function redirectsToGenericCareerPage(sourceUrl, finalUrl) {
+  const sourceReq = reqId(sourceUrl);
+  if (!sourceReq || !finalUrl || String(sourceUrl) === String(finalUrl)) return false;
+
+  let source;
+  let final;
+  try {
+    source = new URL(sourceUrl);
+    final = new URL(finalUrl);
+  } catch {
+    return false;
+  }
+
+  // Only prune when the employer's own site absorbs a requisition URL into a
+  // generic landing/search page. Cross-host redirects can be legitimate ATS
+  // canonicalization and should remain non-destructive.
+  if (normalizeHost(source.hostname) !== normalizeHost(final.hostname)) return false;
+
+  const finalText = `${final.pathname}${final.search}`.toLowerCase();
+  const finalReq = reqId(final.href);
+  if (finalReq === sourceReq || finalText.includes(sourceReq)) return false;
+
+  const path = final.pathname.replace(/\/+$/, '') || '/';
+  const segments = path.split('/').filter(Boolean);
+  const host = normalizeHost(final.hostname);
+
+  if (host.endsWith('.myworkdayjobs.com')) {
+    return !/\/job\//i.test(path);
+  }
+  if (host.endsWith('.oraclecloud.com')) {
+    return !/\/job\/\d+/i.test(path) && /\/(?:requisitions|jobsearch)\/?$/i.test(path);
+  }
+
+  const shallowCareerLanding = segments.length <= 2 && /(?:career|careers|job|jobs|search|opportunities|openings)/i.test(path);
+  return segments.length === 0 || shallowCareerLanding;
+}
+
 function chooseBetter(a, b) {
   const score = job => {
     let value = 0;
@@ -133,7 +174,7 @@ function dedupeJobs(jobs) {
   return { jobs: kept, duplicates };
 }
 
-async function checkUrl(url) {
+async function checkUrl(url, { jobSpecific = false } = {}) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
@@ -148,7 +189,12 @@ async function checkUrl(url) {
     });
     const status = response.status;
     if (status === 404 || status === 410) return { state: 'dead', status, finalUrl: response.url };
-    if (status >= 200 && status < 400) return { state: 'ok', status, finalUrl: response.url };
+    if (status >= 200 && status < 400) {
+      if (jobSpecific && redirectsToGenericCareerPage(url, response.url)) {
+        return { state: 'dead', status, finalUrl: response.url, reason: 'redirected-to-generic-career-page' };
+      }
+      return { state: 'ok', status, finalUrl: response.url };
+    }
     if ([401,403,405,429].includes(status)) return { state: 'blocked', status, finalUrl: response.url };
     if (status >= 500) return { state: 'transient', status, finalUrl: response.url };
     return { state: 'warning', status, finalUrl: response.url };
@@ -191,7 +237,7 @@ const jobChecks = await mapLimit(dedupedJobs, CONCURRENCY, async job => ({
   company: job.company,
   title: job.title,
   url: job.sourceUrl,
-  ...(await checkUrl(job.sourceUrl))
+  ...(await checkUrl(job.sourceUrl, { jobSpecific: true }))
 }));
 
 const deadIds = new Set(jobChecks.filter(check => check.state === 'dead').map(check => check.id));

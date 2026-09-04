@@ -14,6 +14,11 @@ const tag = `<!-- Google tag (gtag.js) -->
   gtag('config', '${MEASUREMENT_ID}');
 </script>`;
 
+// Regional pages are generated after the core SEO hardening step so they can
+// reuse the final normalized job feed and meaningful last-change dates. Build
+// them before analytics injection so every deployable page receives tracking.
+await import('./generate-region-seo.mjs');
+
 async function htmlFiles(dir = '.') {
   const entries = await readdir(dir, { withFileTypes: true });
   const files = [];

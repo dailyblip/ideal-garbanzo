@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-04T18:02:41.128Z",
-  "jobs": 496,
+  "updatedAt": "2026-09-04T18:46:40.925Z",
+  "jobs": 497,
   "sourcesAttempted": 46,
   "providers": {
     "lever": 6,
@@ -13,7 +13,7 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 483,
+    "entry-level": 484,
     "trainee": 5,
     "internship": 4,
     "apprenticeship": 4
@@ -21,7 +21,7 @@
   "countsByExperience": {
     "2-5-years": 111,
     "no-experience": 21,
-    "0-2-years": 364
+    "0-2-years": 365
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -104,16 +104,16 @@
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 24,
-        "reportedRows": 238,
-        "rows": 238
+        "pages": 25,
+        "reportedRows": 244,
+        "rows": 244
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 29,
-        "reportedRows": 281,
-        "rows": 281
+        "pages": 28,
+        "reportedRows": 280,
+        "rows": 280
       },
       {
         "query": "inventory and asset technician",
@@ -123,12 +123,12 @@
         "rows": 16
       }
     ],
-    "candidateRows": 358,
-    "plausibleRows": 32,
-    "detailAttempts": 32,
-    "detailVerified": 32,
-    "currentQualifyingRoles": 32,
-    "qualifyingRoles": 32,
+    "candidateRows": 363,
+    "plausibleRows": 33,
+    "detailAttempts": 33,
+    "detailVerified": 33,
+    "currentQualifyingRoles": 33,
+    "qualifyingRoles": 33,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -245,10 +245,10 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T18:02:41.251Z",
+    "updatedAt": "2026-09-04T18:46:41.090Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 496,
+    "regionAssigned": 497,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -258,7 +258,7 @@
       "west": 64,
       "southwest": 54,
       "northeast": 13,
-      "mid-atlantic": 101,
+      "mid-atlantic": 102,
       "texas": 99,
       "nationwide": 1
     }
@@ -620,9 +620,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T18:02:41.315Z",
-    "before": 496,
-    "after": 496,
+    "checkedAt": "2026-09-04T18:46:41.157Z",
+    "before": 497,
+    "after": 497,
     "removed": 0,
     "examples": []
   },
@@ -723,7 +723,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T18:02:41.184Z",
+    "checkedAt": "2026-09-04T18:46:41.027Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

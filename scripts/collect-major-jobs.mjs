@@ -76,20 +76,37 @@ function relevant(title, description = '') {
   return hasAny(t, contextualTitleTerms) && hasAny(d, dataCenterContextTerms);
 }
 
+const experienceNumberWords = new Map([
+  ['zero','0'],['one','1'],['two','2'],['three','3'],['four','4'],['five','5'],
+  ['six','6'],['seven','7'],['eight','8'],['nine','9'],['ten','10']
+]);
+
+function requiredExperienceText(description = '') {
+  const text = clean(description);
+  const preferred = text.search(/\b(?:preferred qualifications?|preferred experience|preferred skills?|nice to have|bonus qualifications?)\b/i);
+  return preferred >= 0 ? text.slice(0, preferred) : text;
+}
+
+function normalizeExperienceNumbers(text = '') {
+  return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+}
+
 function statedExperienceYears(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
   const values = [];
   const patterns = [
-    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s*(?:-|–|to)\s*(\d{1,2})\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
-    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
-    /experience(?:\s+of)?\s+(?:at least\s+|minimum(?: of)?\s+)?(\d{1,2})\+?\s+years?/gi
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+)?experience/gi,
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+)?experience/gi,
+    /experience(?:\s+(?:of|in))?\s+(?:at least\s+|minimum(?: of)?\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?/gi,
+    /(?:minimum(?: of)?\s+|at least\s+)(\d{1,2})\s*(?:\+|or more)?\s+years?\b/gi
   ];
   for (const pattern of patterns) {
-    for (const match of text.matchAll(pattern)) {
+    for (const match of normalized.matchAll(pattern)) {
       values.push(Number(match[1]));
       if (match[2]) values.push(Number(match[2]));
     }
   }
-  return values.filter(Number.isFinite);
+  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
 }
 
 function classify(title, description = '', employmentType = '') {
@@ -97,21 +114,79 @@ function classify(title, description = '', employmentType = '') {
   const t = lower(title);
   if (!relevant(title, description)) return null;
 
-  const years = statedExperienceYears(text);
-  if (years.some(year => year >= 6)) return null;
-
   let type = 'entry-level';
   const employment = lower(employmentType);
   if (t.includes('intern') || employment.includes('intern')) type = 'internship';
   else if (t.includes('apprentice')) type = 'apprenticeship';
   else if (t.includes('trainee')) type = 'trainee';
 
+  // Experience requirements may spell out numbers and may list a higher
+  // preferred threshold after the actual minimum. Use required criteria
+  // and fail closed when a non-program role has no reliable experience signal.
+  const experienceText = lower(`${title} ${requiredExperienceText(description)}`);
+  const years = statedExperienceYears(experienceText);
+  if (years.some(year => year > 5)) return null;
+
+  const explicitProgram = type !== 'entry-level';
+  const earlySignal = explicitProgram || hasAny(experienceText, earlyTerms) || years.some(year => year <= 2);
+  const midSignal = /\b(?:technician|operator)\s+(?:ii|iii|2|3)\b/i.test(t) || t.includes('journeyman') || years.some(year => year >= 3) || hasAny(experienceText, midTerms);
+  if (!years.length && !earlySignal && !midSignal) return null;
+
   let experience = '0-2-years';
-  if (hasAny(text, ['no experience', 'entry level', 'entry-level'])) experience = 'no-experience';
-  else if (/\b(?:iii|3)\b/.test(t) || t.includes('journeyman') || years.some(year => year >= 3) || hasAny(text, midTerms)) experience = '2-5-years';
-  else if (hasAny(text, earlyTerms) || years.some(year => year <= 2)) experience = '0-2-years';
+  if (hasAny(experienceText, ['no experience', 'entry level', 'entry-level'])) experience = 'no-experience';
+  else if (midSignal) experience = '2-5-years';
 
   return { type, experience };
+}
+
+if (process.argv.includes('--test-experience-parser')) {
+  const cases = [
+    {
+      name: 'worded five-year minimum ignores seven-year preferred qualification',
+      title: 'Critical Environment Engineer',
+      description: 'Basic Qualifications Five or more years of direct experience in a technical critical environment. Preferred Qualifications Seven or more years of direct experience.',
+      expectedType: 'entry-level', expectedExperience: '2-5-years'
+    },
+    {
+      name: 'required experience above five years is rejected',
+      title: 'Critical Environment Engineer',
+      description: 'Basic Qualifications Seven or more years of direct experience in a technical critical environment.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'unknown-experience generic engineer is rejected',
+      title: 'Critical Environment Engineer',
+      description: 'Maintain data center critical facility infrastructure and power systems.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'level-one technician remains early career',
+      title: 'Critical Operations Technician I',
+      description: 'Maintain data center critical facilities, UPS systems and generators.',
+      expectedType: 'entry-level', expectedExperience: '0-2-years'
+    },
+    {
+      name: 'internship remains eligible without stated years',
+      title: 'Summer Internship: Data Center Infrastructure Projects',
+      description: 'Support data center infrastructure and critical facilities projects.',
+      expectedType: 'internship', expectedExperience: '0-2-years'
+    }
+  ];
+  const failures = [];
+  for (const testCase of cases) {
+    const result = classify(testCase.title, testCase.description, '');
+    const actualType = result?.type ?? null;
+    const actualExperience = result?.experience ?? null;
+    if (actualType !== testCase.expectedType || actualExperience !== testCase.expectedExperience) {
+      failures.push(`${testCase.name}: expected ${testCase.expectedType}/${testCase.expectedExperience}, got ${actualType}/${actualExperience}`);
+    }
+  }
+  if (failures.length) {
+    for (const failure of failures) console.error(`Experience parser regression: ${failure}`);
+    process.exit(1);
+  }
+  console.log(`Major Workday experience parser passed ${cases.length} regression cases.`);
+  process.exit(0);
 }
 
 function payObject(label = 'Pay not listed', min = null, max = null, interval = '') {

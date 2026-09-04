@@ -1,6 +1,7 @@
 import { readFile, writeFile, access } from 'node:fs/promises';
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const slugify = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'job';
 const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0,32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g,'').slice(-10)}`;
 const PAGE_SIZE = 25;
@@ -8,6 +9,21 @@ const PAGE_SIZE = 25;
 const stateCodes = new Map(Object.entries({
   Alabama:'AL',Alaska:'AK',Arizona:'AZ',Arkansas:'AR',California:'CA',Colorado:'CO',Connecticut:'CT',Delaware:'DE',Florida:'FL',Georgia:'GA',Hawaii:'HI',Idaho:'ID',Illinois:'IL',Indiana:'IN',Iowa:'IA',Kansas:'KS',Kentucky:'KY',Louisiana:'LA',Maine:'ME',Maryland:'MD',Massachusetts:'MA',Michigan:'MI',Minnesota:'MN',Mississippi:'MS',Missouri:'MO',Montana:'MT',Nebraska:'NE',Nevada:'NV','New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM','New York':'NY','North Carolina':'NC','North Dakota':'ND',Ohio:'OH',Oklahoma:'OK',Oregon:'OR',Pennsylvania:'PA','Rhode Island':'RI','South Carolina':'SC','South Dakota':'SD',Tennessee:'TN',Texas:'TX',Utah:'UT',Vermont:'VT',Virginia:'VA',Washington:'WA','West Virginia':'WV',Wisconsin:'WI',Wyoming:'WY','District of Columbia':'DC'
 }));
+
+const typeLabels = {
+  internship: 'Internship',
+  apprenticeship: 'Apprenticeship',
+  trainee: 'Trainee program',
+  'entry-level': 'Data center job'
+};
+const experienceLabels = {
+  'no-experience': 'no prior experience required',
+  '0-2-years': '0–2 years of experience',
+  '2-5-years': '2–5 years of experience'
+};
+const presentationTags = new Set([
+  'Internship', 'Apprenticeship', 'Trainee', 'No Experience Needed', '0–2 Years', '2–5 Years'
+]);
 
 const baseDomain = clean(await readFile('CNAME', 'utf8')).replace(/^https?:\/\//, '').replace(/\/$/, '');
 if (!baseDomain) throw new Error('CNAME is required for SEO hardening.');
@@ -127,7 +143,46 @@ function applySitemapLastmod(xml, url, lastmod) {
   return xml.replace(pattern, `$1${lastmod}$3`);
 }
 
+function readableList(items) {
+  if (items.length === 0) return '';
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`;
+}
+
+function focusAreas(job) {
+  return [...new Set((job.tags || [])
+    .map(clean)
+    .filter(tag => tag && !presentationTags.has(tag)))];
+}
+
+function roleOverview(job) {
+  const opportunity = typeLabels[job.type] || 'Data center opportunity';
+  const experience = experienceLabels[job.experience] || 'an early- to mid-career experience level';
+  const focus = focusAreas(job);
+  const sentences = [
+    `${job.title} at ${job.company} is a ${opportunity.toLowerCase()} in ${job.location}.`,
+    `We classify this opening for candidates with ${experience}, using the employer listing and role level.`,
+    focus.length
+      ? `The listing is associated with ${readableList(focus.map(tag => tag.toLowerCase()))}.`
+      : 'The role is part of hands-on data center infrastructure work.'
+  ];
+  if (clean(job.pay) && clean(job.pay).toLowerCase() !== 'pay not listed') {
+    sentences.push(`The employer listing shows ${clean(job.pay)}.`);
+  }
+  sentences.push('Review the employer career page for the complete duties, qualifications, schedule, and application details.');
+  return clean(sentences.join(' '));
+}
+
+function overviewHtml(job, overview) {
+  const focus = focusAreas(job);
+  const opportunity = typeLabels[job.type] || 'Data center opportunity';
+  const experience = experienceLabels[job.experience] || 'Early- to mid-career';
+  return `<section class="seo-role-overview" aria-labelledby="role-overview-heading"><h2 id="role-overview-heading">At a glance</h2><p>${esc(overview)}</p><ul><li><strong>Opportunity:</strong> ${esc(opportunity)}</li><li><strong>Experience:</strong> ${esc(experience)}</li>${focus.length ? `<li><strong>Focus:</strong> ${esc(readableList(focus))}</li>` : ''}</ul></section>`;
+}
+
 let enhancedLocations = 0;
+let enrichedJobPages = 0;
 for (const job of jobs) {
   const path = `jobs/${jobSlug(job)}/index.html`;
   try { await access(path); } catch { continue; }
@@ -142,13 +197,32 @@ for (const job of jobs) {
   schema.industry = 'Data center infrastructure';
   if (job.type === 'internship') schema.employmentType = 'INTERN';
 
+  const overview = roleOverview(job);
+  schema.description = overview;
+  const focus = focusAreas(job);
+  if (focus.length) schema.skills = focus.join(', ');
+
   const fields = locationFields(job.location);
   if (fields.jobLocation || fields.jobLocationType) enhancedLocations += 1;
   Object.assign(schema, fields);
 
   const replacement = `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>`;
   html = html.replace(match[0], replacement);
+
+  if (!html.includes('class="seo-role-overview"')) {
+    const applyMarker = '<a class="seo-apply"';
+    const markerIndex = html.indexOf(applyMarker);
+    if (markerIndex < 0) throw new Error(`Job page ${path} is missing the employer apply link marker.`);
+    html = `${html.slice(0, markerIndex)}${overviewHtml(job, overview)}\n      ${html.slice(markerIndex)}`;
+  }
+
+  if (!html.includes(esc(overview))) throw new Error(`Job page ${path} did not receive the plain-language role overview.`);
+  enrichedJobPages += 1;
   await writeFile(path, html);
+}
+
+if (enrichedJobPages !== jobs.length) {
+  throw new Error(`Only ${enrichedJobPages}/${jobs.length} generated job pages received SEO enrichment.`);
 }
 
 let sitemap = await readFile('sitemap.xml', 'utf8');
@@ -168,4 +242,4 @@ if (!sitemap.includes(`<loc>${employerUrl}</loc>`)) {
 await writeFile('sitemap.xml', sitemap);
 await writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}/sitemap.xml\n`);
 
-console.log(`SEO hardening complete: ${enhancedLocations}/${jobs.length} job pages received structured location data; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap.`);
+console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context; ${enhancedLocations}/${jobs.length} received structured location data; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap.`);

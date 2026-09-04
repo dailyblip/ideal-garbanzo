@@ -55,8 +55,12 @@ jobs:
         run: node scripts/collect-early-career.mjs
       - name: Add official AWS data center roles
         run: node scripts/collect-amazon-datacenter.mjs
+      - name: Restore fresh Microsoft snapshot before direct refresh
+        run: node scripts/apply-microsoft-verified-fallback.mjs
       - name: Add official Microsoft datacenter roles
         run: node scripts/collect-microsoft-datacenter.mjs
+      - name: Persist freshly verified Microsoft snapshot
+        run: node scripts/persist-microsoft-snapshot.mjs
       - name: Add official Google Careers roles
         run: node scripts/collect-google-careers.mjs
       - name: Add official Meta Careers roles
@@ -98,16 +102,17 @@ jobs:
           node scripts/validate-job-history.mjs
           node scripts/validate-mailing-list.mjs
           node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-microsoft-snapshot.mjs
       - name: Validate approved homepage contract
         run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs and events when changed
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/microsoft-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json)" ]; then
             echo "No job, career-event, or QA data changes."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json
+            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/microsoft-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json
             git commit -m "Refresh verified jobs, events, and QA report"
             git fetch origin main
             git rebase origin/main
@@ -135,6 +140,8 @@ jobs:
           done
       - name: Apply current CoreSite verified fallback for the build
         run: node scripts/apply-coresite-verified-fallback.mjs
+      - name: Apply current Microsoft verified fallback for the build
+        run: node scripts/apply-microsoft-verified-fallback.mjs
       - name: Enforce mission-fit role families for the build
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize job locations for the build
@@ -153,6 +160,7 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-microsoft-snapshot.mjs
       - name: Generate crawlable SEO pages
         run: |
           node scripts/generate-seo.mjs
@@ -171,6 +179,7 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-site-copy.mjs
           node scripts/validate-technical-seo.mjs
           node scripts/validate-google-analytics.mjs

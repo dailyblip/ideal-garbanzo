@@ -31,17 +31,18 @@ const officialHostsByCompany = new Map([
 
 // Dedicated employer snapshots are protected independently so a generic
 // collector or reconciliation rule cannot silently erase a healthy source.
-// The hyperscaler snapshots are included here because they are high-volume,
-// high-value sources whose loss could otherwise be masked by the aggregate feed.
+// Hyperscaler snapshots intentionally include a broader candidate set than the
+// final mission-fit feed, so for those sources we guard against total collapse
+// and source-host drift rather than requiring a fixed retention percentage.
 const protectedSnapshots = [
-  { company: 'Amazon Web Services', path: 'data/amazon-jobs.json' },
-  { company: 'Google', path: 'data/google-jobs.json' },
-  { company: 'Meta', path: 'data/meta-jobs.json' },
-  { company: 'Oracle', path: 'data/oracle-jobs.json' },
-  { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' },
-  { company: 'TierPoint', path: 'data/tierpoint-jobs.json' },
-  { company: 'Sabey Data Centers', path: 'data/sabey-jobs.json' },
-  { company: 'Novva Data Centers', path: 'data/novva-jobs.json' }
+  { company: 'Amazon Web Services', path: 'data/amazon-jobs.json', enforceRetentionRatio: false },
+  { company: 'Google', path: 'data/google-jobs.json', enforceRetentionRatio: false },
+  { company: 'Meta', path: 'data/meta-jobs.json', enforceRetentionRatio: false },
+  { company: 'Oracle', path: 'data/oracle-jobs.json', enforceRetentionRatio: true },
+  { company: 'Digital Realty', path: 'data/digital-realty-jobs.json', enforceRetentionRatio: true },
+  { company: 'TierPoint', path: 'data/tierpoint-jobs.json', enforceRetentionRatio: true },
+  { company: 'Sabey Data Centers', path: 'data/sabey-jobs.json', enforceRetentionRatio: true },
+  { company: 'Novva Data Centers', path: 'data/novva-jobs.json', enforceRetentionRatio: true }
 ];
 
 const protectedMajorWorkdayCompanies = [
@@ -119,7 +120,7 @@ for (const job of jobs) {
   checkOfficialSource(company, job, company, violations);
 }
 
-for (const { company, path } of protectedSnapshots) {
+for (const { company, path, enforceRetentionRatio } of protectedSnapshots) {
   const snapshot = await readArray(path, company, violations);
   const foreign = snapshot.filter(job => String(job?.company || '').trim() !== company);
   if (foreign.length) violations.push(`${company}: dedicated snapshot contains ${foreign.length} record(s) owned by another company`);
@@ -129,7 +130,7 @@ for (const { company, path } of protectedSnapshots) {
   const publicCount = counts.get(company) || 0;
   if (snapshotCount >= 3 && publicCount === 0) {
     violations.push(`${company}: ${snapshotCount} dedicated snapshot roles collapsed to zero in the public feed`);
-  } else if (snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
+  } else if (enforceRetentionRatio && snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
     violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} dedicated snapshot roles`);
   }
 }

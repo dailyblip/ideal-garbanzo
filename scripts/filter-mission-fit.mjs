@@ -2,6 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
+const TIERPOINT_PATH = 'data/tierpoint-jobs.json';
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 
@@ -11,8 +12,22 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const obviousNonMissionTitlePattern = /\b(?:administrative business partner|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel)\b/i;
 const obviousSeniorTitlePattern = /\b(?:senior|sr\.?|principal|staff engineer|staff technician|director|vice president|vp|chief|head of)\b/i;
 
-const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
+let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
+
+// TierPoint's official iCIMS source is refreshed through a dedicated collector.
+// The generic ATS pass runs earlier and rebuilds jobs.json, so restore the latest
+// verified TierPoint snapshot here before the global mission-fit and dedupe gates.
+// This keeps a transient iCIMS outage from erasing already-verified openings.
+try {
+  const tierPointJobs = JSON.parse(await readFile(TIERPOINT_PATH, 'utf8'));
+  if (Array.isArray(tierPointJobs) && tierPointJobs.length) {
+    jobs = [
+      ...jobs.filter(job => String(job?.company || '').trim() !== 'TierPoint'),
+      ...tierPointJobs
+    ];
+  }
+} catch {}
 
 const kept = [];
 const removed = [];

@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-04T12:51:13.486Z",
+  "updatedAt": "2026-09-04T12:52:30.923Z",
   "jobs": 456,
-  "sourcesAttempted": 42,
+  "sourcesAttempted": 43,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -204,7 +204,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T12:51:14.235Z",
+    "updatedAt": "2026-09-04T12:52:31.044Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 456,
@@ -579,7 +579,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T12:51:14.467Z",
+    "checkedAt": "2026-09-04T12:52:31.104Z",
     "before": 456,
     "after": 456,
     "removed": 0,
@@ -682,7 +682,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T12:51:13.833Z",
+    "checkedAt": "2026-09-04T12:52:30.980Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

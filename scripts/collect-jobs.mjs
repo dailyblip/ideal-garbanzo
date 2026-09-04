@@ -12,7 +12,8 @@ const leverCompanies = [
 const greenhouseBoards = [
   ['xai','xAI'],
   ['elementcritical','Element Critical'],
-  ['coreweave','CoreWeave']
+  ['coreweave','CoreWeave'],
+  ['flexentialcorp','Flexential']
 ];
 const ashbyBoards = [
   ['lambda','Lambda'],
@@ -50,10 +51,11 @@ const excludedTitleTerms = [
   'senior','sr.','sr ','lead ','principal','manager','director','vice president','vp ','head of','staff engineer',
   'supervisor','superintendent','foreman','counsel','attorney','designer','architect','recruiter','sales','account executive',
   'software engineer','software developer','machine learning engineer','ml engineer',
-  'future opportunity','future opportunities','talent pool','general application','express your interest'
+  'future opportunity','future opportunities','talent pool','talent community','general application','express your interest'
 ];
 const excludedDescriptionTerms = [
-  'this is an evergreen requisition','evergreen requisition','talent pool application','general interest application'
+  'this is an evergreen requisition','evergreen requisition','talent pool application','general interest application',
+  'join our talent community','considered for future','may not currently have an open'
 ];
 
 const clean = s => String(s ?? '').replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&#39;/g,"'").replace(/&quot;/g,'"').replace(/\s+/g,' ').trim();
@@ -101,7 +103,7 @@ function classify(title, description='', employmentType='') {
   else if (t.includes('trainee')) type = 'trainee';
 
   let experience = '0-2-years';
-  if (hasAny(text, ['no experience','entry level','entry-level'])) experience = 'no-experience';
+  if (hasAny(text, ['no experience','entry level','entry-level']) || /\b0\s*(?:-|–|to)\s*\d{1,2}\s+years?(?:\s+of)?\s+experience\b/i.test(text)) experience = 'no-experience';
   else if (t.includes('journeyman') || /\b(iii|3)\b/.test(t) || years.some(year => year >= 3) || hasAny(text, midTerms)) experience = '2-5-years';
   else if (hasAny(text, earlyTerms) || years.some(year => year <= 2)) experience = '0-2-years';
 
@@ -154,7 +156,7 @@ function tagsFor(title, description, experience, type) {
 }
 
 async function fetchJson(url) {
-  const r = await fetch(url, { headers: { 'user-agent':'DataCenterCareersBot/1.1 (+https://dailyblip.github.io/ideal-garbanzo/)' } });
+  const r = await fetch(url, { headers: { 'user-agent':'DataCenterCareersBot/1.1 (+https://datacentercareers.us/)' } });
   if (!r.ok) throw new Error(`${r.status} ${url}`);
   return r.json();
 }

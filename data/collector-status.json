@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-04T17:54:39.382Z",
-  "jobs": 465,
+  "updatedAt": "2026-09-04T17:58:55.547Z",
+  "jobs": 496,
   "sourcesAttempted": 46,
   "providers": {
     "lever": 6,
@@ -13,23 +13,18 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 452,
+    "entry-level": 483,
     "trainee": 5,
     "internship": 4,
     "apprenticeship": 4
   },
   "countsByExperience": {
-    "2-5-years": 106,
+    "2-5-years": 111,
     "no-experience": 21,
-    "0-2-years": 338
+    "0-2-years": 364
   },
   "errors": [
-    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in",
-    "Microsoft Datacenter: data center technician: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center+technician&location=United+States&start=100&sort_by=relevance&filter_include_remote=0",
-    "Microsoft Datacenter: critical environment: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment&location=United+States&start=90&sort_by=relevance&filter_include_remote=0",
-    "Microsoft Datacenter: critical facilities: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+facilities&location=United+States&start=0&sort_by=relevance&filter_include_remote=0",
-    "Microsoft Datacenter: inventory and asset: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=inventory+and+asset&location=United+States&start=0&sort_by=relevance&filter_include_remote=0",
-    "Microsoft Datacenter: data center: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
+    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
   ],
   "majorSources": {
     "attempted": 6,
@@ -96,14 +91,9 @@
   "microsoftDatacenter": {
     "officialSource": "https://apply.careers.microsoft.com/careers",
     "apiSource": "https://apply.careers.microsoft.com/api/pcsx/search",
-    "sourceMode": "legacy-curated",
+    "sourceMode": "eightfold-pcsx",
     "sourceHealthy": true,
     "queryStats": [
-      {
-        "query": "data center technician",
-        "healthy": false,
-        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center+technician&location=United+States&start=100&sort_by=relevance&filter_include_remote=0"
-      },
       {
         "query": "datacenter technician",
         "healthy": true,
@@ -112,32 +102,33 @@
         "rows": 30
       },
       {
-        "query": "critical environment",
-        "healthy": false,
-        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment&location=United+States&start=90&sort_by=relevance&filter_include_remote=0"
+        "query": "critical environment technician",
+        "healthy": true,
+        "pages": 24,
+        "reportedRows": 238,
+        "rows": 238
       },
       {
-        "query": "critical facilities",
-        "healthy": false,
-        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+facilities&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
+        "query": "critical environment field service engineer",
+        "healthy": true,
+        "pages": 29,
+        "reportedRows": 281,
+        "rows": 281
       },
       {
-        "query": "inventory and asset",
-        "healthy": false,
-        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=inventory+and+asset&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
-      },
-      {
-        "query": "data center",
-        "healthy": false,
-        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
+        "query": "inventory and asset technician",
+        "healthy": true,
+        "pages": 2,
+        "reportedRows": 16,
+        "rows": 16
       }
     ],
-    "candidateRows": 135,
-    "plausibleRows": 34,
-    "detailAttempts": 0,
-    "detailVerified": 0,
-    "currentQualifyingRoles": 0,
-    "qualifyingRoles": 1,
+    "candidateRows": 358,
+    "plausibleRows": 32,
+    "detailAttempts": 32,
+    "detailVerified": 32,
+    "currentQualifyingRoles": 32,
+    "qualifyingRoles": 32,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -145,29 +136,8 @@
       "experience": 0,
       "detailFailure": 0
     },
-    "legacyFallback": {
-      "healthy": true,
-      "pages": [
-        {
-          "url": "https://careers.microsoft.com/v2/global/en/datacentertechnicians.html",
-          "healthy": true,
-          "candidateLinks": 3
-        },
-        {
-          "url": "https://careers.microsoft.com/v2/global/en/datacenters.html",
-          "healthy": true,
-          "candidateLinks": 3
-        }
-      ],
-      "qualifyingRoles": 1
-    },
-    "errors": [
-      "data center technician: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center+technician&location=United+States&start=100&sort_by=relevance&filter_include_remote=0",
-      "critical environment: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment&location=United+States&start=90&sort_by=relevance&filter_include_remote=0",
-      "critical facilities: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+facilities&location=United+States&start=0&sort_by=relevance&filter_include_remote=0",
-      "inventory and asset: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=inventory+and+asset&location=United+States&start=0&sort_by=relevance&filter_include_remote=0",
-      "data center: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
-    ]
+    "legacyFallback": null,
+    "errors": []
   },
   "googleCareers": {
     "officialSource": "https://www.google.com/about/careers/applications/jobs/results/",
@@ -275,21 +245,21 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T17:54:39.484Z",
+    "updatedAt": "2026-09-04T17:58:55.668Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 465,
+    "regionAssigned": 496,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 76,
-      "midwest": 80,
-      "west": 59,
-      "southwest": 49,
+      "southeast": 81,
+      "midwest": 83,
+      "west": 64,
+      "southwest": 54,
       "northeast": 13,
-      "mid-atlantic": 92,
-      "texas": 95,
+      "mid-atlantic": 101,
+      "texas": 99,
       "nationwide": 1
     }
   },
@@ -650,9 +620,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T17:54:39.534Z",
-    "before": 465,
-    "after": 465,
+    "checkedAt": "2026-09-04T17:58:55.726Z",
+    "before": 496,
+    "after": 496,
     "removed": 0,
     "examples": []
   },
@@ -753,7 +723,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T17:54:39.432Z",
+    "checkedAt": "2026-09-04T17:58:55.602Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

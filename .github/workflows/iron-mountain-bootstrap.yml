@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - scripts/collect-iron-mountain.mjs
+      - scripts/validate-iron-mountain.mjs
       - .github/workflows/iron-mountain-bootstrap.yml
   workflow_dispatch:
 
@@ -26,7 +27,9 @@ jobs:
         with:
           node-version: 22
       - name: Validate collector syntax
-        run: node --check scripts/collect-iron-mountain.mjs
+        run: |
+          node --check scripts/collect-iron-mountain.mjs
+          node --check scripts/validate-iron-mountain.mjs
       - name: Collect official Iron Mountain data center roles
         run: node scripts/collect-iron-mountain.mjs
       - name: Enforce mission-fit role families
@@ -39,8 +42,8 @@ jobs:
         run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
-      - name: Guard against feed regressions
-        run: node scripts/validate-refresh-health.mjs
+      - name: Validate Iron Mountain source health
+        run: node scripts/validate-iron-mountain.mjs
       - name: Track first-seen dates
         run: node scripts/stamp-job-history.mjs
       - name: Validate updated feed

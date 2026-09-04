@@ -20,6 +20,7 @@ const officialHostsByCompany = new Map([
   ['T5 Data Centers', new Set(['jobs.lever.co'])],
   ['TierPoint', new Set(['careers-tierpoint.icims.com'])],
   ['Sabey Data Centers', new Set(['careers2-anothersource.icims.com'])],
+  ['Novva Data Centers', new Set(['novva.com', 'www.novva.com'])],
   ['Vantage Data Centers', new Set(['vantagedc.wd1.myworkdayjobs.com'])],
   ['QTS Data Centers', new Set(['qtsdatacenters.wd5.myworkdayjobs.com'])],
   ['CyrusOne', new Set(['cyrusone.wd1.myworkdayjobs.com'])],
@@ -35,7 +36,8 @@ const protectedSnapshots = [
   { company: 'Oracle', path: 'data/oracle-jobs.json' },
   { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' },
   { company: 'TierPoint', path: 'data/tierpoint-jobs.json' },
-  { company: 'Sabey Data Centers', path: 'data/sabey-jobs.json' }
+  { company: 'Sabey Data Centers', path: 'data/sabey-jobs.json' },
+  { company: 'Novva Data Centers', path: 'data/novva-jobs.json' }
 ];
 
 // The six major Workday operators share one snapshot. Protect each employer

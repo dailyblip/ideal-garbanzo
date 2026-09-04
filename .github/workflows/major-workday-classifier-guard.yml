@@ -1,0 +1,26 @@
+name: Major Workday classifier guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-major-jobs.mjs'
+  pull_request:
+    paths:
+      - 'scripts/collect-major-jobs.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate classifier syntax and experience cases
+        run: |
+          node --check scripts/collect-major-jobs.mjs
+          node scripts/collect-major-jobs.mjs --test-experience-parser

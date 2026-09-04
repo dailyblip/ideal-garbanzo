@@ -39,6 +39,8 @@ jobs:
         run: node scripts/collect-sabey-careers.mjs
       - name: Add official Iron Mountain data center roles
         run: node scripts/collect-iron-mountain.mjs
+      - name: Add official Compass Datacenters roles
+        run: node scripts/collect-compass-datacenters.mjs
       - name: Merge priority major-employer jobs
         run: node scripts/collect-major-jobs.mjs
       - name: Reconcile major-employer snapshot
@@ -89,6 +91,7 @@ jobs:
           node scripts/validate-promotions.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-mailing-list.mjs
+          node scripts/validate-compass-datacenters.mjs
       - name: Validate approved homepage contract
         run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs and events when changed
@@ -143,6 +146,7 @@ jobs:
           node scripts/validate-job-history.mjs
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-compass-datacenters.mjs
       - name: Generate crawlable SEO pages
         run: |
           node scripts/generate-seo.mjs
@@ -160,6 +164,7 @@ jobs:
           node scripts/validate-job-history.mjs
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-compass-datacenters.mjs
           node scripts/validate-site-copy.mjs
           node scripts/validate-technical-seo.mjs
           node scripts/validate-google-analytics.mjs

@@ -35,6 +35,8 @@ jobs:
           node-version: 22
       - name: Refresh employer-direct jobs
         run: node scripts/collect-jobs.mjs
+      - name: Add official Sabey careers roles
+        run: node scripts/collect-sabey-careers.mjs
       - name: Merge priority major-employer jobs
         run: node scripts/collect-major-jobs.mjs
       - name: Reconcile major-employer snapshot

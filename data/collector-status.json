@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-04T12:52:57.087Z",
+  "updatedAt": "2026-09-04T12:53:09.193Z",
   "jobs": 456,
-  "sourcesAttempted": 44,
+  "sourcesAttempted": 45,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -204,7 +204,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T12:52:57.215Z",
+    "updatedAt": "2026-09-04T12:53:09.292Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 456,
@@ -579,7 +579,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T12:52:57.278Z",
+    "checkedAt": "2026-09-04T12:53:09.340Z",
     "before": 456,
     "after": 456,
     "removed": 0,
@@ -682,7 +682,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T12:52:57.148Z",
+    "checkedAt": "2026-09-04T12:53:09.240Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -774,15 +774,15 @@
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
-        "location": ""
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
         "title": "Supervisor, Data Center Operations",
         "location": "Breinigsville, PA",
         "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
+        "location": ""
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",

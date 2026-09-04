@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-04T12:53:09.193Z",
-  "jobs": 456,
-  "sourcesAttempted": 45,
+  "updatedAt": "2026-09-04T16:43:18.161Z",
+  "jobs": 457,
+  "sourcesAttempted": 46,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -13,7 +13,7 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 443,
+    "entry-level": 444,
     "trainee": 5,
     "internship": 4,
     "apprenticeship": 4
@@ -21,7 +21,7 @@
   "countsByExperience": {
     "0-2-years": 329,
     "2-5-years": 107,
-    "no-experience": 20
+    "no-experience": 21
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -204,10 +204,10 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T12:53:09.292Z",
+    "updatedAt": "2026-09-04T16:43:18.283Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 456,
+    "regionAssigned": 457,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -216,7 +216,7 @@
       "nationwide": 1,
       "texas": 95,
       "southeast": 75,
-      "west": 57,
+      "west": 58,
       "southwest": 48,
       "mid-atlantic": 86,
       "northeast": 13
@@ -579,9 +579,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T12:53:09.340Z",
-    "before": 456,
-    "after": 456,
+    "checkedAt": "2026-09-04T16:43:18.342Z",
+    "before": 457,
+    "after": 457,
     "removed": 0,
     "examples": []
   },
@@ -682,7 +682,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T12:53:09.240Z",
+    "checkedAt": "2026-09-04T16:43:18.218Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -764,13 +764,13 @@
     "qualifyingRoles": 10,
     "usedPreviousSnapshot": false,
     "listing": {
-      "pagesAttempted": 3,
-      "pagesSucceeded": 3,
-      "candidateLinks": 21
+      "pagesAttempted": 2,
+      "pagesSucceeded": 2,
+      "candidateLinks": 19
     },
     "drops": {
-      "parse": 4,
-      "classification": 6
+      "parse": 3,
+      "classification": 5
     },
     "samples": [
       {
@@ -790,15 +790,15 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Raleigh, NC",
-        "reason": "classification"
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
         "title": "Operations Specialist",
         "location": "Hawthorne, NY",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Raleigh, NC",
         "reason": "classification"
       }
     ]

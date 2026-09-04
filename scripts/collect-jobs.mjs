@@ -7,7 +7,8 @@ const leverCompanies = [
   ['cologix','Cologix'],
   ['ecldc','ECL'],
   ['hive','Hive'],
-  ['cagents','CAI']
+  ['cagents','CAI'],
+  ['t5datacenters','T5 Data Centers']
 ];
 const greenhouseBoards = [
   ['xai','xAI'],

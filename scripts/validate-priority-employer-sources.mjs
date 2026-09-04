@@ -27,13 +27,13 @@ const officialHostsByCompany = new Map([
   ['Aligned Data Centers', new Set(['aligneddc.wd12.myworkdayjobs.com'])]
 ]);
 
-// Oracle and Digital Realty both use Oracle Recruiting Cloud, but on different
-// tenants. Protect their dedicated snapshots independently so a generic
-// oraclecloud.com reconciliation rule cannot silently delete another employer's
-// records. Allow some post-collector QA attrition; block only severe divergence.
+// Dedicated employer snapshots are protected independently so a generic
+// collector or reconciliation rule cannot silently erase a healthy source.
+// Allow some post-collector QA attrition; block only severe divergence.
 const protectedSnapshots = [
   { company: 'Oracle', path: 'data/oracle-jobs.json' },
-  { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' }
+  { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' },
+  { company: 'TierPoint', path: 'data/tierpoint-jobs.json' }
 ];
 
 // The six major Workday operators share one snapshot. Protect each employer

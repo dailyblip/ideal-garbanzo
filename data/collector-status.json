@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-04T00:10:02.250Z",
+  "updatedAt": "2026-09-04T12:47:37.445Z",
   "jobs": 446,
-  "sourcesAttempted": 40,
+  "sourcesAttempted": 41,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -9,18 +9,19 @@
     "workday": 6,
     "googleCareers": 1,
     "oracleRecruitingCloud": 6,
-    "metaCareers": 13
+    "metaCareers": 13,
+    "icims": 1
   },
   "countsByType": {
     "entry-level": 433,
     "trainee": 5,
-    "apprenticeship": 4,
-    "internship": 4
+    "internship": 4,
+    "apprenticeship": 4
   },
   "countsByExperience": {
+    "0-2-years": 329,
     "2-5-years": 102,
-    "no-experience": 15,
-    "0-2-years": 329
+    "no-experience": 15
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -203,7 +204,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T06:58:23.551Z",
+    "updatedAt": "2026-09-04T12:47:37.546Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 446,
@@ -211,14 +212,14 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 74,
       "midwest": 77,
+      "nationwide": 1,
+      "texas": 92,
+      "southeast": 74,
       "west": 57,
       "southwest": 48,
-      "northeast": 12,
       "mid-atlantic": 85,
-      "texas": 92,
-      "nationwide": 1
+      "northeast": 12
     }
   },
   "postQa": {
@@ -578,7 +579,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T06:58:23.591Z",
+    "checkedAt": "2026-09-04T12:47:37.594Z",
     "before": 446,
     "after": 446,
     "removed": 0,
@@ -681,7 +682,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T06:58:23.504Z",
+    "checkedAt": "2026-09-04T12:47:37.492Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -755,5 +756,20 @@
     "errors": [
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ]
+  },
+  "tierPoint": {
+    "officialSource": "https://www.tierpoint.com/about-us/careers/",
+    "boardUrl": "https://careers-tierpoint.icims.com/jobs/search?hashed=-626007049&ss=1",
+    "sourceHealthy": true,
+    "qualifyingRoles": 0,
+    "usedPreviousSnapshot": false,
+    "diagnostics": {
+      "pagesAttempted": 1,
+      "pagesSucceeded": 1,
+      "reportedPages": null,
+      "candidateLinks": 20,
+      "detailAttempted": 20,
+      "detailSucceeded": 20
+    }
   }
 }

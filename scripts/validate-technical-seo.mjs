@@ -131,9 +131,12 @@ requireOk(detailDirs.length === jobs.length, `Generated job-page count ${detailD
 
 let jobPostingCount = 0;
 let structuredLocationCount = 0;
+let enrichedDescriptionCount = 0;
 for (const entry of detailDirs) {
   const html = await readFile(`jobs/${entry.name}/index.html`, 'utf8');
   requireOk(html.includes(`<link rel="canonical" href="${baseUrl}/jobs/`), `Job page ${entry.name} has a noncanonical URL.`);
+  requireOk(html.includes('class="seo-role-overview"'), `Job page ${entry.name} is missing its plain-language role overview.`);
+  requireOk(html.includes('id="role-overview-heading"'), `Job page ${entry.name} role overview is missing an accessible heading.`);
   const match = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i);
   if (!match) {
     errors.push(`Job page ${entry.name} is missing JSON-LD.`);
@@ -150,6 +153,10 @@ for (const entry of detailDirs) {
     requireOk(Boolean(schema.hiringOrganization?.name), `Job page ${entry.name} schema is missing hiringOrganization.`);
     requireOk(String(schema.url || '').startsWith(`${baseUrl}/jobs/`), `Job page ${entry.name} schema URL is not canonical.`);
     requireOk(Boolean(schema.identifier?.value), `Job page ${entry.name} schema is missing a stable identifier.`);
+    const description = clean(schema.description);
+    requireOk(description.length >= 220, `Job page ${entry.name} schema description is too thin (${description.length} characters).`);
+    requireOk(/complete duties, qualifications, schedule, and application details/i.test(description), `Job page ${entry.name} schema description must direct users to the complete employer listing.`);
+    if (description.length >= 220) enrichedDescriptionCount += 1;
     if (schema.jobLocation || schema.jobLocationType === 'TELECOMMUTE') structuredLocationCount += 1;
   } catch {
     errors.push(`Job page ${entry.name} contains invalid JSON-LD.`);
@@ -157,6 +164,7 @@ for (const entry of detailDirs) {
 }
 
 requireOk(jobPostingCount === jobs.length, `Only ${jobPostingCount}/${jobs.length} job pages contain valid JobPosting structured data.`);
+requireOk(enrichedDescriptionCount === jobs.length, `Only ${enrichedDescriptionCount}/${jobs.length} job pages contain enriched JobPosting descriptions.`);
 if (jobs.length) {
   const coverage = structuredLocationCount / jobs.length;
   // Do not invent city/state values for source listings whose location text is too ambiguous.
@@ -170,4 +178,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Technical SEO validation passed: ${locs.length} sitemap URLs, ${jobPostingCount} JobPosting pages, ${regionPageCount} regional pages, ${structuredLocationCount}/${jobs.length} with structured locations, meaningful lastmod dates verified.`);
+console.log(`Technical SEO validation passed: ${locs.length} sitemap URLs, ${jobPostingCount} JobPosting pages with enriched descriptions, ${regionPageCount} regional pages, ${structuredLocationCount}/${jobs.length} with structured locations, meaningful lastmod dates verified.`);

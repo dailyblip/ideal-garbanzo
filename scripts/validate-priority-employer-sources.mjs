@@ -3,8 +3,8 @@ import { readFile } from 'node:fs/promises';
 const JOBS_PATH = 'data/jobs.json';
 
 // Priority operators should enter the public feed only through their own career
-// systems. This guard prevents a future collector/merge change from quietly
-// replacing employer-direct links with job-board or aggregator URLs.
+// systems. This guard prevents a collector, fallback, or merge change from
+// quietly replacing employer-direct links with job-board or aggregator URLs.
 const officialHostsByCompany = new Map([
   ['Amazon Web Services', new Set(['amazon.jobs', 'www.amazon.jobs'])],
   ['Google', new Set(['www.google.com'])],
@@ -31,8 +31,12 @@ const officialHostsByCompany = new Map([
 
 // Dedicated employer snapshots are protected independently so a generic
 // collector or reconciliation rule cannot silently erase a healthy source.
-// Allow some post-collector QA attrition; block only severe divergence.
+// The hyperscaler snapshots are included here because they are high-volume,
+// high-value sources whose loss could otherwise be masked by the aggregate feed.
 const protectedSnapshots = [
+  { company: 'Amazon Web Services', path: 'data/amazon-jobs.json' },
+  { company: 'Google', path: 'data/google-jobs.json' },
+  { company: 'Meta', path: 'data/meta-jobs.json' },
   { company: 'Oracle', path: 'data/oracle-jobs.json' },
   { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' },
   { company: 'TierPoint', path: 'data/tierpoint-jobs.json' },
@@ -40,9 +44,6 @@ const protectedSnapshots = [
   { company: 'Novva Data Centers', path: 'data/novva-jobs.json' }
 ];
 
-// The six major Workday operators share one snapshot. Protect each employer
-// independently so one reconciliation mistake cannot erase STACK, NTT, Aligned,
-// Vantage, QTS, or CyrusOne while the aggregate source still looks healthy.
 const protectedMajorWorkdayCompanies = [
   'Vantage Data Centers',
   'QTS Data Centers',
@@ -76,46 +77,53 @@ function confidentUsLocation(value = '') {
   return Boolean(abbreviationMatch && usStateAbbreviations.has(abbreviationMatch[1]));
 }
 
-const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
-if (!Array.isArray(jobs) || jobs.length === 0) throw new Error('Priority-source guard requires a non-empty jobs.json array.');
-
-const counts = new Map();
-const violations = [];
-for (const job of jobs) {
-  const company = String(job?.company || '').trim();
-  const allowedHosts = officialHostsByCompany.get(company);
-  if (!allowedHosts) continue;
-
-  counts.set(company, (counts.get(company) || 0) + 1);
-  let parsed;
-  try { parsed = new URL(String(job?.sourceUrl || '')); }
-  catch {
-    violations.push(`${company}: ${job?.id || '(missing id)'} has an invalid source URL`);
-    continue;
-  }
-
-  const host = parsed.hostname.toLowerCase();
-  if (parsed.protocol !== 'https:' || !allowedHosts.has(host)) {
-    violations.push(`${company}: ${job?.id || '(missing id)'} points to non-official host ${host || '(missing host)'}`);
+async function readArray(path, label, violations) {
+  try {
+    const value = JSON.parse(await readFile(path, 'utf8'));
+    if (!Array.isArray(value)) {
+      violations.push(`${label}: ${path} is not an array`);
+      return [];
+    }
+    return value;
+  } catch (error) {
+    violations.push(`${label}: ${path} could not be read (${error.message})`);
+    return [];
   }
 }
 
-for (const { company, path } of protectedSnapshots) {
-  let snapshot;
+function checkOfficialSource(company, job, context, violations) {
+  const allowedHosts = officialHostsByCompany.get(company);
+  if (!allowedHosts) return;
+  let parsed;
   try {
-    snapshot = JSON.parse(await readFile(path, 'utf8'));
-  } catch (error) {
-    violations.push(`${company}: dedicated snapshot ${path} could not be read (${error.message})`);
-    continue;
+    parsed = new URL(String(job?.sourceUrl || ''));
+  } catch {
+    violations.push(`${context}: ${job?.id || '(missing id)'} has an invalid source URL`);
+    return;
   }
-  if (!Array.isArray(snapshot)) {
-    violations.push(`${company}: dedicated snapshot ${path} is not an array`);
-    continue;
+  const host = parsed.hostname.toLowerCase();
+  if (parsed.protocol !== 'https:' || !allowedHosts.has(host)) {
+    violations.push(`${context}: ${job?.id || '(missing id)'} points to non-official host ${host || '(missing host)'}`);
   }
+}
+
+const violations = [];
+const jobs = await readArray(JOBS_PATH, 'Public feed', violations);
+if (!jobs.length) violations.push('Priority-source guard requires a non-empty jobs.json array.');
+
+const counts = new Map();
+for (const job of jobs) {
+  const company = String(job?.company || '').trim();
+  if (!officialHostsByCompany.has(company)) continue;
+  counts.set(company, (counts.get(company) || 0) + 1);
+  checkOfficialSource(company, job, company, violations);
+}
+
+for (const { company, path } of protectedSnapshots) {
+  const snapshot = await readArray(path, company, violations);
   const foreign = snapshot.filter(job => String(job?.company || '').trim() !== company);
-  if (foreign.length) {
-    violations.push(`${company}: dedicated snapshot contains ${foreign.length} record(s) owned by another company`);
-  }
+  if (foreign.length) violations.push(`${company}: dedicated snapshot contains ${foreign.length} record(s) owned by another company`);
+  for (const job of snapshot) checkOfficialSource(company, job, `${company} snapshot`, violations);
 
   const snapshotCount = snapshot.length;
   const publicCount = counts.get(company) || 0;
@@ -126,24 +134,18 @@ for (const { company, path } of protectedSnapshots) {
   }
 }
 
-let majorSnapshot = [];
-try {
-  majorSnapshot = JSON.parse(await readFile('data/major-jobs.json', 'utf8'));
-  if (!Array.isArray(majorSnapshot)) {
-    violations.push('Major Workday snapshot data/major-jobs.json is not an array');
-    majorSnapshot = [];
+const majorSnapshot = await readArray('data/major-jobs.json', 'Major Workday snapshot', violations);
+for (const job of majorSnapshot) {
+  const company = String(job?.company || '').trim();
+  if (protectedMajorWorkdayCompanies.includes(company)) {
+    checkOfficialSource(company, job, `${company} major snapshot`, violations);
   }
-} catch (error) {
-  violations.push(`Major Workday snapshot data/major-jobs.json could not be read (${error.message})`);
 }
 
 for (const company of protectedMajorWorkdayCompanies) {
   const companySnapshot = majorSnapshot.filter(job => String(job?.company || '').trim() === company);
   const usSnapshot = companySnapshot.filter(job => confidentUsLocation(job?.location));
   const publicCount = counts.get(company) || 0;
-
-  // Hiring can legitimately reach zero. Only enforce retention when the shared
-  // snapshot itself contains a meaningful number of confidently U.S. roles.
   if (usSnapshot.length >= 3 && publicCount === 0) {
     violations.push(`${company}: ${usSnapshot.length} U.S. roles in the major Workday snapshot collapsed to zero in the public feed`);
   } else if (usSnapshot.length >= 8 && publicCount < Math.ceil(usSnapshot.length * 0.40)) {
@@ -151,20 +153,16 @@ for (const company of protectedMajorWorkdayCompanies) {
   }
 }
 
+const represented = [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
+if (represented.length < 6) {
+  violations.push(`Priority-employer coverage collapsed to ${represented.length} represented operators; expected at least 6 before deployment.`);
+}
+
 if (violations.length) {
   for (const violation of violations) console.error(`Priority-source violation: ${violation}`);
   throw new Error(`Blocked ${violations.length} priority-employer source or snapshot integrity violation(s).`);
 }
 
-const represented = [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
-const representedCompanies = represented.length;
 const priorityJobs = represented.reduce((sum, [, count]) => sum + count, 0);
-
-// Do not require every operator to have a live opening every day; hiring can
-// legitimately reach zero. A broad collapse, however, should not pass silently.
-if (representedCompanies < 6) {
-  throw new Error(`Priority-employer coverage collapsed to ${representedCompanies} represented operators; expected at least 6 before deployment.`);
-}
-
-console.log(`Priority employer source guard passed: ${priorityJobs} jobs from ${representedCompanies}/${officialHostsByCompany.size} priority operators use employer-direct career URLs.`);
+console.log(`Priority employer source guard passed: ${priorityJobs} jobs from ${represented.length}/${officialHostsByCompany.size} priority operators use employer-direct career URLs.`);
 for (const [company, count] of represented) console.log(`  ${company}: ${count}`);

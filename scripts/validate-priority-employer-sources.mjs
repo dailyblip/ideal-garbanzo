@@ -93,6 +93,19 @@ async function readArray(path, label, violations) {
   }
 }
 
+async function readSnapshotJobs(path, label, violations) {
+  try {
+    const value = JSON.parse(await readFile(path, 'utf8'));
+    if (Array.isArray(value)) return value;
+    if (value && typeof value === 'object' && Array.isArray(value.jobs)) return value.jobs;
+    violations.push(`${label}: ${path} must be a job array or an object with a jobs array`);
+    return [];
+  } catch (error) {
+    violations.push(`${label}: ${path} could not be read (${error.message})`);
+    return [];
+  }
+}
+
 function checkOfficialSource(company, job, context, violations) {
   const allowedHosts = officialHostsByCompany.get(company);
   if (!allowedHosts) return;
@@ -122,7 +135,7 @@ for (const job of jobs) {
 }
 
 for (const { company, path, enforceRetentionRatio } of protectedSnapshots) {
-  const snapshot = await readArray(path, company, violations);
+  const snapshot = await readSnapshotJobs(path, company, violations);
   const foreign = snapshot.filter(job => String(job?.company || '').trim() !== company);
   if (foreign.length) violations.push(`${company}: dedicated snapshot contains ${foreign.length} record(s) owned by another company`);
   for (const job of snapshot) checkOfficialSource(company, job, `${company} snapshot`, violations);

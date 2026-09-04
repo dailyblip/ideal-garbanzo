@@ -39,6 +39,8 @@ jobs:
         run: node scripts/collect-sabey-careers.mjs
       - name: Persist Sabey source snapshot
         run: node scripts/persist-sabey-snapshot.mjs
+      - name: Add official Novva Data Centers roles
+        run: node scripts/collect-novva-careers.mjs
       - name: Add official Iron Mountain data center roles
         run: node scripts/collect-iron-mountain.mjs
       - name: Add official Compass Datacenters roles
@@ -100,12 +102,12 @@ jobs:
         run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs and events when changed
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json)" ]; then
             echo "No job, career-event, or QA data changes."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json
+            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json
             git commit -m "Refresh verified jobs, events, and QA report"
             git fetch origin main
             git rebase origin/main

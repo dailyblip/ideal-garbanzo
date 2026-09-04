@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-04T17:17:02.888Z",
+  "updatedAt": "2026-09-04T17:54:39.382Z",
   "jobs": 465,
   "sourcesAttempted": 46,
   "providers": {
@@ -19,12 +19,17 @@
     "apprenticeship": 4
   },
   "countsByExperience": {
-    "2-5-years": 107,
+    "2-5-years": 106,
     "no-experience": 21,
-    "0-2-years": 337
+    "0-2-years": 338
   },
   "errors": [
-    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
+    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in",
+    "Microsoft Datacenter: data center technician: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center+technician&location=United+States&start=100&sort_by=relevance&filter_include_remote=0",
+    "Microsoft Datacenter: critical environment: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment&location=United+States&start=90&sort_by=relevance&filter_include_remote=0",
+    "Microsoft Datacenter: critical facilities: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+facilities&location=United+States&start=0&sort_by=relevance&filter_include_remote=0",
+    "Microsoft Datacenter: inventory and asset: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=inventory+and+asset&location=United+States&start=0&sort_by=relevance&filter_include_remote=0",
+    "Microsoft Datacenter: data center: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
   ],
   "majorSources": {
     "attempted": 6,
@@ -89,14 +94,80 @@
     "errors": []
   },
   "microsoftDatacenter": {
-    "officialSource": "https://careers.microsoft.com/v2/global/en/datacenters.html",
-    "candidateLinks": 3,
+    "officialSource": "https://apply.careers.microsoft.com/careers",
+    "apiSource": "https://apply.careers.microsoft.com/api/pcsx/search",
+    "sourceMode": "legacy-curated",
+    "sourceHealthy": true,
+    "queryStats": [
+      {
+        "query": "data center technician",
+        "healthy": false,
+        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center+technician&location=United+States&start=100&sort_by=relevance&filter_include_remote=0"
+      },
+      {
+        "query": "datacenter technician",
+        "healthy": true,
+        "pages": 3,
+        "reportedRows": 30,
+        "rows": 30
+      },
+      {
+        "query": "critical environment",
+        "healthy": false,
+        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment&location=United+States&start=90&sort_by=relevance&filter_include_remote=0"
+      },
+      {
+        "query": "critical facilities",
+        "healthy": false,
+        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+facilities&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
+      },
+      {
+        "query": "inventory and asset",
+        "healthy": false,
+        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=inventory+and+asset&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
+      },
+      {
+        "query": "data center",
+        "healthy": false,
+        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
+      }
+    ],
+    "candidateRows": 135,
+    "plausibleRows": 34,
+    "detailAttempts": 0,
+    "detailVerified": 0,
+    "currentQualifyingRoles": 0,
     "qualifyingRoles": 1,
+    "retainedPrevious": false,
     "drops": {
-      "nonUs": 1,
-      "seniorOrIrrelevant": 1,
-      "experience": 0
-    }
+      "nonUs": 0,
+      "irrelevant": 0,
+      "experience": 0,
+      "detailFailure": 0
+    },
+    "legacyFallback": {
+      "healthy": true,
+      "pages": [
+        {
+          "url": "https://careers.microsoft.com/v2/global/en/datacentertechnicians.html",
+          "healthy": true,
+          "candidateLinks": 3
+        },
+        {
+          "url": "https://careers.microsoft.com/v2/global/en/datacenters.html",
+          "healthy": true,
+          "candidateLinks": 3
+        }
+      ],
+      "qualifyingRoles": 1
+    },
+    "errors": [
+      "data center technician: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center+technician&location=United+States&start=100&sort_by=relevance&filter_include_remote=0",
+      "critical environment: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment&location=United+States&start=90&sort_by=relevance&filter_include_remote=0",
+      "critical facilities: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+facilities&location=United+States&start=0&sort_by=relevance&filter_include_remote=0",
+      "inventory and asset: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=inventory+and+asset&location=United+States&start=0&sort_by=relevance&filter_include_remote=0",
+      "data center: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=data+center&location=United+States&start=0&sort_by=relevance&filter_include_remote=0"
+    ]
   },
   "googleCareers": {
     "officialSource": "https://www.google.com/about/careers/applications/jobs/results/",
@@ -204,7 +275,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T17:17:03.011Z",
+    "updatedAt": "2026-09-04T17:54:39.484Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 465,
@@ -215,9 +286,9 @@
       "southeast": 76,
       "midwest": 80,
       "west": 59,
-      "southwest": 48,
+      "southwest": 49,
       "northeast": 13,
-      "mid-atlantic": 93,
+      "mid-atlantic": 92,
       "texas": 95,
       "nationwide": 1
     }
@@ -579,7 +650,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T17:17:03.054Z",
+    "checkedAt": "2026-09-04T17:54:39.534Z",
     "before": 465,
     "after": 465,
     "removed": 0,
@@ -682,25 +753,10 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T17:17:02.961Z",
-    "removedCount": 2,
-    "removedByReason": {
-      "non-mission role family": 2
-    },
-    "removed": [
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "reason": "non-mission role family"
-      }
-    ]
+    "checkedAt": "2026-09-04T17:54:39.432Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": []
   },
   "oracleCareers": {
     "officialSource": "https://careers.oracle.com/",

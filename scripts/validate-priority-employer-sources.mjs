@@ -16,6 +16,7 @@ const officialHostsByCompany = new Map([
   ['CoreSite', new Set(['jobs.coresite.com'])],
   ['Iron Mountain', new Set(['ironmountain.wd5.myworkdayjobs.com'])],
   ['Compass Datacenters', new Set(['compass-datacenters.breezy.hr'])],
+  ['Cologix', new Set(['jobs.lever.co'])],
   ['Flexential', new Set(['job-boards.greenhouse.io'])],
   ['T5 Data Centers', new Set(['jobs.lever.co'])],
   ['TierPoint', new Set(['careers-tierpoint.icims.com'])],
@@ -27,6 +28,15 @@ const officialHostsByCompany = new Map([
   ['STACK Infrastructure', new Set(['stackinfra.wd108.myworkdayjobs.com'])],
   ['NTT Global Data Centers', new Set(['nttglobaldatacenters.wd501.myworkdayjobs.com'])],
   ['Aligned Data Centers', new Set(['aligneddc.wd12.myworkdayjobs.com'])]
+]);
+
+// Lever and Greenhouse are shared ATS hosts, so hostname checks alone are not
+// enough to prove that a job belongs to the employer named in our feed. Pin the
+// board path for priority operators using those multi-tenant platforms.
+const sharedAtsPathPrefixesByCompany = new Map([
+  ['Cologix', '/cologix/'],
+  ['T5 Data Centers', '/t5datacenters/'],
+  ['Flexential', '/flexentialcorp/']
 ]);
 
 // Dedicated employer snapshots are protected independently so a generic
@@ -119,6 +129,12 @@ function checkOfficialSource(company, job, context, violations) {
   const host = parsed.hostname.toLowerCase();
   if (parsed.protocol !== 'https:' || !allowedHosts.has(host)) {
     violations.push(`${context}: ${job?.id || '(missing id)'} points to non-official host ${host || '(missing host)'}`);
+    return;
+  }
+
+  const requiredPathPrefix = sharedAtsPathPrefixesByCompany.get(company);
+  if (requiredPathPrefix && !parsed.pathname.toLowerCase().startsWith(requiredPathPrefix)) {
+    violations.push(`${context}: ${job?.id || '(missing id)'} points to the wrong ${host} employer board path ${parsed.pathname || '/'}`);
   }
 }
 

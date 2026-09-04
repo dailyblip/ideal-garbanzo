@@ -1,30 +1,77 @@
 {
-  "checkedAt": "2026-09-03T17:39:37.913Z",
-  "jobsBefore": 422,
-  "jobsAfter": 422,
+  "checkedAt": "2026-09-04T05:16:45.932Z",
+  "jobsBefore": 442,
+  "jobsAfter": 438,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10521937",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician (Nights), DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10521937/data-center-technician-nights-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10521937/data-center-technician-nights-dcc-communities"
+    },
+    {
+      "id": "amazon-10488293",
+      "company": "Amazon Web Services",
+      "title": "Data Center Controls Tech, Data Center Capacity Delivery - Controls",
+      "url": "https://www.amazon.jobs/en/jobs/10488293/data-center-controls-tech-data-center-capacity-delivery-controls",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10488293/data-center-controls-tech-data-center-capacity-delivery-controls"
+    },
+    {
+      "id": "amazon-10474343",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10474343/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10474343/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10465083",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, Data Center Engineering Operations (DCEO)",
+      "url": "https://www.amazon.jobs/en/jobs/10465083/engineering-operations-technician-data-center-engineering-operations-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10465083/engineering-operations-technician-data-center-engineering-operations-dceo"
+    }
+  ],
   "blockedJobLinks": [],
   "transientJobLinks": [
     {
-      "id": "gh-xai-5227684007",
+      "id": "gh-xai-5227699007",
       "company": "xAI",
-      "title": "Chiller Technician",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5227684007",
+      "title": "Electrical Technician (Medium Voltage)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5227699007",
       "state": "transient",
       "status": null,
       "error": "timeout"
     }
   ],
   "warningJobLinks": [],
-  "careerEventsBefore": 2,
-  "careerEventsAfter": 2,
+  "careerEventsBefore": 3,
+  "careerEventsAfter": 3,
   "expiredCareerEventsRemoved": [],
   "deadCareerEventLinksRemoved": [],
-  "blockedCareerEventLinks": [],
+  "blockedCareerEventLinks": [
+    {
+      "id": "dcd-virginia-next-gen-workforce-2026-11-04",
+      "name": "Student & Military Community Next-Gen Workforce Session",
+      "date": "2026-11-04",
+      "url": "https://www.datacenterdynamics.com/en/dcdconnect-live/virginia/2026/agenda/",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.datacenterdynamics.com/en/dcdconnect-live/virginia/2026/agenda/"
+    }
+  ],
   "transientCareerEventLinks": [],
   "warningCareerEventLinks": [],
   "homepageExternalLinks": [

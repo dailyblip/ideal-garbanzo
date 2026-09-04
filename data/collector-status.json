@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-04T00:10:02.250Z",
-  "jobs": 442,
+  "jobs": 438,
   "sourcesAttempted": 40,
   "providers": {
     "lever": 6,
@@ -12,7 +12,7 @@
     "metaCareers": 13
   },
   "countsByType": {
-    "entry-level": 430,
+    "entry-level": 426,
     "trainee": 5,
     "apprenticeship": 4,
     "internship": 3
@@ -20,7 +20,7 @@
   "countsByExperience": {
     "2-5-years": 103,
     "no-experience": 6,
-    "0-2-years": 333
+    "0-2-years": 329
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -206,7 +206,7 @@
     "updatedAt": "2026-09-04T00:10:02.314Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 441,
+    "regionAssigned": 437,
     "regionMissing": 1,
     "coveragePct": 99.8,
     "missingSamples": [
@@ -219,19 +219,19 @@
     ],
     "countsByRegion": {
       "southeast": 71,
-      "midwest": 78,
+      "midwest": 77,
       "west": 57,
-      "southwest": 48,
+      "southwest": 46,
       "northeast": 10,
-      "mid-atlantic": 84,
+      "mid-atlantic": 83,
       "texas": 93
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-03T17:39:37.913Z",
-    "publishedJobs": 422,
-    "removedJobs": 0,
-    "activeCareerEvents": 2
+    "checkedAt": "2026-09-04T05:16:45.932Z",
+    "publishedJobs": 438,
+    "removedJobs": 4,
+    "activeCareerEvents": 3
   },
   "metaCareers": {
     "officialSource": "https://www.metacareers.com/jobsearch/",

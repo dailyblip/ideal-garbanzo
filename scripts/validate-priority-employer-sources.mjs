@@ -17,6 +17,7 @@ const officialHostsByCompany = new Map([
   ['Iron Mountain', new Set(['ironmountain.wd5.myworkdayjobs.com'])],
   ['Compass Datacenters', new Set(['compass-datacenters.breezy.hr'])],
   ['Flexential', new Set(['job-boards.greenhouse.io'])],
+  ['T5 Data Centers', new Set(['jobs.lever.co'])],
   ['Vantage Data Centers', new Set(['vantagedc.wd1.myworkdayjobs.com'])],
   ['QTS Data Centers', new Set(['qtsdatacenters.wd5.myworkdayjobs.com'])],
   ['CyrusOne', new Set(['cyrusone.wd1.myworkdayjobs.com'])],

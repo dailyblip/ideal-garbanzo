@@ -1,7 +1,9 @@
-name: Bootstrap TierPoint employer-direct feed
+name: Refresh TierPoint employer-direct feed
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '55 12 * * *'
   push:
     paths:
       - 'scripts/collect-tierpoint.mjs'
@@ -13,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: tierpoint-bootstrap
+  group: tierpoint-refresh
   cancel-in-progress: true
 
 jobs:

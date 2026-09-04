@@ -1,6 +1,8 @@
 import { readFile, readdir } from 'node:fs/promises';
 
 const clean = value => String(value ?? '').trim();
+const slugify = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'job';
+const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0,32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g,'').slice(-10)}`;
 const errors = [];
 const requireOk = (condition, message) => { if (!condition) errors.push(message); };
 
@@ -36,6 +38,22 @@ requireOk(!sitemap.includes(`${baseUrl}/subscribed/`), 'Confirmation page must n
 requireOk(!/dailyblip\.github\.io/i.test(sitemap), 'Sitemap must not contain the old GitHub Pages domain.');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
 requireOk(new Set(locs).size === locs.length, 'Sitemap contains duplicate URLs.');
+
+const sitemapEntries = new Map();
+for (const match of sitemap.matchAll(/<url><loc>([^<]+)<\/loc>(?:<lastmod>([^<]+)<\/lastmod>)?<\/url>/g)) {
+  sitemapEntries.set(match[1], match[2] || null);
+  if (!match[2]) continue;
+  const parsed = Date.parse(`${match[2]}T00:00:00Z`);
+  requireOk(/^\d{4}-\d{2}-\d{2}$/.test(match[2]) && Number.isFinite(parsed), `Sitemap has invalid lastmod for ${match[1]}: ${match[2]}`);
+  requireOk(parsed <= Date.now() + 24 * 60 * 60 * 1000, `Sitemap lastmod is in the future for ${match[1]}: ${match[2]}`);
+}
+
+for (const job of jobs) {
+  const url = `${baseUrl}/jobs/${jobSlug(job)}/`;
+  const expected = new Date(job.lastChangedAt).toISOString().slice(0, 10);
+  requireOk(sitemapEntries.has(url), `Sitemap missing generated job URL ${url}`);
+  requireOk(sitemapEntries.get(url) === expected, `Sitemap lastmod for ${job.id} must match meaningful job change date ${expected}.`);
+}
 
 requireOk(homepage.includes(`<link rel="canonical" href="${baseUrl}/">`), 'Homepage canonical URL is incorrect.');
 requireOk(homepage.includes(`<meta property="og:url" content="${baseUrl}/">`), 'Homepage Open Graph URL is incorrect.');
@@ -88,4 +106,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Technical SEO validation passed: ${locs.length} sitemap URLs, ${jobPostingCount} JobPosting pages, ${structuredLocationCount}/${jobs.length} with structured locations.`);
+console.log(`Technical SEO validation passed: ${locs.length} sitemap URLs, ${jobPostingCount} JobPosting pages, ${structuredLocationCount}/${jobs.length} with structured locations, meaningful job lastmod dates verified.`);

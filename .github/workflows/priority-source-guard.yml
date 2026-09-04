@@ -8,9 +8,13 @@ on:
       - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
-      - 'scripts/apply-coresite-verified-fallback.mjs'
+      - 'scripts/apply-*-verified-fallback.mjs'
+      - 'scripts/persist-*-snapshot.mjs'
+      - 'scripts/reconcile-major-jobs.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
+      - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
     branches: [main]
@@ -19,9 +23,13 @@ on:
       - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
-      - 'scripts/apply-coresite-verified-fallback.mjs'
+      - 'scripts/apply-*-verified-fallback.mjs'
+      - 'scripts/persist-*-snapshot.mjs'
+      - 'scripts/reconcile-major-jobs.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
+      - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
 

@@ -118,6 +118,15 @@ function firstText(object, keys) {
   return '';
 }
 
+function flexFieldText(object = {}) {
+  const fields = Array.isArray(object.requisitionFlexFields) ? object.requisitionFlexFields : [];
+  return fields.map(field => {
+    const prompt = firstText(field, ['Prompt','prompt','Label','label']);
+    const value = firstText(field, ['Value','value','displayValue','Meaning','meaning']);
+    return [prompt, value].filter(Boolean).join(': ');
+  }).filter(Boolean).join(' ');
+}
+
 function locationFor(req = {}) {
   const primary = firstText(req, ['PrimaryLocation', 'Location', 'location']);
   if (primary) return primary;
@@ -167,10 +176,10 @@ function statedExperienceYears(text = '') {
 }
 
 function careerLevelClass(value = '') {
-  const v = lower(value).replace(/\s+/g, '');
-  const m = v.match(/\b(ic|m)(\d)\b/);
+  const v = lower(value);
+  const m = v.match(/(?:^|[^a-z0-9])(ic|m)\s*([1-9])(?=[^0-9]|$)/i);
   if (!m) return null;
-  if (m[1] === 'm') return 'reject';
+  if (m[1].toLowerCase() === 'm') return 'reject';
   const level = Number(m[2]);
   if (level >= 4) return 'reject';
   if (level === 3) return '2-5-years';
@@ -185,7 +194,7 @@ function classify(title, description = '', metadata = '') {
   const text = lower(`${title} ${description} ${metadata}`);
   const years = statedExperienceYears(text);
   if (years.some(year => year >= 6)) return null;
-  const careerFit = careerLevelClass(metadata);
+  const careerFit = careerLevelClass(`${title} ${metadata}`);
   if (careerFit === 'reject') return null;
   if (/people manager|manages a team|management role/.test(lower(metadata))) return null;
 
@@ -422,8 +431,9 @@ async function hydrateCandidate(site, row, previousIndex) {
   if (!relevant(title, description)) return { job: null, reason: 'context', detailAttempted: true, detailFailed: false, preserved: false };
 
   const metadata = [
-    firstText(merged, ['CareerLevel','CareerLevelName','ManagerLevel','Role','JobFunction']),
-    firstText(merged, ['YearsOfExperience','Experience','ExperienceLevel'])
+    firstText(merged, ['CareerLevel','CareerLevelName','ManagerLevel','Role','JobFunction','JobLevel','JobGrade']),
+    firstText(merged, ['YearsOfExperience','Experience','ExperienceLevel']),
+    flexFieldText(merged)
   ].filter(Boolean).join(' ');
   const cls = classify(title, description, metadata);
   if (!cls) return { job: null, reason: 'experience', detailAttempted: true, detailFailed: false, preserved: false };

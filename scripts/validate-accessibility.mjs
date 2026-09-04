@@ -8,6 +8,7 @@ const roots = [
   'entry-level',
   'no-experience',
   'career-events',
+  'locations',
   'how-to-get-a-data-center-job',
   'how-to-get-a-data-center-internship'
 ];

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-04T18:46:40.925Z",
-  "jobs": 497,
+  "updatedAt": "2026-09-04T20:48:23.809Z",
+  "jobs": 499,
   "sourcesAttempted": 46,
   "providers": {
     "lever": 6,
@@ -13,7 +13,7 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 484,
+    "entry-level": 486,
     "trainee": 5,
     "internship": 4,
     "apprenticeship": 4
@@ -21,7 +21,7 @@
   "countsByExperience": {
     "2-5-years": 111,
     "no-experience": 21,
-    "0-2-years": 365
+    "0-2-years": 367
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -97,23 +97,23 @@
       {
         "query": "datacenter technician",
         "healthy": true,
-        "pages": 3,
-        "reportedRows": 30,
-        "rows": 30
+        "pages": 4,
+        "reportedRows": 33,
+        "rows": 33
       },
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 25,
-        "reportedRows": 244,
-        "rows": 244
+        "pages": 26,
+        "reportedRows": 255,
+        "rows": 255
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 28,
-        "reportedRows": 280,
-        "rows": 280
+        "pages": 30,
+        "reportedRows": 291,
+        "rows": 291
       },
       {
         "query": "inventory and asset technician",
@@ -123,12 +123,12 @@
         "rows": 16
       }
     ],
-    "candidateRows": 363,
-    "plausibleRows": 33,
-    "detailAttempts": 33,
-    "detailVerified": 33,
-    "currentQualifyingRoles": 33,
-    "qualifyingRoles": 33,
+    "candidateRows": 376,
+    "plausibleRows": 35,
+    "detailAttempts": 35,
+    "detailVerified": 35,
+    "currentQualifyingRoles": 35,
+    "qualifyingRoles": 35,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -245,16 +245,16 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T18:46:41.090Z",
+    "updatedAt": "2026-09-04T20:48:23.962Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 497,
+    "regionAssigned": 499,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 81,
-      "midwest": 83,
+      "midwest": 85,
       "west": 64,
       "southwest": 54,
       "northeast": 13,
@@ -620,22 +620,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T18:46:41.157Z",
-    "before": 497,
-    "after": 497,
+    "checkedAt": "2026-09-04T20:48:24.017Z",
+    "before": 499,
+    "after": 499,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 493,
-    "currentJobs": 465,
-    "newJobsThisRun": 21,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 21,
+    "trackedJobs": 527,
+    "currentJobs": 499,
+    "newJobsThisRun": 34,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 34,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-04T17:17:19.448Z"
+    "updatedAt": "2026-09-04T20:48:24.068Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -723,7 +723,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T18:46:41.027Z",
+    "checkedAt": "2026-09-04T20:48:23.905Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

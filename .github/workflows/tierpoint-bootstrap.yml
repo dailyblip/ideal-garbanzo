@@ -7,10 +7,13 @@ on:
   push:
     paths:
       - 'scripts/collect-tierpoint-v3.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - '.github/workflows/tierpoint-bootstrap.yml'
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: tierpoint-refresh
@@ -34,18 +37,31 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Validate feed
-        run: node scripts/validate.mjs
-      - name: Commit verified TierPoint snapshot
+      - name: Persist first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate feed and alert history
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/tierpoint-jobs.json data/collector-status.json)" ]; then
-            echo "No TierPoint data changes."
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate.mjs
+      - name: Commit verified TierPoint snapshot
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- data/jobs.json data/tierpoint-jobs.json data/job-history.json data/collector-status.json)" ]; then
+            echo "No TierPoint data or job-history changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.json data/tierpoint-jobs.json data/collector-status.json
-          git commit -m "Refresh verified TierPoint jobs"
+          git add data/jobs.json data/tierpoint-jobs.json data/job-history.json data/collector-status.json
+          git commit -m "Refresh verified TierPoint jobs and history"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy committed TierPoint data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

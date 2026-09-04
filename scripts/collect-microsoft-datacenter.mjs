@@ -5,7 +5,7 @@ const SEARCH = `${APPLY}/api/pcsx/search`;
 const DETAIL = `${APPLY}/api/pcsx/position_details`;
 const DOMAIN = 'microsoft.com';
 const COMPANY = 'Microsoft';
-const QUERIES = ['data center technician','datacenter technician','critical environment','critical facilities','inventory and asset','data center'];
+const QUERIES = ['datacenter technician','critical environment technician','critical environment field service engineer','inventory and asset technician'];
 const LEGACY = [
   'https://careers.microsoft.com/v2/global/en/datacentertechnicians.html',
   'https://careers.microsoft.com/v2/global/en/datacenters.html'
@@ -19,12 +19,33 @@ const stateMap = new Map(Object.entries(states).flatMap(([name, code]) => [[name
 const numberWords = {zero:'0',one:'1',two:'2',three:'3',four:'4',five:'5',six:'6',seven:'7',eight:'8',nine:'9',ten:'10'};
 const clean = v => String(v ?? '').replace(/&nbsp;|&#160;/gi,' ').replace(/&amp;/gi,'&').replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/&ndash;|&#8211;/gi,'–').replace(/&mdash;|&#8212;/gi,'—').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 const identity = v => clean(v).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+let requestGate = Promise.resolve();
+let lastRequestAt = 0;
 
 async function readJson(path, fallback) { try { return JSON.parse(await readFile(path,'utf8')); } catch { return fallback; } }
+function pacedFetch(url, options) {
+  const task = requestGate.then(async () => {
+    const wait = Math.max(0, 750 - (Date.now() - lastRequestAt));
+    if (wait) await sleep(wait);
+    lastRequestAt = Date.now();
+    return fetch(url, options);
+  });
+  requestGate = task.then(() => undefined, () => undefined);
+  return task;
+}
 async function get(url, accept='application/json') {
-  const r = await fetch(url,{headers:{accept,'user-agent':'DataCenterCareersBot/1.8 (+https://datacentercareers.us/)'},redirect:accept.includes('json')?'error':'follow'});
-  if (!r.ok) throw new Error(`${r.status} ${url}`);
-  return accept.includes('json') ? r.json() : r.text();
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const r = await pacedFetch(url,{headers:{accept,'user-agent':'DataCenterCareersBot/1.9 (+https://datacentercareers.us/)'},redirect:accept.includes('json')?'error':'follow'});
+    if (r.status === 429 && attempt < 4) {
+      const retryAfter = Number(r.headers.get('retry-after'));
+      await sleep(Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 2000 * (2 ** attempt));
+      continue;
+    }
+    if (!r.ok) throw new Error(`${r.status} ${url}`);
+    return accept.includes('json') ? r.json() : r.text();
+  }
+  throw new Error(`429 ${url}`);
 }
 function required(text) {
   const value=clean(text), lower=value.toLowerCase();

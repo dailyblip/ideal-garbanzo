@@ -1,0 +1,62 @@
+name: Bootstrap Iron Mountain data center roles
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/collect-iron-mountain.mjs
+      - .github/workflows/iron-mountain-bootstrap.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: iron-mountain-bootstrap
+  cancel-in-progress: false
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate collector syntax
+        run: node --check scripts/collect-iron-mountain.mjs
+      - name: Collect official Iron Mountain data center roles
+        run: node scripts/collect-iron-mountain.mjs
+      - name: Enforce mission-fit role families
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize job locations
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Run live QA
+        run: node scripts/qa-site.mjs
+      - name: Refresh regional coverage
+        run: node scripts/refresh-region-status.mjs
+      - name: Guard against feed regressions
+        run: node scripts/validate-refresh-health.mjs
+      - name: Track first-seen dates
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate updated feed
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+      - name: Commit verified Iron Mountain roles
+        run: |
+          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/collector-status.json data/qa-report.json)" ]; then
+            echo "No verified Iron Mountain data changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/jobs.json data/job-history.json data/collector-status.json data/qa-report.json
+          git commit -m "Add verified Iron Mountain data center roles"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

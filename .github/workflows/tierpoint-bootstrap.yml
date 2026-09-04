@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/collect-tierpoint.mjs'
       - 'scripts/collect-tierpoint-v2.mjs'
+      - 'scripts/collect-tierpoint-v3.mjs'
       - '.github/workflows/tierpoint-bootstrap.yml'
 
 permissions:
@@ -26,7 +27,7 @@ jobs:
         with:
           node-version: 22
       - name: Collect official TierPoint roles
-        run: node scripts/collect-tierpoint-v2.mjs
+        run: node scripts/collect-tierpoint-v3.mjs
       - name: Enforce mission-fit roles
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations

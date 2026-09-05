@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-05T21:58:52.793Z",
+  "updatedAt": "2026-09-05T22:46:28.621Z",
   "jobs": 520,
   "sourcesAttempted": 48,
   "providers": {
@@ -271,7 +271,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T21:58:52.946Z",
+    "updatedAt": "2026-09-05T22:46:28.752Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 520,
@@ -290,7 +290,7 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-05T21:59:14.092Z",
+    "checkedAt": "2026-09-05T22:46:45.772Z",
     "publishedJobs": 520,
     "removedJobs": 0,
     "activeCareerEvents": 6
@@ -646,7 +646,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T21:58:52.987Z",
+    "checkedAt": "2026-09-05T22:46:28.813Z",
     "before": 520,
     "after": 520,
     "removed": 0,
@@ -656,12 +656,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 562,
     "currentJobs": 520,
-    "newJobsThisRun": 5,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 5,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T21:59:16.996Z"
+    "updatedAt": "2026-09-05T22:46:51.262Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +757,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-05T21:58:52.901Z",
+    "checkedAt": "2026-09-05T22:46:28.693Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1361,7 +1361,7 @@
     }
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-05T21:58:52.793Z",
+    "checkedAt": "2026-09-05T22:46:28.621Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

@@ -77,6 +77,13 @@ function canonicalTitle(job) {
   return normalize(job.title);
 }
 
+function isManagedFallback(job) {
+  return clean(job?.company) === COMPANY && (
+    /^equinix-verified-/i.test(clean(job?.id)) ||
+    clean(job?.source) === SOURCE
+  );
+}
+
 function dedupe(jobs) {
   const urls = new Set();
   const identities = new Set();
@@ -96,9 +103,15 @@ const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 let status = {};
 try { status = JSON.parse(await readFile('data/collector-status.json', 'utf8')); } catch {}
 
+// Never carry an older managed fallback record forward blindly. Remove every
+// prior verified-fallback row first, then re-add only roles whose official
+// Equinix URLs still respond during this run. This makes expiration and 404s
+// actually remove stale fallback jobs, including deploy-only builds.
+const baseJobs = jobs.filter(job => !isManagedFallback(job));
+const removedManaged = jobs.length - baseJobs.length;
 const now = Date.now();
 const expired = now >= Date.parse(EXPIRES_AT);
-const existingUrls = new Set(jobs.map(job => clean(job.sourceUrl)));
+const existingUrls = new Set(baseJobs.map(job => clean(job.sourceUrl)));
 const additions = [];
 const checks = [];
 
@@ -129,7 +142,8 @@ if (!expired) {
   }
 }
 
-const merged = dedupe([...additions, ...jobs]);
+const merged = dedupe([...additions, ...baseJobs]);
+const retainedManaged = merged.filter(job => isManagedFallback(job)).length;
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
 
@@ -147,11 +161,13 @@ await writeFile('data/collector-status.json', JSON.stringify({
     expired,
     rolesVerified: verifiedRoles.length,
     liveChecksPassed: checks.filter(check => check.ok).length,
+    removedManaged,
     added: additions.length,
+    retainedManaged,
     checks
   }
 }, null, 2) + '\n');
 
 console.log(expired
-  ? `Equinix verified fallback expired at ${EXPIRES_AT}; added 0 roles.`
-  : `Equinix verified fallback checked ${checks.length} official URLs and added ${additions.length} eligible roles (${checks.filter(check => check.ok).length} live).`);
+  ? `Equinix verified fallback expired at ${EXPIRES_AT}; removed ${removedManaged} managed role(s) and added 0.`
+  : `Equinix verified fallback removed ${removedManaged} prior managed role(s), checked ${checks.length} official URLs, and retained ${retainedManaged} live fallback role(s) (${checks.filter(check => check.ok).length} live checks passed).`);

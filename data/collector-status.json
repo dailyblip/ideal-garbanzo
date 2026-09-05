@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T22:46:28.621Z",
-  "jobs": 520,
+  "updatedAt": "2026-09-05T22:50:53.728Z",
+  "jobs": 541,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -13,14 +13,14 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 502,
+    "entry-level": 521,
     "trainee": 10,
     "internship": 4,
-    "apprenticeship": 4
+    "apprenticeship": 6
   },
   "countsByExperience": {
-    "2-5-years": 129,
-    "0-2-years": 373,
+    "2-5-years": 135,
+    "0-2-years": 388,
     "no-experience": 18
   },
   "errors": [
@@ -271,27 +271,27 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T22:46:28.752Z",
+    "updatedAt": "2026-09-05T22:50:53.849Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 520,
+    "regionAssigned": 541,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "mid-atlantic": 101,
-      "midwest": 91,
+      "midwest": 94,
       "west": 71,
-      "southeast": 83,
-      "southwest": 55,
+      "southeast": 88,
+      "southwest": 65,
       "nationwide": 1,
-      "texas": 104,
+      "texas": 107,
       "northeast": 14
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-05T22:46:45.772Z",
-    "publishedJobs": 520,
+    "checkedAt": "2026-09-05T22:51:12.062Z",
+    "publishedJobs": 541,
     "removedJobs": 0,
     "activeCareerEvents": 6
   },
@@ -646,22 +646,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T22:46:28.813Z",
-    "before": 520,
-    "after": 520,
+    "checkedAt": "2026-09-05T22:50:53.906Z",
+    "before": 541,
+    "after": 541,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 562,
-    "currentJobs": 520,
-    "newJobsThisRun": 0,
+    "trackedJobs": 583,
+    "currentJobs": 541,
+    "newJobsThisRun": 21,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 21,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T22:46:51.262Z"
+    "updatedAt": "2026-09-05T22:51:12.222Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +757,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-05T22:46:28.693Z",
+    "checkedAt": "2026-09-05T22:50:53.785Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1376,5 +1376,25 @@
     "rejectedSeniorTitle": 1,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0
+  },
+  "switchCareers": {
+    "checkedAt": "2026-09-05T22:50:53.728Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://www.switch.com/careers/",
+    "officialJobBoard": "https://switchltd.hrmdirect.com/employment/job-openings.php?jbsrc=1014&search=true&sort=pa",
+    "officialRssFeed": "https://switchltd.hrmdirect.com/employment/rss.php?search=true&dept=-1&city=-1&state=-1",
+    "authoritativeSnapshot": true,
+    "listedJobs": 123,
+    "candidateRoles": 28,
+    "qualifyingRoles": 21,
+    "rejectedOutOfScopeTitle": 95,
+    "rejectedSeniorTitle": 0,
+    "rejectedMissingDataCenterContext": 0,
+    "rejectedDetailTitleMismatch": 6,
+    "rejectedLeadershipRequirement": 0,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 1,
+    "detailErrors": []
   }
 }

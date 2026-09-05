@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-05T12:47:51.889Z",
+  "updatedAt": "2026-09-05T12:54:16.733Z",
   "jobs": 497,
   "sourcesAttempted": 47,
   "providers": {
@@ -193,7 +193,7 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 5,
+      "staleRemoved": 0,
       "qualifyingRoles": 0,
       "drops": {
         "non-us": 10,
@@ -213,8 +213,8 @@
         {
           "title": "Practicante Critical Facilities",
           "listingLabel": "Practicante Critical Facilities",
-          "pageTitle": "",
-          "heading": "",
+          "pageTitle": "Practicante Critical Facilities - Nuevo León, Mexico",
+          "heading": "Data Center Customer Operations III",
           "url": "https://careers.equinix.com/jobs/practicante-critical-facilities-nuevo-leon-mexico"
         },
         {
@@ -249,10 +249,13 @@
       "listingComplete": true,
       "listingPagesAttempted": 11,
       "listingPagesSucceeded": 11,
-      "candidateLinks": 5,
+      "candidateLinks": 7,
       "recoveredCandidates": 5,
-      "detailAttempted": 5,
-      "detailSucceeded": 5,
+      "verifiedSeeded": 2,
+      "verifiedFallbackUsed": 0,
+      "verifiedAt": "2026-09-05",
+      "detailAttempted": 7,
+      "detailSucceeded": 7,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
@@ -260,14 +263,15 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 5,
-        "unusable": 0
+        "unknownExperience": 7,
+        "unusable": 0,
+        "verifiedMismatch": 5
       },
       "errors": []
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T12:47:51.949Z",
+    "updatedAt": "2026-09-05T12:54:16.792Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 497,
@@ -642,7 +646,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T12:47:52.007Z",
+    "checkedAt": "2026-09-05T12:54:16.848Z",
     "before": 497,
     "after": 497,
     "removed": 0,
@@ -652,12 +656,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 537,
     "currentJobs": 497,
-    "newJobsThisRun": 5,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 5,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T12:47:52.061Z"
+    "updatedAt": "2026-09-05T12:54:16.902Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

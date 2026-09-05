@@ -28,6 +28,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Rehydrate active verified CoreSite fallback
+        run: node scripts/apply-coresite-verified-fallback.mjs
       - name: Run full live QA
         run: node scripts/qa-site.mjs
       - name: Validate cleaned site data
@@ -36,6 +38,7 @@ jobs:
           node scripts/validate-promotions.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-coresite-fallback.mjs
       - name: Print QA report
         run: cat data/qa-report.json
       - name: Commit safe QA corrections when needed

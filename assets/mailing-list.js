@@ -5,6 +5,18 @@
   const submit = form.querySelector('button[type="submit"]');
   const toast = document.getElementById('toast');
   const fallbackAction = form.getAttribute('action') || '';
+  const regionSelect = document.getElementById('alertRegion');
+  const regionValue = document.getElementById('alertRegionValue');
+  const allowedRegions = new Set(['all', 'mid-atlantic', 'texas', 'southwest', 'midwest', 'southeast', 'northeast', 'west']);
+
+  const syncRegionPreference = () => {
+    if (!regionValue) return;
+    const value = String(regionSelect?.value || 'all').trim();
+    regionValue.value = allowedRegions.has(value) ? value : 'all';
+  };
+
+  syncRegionPreference();
+  regionSelect?.addEventListener('change', syncRegionPreference);
 
   const showToast = message => {
     if (!toast) return;
@@ -16,6 +28,7 @@
 
   const armSubmitState = () => {
     form.addEventListener('submit', () => {
+      syncRegionPreference();
       if (submit) {
         submit.disabled = true;
         submit.textContent = 'Opening signup…';

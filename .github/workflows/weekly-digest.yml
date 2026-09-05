@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'index.html'
+      - 'assets/mailing-list.js'
       - 'scripts/send-weekly-digest.mjs'
       - 'scripts/validate-mailing-list.mjs'
       - 'scripts/validate-job-history.mjs'

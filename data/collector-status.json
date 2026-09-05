@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T16:23:55.781Z",
-  "jobs": 513,
+  "updatedAt": "2026-09-05T17:51:55.670Z",
+  "jobs": 511,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -13,14 +13,14 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 495,
     "trainee": 10,
+    "apprenticeship": 4,
     "internship": 4,
-    "apprenticeship": 4
+    "entry-level": 493
   },
   "countsByExperience": {
     "2-5-years": 122,
-    "0-2-years": 373,
+    "0-2-years": 371,
     "no-experience": 18
   },
   "errors": [
@@ -193,7 +193,7 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 6,
+      "staleRemoved": 5,
       "qualifyingRoles": 0,
       "drops": {
         "non-us": 10,
@@ -271,21 +271,21 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T16:59:28.154Z",
+    "updatedAt": "2026-09-05T17:51:55.773Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 513,
+    "regionAssigned": 511,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 83,
-      "mid-atlantic": 101,
-      "midwest": 87,
-      "southwest": 54,
-      "northeast": 14,
-      "west": 71,
+      "west": 70,
       "texas": 102,
+      "mid-atlantic": 100,
+      "southwest": 54,
+      "southeast": 83,
+      "midwest": 87,
+      "northeast": 14,
       "nationwide": 1
     }
   },
@@ -646,22 +646,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T16:59:28.223Z",
-    "before": 513,
-    "after": 513,
+    "checkedAt": "2026-09-05T17:51:55.831Z",
+    "before": 511,
+    "after": 511,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 553,
-    "currentJobs": 513,
-    "newJobsThisRun": 1,
+    "currentJobs": 511,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T16:59:28.281Z"
+    "updatedAt": "2026-09-05T17:51:55.884Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -886,6 +886,8 @@
     "rolesVerified": 5,
     "liveChecksPassed": 5,
     "removedManaged": 0,
+    "removedBroadEarly": 0,
+    "removedKnownOverExperience": 0,
     "added": 5,
     "retainedManaged": 5,
     "checks": [

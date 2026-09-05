@@ -1,0 +1,70 @@
+name: Bootstrap Equinix Careers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/equinix-bootstrap.yml'
+      - 'scripts/collect-equinix-v2.mjs'
+      - 'scripts/collect-equinix-early.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-priority-employer-sources.mjs'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: equinix-careers-bootstrap
+  cancel-in-progress: true
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect official Equinix careers roles
+        run: node scripts/collect-equinix-v2.mjs
+      - name: Add Equinix US early-career roles
+        run: node scripts/collect-equinix-early.mjs
+      - name: Normalize locations and regions
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Persist first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate refreshed feed and employer-direct source
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Commit Equinix data when changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/collector-status.json)" ]; then
+            echo "No Equinix Careers data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/jobs.json data/job-history.json data/collector-status.json
+          git commit -m "Bootstrap verified Equinix Careers roles"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy committed Equinix data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

@@ -1,0 +1,33 @@
+name: Live indexability guard
+
+on:
+  workflow_run:
+    workflows: ['Refresh jobs and deploy site']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-indexability
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate live custom-domain indexability
+        env:
+          LIVE_SITE_BASE: https://datacentercareers.us
+          DEPLOYMENT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: |
+          node --check scripts/validate-live-indexability.mjs
+          node scripts/validate-live-indexability.mjs

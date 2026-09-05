@@ -34,6 +34,10 @@ jobs:
         run: node scripts/validate-job-history.mjs
       - name: Validate weekly digest script
         run: node --check scripts/send-weekly-digest.mjs
+      - name: Preflight current digest content
+        env:
+          DRY_RUN: true
+        run: node scripts/send-weekly-digest.mjs
       - name: Build and send Monday roundup
         env:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}

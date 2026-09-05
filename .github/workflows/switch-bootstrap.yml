@@ -1,0 +1,80 @@
+name: Bootstrap Switch employer-direct roles
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/collect-switch-careers.mjs
+      - scripts/validate-switch-careers.mjs
+      - scripts/filter-mission-fit.mjs
+      - .github/workflows/switch-bootstrap.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '7 */12 * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: switch-bootstrap
+  cancel-in-progress: true
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate collector and classifier
+        run: |
+          node --check scripts/collect-switch-careers.mjs
+          node --check scripts/validate-switch-careers.mjs
+          node scripts/collect-switch-careers.mjs --test-classifier
+      - name: Collect official Switch current openings
+        run: node scripts/collect-switch-careers.mjs
+      - name: Enforce mission-fit role families
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize locations and regions
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Run live QA
+        run: node scripts/qa-site.mjs
+      - name: Refresh regional coverage
+        run: node scripts/refresh-region-status.mjs
+      - name: Validate Switch employer-direct snapshot
+        run: node scripts/validate-switch-careers.mjs
+      - name: Track first-seen dates
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate updated feed
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Commit verified Switch roles
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- data/jobs.json data/switch-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json)" ]; then
+            echo "No verified Switch data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/jobs.json data/switch-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+          git commit -m "Refresh verified Switch data center roles"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy committed Switch data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

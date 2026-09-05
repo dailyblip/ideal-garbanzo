@@ -169,7 +169,12 @@ const dedicatedSources = [
   ['Oracle Careers', status?.oracleCareers, previousStatus?.oracleCareers],
   ['Digital Realty', status?.digitalRealty, previousStatus?.digitalRealty],
   ['CoreSite', status?.coreSite, previousStatus?.coreSite],
-  ['Equinix', status?.priorityEmployerExpansion?.Equinix, previousStatus?.priorityEmployerExpansion?.Equinix]
+  ['Equinix', status?.priorityEmployerExpansion?.Equinix, previousStatus?.priorityEmployerExpansion?.Equinix],
+  ['Iron Mountain', status?.ironMountain, previousStatus?.ironMountain],
+  ['Compass Datacenters', status?.compass, previousStatus?.compass],
+  ['TierPoint', status?.tierPoint, previousStatus?.tierPoint],
+  ['Sabey Data Centers', status?.sabeyCareers, previousStatus?.sabeyCareers],
+  ['Novva Data Centers', status?.novvaCareers, previousStatus?.novvaCareers]
 ];
 
 for (const [label, source, previousSource] of dedicatedSources) {
@@ -192,8 +197,14 @@ for (const [label, source, previousSource] of dedicatedSources) {
 
   const currentQualifying = Number(source.qualifyingRoles);
   const previousQualifying = Number(previousSource?.qualifyingRoles);
-  if (Number.isFinite(previousQualifying) && previousQualifying >= 3 && Number.isFinite(currentQualifying) && currentQualifying === 0) {
-    warnings.push(`${label} dropped from ${previousQualifying} qualifying roles to zero; confirm this is a real hiring change rather than parser drift.`);
+  if (Number.isFinite(previousQualifying) && Number.isFinite(currentQualifying)) {
+    if (previousQualifying >= 8 && currentQualifying === 0) {
+      problems.push(`${label} dropped from ${previousQualifying} qualifying roles to zero in one refresh; block publication until the employer-direct source is reverified.`);
+    } else if (previousQualifying >= 15 && currentQualifying < Math.ceil(previousQualifying * 0.25)) {
+      problems.push(`${label} dropped from ${previousQualifying} to ${currentQualifying} qualifying roles in one refresh; likely parser/source drift requires verification.`);
+    } else if (previousQualifying >= 3 && currentQualifying === 0) {
+      warnings.push(`${label} dropped from ${previousQualifying} qualifying roles to zero; confirm this is a real hiring change rather than parser drift.`);
+    }
   }
 }
 

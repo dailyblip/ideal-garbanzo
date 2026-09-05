@@ -11,6 +11,7 @@ on:
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
+  workflow_dispatch:
 
 permissions:
   actions: write

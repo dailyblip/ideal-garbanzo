@@ -2,17 +2,23 @@ import { readFile, writeFile } from 'node:fs/promises';
 import crypto from 'node:crypto';
 
 const COMPANY = 'Switch';
-const LIST_URL = 'https://switchltd.hrmdirect.com/employment/job-openings.php?jbsrc=1014&search=true&sort=pa';
+const BASE_URL = 'https://switchltd.hrmdirect.com';
+const LIST_URL = `${BASE_URL}/employment/job-openings.php?jbsrc=1014&search=true&sort=pa`;
+const RSS_URL = `${BASE_URL}/employment/rss.php?search=true&dept=-1&city=-1&state=-1`;
 const OFFICIAL_CAREERS = 'https://www.switch.com/careers/';
 const JOBS_PATH = 'data/jobs.json';
 const SNAPSHOT_PATH = 'data/switch-jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const decodeHtml = value => String(value ?? '')
+  .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/gi, '$1')
   .replace(/&nbsp;/gi, ' ')
   .replace(/&amp;/gi, '&')
   .replace(/&quot;/gi, '"')
   .replace(/&#39;|&apos;/gi, "'")
+  .replace(/&lt;/gi, '<')
+  .replace(/&gt;/gi, '>')
   .replace(/&ndash;|&#8211;/gi, '–')
   .replace(/&mdash;|&#8212;/gi, '—')
   .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
@@ -70,9 +76,57 @@ function statedExperienceYears(text = '') {
   return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
 }
 
+function extractTag(xml = '', tag = '') {
+  const escaped = tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = String(xml).match(new RegExp(`<${escaped}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${escaped}>`, 'i'));
+  return match ? clean(match[1]) : '';
+}
+
+function extractRssListings(xml = '') {
+  if (!/<rss\b/i.test(xml) || !/<channel\b/i.test(xml)) throw new Error('Switch RSS source did not return an RSS channel.');
+  const listings = [];
+  const seenReqs = new Set();
+  for (const match of String(xml).matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi)) {
+    const item = match[1];
+    const title = extractTag(item, 'title');
+    const rawLink = extractTag(item, 'link');
+    let parsed;
+    try { parsed = new URL(rawLink, BASE_URL); } catch { continue; }
+    const req = String(parsed.searchParams.get('req') || '').trim();
+    if (!/^\d+$/.test(req) || seenReqs.has(req)) continue;
+    seenReqs.add(req);
+    const pubDate = extractTag(item, 'pubDate');
+    const parsedDate = pubDate ? new Date(pubDate) : null;
+    listings.push({
+      req,
+      title,
+      url: `${BASE_URL}/employment/view.php?req=${encodeURIComponent(req)}`,
+      postedAt: parsedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate.toISOString() : null
+    });
+  }
+  return listings;
+}
+
+function extractDetailTitle(html = '') {
+  const reqResult = String(html).match(/<div\b[^>]*class=["'][^"']*\breqResult\b[^"']*["'][^>]*>[\s\S]*?<h2\b[^>]*>([\s\S]*?)<\/h2>/i);
+  if (reqResult) return clean(reqResult[1]);
+  const h2 = String(html).match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/i);
+  if (h2) return clean(h2[1]);
+  const title = String(html).match(/<title\b[^>]*>([\s\S]*?)<\/title>/i);
+  return title ? clean(title[1]).replace(/\s+-\s+Careers At Switch.*$/i, '').trim() : '';
+}
+
 function extractRoleHeading(html = '') {
   const match = String(html).match(/<h[1-6]\b[^>]*>\s*(?:<[^>]+>\s*)*The Role:\s*([\s\S]*?)<\/h[1-6]>/i);
   return match ? clean(match[1]) : '';
+}
+
+function extractViewField(html = '', fieldName = '') {
+  for (const row of String(html).matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)) {
+    const cells = [...row[1].matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi)].map(match => clean(match[1]));
+    if (cells.length >= 2 && cells[0].replace(/:\s*$/, '').toLowerCase() === fieldName.toLowerCase()) return cells[1];
+  }
+  return '';
 }
 
 function classify(title, description = '', detailRole = '') {
@@ -117,10 +171,15 @@ function classify(title, description = '', detailRole = '') {
   return { classification: { type, experience }, reason: null };
 }
 
-function locationFromText(text = '') {
-  const normalized = clean(text);
-  const matches = [...normalized.matchAll(/\bLocation:\s*([A-Za-z][A-Za-z .'-]*,\s*[A-Z]{2})\b/g)];
-  return matches.length ? clean(matches[0][1]) : null;
+function locationFromDetail(html = '') {
+  const field = extractViewField(html, 'Location');
+  if (field) {
+    const cityState = field.match(/([A-Za-z][A-Za-z .'-]*,\s*[A-Z]{2})\b/);
+    if (cityState) return clean(cityState[1]);
+  }
+  const text = clean(html);
+  const explicit = text.match(/\bLocation:\s*([A-Za-z][A-Za-z .'-]*,\s*[A-Z]{2})\b/);
+  return explicit ? clean(explicit[1]) : null;
 }
 
 function payFor(description = '') {
@@ -175,34 +234,27 @@ async function readJson(path, fallback) {
   catch { return fallback; }
 }
 
-async function fetchText(url) {
-  const response = await fetch(url, {
-    headers: {
-      accept: 'text/html,application/xhtml+xml',
-      'user-agent': 'DataCenterCareersBot/1.1 (+https://datacentercareers.us/)'
-    },
-    signal: AbortSignal.timeout(20000)
-  });
-  if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
-  return response.text();
-}
-
-function extractListings(html = '') {
-  const listings = [];
-  const seen = new Set();
-  const pattern = /<a\b[^>]*href=["']([^"']*job-opening\.php[^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi;
-  for (const match of String(html).matchAll(pattern)) {
-    const title = clean(match[2]);
-    if (!title || /back to openings|start your application/i.test(title)) continue;
-    let url;
-    try { url = new URL(decodeHtml(match[1]), LIST_URL); } catch { continue; }
-    if (url.hostname !== 'switchltd.hrmdirect.com' || !url.pathname.endsWith('/employment/job-opening.php')) continue;
-    const key = url.toString();
-    if (seen.has(key)) continue;
-    seen.add(key);
-    listings.push({ title, url: key });
+async function fetchText(url, retries = 1) {
+  let lastError;
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          accept: 'text/html,application/xhtml+xml,application/xml,text/xml',
+          'user-agent': 'DataCenterCareersBot/1.1 (+https://datacentercareers.us/)'
+        },
+        signal: AbortSignal.timeout(20000)
+      });
+      if (response.ok) return response.text();
+      lastError = new Error(`HTTP ${response.status} for ${url}`);
+      if (![403, 429, 500, 502, 503, 504].includes(response.status) || attempt === retries) throw lastError;
+    } catch (error) {
+      lastError = error;
+      if (attempt === retries) throw error;
+    }
+    await sleep(1500 * (attempt + 1));
   }
-  return listings;
+  throw lastError;
 }
 
 if (process.argv.includes('--test-classifier')) {
@@ -269,9 +321,9 @@ if (process.argv.includes('--test-classifier')) {
 
 const previousJobs = await readJson(JOBS_PATH, []);
 const priorStatus = await readJson(STATUS_PATH, {});
-const listingHtml = await fetchText(LIST_URL);
-const listings = extractListings(listingHtml);
-if (!listings.length) throw new Error('Switch official careers source returned no public job links; preserving prior snapshot.');
+const rss = await fetchText(RSS_URL, 2);
+const listings = extractRssListings(rss);
+if (!listings.length) throw new Error('Switch official RSS source returned no valid current requisitions; preserving prior snapshot.');
 
 const diagnostics = {
   listedJobs: listings.length,
@@ -300,20 +352,23 @@ for (const listing of listings) {
   diagnostics.candidateRoles += 1;
 
   let html;
-  try { html = await fetchText(listing.url); }
+  try { html = await fetchText(listing.url, 1); }
   catch (error) {
-    diagnostics.detailErrors.push({ title: listing.title, url: listing.url, error: error.message });
+    diagnostics.detailErrors.push({ req: listing.req, title: listing.title, url: listing.url, error: error.message });
     continue;
   }
+  await sleep(450);
+
   const description = clean(html);
+  const title = extractDetailTitle(html) || listing.title;
   const detailRole = extractRoleHeading(html);
-  const location = locationFromText(description);
+  const location = locationFromDetail(html);
   if (!location) {
-    diagnostics.detailErrors.push({ title: listing.title, url: listing.url, error: 'Location not found on official detail page' });
+    diagnostics.detailErrors.push({ req: listing.req, title, url: listing.url, error: 'Location not found on official detail page' });
     continue;
   }
 
-  const { classification, reason } = classify(listing.title, description, detailRole);
+  const { classification, reason } = classify(title, description, detailRole);
   if (!classification) {
     if (reason === 'out-of-scope-title') diagnostics.rejectedOutOfScopeTitle += 1;
     else if (reason === 'senior-title') diagnostics.rejectedSeniorTitle += 1;
@@ -325,19 +380,16 @@ for (const listing of listings) {
     continue;
   }
 
-  const parsed = new URL(listing.url);
-  const req = clean(parsed.searchParams.get('req') || '');
-  const reqLoc = clean(parsed.searchParams.get('req_loc') || '');
   collected.push({
-    id: `switch-${req || hash(listing.url)}${reqLoc ? `-${reqLoc}` : ''}`,
-    title: clean(listing.title),
+    id: `switch-${listing.req}`,
+    title: clean(title),
     company: COMPANY,
     location,
     type: classification.type,
     experience: classification.experience,
-    tags: tagsFor(listing.title, description, classification.experience, classification.type),
+    tags: tagsFor(title, description, classification.experience, classification.type),
     ...payFor(description),
-    postedAt: null,
+    postedAt: listing.postedAt,
     source: 'Employer career site',
     sourceUrl: listing.url,
     active: true,
@@ -346,7 +398,7 @@ for (const listing of listings) {
 }
 
 if (diagnostics.detailErrors.length) {
-  throw new Error(`Switch official source had ${diagnostics.detailErrors.length} candidate detail error(s); preserving prior snapshot. ${diagnostics.detailErrors.map(item => `${item.title}: ${item.error}`).join(' | ')}`);
+  throw new Error(`Switch official source had ${diagnostics.detailErrors.length} candidate detail error(s); preserving prior snapshot. ${diagnostics.detailErrors.map(item => `${item.req}/${item.title}: ${item.error}`).join(' | ')}`);
 }
 
 const switchJobs = dedupe(collected);
@@ -375,6 +427,7 @@ const status = {
     listingComplete: true,
     officialCareerPage: OFFICIAL_CAREERS,
     officialJobBoard: LIST_URL,
+    officialRssFeed: RSS_URL,
     authoritativeSnapshot: true,
     ...diagnostics
   }
@@ -384,4 +437,4 @@ await writeFile(SNAPSHOT_PATH, JSON.stringify(switchJobs, null, 2) + '\n');
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
-console.log(`Switch: ${switchJobs.length} qualifying U.S. role(s) from ${listings.length} current official openings; feed now ${merged.length} jobs.`);
+console.log(`Switch: ${switchJobs.length} qualifying U.S. role(s) from ${listings.length} current official RSS requisitions; feed now ${merged.length} jobs.`);

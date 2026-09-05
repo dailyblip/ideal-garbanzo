@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T12:57:17.027Z",
-  "jobs": 503,
+  "updatedAt": "2026-09-05T13:45:02.059Z",
+  "jobs": 502,
   "sourcesAttempted": 47,
   "providers": {
     "lever": 6,
@@ -13,7 +13,7 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 11,
+    "trainee": 10,
     "apprenticeship": 4,
     "internship": 4,
     "entry-level": 484
@@ -21,7 +21,7 @@
   "countsByExperience": {
     "2-5-years": 119,
     "0-2-years": 365,
-    "no-experience": 19
+    "no-experience": 18
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -193,15 +193,19 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 0,
-      "qualifyingRoles": 1,
+      "staleRemoved": 6,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 9,
+        "non-us": 10,
         "unknown-experience": 8,
         "context": 2,
         "title": 13
       },
       "dropSamples": [
+        {
+          "title": "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali"
+        },
         {
           "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
@@ -235,10 +239,6 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
-        },
-        {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -249,13 +249,13 @@
       "listingComplete": true,
       "listingPagesAttempted": 11,
       "listingPagesSucceeded": 11,
-      "candidateLinks": 6,
-      "recoveredCandidates": 4,
+      "candidateLinks": 7,
+      "recoveredCandidates": 5,
       "verifiedSeeded": 2,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-05",
-      "detailAttempted": 6,
-      "detailSucceeded": 6,
+      "detailAttempted": 7,
+      "detailSucceeded": 7,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
@@ -263,7 +263,7 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 6,
+        "unknownExperience": 7,
         "unusable": 0,
         "verifiedMismatch": 5
       },
@@ -271,10 +271,10 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T12:57:17.094Z",
+    "updatedAt": "2026-09-05T13:45:02.101Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 503,
+    "regionAssigned": 502,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -284,8 +284,8 @@
       "mid-atlantic": 100,
       "southwest": 54,
       "southeast": 81,
-      "northeast": 15,
       "midwest": 84,
+      "northeast": 14,
       "nationwide": 1
     }
   },
@@ -646,22 +646,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T12:57:17.153Z",
-    "before": 503,
-    "after": 503,
+    "checkedAt": "2026-09-05T13:45:02.143Z",
+    "before": 502,
+    "after": 502,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 543,
-    "currentJobs": 503,
-    "newJobsThisRun": 6,
+    "currentJobs": 502,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 6,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T12:57:17.211Z"
+    "updatedAt": "2026-09-05T13:45:02.181Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -885,7 +885,9 @@
     "expired": false,
     "rolesVerified": 5,
     "liveChecksPassed": 5,
+    "removedManaged": 0,
     "added": 5,
+    "retainedManaged": 5,
     "checks": [
       {
         "requisition": "JR-161457",

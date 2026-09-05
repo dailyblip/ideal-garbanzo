@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T17:51:55.670Z",
-  "jobs": 515,
+  "updatedAt": "2026-09-05T21:58:52.793Z",
+  "jobs": 520,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -13,14 +13,14 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 497,
+    "entry-level": 502,
     "trainee": 10,
     "internship": 4,
     "apprenticeship": 4
   },
   "countsByExperience": {
+    "2-5-years": 129,
     "0-2-years": 373,
-    "2-5-years": 124,
     "no-experience": 18
   },
   "errors": [
@@ -271,27 +271,27 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T19:46:52.490Z",
+    "updatedAt": "2026-09-05T21:58:52.946Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 515,
+    "regionAssigned": 520,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 89,
-      "west": 71,
       "mid-atlantic": 101,
+      "midwest": 91,
+      "west": 71,
       "southeast": 83,
-      "southwest": 54,
+      "southwest": 55,
       "nationwide": 1,
-      "texas": 102,
+      "texas": 104,
       "northeast": 14
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-05T16:24:08.106Z",
-    "publishedJobs": 512,
+    "checkedAt": "2026-09-05T21:59:14.092Z",
+    "publishedJobs": 520,
     "removedJobs": 0,
     "activeCareerEvents": 6
   },
@@ -646,22 +646,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T19:46:52.535Z",
-    "before": 515,
-    "after": 515,
+    "checkedAt": "2026-09-05T21:58:52.987Z",
+    "before": 520,
+    "after": 520,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 557,
-    "currentJobs": 515,
-    "newJobsThisRun": 4,
+    "trackedJobs": 562,
+    "currentJobs": 520,
+    "newJobsThisRun": 5,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 4,
+    "migratedEntriesThisRun": 5,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T19:46:52.618Z"
+    "updatedAt": "2026-09-05T21:59:16.996Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +757,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-05T16:59:28.087Z",
+    "checkedAt": "2026-09-05T21:58:52.901Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1359,5 +1359,22 @@
         "errors": []
       }
     }
+  },
+  "streamDataCenters": {
+    "checkedAt": "2026-09-05T21:58:52.793Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",
+    "officialWorkableBoard": "https://apply.workable.com/stream-dc/",
+    "api": "https://www.workable.com/api/accounts/stream-dc?details=true",
+    "authoritativeSnapshot": true,
+    "listedJobs": 7,
+    "usJobs": 7,
+    "candidateRoles": 6,
+    "qualifyingRoles": 5,
+    "rejectedOutOfScopeTitle": 1,
+    "rejectedSeniorTitle": 1,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 0
   }
 }

@@ -14,6 +14,7 @@ const REGION_LABELS = {
 };
 const TYPE_RANK = { apprenticeship: 0, internship: 1, trainee: 2, 'entry-level': 3 };
 const PROMOTION_RANK = { spotlightJob: 0, highlightedJob: 1 };
+const DIGEST_SOURCE = 'datacentercareers-weekly-digest';
 
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 const promotions = JSON.parse(await readFile('data/featured-jobs.json', 'utf8'));
@@ -53,6 +54,21 @@ const isNewThisWeek = job => {
   if (job?.postedAt) return inWeeklyWindow(job.postedAt);
   const hours = Number(job?.postedHours);
   return Number.isFinite(hours) && hours >= 0 && hours <= 168;
+};
+
+const utcWeekStart = value => {
+  const date = new Date(value);
+  const daysSinceMonday = (date.getUTCDay() + 6) % 7;
+  date.setUTCDate(date.getUTCDate() - daysSinceMonday);
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+};
+
+const digestWeekStart = utcWeekStart(now);
+const digestKey = digestWeekStart.toISOString().slice(0, 10);
+const digestMetadata = {
+  source: DIGEST_SOURCE,
+  digest_key: digestKey
 };
 
 const slugify = value => String(value ?? '')
@@ -123,7 +139,7 @@ const subject = `${totalJobs} new data center ${totalJobs === 1 ? 'job' : 'jobs'
 const body = lines.join('\n');
 
 if (dryRun) {
-  console.log(`DRY RUN: ${subject}\n\n${body}`);
+  console.log(`DRY RUN (${digestKey}): ${subject}\n\n${body}`);
   process.exit(0);
 }
 
@@ -135,20 +151,58 @@ const headers = {
   'Content-Type': 'application/json',
   'X-Buttondown-Live-Dangerously': 'true'
 };
-const create = await fetch('https://api.buttondown.com/v1/emails', {
-  method: 'POST',
-  headers,
-  body: JSON.stringify({ subject, body, status: 'draft' })
-});
-if (!create.ok) throw new Error(`Buttondown draft creation failed (${create.status}): ${await create.text()}`);
-const email = await create.json();
-if (!email?.id) throw new Error('Buttondown did not return an email ID.');
 
+// A workflow retry must not send a second copy of the same Monday digest. Look for
+// an email created during the current UTC week with our deterministic digest key.
+const listUrl = new URL('https://api.buttondown.com/v1/emails');
+listUrl.searchParams.set('creation_date__start', digestWeekStart.toISOString());
+listUrl.searchParams.set('ordering', '-creation_date');
+const listResponse = await fetch(listUrl, { headers });
+if (!listResponse.ok) throw new Error(`Buttondown email lookup failed (${listResponse.status}): ${await listResponse.text()}`);
+const listedPayload = await listResponse.json();
+const listedEmails = Array.isArray(listedPayload) ? listedPayload : Array.isArray(listedPayload?.results) ? listedPayload.results : [];
+let email = listedEmails.find(item => item?.metadata?.source === DIGEST_SOURCE && item?.metadata?.digest_key === digestKey);
+
+if (email) {
+  if (['sent', 'about_to_send', 'scheduled'].includes(String(email.status || '').toLowerCase())) {
+    console.log(`Weekly digest ${digestKey} already exists as ${email.status} (${email.id}); skipping duplicate send.`);
+    process.exit(0);
+  }
+  if (String(email.status || '').toLowerCase() !== 'draft') {
+    throw new Error(`Weekly digest ${digestKey} already exists in unexpected Buttondown status ${email.status || 'unknown'} (${email.id}).`);
+  }
+  console.log(`Reusing existing Buttondown draft ${email.id} for weekly digest ${digestKey}.`);
+} else {
+  const create = await fetch('https://api.buttondown.com/v1/emails', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      subject,
+      body,
+      status: 'draft',
+      slug: `data-center-jobs-weekly-${digestKey}`,
+      description: `Data Center Careers weekly job digest for the week of ${digestKey}.`,
+      metadata: { ...digestMetadata, total_jobs: totalJobs }
+    })
+  });
+  if (!create.ok) throw new Error(`Buttondown draft creation failed (${create.status}): ${await create.text()}`);
+  email = await create.json();
+  if (!email?.id) throw new Error('Buttondown did not return an email ID.');
+}
+
+// Publishing accepts email fields too, so a retry after draft creation refreshes the
+// draft with the current job set before sending rather than publishing stale content.
 const publish = await fetch(`https://api.buttondown.com/v1/emails/${encodeURIComponent(email.id)}/publish`, {
   method: 'POST',
   headers,
-  body: JSON.stringify({})
+  body: JSON.stringify({
+    subject,
+    body,
+    slug: `data-center-jobs-weekly-${digestKey}`,
+    description: `Data Center Careers weekly job digest for the week of ${digestKey}.`,
+    metadata: { ...digestMetadata, total_jobs: totalJobs }
+  })
 });
 if (!publish.ok) throw new Error(`Buttondown publish failed (${publish.status}): ${await publish.text()}`);
 
-console.log(`Sent Monday weekly digest ${email.id} with ${totalJobs} newly added jobs.`);
+console.log(`Sent Monday weekly digest ${email.id} for ${digestKey} with ${totalJobs} newly added jobs.`);

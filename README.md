@@ -16,6 +16,10 @@ Core audience: people seeking entry-level data center jobs, internships, apprent
 4. Employer posting and paid promotion flow.
 5. Deployment, monitoring, SEO, and QA.
 
+## Employer-direct sourcing
+
+Priority operators are collected from their official career systems. The main daily scan is supplemented by a conservative targeted Workday recovery pass for Vantage, QTS, CyrusOne, STACK, NTT Global Data Centers, and Aligned so mission-fit 0–5 year roles that are temporarily omitted from broad listings can still be discovered and detail-verified. The recovery pass is additive only and fails closed on unknown experience requirements.
+
 ## Promotion model
 
 - Standard employer posting

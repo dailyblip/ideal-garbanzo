@@ -9,6 +9,10 @@ const tiers = {
   highlightedJob: { priceUsd: 99, durationDays: 30, label: 'Highlighted Job' },
   spotlightJob: { priceUsd: 149, durationDays: 30, label: 'Spotlight Position' }
 };
+const allowedTypes = new Set(['internship', 'apprenticeship', 'trainee', 'entry-level']);
+const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
+const now = Date.now();
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 for (const [key, expected] of Object.entries(tiers)) {
   const product = products?.[key];
@@ -31,21 +35,38 @@ if (checkout) {
 }
 
 if (!Array.isArray(activations)) throw new Error('featured-jobs.json must contain an array');
-const jobIds = new Set(jobs.map(job => String(job.id)));
+const jobsById = new Map(jobs.map(job => [String(job.id), job]));
 const seen = new Set();
 for (const [index, activation] of activations.entries()) {
   const jobId = String(activation?.jobId || '').trim();
   if (!jobId) throw new Error(`Promotion activation ${index} missing jobId`);
-  if (!tiers[activation.tier]) throw new Error(`Promotion activation ${jobId} has unsupported tier: ${activation.tier || 'missing'}`);
-  if (!jobIds.has(jobId)) throw new Error(`Promotion activation points to missing job: ${jobId}`);
+  const tier = tiers[activation.tier];
+  if (!tier) throw new Error(`Promotion activation ${jobId} has unsupported tier: ${activation.tier || 'missing'}`);
+  const job = jobsById.get(jobId);
+  if (!job) throw new Error(`Promotion activation points to missing job: ${jobId}`);
   if (seen.has(jobId)) throw new Error(`Job has more than one active promotion record: ${jobId}`);
   seen.add(jobId);
 
-  const starts = activation.startsAt ? Date.parse(activation.startsAt) : null;
-  const expires = activation.expiresAt ? Date.parse(activation.expiresAt) : null;
-  if (activation.startsAt && !Number.isFinite(starts)) throw new Error(`Promotion ${jobId} has invalid startsAt`);
-  if (activation.expiresAt && !Number.isFinite(expires)) throw new Error(`Promotion ${jobId} has invalid expiresAt`);
-  if (starts && expires && expires <= starts) throw new Error(`Promotion ${jobId} expires before it starts`);
+  if (job.active === false) throw new Error(`Promotion ${jobId} points to an inactive job`);
+  if (job.demo === true) throw new Error(`Promotion ${jobId} points to a demo job`);
+  if (!allowedTypes.has(job.type)) throw new Error(`Promotion ${jobId} points to unsupported role type: ${job.type || 'missing'}`);
+  if (!allowedExperience.has(job.experience)) throw new Error(`Promotion ${jobId} points to unsupported experience level: ${job.experience || 'missing'}`);
+  if (!/^https:\/\//i.test(String(job.sourceUrl || ''))) throw new Error(`Promotion ${jobId} requires an HTTPS employer apply URL`);
+
+  if (!activation.startsAt) throw new Error(`Promotion ${jobId} missing startsAt`);
+  if (!activation.expiresAt) throw new Error(`Promotion ${jobId} missing expiresAt`);
+  const starts = Date.parse(activation.startsAt);
+  const expires = Date.parse(activation.expiresAt);
+  if (!Number.isFinite(starts)) throw new Error(`Promotion ${jobId} has invalid startsAt`);
+  if (!Number.isFinite(expires)) throw new Error(`Promotion ${jobId} has invalid expiresAt`);
+  if (expires <= starts) throw new Error(`Promotion ${jobId} expires before it starts`);
+  if (expires <= now) throw new Error(`Promotion ${jobId} is expired and must be removed`);
+
+  const durationMs = expires - starts;
+  const maxDurationMs = tier.durationDays * DAY_MS;
+  if (durationMs > maxDurationMs) {
+    throw new Error(`Promotion ${jobId} exceeds the ${tier.durationDays}-day ${activation.tier} term`);
+  }
 }
 
 if (/\$(?:99|149)\b/.test(homepage)) throw new Error('Promotion prices belong in checkout, not on the homepage');
@@ -53,4 +74,4 @@ for (const label of ['Highlighted Job', 'Spotlight Position']) {
   if (!homepage.includes(label)) throw new Error(`Homepage employer card missing promotion option: ${label}`);
 }
 
-console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers and ${activations.length} active promotion records.`);
+console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers and ${activations.length} scheduled/active promotion records.`);

@@ -157,6 +157,51 @@ function locationFromPosting(posting) {
   return { location: unique.join('; ') || 'Location not listed', us: us || unique.some(v => /\b(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)\b/.test(v)) };
 }
 
+const experienceNumberWords = new Map([
+  ['zero','0'],['one','1'],['two','2'],['three','3'],['four','4'],['five','5'],
+  ['six','6'],['seven','7'],['eight','8'],['nine','9'],['ten','10']
+]);
+
+function requiredExperienceText(description='') {
+  const text = clean(description);
+  const preferred = text.search(/\b(?:preferred qualifications?|preferred experience|preferred skills?|nice to have|bonus qualifications?)\b/i);
+  return preferred >= 0 ? text.slice(0, preferred) : text;
+}
+
+function normalizeExperienceNumbers(text='') {
+  return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+}
+
+function statedExperienceYears(text='') {
+  const normalized = normalizeExperienceNumbers(text);
+  const values = [];
+  const yearPatterns = [
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+|technical\s+)?experience/gi,
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+|technical\s+)?experience/gi,
+    /experience(?:\s+(?:of|in))?\s+(?:at least\s+|minimum(?: of)?\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?/gi,
+    /(?:minimum(?: of)?\s+|at least\s+)(\d{1,2})\s*(?:\+|or more)?\s+years?\b/gi
+  ];
+  for (const pattern of yearPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      values.push(Number(match[1]));
+      if (match[2]) values.push(Number(match[2]));
+    }
+  }
+
+  const monthPatterns = [
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,3})\s*(?:\+|or more)?\s+months?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+|technical\s+)?experience/gi,
+    /experience(?:\s+(?:of|in))?\s+(?:at least\s+|minimum(?: of)?\s+)?(\d{1,3})\s*(?:\+|or more)?\s+months?/gi
+  ];
+  for (const pattern of monthPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      const months = Number(match[1]);
+      if (Number.isFinite(months)) values.push(months / 12);
+    }
+  }
+
+  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
+}
+
 function classify(title, description='') {
   const text = lower(`${title} ${description}`);
   const t = lower(title);
@@ -168,10 +213,93 @@ function classify(title, description='') {
   else if (/intern|co-op|co op/.test(t)) type = 'internship';
   else if (/trainee|skillbridge|fellowship|work.?based learning/.test(t) || /work.?based learning/.test(text)) type = 'trainee';
 
-  const noExperience = /no experience|high school diploma|high school or equivalent|0\+ months of experience|work.?based learning|skillbridge|apprentice|training program/.test(text);
-  const experience = noExperience ? 'no-experience' : '0-2-years';
+  // Use only stated requirements before any preferred-qualification section.
+  // The broad early-career pass used to treat a high-school-diploma mention as
+  // proof of no-experience eligibility, which could mislabel technician roles
+  // that also required several years in the field. Parse the actual requirement
+  // and fail closed when experience cannot be established.
+  const experienceText = lower(`${title} ${requiredExperienceText(description)}`);
+  const years = statedExperienceYears(experienceText);
+  if (years.some(year => year > 5)) return null;
+
+  const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required|\b0\+?\s+months?\s+(?:of\s+)?experience\b/i.test(experienceText);
+  const explicitEntry = /\bentry[- ]level\b/i.test(experienceText);
+  const explicitProgram = type !== 'entry-level' || /work.?based learning|skillbridge|training program/.test(experienceText);
+  const earlySignal = explicitProgram || explicitNoExperience || explicitEntry || years.some(year => year <= 2);
+  const midSignal = years.some(year => year >= 3 && year <= 5);
+  if (!years.length && !earlySignal) return null;
+
+  let experience = '0-2-years';
+  if (explicitNoExperience || (!years.length && /work.?based learning|skillbridge/.test(experienceText)) || (!years.length && type === 'apprenticeship')) {
+    experience = 'no-experience';
+  } else if (midSignal) {
+    experience = '2-5-years';
+  }
+
   return { type, experience };
 }
+
+function validateClassifier() {
+  const cases = [
+    {
+      name: 'high-school requirement does not hide a six-year minimum',
+      title: 'Data Center Technician',
+      description: 'High school diploma required. Minimum of 6 years of relevant experience in data center operations.',
+      expected: null
+    },
+    {
+      name: 'high-school diploma alone is not enough to infer experience',
+      title: 'Data Center Technician',
+      description: 'High school diploma required. Maintain data center critical facilities, UPS systems, and server racks.',
+      expected: null
+    },
+    {
+      name: 'two-year minimum is early career',
+      title: 'Data Center Technician',
+      description: 'Entry level opportunity. Minimum of 2 years of relevant experience in data center operations.',
+      expected: { type:'entry-level', experience:'0-2-years' }
+    },
+    {
+      name: 'five-year minimum remains eligible mid-level',
+      title: 'Critical Facilities Technician',
+      description: 'Entry level and developing-career team. Five or more years of direct experience in a critical environment.',
+      expected: { type:'entry-level', experience:'2-5-years' }
+    },
+    {
+      name: 'preferred seniority does not override a one-year minimum',
+      title: 'Data Center Technician',
+      description: 'Entry level role. Minimum of one year of relevant experience. Preferred qualifications: seven years of experience.',
+      expected: { type:'entry-level', experience:'0-2-years' }
+    },
+    {
+      name: 'internship without stated years remains eligible',
+      title: 'Data Center Operations Intern',
+      description: 'Support technicians in data center operations and critical facilities.',
+      expected: { type:'internship', experience:'0-2-years' }
+    },
+    {
+      name: 'work-based learning remains a no-experience pathway',
+      title: 'Data Center Work Based Learning Trainee',
+      description: 'Work based learning program supporting data center operations and critical facilities.',
+      expected: { type:'trainee', experience:'no-experience' }
+    }
+  ];
+
+  const failures = [];
+  for (const testCase of cases) {
+    const actual = classify(testCase.title, testCase.description);
+    const actualType = actual?.type ?? null;
+    const actualExperience = actual?.experience ?? null;
+    const expectedType = testCase.expected?.type ?? null;
+    const expectedExperience = testCase.expected?.experience ?? null;
+    if (actualType !== expectedType || actualExperience !== expectedExperience) {
+      failures.push(`${testCase.name}: expected ${expectedType}/${expectedExperience}, got ${actualType}/${actualExperience}`);
+    }
+  }
+  if (failures.length) throw new Error(`Early-career classifier regression: ${failures.join(' | ')}`);
+}
+
+validateClassifier();
 
 function tagsFor(title, description, type, experience) {
   const text = lower(`${title} ${description}`);
@@ -179,7 +307,7 @@ function tagsFor(title, description, type, experience) {
   if (type === 'internship') tags.push('Internship');
   if (type === 'apprenticeship') tags.push('Apprenticeship');
   if (type === 'trainee') tags.push('Trainee');
-  tags.push(experience === 'no-experience' ? 'No Experience Needed' : '0–2 Years');
+  tags.push(experience === 'no-experience' ? 'No Experience Needed' : experience === '2-5-years' ? '2–5 Years' : '0–2 Years');
   if (/skillbridge/.test(text)) tags.push('SkillBridge');
   if (/training|mentorship|learning program|academy/.test(text)) tags.push('Training / Mentorship');
   if (/electrical|switchgear|ups/.test(text)) tags.push('Electrical');

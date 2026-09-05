@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T09:47:30.429Z",
-  "jobs": 509,
+  "updatedAt": "2026-09-05T12:47:51.889Z",
+  "jobs": 497,
   "sourcesAttempted": 47,
   "providers": {
     "lever": 6,
@@ -15,13 +15,13 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 4,
-    "trainee": 12,
-    "entry-level": 489
+    "trainee": 5,
+    "entry-level": 484
   },
   "countsByExperience": {
     "0-2-years": 365,
-    "no-experience": 23,
-    "2-5-years": 121
+    "no-experience": 18,
+    "2-5-years": 114
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -193,10 +193,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 4,
-      "qualifyingRoles": 1,
+      "staleRemoved": 5,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 9,
+        "non-us": 10,
         "unknown-experience": 8,
         "context": 2,
         "title": 13
@@ -205,6 +205,10 @@
         {
           "title": "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali"
+        },
+        {
+          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
         },
         {
           "title": "Practicante Critical Facilities",
@@ -235,10 +239,6 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
-        },
-        {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -247,36 +247,41 @@
       "officialSource": "https://careers.equinix.com/",
       "sourceHealthy": true,
       "listingComplete": true,
-      "listingPagesAttempted": 8,
-      "listingPagesSucceeded": 8,
-      "candidateLinks": 4,
-      "recoveredCandidates": 4,
-      "detailAttempted": 4,
-      "detailSucceeded": 4,
+      "listingPagesAttempted": 11,
+      "listingPagesSucceeded": 11,
+      "candidateLinks": 5,
+      "recoveredCandidates": 5,
+      "detailAttempted": 5,
+      "detailSucceeded": 5,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 0,
-      "qualifyingRoles": 4,
+      "qualifyingRoles": 0,
+      "drops": {
+        "experience": 0,
+        "unknownExperience": 5,
+        "unusable": 0
+      },
       "errors": []
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T09:47:30.502Z",
+    "updatedAt": "2026-09-05T12:47:51.949Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 509,
+    "regionAssigned": 497,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "mid-atlantic": 102,
-      "texas": 100,
+      "mid-atlantic": 100,
+      "texas": 98,
       "southwest": 54,
-      "southeast": 82,
-      "west": 69,
-      "midwest": 86,
-      "northeast": 15,
+      "southeast": 81,
+      "midwest": 84,
+      "west": 65,
+      "northeast": 14,
       "nationwide": 1
     }
   },
@@ -637,22 +642,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T09:47:30.550Z",
-    "before": 509,
-    "after": 509,
+    "checkedAt": "2026-09-05T12:47:52.007Z",
+    "before": 497,
+    "after": 497,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 532,
-    "currentJobs": 498,
-    "newJobsThisRun": 0,
+    "trackedJobs": 537,
+    "currentJobs": 497,
+    "newJobsThisRun": 5,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 5,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T04:42:35.458Z"
+    "updatedAt": "2026-09-05T12:47:52.061Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

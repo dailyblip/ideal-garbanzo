@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-05T09:46:21.801Z",
+  "updatedAt": "2026-09-05T09:47:30.429Z",
   "jobs": 509,
   "sourcesAttempted": 47,
   "providers": {
@@ -262,49 +262,28 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T04:42:35.346Z",
-    "changed": 4,
-    "samples": [
-      {
-        "id": "equinix-early-47decb19b9965c",
-        "before": "Texas",
-        "after": "Dallas, TX"
-      },
-      {
-        "id": "equinix-early-b16fe208641d0f",
-        "before": "California",
-        "after": "San Jose, CA"
-      },
-      {
-        "id": "equinix-early-e04d9a6f0b9933",
-        "before": "Virginia",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "equinix-early-d1865bd35ec94c",
-        "before": "Texas",
-        "after": "Dallas, TX"
-      }
-    ],
-    "regionAssigned": 497,
-    "regionMissing": 12,
+    "updatedAt": "2026-09-05T09:47:30.502Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 509,
+    "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "mid-atlantic": 101,
+      "mid-atlantic": 102,
       "texas": 100,
       "southwest": 54,
-      "southeast": 81,
-      "west": 63,
-      "midwest": 84,
-      "northeast": 13,
+      "southeast": 82,
+      "west": 69,
+      "midwest": 86,
+      "northeast": 15,
       "nationwide": 1
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-05T09:46:36.797Z",
+    "checkedAt": "2026-09-05T09:47:46.797Z",
     "publishedJobs": 509,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 4
   },
   "metaCareers": {
@@ -658,9 +637,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T04:42:35.405Z",
-    "before": 498,
-    "after": 498,
+    "checkedAt": "2026-09-05T09:47:30.550Z",
+    "before": 509,
+    "after": 509,
     "removed": 0,
     "examples": []
   },

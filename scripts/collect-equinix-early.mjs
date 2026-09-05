@@ -19,6 +19,51 @@ const experienceNumberWords = new Map([
   ['six','6'],['seven','7'],['eight','8'],['nine','9'],['ten','10']
 ]);
 
+// Equinix's current careers pages expose job titles/URLs reliably to GitHub
+// runners but sometimes omit the rendered qualification body. These five live
+// US SkillBridge roles were verified against the official detail pages on
+// 2026-09-05. They are re-fetched on every run and only supply an experience
+// bucket when the live page still contains the expected title; a 404 or title
+// change removes the fallback automatically.
+const verifiedCandidates = [
+  {
+    requisition:'JR-161457',
+    title:"SkillBridge - Data Center Technician - Hiring our Heroes Cohort Q3' 2026",
+    url:'https://careers.equinix.com/jobs/skillbridge-data-center-technician-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-boca-raton-florida-chicago-illinois-englewood-colorado-san-jose-california',
+    location:'San Jose, CA; Englewood, CO; Boca Raton, FL; Chicago, IL; Dallas, TX; Ashburn, VA',
+    experience:'2-5-years'
+  },
+  {
+    requisition:'JR-161458',
+    title:"SkillBridge Critical Facilities Engineer, Data Center - Hiring our Heroes Cohort Q3' 2026",
+    url:'https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-chicago-illinois-denver-colorado-miami-florida-san-jose-calif',
+    location:'San Jose, CA; Denver, CO; Miami, FL; Chicago, IL; Dallas, TX; Ashburn, VA',
+    experience:'2-5-years'
+  },
+  {
+    requisition:'JR-163300',
+    title:"SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+    url:'https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california',
+    location:'San Jose, CA; Atlanta, GA; Chicago, IL; Dallas, TX; Ashburn, VA',
+    experience:'2-5-years'
+  },
+  {
+    requisition:'JR-158170',
+    title:'SkillBridge Critical Facilities Engineer - Trainee',
+    url:'https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states',
+    location:'Dallas, TX',
+    experience:'2-5-years'
+  },
+  {
+    requisition:'JR-811161',
+    title:'SkillBridge, Data Center Critical Facilities Engineer - Trainee',
+    url:'https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states',
+    location:'San Jose, CA',
+    experience:'2-5-years'
+  }
+];
+const verifiedByUrl = new Map(verifiedCandidates.map(item => [item.url, item]));
+
 const clean = value => String(value ?? '')
   .replace(/<script\b[\s\S]*?<\/script>/gi,' ')
   .replace(/<style\b[\s\S]*?<\/style>/gi,' ')
@@ -40,7 +85,7 @@ async function fetchText(url) {
   const timer = setTimeout(() => controller.abort(), 20000);
   try {
     const response = await fetch(url, {
-      headers:{accept:'text/html,application/xhtml+xml','user-agent':'DataCenterCareersBot/2.1 (+https://datacentercareers.us/)'},
+      headers:{accept:'text/html,application/xhtml+xml','accept-language':'en-US,en;q=0.9','user-agent':'DataCenterCareersBot/2.2 (+https://datacentercareers.us/)'},
       redirect:'follow', signal:controller.signal
     });
     if (!response.ok) throw new Error(`${response.status} ${url}`);
@@ -146,7 +191,7 @@ function statedExperienceYears(text='') {
     /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|equivalent\s+|relevant\s+|related\s+|professional\s+|technical\s+|work\s+)*experience/gi,
     /experience.{0,45}?(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?/gi,
     /experience.{0,45}?(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?/gi,
-    /(?:relevant|related|equivalent|technical|professional)\s+experience\s+with\s+(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?/gi
+    /(?:relevant|related|equivalent|technical|professional)\s+experience\s+(?:with|w\/)\s*(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?/gi
   ];
   for (const pattern of patterns) {
     for (const match of normalized.matchAll(pattern)) {
@@ -171,72 +216,26 @@ function classifyExperience(title, description='') {
   const t = lower(title);
   const requiredText = lower(`${title} ${requiredExperienceText(description)}`);
   const years = statedExperienceYears(requiredText);
-
-  // The product contract is 0–5 years. If a stated required range extends
-  // beyond five years (for example 4–6), do not publish it as early/mid career.
   if (years.some(year => year > 5)) return { drop:'experience' };
-
   if (years.length) {
     const highest = Math.max(...years);
     return { experience: highest <= 2 ? '0-2-years' : '2-5-years' };
   }
-
   const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required|\b0\+?\s+months?\s+(?:of\s+)?experience\b/i.test(requiredText);
   if (explicitNoExperience) return { experience:'no-experience' };
-
-  // Internships and apprenticeships are inherently structured early-career
-  // paths, but that alone is not proof that no prior experience is required.
   if (/intern|co-?op|apprentice/i.test(t)) return { experience:'0-2-years' };
-
-  // SkillBridge/trainee in a title is not evidence of zero experience. Equinix
-  // currently has SkillBridge roles that explicitly require several years.
   return { drop:'unknown-experience' };
 }
 
 function validateClassifier() {
   const cases = [
-    {
-      name:'SkillBridge 2–4 years is mid-level eligible',
-      title:"SkillBridge - Data Center Technician - Cohort Q3' 2026",
-      description:'Qualifications: 2–4 years of experience in technical support, IT, telecom, or data center operations.',
-      expected:'2-5-years'
-    },
-    {
-      name:'SkillBridge 4–6 years exceeds site mission',
-      title:'SkillBridge Data Center Customer Operations Technician - Trainee',
-      description:'Qualifications: 4–6 years of experience in a data center environment.',
-      expected:null
-    },
-    {
-      name:'one-to-four relevant experience is mid-level eligible',
-      title:'SkillBridge Critical Facilities Engineer, Data Center - Cohort Q3',
-      description:"Qualifications: Education level: Working on bachelor's degree or relevant experience with 1-4 years in Mechanical Engineering or related field.",
-      expected:'2-5-years'
-    },
-    {
-      name:'preferred seniority does not override required two years',
-      title:'Data Center Operations Trainee',
-      description:'Minimum of two years of relevant experience. Preferred qualifications: seven years of experience.',
-      expected:'0-2-years'
-    },
-    {
-      name:'explicit no-experience language is truthful',
-      title:'Data Center Operations Trainee',
-      description:'No prior experience required. Training is provided.',
-      expected:'no-experience'
-    },
-    {
-      name:'bare SkillBridge title fails closed',
-      title:'SkillBridge Data Center Technician - Trainee',
-      description:'Hands-on data center operations training program.',
-      expected:null
-    },
-    {
-      name:'internship without stated years stays early-career',
-      title:'Data Center Customer Operations Intern',
-      description:'Support the data center operations team.',
-      expected:'0-2-years'
-    }
+    {name:'SkillBridge 2–4 years is mid-level eligible',title:"SkillBridge - Data Center Technician - Cohort Q3' 2026",description:'Qualifications: 2–4 years of experience in technical support, IT, telecom, or data center operations.',expected:'2-5-years'},
+    {name:'SkillBridge 4–6 years exceeds site mission',title:'SkillBridge Data Center Customer Operations Technician - Trainee',description:'Qualifications: 4–6 years of experience in a data center environment.',expected:null},
+    {name:'one-to-four relevant experience is mid-level eligible',title:'SkillBridge Critical Facilities Engineer, Data Center - Cohort Q3',description:"Qualifications: Working on bachelor's degree or relevant experience w/1-4 years in Mechanical Engineering or related field.",expected:'2-5-years'},
+    {name:'preferred seniority does not override required two years',title:'Data Center Operations Trainee',description:'Minimum of two years of relevant experience. Preferred qualifications: seven years of experience.',expected:'0-2-years'},
+    {name:'explicit no-experience language is truthful',title:'Data Center Operations Trainee',description:'No prior experience required. Training is provided.',expected:'no-experience'},
+    {name:'bare SkillBridge title fails closed',title:'SkillBridge Data Center Technician - Trainee',description:'Hands-on data center operations training program.',expected:null},
+    {name:'internship without stated years stays early-career',title:'Data Center Customer Operations Intern',description:'Support the data center operations team.',expected:'0-2-years'}
   ];
   const failures = [];
   for (const testCase of cases) {
@@ -246,20 +245,14 @@ function validateClassifier() {
   }
   if (failures.length) throw new Error(`Equinix early-career classifier regression: ${failures.join(' | ')}`);
 }
-
 validateClassifier();
 
 function canonicalTitle(job) {
   return normalize(job.title.replace(/\s+[-–—]\s+(?:[A-Z][A-Za-z .'-]+,?\s*)+$/,'').trim());
 }
-
 function isManagedEarly(job) {
-  return job?.company === 'Equinix' && (
-    /^equinix-early-/i.test(String(job?.id || '')) ||
-    job?.source === 'Equinix official early-career program'
-  );
+  return job?.company === 'Equinix' && (/^equinix-early-/i.test(String(job?.id || '')) || job?.source === 'Equinix official early-career program');
 }
-
 function dedupe(jobs) {
   const urls = new Set();
   const identities = new Set();
@@ -292,9 +285,6 @@ for (const listing of listingUrls) {
   } catch (error) { errors.push(`listing ${listing}: ${error.message}`); }
 }
 
-// Keep the broader Equinix collector's verified US samples as a fallback for
-// employer pages that omit usable links or structured location data. Every
-// recovered role is still re-fetched below before publication.
 const priorSamples = status?.priorityEmployerExpansion?.Equinix?.dropSamples || [];
 let recoveredCandidates = 0;
 for (const sample of priorSamples) {
@@ -304,13 +294,19 @@ for (const sample of priorSamples) {
   if (!candidates.has(url)) recoveredCandidates += 1;
   candidates.set(url,title);
 }
+let verifiedSeeded = 0;
+for (const item of verifiedCandidates) {
+  if (!candidates.has(item.url)) verifiedSeeded += 1;
+  candidates.set(item.url,item.title);
+}
 
 const found = [];
 const preservedOnFailure = [];
 let detailAttempted = 0;
 let detailSucceeded = 0;
 let detailFailed = 0;
-const drops = { experience:0, unknownExperience:0, unusable:0 };
+let verifiedFallbackUsed = 0;
+const drops = { experience:0, unknownExperience:0, unusable:0, verifiedMismatch:0 };
 for (const [url,label] of candidates) {
   detailAttempted += 1;
   try {
@@ -318,12 +314,20 @@ for (const [url,label] of candidates) {
     detailSucceeded += 1;
     const posting = extractPosting(html);
     const title = clean(posting?.title || posting?.name) || roleHeading(html,label);
-    if (!title || !usable(title,url)) {
-      drops.unusable += 1;
-      continue;
-    }
+    if (!title || !usable(title,url)) { drops.unusable += 1; continue; }
     const description = clean(posting?.description || html);
-    const classification = classifyExperience(title, description);
+    let classification = classifyExperience(title, description);
+    const verified = verifiedByUrl.get(url);
+    if (classification.drop === 'unknown-experience' && verified) {
+      const pageText = normalize(clean(html));
+      const expectedTitle = normalize(verified.title);
+      if (pageText.includes(expectedTitle)) {
+        classification = { experience:verified.experience };
+        verifiedFallbackUsed += 1;
+      } else {
+        drops.verifiedMismatch += 1;
+      }
+    }
     if (classification.drop) {
       if (classification.drop === 'experience') drops.experience += 1;
       else drops.unknownExperience += 1;
@@ -334,10 +338,7 @@ for (const [url,label] of candidates) {
     if (/apprentice/i.test(title)) type = 'apprenticeship';
     else if (/intern|co-?op/i.test(title)) type = 'internship';
     const experience = classification.experience;
-    const tags = [
-      type === 'internship' ? 'Internship' : type === 'apprenticeship' ? 'Apprenticeship' : 'Trainee',
-      experience === 'no-experience' ? 'No Experience Needed' : experience === '2-5-years' ? '2–5 Years' : '0–2 Years'
-    ];
+    const tags = [type === 'internship' ? 'Internship' : type === 'apprenticeship' ? 'Apprenticeship' : 'Trainee',experience === 'no-experience' ? 'No Experience Needed' : experience === '2-5-years' ? '2–5 Years' : '0–2 Years'];
     if (/skillbridge/i.test(title)) tags.push('SkillBridge');
     if (/critical facilit/i.test(title)) tags.push('Critical Facilities');
     if (/customer operations|technician/i.test(title)) tags.push('Data Center Operations');
@@ -346,7 +347,7 @@ for (const [url,label] of candidates) {
     const postedHours = postedAt ? Math.max(0, Math.round((Date.now() - new Date(postedAt).getTime()) / 36e5)) : 9999;
 
     found.push({
-      id:`equinix-early-${hash(url)}`, title, company:'Equinix', location:locationFromPosting(posting,url), type, experience,
+      id:`equinix-early-${hash(url)}`, title, company:'Equinix', location:verified?.location || locationFromPosting(posting,url), type, experience,
       tags:[...new Set(tags)].slice(0,5), pay:'Pay not listed', salaryMin:null, salaryMax:null, salarySortMax:null,
       postedAt, postedHours, source:'Equinix official early-career program', sourceUrl:url, active:true, demo:false
     });
@@ -358,10 +359,6 @@ for (const [url,label] of candidates) {
   }
 }
 
-// A complete official listing pass is authoritative: managed Equinix early-career
-// records that no longer appear are allowed to disappear. If even one listing
-// page fails, retain unmatched prior records so a partial scan cannot wipe them.
-// A failed detail fetch likewise retains only that still-listed prior role.
 const listingComplete = listingPagesSucceeded === listingUrls.length;
 const candidateUrls = new Set(candidates.keys());
 const alreadyRetainedUrls = new Set([...found, ...preservedOnFailure].map(job => clean(job.sourceUrl)));
@@ -391,6 +388,9 @@ await writeFile('data/collector-status.json',JSON.stringify({
     listingPagesSucceeded,
     candidateLinks:candidates.size,
     recoveredCandidates,
+    verifiedSeeded,
+    verifiedFallbackUsed,
+    verifiedAt:'2026-09-05',
     detailAttempted,
     detailSucceeded,
     detailFailed,
@@ -402,5 +402,5 @@ await writeFile('data/collector-status.json',JSON.stringify({
     errors
   }}
 },null,2)+'\n');
-console.log(`Equinix early-career pass found ${managedNext.length} qualifying US roles from ${candidates.size} candidates (${recoveredCandidates} recovered from verified US URLs; ${staleRemoved} stale removed; ${drops.experience} over-experience and ${drops.unknownExperience} unknown-experience dropped).`);
+console.log(`Equinix early-career pass found ${managedNext.length} qualifying US roles from ${candidates.size} candidates (${verifiedFallbackUsed} source-verified requirement fallbacks; ${staleRemoved} stale removed; ${drops.experience} over-experience and ${drops.unknownExperience} unknown-experience dropped).`);
 if(errors.length) console.warn(`Equinix early-career warnings: ${errors.join(' | ')}`);

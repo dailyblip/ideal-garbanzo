@@ -1,0 +1,27 @@
+name: Sabey experience classifier guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-sabey-careers.mjs'
+      - '.github/workflows/sabey-classifier-guard.yml'
+  pull_request:
+    paths:
+      - 'scripts/collect-sabey-careers.mjs'
+      - '.github/workflows/sabey-classifier-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  classifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run Sabey experience parser regressions
+        run: node scripts/collect-sabey-careers.mjs --test-experience-parser

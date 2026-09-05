@@ -284,3 +284,8 @@ jobs:
           node -e "const jobs=require('/tmp/jobs.json'); if (!Array.isArray(jobs) || jobs.length === 0) process.exit(1);"
 
           echo "Custom-domain smoke test passed for ${base} at revision ${expected_sha:0:8}."
+      - name: Validate live indexability after deployment
+        run: |
+          LIVE_SITE_BASE='https://datacentercareers.us' \
+          DEPLOYMENT_SHA="$(git rev-parse HEAD)" \
+          node scripts/validate-live-indexability.mjs

@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import './validate-major-workday-health.mjs';
 
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';

@@ -2,17 +2,22 @@ import { readFile, writeFile } from 'node:fs/promises';
 import crypto from 'node:crypto';
 
 const listingUrls = [
+  'https://careers.equinix.com/global-internship',
   'https://careers.equinix.com/internships',
+  'https://careers.equinix.com/students-recent-grads',
   'https://careers.equinix.com/hiring-operations-us-equinix',
   ...[1,2,3,4].map(page => `https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=${page}&query=data+center`),
-  'https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=1&query=skillbridge',
-  'https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=2&query=skillbridge'
+  ...[1,2,3].map(page => `https://careers.equinix.com/jobs/search?country_codes%5B%5D=US&page=${page}&query=skillbridge`)
 ];
 
 const roleSignal = /data\s*center|datacenter|critical facilit|customer operations/i;
 const earlySignal = /skillbridge|intern|apprentice|trainee|fellowship|work.?based learning|co-?op/i;
 const excluded = /\b(?:senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|staff|supervisor|accountant|security|iam|sales)\b/i;
 const states = ['alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware','florida','georgia','hawaii','idaho','illinois','indiana','iowa','kansas','kentucky','louisiana','maine','maryland','massachusetts','michigan','minnesota','mississippi','missouri','montana','nebraska','nevada','new-hampshire','new-jersey','new-mexico','new-york','north-carolina','north-dakota','ohio','oklahoma','oregon','pennsylvania','rhode-island','south-carolina','south-dakota','tennessee','texas','utah','vermont','virginia','washington','west-virginia','wisconsin','wyoming','district-of-columbia'];
+const experienceNumberWords = new Map([
+  ['zero','0'],['one','1'],['two','2'],['three','3'],['four','4'],['five','5'],
+  ['six','6'],['seven','7'],['eight','8'],['nine','9'],['ten','10']
+]);
 
 const clean = value => String(value ?? '')
   .replace(/<script\b[\s\S]*?<\/script>/gi,' ')
@@ -22,6 +27,8 @@ const clean = value => String(value ?? '')
   .replace(/&amp;/gi,'&')
   .replace(/&quot;/gi,'"')
   .replace(/&#39;|&apos;/gi,"'")
+  .replace(/&ndash;|&#8211;/gi,'–')
+  .replace(/&mdash;|&#8212;/gi,'—')
   .replace(/\s+/g,' ')
   .trim();
 const lower = value => clean(value).toLowerCase();
@@ -33,7 +40,7 @@ async function fetchText(url) {
   const timer = setTimeout(() => controller.abort(), 20000);
   try {
     const response = await fetch(url, {
-      headers:{accept:'text/html,application/xhtml+xml','user-agent':'DataCenterCareersBot/2.0 (+https://dailyblip.github.io/ideal-garbanzo/)'},
+      headers:{accept:'text/html,application/xhtml+xml','user-agent':'DataCenterCareersBot/2.1 (+https://datacentercareers.us/)'},
       redirect:'follow', signal:controller.signal
     });
     if (!response.ok) throw new Error(`${response.status} ${url}`);
@@ -60,6 +67,37 @@ function discover(html, baseUrl) {
   return out;
 }
 
+function findJobPosting(value) {
+  if (!value) return null;
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const found = findJobPosting(item);
+      if (found) return found;
+    }
+    return null;
+  }
+  if (typeof value !== 'object') return null;
+  const type = value['@type'];
+  if (type === 'JobPosting' || (Array.isArray(type) && type.includes('JobPosting'))) return value;
+  for (const child of Object.values(value)) {
+    if (child && typeof child === 'object') {
+      const found = findJobPosting(child);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+function extractPosting(html) {
+  for (const match of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      const found = findJobPosting(JSON.parse(match[1].trim()));
+      if (found) return found;
+    } catch {}
+  }
+  return null;
+}
+
 function roleHeading(html, fallback) {
   const candidates = [];
   for (const match of html.matchAll(/<h[1-4]\b[^>]*>([\s\S]*?)<\/h[1-4]>/gi)) {
@@ -76,6 +114,140 @@ function locationFromUrl(url) {
   }
   return 'United States';
 }
+
+function locationFromPosting(posting, url) {
+  const entries = Array.isArray(posting?.jobLocation) ? posting.jobLocation : [posting?.jobLocation].filter(Boolean);
+  const locations = [];
+  for (const entry of entries) {
+    const address = entry?.address || entry || {};
+    const country = clean(typeof address.addressCountry === 'object' ? address.addressCountry?.name : address.addressCountry);
+    if (country && !/united states|\busa?\b/i.test(country)) continue;
+    const label = [address.addressLocality, address.addressRegion].map(clean).filter(Boolean).join(', ');
+    if (label) locations.push(label);
+  }
+  return [...new Set(locations)].join('; ') || locationFromUrl(url);
+}
+
+function requiredExperienceText(description='') {
+  const text = clean(description);
+  const preferred = text.search(/\b(?:preferred qualifications?|preferred experience|preferred skills?|nice to have|bonus qualifications?)\b/i);
+  return preferred >= 0 ? text.slice(0, preferred) : text;
+}
+
+function normalizeExperienceNumbers(text='') {
+  return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+}
+
+function statedExperienceYears(text='') {
+  const normalized = normalizeExperienceNumbers(text);
+  const values = [];
+  const patterns = [
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|equivalent\s+|relevant\s+|related\s+|professional\s+|technical\s+|work\s+)*experience/gi,
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|equivalent\s+|relevant\s+|related\s+|professional\s+|technical\s+|work\s+)*experience/gi,
+    /experience.{0,45}?(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?/gi,
+    /experience.{0,45}?(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?/gi,
+    /(?:relevant|related|equivalent|technical|professional)\s+experience\s+with\s+(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?/gi
+  ];
+  for (const pattern of patterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      values.push(Number(match[1]));
+      if (match[2]) values.push(Number(match[2]));
+    }
+  }
+  const monthPatterns = [
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,3})\s*(?:\+|or more)?\s+months?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+|technical\s+|work\s+)*experience/gi,
+    /experience.{0,35}?(\d{1,3})\s*(?:\+|or more)?\s+months?/gi
+  ];
+  for (const pattern of monthPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      const months = Number(match[1]);
+      if (Number.isFinite(months)) values.push(months / 12);
+    }
+  }
+  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
+}
+
+function classifyExperience(title, description='') {
+  const t = lower(title);
+  const requiredText = lower(`${title} ${requiredExperienceText(description)}`);
+  const years = statedExperienceYears(requiredText);
+
+  // The product contract is 0–5 years. If a stated required range extends
+  // beyond five years (for example 4–6), do not publish it as early/mid career.
+  if (years.some(year => year > 5)) return { drop:'experience' };
+
+  if (years.length) {
+    const highest = Math.max(...years);
+    return { experience: highest <= 2 ? '0-2-years' : '2-5-years' };
+  }
+
+  const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required|\b0\+?\s+months?\s+(?:of\s+)?experience\b/i.test(requiredText);
+  if (explicitNoExperience) return { experience:'no-experience' };
+
+  // Internships and apprenticeships are inherently structured early-career
+  // paths, but that alone is not proof that no prior experience is required.
+  if (/intern|co-?op|apprentice/i.test(t)) return { experience:'0-2-years' };
+
+  // SkillBridge/trainee in a title is not evidence of zero experience. Equinix
+  // currently has SkillBridge roles that explicitly require several years.
+  return { drop:'unknown-experience' };
+}
+
+function validateClassifier() {
+  const cases = [
+    {
+      name:'SkillBridge 2–4 years is mid-level eligible',
+      title:"SkillBridge - Data Center Technician - Cohort Q3' 2026",
+      description:'Qualifications: 2–4 years of experience in technical support, IT, telecom, or data center operations.',
+      expected:'2-5-years'
+    },
+    {
+      name:'SkillBridge 4–6 years exceeds site mission',
+      title:'SkillBridge Data Center Customer Operations Technician - Trainee',
+      description:'Qualifications: 4–6 years of experience in a data center environment.',
+      expected:null
+    },
+    {
+      name:'one-to-four relevant experience is mid-level eligible',
+      title:'SkillBridge Critical Facilities Engineer, Data Center - Cohort Q3',
+      description:"Qualifications: Education level: Working on bachelor's degree or relevant experience with 1-4 years in Mechanical Engineering or related field.",
+      expected:'2-5-years'
+    },
+    {
+      name:'preferred seniority does not override required two years',
+      title:'Data Center Operations Trainee',
+      description:'Minimum of two years of relevant experience. Preferred qualifications: seven years of experience.',
+      expected:'0-2-years'
+    },
+    {
+      name:'explicit no-experience language is truthful',
+      title:'Data Center Operations Trainee',
+      description:'No prior experience required. Training is provided.',
+      expected:'no-experience'
+    },
+    {
+      name:'bare SkillBridge title fails closed',
+      title:'SkillBridge Data Center Technician - Trainee',
+      description:'Hands-on data center operations training program.',
+      expected:null
+    },
+    {
+      name:'internship without stated years stays early-career',
+      title:'Data Center Customer Operations Intern',
+      description:'Support the data center operations team.',
+      expected:'0-2-years'
+    }
+  ];
+  const failures = [];
+  for (const testCase of cases) {
+    const actual = classifyExperience(testCase.title, testCase.description);
+    const value = actual.drop ? null : actual.experience;
+    if (value !== testCase.expected) failures.push(`${testCase.name}: expected ${testCase.expected}, got ${value}`);
+  }
+  if (failures.length) throw new Error(`Equinix early-career classifier regression: ${failures.join(' | ')}`);
+}
+
+validateClassifier();
 
 function canonicalTitle(job) {
   return normalize(job.title.replace(/\s+[-–—]\s+(?:[A-Z][A-Za-z .'-]+,?\s*)+$/,'').trim());
@@ -138,25 +310,45 @@ const preservedOnFailure = [];
 let detailAttempted = 0;
 let detailSucceeded = 0;
 let detailFailed = 0;
+const drops = { experience:0, unknownExperience:0, unusable:0 };
 for (const [url,label] of candidates) {
   detailAttempted += 1;
   try {
     const html = await fetchText(url);
     detailSucceeded += 1;
-    const title = roleHeading(html,label);
-    if (!title || !usable(title,url)) continue;
+    const posting = extractPosting(html);
+    const title = clean(posting?.title || posting?.name) || roleHeading(html,label);
+    if (!title || !usable(title,url)) {
+      drops.unusable += 1;
+      continue;
+    }
+    const description = clean(posting?.description || html);
+    const classification = classifyExperience(title, description);
+    if (classification.drop) {
+      if (classification.drop === 'experience') drops.experience += 1;
+      else drops.unknownExperience += 1;
+      continue;
+    }
+
     let type = 'trainee';
     if (/apprentice/i.test(title)) type = 'apprenticeship';
     else if (/intern|co-?op/i.test(title)) type = 'internship';
-    const experience = /skillbridge|apprentice|trainee|work.?based learning/i.test(title) ? 'no-experience' : '0-2-years';
-    const tags = [type === 'internship' ? 'Internship' : type === 'apprenticeship' ? 'Apprenticeship' : 'Trainee', experience === 'no-experience' ? 'No Experience Needed' : '0–2 Years'];
+    const experience = classification.experience;
+    const tags = [
+      type === 'internship' ? 'Internship' : type === 'apprenticeship' ? 'Apprenticeship' : 'Trainee',
+      experience === 'no-experience' ? 'No Experience Needed' : experience === '2-5-years' ? '2–5 Years' : '0–2 Years'
+    ];
     if (/skillbridge/i.test(title)) tags.push('SkillBridge');
     if (/critical facilit/i.test(title)) tags.push('Critical Facilities');
     if (/customer operations|technician/i.test(title)) tags.push('Data Center Operations');
+    const datePosted = clean(posting?.datePosted);
+    const postedAt = /^\d{4}-\d{2}-\d{2}/.test(datePosted) ? new Date(datePosted).toISOString() : null;
+    const postedHours = postedAt ? Math.max(0, Math.round((Date.now() - new Date(postedAt).getTime()) / 36e5)) : 9999;
+
     found.push({
-      id:`equinix-early-${hash(url)}`, title, company:'Equinix', location:locationFromUrl(url), type, experience,
+      id:`equinix-early-${hash(url)}`, title, company:'Equinix', location:locationFromPosting(posting,url), type, experience,
       tags:[...new Set(tags)].slice(0,5), pay:'Pay not listed', salaryMin:null, salaryMax:null, salarySortMax:null,
-      postedAt:null, postedHours:9999, source:'Equinix official early-career program', sourceUrl:url, active:true, demo:false
+      postedAt, postedHours, source:'Equinix official early-career program', sourceUrl:url, active:true, demo:false
     });
   } catch (error) {
     detailFailed += 1;
@@ -206,8 +398,9 @@ await writeFile('data/collector-status.json',JSON.stringify({
     fallbackRetained:fallbackRetained.length,
     staleRemoved,
     qualifyingRoles:managedNext.length,
+    drops,
     errors
   }}
 },null,2)+'\n');
-console.log(`Equinix early-career pass found ${managedNext.length} qualifying US roles from ${candidates.size} candidates (${recoveredCandidates} recovered from verified US URLs; ${staleRemoved} stale removed).`);
+console.log(`Equinix early-career pass found ${managedNext.length} qualifying US roles from ${candidates.size} candidates (${recoveredCandidates} recovered from verified US URLs; ${staleRemoved} stale removed; ${drops.experience} over-experience and ${drops.unknownExperience} unknown-experience dropped).`);
 if(errors.length) console.warn(`Equinix early-career warnings: ${errors.join(' | ')}`);

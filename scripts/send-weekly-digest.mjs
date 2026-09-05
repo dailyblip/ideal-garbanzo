@@ -84,7 +84,7 @@ const discoverySort = job => {
   return now - Number(job.postedHours || 9999) * 3600000;
 };
 
-let weeklyJobs = jobs
+const weeklyJobs = jobs
   .filter(job => job?.active === true && !job.demo && isNewThisWeek(job))
   .sort((a, b) =>
     promotionRank(a) - promotionRank(b) ||
@@ -98,48 +98,90 @@ if (!weeklyJobs.length) {
   process.exit(0);
 }
 
-const totalJobs = weeklyJobs.length;
-weeklyJobs = weeklyJobs.slice(0, MAX_JOBS);
-const grouped = new Map();
-for (const job of weeklyJobs) {
-  const region = REGION_LABELS[job.region] || 'Other / Nationwide';
-  if (!grouped.has(region)) grouped.set(region, []);
-  grouped.get(region).push(job);
-}
+const displayRegion = job => REGION_LABELS[job.region] || (job.region === 'nationwide' ? 'Nationwide' : 'Other / Nationwide');
+const audienceJobs = region => weeklyJobs.filter(job => !region || job.region === region || job.region === 'nationwide');
+const formatSubject = (count, regionLabel = '') => `${count} new ${regionLabel ? `${regionLabel} ` : ''}data center ${count === 1 ? 'job' : 'jobs'} this week`;
 
-const lines = [
-  '# New data center jobs this week',
-  '',
-  `We added **${totalJobs} new ${totalJobs === 1 ? 'opportunity' : 'opportunities'}** to Data Center Careers over the last seven days.`,
-  ''
-];
+function renderDigest(audience, regionLabel = '') {
+  const total = audience.length;
+  const shown = audience.slice(0, MAX_JOBS);
+  const lines = [];
 
-for (const [region, regionJobs] of grouped) {
-  lines.push(`## ${region}`, '');
-  for (const job of regionJobs) {
-    const tier = activePaidPromotions.get(String(job.id));
-    const badge = tier === 'spotlightJob' ? ' **SPOTLIGHT**' : tier === 'highlightedJob' ? ' **HIGHLIGHTED**' : '';
-    const detailsUrl = `${SITE_URL}/jobs/${jobSlug(job)}/`;
-    const tags = Array.isArray(job.tags) && job.tags.length ? ` · ${job.tags.slice(0, 3).join(' · ')}` : '';
-    const pay = job.pay && job.pay !== 'Pay not listed' ? ` · ${job.pay}` : '';
-    lines.push(`- [**${job.title}**](${detailsUrl})${badge} — ${job.company} · ${job.location}${pay}${tags}`);
+  if (!total) {
+    lines.push(
+      `# No new ${regionLabel || 'data center'} openings this week`,
+      '',
+      `We did not add a new verified ${regionLabel ? `${regionLabel} ` : ''}data center opportunity in the last seven days. Current openings are still available on the site.`,
+      '',
+      `[Browse all current data center jobs](${SITE_URL}/jobs/)`,
+      '',
+      'Data Center Careers focuses on internships, apprenticeships, trainee opportunities and appropriate early-to-mid-career infrastructure roles.',
+      ''
+    );
+    return lines.join('\n');
   }
-  lines.push('');
+
+  lines.push(
+    regionLabel ? `# New ${regionLabel} data center jobs this week` : '# New data center jobs this week',
+    '',
+    `We added **${total} new ${total === 1 ? 'opportunity' : 'opportunities'}**${regionLabel ? ` matching your ${regionLabel} preference` : ''} over the last seven days.`,
+    ''
+  );
+
+  const grouped = new Map();
+  for (const job of shown) {
+    const group = displayRegion(job);
+    if (!grouped.has(group)) grouped.set(group, []);
+    grouped.get(group).push(job);
+  }
+
+  for (const [region, regionJobs] of grouped) {
+    lines.push(`## ${region}`, '');
+    for (const job of regionJobs) {
+      const tier = activePaidPromotions.get(String(job.id));
+      const badge = tier === 'spotlightJob' ? ' **SPOTLIGHT**' : tier === 'highlightedJob' ? ' **HIGHLIGHTED**' : '';
+      const detailsUrl = `${SITE_URL}/jobs/${jobSlug(job)}/`;
+      const tags = Array.isArray(job.tags) && job.tags.length ? ` · ${job.tags.slice(0, 3).join(' · ')}` : '';
+      const pay = job.pay && job.pay !== 'Pay not listed' ? ` · ${job.pay}` : '';
+      lines.push(`- [**${job.title}**](${detailsUrl})${badge} — ${job.company} · ${job.location}${pay}${tags}`);
+    }
+    lines.push('');
+  }
+
+  if (total > MAX_JOBS) lines.push(`Plus ${total - MAX_JOBS} more newly added roles on the site.`, '');
+  lines.push(
+    `[Browse all current data center jobs](${SITE_URL}/jobs/)`,
+    '',
+    'Data Center Careers focuses on internships, apprenticeships, trainee opportunities and appropriate early-to-mid-career infrastructure roles.',
+    ''
+  );
+  return lines.join('\n');
 }
 
-if (totalJobs > MAX_JOBS) lines.push(`Plus ${totalJobs - MAX_JOBS} more newly added roles on the site.`, '');
-lines.push(
-  `[Browse all current data center jobs](${SITE_URL}/jobs/)`,
-  '',
-  'Data Center Careers focuses on internships, apprenticeships, trainee opportunities and appropriate early-to-mid-career infrastructure roles.',
-  ''
-);
+const regionalAudiences = Object.entries(REGION_LABELS).map(([region, label]) => ({
+  region,
+  label,
+  jobs: audienceJobs(region)
+}));
+const nationalBody = renderDigest(weeklyJobs);
+const bodyBranches = regionalAudiences.map(({ region, label, jobs: regionJobs }, index) => {
+  const keyword = index === 0 ? 'if' : 'elif';
+  return `{% ${keyword} subscriber.metadata.region == '${region}' %}\n${renderDigest(regionJobs, label)}`;
+});
+const body = `${bodyBranches.join('\n')}\n{% else %}\n${nationalBody}\n{% endif %}`;
 
-const subject = `${totalJobs} new data center ${totalJobs === 1 ? 'job' : 'jobs'} this week`;
-const body = lines.join('\n');
+const subjectBranches = regionalAudiences.map(({ region, label, jobs: regionJobs }, index) => {
+  const keyword = index === 0 ? 'if' : 'elif';
+  return `{% ${keyword} subscriber.metadata.region == '${region}' %}${formatSubject(regionJobs.length, label)}`;
+});
+const subject = `${subjectBranches.join('')}{% else %}${formatSubject(weeklyJobs.length)}{% endif %}`;
 
 if (dryRun) {
-  console.log(`DRY RUN (${digestKey}): ${subject}\n\n${body}`);
+  console.log(`DRY RUN (${digestKey}): ${weeklyJobs.length} national new jobs.`);
+  for (const { region, label, jobs: regionJobs } of regionalAudiences) {
+    console.log(`  ${label} (${region}): ${regionJobs.length} new jobs including nationwide roles`);
+  }
+  console.log(`\nSUBJECT TEMPLATE\n${subject}\n\nBODY TEMPLATE\n${body}`);
   process.exit(0);
 }
 
@@ -182,7 +224,7 @@ if (email) {
       status: 'draft',
       slug: `data-center-jobs-weekly-${digestKey}`,
       description: `Data Center Careers weekly job digest for the week of ${digestKey}.`,
-      metadata: { ...digestMetadata, total_jobs: totalJobs }
+      metadata: { ...digestMetadata, total_jobs: weeklyJobs.length, regional_personalization: true }
     })
   });
   if (!create.ok) throw new Error(`Buttondown draft creation failed (${create.status}): ${await create.text()}`);
@@ -200,9 +242,9 @@ const publish = await fetch(`https://api.buttondown.com/v1/emails/${encodeURICom
     body,
     slug: `data-center-jobs-weekly-${digestKey}`,
     description: `Data Center Careers weekly job digest for the week of ${digestKey}.`,
-    metadata: { ...digestMetadata, total_jobs: totalJobs }
+    metadata: { ...digestMetadata, total_jobs: weeklyJobs.length, regional_personalization: true }
   })
 });
 if (!publish.ok) throw new Error(`Buttondown publish failed (${publish.status}): ${await publish.text()}`);
 
-console.log(`Sent Monday weekly digest ${email.id} for ${digestKey} with ${totalJobs} newly added jobs.`);
+console.log(`Sent Monday weekly digest ${email.id} for ${digestKey} with ${weeklyJobs.length} newly added jobs and region-aware subscriber personalization.`);

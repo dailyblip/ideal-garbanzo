@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-04T20:48:41.825Z",
-  "jobs": 497,
+  "updatedAt": "2026-09-05T04:02:22.288Z",
+  "jobs": 498,
   "sourcesAttempted": 47,
   "providers": {
     "lever": 6,
@@ -13,14 +13,14 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 484,
-    "trainee": 5,
+    "apprenticeship": 4,
     "internship": 4,
-    "apprenticeship": 4
+    "trainee": 7,
+    "entry-level": 483
   },
   "countsByExperience": {
-    "0-2-years": 365,
-    "no-experience": 21,
+    "0-2-years": 364,
+    "no-experience": 23,
     "2-5-years": 111
   },
   "errors": [
@@ -182,17 +182,41 @@
   "priorityEmployerExpansion": {
     "Equinix": {
       "officialSource": "https://careers.equinix.com/",
+      "sourceHealthy": true,
+      "listingComplete": true,
+      "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
       "candidateLinks": 33,
+      "detailAttempted": 33,
+      "detailSucceeded": 33,
+      "detailFailed": 0,
+      "preservedOnFailure": 0,
+      "fallbackRetained": 0,
+      "staleRemoved": 3,
       "qualifyingRoles": 0,
       "drops": {
+        "non-us": 10,
+        "unknown-experience": 8,
         "context": 2,
-        "non-us": 9,
-        "title": 14,
-        "unknown-experience": 8
+        "title": 13
       },
       "dropSamples": [
+        {
+          "title": "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali"
+        },
+        {
+          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
+        },
+        {
+          "title": "Practicante Critical Facilities",
+          "listingLabel": "Practicante Critical Facilities",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/practicante-critical-facilities-nuevo-leon-mexico"
+        },
         {
           "title": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
           "listingLabel": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
@@ -201,19 +225,8 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
         },
         {
-          "title": "Intern, IBX Operations",
-          "url": "https://careers.equinix.com/jobs/intern-ibx-operations-tsuen-wan-hong-kong-tseung-kwan-o"
-        },
-        {
           "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
-        },
-        {
-          "title": "SkillBridge Opportunity: Specialist Accountant & Program Manager – xScale AI Data Center",
-          "listingLabel": "SkillBridge Opportunity: Specialist Accountant & Program Manager – xScale AI Data Center",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/skillbridge-opportunity-specialist-accountant-program-manager-xscale-ai-data-center-dallas-texas-united-states-tampa-florida"
         },
         {
           "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
@@ -226,41 +239,71 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
-        },
-        {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
     },
     "EquinixEarlyCareer": {
       "officialSource": "https://careers.equinix.com/",
-      "listingPagesAttempted": 4,
-      "listingPagesSucceeded": 4,
-      "candidateLinks": 3,
-      "recoveredCandidates": 3,
-      "qualifyingRoles": 3,
+      "sourceHealthy": true,
+      "listingComplete": true,
+      "listingPagesAttempted": 8,
+      "listingPagesSucceeded": 8,
+      "candidateLinks": 5,
+      "recoveredCandidates": 5,
+      "detailAttempted": 5,
+      "detailSucceeded": 5,
+      "detailFailed": 0,
+      "preservedOnFailure": 0,
+      "fallbackRetained": 0,
+      "staleRemoved": 0,
+      "qualifyingRoles": 5,
       "errors": []
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-04T20:48:41.931Z",
-    "changed": 0,
-    "samples": [],
-    "regionAssigned": 497,
+    "updatedAt": "2026-09-05T04:02:22.353Z",
+    "changed": 5,
+    "samples": [
+      {
+        "id": "equinix-early-47decb19b9965c",
+        "before": "Texas",
+        "after": "Dallas, TX"
+      },
+      {
+        "id": "equinix-early-4feebdb86574a7",
+        "before": "Texas",
+        "after": "Dallas, TX"
+      },
+      {
+        "id": "equinix-early-b16fe208641d0f",
+        "before": "California",
+        "after": "San Jose, CA"
+      },
+      {
+        "id": "equinix-early-e04d9a6f0b9933",
+        "before": "Virginia",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "equinix-early-d1865bd35ec94c",
+        "before": "Texas",
+        "after": "Dallas, TX"
+      }
+    ],
+    "regionAssigned": 498,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 85,
-      "west": 63,
       "mid-atlantic": 101,
-      "southeast": 81,
+      "texas": 101,
       "southwest": 54,
-      "nationwide": 1,
-      "texas": 99,
-      "northeast": 13
+      "southeast": 81,
+      "midwest": 85,
+      "west": 62,
+      "northeast": 13,
+      "nationwide": 1
     }
   },
   "postQa": {
@@ -620,22 +663,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-04T20:48:41.981Z",
-    "before": 499,
-    "after": 499,
+    "checkedAt": "2026-09-05T04:02:22.415Z",
+    "before": 498,
+    "after": 498,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 527,
-    "currentJobs": 499,
-    "newJobsThisRun": 0,
+    "trackedJobs": 529,
+    "currentJobs": 498,
+    "newJobsThisRun": 2,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-04T20:48:42.026Z"
+    "updatedAt": "2026-09-05T04:02:22.475Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

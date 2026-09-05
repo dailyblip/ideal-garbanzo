@@ -164,6 +164,17 @@ function experienceRange(text) {
     mins.push(Number(match[1]));
     maxes.push(Number(match[1]));
   }
+  const fieldTerms = '(?:data\\s*center|datacenter|critical\\s+facilit(?:y|ies)|electrical|mechanical|hvac|network(?:ing)?|telecommunications?|technical|engineering|related\\s+field)';
+  const fieldRanges = new RegExp(`\\b(\\d{1,2})\\s*(?:-|–|to)\\s*(\\d{1,2})\\s+years?\\s+(?:of\\s+)?(?:experience\\s+)?(?:in|within|working\\s+in)\\s+${fieldTerms}`, 'gi');
+  for (const match of text.matchAll(fieldRanges)) {
+    mins.push(Number(match[1]));
+    maxes.push(Number(match[2]));
+  }
+  const fieldSingles = new RegExp(`\\b(?:at\\s+least\\s+)?(\\d{1,2})\\+?\\s+years?\\s+(?:of\\s+)?(?:experience\\s+)?(?:in|within|working\\s+in)\\s+${fieldTerms}`, 'gi');
+  for (const match of text.matchAll(fieldSingles)) {
+    mins.push(Number(match[1]));
+    maxes.push(Number(match[1]));
+  }
   return { min: mins.length ? Math.min(...mins) : null, max: maxes.length ? Math.max(...maxes) : null };
 }
 

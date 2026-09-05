@@ -4,7 +4,8 @@ const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const SNAPSHOT_SOURCES = [
   { path: 'data/tierpoint-jobs.json', company: 'TierPoint' },
-  { path: 'data/novva-jobs.json', company: 'Novva Data Centers' }
+  { path: 'data/novva-jobs.json', company: 'Novva Data Centers' },
+  { path: 'data/stream-data-centers-jobs.json', company: 'Stream Data Centers' }
 ];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();

@@ -30,8 +30,14 @@ jobs:
           node-version: 22
       - name: Rehydrate active verified CoreSite fallback
         run: node scripts/apply-coresite-verified-fallback.mjs
+      - name: Normalize rehydrated fallback jobs
+        run: |
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
       - name: Run full live QA
         run: node scripts/qa-site.mjs
+      - name: Refresh post-QA regional coverage
+        run: node scripts/refresh-region-status.mjs
       - name: Validate cleaned site data
         run: |
           node scripts/validate.mjs

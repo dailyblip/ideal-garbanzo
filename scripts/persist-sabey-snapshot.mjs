@@ -4,7 +4,7 @@ const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const SNAPSHOT_PATH = 'data/sabey-jobs.json';
 const COMPANY = 'Sabey Data Centers';
-const MAX_SNAPSHOT_AGE_MS = 96 * 60 * 60 * 1000;
+const MAX_SNAPSHOT_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
 const isSabey = job => String(job?.company || '').trim() === COMPANY;
 const identity = job => [job?.company, job?.title, job?.location]
@@ -91,9 +91,9 @@ await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 if (source.sourceHealthy) {
   console.log(`Sabey snapshot refreshed with ${currentSabey.length} verified role(s).`);
 } else if (snapshotFresh) {
-  console.warn(`Sabey source was unhealthy; restored ${snapshotJobs.length} role(s) from a snapshot no older than 96 hours.`);
+  console.warn(`Sabey source was unhealthy; restored ${snapshotJobs.length} role(s) from a snapshot no older than 168 hours.`);
 } else if (currentSabey.length) {
-  console.warn(`Sabey source was unhealthy and the fallback snapshot was missing or older than 96 hours; removed ${currentSabey.length} preserved role(s) instead of publishing stale jobs.`);
+  console.warn(`Sabey source was unhealthy and the fallback snapshot was missing or older than 168 hours; removed ${currentSabey.length} preserved role(s) instead of publishing stale jobs.`);
 } else {
   console.warn('Sabey source was unhealthy and no fresh fallback snapshot was available.');
 }

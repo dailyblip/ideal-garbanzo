@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T22:50:53.728Z",
-  "jobs": 541,
+  "updatedAt": "2026-09-05T23:46:23.640Z",
+  "jobs": 564,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -13,14 +13,14 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 521,
+    "entry-level": 539,
     "trainee": 10,
     "internship": 4,
-    "apprenticeship": 6
+    "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 135,
-    "0-2-years": 388,
+    "2-5-years": 149,
+    "0-2-years": 397,
     "no-experience": 18
   },
   "errors": [
@@ -271,27 +271,27 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T22:50:53.849Z",
+    "updatedAt": "2026-09-05T23:46:24.075Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 541,
+    "regionAssigned": 564,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "mid-atlantic": 101,
-      "midwest": 94,
-      "west": 71,
-      "southeast": 88,
-      "southwest": 65,
+      "midwest": 103,
+      "west": 74,
+      "southeast": 91,
+      "southwest": 67,
       "nationwide": 1,
-      "texas": 107,
+      "texas": 113,
       "northeast": 14
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-05T22:51:12.062Z",
-    "publishedJobs": 541,
+    "checkedAt": "2026-09-05T23:46:44.913Z",
+    "publishedJobs": 564,
     "removedJobs": 0,
     "activeCareerEvents": 6
   },
@@ -646,22 +646,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T22:50:53.906Z",
-    "before": 541,
-    "after": 541,
+    "checkedAt": "2026-09-05T23:46:24.172Z",
+    "before": 564,
+    "after": 564,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 583,
-    "currentJobs": 541,
-    "newJobsThisRun": 21,
+    "trackedJobs": 606,
+    "currentJobs": 564,
+    "newJobsThisRun": 23,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 21,
+    "migratedEntriesThisRun": 23,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T22:51:12.222Z"
+    "updatedAt": "2026-09-05T23:46:50.400Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +757,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-05T22:50:53.785Z",
+    "checkedAt": "2026-09-05T23:46:24.010Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1396,5 +1396,22 @@
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 1,
     "detailErrors": []
+  },
+  "t5DataCenters": {
+    "checkedAt": "2026-09-05T23:46:23.640Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://t5datacenters.com/careers/",
+    "officialLeverBoard": "https://jobs.lever.co/t5datacenters",
+    "api": "https://api.lever.co/v0/postings/t5datacenters?mode=json",
+    "authoritativeSnapshot": true,
+    "listedJobs": 77,
+    "usJobs": 69,
+    "candidateRoles": 28,
+    "qualifyingRoles": 23,
+    "rejectedOutOfScopeTitle": 41,
+    "rejectedSeniorTitle": 3,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 2
   }
 }

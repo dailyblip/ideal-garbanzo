@@ -42,9 +42,9 @@ function validateRole(job, label, requireRegion) {
   const employerDirect = parsed
     && parsed.protocol === 'https:'
     && parsed.hostname === 'switchltd.hrmdirect.com'
-    && parsed.pathname === '/employment/job-opening.php'
+    && parsed.pathname === '/employment/view.php'
     && Boolean(parsed.searchParams.get('req'));
-  requireOk(Boolean(employerDirect), `${label} ${id} is not linked to Switch's official HRMDirect/ClearCompany job board.`);
+  requireOk(Boolean(employerDirect), `${label} ${id} is not linked to Switch's official HRMDirect/ClearCompany requisition page.`);
 }
 
 if (Array.isArray(snapshot)) snapshot.forEach(job => validateRole(job, 'Switch snapshot', false));

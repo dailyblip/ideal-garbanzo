@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - data/jobs.json
       - scripts/collect-t5-data-centers.mjs
       - scripts/validate-t5-data-centers.mjs
       - scripts/filter-mission-fit.mjs
@@ -22,6 +23,7 @@ concurrency:
 
 jobs:
   collect:
+    if: github.event_name != 'push' || github.event.head_commit.message != 'Refresh verified T5 Data Centers roles'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:

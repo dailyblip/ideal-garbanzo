@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-05T22:51:12.062Z",
-  "jobsBefore": 541,
-  "jobsAfter": 541,
+  "checkedAt": "2026-09-05T23:46:44.913Z",
+  "jobsBefore": 564,
+  "jobsAfter": 564,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -54,7 +54,26 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5226371007",
+      "company": "xAI",
+      "title": "Mechanical Commissioning Engineer",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5226371007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-4611087007",
+      "company": "xAI",
+      "title": "Controls Engineer",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/4611087007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 6,
   "careerEventsAfter": 6,

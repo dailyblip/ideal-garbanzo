@@ -1,43 +1,14 @@
 {
-  "checkedAt": "2026-09-04T21:48:11.272Z",
-  "jobsBefore": 499,
-  "jobsAfter": 497,
+  "checkedAt": "2026-09-05T05:12:22.650Z",
+  "jobsBefore": 498,
+  "jobsAfter": 498,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10525098",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10525098/data-center-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10525098/data-center-technician"
-    },
-    {
-      "id": "amazon-10517140",
-      "company": "Amazon Web Services",
-      "title": "DCEO Technician, DCEO",
-      "url": "https://www.amazon.jobs/en/jobs/10517140/dceo-technician-dceo",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10517140/dceo-technician-dceo"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "gh-xai-5227699007",
-      "company": "xAI",
-      "title": "Electrical Technician (Medium Voltage)",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5227699007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 4,
   "careerEventsAfter": 4,

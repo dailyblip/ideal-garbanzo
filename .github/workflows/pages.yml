@@ -130,6 +130,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event_name == 'push' && github.sha || 'main' }}
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -161,6 +162,8 @@ jobs:
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
           node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-data-freshness.mjs
       - name: Generate crawlable SEO pages
         run: |
           node scripts/generate-seo.mjs

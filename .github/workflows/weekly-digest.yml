@@ -1,6 +1,14 @@
 name: Monday weekly job digest
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/send-weekly-digest.mjs'
+      - 'scripts/validate-mailing-list.mjs'
+      - 'scripts/validate-job-history.mjs'
+      - 'data/mailing-list.json'
+      - '.github/workflows/weekly-digest.yml'
   schedule:
     - cron: '0 16 * * 1'
   workflow_dispatch:
@@ -39,6 +47,7 @@ jobs:
           DRY_RUN: true
         run: node scripts/send-weekly-digest.mjs
       - name: Build and send Monday roundup
+        if: github.event_name != 'push'
         env:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}

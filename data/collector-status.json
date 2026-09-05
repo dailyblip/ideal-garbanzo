@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-05T17:51:55.670Z",
-  "jobs": 511,
+  "jobs": 515,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -13,14 +13,14 @@
     "icims": 1
   },
   "countsByType": {
+    "entry-level": 497,
     "trainee": 10,
-    "apprenticeship": 4,
     "internship": 4,
-    "entry-level": 493
+    "apprenticeship": 4
   },
   "countsByExperience": {
-    "2-5-years": 122,
-    "0-2-years": 371,
+    "0-2-years": 373,
+    "2-5-years": 124,
     "no-experience": 18
   },
   "errors": [
@@ -271,22 +271,22 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T17:51:55.773Z",
+    "updatedAt": "2026-09-05T19:46:52.490Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 511,
+    "regionAssigned": 515,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 70,
-      "texas": 102,
-      "mid-atlantic": 100,
-      "southwest": 54,
+      "midwest": 89,
+      "west": 71,
+      "mid-atlantic": 101,
       "southeast": 83,
-      "midwest": 87,
-      "northeast": 14,
-      "nationwide": 1
+      "southwest": 54,
+      "nationwide": 1,
+      "texas": 102,
+      "northeast": 14
     }
   },
   "postQa": {
@@ -646,22 +646,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T17:51:55.831Z",
-    "before": 511,
-    "after": 511,
+    "checkedAt": "2026-09-05T19:46:52.535Z",
+    "before": 515,
+    "after": 515,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 553,
-    "currentJobs": 511,
-    "newJobsThisRun": 0,
+    "trackedJobs": 557,
+    "currentJobs": 515,
+    "newJobsThisRun": 4,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 4,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T17:51:55.884Z"
+    "updatedAt": "2026-09-05T19:46:52.618Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -941,5 +941,423 @@
     "snapshotMaxAgeHours": 168,
     "snapshotAgeHours": 0,
     "removedExpiredFallback": 0
+  },
+  "majorTargetedRecovery": {
+    "checkedAt": "2026-09-05T19:46:52.392Z",
+    "officialOnly": true,
+    "additiveOnly": true,
+    "recovered": 4,
+    "recoveredRoles": [
+      {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator II",
+        "location": "New Albany, OH",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Operator-II_R0008016"
+      },
+      {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator I",
+        "location": "New Albany, OH",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Operator-I_R0008015-1"
+      },
+      {
+        "company": "NTT Global Data Centers",
+        "title": "914 - Data Center Technician L2",
+        "location": "Virginia, United States of America",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Virginia-United-States-of-America/XMLNAME-914---Data-Center-Technician-L2_JR101240"
+      },
+      {
+        "company": "NTT Global Data Centers",
+        "title": "1171 - Data Center Technician L1",
+        "location": "Hillsboro, Oregon",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1171---Data-Center-Technician-L2_JR101677"
+      }
+    ],
+    "diagnostics": {
+      "Vantage Data Centers": {
+        "queriesAttempted": 9,
+        "queriesSucceeded": 9,
+        "candidates": 36,
+        "qualifyingRoles": 0,
+        "additions": 0,
+        "queryStats": [
+          {
+            "searchText": "data center",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 170
+          },
+          {
+            "searchText": "critical facilities",
+            "healthy": true,
+            "rows": 71,
+            "reportedTotal": 71
+          },
+          {
+            "searchText": "critical environment",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 127
+          },
+          {
+            "searchText": "mechanical engineer",
+            "healthy": true,
+            "rows": 91,
+            "reportedTotal": 91
+          },
+          {
+            "searchText": "electrical engineer",
+            "healthy": true,
+            "rows": 94,
+            "reportedTotal": 94
+          },
+          {
+            "searchText": "technician",
+            "healthy": true,
+            "rows": 36,
+            "reportedTotal": 36
+          },
+          {
+            "searchText": "intern",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 117
+          },
+          {
+            "searchText": "apprentice",
+            "healthy": true,
+            "rows": 1,
+            "reportedTotal": 1
+          },
+          {
+            "searchText": "trainee",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 170
+          }
+        ],
+        "errors": []
+      },
+      "QTS Data Centers": {
+        "queriesAttempted": 9,
+        "queriesSucceeded": 9,
+        "candidates": 68,
+        "qualifyingRoles": 1,
+        "additions": 0,
+        "queryStats": [
+          {
+            "searchText": "data center",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 239
+          },
+          {
+            "searchText": "critical facilities",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 134
+          },
+          {
+            "searchText": "critical environment",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 172
+          },
+          {
+            "searchText": "mechanical engineer",
+            "healthy": true,
+            "rows": 73,
+            "reportedTotal": 73
+          },
+          {
+            "searchText": "electrical engineer",
+            "healthy": true,
+            "rows": 82,
+            "reportedTotal": 82
+          },
+          {
+            "searchText": "technician",
+            "healthy": true,
+            "rows": 28,
+            "reportedTotal": 28
+          },
+          {
+            "searchText": "intern",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 171
+          },
+          {
+            "searchText": "apprentice",
+            "healthy": true,
+            "rows": 0,
+            "reportedTotal": 0
+          },
+          {
+            "searchText": "trainee",
+            "healthy": true,
+            "rows": 97,
+            "reportedTotal": 97
+          }
+        ],
+        "errors": []
+      },
+      "CyrusOne": {
+        "queriesAttempted": 9,
+        "queriesSucceeded": 9,
+        "candidates": 62,
+        "qualifyingRoles": 23,
+        "additions": 2,
+        "queryStats": [
+          {
+            "searchText": "data center",
+            "healthy": true,
+            "rows": 95,
+            "reportedTotal": 95
+          },
+          {
+            "searchText": "critical facilities",
+            "healthy": true,
+            "rows": 75,
+            "reportedTotal": 75
+          },
+          {
+            "searchText": "critical environment",
+            "healthy": true,
+            "rows": 85,
+            "reportedTotal": 85
+          },
+          {
+            "searchText": "mechanical engineer",
+            "healthy": true,
+            "rows": 65,
+            "reportedTotal": 65
+          },
+          {
+            "searchText": "electrical engineer",
+            "healthy": true,
+            "rows": 64,
+            "reportedTotal": 64
+          },
+          {
+            "searchText": "technician",
+            "healthy": true,
+            "rows": 56,
+            "reportedTotal": 56
+          },
+          {
+            "searchText": "intern",
+            "healthy": true,
+            "rows": 61,
+            "reportedTotal": 61
+          },
+          {
+            "searchText": "apprentice",
+            "healthy": true,
+            "rows": 5,
+            "reportedTotal": 5
+          },
+          {
+            "searchText": "trainee",
+            "healthy": true,
+            "rows": 53,
+            "reportedTotal": 53
+          }
+        ],
+        "errors": []
+      },
+      "STACK Infrastructure": {
+        "queriesAttempted": 9,
+        "queriesSucceeded": 9,
+        "candidates": 11,
+        "qualifyingRoles": 0,
+        "additions": 0,
+        "queryStats": [
+          {
+            "searchText": "data center",
+            "healthy": true,
+            "rows": 67,
+            "reportedTotal": 67
+          },
+          {
+            "searchText": "critical facilities",
+            "healthy": true,
+            "rows": 48,
+            "reportedTotal": 48
+          },
+          {
+            "searchText": "critical environment",
+            "healthy": true,
+            "rows": 37,
+            "reportedTotal": 37
+          },
+          {
+            "searchText": "mechanical engineer",
+            "healthy": true,
+            "rows": 20,
+            "reportedTotal": 20
+          },
+          {
+            "searchText": "electrical engineer",
+            "healthy": true,
+            "rows": 24,
+            "reportedTotal": 24
+          },
+          {
+            "searchText": "technician",
+            "healthy": true,
+            "rows": 9,
+            "reportedTotal": 9
+          },
+          {
+            "searchText": "intern",
+            "healthy": true,
+            "rows": 39,
+            "reportedTotal": 39
+          },
+          {
+            "searchText": "apprentice",
+            "healthy": true,
+            "rows": 1,
+            "reportedTotal": 1
+          },
+          {
+            "searchText": "trainee",
+            "healthy": true,
+            "rows": 0,
+            "reportedTotal": 0
+          }
+        ],
+        "errors": []
+      },
+      "NTT Global Data Centers": {
+        "queriesAttempted": 9,
+        "queriesSucceeded": 9,
+        "candidates": 59,
+        "qualifyingRoles": 28,
+        "additions": 2,
+        "queryStats": [
+          {
+            "searchText": "data center",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 227
+          },
+          {
+            "searchText": "critical facilities",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 132
+          },
+          {
+            "searchText": "critical environment",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 150
+          },
+          {
+            "searchText": "mechanical engineer",
+            "healthy": true,
+            "rows": 69,
+            "reportedTotal": 69
+          },
+          {
+            "searchText": "electrical engineer",
+            "healthy": true,
+            "rows": 88,
+            "reportedTotal": 88
+          },
+          {
+            "searchText": "technician",
+            "healthy": true,
+            "rows": 75,
+            "reportedTotal": 75
+          },
+          {
+            "searchText": "intern",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 164
+          },
+          {
+            "searchText": "apprentice",
+            "healthy": true,
+            "rows": 5,
+            "reportedTotal": 5
+          },
+          {
+            "searchText": "trainee",
+            "healthy": true,
+            "rows": 84,
+            "reportedTotal": 84
+          }
+        ],
+        "errors": []
+      },
+      "Aligned Data Centers": {
+        "queriesAttempted": 9,
+        "queriesSucceeded": 9,
+        "candidates": 107,
+        "qualifyingRoles": 0,
+        "additions": 0,
+        "queryStats": [
+          {
+            "searchText": "data center",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 203
+          },
+          {
+            "searchText": "critical facilities",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 148
+          },
+          {
+            "searchText": "critical environment",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 153
+          },
+          {
+            "searchText": "mechanical engineer",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 168
+          },
+          {
+            "searchText": "electrical engineer",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 175
+          },
+          {
+            "searchText": "technician",
+            "healthy": true,
+            "rows": 100,
+            "reportedTotal": 122
+          },
+          {
+            "searchText": "intern",
+            "healthy": true,
+            "rows": 70,
+            "reportedTotal": 70
+          },
+          {
+            "searchText": "apprentice",
+            "healthy": true,
+            "rows": 0,
+            "reportedTotal": 0
+          },
+          {
+            "searchText": "trainee",
+            "healthy": true,
+            "rows": 72,
+            "reportedTotal": 72
+          }
+        ],
+        "errors": []
+      }
+    }
   }
 }

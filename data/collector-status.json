@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-05T04:04:22.599Z",
+  "updatedAt": "2026-09-05T04:42:35.284Z",
   "jobs": 498,
   "sourcesAttempted": 47,
   "providers": {
@@ -193,10 +193,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 6,
-      "qualifyingRoles": 0,
+      "staleRemoved": 4,
+      "qualifyingRoles": 1,
       "drops": {
-        "non-us": 10,
+        "non-us": 9,
         "unknown-experience": 8,
         "context": 2,
         "title": 13
@@ -205,10 +205,6 @@
         {
           "title": "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali"
-        },
-        {
-          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
         },
         {
           "title": "Practicante Critical Facilities",
@@ -239,6 +235,10 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -249,29 +249,24 @@
       "listingComplete": true,
       "listingPagesAttempted": 8,
       "listingPagesSucceeded": 8,
-      "candidateLinks": 5,
-      "recoveredCandidates": 5,
-      "detailAttempted": 5,
-      "detailSucceeded": 5,
+      "candidateLinks": 4,
+      "recoveredCandidates": 4,
+      "detailAttempted": 4,
+      "detailSucceeded": 4,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 0,
-      "qualifyingRoles": 5,
+      "qualifyingRoles": 4,
       "errors": []
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T04:04:22.665Z",
-    "changed": 5,
+    "updatedAt": "2026-09-05T04:42:35.346Z",
+    "changed": 4,
     "samples": [
       {
         "id": "equinix-early-47decb19b9965c",
-        "before": "Texas",
-        "after": "Dallas, TX"
-      },
-      {
-        "id": "equinix-early-4feebdb86574a7",
         "before": "Texas",
         "after": "Dallas, TX"
       },
@@ -297,11 +292,11 @@
     "missingSamples": [],
     "countsByRegion": {
       "mid-atlantic": 101,
-      "texas": 101,
+      "texas": 100,
       "southwest": 54,
       "southeast": 81,
+      "west": 63,
       "midwest": 85,
-      "west": 62,
       "northeast": 13,
       "nationwide": 1
     }
@@ -663,7 +658,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T04:04:22.725Z",
+    "checkedAt": "2026-09-05T04:42:35.405Z",
     "before": 498,
     "after": 498,
     "removed": 0,
@@ -678,7 +673,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T04:04:22.780Z"
+    "updatedAt": "2026-09-05T04:42:35.458Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

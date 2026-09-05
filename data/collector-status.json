@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T04:02:44.679Z",
-  "jobs": 499,
+  "updatedAt": "2026-09-05T04:04:22.599Z",
+  "jobs": 498,
   "sourcesAttempted": 47,
   "providers": {
     "lever": 6,
@@ -15,12 +15,12 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 4,
-    "trainee": 8,
+    "trainee": 7,
     "entry-level": 483
   },
   "countsByExperience": {
     "0-2-years": 364,
-    "no-experience": 24,
+    "no-experience": 23,
     "2-5-years": 111
   },
   "errors": [
@@ -193,10 +193,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 3,
-      "qualifyingRoles": 2,
+      "staleRemoved": 6,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 8,
+        "non-us": 10,
         "unknown-experience": 8,
         "context": 2,
         "title": 13
@@ -205,6 +205,10 @@
         {
           "title": "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali"
+        },
+        {
+          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
         },
         {
           "title": "Practicante Critical Facilities",
@@ -221,6 +225,10 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
         },
         {
+          "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
+        },
+        {
           "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
@@ -231,14 +239,6 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
-        },
-        {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
-        },
-        {
-          "title": "SkillBridge, Data Center Customer Operations Technician - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-san-jose-california-united-states"
         }
       ],
       "errors": []
@@ -249,26 +249,36 @@
       "listingComplete": true,
       "listingPagesAttempted": 8,
       "listingPagesSucceeded": 8,
-      "candidateLinks": 4,
-      "recoveredCandidates": 4,
-      "detailAttempted": 4,
-      "detailSucceeded": 4,
+      "candidateLinks": 5,
+      "recoveredCandidates": 5,
+      "detailAttempted": 5,
+      "detailSucceeded": 5,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 0,
-      "qualifyingRoles": 4,
+      "qualifyingRoles": 5,
       "errors": []
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T04:02:44.734Z",
-    "changed": 4,
+    "updatedAt": "2026-09-05T04:04:22.665Z",
+    "changed": 5,
     "samples": [
       {
         "id": "equinix-early-47decb19b9965c",
         "before": "Texas",
         "after": "Dallas, TX"
+      },
+      {
+        "id": "equinix-early-4feebdb86574a7",
+        "before": "Texas",
+        "after": "Dallas, TX"
+      },
+      {
+        "id": "equinix-early-b16fe208641d0f",
+        "before": "California",
+        "after": "San Jose, CA"
       },
       {
         "id": "equinix-early-e04d9a6f0b9933",
@@ -279,24 +289,19 @@
         "id": "equinix-early-d1865bd35ec94c",
         "before": "Texas",
         "after": "Dallas, TX"
-      },
-      {
-        "id": "equinix-early-6e51eeb7db80e5",
-        "before": "California",
-        "after": "San Jose, CA"
       }
     ],
-    "regionAssigned": 499,
+    "regionAssigned": 498,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "mid-atlantic": 101,
-      "texas": 100,
+      "texas": 101,
       "southwest": 54,
       "southeast": 81,
-      "west": 64,
       "midwest": 85,
+      "west": 62,
       "northeast": 13,
       "nationwide": 1
     }
@@ -658,22 +663,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T04:02:44.785Z",
-    "before": 499,
-    "after": 499,
+    "checkedAt": "2026-09-05T04:04:22.725Z",
+    "before": 498,
+    "after": 498,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 532,
-    "currentJobs": 499,
-    "newJobsThisRun": 3,
+    "currentJobs": 498,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 3,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T04:02:44.830Z"
+    "updatedAt": "2026-09-05T04:04:22.780Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

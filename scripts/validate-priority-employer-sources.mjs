@@ -103,6 +103,20 @@ async function readArray(path, label, violations) {
   }
 }
 
+async function readObject(path, label, violations) {
+  try {
+    const value = JSON.parse(await readFile(path, 'utf8'));
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      violations.push(`${label}: ${path} is not an object`);
+      return {};
+    }
+    return value;
+  } catch (error) {
+    violations.push(`${label}: ${path} could not be read (${error.message})`);
+    return {};
+  }
+}
+
 async function readSnapshotJobs(path, label, violations) {
   try {
     const value = JSON.parse(await readFile(path, 'utf8'));
@@ -140,6 +154,7 @@ function checkOfficialSource(company, job, context, violations) {
 
 const violations = [];
 const jobs = await readArray(JOBS_PATH, 'Public feed', violations);
+const collectorStatus = await readObject('data/collector-status.json', 'Collector status', violations);
 if (!jobs.length) violations.push('Priority-source guard requires a non-empty jobs.json array.');
 
 const counts = new Map();
@@ -148,6 +163,23 @@ for (const job of jobs) {
   if (!officialHostsByCompany.has(company)) continue;
   counts.set(company, (counts.get(company) || 0) + 1);
   checkOfficialSource(company, job, company, violations);
+}
+
+// The dedicated Equinix early-career pass exists specifically to recover
+// SkillBridge, trainee, internship and apprenticeship roles that the broader
+// Equinix collector cannot always classify from its listing markup. Protect
+// those managed records from being silently removed by downstream filters,
+// normalization or dedupe after a healthy collector pass.
+const equinixEarlyExpected = Number(collectorStatus?.priorityEmployerExpansion?.EquinixEarlyCareer?.qualifyingRoles || 0);
+const equinixEarlyPublic = jobs.filter(job => String(job?.company || '').trim() === 'Equinix' && (
+  /^equinix-early-/i.test(String(job?.id || '')) ||
+  job?.source === 'Equinix official early-career program'
+)).length;
+if (equinixEarlyExpected >= 3) {
+  const minimumRetained = Math.ceil(equinixEarlyExpected * 0.80);
+  if (equinixEarlyPublic < minimumRetained) {
+    violations.push(`Equinix early-career recovery retained only ${equinixEarlyPublic}/${equinixEarlyExpected} managed roles after downstream processing`);
+  }
 }
 
 for (const { company, path, enforceRetentionRatio } of protectedSnapshots) {
@@ -196,4 +228,5 @@ if (violations.length) {
 
 const priorityJobs = represented.reduce((sum, [, count]) => sum + count, 0);
 console.log(`Priority employer source guard passed: ${priorityJobs} jobs from ${represented.length}/${officialHostsByCompany.size} priority operators use employer-direct career URLs.`);
+console.log(`  Equinix early-career managed roles: ${equinixEarlyPublic}/${equinixEarlyExpected || equinixEarlyPublic}`);
 for (const [company, count] of represented) console.log(`  ${company}: ${count}`);

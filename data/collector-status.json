@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T04:42:35.284Z",
-  "jobs": 498,
+  "updatedAt": "2026-09-05T09:46:21.801Z",
+  "jobs": 509,
   "sourcesAttempted": 47,
   "providers": {
     "lever": 6,
@@ -15,13 +15,13 @@
   "countsByType": {
     "apprenticeship": 4,
     "internship": 4,
-    "trainee": 7,
-    "entry-level": 483
+    "trainee": 12,
+    "entry-level": 489
   },
   "countsByExperience": {
-    "0-2-years": 364,
+    "0-2-years": 365,
     "no-experience": 23,
-    "2-5-years": 111
+    "2-5-years": 121
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -286,8 +286,8 @@
         "after": "Dallas, TX"
       }
     ],
-    "regionAssigned": 498,
-    "regionMissing": 0,
+    "regionAssigned": 497,
+    "regionMissing": 12,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
@@ -296,15 +296,15 @@
       "southwest": 54,
       "southeast": 81,
       "west": 63,
-      "midwest": 85,
+      "midwest": 84,
       "northeast": 13,
       "nationwide": 1
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-05T08:52:43.503Z",
-    "publishedJobs": 498,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-05T09:46:36.797Z",
+    "publishedJobs": 509,
+    "removedJobs": 1,
     "activeCareerEvents": 4
   },
   "metaCareers": {
@@ -678,7 +678,7 @@
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
     "sourceHealthy": false,
-    "qualifyingRoles": 0,
+    "qualifyingRoles": 12,
     "diagnostics": {
       "listingPagesAttempted": 1,
       "listingPagesSucceeded": 0,
@@ -698,7 +698,15 @@
     },
     "errors": [
       "listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
-    ]
+    ],
+    "verifiedFallback": {
+      "active": true,
+      "verifiedAt": "2026-09-05T08:45:00Z",
+      "expiresAt": "2026-09-12T08:45:00Z",
+      "roles": 12,
+      "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
+      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; these roles were individually re-verified on CoreSite's official careers listing and job-detail pages on September 5, 2026."
+    }
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

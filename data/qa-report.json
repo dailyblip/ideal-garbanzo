@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-05T16:24:08.106Z",
-  "jobsBefore": 512,
-  "jobsAfter": 512,
+  "checkedAt": "2026-09-05T21:59:14.092Z",
+  "jobsBefore": 520,
+  "jobsAfter": 520,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -54,7 +54,26 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "google-140196211398189766",
+      "company": "Google",
+      "title": "Data Center Engineer, Electrical Engineering",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/140196211398189766-data-center-engineer-electrical-engineering",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "sabey-102554",
+      "company": "Sabey Data Centers",
+      "title": "Data Center Electrical Project Engineer",
+      "url": "https://careers2-anothersource.icims.com/jobs/102554/data-center-electrical-project-engineer---sabey-data-center-properties%2C-llc/job?in_iframe=1",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 6,
   "careerEventsAfter": 6,
@@ -108,9 +127,9 @@
     },
     {
       "url": "https://datacentercareers.us/assets/seo.css",
-      "state": "ok",
-      "status": 200,
-      "finalUrl": "https://datacentercareers.us/assets/seo.css"
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
     },
     {
       "url": "https://datacentercareers.us/hero.jpg",

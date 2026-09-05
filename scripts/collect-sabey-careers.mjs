@@ -23,41 +23,98 @@ const hash = value => crypto.createHash('sha1').update(String(value)).digest('he
 
 const missionTitlePattern = /\bdata center\b.*\b(?:operations?|facilit(?:y|ies)|mechanical|electrical|critical|technician|engineer)\b/i;
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|director|vice president|vp|head of|staff|supervisor|superintendent|foreman)\b/i;
+const experienceNumberWords = new Map([
+  ['zero', '0'], ['one', '1'], ['two', '2'], ['three', '3'], ['four', '4'], ['five', '5'],
+  ['six', '6'], ['seven', '7'], ['eight', '8'], ['nine', '9'], ['ten', '10']
+]);
+
+function normalizeExperienceNumbers(text = '') {
+  return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+}
 
 function statedExperienceYears(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
   const values = [];
   const patterns = [
-    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s*(?:-|–|to)\s*(\d{1,2})\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
-    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
-    /(?:with|requires?|bring)\s+(\d{1,2})\+?\s+years?(?:\s+of)?\s+experience/gi
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s*(?:-|–|to)\s*(\d{1,2})\s+years?(?:\s+(?:of|prior))?\s+(?:[a-z0-9/&+(),.'’\-]+\s+){0,12}experience\b/gi,
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?(?:\s+(?:of|prior))?\s+(?:[a-z0-9/&+(),.'’\-]+\s+){0,12}experience\b/gi,
+    /experience(?:\s+(?:of|in))?\s+(?:at least\s+|minimum(?: of)?\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?\b/gi
   ];
   for (const pattern of patterns) {
-    for (const match of text.matchAll(pattern)) {
+    for (const match of normalized.matchAll(pattern)) {
+      const prefix = normalized.slice(Math.max(0, (match.index || 0) - 100), match.index || 0);
+      if (/\bpreferred(?: qualifications?| experience| skills?)?\b/.test(prefix)) continue;
       values.push(Number(match[1]));
       if (match[2]) values.push(Number(match[2]));
     }
   }
-  return values.filter(Number.isFinite);
+  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
 }
 
 function classify(title, text) {
   if (!missionTitlePattern.test(title) || excludedTitlePattern.test(title)) return null;
   const normalized = lower(`${title} ${text}`);
   const years = statedExperienceYears(normalized);
-  if (years.some(year => year >= 6)) return null;
+  if (years.some(year => year > 5)) return null;
 
   if (years.some(year => year >= 3)) return { type: 'entry-level', experience: '2-5-years' };
   if (years.some(year => year <= 2)) return { type: 'entry-level', experience: '0-2-years' };
 
-  if (/\b(?:operations?|facilities?) technician\b/i.test(title) && /\bhigh school diploma\b/i.test(normalized)) {
-    return { type: 'entry-level', experience: '0-2-years' };
-  }
-  if (/\b(?:engineer|technician)\s+(?:ii|2)\b/i.test(title)) {
-    return { type: 'entry-level', experience: '2-5-years' };
-  }
-
-  // Do not guess when the recruiter page does not state a usable experience level.
+  // High-school requirements and level numerals do not prove a 0–5 year
+  // experience ceiling. Fail closed until the recruiter page states one.
   return null;
+}
+
+if (process.argv.includes('--test-experience-parser')) {
+  const cases = [
+    {
+      name: 'project engineer with domain-specific three-year requirement',
+      title: 'Data Center Electrical Project Engineer',
+      text: 'Experience You Will Bring: Bachelor degree. 3+ years of electrical design or project engineering experience within commercial, industrial, mission-critical, or data center facilities.',
+      expected: '2-5-years'
+    },
+    {
+      name: 'worded requirement is parsed while higher preferred experience is ignored',
+      title: 'Data Center Operations Engineer',
+      text: 'Minimum qualifications: Three years of mission critical facilities experience. Preferred qualifications: Seven years of data center operations experience.',
+      expected: '2-5-years'
+    },
+    {
+      name: 'required experience over five years is rejected',
+      title: 'Data Center Operations Engineer',
+      text: 'Experience You Will Bring: 6+ years of critical facilities operations experience.',
+      expected: null
+    },
+    {
+      name: 'high school diploma alone does not imply early career',
+      title: 'Data Center Operations Technician',
+      text: 'High school diploma or GED required. General maintenance skills and technical curiosity required.',
+      expected: null
+    },
+    {
+      name: 'level two title alone does not imply five years or less',
+      title: 'Data Center Operations Engineer 2',
+      text: 'Experience maintaining mission-critical electrical infrastructure required.',
+      expected: null
+    },
+    {
+      name: 'one-year requirement remains early career',
+      title: 'Data Center Facilities Technician',
+      text: 'Minimum of 1 year of relevant facilities experience in a critical environment.',
+      expected: '0-2-years'
+    }
+  ];
+  const failures = [];
+  for (const testCase of cases) {
+    const actual = classify(testCase.title, testCase.text)?.experience ?? null;
+    if (actual !== testCase.expected) failures.push(`${testCase.name}: expected ${testCase.expected}, got ${actual}`);
+  }
+  if (failures.length) {
+    for (const failure of failures) console.error(`Sabey experience parser regression: ${failure}`);
+    process.exit(1);
+  }
+  console.log(`Sabey experience parser passed ${cases.length} regression cases.`);
+  process.exit(0);
 }
 
 function extractPay(text) {

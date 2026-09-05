@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/recover-major-workday-targeted.mjs'
+      - 'scripts/prune-closed-major-workday.mjs'
       - '.github/workflows/major-workday-targeted-recovery.yml'
   schedule:
     - cron: '43 */6 * * *'
@@ -33,18 +34,19 @@ jobs:
       - name: Guard targeted classifier
         run: node scripts/recover-major-workday-targeted.mjs --test
 
-      - name: Search official major-employer Workday boards
+      - name: Recover missing roles and prune closed Workday records
         id: recovery
         run: |
           node scripts/recover-major-workday-targeted.mjs
+          node scripts/prune-closed-major-workday.mjs
           if git diff --quiet -- data/jobs.json data/major-jobs.json; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
-            echo 'No newly verified target roles were found.'
+            echo 'No newly verified roles or definitively closed priority Workday records found.'
           else
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Normalize and validate recovered roles
+      - name: Normalize and validate reconciled roles
         if: steps.recovery.outputs.changed == 'true'
         run: |
           node scripts/normalize-job-locations.mjs
@@ -56,7 +58,7 @@ jobs:
           node scripts/validate-job-history.mjs
           node scripts/validate-priority-employer-sources.mjs
 
-      - name: Commit newly verified roles
+      - name: Commit reconciled priority Workday roles
         if: steps.recovery.outputs.changed == 'true'
         run: |
           git config user.name 'github-actions[bot]'
@@ -66,12 +68,12 @@ jobs:
             echo 'Normalization left no data changes to commit.'
             exit 0
           fi
-          git commit -m 'Recover targeted major-employer roles'
+          git commit -m 'Reconcile targeted major-employer roles'
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
 
-      - name: Deploy recovered roles
+      - name: Deploy reconciled roles
         if: steps.recovery.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}

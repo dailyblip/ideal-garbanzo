@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-05T13:45:02.059Z",
+  "updatedAt": "2026-09-05T15:42:03.403Z",
   "jobs": 502,
-  "sourcesAttempted": 47,
+  "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -13,15 +13,15 @@
     "icims": 1
   },
   "countsByType": {
+    "entry-level": 484,
     "trainee": 10,
-    "apprenticeship": 4,
     "internship": 4,
-    "entry-level": 484
+    "apprenticeship": 4
   },
   "countsByExperience": {
-    "2-5-years": 119,
     "0-2-years": 365,
-    "no-experience": 18
+    "no-experience": 18,
+    "2-5-years": 119
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -271,7 +271,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T13:45:02.101Z",
+    "updatedAt": "2026-09-05T15:42:03.530Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 502,
@@ -279,14 +279,14 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 69,
-      "texas": 99,
-      "mid-atlantic": 100,
-      "southwest": 54,
-      "southeast": 81,
       "midwest": 84,
-      "northeast": 14,
-      "nationwide": 1
+      "west": 69,
+      "mid-atlantic": 100,
+      "southeast": 81,
+      "southwest": 54,
+      "nationwide": 1,
+      "texas": 99,
+      "northeast": 14
     }
   },
   "postQa": {
@@ -646,7 +646,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T13:45:02.143Z",
+    "checkedAt": "2026-09-05T15:42:03.589Z",
     "before": 502,
     "after": 502,
     "removed": 0,
@@ -661,7 +661,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T13:45:02.181Z"
+    "updatedAt": "2026-09-05T15:42:03.650Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +757,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-04T20:48:41.876Z",
+    "checkedAt": "2026-09-05T15:42:03.462Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -855,13 +855,13 @@
         "reason": "classification"
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
         "location": ""
       },
       {

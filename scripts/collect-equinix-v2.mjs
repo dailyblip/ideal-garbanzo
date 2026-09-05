@@ -18,8 +18,8 @@ const contextTerms = [
   'bms','epms','hvac','chiller','colocation','mission critical','customer installations'
 ];
 const noExperienceTerms = [
-  'no experience','entry level','entry-level','high school diploma','high school or equivalent',
-  'high school diploma or equivalent','training program','learning program','skillbridge'
+  'no experience','no prior experience','entry level','entry-level',
+  'training program','learning program','skillbridge'
 ];
 
 const clean = value => String(value ?? '')
@@ -232,7 +232,8 @@ async function hydrate(url, listingLabel) {
   const meta = parsePageTitle(page);
   const headings = headingCandidates(html);
   const title = chooseTitle(posting, listingLabel, meta.title, headings);
-  const description = clean(posting?.description || posting?.responsibilities || html);
+  const pageText = clean(html);
+  const description = clean([posting?.description, posting?.responsibilities, pageText].filter(Boolean).join(' '));
   const cls = classify(title, description);
   if (cls.drop) return { drop: cls.drop, sample: { title, listingLabel, pageTitle: page, heading: headings[0] || '', url } };
 

@@ -1,0 +1,23 @@
+name: Generic ATS classifier guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-jobs.mjs'
+      - '.github/workflows/generic-ats-classifier-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate generic ATS experience classification
+        run: node scripts/collect-jobs.mjs --test-experience-parser

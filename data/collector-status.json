@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-05T16:23:55.781Z",
-  "jobs": 512,
+  "jobs": 513,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -13,13 +13,13 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 494,
+    "entry-level": 495,
     "trainee": 10,
     "internship": 4,
     "apprenticeship": 4
   },
   "countsByExperience": {
-    "2-5-years": 121,
+    "2-5-years": 122,
     "0-2-years": 373,
     "no-experience": 18
   },
@@ -271,10 +271,10 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-05T16:57:59.252Z",
+    "updatedAt": "2026-09-05T16:59:28.154Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 512,
+    "regionAssigned": 513,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -285,7 +285,7 @@
       "southwest": 54,
       "northeast": 14,
       "west": 71,
-      "texas": 101,
+      "texas": 102,
       "nationwide": 1
     }
   },
@@ -646,22 +646,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-05T16:57:59.312Z",
-    "before": 512,
-    "after": 512,
+    "checkedAt": "2026-09-05T16:59:28.223Z",
+    "before": 513,
+    "after": 513,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 552,
-    "currentJobs": 512,
-    "newJobsThisRun": 0,
+    "trackedJobs": 553,
+    "currentJobs": 513,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-05T16:57:59.366Z"
+    "updatedAt": "2026-09-05T16:59:28.281Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +757,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-05T16:57:59.182Z",
+    "checkedAt": "2026-09-05T16:59:28.087Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -932,12 +932,12 @@
     "errors": [
       "403 https://sabey.com/about/careers"
     ],
-    "snapshotRoles": 0,
-    "snapshotRestored": 0,
-    "snapshotVerifiedAt": null,
-    "snapshotFresh": false,
-    "snapshotMaxAgeHours": 96,
-    "snapshotAgeHours": null,
+    "snapshotRoles": 1,
+    "snapshotRestored": 1,
+    "snapshotVerifiedAt": "2026-09-05T16:59:00Z",
+    "snapshotFresh": true,
+    "snapshotMaxAgeHours": 168,
+    "snapshotAgeHours": 0,
     "removedExpiredFallback": 0
   }
 }

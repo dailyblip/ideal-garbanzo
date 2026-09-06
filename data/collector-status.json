@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-06T09:42:35.630Z",
-  "jobs": 572,
+  "updatedAt": "2026-09-06T10:45:26.782Z",
+  "jobs": 570,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -16,11 +16,11 @@
     "trainee": 12,
     "apprenticeship": 11,
     "internship": 4,
-    "entry-level": 545
+    "entry-level": 543
   },
   "countsByExperience": {
     "2-5-years": 157,
-    "0-2-years": 395,
+    "0-2-years": 393,
     "no-experience": 20
   },
   "errors": [
@@ -97,47 +97,54 @@
       {
         "query": "datacenter technician",
         "healthy": true,
-        "pages": 4,
-        "reportedRows": 33,
-        "rows": 33
+        "pages": 3,
+        "reportedRows": 30,
+        "rows": 30
       },
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 26,
-        "reportedRows": 255,
-        "rows": 255
+        "pages": 24,
+        "reportedRows": 233,
+        "rows": 233
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 30,
-        "reportedRows": 291,
-        "rows": 291
+        "pages": 28,
+        "reportedRows": 273,
+        "rows": 273
       },
       {
         "query": "inventory and asset technician",
         "healthy": true,
         "pages": 2,
-        "reportedRows": 16,
-        "rows": 16
+        "reportedRows": 15,
+        "rows": 15
       }
     ],
-    "candidateRows": 376,
-    "plausibleRows": 35,
-    "detailAttempts": 35,
-    "detailVerified": 35,
-    "currentQualifyingRoles": 35,
-    "qualifyingRoles": 35,
+    "candidateRows": 353,
+    "plausibleRows": 34,
+    "detailAttempts": 34,
+    "detailVerified": 34,
+    "currentQualifyingRoles": 33,
+    "qualifyingRoles": 33,
     "retainedPrevious": false,
     "drops": {
-      "nonUs": 0,
+      "nonUs": 1,
       "irrelevant": 0,
       "experience": 0,
       "detailFailure": 0
     },
     "legacyFallback": null,
-    "errors": []
+    "errors": [],
+    "snapshotFallback": {
+      "active": false,
+      "verifiedAt": "2026-09-06T10:45:26.833Z",
+      "expiresAt": "2026-09-13T10:45:26.833Z",
+      "roles": 33,
+      "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
+    }
   },
   "googleCareers": {
     "officialSource": "https://www.google.com/about/careers/applications/jobs/results/",
@@ -271,19 +278,19 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T09:42:35.690Z",
+    "updatedAt": "2026-09-06T10:45:26.952Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 572,
+    "regionAssigned": 570,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "west": 77,
-      "texas": 113,
-      "midwest": 105,
-      "southwest": 68,
+      "texas": 112,
       "mid-atlantic": 100,
+      "southwest": 68,
+      "midwest": 104,
       "southeast": 93,
       "northeast": 15,
       "nationwide": 1
@@ -646,22 +653,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T09:42:35.736Z",
-    "before": 572,
-    "after": 572,
+    "checkedAt": "2026-09-06T10:45:27.011Z",
+    "before": 570,
+    "after": 570,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 616,
-    "currentJobs": 572,
-    "newJobsThisRun": 7,
+    "currentJobs": 570,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 7,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T09:43:00.103Z"
+    "updatedAt": "2026-09-06T10:45:27.066Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +764,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T06:48:39.756Z",
+    "checkedAt": "2026-09-06T10:45:26.885Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

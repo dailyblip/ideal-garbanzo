@@ -101,15 +101,21 @@ for (const profile of profiles) {
       if (mode !== 'mobile' && hero && alert && events) {
         if (!close(hero.left, alert.left, 3) || !close(hero.right, alert.right, 3)) fail('Hero and newsletter outer edges are misaligned.');
         if (!close(alert.left, events.left, 3) || !close(alert.right, events.right, 3)) fail('Newsletter and career-events outer edges are misaligned.');
-        const region = rect('#alertRegion');
-        const email = rect('#alertEmail');
-        const join = rect('#weeklyAlertForm button[type="submit"]');
-        if (!region || !email || !join) fail('Newsletter controls are missing.');
-        else {
-          metrics.newsletterBottomDelta = Math.max(Math.abs(region.bottom-email.bottom), Math.abs(region.bottom-join.bottom));
-          if (!close(region.bottom, email.bottom, 5) || !close(email.bottom, join.bottom, 3)) fail('Newsletter controls do not share a clean bottom baseline.');
-          if (!close(email.height, join.height, 3)) fail('Newsletter email field and submit button heights are mismatched.');
-        }
+      }
+
+      const alertRegion = rect('#alertRegion');
+      const alertEmail = rect('#alertEmail');
+      const alertJoin = rect('#weeklyAlertForm button[type="submit"]');
+      const alertForm = rect('#weeklyAlertForm');
+      if (!alertRegion || !alertEmail || !alertJoin || !alertForm) fail('Newsletter controls are missing.');
+      else if (mode === 'desktop') {
+        metrics.newsletterBottomDelta = Math.max(Math.abs(alertRegion.bottom-alertEmail.bottom), Math.abs(alertRegion.bottom-alertJoin.bottom));
+        if (!close(alertRegion.bottom, alertEmail.bottom, 5) || !close(alertEmail.bottom, alertJoin.bottom, 3)) fail('Desktop newsletter controls do not share a clean bottom baseline.');
+        if (!close(alertEmail.height, alertJoin.height, 3)) fail('Desktop newsletter email field and submit button heights are mismatched.');
+      } else if (mode === 'tablet') {
+        if (!close(alertRegion.left, alertForm.left, 3) || !close(alertRegion.width, alertForm.width, 3)) fail('Tablet newsletter rows are not aligned to the same width.');
+        if (alertRegion.bottom >= alertEmail.top) fail('Tablet newsletter rows overlap instead of stacking cleanly.');
+        if (!close(alertEmail.height, alertJoin.height, 3)) fail('Tablet newsletter email field and submit button heights are mismatched.');
       }
 
       if (mode === 'mobile') {

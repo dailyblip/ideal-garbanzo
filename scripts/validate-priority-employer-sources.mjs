@@ -43,14 +43,13 @@ const sharedAtsPathPrefixesByCompany = new Map([
 
 // Dedicated employer snapshots are protected independently so a generic
 // collector or reconciliation rule cannot silently erase a healthy source.
-// Hyperscaler snapshots intentionally include a broader candidate set than the
-// final mission-fit feed, so for those sources we guard against total collapse
-// and source-host drift rather than requiring a fixed retention percentage.
-// New operator-specific snapshots are already mission-filtered and authoritative,
-// so they require exact URL parity with the public feed before deployment.
+// AWS, Microsoft, and Meta snapshots can include broader recovery/candidate
+// material, so those sources are guarded against collapse and source-host drift.
+// Google and newer operator snapshots are already mission-filtered and
+// authoritative, so they require exact URL/count parity before deployment.
 const protectedSnapshots = [
   { company: 'Amazon Web Services', path: 'data/amazon-jobs.json', enforceRetentionRatio: false },
-  { company: 'Google', path: 'data/google-jobs.json', enforceRetentionRatio: false },
+  { company: 'Google', path: 'data/google-jobs.json', enforceRetentionRatio: false, enforceExactParity: true },
   { company: 'Microsoft', path: 'data/microsoft-jobs.json', enforceRetentionRatio: false },
   { company: 'Meta', path: 'data/meta-jobs.json', enforceRetentionRatio: false },
   { company: 'Oracle', path: 'data/oracle-jobs.json', enforceRetentionRatio: true },

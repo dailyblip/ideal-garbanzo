@@ -35,6 +35,8 @@ jobs:
           node-version: 22
       - name: Refresh employer-direct jobs
         run: node scripts/collect-jobs.mjs
+      - name: Refresh official TierPoint roles
+        run: node scripts/collect-tierpoint-v3.mjs
       - name: Add official Sabey careers roles
         run: node scripts/collect-sabey-careers.mjs
       - name: Persist Sabey source snapshot
@@ -51,6 +53,8 @@ jobs:
         run: node scripts/collect-major-jobs.mjs
       - name: Reconcile major-employer snapshot
         run: node scripts/reconcile-major-jobs.mjs
+      - name: Recover verified U.S. priority Workday roles
+        run: node scripts/recover-major-workday-targeted.mjs
       - name: Add early-career internships and training roles
         run: node scripts/collect-early-career.mjs
       - name: Add official AWS data center roles

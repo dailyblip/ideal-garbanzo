@@ -8,6 +8,22 @@ const OFFICIAL_HOST = 'apply.careers.microsoft.com';
 const MIN_PUBLIC_RETENTION = 0.80;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+function canonicalTitle(job) {
+  let title = clean(job?.title);
+  const location = normalize(job?.location);
+  const locationTokens = new Set(location.split(' ').filter(token => token.length > 1));
+  const tailBelongsToLocation = tail => {
+    const tokens = normalize(tail).split(' ').filter(token => token.length > 1);
+    return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
+  };
+  title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
+  title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
+  return normalize(title);
+}
+const uniqueTitles = records => new Set((records || []).map(canonicalTitle).filter(Boolean));
 
 async function readJson(path, fallback = null) {
   try {
@@ -63,16 +79,29 @@ for (const job of snapshot.jobs) {
 const jobs = await readJson(JOBS_PATH, []);
 if (!Array.isArray(jobs)) throw new Error('data/jobs.json must contain an array.');
 const publicMicrosoft = jobs.filter(job => clean(job?.company) === COMPANY);
-const publicUrls = new Set(publicMicrosoft.map(job => clean(job?.sourceUrl)).filter(Boolean));
-
-// The snapshot is mission-filtered, so a large downstream loss is not expected.
-// Allow modest churn/dedupe, but stop deployment if most verified Microsoft
-// roles disappear before the next direct-source refresh.
-if (snapshot.jobs.length >= 8) {
-  const minimumRetained = Math.ceil(snapshot.jobs.length * MIN_PUBLIC_RETENTION);
-  if (publicMicrosoft.length < minimumRetained) {
-    throw new Error(`Microsoft public feed retained only ${publicMicrosoft.length}/${snapshot.jobs.length} verified snapshot roles; expected at least ${minimumRetained}.`);
+for (const job of publicMicrosoft) {
+  let url;
+  try { url = new URL(clean(job?.sourceUrl)); }
+  catch { throw new Error(`Microsoft public role ${job?.id || '(missing)'} has an invalid URL.`); }
+  if (url.protocol !== 'https:' || url.hostname.toLowerCase() !== OFFICIAL_HOST) {
+    throw new Error(`Microsoft public role ${job?.id || '(missing)'} is not employer-direct.`);
   }
+}
+const snapshotTitles = uniqueTitles(snapshot.jobs);
+const publicTitles = uniqueTitles(publicMicrosoft);
+const missingTitles = [...snapshotTitles].filter(title => !publicTitles.has(title));
+
+// The public feed intentionally collapses same-employer/same-title postings
+// across locations and shifts. Protect unique role coverage rather than raw
+// requisition count so source integrity and a clean feed can coexist.
+if (snapshotTitles.size >= 8) {
+  const minimumRetained = Math.ceil(snapshotTitles.size * MIN_PUBLIC_RETENTION);
+  if (publicTitles.size < minimumRetained) {
+    throw new Error(`Microsoft public feed retained only ${publicTitles.size}/${snapshotTitles.size} unique verified role titles; expected at least ${minimumRetained}.`);
+  }
+}
+if (missingTitles.length > Math.floor(snapshotTitles.size * (1 - MIN_PUBLIC_RETENTION))) {
+  throw new Error(`Microsoft public feed is missing ${missingTitles.length}/${snapshotTitles.size} unique verified role title(s).`);
 }
 
 const status = await readJson(STATUS_PATH, {});
@@ -89,20 +118,16 @@ if (fallback.active === true) {
   if (fallbackRoles !== snapshot.jobs.length) {
     throw new Error(`Microsoft fallback metadata expects ${fallbackRoles} role(s), but the verified snapshot contains ${snapshot.jobs.length}.`);
   }
-  if (publicMicrosoft.length !== fallbackRoles) {
-    throw new Error(`Microsoft active fallback/public feed count mismatch (${fallbackRoles} restored vs ${publicMicrosoft.length} public).`);
-  }
-  const missingFallbackUrls = snapshot.jobs.filter(job => !publicUrls.has(clean(job.sourceUrl)));
-  if (missingFallbackUrls.length) {
-    throw new Error(`Microsoft active fallback lost ${missingFallbackUrls.length}/${snapshot.jobs.length} verified role URL(s) before deployment.`);
+  if (missingTitles.length) {
+    throw new Error(`Microsoft active fallback lost ${missingTitles.length}/${snapshotTitles.size} unique verified role title(s) before deployment.`);
   }
 }
 
 if (Date.now() > expiresAt) {
   console.warn(`Microsoft snapshot is structurally valid but expired at ${snapshot.expiresAt}; fallback restoration is disabled until a fresh direct-source refresh.`);
 } else {
-  console.log(`Microsoft snapshot validation passed: ${snapshot.jobs.length} employer-direct roles, ${publicMicrosoft.length} public, recoverable through ${snapshot.expiresAt}.`);
+  console.log(`Microsoft snapshot validation passed: ${snapshot.jobs.length} employer-direct requisitions represented by ${publicTitles.size} clean public role title(s), recoverable through ${snapshot.expiresAt}.`);
 }
 if (fallback.active === true) {
-  console.log(`Microsoft zero-collapse fallback integrity passed: ${publicMicrosoft.length}/${fallback.roles} restored roles remain public.`);
+  console.log(`Microsoft zero-collapse fallback integrity passed: ${publicTitles.size}/${snapshotTitles.size} unique verified role titles remain public.`);
 }

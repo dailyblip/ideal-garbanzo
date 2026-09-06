@@ -7,7 +7,8 @@ const SEARCH_QUERIES = [
   'data center',
   'data center technician',
   'engineering operations technician',
-  'work based learning data center'
+  'work based learning data center',
+  'project engineer data center'
 ];
 const CONCURRENCY = 12;
 const TIMEOUT_MS = 12000;
@@ -315,6 +316,28 @@ function dedupeJobs(jobs) {
   return out;
 }
 
+function dedupeCandidateIdentities(rows, previousByUrl, previousById) {
+  const selected = new Map();
+
+  for (const row of rows) {
+    const location = normalizeLocation(row);
+    if (!location) continue;
+
+    const url = sourceUrl(row);
+    const id = jobId(row, url);
+    const identity = [COMPANY, row.title, location].map(normalizeIdentity).join('|');
+    const cached = previousByUrl.has(clean(url)) || previousById.has(id);
+    const existing = selected.get(identity);
+
+    // Search results arrive newest first. Keep the first result unless a later
+    // duplicate is already verified in our snapshot, which avoids an unnecessary
+    // Amazon detail request while preserving the same public title/location identity.
+    if (!existing || (cached && !existing.cached)) selected.set(identity, { row, cached });
+  }
+
+  return [...selected.values()].map(entry => entry.row);
+}
+
 const currentJobs = await readJson('data/jobs.json', []);
 const previousAmazon = await readJson('data/amazon-jobs.json', []);
 const status = await readJson('data/collector-status.json', {});
@@ -335,10 +358,11 @@ for (const query of SEARCH_QUERIES) {
   }
 }
 
-const candidates = dedupeRows(raw).filter(row => missionTitle(row.title) && normalizeLocation(row));
-const candidateUrls = new Set(candidates.map(sourceUrl).filter(Boolean));
+const missionFitRows = dedupeRows(raw).filter(row => missionTitle(row.title) && normalizeLocation(row));
 const previousByUrl = new Map(previousAmazon.map(job => [clean(job.sourceUrl), job]).filter(([url]) => url));
 const previousById = new Map(previousAmazon.map(job => [clean(job.id), job]).filter(([id]) => id));
+const candidates = dedupeCandidateIdentities(missionFitRows, previousByUrl, previousById);
+const candidateUrls = new Set(candidates.map(sourceUrl).filter(Boolean));
 
 const recovered = [];
 const toHydrate = [];
@@ -480,7 +504,9 @@ status.amazonDetailRecovery = {
   queriesSucceeded,
   queryStats,
   rawRows:raw.length,
-  missionFitUsCandidates:candidates.length,
+  missionFitUsCandidates:missionFitRows.length,
+  uniquePublishIdentities:candidates.length,
+  duplicatesSkippedBeforeHydration:Math.max(0, missionFitRows.length - candidates.length),
   reusedVerified,
   detailCandidates:toHydrate.length,
   detailAttempted,
@@ -500,5 +526,5 @@ await writeFile('data/amazon-jobs.json', JSON.stringify(amazonSnapshot, null, 2)
 await writeFile('data/jobs.json', JSON.stringify(merged, null, 2) + '\n');
 await writeFile('data/collector-status.json', JSON.stringify(status, null, 2) + '\n');
 
-console.log(`AWS detail recovery kept ${amazonSnapshot.length} verified 0–5 year roles (${detailRecovered} newly recovered, ${reusedVerified} reused) from ${queriesSucceeded}/${SEARCH_QUERIES.length} healthy official searches.`);
+console.log(`AWS detail recovery kept ${amazonSnapshot.length} verified 0–5 year roles (${detailRecovered} newly recovered, ${reusedVerified} reused) from ${queriesSucceeded}/${SEARCH_QUERIES.length} healthy official searches; skipped ${Math.max(0, missionFitRows.length - candidates.length)} duplicate title/location candidates before detail hydration.`);
 if (errors.length) console.warn(`AWS detail recovery warnings: ${errors.join(' | ')}`);

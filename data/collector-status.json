@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-09-06T16:35:30.897Z",
+  "updatedAt": "2026-09-06T17:58:49.240Z",
   "jobs": 530,
-  "sourcesAttempted": 51,
+  "sourcesAttempted": 52,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
-    "googleCareers": 2,
+    "googleCareers": 3,
     "oracleRecruitingCloud": 6,
     "metaCareers": 14,
     "icims": 1
@@ -286,7 +286,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T16:35:31.030Z",
+    "updatedAt": "2026-09-06T17:58:49.432Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 530,
@@ -542,7 +542,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T16:35:31.079Z",
+    "checkedAt": "2026-09-06T17:58:49.503Z",
     "before": 530,
     "after": 530,
     "removed": 0,
@@ -552,12 +552,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 684,
     "currentJobs": 530,
-    "newJobsThisRun": 19,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 19,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T16:35:45.346Z"
+    "updatedAt": "2026-09-06T17:58:49.564Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -653,19 +653,10 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T16:35:30.973Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "reason": "non-mission role family"
-      }
-    ]
+    "checkedAt": "2026-09-06T17:58:49.360Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": []
   },
   "oracleCareers": {
     "officialSource": "https://careers.oracle.com/",

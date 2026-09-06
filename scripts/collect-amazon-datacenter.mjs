@@ -7,13 +7,15 @@ const queries = [
   'data center',
   'data center technician',
   'engineering operations technician',
-  'work based learning data center'
+  'work based learning data center',
+  'project engineer data center'
 ];
 
 const missionTitlePatterns = [
   /\bdata cent(?:er|re)\b.*\b(?:technician|tech|operator|operations|facilit(?:y|ies)|controls?|electrical|mechanical|engineer)\b/i,
   /\b(?:technician|tech|operator|operations|facilit(?:y|ies)|controls?|electrical|mechanical|engineer)\b.*\bdata cent(?:er|re)\b/i,
   /\bengineering operations? (?:technician|tech)\b/i,
+  /\bproject engineer\b/i,
   /\b(?:dceo|infraops|dcc communities)\b.*\b(?:technician|tech|operator|engineer)\b/i,
   /\b(?:technician|tech|operator|engineer)\b.*\b(?:dceo|infraops|dcc communities)\b/i,
   /\bcritical (?:facilit(?:y|ies)|infrastructure)\b.*\b(?:technician|tech|engineer|operator)\b/i,
@@ -203,6 +205,7 @@ function tagsFor(row, type, experience) {
   if (type === 'trainee') tags.push(/work.?based learning/.test(title) ? 'Work-Based Learning' : 'Trainee');
   tags.push(experience === 'no-experience' ? 'No Experience Needed' : experience === '0-2-years' ? '0–2 Years' : '2–5 Years');
   if (/skillbridge/.test(title)) tags.push('SkillBridge');
+  if (/project engineer/.test(title)) tags.push('Data Center Delivery');
   if (/electrical|switchgear|ups/.test(text)) tags.push('Electrical');
   if (/fiber|cabling|network/.test(text)) tags.push('Network / Cabling');
   if (/critical facilit|generator|hvac|chiller|mechanical|crah|crac/.test(text)) tags.push('Critical Facilities');

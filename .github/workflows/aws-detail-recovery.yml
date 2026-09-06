@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/recover-amazon-details.mjs'
       - '.github/workflows/aws-detail-recovery.yml'
   schedule:
@@ -28,6 +29,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Refresh official AWS data center roles
+        run: |
+          node --check scripts/collect-amazon-datacenter.mjs
+          node scripts/collect-amazon-datacenter.mjs
       - name: Recover verified AWS requirements
         run: |
           node --check scripts/recover-amazon-details.mjs

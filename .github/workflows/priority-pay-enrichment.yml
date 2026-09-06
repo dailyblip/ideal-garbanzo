@@ -13,6 +13,7 @@ on:
     types: [completed]
 
 permissions:
+  actions: write
   contents: write
 
 concurrency:
@@ -46,10 +47,19 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-priority-employer-sources.mjs
       - name: Commit compensation updates
+        id: commit
         run: |
           if [ -z "$(git status --porcelain -- data/jobs.json data/collector-status.json)" ]; then
             echo "No priority compensation changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "jobs_changed=false" >> "$GITHUB_OUTPUT"
             exit 0
+          fi
+
+          if git diff --quiet -- data/jobs.json; then
+            echo "jobs_changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "jobs_changed=true" >> "$GITHUB_OUTPUT"
           fi
 
           git config user.name "github-actions[bot]"
@@ -64,3 +74,9 @@ jobs:
             exit 1
           fi
           git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy recovered compensation
+        if: steps.commit.outputs.jobs_changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

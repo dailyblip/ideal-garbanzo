@@ -16,6 +16,7 @@ on:
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
+      - 'scripts/validate-digital-realty.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -33,6 +34,7 @@ on:
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
+      - 'scripts/validate-digital-realty.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -54,3 +56,5 @@ jobs:
         run: node scripts/validate-microsoft-snapshot.mjs
       - name: Verify Oracle snapshot matches the public feed exactly
         run: node scripts/validate-oracle-snapshot.mjs
+      - name: Verify Digital Realty snapshot matches the public feed exactly
+        run: node scripts/validate-digital-realty.mjs

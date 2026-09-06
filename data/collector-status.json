@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T19:42:02.376Z",
+  "updatedAt": "2026-09-06T21:48:54.637Z",
   "jobs": 400,
   "sourcesAttempted": 53,
   "providers": {
@@ -539,6 +539,18 @@
         }
       ],
       "fetchErrors": []
+    },
+    "payEnrichment": {
+      "checkedAt": "2026-09-06T21:48:54.637Z",
+      "candidates": 7,
+      "fetched": 7,
+      "payRecovered": 0,
+      "jsonLdRecovered": 0,
+      "textRecovered": 0,
+      "blankLabelsCleared": 7,
+      "samples": [],
+      "errors": [],
+      "changedRecords": 11
     }
   },
   "normalizationDedupe": {

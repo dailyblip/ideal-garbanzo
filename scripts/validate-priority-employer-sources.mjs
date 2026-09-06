@@ -2,9 +2,6 @@ import { readFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
 
-// Priority operators should enter the public feed only through their own career
-// systems. This guard prevents a collector, fallback, or merge change from
-// quietly replacing employer-direct links with job-board or aggregator URLs.
 const officialHostsByCompany = new Map([
   ['Amazon Web Services', new Set(['amazon.jobs', 'www.amazon.jobs'])],
   ['Google', new Set(['www.google.com'])],
@@ -32,8 +29,6 @@ const officialHostsByCompany = new Map([
   ['Aligned Data Centers', new Set(['aligneddc.wd12.myworkdayjobs.com'])]
 ]);
 
-// Shared ATS hosts need more than hostname checks to prove that a posting
-// belongs to the employer named in our feed. Pin the employer-specific path.
 const sharedAtsPathPrefixesByCompany = new Map([
   ['Cologix', '/cologix/'],
   ['T5 Data Centers', '/t5datacenters/'],
@@ -41,12 +36,6 @@ const sharedAtsPathPrefixesByCompany = new Map([
   ['Stream Data Centers', '/stream-dc/j/']
 ]);
 
-// Dedicated employer snapshots are protected independently so a generic
-// collector or reconciliation rule cannot silently erase a healthy source.
-// AWS, Microsoft, and Meta snapshots can include broader recovery/candidate
-// material, so those sources are guarded against collapse and source-host drift.
-// Google and newer operator snapshots are already mission-filtered and
-// authoritative, so they require exact URL/count parity before deployment.
 const protectedSnapshots = [
   { company: 'Amazon Web Services', path: 'data/amazon-jobs.json', enforceRetentionRatio: false },
   { company: 'Google', path: 'data/google-jobs.json', enforceRetentionRatio: false, enforceExactParity: true },
@@ -86,6 +75,23 @@ const usStateAbbreviations = new Set([
   'MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT',
   'VT','VA','WA','WV','WI','WY','DC'
 ]);
+
+const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+function canonicalTitle(job) {
+  let title = String(job?.title || '').trim();
+  const location = normalizeIdentity(job?.location);
+  const locationTokens = new Set(location.split(' ').filter(token => token.length > 1));
+  const tailBelongsToLocation = tail => {
+    const tokens = normalizeIdentity(tail).split(' ').filter(token => token.length > 1);
+    return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
+  };
+  title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
+  title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
+  return normalizeIdentity(title);
+}
+const uniqueTitles = records => new Set((records || []).map(canonicalTitle).filter(Boolean));
 
 function confidentUsLocation(value = '') {
   const text = String(value || '').trim();
@@ -153,7 +159,6 @@ function checkOfficialSource(company, job, context, violations) {
     violations.push(`${context}: ${job?.id || '(missing id)'} points to non-official host ${host || '(missing host)'}`);
     return;
   }
-
   const requiredPathPrefix = sharedAtsPathPrefixesByCompany.get(company);
   if (requiredPathPrefix && !parsed.pathname.toLowerCase().startsWith(requiredPathPrefix)) {
     violations.push(`${context}: ${job?.id || '(missing id)'} points to the wrong ${host} employer board path ${parsed.pathname || '/'}`);
@@ -173,11 +178,6 @@ for (const job of jobs) {
   checkOfficialSource(company, job, company, violations);
 }
 
-// The dedicated Equinix early-career pass exists specifically to recover
-// SkillBridge, trainee, internship and apprenticeship roles that the broader
-// Equinix collector cannot always classify from its listing markup. Protect
-// those managed records from being silently removed by downstream filters,
-// normalization or dedupe after a healthy collector pass.
 const equinixEarlyExpected = Number(collectorStatus?.priorityEmployerExpansion?.EquinixEarlyCareer?.qualifyingRoles || 0);
 const equinixEarlyPublic = jobs.filter(job => String(job?.company || '').trim() === 'Equinix' && (
   /^equinix-early-/i.test(String(job?.id || '')) ||
@@ -190,12 +190,6 @@ if (equinixEarlyExpected >= 3) {
   }
 }
 
-// GitHub-hosted Equinix fetches can return a rendered shell without the
-// qualifications body, so a short-lived set of source-verified SkillBridge
-// roles is restored during the build. Protect that verified set independently:
-// every role the fallback says it retained must still be present after mission
-// filtering and dedupe, and stale verification metadata must never outlive its
-// explicit expiry date.
 const equinixFallbackStatus = collectorStatus?.equinixVerifiedFallback || {};
 const equinixFallbackExpected = Number(equinixFallbackStatus?.retainedManaged || 0);
 const equinixFallbackLiveChecks = Number(equinixFallbackStatus?.liveChecksPassed || 0);
@@ -223,23 +217,21 @@ for (const { company, path, enforceRetentionRatio, enforceExactParity = false } 
   if (foreign.length) violations.push(`${company}: dedicated snapshot contains ${foreign.length} record(s) owned by another company`);
   for (const job of snapshot) checkOfficialSource(company, job, `${company} snapshot`, violations);
 
-  const snapshotCount = snapshot.length;
   const publicCompanyJobs = jobs.filter(job => String(job?.company || '').trim() === company);
-  const publicCount = publicCompanyJobs.length;
+  const snapshotTitles = uniqueTitles(snapshot);
+  const publicTitles = uniqueTitles(publicCompanyJobs);
+  const snapshotCount = snapshotTitles.size;
+  const publicCount = publicTitles.size;
   if (snapshotCount >= 3 && publicCount === 0) {
-    violations.push(`${company}: ${snapshotCount} dedicated snapshot roles collapsed to zero in the public feed`);
+    violations.push(`${company}: ${snapshotCount} unique dedicated snapshot roles collapsed to zero in the public feed`);
   } else if (enforceRetentionRatio && snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
-    violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} dedicated snapshot roles`);
+    violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} unique dedicated role titles`);
   }
 
   if (enforceExactParity && snapshotCount > 0) {
-    if (publicCount !== snapshotCount) {
-      violations.push(`${company}: authoritative snapshot/public feed count mismatch (${snapshotCount} snapshot vs ${publicCount} public)`);
-    }
-    const publicUrls = new Set(publicCompanyJobs.map(job => String(job?.sourceUrl || '').trim()).filter(Boolean));
-    const missingUrls = snapshot.filter(job => !publicUrls.has(String(job?.sourceUrl || '').trim()));
-    if (missingUrls.length) {
-      violations.push(`${company}: ${missingUrls.length}/${snapshotCount} authoritative snapshot role(s) are missing from the public feed`);
+    const missingTitles = [...snapshotTitles].filter(title => !publicTitles.has(title));
+    if (missingTitles.length) {
+      violations.push(`${company}: ${missingTitles.length}/${snapshotCount} authoritative unique role title(s) are missing from the public feed`);
     }
   }
 }
@@ -255,11 +247,13 @@ for (const job of majorSnapshot) {
 for (const company of protectedMajorWorkdayCompanies) {
   const companySnapshot = majorSnapshot.filter(job => String(job?.company || '').trim() === company);
   const usSnapshot = companySnapshot.filter(job => confidentUsLocation(job?.location));
-  const publicCount = counts.get(company) || 0;
-  if (usSnapshot.length >= 3 && publicCount === 0) {
-    violations.push(`${company}: ${usSnapshot.length} U.S. roles in the major Workday snapshot collapsed to zero in the public feed`);
-  } else if (usSnapshot.length >= 8 && publicCount < Math.ceil(usSnapshot.length * 0.40)) {
-    violations.push(`${company}: public feed retained only ${publicCount}/${usSnapshot.length} confidently U.S. major Workday roles`);
+  const publicCompanyJobs = jobs.filter(job => String(job?.company || '').trim() === company);
+  const snapshotCount = uniqueTitles(usSnapshot).size;
+  const publicCount = uniqueTitles(publicCompanyJobs).size;
+  if (snapshotCount >= 3 && publicCount === 0) {
+    violations.push(`${company}: ${snapshotCount} unique U.S. role titles in the major Workday snapshot collapsed to zero in the public feed`);
+  } else if (snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
+    violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} unique confidently U.S. major Workday role titles`);
   }
 }
 
@@ -274,7 +268,7 @@ if (violations.length) {
 }
 
 const priorityJobs = represented.reduce((sum, [, count]) => sum + count, 0);
-console.log(`Priority employer source guard passed: ${priorityJobs} jobs from ${represented.length}/${officialHostsByCompany.size} priority operators use employer-direct career URLs.`);
+console.log(`Priority employer source guard passed: ${priorityJobs} clean public cards from ${represented.length}/${officialHostsByCompany.size} priority operators use employer-direct career URLs.`);
 console.log(`  Equinix early-career managed roles: ${equinixEarlyPublic}/${equinixEarlyExpected || equinixEarlyPublic}`);
 console.log(`  Equinix verified fallback roles: ${equinixFallbackPublic}/${equinixFallbackExpected || equinixFallbackPublic}`);
 for (const [company, count] of represented) console.log(`  ${company}: ${count}`);

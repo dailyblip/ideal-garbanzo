@@ -6,9 +6,10 @@ const errors = [];
 const fail = message => errors.push(message);
 const canonicalFor = path => `${base}${path}`;
 
-async function get(path, { html = false } = {}) {
+async function get(path, { html = false, cacheBust = true, exactUrl = false } = {}) {
+  const canonicalUrl = `${base}${path}`;
   const separator = path.includes('?') ? '&' : '?';
-  const requestUrl = `${base}${path}${separator}deploy=${encodeURIComponent(cache)}`;
+  const requestUrl = cacheBust ? `${canonicalUrl}${separator}deploy=${encodeURIComponent(cache)}` : canonicalUrl;
   let response;
   try {
     response = await fetch(requestUrl, {
@@ -21,12 +22,15 @@ async function get(path, { html = false } = {}) {
     });
   } catch (error) {
     fail(`${path} could not be fetched: ${error.message}`);
-    return { response:null, text:'' };
+    return { response:null, text:'', requestUrl };
   }
 
   if (!response.ok) fail(`${path} returned HTTP ${response.status}.`);
   if (!response.url.startsWith(`${base}/`) && response.url !== base) {
     fail(`${path} redirected away from the canonical domain to ${response.url}.`);
+  }
+  if (exactUrl && response.url !== canonicalUrl) {
+    fail(`${path} did not resolve at its exact canonical URL; final URL was ${response.url}.`);
   }
 
   const xRobots = response.headers.get('x-robots-tag') || '';
@@ -38,7 +42,7 @@ async function get(path, { html = false } = {}) {
     if (/\bnoindex\b/i.test(robotsMeta)) fail(`${path} contains a noindex robots meta tag.`);
   }
 
-  return { response, text };
+  return { response, text, requestUrl };
 }
 
 function requireCanonical(path, html) {
@@ -50,16 +54,22 @@ function requireCanonical(path, html) {
   }
 }
 
-const robotsResult = await get('/robots.txt');
+// Search engines request these exact well-known URLs. Do not cache-bust them here: a
+// successful query-string variant must not hide a redirect, HTML fallback, or fetch
+// failure on the URL submitted to Search Console.
+const robotsResult = await get('/robots.txt', { cacheBust:false, exactUrl:true });
 const robots = robotsResult.text;
 if (!/User-agent:\s*\*/i.test(robots)) fail('robots.txt is missing the default User-agent rule.');
 if (!/Allow:\s*\//i.test(robots)) fail('robots.txt does not explicitly allow the public site.');
 if (/^\s*Disallow:\s*\/\s*$/im.test(robots)) fail('robots.txt globally disallows crawling.');
 if (!robots.includes(`Sitemap: ${base}/sitemap.xml`)) fail('robots.txt does not advertise the canonical sitemap.');
 if (/dailyblip\.github\.io/i.test(robots)) fail('robots.txt still references the GitHub Pages hostname.');
+if (/<html\b|<!doctype\s+html/i.test(robots)) fail('robots.txt returned HTML instead of crawler directives.');
 
-const sitemapResult = await get('/sitemap.xml');
+const sitemapResult = await get('/sitemap.xml', { cacheBust:false, exactUrl:true });
 const sitemap = sitemapResult.text;
+if (/<html\b|<!doctype\s+html/i.test(sitemap)) fail('sitemap.xml returned HTML instead of XML.');
+if (!/^\s*(?:<\?xml[^>]*\?>\s*)?<urlset\b/i.test(sitemap)) fail('sitemap.xml does not begin with a valid XML URL set.');
 if (!/<urlset\b/i.test(sitemap)) fail('sitemap.xml does not contain a URL set.');
 if (/dailyblip\.github\.io/i.test(sitemap)) fail('sitemap.xml contains the old GitHub Pages hostname.');
 
@@ -129,4 +139,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Live indexability validation passed: ${sitemapLocs.length} sitemap URLs, ${jobLocs.length} live job detail URLs, robots/canonicals/noindex checks clean.`);
+console.log(`Live indexability validation passed: exact robots.txt and sitemap.xml fetches clean, ${sitemapLocs.length} sitemap URLs, ${jobLocs.length} live job detail URLs, canonicals/noindex checks clean.`);

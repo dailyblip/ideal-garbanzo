@@ -143,7 +143,7 @@ jobs:
           close_issue "$pipeline_title" "Recovered: pipeline run ${RUN_ID} completed successfully."
           close_issue "$domain_blocker_title" "Recovered: custom-domain verification passed in pipeline run ${RUN_ID}."
           close_issue "$stuck_title" "Recovered: pipeline run ${RUN_ID} completed successfully."
-          main_sha="$(gh api "repos/${REPO}/commits/main" --jq .sha)"
+          main_sha=""
           live_sha=""
           homepage_ok="false"
 
@@ -159,6 +159,9 @@ jobs:
             else
               homepage_ok="false"
             fi
+            # Read main after the live marker so a newer push cannot make a
+            # freshly deployed revision look like drift against a stale SHA.
+            main_sha="$(gh api "repos/${REPO}/commits/main" --jq .sha)"
             if [ "$live_sha" = "$main_sha" ] && [ "$homepage_ok" = "true" ]; then
               break
             fi
@@ -256,9 +259,11 @@ jobs:
           )
 
           if [ "$active_count" -eq 0 ]; then
-            main_sha="$(gh api "repos/${REPO}/commits/main" --jq .sha)"
             marker="$(curl -fsSL --max-time 15 "${SITE_URL}/deployment-version.json?watch=${now}" 2>/dev/null || true)"
             live_sha="$(printf '%s' "$marker" | jq -r '.sha // empty' 2>/dev/null || true)"
+            # Read main after the live marker for the same reason as the
+            # completed-run verifier: avoid false drift during a concurrent push.
+            main_sha="$(gh api "repos/${REPO}/commits/main" --jq .sha)"
             drift_title="[Steward] Deployment drift"
 
             if [ -n "$live_sha" ] && [ "$live_sha" != "$main_sha" ]; then

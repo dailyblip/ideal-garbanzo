@@ -1,0 +1,59 @@
+name: One-shot major Workday diagnostics
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/diagnose-major-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Inspect priority Workday search/detail fields
+        shell: bash
+        run: |
+          node <<'NODE'
+          const boards = [
+            { company: 'Vantage', origin: 'https://vantagedc.wd1.myworkdayjobs.com', tenant: 'vantagedc', site: 'Vantage' },
+            { company: 'QTS', origin: 'https://qtsdatacenters.wd5.myworkdayjobs.com', tenant: 'qtsdatacenters', site: 'QTS' },
+            { company: 'Aligned', origin: 'https://aligneddc.wd12.myworkdayjobs.com', tenant: 'aligneddc', site: 'aligneddc' }
+          ];
+          const terms = ['critical facilities', 'critical operations', 'technician'];
+          const clean = v => String(v ?? '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+          async function json(url, options = {}) {
+            const r = await fetch(url, { ...options, headers: { accept: 'application/json', 'user-agent': 'DataCenterCareersBot/diagnostic', ...(options.headers || {}) } });
+            if (!r.ok) throw new Error(`${r.status} ${url}`);
+            return r.json();
+          }
+          for (const board of boards) {
+            const found = new Map();
+            for (const searchText of terms) {
+              const endpoint = `${board.origin}/wday/cxs/${board.tenant}/${board.site}/jobs`;
+              const p = await json(endpoint, { method: 'POST', headers: { 'content-type': 'application/json', referer: `${board.origin}/en-US/${board.site}` }, body: JSON.stringify({ appliedFacets: {}, limit: 20, offset: 0, searchText }) });
+              console.log(`${board.company} query=${JSON.stringify(searchText)} total=${p.total} page=${p.jobPostings?.length || 0}`);
+              for (const row of p.jobPostings || []) if (row.externalPath) found.set(row.externalPath, row);
+            }
+            console.log(`${board.company} unique candidates=${found.size}`);
+            let n = 0;
+            for (const row of found.values()) {
+              if (n++ >= 12) break;
+              const detailUrl = `${board.origin}/wday/cxs/${board.tenant}/${board.site}${row.externalPath}`;
+              try {
+                const d = await json(detailUrl, { headers: { referer: `${board.origin}/en-US/${board.site}${row.externalPath}` } });
+                const info = d.jobInfo || d;
+                const description = clean(info.jobDescription || info.description || '');
+                const snippets = [...description.matchAll(/.{0,55}(?:experience|years?).{0,110}/gi)].slice(0,3).map(m => clean(m[0]));
+                console.log(JSON.stringify({ company: board.company, title: clean(row.title), listingLocation: clean(row.locationsText), detailLocation: clean(info.location), externalPath: row.externalPath, snippets }));
+              } catch (e) {
+                console.log(JSON.stringify({ company: board.company, title: clean(row.title), externalPath: row.externalPath, error: e.message }));
+              }
+            }
+          }
+          NODE

@@ -304,6 +304,7 @@ function dedupe(jobs) {
 }
 
 const priority = job => ({ apprenticeship: 0, internship: 1, trainee: 2, 'entry-level': 3 }[job.type] ?? 4) * 10 + ({ 'no-experience': 0, '0-2-years': 1, '2-5-years': 3 }[job.experience] ?? 2);
+const unrelatedKey = job => clean(job?.id) || clean(job?.sourceUrl) || [normalize(job?.company), canonicalTitle(job), normalize(job?.location)].join('|');
 
 const current = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 let status = {};
@@ -368,16 +369,21 @@ const managedNextUrls = new Set(managedNext.map(job => clean(job.sourceUrl)));
 const staleRemoved = authoritative ? previousEquinix.filter(job => !managedNextUrls.has(clean(job.sourceUrl))).length : 0;
 const currentWithoutEquinix = current.filter(job => job?.company !== COMPANY);
 
-let merged = dedupe([...managedNext, ...currentWithoutEquinix]);
+// This collector owns Equinix records only. Never apply portfolio-wide caps or
+// dedupe to unrelated employers: that can silently erase verified roles from
+// authoritative source snapshots during an Equinix-only refresh.
 const now = Date.now();
-for (const job of merged) {
+for (const job of managedNext) {
   job.postedHours = job.postedAt ? Math.max(0, Math.round((now - new Date(job.postedAt).getTime()) / 36e5)) : (job.postedHours ?? 9999);
 }
-const early = merged.filter(job => job.experience !== '2-5-years');
-const mid = merged.filter(job => job.experience === '2-5-years');
-const maxMid = Math.max(12, Math.floor(Math.max(early.length, 1) * 0.30));
-merged = [...early, ...mid.sort((a, b) => (a.postedHours ?? 9999) - (b.postedHours ?? 9999)).slice(0, maxMid)]
+const merged = [...managedNext, ...currentWithoutEquinix]
   .sort((a, b) => priority(a) - priority(b) || (a.postedHours ?? 9999) - (b.postedHours ?? 9999));
+const unrelatedBefore = new Set(currentWithoutEquinix.map(unrelatedKey));
+const unrelatedAfter = new Set(merged.filter(job => job?.company !== COMPANY).map(unrelatedKey));
+const lostUnrelated = [...unrelatedBefore].filter(key => !unrelatedAfter.has(key));
+if (unrelatedAfter.size !== unrelatedBefore.size || lostUnrelated.length) {
+  throw new Error(`Equinix collector modified unrelated employer records (${unrelatedBefore.size} before, ${unrelatedAfter.size} after, ${lostUnrelated.length} missing).`);
+}
 
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});

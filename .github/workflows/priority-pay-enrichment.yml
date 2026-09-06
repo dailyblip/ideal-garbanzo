@@ -16,7 +16,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: priority-compensation-enrichment
+  group: priority-compensation-enrichment-${{ github.event_name }}-${{ github.event_name == 'workflow_run' && github.event.workflow_run.event || 'direct' }}
   cancel-in-progress: true
 
 jobs:

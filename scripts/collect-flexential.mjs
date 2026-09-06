@@ -26,6 +26,7 @@ const hash = value => crypto.createHash('sha1').update(String(value)).digest('he
 
 const missionTitlePattern = /\b(?:data\s*center\s+technician(?:\s+[i1-3v]+)?|critical\s+infrastructure\s+engineer(?:\s+[i1-3v]+)?|critical\s+facilities\s+(?:technician|engineer)|data\s*center\s+operations\s+technician|facilities\s+technician)\b/i;
 const excludedTitlePattern = /\b(?:talent community|senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman)\b/i;
+const stateCodes = new Set(['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']);
 
 function requiredExperienceText(description = '') {
   const text = clean(description);
@@ -38,23 +39,27 @@ function normalizeNumberWords(text = '') {
   return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => words[word] || word);
 }
 
-function statedExperienceYears(text = '') {
-  const normalized = normalizeNumberWords(text);
+function requiredExperienceMinimums(text = '') {
+  let remaining = normalizeNumberWords(text);
   const values = [];
-  const patterns = [
-    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+|technical\s+|work\s+)?experience/gi,
-    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+|technical\s+|work\s+)?experience/gi,
-    /(?:experience\s+(?:working\s+)?(?:within|in|with)?\s*)?(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?\b/gi,
-    /(\d{1,2})\s*(?:\+|or more)?\s+years?\s+(?:of\s+)?(?:data\s*center|critical\s+infrastructure|facilities|technical|relevant|related)?\s*experience\b/gi,
+  const rangePattern = /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+|technical\s+|work\s+|data\s*center\s+|critical\s+infrastructure\s+|facilities\s+)?experience/gi;
+  remaining = remaining.replace(rangePattern, (...args) => {
+    const minimum = Number(args[1]);
+    if (Number.isFinite(minimum)) values.push(minimum);
+    return ' ';
+  });
+
+  const singlePatterns = [
+    /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?['’]?(?:\s+(?:of|prior))?\s+(?:direct\s+|relevant\s+|related\s+|professional\s+|technical\s+|work\s+|data\s*center\s+|critical\s+infrastructure\s+|facilities\s+)?experience/gi,
     /experience.{0,45}?(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\s*(?:\+|or more)?\s+years?/gi
   ];
-  for (const pattern of patterns) {
-    for (const match of normalized.matchAll(pattern)) {
-      values.push(Number(match[1]));
-      if (match[2]) values.push(Number(match[2]));
+  for (const pattern of singlePatterns) {
+    for (const match of remaining.matchAll(pattern)) {
+      const minimum = Number(match[1]);
+      if (Number.isFinite(minimum)) values.push(minimum);
     }
   }
-  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
+  return values.filter(value => value >= 0 && value <= 50);
 }
 
 function classify(title, description = '') {
@@ -68,23 +73,37 @@ function classify(title, description = '') {
   else if (/trainee/i.test(t)) type = 'trainee';
 
   const required = requiredExperienceText(description);
-  const years = statedExperienceYears(required);
-  if (years.some(year => year > 5)) return { classification:null, reason:'over-5-years' };
-
   const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required/i.test(required);
-  if (!years.length && !explicitNoExperience && type === 'entry-level') {
+  const minimums = requiredExperienceMinimums(required);
+  if (!minimums.length && !explicitNoExperience && type === 'entry-level') {
     return { classification:null, reason:'unknown-experience' };
   }
 
+  const requiredMinimum = minimums.length ? Math.max(...minimums) : 0;
+  if (requiredMinimum > 5) return { classification:null, reason:'over-5-years' };
+
   let experience = '0-2-years';
-  if (explicitNoExperience) experience = 'no-experience';
-  else if (years.some(year => year >= 3)) experience = '2-5-years';
+  if (explicitNoExperience || requiredMinimum === 0) experience = 'no-experience';
+  else if (requiredMinimum >= 3) experience = '2-5-years';
 
   return { classification:{ type, experience }, reason:null };
 }
 
 function locationFor(job) {
-  return clean(job?.location?.name || job?.location || 'United States');
+  const raw = clean(job?.location?.name || job?.location || 'United States');
+  const aliases = new Map([
+    ['GA - Alpharetta (HUB)', 'Alpharetta, GA'],
+    ['NV - Las Vegas North', 'Las Vegas North, NV'],
+    ['OR - Portland Hillsboro 2', 'Hillsboro, OR']
+  ]);
+  if (aliases.has(raw)) return aliases.get(raw);
+
+  const prefixed = raw.match(/^([A-Z]{2})\s*[-–—]\s*(.+)$/);
+  if (prefixed && stateCodes.has(prefixed[1])) {
+    const site = clean(prefixed[2]).replace(/\s*\(HUB\)\s*$/i, '');
+    return site ? `${site}, ${prefixed[1]}` : raw;
+  }
+  return raw;
 }
 
 function payFor(description = '') {
@@ -152,9 +171,10 @@ async function readJson(path, fallback) {
 
 if (process.argv.includes('--test-classifier')) {
   const cases = [
-    ['Flexential DCT I 0-4 years', 'Data Center Technician I', 'Required Qualifications: 0-4 years of experience working within an IT or Data Center Support environment. Preferred Qualifications: 1 year of experience.', '2-5-years'],
-    ['Flexential CIE II 4+ years', 'Critical Infrastructure Engineer II', 'Required Qualifications: 2 years of data center experience. 4+ years of experience with critical infrastructure. Preferred Qualifications: 5+ years of experience.', '2-5-years'],
-    ['over-five rejected', 'Critical Infrastructure Engineer II', 'Required Qualifications: Minimum 6 years of experience in critical infrastructure.', null],
+    ['zero-to-four stays open to beginners', 'Data Center Technician I', 'Required Qualifications: 0-4 years of experience working within an IT or Data Center Support environment. Preferred Qualifications: 1 year of experience.', 'no-experience'],
+    ['two-to-five uses minimum requirement', 'Data Center Technician II', 'Required Qualifications: 2-5 years of relevant experience.', '0-2-years'],
+    ['multiple required clauses use strictest minimum', 'Critical Infrastructure Engineer II', 'Required Qualifications: 2 years of data center experience. 4+ years of critical infrastructure experience. Preferred Qualifications: 5+ years of experience.', '2-5-years'],
+    ['over-five rejected', 'Critical Infrastructure Engineer II', 'Required Qualifications: Minimum 6 years of critical infrastructure experience.', null],
     ['talent community rejected', 'Data Center Technician - Flexential Talent Community', 'Required Qualifications: 0-4 years of experience.', null],
     ['senior rejected', 'Senior Data Center Technician', 'Required Qualifications: 2 years of experience.', null],
     ['unknown rejected', 'Data Center Technician I', 'Support customers and operate data center infrastructure.', null]
@@ -212,12 +232,13 @@ for (const job of payload.jobs) {
 
   const sourceUrl = sourceUrlFor(job);
   if (!sourceUrl) { diagnostics.rejectedInvalidUrl += 1; continue; }
-  const id = clean(job?.id) || hash(`${title}|${locationFor(job)}`);
+  const location = locationFor(job);
+  const id = clean(job?.id) || hash(`${title}|${location}`);
   collected.push({
     id:`greenhouse-flexential-${id}`,
     title,
     company:COMPANY,
-    location:locationFor(job),
+    location,
     type:classification.type,
     experience:classification.experience,
     tags:tagsFor(title, description, classification.experience, classification.type),

@@ -6,6 +6,8 @@ const COMPANY = 'Oracle';
 const OFFICIAL_HOST = 'eeho.fa.us2.oraclecloud.com';
 const VALID_EXPERIENCE = new Set(['no-experience', '0-2-years', '2-5-years']);
 const SENIOR_TITLE = /(^|[^a-z])(senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|chief|supervisor|architect)([^a-z]|$)/i;
+const STRONG_DATA_CENTER_TITLE = /\b(data\s*center|data\s*centre|datacenter|critical facilities?|critical environments?)\b/i;
+const CLEARLY_NON_OPERATIONAL_TITLE = /\b(software|application|frontend|backend|full[ -]?stack|database|product|ux|ui|machine learning|data scientist)\b/i;
 
 async function readArray(path) {
   const value = JSON.parse(await readFile(path, 'utf8'));
@@ -29,9 +31,16 @@ function sourceUrl(job, context) {
   return parsed.href;
 }
 
+function parityProtected(job) {
+  const title = String(job?.title || '').trim();
+  if (STRONG_DATA_CENTER_TITLE.test(title)) return true;
+  return !CLEARLY_NON_OPERATIONAL_TITLE.test(title);
+}
+
 const snapshot = await readArray(SNAPSHOT_PATH);
 const jobs = await readArray(JOBS_PATH);
 const publicOracle = jobs.filter(job => String(job?.company || '').trim() === COMPANY);
+const protectedSnapshot = snapshot.filter(parityProtected);
 const violations = [];
 
 if (snapshot.length < 3) {
@@ -40,6 +49,7 @@ if (snapshot.length < 3) {
 
 const snapshotIds = new Set();
 const snapshotUrls = new Set();
+const protectedUrls = new Set();
 for (const job of snapshot) {
   const id = String(job?.id || '').trim();
   if (String(job?.company || '').trim() !== COMPANY) violations.push(`${id || '(missing id)'} belongs to another company`);
@@ -51,6 +61,7 @@ for (const job of snapshot) {
     const url = sourceUrl(job, 'Oracle snapshot');
     if (snapshotUrls.has(url)) violations.push(`duplicate Oracle snapshot URL: ${url}`);
     snapshotUrls.add(url);
+    if (parityProtected(job)) protectedUrls.add(url);
   } catch (error) {
     violations.push(error.message);
   }
@@ -83,15 +94,15 @@ for (const job of publicOracle) {
   }
 }
 
-if (publicOracle.length !== snapshot.length) {
-  violations.push(`Oracle snapshot/public feed count mismatch (${snapshot.length} snapshot vs ${publicOracle.length} public)`);
+if (publicOracle.length !== protectedSnapshot.length) {
+  violations.push(`Oracle mission-fit snapshot/public feed count mismatch (${protectedSnapshot.length} protected snapshot vs ${publicOracle.length} public)`);
 }
 
-for (const url of snapshotUrls) {
-  if (!publicUrls.has(url)) violations.push(`Oracle snapshot role missing from public feed: ${url}`);
+for (const url of protectedUrls) {
+  if (!publicUrls.has(url)) violations.push(`Mission-fit Oracle snapshot role missing from public feed: ${url}`);
 }
 for (const url of publicUrls) {
-  if (!snapshotUrls.has(url)) violations.push(`Public Oracle role is not present in the authoritative snapshot: ${url}`);
+  if (!protectedUrls.has(url)) violations.push(`Public Oracle role is not present in the mission-fit authoritative snapshot: ${url}`);
 }
 
 if (violations.length) {
@@ -99,4 +110,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} Oracle snapshot integrity violation(s).`);
 }
 
-console.log(`Oracle snapshot guard passed: ${snapshot.length} employer-direct roles match the public feed exactly.`);
+console.log(`Oracle snapshot guard passed: ${publicOracle.length} mission-fit employer-direct roles match the protected snapshot exactly; ${snapshot.length - protectedSnapshot.length} clearly non-operational candidate role(s) remain excluded.`);

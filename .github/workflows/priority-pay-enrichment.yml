@@ -74,9 +74,36 @@ jobs:
             exit 1
           fi
           git push origin HEAD:main
+          pushed_sha="$(git rev-parse HEAD)"
           echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "pushed_sha=$pushed_sha" >> "$GITHUB_OUTPUT"
       - name: Deploy recovered compensation
         if: steps.commit.outputs.jobs_changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true
+          EXPECTED_SHA: ${{ steps.commit.outputs.pushed_sha }}
+        run: |
+          set -euo pipefail
+
+          # A GITHUB_TOKEN-authored push does not start a new push workflow, so
+          # dispatch Pages explicitly. First wait until the Actions API resolves
+          # main to the exact compensation commit we just pushed; otherwise a
+          # fast dispatch can build the previous revision and create live drift.
+          resolved=false
+          remote_sha=''
+          for attempt in $(seq 1 15); do
+            remote_sha="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq '.object.sha')"
+            if [ "$remote_sha" = "$EXPECTED_SHA" ]; then
+              resolved=true
+              break
+            fi
+            echo "Waiting for GitHub API to resolve main to ${EXPECTED_SHA:0:8} (attempt ${attempt}/15; saw ${remote_sha:0:8})."
+            sleep 2
+          done
+
+          if [ "$resolved" != true ]; then
+            echo "::error::GitHub API did not resolve main to pushed compensation revision $EXPECTED_SHA; refusing to deploy an older revision."
+            exit 1
+          fi
+
+          gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

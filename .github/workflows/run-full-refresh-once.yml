@@ -1,0 +1,19 @@
+name: One-shot full refresh dispatch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run-full-refresh-once.yml'
+
+permissions:
+  actions: write
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch full production refresh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=false

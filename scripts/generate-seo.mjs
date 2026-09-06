@@ -8,6 +8,10 @@ const clean = value => String(value ?? '').replace(/\s+/g,' ').trim();
 const slugify = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70) || 'job';
 const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0,32)}-${String(job.id).replace(/[^a-zA-Z0-9]/g,'').slice(-10)}`;
 const json = value => JSON.stringify(value).replace(/</g,'\\u003c');
+const displayPay = value => {
+  const pay = clean(value);
+  return !pay || /^pay not listed$/i.test(pay) ? '' : pay;
+};
 
 async function getBaseUrl() {
   try {
@@ -108,13 +112,14 @@ function postedLabel(hours) {
 
 function card(job) {
   const internal = `${baseUrl}/jobs/${jobSlug(job)}/`;
+  const pay = displayPay(job.pay);
   return `<article class="seo-job-card">
     <div class="seo-job-main">
       <span class="seo-kicker">${esc(typeLabel(job.type))}</span>
       <h2><a href="${internal}">${esc(job.title)}</a></h2>
       <p class="seo-meta"><strong>${esc(job.company)}</strong> · ${esc(job.location)}</p>
       <div class="seo-tags"><span>${esc(experienceLabel(job.experience))}</span>${(job.tags || []).map(tag => `<span>${esc(tag)}</span>`).join('')}</div>
-      <p class="seo-pay">${esc(job.pay || 'Pay not listed')}</p>
+      ${pay ? `<p class="seo-pay">${esc(pay)}</p>` : ''}
     </div>
     <div class="seo-job-side"><span>${esc(postedLabel(job.postedHours))}</span><a href="${internal}">Job details →</a></div>
   </article>`;
@@ -197,11 +202,12 @@ async function generateJobPages() {
       directApply:false
     };
     Object.keys(schema).forEach(key => schema[key] === undefined && delete schema[key]);
+    const pay = displayPay(job.pay);
     const html = `${head({title:`${job.title} – ${job.company} | Data Center Careers`,description,canonical,schema:json(schema)})}<body>${siteHeader()}<main class="seo-shell seo-detail">
       <nav class="breadcrumbs"><a href="${baseUrl}/">Home</a> / <a href="${baseUrl}/jobs/">Jobs</a> / <span>${esc(job.title)}</span></nav>
       <article class="seo-detail-card"><span class="seo-kicker">${esc(typeLabel(job.type))}</span><h1>${esc(job.title)}</h1><p class="seo-meta"><strong>${esc(job.company)}</strong> · ${esc(job.location)}</p>
       <div class="seo-tags"><span>${esc(experienceLabel(job.experience))}</span>${(job.tags || []).map(tag=>`<span>${esc(tag)}</span>`).join('')}</div>
-      <p class="seo-pay">${esc(job.pay || 'Pay not listed')}</p>
+      ${pay ? `<p class="seo-pay">${esc(pay)}</p>` : ''}
       <p>${esc(description)}</p>
       <a class="seo-apply" href="${esc(job.sourceUrl)}" rel="nofollow noopener" target="_blank">View & apply on employer site →</a>
       <p class="seo-source">Listing source: employer career site. We link directly to the employer so applicants can verify the current posting.</p></article>

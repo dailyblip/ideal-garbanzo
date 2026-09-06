@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T00:55:09.782Z",
+  "updatedAt": "2026-09-06T04:03:37.901Z",
   "jobs": 567,
   "sourcesAttempted": 48,
   "providers": {
@@ -271,7 +271,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T00:55:09.910Z",
+    "updatedAt": "2026-09-06T04:03:38.003Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 567,
@@ -290,7 +290,7 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T00:55:30.643Z",
+    "checkedAt": "2026-09-06T04:03:58.508Z",
     "publishedJobs": 567,
     "removedJobs": 0,
     "activeCareerEvents": 6
@@ -646,7 +646,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T00:55:09.972Z",
+    "checkedAt": "2026-09-06T04:03:38.041Z",
     "before": 567,
     "after": 567,
     "removed": 0,
@@ -657,11 +657,11 @@
     "trackedJobs": 609,
     "currentJobs": 567,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 3,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T00:55:34.633Z"
+    "updatedAt": "2026-09-06T04:04:02.771Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +757,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T00:55:09.843Z",
+    "checkedAt": "2026-09-06T04:03:37.952Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1378,7 +1378,7 @@
     "rejectedUnknownExperience": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-05T22:50:53.728Z",
+    "checkedAt": "2026-09-06T04:03:37.901Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",

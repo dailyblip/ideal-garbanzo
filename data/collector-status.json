@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T05:08:24.183Z",
+  "updatedAt": "2026-09-06T08:50:35.241Z",
   "jobs": 567,
   "sourcesAttempted": 48,
   "providers": {
@@ -13,10 +13,10 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 542,
     "trainee": 10,
+    "apprenticeship": 11,
     "internship": 4,
-    "apprenticeship": 11
+    "entry-level": 542
   },
   "countsByExperience": {
     "2-5-years": 150,
@@ -193,10 +193,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 5,
-      "qualifyingRoles": 0,
+      "staleRemoved": 4,
+      "qualifyingRoles": 1,
       "drops": {
-        "non-us": 10,
+        "non-us": 9,
         "unknown-experience": 8,
         "context": 2,
         "title": 13
@@ -225,10 +225,6 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
         },
         {
-          "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
-        },
-        {
           "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
@@ -239,6 +235,10 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -250,8 +250,8 @@
       "listingPagesAttempted": 11,
       "listingPagesSucceeded": 11,
       "candidateLinks": 7,
-      "recoveredCandidates": 5,
-      "verifiedSeeded": 2,
+      "recoveredCandidates": 4,
+      "verifiedSeeded": 3,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-05",
       "detailAttempted": 7,
@@ -271,7 +271,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T06:48:39.802Z",
+    "updatedAt": "2026-09-06T08:50:35.326Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 567,
@@ -279,14 +279,14 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "mid-atlantic": 101,
-      "midwest": 103,
       "west": 75,
-      "southeast": 92,
-      "southwest": 68,
-      "nationwide": 1,
       "texas": 113,
-      "northeast": 14
+      "midwest": 103,
+      "southwest": 68,
+      "mid-atlantic": 101,
+      "southeast": 92,
+      "northeast": 14,
+      "nationwide": 1
     }
   },
   "postQa": {
@@ -646,7 +646,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T06:48:39.844Z",
+    "checkedAt": "2026-09-06T08:50:35.391Z",
     "before": 567,
     "after": 567,
     "removed": 0,
@@ -657,11 +657,11 @@
     "trackedJobs": 609,
     "currentJobs": 567,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 9,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T06:48:58.672Z"
+    "updatedAt": "2026-09-06T08:50:35.463Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -887,7 +887,7 @@
     "rolesVerified": 5,
     "liveChecksPassed": 5,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 5,
     "retainedManaged": 5,

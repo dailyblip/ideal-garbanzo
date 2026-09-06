@@ -55,6 +55,7 @@ const protectedSnapshots = [
   { company: 'Meta', path: 'data/meta-jobs.json', enforceRetentionRatio: false },
   { company: 'Oracle', path: 'data/oracle-jobs.json', enforceRetentionRatio: true },
   { company: 'Digital Realty', path: 'data/digital-realty-jobs.json', enforceRetentionRatio: true },
+  { company: 'Iron Mountain', path: 'data/iron-mountain-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'Flexential', path: 'data/flexential-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'T5 Data Centers', path: 'data/t5-data-centers-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'Stream Data Centers', path: 'data/stream-data-centers-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },

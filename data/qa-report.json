@@ -1,12 +1,31 @@
 {
-  "checkedAt": "2026-09-06T06:48:58.555Z",
-  "jobsBefore": 567,
-  "jobsAfter": 567,
+  "checkedAt": "2026-09-06T09:12:08.067Z",
+  "jobsBefore": 574,
+  "jobsAfter": 572,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10522468",
+      "company": "Amazon Web Services",
+      "title": "Clearable Engineering Operations Tech, AWS Cleared Jobs",
+      "url": "https://www.amazon.jobs/en/jobs/10522468/clearable-engineering-operations-tech-aws-cleared-jobs",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10522468/clearable-engineering-operations-tech-aws-cleared-jobs"
+    },
+    {
+      "id": "amazon-10485113",
+      "company": "Amazon Web Services",
+      "title": "Data Center Generator Tech Ops Engineer",
+      "url": "https://www.amazon.jobs/en/jobs/10485113/data-center-generator-tech-ops-engineer",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10485113/data-center-generator-tech-ops-engineer"
+    }
+  ],
   "blockedJobLinks": [
     {
       "id": "coresite-17818219",
@@ -36,6 +55,24 @@
       "finalUrl": "https://jobs.coresite.com/jobs/17818221-skillbridge-data-center-operations-technician-internship"
     },
     {
+      "id": "coresite-17818222",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship"
+    },
+    {
+      "id": "coresite-18085845",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship"
+    },
+    {
       "id": "coresite-18083157",
       "company": "CoreSite",
       "title": "Data Center Operations Technician II (Night) (SV9)",
@@ -52,6 +89,51 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
+    },
+    {
+      "id": "coresite-17781601",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer II (Swing) (NY2)",
+      "url": "https://jobs.coresite.com/jobs/17781601-critical-operations-engineer-ii-swing-ny2",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17781601-critical-operations-engineer-ii-swing-ny2"
+    },
+    {
+      "id": "coresite-17781587",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (Night) (CH2)",
+      "url": "https://jobs.coresite.com/jobs/17781587-critical-operations-engineer-i-night-ch2",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17781587-critical-operations-engineer-i-night-ch2"
+    },
+    {
+      "id": "coresite-18119051",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (SV4) (Night)",
+      "url": "https://jobs.coresite.com/jobs/18119051-critical-operations-engineer-i-sv4-night",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18119051-critical-operations-engineer-i-sv4-night"
+    },
+    {
+      "id": "coresite-18106481",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (Swing) (LA2)",
+      "url": "https://jobs.coresite.com/jobs/18106481-critical-operations-engineer-i-swing-la2",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18106481-critical-operations-engineer-i-swing-la2"
+    },
+    {
+      "id": "coresite-17900857",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (Swing) (MI2)",
+      "url": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2"
     }
   ],
   "transientJobLinks": [],

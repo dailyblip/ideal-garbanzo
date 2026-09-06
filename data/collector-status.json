@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T19:38:52.751Z",
+  "updatedAt": "2026-09-06T19:42:02.376Z",
   "jobs": 370,
   "sourcesAttempted": 53,
   "providers": {
@@ -111,15 +111,15 @@
         "query": "critical environment technician",
         "healthy": true,
         "pages": 24,
-        "reportedRows": 233,
-        "rows": 233
+        "reportedRows": 234,
+        "rows": 234
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 28,
-        "reportedRows": 273,
-        "rows": 273
+        "reportedRows": 274,
+        "rows": 274
       },
       {
         "query": "inventory and asset technician",
@@ -129,7 +129,7 @@
         "rows": 15
       }
     ],
-    "candidateRows": 353,
+    "candidateRows": 354,
     "plausibleRows": 34,
     "detailAttempts": 34,
     "detailVerified": 34,
@@ -146,8 +146,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-06T10:45:26.833Z",
-      "expiresAt": "2026-09-13T10:45:26.833Z",
+      "verifiedAt": "2026-09-06T19:42:02.429Z",
+      "expiresAt": "2026-09-13T19:42:02.429Z",
       "roles": 33,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -286,22 +286,22 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T19:38:53.041Z",
+    "updatedAt": "2026-09-06T19:42:02.547Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 370,
+    "regionAssigned": 424,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 48,
-      "midwest": 62,
-      "mid-atlantic": 53,
-      "southeast": 79,
-      "southwest": 49,
+      "west": 52,
+      "southeast": 87,
+      "mid-atlantic": 58,
+      "midwest": 77,
       "nationwide": 1,
-      "texas": 68,
-      "northeast": 10
+      "texas": 80,
+      "southwest": 58,
+      "northeast": 11
     }
   },
   "postQa": {
@@ -542,12 +542,116 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T19:38:53.081Z",
-    "before": 411,
+    "checkedAt": "2026-09-06T19:42:02.609Z",
+    "before": 424,
     "after": 370,
-    "removed": 41,
+    "removed": 54,
     "policy": "one representative posting per normalized employer + title",
     "examples": [
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556980027",
+        "keptId": "microsoft-1970393556989023",
+        "company": "Microsoft",
+        "title": "Data Center Technician",
+        "location": "Des Moines, IA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556972020",
+        "keptId": "microsoft-1970393556989023",
+        "company": "Microsoft",
+        "title": "Data Center Technician",
+        "location": "Des Moines, IA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556971332",
+        "keptId": "microsoft-1970393556989023",
+        "company": "Microsoft",
+        "title": "Data Center Technician",
+        "location": "Des Moines, IA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556981902",
+        "keptId": "microsoft-1970393556989023",
+        "company": "Microsoft",
+        "title": "Data Center Technician",
+        "location": "Des Moines, IA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556874606",
+        "keptId": "microsoft-1970393556983019",
+        "company": "Microsoft",
+        "title": "Logistics Technician - CTJ - Top Secret",
+        "location": "Manassas, VA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556958315",
+        "keptId": "microsoft-1970393556984939",
+        "company": "Microsoft",
+        "title": "Critical Environment Technician",
+        "location": "Quincy, WA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556971318",
+        "keptId": "microsoft-1970393556984939",
+        "company": "Microsoft",
+        "title": "Critical Environment Technician",
+        "location": "Quincy, WA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556864979",
+        "keptId": "microsoft-1970393556938957",
+        "company": "Microsoft",
+        "title": "Critical Environment Technician - CTJ - Poly",
+        "location": "US, MD"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556952671",
+        "keptId": "microsoft-1970393556984169",
+        "company": "Microsoft",
+        "title": "Data Center Technician (NightShift) - CTJ - Poly",
+        "location": "US, MD"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556928879",
+        "keptId": "microsoft-1970393556952670",
+        "company": "Microsoft",
+        "title": "Critical Environment Mechanical Engineer",
+        "location": "Atlanta, GA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556928782",
+        "keptId": "microsoft-1970393556952670",
+        "company": "Microsoft",
+        "title": "Critical Environment Mechanical Engineer",
+        "location": "Atlanta, GA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556928892",
+        "keptId": "microsoft-1970393556928891",
+        "company": "Microsoft",
+        "title": "Critical Environment Electrical Engineer",
+        "location": "Phoenix, AZ"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "microsoft-1970393556981778",
+        "keptId": "microsoft-1970393556928891",
+        "company": "Microsoft",
+        "title": "Critical Environment Electrical Engineer",
+        "location": "Phoenix, AZ"
+      },
       {
         "reason": "same-company-title",
         "removedId": "icims-tierpoint-3041",
@@ -603,110 +707,6 @@
         "company": "TierPoint",
         "title": "MEP Technician II",
         "location": "Charlotte, NC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workable-stream-dc-62B4F3BCF5",
-        "keptId": "workable-stream-dc-CDC5638BF1",
-        "company": "Stream Data Centers",
-        "title": "Critical Engineering Technician",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workable-stream-dc-CDC5638BF1",
-        "keptId": "workable-stream-dc-C4755E8B9E",
-        "company": "Stream Data Centers",
-        "title": "Critical Engineering Technician, Day Shift",
-        "location": "San Antonio, Texas"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workable-stream-dc-5B9BD8650E",
-        "keptId": "workable-stream-dc-C4755E8B9E",
-        "company": "Stream Data Centers",
-        "title": "Critical Engineering Technician, Day Shift",
-        "location": "San Antonio, Texas"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workable-stream-dc-5FBD18EE51",
-        "keptId": "workable-stream-dc-C4755E8B9E",
-        "company": "Stream Data Centers",
-        "title": "Critical Engineering Technician, Day Shift",
-        "location": "San Antonio, Texas"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3430787",
-        "keptId": "switch-3644869",
-        "company": "Switch",
-        "title": "DCO Facilities Technician I",
-        "location": "Keep Campus - Atlanta, GA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3644869",
-        "keptId": "switch-3710636",
-        "company": "Switch",
-        "title": "DCO Facilities Technician I",
-        "location": "Data Foundry - Austin, TX"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3644621",
-        "keptId": "switch-3756777",
-        "company": "Switch",
-        "title": "DCO Facilities Technician II",
-        "location": "Citadel Campus - Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3696630",
-        "keptId": "switch-3762485",
-        "company": "Switch",
-        "title": "Data Center Structured Cabling Technician",
-        "location": "Data Foundry - Austin, TX"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3774043",
-        "keptId": "switch-3783696",
-        "company": "Switch",
-        "title": "Mission Control Technician",
-        "location": "Keep Campus - Atlanta, GA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3776443",
-        "keptId": "switch-3789333",
-        "company": "Switch",
-        "title": "Network Infrastructure Technician I",
-        "location": "Pyramid Campus - Grand Rapids, MI"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3710636",
-        "keptId": "switch-3789601",
-        "company": "Switch",
-        "title": "DCO Facilities Technician I",
-        "location": "Citadel Campus - Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3734125",
-        "keptId": "switch-3801217",
-        "company": "Switch",
-        "title": "DCO Facilities Technician III",
-        "location": "Core - Las Vegas, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3789333",
-        "keptId": "switch-3803666",
-        "company": "Switch",
-        "title": "Network Infrastructure Technician I",
-        "location": "Citadel Campus - Reno, NV"
       }
     ]
   },
@@ -719,7 +719,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T19:39:07.702Z"
+    "updatedAt": "2026-09-06T19:42:02.665Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -816,7 +816,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T19:38:52.997Z",
+    "checkedAt": "2026-09-06T19:42:02.484Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

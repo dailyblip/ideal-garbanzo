@@ -1,0 +1,84 @@
+name: Bootstrap Google Careers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/google-bootstrap.yml'
+      - 'scripts/collect-google-careers.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-priority-employer-sources.mjs'
+  workflow_dispatch:
+  schedule:
+    - cron: '41 */12 * * *'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: google-careers-bootstrap
+  cancel-in-progress: true
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect official Google Careers roles
+        run: node scripts/collect-google-careers.mjs
+      - name: Confirm collector merged the Google snapshot
+        run: |
+          node - <<'NODE'
+          const jobs = require('./data/jobs.json');
+          const snapshot = require('./data/google-jobs.json');
+          const publicGoogle = jobs.filter(job => job.company === 'Google');
+          if (publicGoogle.length !== snapshot.length) {
+            throw new Error(`Google collector merge mismatch: ${snapshot.length} snapshot vs ${publicGoogle.length} public immediately after collection`);
+          }
+          console.log(`Google collector merge: ${publicGoogle.length}/${snapshot.length} roles present.`);
+          NODE
+      - name: Enforce mission-fit role families
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize locations and regions
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Persist first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate refreshed feed and Google parity
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Commit Google snapshot when changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- data/google-jobs.json data/jobs.json data/job-history.json data/collector-status.json)" ]; then
+            echo "No Google Careers data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/google-jobs.json data/jobs.json data/job-history.json data/collector-status.json
+          git commit -m "Bootstrap verified Google Careers roles"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy committed Google data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

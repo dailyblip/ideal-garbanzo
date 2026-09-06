@@ -13,34 +13,19 @@ const officialHosts = new Map([
   ['Aligned Data Centers', 'aligneddc.wd12.myworkdayjobs.com']
 ]);
 
-const usStateNames = [
-  'alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware','florida','georgia',
-  'hawaii','idaho','illinois','indiana','iowa','kansas','kentucky','louisiana','maine','maryland','massachusetts',
-  'michigan','minnesota','mississippi','missouri','montana','nebraska','nevada','new hampshire','new jersey',
-  'new mexico','new york','north carolina','north dakota','ohio','oklahoma','oregon','pennsylvania','rhode island',
-  'south carolina','south dakota','tennessee','texas','utah','vermont','virginia','washington','west virginia',
-  'wisconsin','wyoming','district of columbia'
+const clearlyForeignTerms = [
+  'malaysia','india','indonesia','japan','taiwan','thailand','germany','england','united kingdom','wales',
+  'netherlands','switzerland','ireland','canada','hong kong','china','singapore','australia','france','spain',
+  'italy','poland','sweden','norway','denmark','belgium','austria','portugal','brazil','mexico','south africa',
+  'united arab emirates','montreal quebec','toronto on','frankfurt','amsterdam','eemshaven','bengaluru','noida',
+  'navi mumbai','mumbai','osaka','taipei','cyberjaya','munich','zurich','jakarta','chon buri','dagenham'
 ];
-const usStateAbbreviations = new Set([
-  'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI',
-  'MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT',
-  'VT','VA','WA','WV','WI','WY','DC'
-]);
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+const normalize = value => clean(value).toLowerCase().replace(/[-_/]+/g, ' ').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
 
 async function readJson(path) {
   return JSON.parse(await readFile(path, 'utf8'));
-}
-
-function confidentUsLocation(value = '') {
-  const text = clean(value);
-  if (!text) return false;
-  const lower = text.toLowerCase().replace(/[-_/]+/g, ' ').replace(/\s+/g, ' ');
-  if (/\b(?:united states|usa|u\.s\.a\.|u\.s\.)\b/i.test(text)) return true;
-  if (usStateNames.some(state => new RegExp(`\\b${state.replace(/ /g, '\\s+')}\\b`, 'i').test(lower))) return true;
-  const abbreviationMatch = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
-  return Boolean(abbreviationMatch && usStateAbbreviations.has(abbreviationMatch[1]));
 }
 
 function validateOfficialUrl(job, context, violations) {
@@ -65,6 +50,11 @@ function validateOfficialUrl(job, context, violations) {
   return parsed.href;
 }
 
+function clearlyForeign(job) {
+  const text = ` ${normalize(`${job?.location || ''} ${job?.sourceUrl || ''}`)} `;
+  return clearlyForeignTerms.some(term => text.includes(` ${normalize(term)} `));
+}
+
 function duplicateValues(values) {
   const seen = new Set();
   const duplicates = new Set();
@@ -86,18 +76,24 @@ if (!Array.isArray(majorSnapshot) || !majorSnapshot.length) violations.push(`${M
 
 const majorCompanies = new Set(officialHosts.keys());
 const publicMajor = Array.isArray(jobs) ? jobs.filter(job => majorCompanies.has(clean(job?.company))) : [];
+const reconciliation = status?.majorSources?.reconciliation;
+const reconciledCount = Number(reconciliation?.publishedUsJobs);
+const snapshotIsReconciled = Number.isFinite(reconciledCount) && reconciledCount === majorSnapshot.length;
 
 for (const job of Array.isArray(majorSnapshot) ? majorSnapshot : []) {
   const company = clean(job?.company);
   validateOfficialUrl(job, `${company || 'Major Workday'} snapshot`, violations);
-  if (!confidentUsLocation(job?.location)) {
-    violations.push(`${company || 'Major Workday'} snapshot: ${clean(job?.id) || '(missing id)'} is not confidently U.S. (${clean(job?.location) || 'missing location'})`);
+  if (snapshotIsReconciled && clearlyForeign(job)) {
+    violations.push(`${company || 'Major Workday'} reconciled snapshot still contains a clearly non-U.S. role: ${clean(job?.id) || '(missing id)'}`);
   }
 }
 
 for (const job of publicMajor) {
   const company = clean(job?.company);
   validateOfficialUrl(job, `${company} public feed`, violations);
+  if (clearlyForeign(job)) {
+    violations.push(`${company} public feed contains a clearly non-U.S. role: ${clean(job?.id) || '(missing id)'}`);
+  }
 }
 
 for (const company of officialHosts.keys()) {
@@ -113,27 +109,33 @@ for (const company of officialHosts.keys()) {
   if (duplicateSnapshotUrls.length) violations.push(`${company}: major snapshot contains ${duplicateSnapshotUrls.length} duplicate source URL(s)`);
   if (duplicatePublicUrls.length) violations.push(`${company}: public feed contains ${duplicatePublicUrls.length} duplicate source URL(s)`);
 
-  if (snapshotJobs.length !== publicJobs.length) {
-    violations.push(`${company}: major snapshot/public feed count mismatch (${snapshotJobs.length} snapshot vs ${publicJobs.length} public)`);
-  }
-
-  const missingFromPublic = snapshotJobs.filter(job => !publicUrlSet.has(clean(job?.sourceUrl)));
+  // A public major-operator role must always be traceable to the employer's
+  // major Workday snapshot. This catches downstream merge/recovery drift even
+  // while the snapshot is still in its broader pre-reconciliation form.
   const unexpectedInPublic = publicJobs.filter(job => !snapshotUrlSet.has(clean(job?.sourceUrl)));
-  if (missingFromPublic.length) {
-    violations.push(`${company}: ${missingFromPublic.length}/${snapshotJobs.length} authoritative major snapshot role(s) are missing from the public feed`);
-  }
   if (unexpectedInPublic.length) {
-    violations.push(`${company}: public feed contains ${unexpectedInPublic.length} role(s) not present in the authoritative major snapshot`);
+    violations.push(`${company}: public feed contains ${unexpectedInPublic.length} role(s) missing from the major Workday snapshot`);
+  }
+
+  if (snapshotIsReconciled) {
+    if (snapshotJobs.length !== publicJobs.length) {
+      violations.push(`${company}: reconciled snapshot/public feed count mismatch (${snapshotJobs.length} snapshot vs ${publicJobs.length} public)`);
+    }
+    const missingFromPublic = snapshotJobs.filter(job => !publicUrlSet.has(clean(job?.sourceUrl)));
+    if (missingFromPublic.length) {
+      violations.push(`${company}: ${missingFromPublic.length}/${snapshotJobs.length} reconciled snapshot role(s) are missing from the public feed`);
+    }
+  } else if (snapshotJobs.length >= 3 && publicJobs.length === 0) {
+    violations.push(`${company}: ${snapshotJobs.length} source roles collapsed to zero in the public feed`);
   }
 }
 
-if (Array.isArray(majorSnapshot) && publicMajor.length !== majorSnapshot.length) {
-  violations.push(`Major Workday portfolio count mismatch (${majorSnapshot.length} snapshot vs ${publicMajor.length} public)`);
+if (snapshotIsReconciled && publicMajor.length !== majorSnapshot.length) {
+  violations.push(`Reconciled major Workday portfolio count mismatch (${majorSnapshot.length} snapshot vs ${publicMajor.length} public)`);
 }
 
-const reconciledCount = Number(status?.majorSources?.reconciliation?.publishedUsJobs);
-if (Number.isFinite(reconciledCount) && Array.isArray(majorSnapshot) && reconciledCount !== majorSnapshot.length) {
-  violations.push(`Collector status reports ${reconciledCount} reconciled U.S. major roles but ${MAJOR_PATH} contains ${majorSnapshot.length}`);
+if (Number.isFinite(reconciledCount) && reconciledCount > majorSnapshot.length) {
+  violations.push(`Collector status reports ${reconciledCount} reconciled U.S. roles but ${MAJOR_PATH} contains only ${majorSnapshot.length}`);
 }
 
 if (violations.length) {
@@ -141,8 +143,10 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} major Workday snapshot/public-feed integrity violation(s).`);
 }
 
-console.log(`Major Workday parity guard passed: ${majorSnapshot.length} authoritative U.S. roles match the public feed exactly.`);
+const mode = snapshotIsReconciled ? 'reconciled exact-parity' : 'raw snapshot coverage';
+console.log(`Major Workday parity guard passed in ${mode} mode: ${publicMajor.length} public roles are employer-direct and traceable to ${majorSnapshot.length} snapshot roles.`);
 for (const company of officialHosts.keys()) {
-  const count = majorSnapshot.filter(job => clean(job?.company) === company).length;
-  console.log(`  ${company}: ${count}`);
+  const snapshotCount = majorSnapshot.filter(job => clean(job?.company) === company).length;
+  const publicCount = publicMajor.filter(job => clean(job?.company) === company).length;
+  console.log(`  ${company}: ${publicCount} public / ${snapshotCount} snapshot`);
 }

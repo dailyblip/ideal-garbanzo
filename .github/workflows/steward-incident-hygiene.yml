@@ -5,6 +5,8 @@ on:
     workflows: ["Refresh jobs and deploy site"]
     types: [completed]
   workflow_dispatch:
+  schedule:
+    - cron: '23 */6 * * *'
 
 permissions:
   actions: read
@@ -17,21 +19,20 @@ concurrency:
 
 jobs:
   close-superseded-incidents:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Close incidents superseded by a healthy pipeline
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
-          EVENT_RUN_ID: ${{ github.event.workflow_run.id }}
         run: |
           set -euo pipefail
 
-          current_run="${EVENT_RUN_ID:-}"
-          if [ -z "$current_run" ]; then
-            current_run="$(gh api "repos/${REPO}/actions/workflows/pages.yml/runs?status=success&per_page=1" --jq '.workflow_runs[0].id // empty')"
-          fi
+          # Always reconcile against the newest successful deployment on main.
+          # Do not trust the triggering workflow_run alone: rapid refreshes can
+          # cancel/supersede one another, and workflow_run events can therefore
+          # arrive out of order or with a non-success conclusion.
+          current_run="$(gh api "repos/${REPO}/actions/workflows/pages.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].id // empty')"
 
           if [ -z "$current_run" ]; then
             echo "No successful refresh/deploy run is available; leaving incidents open."

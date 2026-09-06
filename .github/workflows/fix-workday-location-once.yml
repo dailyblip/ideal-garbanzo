@@ -25,6 +25,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
 
           collector = Path('scripts/collect-major-jobs.mjs')
           text = collector.read_text()
@@ -67,28 +68,30 @@ jobs:
 
           guard = Path('scripts/validate-refresh-health.mjs')
           text = guard.read_text()
-          old = """    if (previousCount >= 15 && currentCount < Math.ceil(previousCount * 0.25)) {
-              problems.push(`${company} dropped from ${previousCount} to ${currentCount} qualifying jobs in one refresh.`);
-            }
-          """
-          new = """    if (previousCount >= 15 && currentCount < Math.ceil(previousCount * 0.25)) {
-              const currentDiagnostic = status?.majorSources?.employerDiagnostics?.[company];
-              const previousHadDiagnostics = Boolean(previousStatus?.majorSources?.employerDiagnostics?.[company]);
-              const firstDetailHydratedBaseline = !previousHadDiagnostics &&
-                currentDiagnostic?.sourceHealthy === true &&
-                currentDiagnostic?.listingComplete === true &&
-                currentDiagnostic?.usedPreviousSnapshot === false;
-              if (firstDetailHydratedBaseline) {
-                warnings.push(`${company} re-baselined from ${previousCount} to ${currentCount} after the first complete detail-hydrated Workday scan; future drops remain guarded.`);
-              } else {
-                problems.push(`${company} dropped from ${previousCount} to ${currentCount} qualifying jobs in one refresh.`);
-              }
-            }
-          """
           if 'firstDetailHydratedBaseline' not in text:
-              if old not in text:
+              pattern = re.compile(
+                  r"(?P<indent>\s*)if \(previousCount >= 15 && currentCount < Math\.ceil\(previousCount \* 0\.25\)\) \{\n"
+                  r"(?P=indent)  problems\.push\(`\$\{company\} dropped from \$\{previousCount\} to \$\{currentCount\} qualifying jobs in one refresh\.`\);\n"
+                  r"(?P=indent)\}"
+              )
+              match = pattern.search(text)
+              if not match:
                   raise SystemExit('Refresh-health major-employer guard drifted')
-              text = text.replace(old, new, 1)
+              indent = match.group('indent')
+              replacement = f"""{indent}if (previousCount >= 15 && currentCount < Math.ceil(previousCount * 0.25)) {{
+          {indent}  const currentDiagnostic = status?.majorSources?.employerDiagnostics?.[company];
+          {indent}  const previousHadDiagnostics = Boolean(previousStatus?.majorSources?.employerDiagnostics?.[company]);
+          {indent}  const firstDetailHydratedBaseline = !previousHadDiagnostics &&
+          {indent}    currentDiagnostic?.sourceHealthy === true &&
+          {indent}    currentDiagnostic?.listingComplete === true &&
+          {indent}    currentDiagnostic?.usedPreviousSnapshot === false;
+          {indent}  if (firstDetailHydratedBaseline) {{
+          {indent}    warnings.push(`${{company}} re-baselined from ${{previousCount}} to ${{currentCount}} after the first complete detail-hydrated Workday scan; future drops remain guarded.`);
+          {indent}  }} else {{
+          {indent}    problems.push(`${{company}} dropped from ${{previousCount}} to ${{currentCount}} qualifying jobs in one refresh.`);
+          {indent}  }}
+          {indent}}}"""
+              text = pattern.sub(replacement, text, count=1)
               guard.write_text(text)
           PY
 

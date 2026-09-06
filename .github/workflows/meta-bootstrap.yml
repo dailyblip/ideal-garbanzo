@@ -9,6 +9,7 @@ on:
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-meta-snapshot.mjs'
 
 permissions:
   actions: write
@@ -43,6 +44,7 @@ jobs:
         run: |
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
+          node scripts/validate-meta-snapshot.mjs
           node scripts/validate-homepage-contract.mjs
       - name: Commit Meta snapshot when changed
         id: commit

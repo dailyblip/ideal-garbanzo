@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T21:48:54.637Z",
+  "updatedAt": "2026-09-06T22:43:48.011Z",
   "jobs": 400,
   "sourcesAttempted": 53,
   "providers": {
@@ -1804,5 +1804,81 @@
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0,
     "rejectedInvalidUrl": 0
+  },
+  "priorityPayEnrichment": {
+    "checkedAt": "2026-09-06T22:43:48.011Z",
+    "candidates": 61,
+    "fetched": 60,
+    "payRecovered": 0,
+    "jsonLdRecovered": 0,
+    "textRecovered": 0,
+    "blankLabelsCleared": 0,
+    "changedRecords": 0,
+    "byCompany": {
+      "CyrusOne": {
+        "candidates": 9,
+        "fetched": 9,
+        "recovered": 0,
+        "errors": 0
+      },
+      "Amazon Web Services": {
+        "candidates": 11,
+        "fetched": 11,
+        "recovered": 0,
+        "errors": 0
+      },
+      "Digital Realty": {
+        "candidates": 1,
+        "fetched": 1,
+        "recovered": 0,
+        "errors": 0
+      },
+      "Vantage Data Centers": {
+        "candidates": 4,
+        "fetched": 4,
+        "recovered": 0,
+        "errors": 0
+      },
+      "QTS Data Centers": {
+        "candidates": 22,
+        "fetched": 22,
+        "recovered": 0,
+        "errors": 0
+      },
+      "Aligned Data Centers": {
+        "candidates": 3,
+        "fetched": 3,
+        "recovered": 0,
+        "errors": 0
+      },
+      "STACK Infrastructure": {
+        "candidates": 1,
+        "fetched": 1,
+        "recovered": 0,
+        "errors": 0
+      },
+      "NTT Global Data Centers": {
+        "candidates": 4,
+        "fetched": 4,
+        "recovered": 0,
+        "errors": 0
+      },
+      "Equinix": {
+        "candidates": 5,
+        "fetched": 5,
+        "recovered": 0,
+        "errors": 0
+      },
+      "CoreSite": {
+        "candidates": 1,
+        "fetched": 0,
+        "recovered": 0,
+        "errors": 1
+      }
+    },
+    "samples": [],
+    "errors": [
+      "CoreSite: coresite-17818219: 403 https://jobs.coresite.com/jobs/17818219-skillbridge-data-center-operations-technician-internship"
+    ]
   }
 }

@@ -131,7 +131,18 @@ if (Array.isArray(previousMajor) && previousMajor.length >= 30) {
       continue;
     }
     if (previousCount >= 15 && currentCount < Math.ceil(previousCount * 0.25)) {
-      problems.push(`${company} dropped from ${previousCount} to ${currentCount} qualifying jobs in one refresh.`);
+      const currentDiagnostic = status?.majorSources?.employerDiagnostics?.[company];
+      const previousHadDiagnostics = Boolean(previousStatus?.majorSources?.employerDiagnostics?.[company]);
+      const firstDetailHydratedBaseline = !previousHadDiagnostics &&
+        currentDiagnostic?.sourceHealthy === true &&
+        currentDiagnostic?.listingComplete === true &&
+        currentDiagnostic?.usedPreviousSnapshot === false;
+
+      if (firstDetailHydratedBaseline) {
+        warnings.push(`${company} re-baselined from ${previousCount} to ${currentCount} after the first complete detail-hydrated Workday scan; future drops remain guarded.`);
+      } else {
+        problems.push(`${company} dropped from ${previousCount} to ${currentCount} qualifying jobs in one refresh.`);
+      }
     }
   }
 }

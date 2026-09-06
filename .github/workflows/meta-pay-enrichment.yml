@@ -17,7 +17,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: meta-compensation-enrichment
+  group: meta-compensation-enrichment-${{ github.event_name }}-${{ github.event_name == 'workflow_run' && github.event.workflow_run.name || 'direct' }}-${{ github.event_name == 'workflow_run' && github.event.workflow_run.event || 'push' }}
   cancel-in-progress: true
 
 jobs:

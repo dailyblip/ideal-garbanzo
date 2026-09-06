@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T15:43:09.569Z",
+  "updatedAt": "2026-09-06T15:49:23.138Z",
   "jobs": 604,
   "sourcesAttempted": 50,
   "providers": {
@@ -280,7 +280,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T15:43:10.237Z",
+    "updatedAt": "2026-09-06T15:49:23.304Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 604,
@@ -299,7 +299,7 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T15:43:28.596Z",
+    "checkedAt": "2026-09-06T15:49:42.305Z",
     "publishedJobs": 604,
     "removedJobs": 0,
     "activeCareerEvents": 6
@@ -536,7 +536,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T15:43:10.285Z",
+    "checkedAt": "2026-09-06T15:49:23.359Z",
     "before": 604,
     "after": 604,
     "removed": 0,
@@ -551,7 +551,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T15:43:33.508Z"
+    "updatedAt": "2026-09-06T15:49:42.450Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -647,7 +647,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T15:43:10.179Z",
+    "checkedAt": "2026-09-06T15:49:23.202Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1289,7 +1289,7 @@
     "detailErrors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-06T05:08:24.183Z",
+    "checkedAt": "2026-09-06T15:49:23.138Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",

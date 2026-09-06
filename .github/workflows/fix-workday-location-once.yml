@@ -1,0 +1,170 @@
+name: One-shot Workday location repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-workday-location-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Patch vague Workday listing locations
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/collect-major-jobs.mjs')
+          text = path.read_text()
+
+          helper_anchor = "function relativePostedAt(label = '') {"
+          helper = r'''function workdayLocationLabel(value) {
+            if (typeof value === 'string') return clean(value);
+            if (!value || typeof value !== 'object') return '';
+            return clean(
+              value.title || value.name || value.displayName ||
+              value.location?.title || value.location?.name ||
+              (typeof value.location === 'string' ? value.location : '')
+            );
+          }
+
+          function selectWorkdayLocation(row = {}, info = {}) {
+            const primary = workdayLocationLabel(info.location);
+            const additional = (Array.isArray(info.additionalLocations) ? info.additionalLocations : [])
+              .map(workdayLocationLabel)
+              .filter(Boolean)
+              .filter(value => value !== primary);
+
+            if (primary && !/^\d+\s+locations?$/i.test(primary)) {
+              return additional.length
+                ? `${primary} + ${additional.length} more location${additional.length === 1 ? '' : 's'}`
+                : primary;
+            }
+            if (additional.length) {
+              const [first, ...rest] = additional;
+              return rest.length
+                ? `${first} + ${rest.length} more location${rest.length === 1 ? '' : 's'}`
+                : first;
+            }
+            return clean(row.locationsText || primary || 'Location not listed');
+          }
+
+          '''
+
+          if 'function selectWorkdayLocation(' not in text:
+              if text.count(helper_anchor) != 1:
+                  raise SystemExit(f'Expected one helper anchor, found {text.count(helper_anchor)}')
+              text = text.replace(helper_anchor, helper + helper_anchor)
+
+          old_location = "        const location = clean(row.locationsText || info.location || 'Location not listed');"
+          new_location = "        const location = selectWorkdayLocation(row, info);"
+          if old_location in text:
+              if text.count(old_location) != 1:
+                  raise SystemExit(f'Expected one old location assignment, found {text.count(old_location)}')
+              text = text.replace(old_location, new_location)
+          elif new_location not in text:
+              raise SystemExit('Could not find Workday location assignment to update')
+
+          test_anchor = "if (process.argv.includes('--test-experience-parser')) {"
+          test_block = r'''if (process.argv.includes('--test-workday-location')) {
+            const cases = [
+              {
+                name: 'detail location beats vague listing count',
+                row: { locationsText: '2 Locations' },
+                info: { location: 'Phoenix, Arizona' },
+                expected: 'Phoenix, Arizona'
+              },
+              {
+                name: 'primary location preserves additional-location count',
+                row: { locationsText: '3 Locations' },
+                info: { location: 'Ashburn, Virginia', additionalLocations: ['Dallas, Texas', 'Phoenix, Arizona'] },
+                expected: 'Ashburn, Virginia + 2 more locations'
+              },
+              {
+                name: 'additional detail location beats vague primary',
+                row: { locationsText: '2 Locations' },
+                info: { location: '2 Locations', additionalLocations: [{ title: 'Manassas, Virginia' }] },
+                expected: 'Manassas, Virginia'
+              },
+              {
+                name: 'listing remains fallback when detail has no location',
+                row: { locationsText: 'Hillsboro, Oregon' },
+                info: {},
+                expected: 'Hillsboro, Oregon'
+              }
+            ];
+            const failures = cases
+              .map(testCase => ({ ...testCase, actual: selectWorkdayLocation(testCase.row, testCase.info) }))
+              .filter(testCase => testCase.actual !== testCase.expected);
+            if (failures.length) {
+              for (const failure of failures) {
+                console.error(`Workday location regression: ${failure.name}: expected ${failure.expected}, got ${failure.actual}`);
+              }
+              process.exit(1);
+            }
+            console.log(`Workday location selector passed ${cases.length} regression cases.`);
+            process.exit(0);
+          }
+
+          '''
+          if "--test-workday-location" not in text:
+              if text.count(test_anchor) != 1:
+                  raise SystemExit(f'Expected one test anchor, found {text.count(test_anchor)}')
+              text = text.replace(test_anchor, test_block + test_anchor)
+
+          path.write_text(text)
+          PY
+
+      - name: Validate collector patch
+        run: |
+          node --check scripts/collect-major-jobs.mjs
+          node scripts/collect-major-jobs.mjs --test-workday-location
+          node scripts/collect-major-jobs.mjs --test-experience-parser
+
+      - name: Refresh priority Workday data through production filters
+        run: |
+          node scripts/collect-major-jobs.mjs
+          node scripts/reconcile-major-jobs.mjs
+          node scripts/recover-major-workday-targeted.mjs
+          node scripts/filter-mission-fit.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/normalize-display-copy.mjs
+          node scripts/qa-site.mjs
+          node scripts/refresh-region-status.mjs
+          node scripts/stamp-job-history.mjs
+
+      - name: Validate refreshed feed
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-refresh-health.mjs
+          node scripts/validate-major-workday-parity.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-homepage-contract.mjs
+
+      - name: Commit repair and refreshed data
+        run: |
+          rm -f .github/workflows/fix-workday-location-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/collect-major-jobs.mjs data/jobs.json data/major-jobs.json data/collector-status.json data/qa-report.json data/job-history.json .github/workflows/fix-workday-location-once.yml
+          if git diff --cached --quiet; then
+            echo 'No Workday location changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Use Workday detail locations for regional filtering'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

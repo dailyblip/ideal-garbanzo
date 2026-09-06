@@ -9,14 +9,7 @@ for (const file of requiredFiles) {
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
-// Deployment validation is the final gate before Pages publishes. Run the
-// employer-direct source guard here too so a separate CI failure cannot race
-// with or be bypassed by a successful deployment workflow.
 await import('./validate-priority-employer-sources.mjs');
-
-// A syntactically healthy feed can still be operationally stale if scheduled
-// collection/QA has stopped. Refuse to deploy snapshots older than the agreed
-// freshness window so expired jobs cannot silently linger through later pushes.
 await import('./validate-data-freshness.mjs');
 
 const amazonJobs = JSON.parse(await readFile('data/amazon-jobs.json', 'utf8'));
@@ -52,10 +45,6 @@ for (const [i, event] of careerEvents.entries()) {
   if (!/^https:\/\//i.test(String(event.url))) throw new Error(`Career event ${event.id} requires an HTTPS organizer URL`);
   if (event.source !== 'Organizer page') throw new Error(`Career event ${event.id} must be verified from an organizer page`);
 }
-
-// Keep event quality tied to the same deployment gate as job/source quality.
-// This blocks stale, expired, future-dated, or non-organizer verification from
-// reaching production even if a separate QA workflow is skipped or delayed.
 await import('./validate-career-event-freshness.mjs');
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
@@ -69,14 +58,17 @@ function canonicalTitle(job) {
     const tokens = normalizeIdentity(tail).split(' ').filter(token => token.length > 1);
     return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
   };
+  title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
   title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
   title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
   return normalizeIdentity(title);
 }
 
 const ids = new Set();
 const urls = new Set();
 const semanticJobs = new Set();
+const companyTitleJobs = new Set();
 let regionalJobs = 0;
 for (const [i, job] of jobs.entries()) {
   for (const key of ['id','title','company','location','type','experience']) {
@@ -92,12 +84,19 @@ for (const [i, job] of jobs.entries()) {
   if (urls.has(job.sourceUrl)) throw new Error(`Duplicate job URL: ${job.sourceUrl}`);
   urls.add(job.sourceUrl);
   if (job.active !== true) throw new Error(`Published real job ${job.id} is not active`);
+  if (/^pay not listed$/i.test(String(job.pay || '').trim())) throw new Error(`Missing pay must be blank, not placeholder text: ${job.id}`);
   if (job.region) {
     if (!allowedRegions.has(job.region)) throw new Error(`Unsupported job region: ${job.region}`);
     regionalJobs += 1;
   }
 
-  const semanticKey = [normalizeIdentity(job.company), canonicalTitle(job), normalizeIdentity(job.location)].join('|');
+  const company = normalizeIdentity(job.company);
+  const title = canonicalTitle(job);
+  const companyTitleKey = [company, title].join('|');
+  if (companyTitleJobs.has(companyTitleKey)) throw new Error(`Duplicate-looking published job title: ${job.company} / ${job.title}`);
+  companyTitleJobs.add(companyTitleKey);
+
+  const semanticKey = [company, title, normalizeIdentity(job.location)].join('|');
   if (semanticJobs.has(semanticKey)) throw new Error(`Near-duplicate published job: ${job.company} / ${job.title} / ${job.location}`);
   semanticJobs.add(semanticKey);
 }

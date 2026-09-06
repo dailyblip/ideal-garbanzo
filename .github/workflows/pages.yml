@@ -105,6 +105,7 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-compass-datacenters.mjs
           node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-major-workday-parity.mjs
@@ -170,6 +171,7 @@ jobs:
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
           node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-major-workday-parity.mjs
@@ -194,6 +196,7 @@ jobs:
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
           node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-major-workday-parity.mjs

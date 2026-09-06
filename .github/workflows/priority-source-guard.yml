@@ -16,6 +16,7 @@ on:
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
+      - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - '.github/workflows/pages.yml'
@@ -35,6 +36,7 @@ on:
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
+      - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - '.github/workflows/pages.yml'
@@ -58,6 +60,8 @@ jobs:
         run: node scripts/validate-major-workday-parity.mjs
       - name: Verify Microsoft snapshot and fallback integrity
         run: node scripts/validate-microsoft-snapshot.mjs
+      - name: Verify Meta snapshot matches the public feed exactly
+        run: node scripts/validate-meta-snapshot.mjs
       - name: Verify Oracle snapshot matches the public feed exactly
         run: node scripts/validate-oracle-snapshot.mjs
       - name: Verify Digital Realty snapshot matches the public feed exactly

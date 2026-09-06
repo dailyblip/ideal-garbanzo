@@ -354,7 +354,7 @@ async function collectWorkday(board, previousCompanyJobs = []) {
       try {
         const detailUrl = `${board.origin}/wday/cxs/${board.tenant}/${board.site}${row.externalPath}`;
         const detail = await fetchJson(detailUrl, { headers: { referer: sourceUrl } });
-        const info = detail.jobInfo || detail;
+        const info = detail.jobPostingInfo || detail.jobInfo || detail;
         const description = clean(info.jobDescription || info.description || '');
         const cls = classify(row.title, description, info.timeType || '');
         if (!cls) return { job: null, error: null };

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T19:37:23.531Z",
+  "updatedAt": "2026-09-06T19:38:52.751Z",
   "jobs": 370,
   "sourcesAttempted": 53,
   "providers": {
@@ -13,14 +13,14 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 7,
     "entry-level": 356,
+    "trainee": 7,
     "internship": 3,
     "apprenticeship": 4
   },
   "countsByExperience": {
-    "no-experience": 13,
     "0-2-years": 232,
+    "no-experience": 13,
     "2-5-years": 125
   },
   "errors": [
@@ -286,27 +286,27 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T19:37:23.687Z",
+    "updatedAt": "2026-09-06T19:38:53.041Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 645,
+    "regionAssigned": 370,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 117,
-      "southwest": 83,
-      "west": 85,
-      "mid-atlantic": 112,
-      "southeast": 106,
-      "northeast": 18,
-      "texas": 123,
-      "nationwide": 1
+      "west": 48,
+      "midwest": 62,
+      "mid-atlantic": 53,
+      "southeast": 79,
+      "southwest": 49,
+      "nationwide": 1,
+      "texas": 68,
+      "northeast": 10
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T18:47:22.523Z",
-    "publishedJobs": 645,
+    "checkedAt": "2026-09-06T19:39:07.583Z",
+    "publishedJobs": 370,
     "removedJobs": 0,
     "activeCareerEvents": 6
   },
@@ -542,171 +542,171 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T19:37:23.748Z",
-    "before": 645,
+    "checkedAt": "2026-09-06T19:38:53.081Z",
+    "before": 411,
     "after": 370,
-    "removed": 275,
+    "removed": 41,
     "policy": "one representative posting per normalized employer + title",
     "examples": [
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10510179",
-        "keptId": "amazon-10510180",
-        "company": "Amazon Web Services",
-        "title": "Data Center Controls Engineer, Controls Deployment Service",
-        "location": "Hilliard, OH"
+        "removedId": "icims-tierpoint-3041",
+        "keptId": "icims-tierpoint-3045",
+        "company": "TierPoint",
+        "title": "Operations Technician I",
+        "location": "Baltimore, MD"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10509782",
-        "keptId": "amazon-10509788",
-        "company": "Amazon Web Services",
-        "title": "Controls Technician, Data Center Capacity Delivery",
-        "location": "Trenton, OH"
+        "removedId": "icims-tierpoint-3040",
+        "keptId": "icims-tierpoint-3045",
+        "company": "TierPoint",
+        "title": "Operations Technician I",
+        "location": "Baltimore, MD"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10493203",
-        "keptId": "amazon-10512849",
-        "company": "Amazon Web Services",
-        "title": "Data Center Controls Engineer, Data Center Capacity Delivery - Controls",
-        "location": "Herndon, VA"
+        "removedId": "icims-tierpoint-3036",
+        "keptId": "icims-tierpoint-3045",
+        "company": "TierPoint",
+        "title": "Operations Technician I",
+        "location": "Baltimore, MD"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10492473",
-        "keptId": "amazon-10512849",
-        "company": "Amazon Web Services",
-        "title": "Data Center Controls Engineer, Data Center Capacity Delivery - Controls",
-        "location": "Herndon, VA"
+        "removedId": "icims-tierpoint-3028",
+        "keptId": "icims-tierpoint-3045",
+        "company": "TierPoint",
+        "title": "Operations Technician I",
+        "location": "Baltimore, MD"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10460368",
-        "keptId": "amazon-10509788",
-        "company": "Amazon Web Services",
-        "title": "Controls Technician, Data Center Capacity Delivery",
-        "location": "Trenton, OH"
+        "removedId": "icims-tierpoint-3011",
+        "keptId": "icims-tierpoint-3034",
+        "company": "TierPoint",
+        "title": "Operations Technician II",
+        "location": "Fort Worth, TX"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10442767",
-        "keptId": "amazon-10525799",
-        "company": "Amazon Web Services",
-        "title": "Work Based Learning Program Data Center Operations Technician",
-        "location": "New Carlisle, IN"
+        "removedId": "icims-tierpoint-2962",
+        "keptId": "icims-tierpoint-3038",
+        "company": "TierPoint",
+        "title": "MEP Technician II",
+        "location": "Charlotte, NC"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10529501",
-        "keptId": "amazon-10530378",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operations Technician - Night Shift, DCEO",
-        "location": "Chantilly, VA"
+        "removedId": "icims-tierpoint-2959",
+        "keptId": "icims-tierpoint-3038",
+        "company": "TierPoint",
+        "title": "MEP Technician II",
+        "location": "Charlotte, NC"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10529236",
-        "keptId": "amazon-10530055",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operations Technician, DCEO",
-        "location": "Herndon, VA"
+        "removedId": "workable-stream-dc-62B4F3BCF5",
+        "keptId": "workable-stream-dc-CDC5638BF1",
+        "company": "Stream Data Centers",
+        "title": "Critical Engineering Technician",
+        "location": "Garland, Texas"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10518974",
-        "keptId": "amazon-10530412",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operations Technician",
-        "location": "Canton, MS"
+        "removedId": "workable-stream-dc-CDC5638BF1",
+        "keptId": "workable-stream-dc-C4755E8B9E",
+        "company": "Stream Data Centers",
+        "title": "Critical Engineering Technician, Day Shift",
+        "location": "San Antonio, Texas"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10517277",
-        "keptId": "amazon-10523766",
-        "company": "Amazon Web Services",
-        "title": "Data Center Engineering Operations Technician",
-        "location": "Sterling, VA"
+        "removedId": "workable-stream-dc-5B9BD8650E",
+        "keptId": "workable-stream-dc-C4755E8B9E",
+        "company": "Stream Data Centers",
+        "title": "Critical Engineering Technician, Day Shift",
+        "location": "San Antonio, Texas"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10516876",
-        "keptId": "amazon-10517116",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, DCC Communities",
-        "location": "Canton, MS"
+        "removedId": "workable-stream-dc-5FBD18EE51",
+        "keptId": "workable-stream-dc-C4755E8B9E",
+        "company": "Stream Data Centers",
+        "title": "Critical Engineering Technician, Day Shift",
+        "location": "San Antonio, Texas"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10517604",
-        "keptId": "amazon-10516936",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operation Technician",
-        "location": "Wharton, TX"
+        "removedId": "switch-3430787",
+        "keptId": "switch-3644869",
+        "company": "Switch",
+        "title": "DCO Facilities Technician I",
+        "location": "Keep Campus - Atlanta, GA"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10522089",
-        "keptId": "amazon-10522071",
-        "company": "Amazon Web Services",
-        "title": "Cleared Engineering Operations Technician, ADC InfraOps DCEO",
-        "location": "Plain City, OH"
+        "removedId": "switch-3644869",
+        "keptId": "switch-3710636",
+        "company": "Switch",
+        "title": "DCO Facilities Technician I",
+        "location": "Data Foundry - Austin, TX"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10509991",
-        "keptId": "amazon-10530762",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician",
-        "location": "Boardman, OR"
+        "removedId": "switch-3644621",
+        "keptId": "switch-3756777",
+        "company": "Switch",
+        "title": "DCO Facilities Technician II",
+        "location": "Citadel Campus - Reno, NV"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10510193",
-        "keptId": "amazon-10530762",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician",
-        "location": "Boardman, OR"
+        "removedId": "switch-3696630",
+        "keptId": "switch-3762485",
+        "company": "Switch",
+        "title": "Data Center Structured Cabling Technician",
+        "location": "Data Foundry - Austin, TX"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10511583",
-        "keptId": "amazon-10516936",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operation Technician",
-        "location": "Wharton, TX"
+        "removedId": "switch-3774043",
+        "keptId": "switch-3783696",
+        "company": "Switch",
+        "title": "Mission Control Technician",
+        "location": "Keep Campus - Atlanta, GA"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10506948",
-        "keptId": "amazon-10530762",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician",
-        "location": "Boardman, OR"
+        "removedId": "switch-3776443",
+        "keptId": "switch-3789333",
+        "company": "Switch",
+        "title": "Network Infrastructure Technician I",
+        "location": "Pyramid Campus - Grand Rapids, MI"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10528819",
-        "keptId": "amazon-10529834",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operations Technician, DCC Communities",
-        "location": "Chantilly, VA"
+        "removedId": "switch-3710636",
+        "keptId": "switch-3789601",
+        "company": "Switch",
+        "title": "DCO Facilities Technician I",
+        "location": "Citadel Campus - Reno, NV"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10516936",
-        "keptId": "amazon-10528813",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operation Technician",
-        "location": "Dublin, OH"
+        "removedId": "switch-3734125",
+        "keptId": "switch-3801217",
+        "company": "Switch",
+        "title": "DCO Facilities Technician III",
+        "location": "Core - Las Vegas, NV"
       },
       {
         "reason": "same-company-title",
-        "removedId": "amazon-10528402",
-        "keptId": "amazon-10530053",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operation Technician, DCEO",
-        "location": "Herndon, VA"
+        "removedId": "switch-3789333",
+        "keptId": "switch-3803666",
+        "company": "Switch",
+        "title": "Network Infrastructure Technician I",
+        "location": "Citadel Campus - Reno, NV"
       }
     ]
   },
@@ -715,11 +715,11 @@
     "trackedJobs": 748,
     "currentJobs": 370,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 114,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T19:37:23.802Z"
+    "updatedAt": "2026-09-06T19:39:07.702Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -816,7 +816,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T19:37:23.626Z",
+    "checkedAt": "2026-09-06T19:38:52.997Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1458,7 +1458,7 @@
     "detailErrors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-06T15:49:23.138Z",
+    "checkedAt": "2026-09-06T19:38:52.751Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",

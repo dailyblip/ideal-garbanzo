@@ -45,6 +45,10 @@
 
   const typeLabel = type => ({'entry-level':'JOB','internship':'INTERNSHIP','apprenticeship':'APPRENTICE','trainee':'TRAINEE'})[type] || String(type || '').toUpperCase();
   const experienceLabel = value => ({'no-experience':'NO EXPERIENCE','0-2-years':'0–2 YEARS','2-5-years':'2–5 YEARS'})[value] || value;
+  const displayPay = value => {
+    const pay = String(value ?? '').trim();
+    return !pay || /^pay not listed$/i.test(pay) ? '' : pay;
+  };
   const earlyCareerRank = job => {
     const typeRank = {apprenticeship:0, internship:1, trainee:2, 'entry-level':3}[job.type] ?? 4;
     const experienceRank = {'no-experience':0, '0-2-years':1, '2-5-years':4}[job.experience] ?? 2;
@@ -189,6 +193,7 @@
       const titleMarkup = highlighted ? `<strong>${title}</strong>` : title;
       const promotionBadge = spotlight ? ' <span class="featured-badge spotlight-badge">SPOTLIGHT</span>' : highlighted ? ' <span class="featured-badge highlighted-badge">HIGHLIGHTED</span>' : '';
       const promotionClass = spotlight ? ' spotlight-job' : highlighted ? ' highlighted-job' : '';
+      const pay = displayPay(job.pay);
       return `
       <article class="job-card${promotionClass}">
         <div class="job-card-top">
@@ -196,7 +201,7 @@
             <h3><a href="jobs/${escapeHtml(jobSlug(job))}/">${titleMarkup}</a> <span class="badge">${escapeHtml(typeLabel(job.type))}</span>${promotionBadge}</h3>
             <div class="job-meta">${escapeHtml(job.company)} <span>•</span> ${escapeHtml(job.location)}</div>
             <div class="job-tags"><span>${escapeHtml(experienceLabel(job.experience))}</span>${(job.tags || []).filter(tag => tag !== experienceLabel(job.experience)).map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
-            <div class="job-pay">${escapeHtml(job.pay || 'Pay not listed')}</div>
+            ${pay ? `<div class="job-pay">${escapeHtml(pay)}</div>` : ''}
           </div>
           <div class="posted">${escapeHtml(postedLabel(job.postedHours))}<br><small>Employer site</small></div>
         </div>

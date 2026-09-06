@@ -1,0 +1,67 @@
+name: One-shot Workday detail schema fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-workday-schema-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify current Workday detail schema
+        run: |
+          node <<'NODE'
+          const url = 'https://vantagedc.wd1.myworkdayjobs.com/wday/cxs/vantagedc/Vantage/job/Phoenix-Arizona/Critical-Facilities-Engineer_R23169';
+          const r = await fetch(url, { headers: { accept: 'application/json', 'user-agent': 'DataCenterCareersBot/schema-check', referer: 'https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Phoenix-Arizona/Critical-Facilities-Engineer_R23169' } });
+          if (!r.ok) throw new Error(`Workday schema check failed: ${r.status}`);
+          const body = await r.json();
+          const info = body.jobPostingInfo;
+          if (!info || typeof info.jobDescription !== 'string' || info.jobDescription.length < 100) {
+            throw new Error(`Expected current Workday jobPostingInfo schema; top-level keys: ${Object.keys(body).join(', ')}`);
+          }
+          console.log(`Verified Workday detail schema: jobPostingInfo with ${info.jobDescription.length} description characters.`);
+          NODE
+      - name: Update major Workday collectors for current detail schema
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          paths = [Path('scripts/collect-major-jobs.mjs'), Path('scripts/recover-major-workday-targeted.mjs')]
+          old = 'const info = detail.jobInfo || detail;'
+          new = 'const info = detail.jobPostingInfo || detail.jobInfo || detail;'
+          for path in paths:
+              text = path.read_text()
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{path}: expected exactly one old Workday detail schema expression, found {count}')
+              path.write_text(text.replace(old, new))
+              print(f'Updated {path}')
+          PY
+      - name: Validate parser changes
+        run: |
+          node --check scripts/collect-major-jobs.mjs
+          node --check scripts/recover-major-workday-targeted.mjs
+          node scripts/collect-major-jobs.mjs --test-experience-parser
+          node scripts/recover-major-workday-targeted.mjs --test
+          grep -Fq 'detail.jobPostingInfo || detail.jobInfo || detail' scripts/collect-major-jobs.mjs
+          grep -Fq 'detail.jobPostingInfo || detail.jobInfo || detail' scripts/recover-major-workday-targeted.mjs
+      - name: Commit schema compatibility fix
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/collect-major-jobs.mjs scripts/recover-major-workday-targeted.mjs
+          git commit -m 'Fix Workday detail schema parsing'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

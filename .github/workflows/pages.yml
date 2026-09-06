@@ -30,6 +30,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -121,15 +122,38 @@ jobs:
         run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs and events when changed
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/microsoft-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/t5-data-centers-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json)" ]; then
-            echo "No job, career-event, or QA data changes."
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Every refresh artifact under data/ is repository state. Stage all
+          # tracked data changes so newly added collectors cannot outgrow a
+          # hand-maintained filename list and leave the runner dirty.
+          git add -u -- data/
+
+          if git diff --cached --quiet; then
+            echo "No tracked job, career-event, snapshot, or QA data changes."
           else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/microsoft-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/t5-data-centers-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json
             git commit -m "Refresh verified jobs, events, and QA report"
-            git fetch origin main
-            git rebase origin/main
+          fi
+
+          # A rebase requires a clean tracked worktree. Fail here with a useful
+          # diagnostic if a refresh script unexpectedly writes outside data/.
+          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+            echo "::error::Refresh left unexpected tracked changes outside data/."
+            git status --short --untracked-files=no
+            exit 1
+          fi
+
+          git fetch origin main
+          if ! git rebase origin/main; then
+            git rebase --abort || true
+            echo "::error::Could not rebase refreshed data onto the latest main branch."
+            exit 1
+          fi
+
+          if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ]; then
+            echo "No refresh commit to push after rebasing."
+          else
             git push origin HEAD:main
           fi
 

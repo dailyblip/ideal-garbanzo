@@ -1,27 +1,27 @@
 {
-  "updatedAt": "2026-09-06T18:47:08.193Z",
-  "jobs": 645,
-  "sourcesAttempted": 52,
+  "updatedAt": "2026-09-06T19:37:23.531Z",
+  "jobs": 370,
+  "sourcesAttempted": 53,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
-    "googleCareers": 3,
+    "googleCareers": 4,
     "oracleRecruitingCloud": 6,
     "metaCareers": 14,
     "icims": 1
   },
   "countsByType": {
-    "trainee": 12,
-    "entry-level": 618,
-    "internship": 4,
-    "apprenticeship": 11
+    "trainee": 7,
+    "entry-level": 356,
+    "internship": 3,
+    "apprenticeship": 4
   },
   "countsByExperience": {
-    "no-experience": 20,
-    "0-2-years": 434,
-    "2-5-years": 191
+    "no-experience": 13,
+    "0-2-years": 232,
+    "2-5-years": 125
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -286,7 +286,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T18:47:08.320Z",
+    "updatedAt": "2026-09-06T19:37:23.687Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 645,
@@ -542,22 +542,184 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T18:47:08.368Z",
+    "checkedAt": "2026-09-06T19:37:23.748Z",
     "before": 645,
-    "after": 645,
-    "removed": 0,
-    "examples": []
+    "after": 370,
+    "removed": 275,
+    "policy": "one representative posting per normalized employer + title",
+    "examples": [
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10510179",
+        "keptId": "amazon-10510180",
+        "company": "Amazon Web Services",
+        "title": "Data Center Controls Engineer, Controls Deployment Service",
+        "location": "Hilliard, OH"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10509782",
+        "keptId": "amazon-10509788",
+        "company": "Amazon Web Services",
+        "title": "Controls Technician, Data Center Capacity Delivery",
+        "location": "Trenton, OH"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10493203",
+        "keptId": "amazon-10512849",
+        "company": "Amazon Web Services",
+        "title": "Data Center Controls Engineer, Data Center Capacity Delivery - Controls",
+        "location": "Herndon, VA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10492473",
+        "keptId": "amazon-10512849",
+        "company": "Amazon Web Services",
+        "title": "Data Center Controls Engineer, Data Center Capacity Delivery - Controls",
+        "location": "Herndon, VA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10460368",
+        "keptId": "amazon-10509788",
+        "company": "Amazon Web Services",
+        "title": "Controls Technician, Data Center Capacity Delivery",
+        "location": "Trenton, OH"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10442767",
+        "keptId": "amazon-10525799",
+        "company": "Amazon Web Services",
+        "title": "Work Based Learning Program Data Center Operations Technician",
+        "location": "New Carlisle, IN"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10529501",
+        "keptId": "amazon-10530378",
+        "company": "Amazon Web Services",
+        "title": "Engineering Operations Technician - Night Shift, DCEO",
+        "location": "Chantilly, VA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10529236",
+        "keptId": "amazon-10530055",
+        "company": "Amazon Web Services",
+        "title": "Engineering Operations Technician, DCEO",
+        "location": "Herndon, VA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10518974",
+        "keptId": "amazon-10530412",
+        "company": "Amazon Web Services",
+        "title": "Engineering Operations Technician",
+        "location": "Canton, MS"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10517277",
+        "keptId": "amazon-10523766",
+        "company": "Amazon Web Services",
+        "title": "Data Center Engineering Operations Technician",
+        "location": "Sterling, VA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10516876",
+        "keptId": "amazon-10517116",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, DCC Communities",
+        "location": "Canton, MS"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10517604",
+        "keptId": "amazon-10516936",
+        "company": "Amazon Web Services",
+        "title": "Engineering Operation Technician",
+        "location": "Wharton, TX"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10522089",
+        "keptId": "amazon-10522071",
+        "company": "Amazon Web Services",
+        "title": "Cleared Engineering Operations Technician, ADC InfraOps DCEO",
+        "location": "Plain City, OH"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10509991",
+        "keptId": "amazon-10530762",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician",
+        "location": "Boardman, OR"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10510193",
+        "keptId": "amazon-10530762",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician",
+        "location": "Boardman, OR"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10511583",
+        "keptId": "amazon-10516936",
+        "company": "Amazon Web Services",
+        "title": "Engineering Operation Technician",
+        "location": "Wharton, TX"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10506948",
+        "keptId": "amazon-10530762",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician",
+        "location": "Boardman, OR"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10528819",
+        "keptId": "amazon-10529834",
+        "company": "Amazon Web Services",
+        "title": "Engineering Operations Technician, DCC Communities",
+        "location": "Chantilly, VA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10516936",
+        "keptId": "amazon-10528813",
+        "company": "Amazon Web Services",
+        "title": "Engineering Operation Technician",
+        "location": "Dublin, OH"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "amazon-10528402",
+        "keptId": "amazon-10530053",
+        "company": "Amazon Web Services",
+        "title": "Engineering Operation Technician, DCEO",
+        "location": "Herndon, VA"
+      }
+    ]
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 748,
-    "currentJobs": 645,
-    "newJobsThisRun": 64,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 65,
+    "currentJobs": 370,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 114,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T18:47:22.625Z"
+    "updatedAt": "2026-09-06T19:37:23.802Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -654,31 +816,10 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T18:47:08.264Z",
-    "removedCount": 3,
-    "removedByReason": {
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "reason": "non-mission role family"
-      }
-    ]
+    "checkedAt": "2026-09-06T19:37:23.626Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": []
   },
   "oracleCareers": {
     "officialSource": "https://careers.oracle.com/",

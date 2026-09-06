@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-06T08:50:35.241Z",
-  "jobs": 567,
+  "updatedAt": "2026-09-06T09:11:47.021Z",
+  "jobs": 572,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -13,14 +13,14 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 10,
+    "trainee": 12,
     "apprenticeship": 11,
     "internship": 4,
-    "entry-level": 542
+    "entry-level": 545
   },
   "countsByExperience": {
-    "2-5-years": 150,
-    "0-2-years": 397,
+    "2-5-years": 157,
+    "0-2-years": 395,
     "no-experience": 20
   },
   "errors": [
@@ -271,28 +271,28 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T08:50:35.326Z",
+    "updatedAt": "2026-09-06T09:11:47.088Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 567,
+    "regionAssigned": 572,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 75,
+      "west": 77,
       "texas": 113,
-      "midwest": 103,
+      "midwest": 105,
       "southwest": 68,
-      "mid-atlantic": 101,
-      "southeast": 92,
-      "northeast": 14,
+      "mid-atlantic": 100,
+      "southeast": 93,
+      "northeast": 15,
       "nationwide": 1
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T06:48:58.555Z",
-    "publishedJobs": 567,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-06T09:12:08.067Z",
+    "publishedJobs": 572,
+    "removedJobs": 2,
     "activeCareerEvents": 6
   },
   "metaCareers": {
@@ -646,9 +646,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T08:50:35.391Z",
-    "before": 567,
-    "after": 567,
+    "checkedAt": "2026-09-06T09:11:47.137Z",
+    "before": 574,
+    "after": 574,
     "removed": 0,
     "examples": []
   },

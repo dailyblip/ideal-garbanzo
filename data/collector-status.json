@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T09:11:47.021Z",
+  "updatedAt": "2026-09-06T09:42:35.630Z",
   "jobs": 572,
   "sourcesAttempted": 48,
   "providers": {
@@ -271,7 +271,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T09:11:47.088Z",
+    "updatedAt": "2026-09-06T09:42:35.690Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 572,
@@ -290,9 +290,9 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T09:12:08.067Z",
+    "checkedAt": "2026-09-06T09:42:55.038Z",
     "publishedJobs": 572,
-    "removedJobs": 2,
+    "removedJobs": 0,
     "activeCareerEvents": 6
   },
   "metaCareers": {
@@ -646,22 +646,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T09:11:47.137Z",
-    "before": 574,
-    "after": 574,
+    "checkedAt": "2026-09-06T09:42:35.736Z",
+    "before": 572,
+    "after": 572,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 609,
-    "currentJobs": 567,
-    "newJobsThisRun": 0,
+    "trackedJobs": 616,
+    "currentJobs": 572,
+    "newJobsThisRun": 7,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 7,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T08:50:35.463Z"
+    "updatedAt": "2026-09-06T09:43:00.103Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

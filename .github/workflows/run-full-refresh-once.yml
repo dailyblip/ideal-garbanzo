@@ -17,5 +17,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Re-run after Workday detail schema compatibility repair.
+          # Re-run after Workday detail-location and baseline repair.
           gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=false

@@ -17,5 +17,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Re-run after Workday detail-location and baseline repair.
+          # Re-run with T5 Data Centers integrated into the production refresh.
           gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=false

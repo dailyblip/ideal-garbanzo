@@ -19,6 +19,7 @@ const searchTerms = [
   'data center',
   'critical facilities',
   'critical environment',
+  'critical operations',
   'mechanical engineer',
   'electrical engineer',
   'technician',
@@ -120,6 +121,7 @@ function classify(title = '', description = '', employmentType = '') {
   const explicitProgram = type !== 'entry-level';
   const earlySignal = explicitProgram
     || /\b(?:entry[- ]level|early career|no experience)\b/i.test(required)
+    || /\bassociate\b/i.test(t)
     || /\b(?:l|level)\s*(?:1|i)\b/i.test(t)
     || /\b(?:technician|operator)\s+(?:1|i)\b/i.test(t)
     || years.some(year => year <= 2);
@@ -149,6 +151,14 @@ function confidentUsLocation(value = '') {
   const codes = new Set(['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']);
   const match = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
   return Boolean(match && codes.has(match[1]));
+}
+
+function selectLocation(row = {}, info = {}) {
+  const detailLocation = clean(info.location || '');
+  const listingLocation = clean(row.locationsText || '');
+  if (confidentUsLocation(detailLocation)) return detailLocation;
+  if (confidentUsLocation(listingLocation)) return listingLocation;
+  return detailLocation || listingLocation;
 }
 
 function extractPay(text = '') {
@@ -266,7 +276,7 @@ async function recoverBoard(board) {
         const description = clean(info.jobDescription || info.description || '');
         const cls = classify(row.title, description, info.timeType || '');
         if (!cls) return null;
-        const location = clean(row.locationsText || info.location || '');
+        const location = selectLocation(row, info);
         if (!confidentUsLocation(location)) return null;
         const externalId = clean(row.bulletFields?.[0] || row.externalPath.split('_').pop() || hash(row.externalPath));
         return {
@@ -330,6 +340,12 @@ if (process.argv.includes('--test')) {
       expected: '0-2-years'
     },
     {
+      name: 'QTS critical operations associate',
+      title: 'Critical Operations Associate',
+      description: 'Support electrical and mechanical systems in a 24x7 data center environment. High school diploma plus technical training or workplace equivalency.',
+      expected: '0-2-years'
+    },
+    {
       name: 'three-year critical facilities role',
       title: 'Critical Facilities Technician',
       description: 'Three years of relevant experience maintaining data center UPS and generator systems.',
@@ -355,11 +371,14 @@ if (process.argv.includes('--test')) {
     }
   ];
   const failures = cases.filter(testCase => (classify(testCase.title, testCase.description)?.experience ?? null) !== testCase.expected);
+  if (selectLocation({ locationsText: '2 Locations' }, { location: 'Cedar Rapids, IA' }) !== 'Cedar Rapids, IA') {
+    failures.push({ name: 'detail location preferred over ambiguous listing location' });
+  }
   if (failures.length) {
     for (const failure of failures) console.error(`Targeted recovery regression failed: ${failure.name}`);
     process.exit(1);
   }
-  console.log(`Targeted major Workday recovery passed ${cases.length} regression cases.`);
+  console.log(`Targeted major Workday recovery passed ${cases.length + 1} regression cases.`);
   process.exit(0);
 }
 

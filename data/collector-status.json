@@ -1,27 +1,27 @@
 {
-  "updatedAt": "2026-09-06T13:49:55.681Z",
-  "jobs": 570,
-  "sourcesAttempted": 49,
+  "updatedAt": "2026-09-06T14:53:24.806Z",
+  "jobs": 604,
+  "sourcesAttempted": 50,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
-    "googleCareers": 1,
+    "googleCareers": 2,
     "oracleRecruitingCloud": 6,
     "metaCareers": 14,
     "icims": 1
   },
   "countsByType": {
-    "trainee": 12,
+    "trainee": 11,
     "apprenticeship": 11,
     "internship": 4,
-    "entry-level": 543
+    "entry-level": 578
   },
   "countsByExperience": {
-    "2-5-years": 157,
-    "0-2-years": 393,
-    "no-experience": 20
+    "2-5-years": 189,
+    "0-2-years": 396,
+    "no-experience": 19
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -149,16 +149,18 @@
   "googleCareers": {
     "officialSource": "https://www.google.com/about/careers/applications/jobs/results/",
     "sourceHealthy": true,
+    "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 62,
-    "qualifyingRoles": 60,
+    "candidateRows": 58,
+    "qualifyingRoles": 56,
     "diagnostics": {
       "canonicalLinks": 80,
-      "missionFitLinks": 62,
-      "uniqueCandidates": 62,
-      "detailAttempted": 62,
-      "detailVerified": 61,
+      "missionFitLinks": 58,
+      "uniqueCandidates": 58,
+      "detailAttempted": 58,
+      "detailVerified": 57,
+      "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
         "location": 1,
@@ -278,20 +280,20 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T13:49:55.732Z",
+    "updatedAt": "2026-09-06T14:53:24.953Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 570,
+    "regionAssigned": 604,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 77,
-      "texas": 112,
+      "west": 78,
+      "texas": 114,
       "mid-atlantic": 100,
-      "southwest": 68,
-      "midwest": 104,
-      "southeast": 93,
+      "southwest": 76,
+      "midwest": 117,
+      "southeast": 103,
       "northeast": 15,
       "nationwide": 1
     }
@@ -534,22 +536,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T13:49:55.779Z",
-    "before": 570,
-    "after": 570,
+    "checkedAt": "2026-09-06T14:53:25.003Z",
+    "before": 604,
+    "after": 604,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 616,
-    "currentJobs": 570,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 656,
+    "currentJobs": 604,
+    "newJobsThisRun": 40,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 40,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T13:49:55.824Z"
+    "updatedAt": "2026-09-06T14:53:25.056Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -645,7 +647,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T10:45:26.885Z",
+    "checkedAt": "2026-09-06T14:53:24.898Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

@@ -7,7 +7,8 @@ const SNAPSHOT_SOURCES = [
   { path: 'data/novva-jobs.json', company: 'Novva Data Centers' },
   { path: 'data/stream-data-centers-jobs.json', company: 'Stream Data Centers' },
   { path: 'data/switch-jobs.json', company: 'Switch' },
-  { path: 'data/flexential-jobs.json', company: 'Flexential' }
+  { path: 'data/flexential-jobs.json', company: 'Flexential' },
+  { path: 'data/t5-data-centers-jobs.json', company: 'T5 Data Centers' }
 ];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();

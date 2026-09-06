@@ -60,4 +60,23 @@ const snapshot = {
 };
 
 await writeFile(SNAPSHOT_PATH, JSON.stringify(snapshot, null, 2) + '\n');
+
+// A healthy employer-direct refresh supersedes any prior zero-collapse recovery.
+// Persist that state explicitly so stale fallback metadata cannot remain active
+// after Microsoft is reachable again.
+const nextStatus = {
+  ...status,
+  microsoftDatacenter: {
+    ...microsoftStatus,
+    snapshotFallback: {
+      active: false,
+      verifiedAt: snapshot.verifiedAt,
+      expiresAt: snapshot.expiresAt,
+      roles: microsoftJobs.length,
+      reason: 'Fresh employer-direct Microsoft refresh superseded zero-collapse recovery.'
+    }
+  }
+};
+await writeFile(STATUS_PATH, JSON.stringify(nextStatus, null, 2) + '\n');
+
 console.log(`Persisted ${microsoftJobs.length} freshly verified Microsoft roles for zero-collapse recovery through ${snapshot.expiresAt}.`);

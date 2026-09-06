@@ -222,6 +222,37 @@ function tagsFor(title, description, experience, type) {
   return [...new Set(tags)].slice(0, 5);
 }
 
+function workdayLocationLabel(value) {
+  if (typeof value === 'string') return clean(value);
+  if (!value || typeof value !== 'object') return '';
+  return clean(
+    value.title || value.name || value.displayName ||
+    value.location?.title || value.location?.name ||
+    (typeof value.location === 'string' ? value.location : '')
+  );
+}
+
+function selectWorkdayLocation(row = {}, info = {}) {
+  const primary = workdayLocationLabel(info.location);
+  const additional = (Array.isArray(info.additionalLocations) ? info.additionalLocations : [])
+    .map(workdayLocationLabel)
+    .filter(Boolean)
+    .filter(value => value !== primary);
+
+  if (primary && !/^\d+\s+locations?$/i.test(primary)) {
+    return additional.length
+      ? `${primary} + ${additional.length} more location${additional.length === 1 ? '' : 's'}`
+      : primary;
+  }
+  if (additional.length) {
+    const [first, ...rest] = additional;
+    return rest.length
+      ? `${first} + ${rest.length} more location${rest.length === 1 ? '' : 's'}`
+      : first;
+  }
+  return clean(row.locationsText || primary || 'Location not listed');
+}
+
 function relativePostedAt(label = '') {
   const text = lower(label);
   const now = Date.now();
@@ -358,7 +389,7 @@ async function collectWorkday(board, previousCompanyJobs = []) {
         const description = clean(info.jobDescription || info.description || '');
         const cls = classify(row.title, description, info.timeType || '');
         if (!cls) return { job: null, error: null };
-        const location = clean(row.locationsText || info.location || 'Location not listed');
+        const location = selectWorkdayLocation(row, info);
         const externalId = clean(row.bulletFields?.[0] || row.externalPath?.split('_').pop() || hash(row.externalPath || row.title));
         return {
           job: {

@@ -49,6 +49,8 @@ jobs:
         run: node scripts/collect-compass-datacenters.mjs
       - name: Persist Compass source health
         run: node scripts/persist-compass-status.mjs
+      - name: Add official T5 Data Centers roles
+        run: node scripts/collect-t5-data-centers.mjs
       - name: Merge priority major-employer jobs
         run: node scripts/collect-major-jobs.mjs
       - name: Reconcile major-employer snapshot
@@ -108,6 +110,7 @@ jobs:
           node scripts/validate-job-history.mjs
           node scripts/validate-mailing-list.mjs
           node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-t5-data-centers.mjs
           node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs
@@ -118,12 +121,12 @@ jobs:
         run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs and events when changed
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/microsoft-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/microsoft-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/t5-data-centers-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json)" ]; then
             echo "No job, career-event, or QA data changes."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/microsoft-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json
+            git add data/jobs.json data/job-history.json data/major-jobs.json data/amazon-jobs.json data/microsoft-jobs.json data/google-jobs.json data/meta-jobs.json data/oracle-jobs.json data/digital-realty-jobs.json data/t5-data-centers-jobs.json data/sabey-jobs.json data/novva-jobs.json data/career-events.json data/collector-status.json data/compass-status.json data/qa-report.json
             git commit -m "Refresh verified jobs, events, and QA report"
             git fetch origin main
             git rebase origin/main
@@ -174,6 +177,7 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-t5-data-centers.mjs
           node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs
@@ -199,6 +203,7 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-t5-data-centers.mjs
           node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs

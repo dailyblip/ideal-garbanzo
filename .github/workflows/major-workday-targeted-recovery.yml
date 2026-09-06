@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/recover-major-workday-targeted.mjs'
       - 'scripts/prune-closed-major-workday.mjs'
+      - 'scripts/validate-major-workday-parity.mjs'
       - '.github/workflows/major-workday-targeted-recovery.yml'
   schedule:
     - cron: '43 */6 * * *'
@@ -31,8 +32,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Guard targeted classifier
-        run: node scripts/recover-major-workday-targeted.mjs --test
+      - name: Guard targeted classifier and current snapshot traceability
+        run: |
+          node scripts/recover-major-workday-targeted.mjs --test
+          node scripts/validate-major-workday-parity.mjs
 
       - name: Recover missing roles and prune closed Workday records
         id: recovery
@@ -57,6 +60,7 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-major-workday-parity.mjs
 
       - name: Commit reconciled priority Workday roles
         if: steps.recovery.outputs.changed == 'true'

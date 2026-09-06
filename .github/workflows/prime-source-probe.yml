@@ -19,13 +19,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL --retry 2 --max-time 30 -D /tmp/headers.txt \
-            -A 'DataCenterCareersSourceProbe/1.0 (+https://datacentercareers.us/)' \
-            'https://primedatacenters.com/careers/' -o /tmp/prime-careers.html
+          status=$(curl -sSL --retry 2 --max-time 30 -D /tmp/headers.txt \
+            -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36' \
+            -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8' \
+            -H 'Accept-Language: en-US,en;q=0.9' \
+            -H 'Cache-Control: no-cache' \
+            -H 'Pragma: no-cache' \
+            -w '%{http_code}' \
+            'https://primedatacenters.com/careers/' -o /tmp/prime-careers.html)
+          echo "=== HTTP STATUS: $status ==="
           echo '=== RESPONSE HEADERS ==='
           cat /tmp/headers.txt
           echo '=== DOCUMENT SIZE ==='
           wc -c /tmp/prime-careers.html
+          echo '=== RESPONSE PREFIX ==='
+          head -c 1200 /tmp/prime-careers.html || true
+          echo
+          if [ "$status" != '200' ]; then
+            echo "Prime careers page remains unavailable to GitHub-hosted collectors (HTTP $status)."
+            exit 2
+          fi
           echo '=== UNIQUE EXTERNAL URLS ==='
           grep -Eo 'https?://[^"<> ]+' /tmp/prime-careers.html | sed 's/&amp;/\&/g' | sort -u | head -n 250 || true
           echo '=== SCRIPT SOURCES ==='

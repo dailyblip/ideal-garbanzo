@@ -13,6 +13,21 @@ const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const missionTitlePattern = /\b(?:jr\.?\s+critical facilities technician|critical facilities technician|critical maintenance technician|general maintenance technician|data cent(?:er|re) facilities operator|electrical apprentice|mechanical apprentice|facilities technician|facility technician)\b/i;
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman|journeyman|subject matter expert|sme)\b/i;
 
+function canonicalTitle(job) {
+  let title = clean(job?.title);
+  const location = normalize(job?.location);
+  const locationTokens = new Set(location.split(' ').filter(token => token.length > 1));
+  const tailBelongsToLocation = tail => {
+    const tokens = normalize(tail).split(' ').filter(token => token.length > 1);
+    return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
+  };
+  title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
+  title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
+  return normalize(title);
+}
+
 const snapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
 const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
@@ -24,8 +39,6 @@ if (!Array.isArray(jobs)) failures.push('jobs.json must contain an array.');
 const ids = new Set();
 const urls = new Set();
 const identities = new Set();
-const globalIds = new Set((Array.isArray(jobs) ? jobs : []).map(job => clean(job?.id)));
-const globalUrls = new Set((Array.isArray(jobs) ? jobs : []).map(job => clean(job?.sourceUrl)));
 
 for (const job of Array.isArray(snapshot) ? snapshot : []) {
   const id = clean(job?.id);
@@ -55,10 +68,21 @@ for (const job of Array.isArray(snapshot) ? snapshot : []) {
 
   if (identities.has(identity)) failures.push(`${id || title}: duplicate title/location identity in T5 snapshot.`);
   else identities.add(identity);
+}
 
-  if (id && !globalIds.has(id) && sourceUrl && !globalUrls.has(sourceUrl)) {
-    failures.push(`${id}: verified T5 role is missing from jobs.json.`);
-  }
+// The public feed intentionally collapses same-employer/same-title postings,
+// even when T5 publishes separate requisitions for different locations or
+// shifts. Protect source coverage by unique role title rather than requiring
+// every requisition to remain as a separate public card.
+const snapshotTitles = new Set((Array.isArray(snapshot) ? snapshot : []).map(canonicalTitle).filter(Boolean));
+const publicT5Jobs = (Array.isArray(jobs) ? jobs : []).filter(job => clean(job?.company) === COMPANY);
+const publicTitles = new Set(publicT5Jobs.map(canonicalTitle).filter(Boolean));
+const missingTitles = [...snapshotTitles].filter(title => !publicTitles.has(title));
+if (missingTitles.length) {
+  failures.push(`${missingTitles.length}/${snapshotTitles.size} verified unique T5 role title(s) are missing from jobs.json.`);
+}
+for (const job of publicT5Jobs) {
+  if (!clean(job?.sourceUrl).startsWith(BOARD_ROOT)) failures.push(`${clean(job?.id) || clean(job?.title)}: public T5 card is not employer-direct.`);
 }
 
 const t5Status = status?.t5DataCenters;
@@ -73,4 +97,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`T5 validation passed: ${snapshot.length} verified employer-direct role(s), all present in the global feed.`);
+console.log(`T5 validation passed: ${snapshot.length} verified employer-direct requisitions represented by ${publicTitles.size} clean public role title(s).`);

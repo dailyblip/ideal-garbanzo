@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
-const EARLY_SOURCE = 'Employer early-career program';
+const BEGINNER_TYPES = new Set(['internship', 'apprenticeship', 'trainee']);
 const DEFINITIVELY_CLOSED = new Set([404, 410]);
 const CONCURRENCY = 5;
 const TIMEOUT_MS = 20000;
@@ -16,7 +16,8 @@ async function readJson(path, fallback) {
 
 function isCandidate(job) {
   if (!job || job.demo === true || job.active === false) return false;
-  if (clean(job.source) !== EARLY_SOURCE) return false;
+  const beginnerPathway = BEGINNER_TYPES.has(clean(job.type)) || clean(job.experience) === 'no-experience';
+  if (!beginnerPathway) return false;
   try {
     const url = new URL(clean(job.sourceUrl));
     return url.protocol === 'https:';
@@ -86,13 +87,13 @@ function applyChecks(jobs, checks) {
 
 function runSelfTest() {
   const jobs = [
-    { id:'gone-404', source:EARLY_SOURCE, sourceUrl:'https://example.com/a', active:true, demo:false },
-    { id:'gone-410', source:EARLY_SOURCE, sourceUrl:'https://example.com/b', active:true, demo:false },
-    { id:'blocked-403', source:EARLY_SOURCE, sourceUrl:'https://example.com/c', active:true, demo:false },
-    { id:'server-503', source:EARLY_SOURCE, sourceUrl:'https://example.com/d', active:true, demo:false },
-    { id:'timeout', source:EARLY_SOURCE, sourceUrl:'https://example.com/e', active:true, demo:false },
-    { id:'healthy', source:EARLY_SOURCE, sourceUrl:'https://example.com/f', active:true, demo:false },
-    { id:'other-source', source:'Employer career site', sourceUrl:'https://example.com/g', active:true, demo:false }
+    { id:'gone-404', type:'apprenticeship', experience:'no-experience', sourceUrl:'https://example.com/a', active:true, demo:false },
+    { id:'gone-410', type:'internship', experience:'0-2-years', sourceUrl:'https://example.com/b', active:true, demo:false },
+    { id:'blocked-403', type:'trainee', experience:'no-experience', sourceUrl:'https://example.com/c', active:true, demo:false },
+    { id:'server-503', type:'entry-level', experience:'no-experience', sourceUrl:'https://example.com/d', active:true, demo:false },
+    { id:'timeout', type:'apprenticeship', experience:'no-experience', sourceUrl:'https://example.com/e', active:true, demo:false },
+    { id:'healthy', type:'internship', experience:'0-2-years', sourceUrl:'https://example.com/f', active:true, demo:false },
+    { id:'mid-career', type:'entry-level', experience:'2-5-years', sourceUrl:'https://example.com/g', active:true, demo:false }
   ];
   const checks = [
     { id:'gone-404', status:404 },
@@ -108,11 +109,12 @@ function runSelfTest() {
   if (!removedIds.has('gone-404') || !removedIds.has('gone-410') || removed.length !== 2) {
     throw new Error('404/410 roles were not pruned exactly as expected');
   }
-  for (const id of ['blocked-403','server-503','timeout','healthy','other-source']) {
+  for (const id of ['blocked-403','server-503','timeout','healthy','mid-career']) {
     if (!keptIds.has(id)) throw new Error(`non-definitive result was incorrectly pruned: ${id}`);
   }
-  if (isCandidate(jobs.at(-1))) throw new Error('non-early-career source became a prune candidate');
-  console.log('Early-career stale-link pruning policy passed regression tests.');
+  if (!isCandidate(jobs.find(job => job.id === 'server-503'))) throw new Error('no-experience entry-level role was not selected');
+  if (isCandidate(jobs.at(-1))) throw new Error('ordinary 2-5 year role became a beginner-pathway prune candidate');
+  console.log('Beginner-pathway stale-link pruning policy passed regression tests.');
 }
 
 if (process.argv.includes('--test')) {
@@ -160,12 +162,12 @@ const nextStatus = {
       title: clean(job.title),
       sourceUrl: clean(job.sourceUrl)
     })),
-    policy: 'Remove only employer-direct early-career URLs returning HTTP 404 or 410. Preserve blocks, rate limits, server errors, redirects, and network failures.'
+    policy: 'Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, and network failures.'
   }
 };
 
 if (removed.length) await writeFile(JOBS_PATH, JSON.stringify(kept, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(nextStatus, null, 2) + '\n');
 
-console.log(`Checked ${candidates.length} early-career employer URLs: ${counts.open} reachable, ${counts.closed} definitively closed, ${counts.transient} transient/blocked retained.`);
-if (removed.length) console.log(`Removed ${removed.length} definitively closed early-career role(s).`);
+console.log(`Checked ${candidates.length} beginner-pathway employer URLs: ${counts.open} reachable, ${counts.closed} definitively closed, ${counts.transient} transient/blocked retained.`);
+if (removed.length) console.log(`Removed ${removed.length} definitively closed beginner-pathway role(s).`);

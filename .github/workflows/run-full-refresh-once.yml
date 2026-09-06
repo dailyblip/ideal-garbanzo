@@ -17,5 +17,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Re-run with T5 Data Centers integrated into the production refresh.
+          # Re-run after protecting the verified T5 snapshot through downstream filters.
           gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=false

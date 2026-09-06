@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-06T00:49:25.671Z",
-  "jobsBefore": 564,
-  "jobsAfter": 564,
+  "checkedAt": "2026-09-06T00:50:18.602Z",
+  "jobsBefore": 567,
+  "jobsAfter": 567,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -56,22 +56,13 @@
   ],
   "transientJobLinks": [
     {
-      "id": "microsoft-1970393556989023",
-      "company": "Microsoft",
-      "title": "Data Center Technician",
-      "url": "https://apply.careers.microsoft.com/careers/job/1970393556989023",
+      "id": "greenhouse-flexential-4377119009",
+      "company": "Flexential",
+      "title": "Critical Infrastructure Engineer II",
+      "url": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4377119009",
       "state": "transient",
       "status": null,
-      "error": "fetch failed"
-    },
-    {
-      "id": "microsoft-1970393556952670",
-      "company": "Microsoft",
-      "title": "Critical Environment Mechanical Engineer",
-      "url": "https://apply.careers.microsoft.com/careers/job/1970393556952670",
-      "state": "transient",
-      "status": null,
-      "error": "fetch failed"
+      "error": "timeout"
     }
   ],
   "warningJobLinks": [],

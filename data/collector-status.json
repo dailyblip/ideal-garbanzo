@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-06T00:49:05.890Z",
-  "jobs": 564,
+  "updatedAt": "2026-09-06T00:49:45.293Z",
+  "jobs": 567,
   "sourcesAttempted": 48,
   "providers": {
     "lever": 6,
@@ -13,13 +13,13 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 539,
+    "entry-level": 542,
     "trainee": 10,
     "internship": 4,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 149,
+    "2-5-years": 152,
     "0-2-years": 397,
     "no-experience": 18
   },
@@ -271,17 +271,30 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T00:49:06.054Z",
+    "updatedAt": "2026-09-06T00:49:45.429Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 564,
-    "regionMissing": 0,
-    "coveragePct": 100,
-    "missingSamples": [],
+    "regionAssigned": 565,
+    "regionMissing": 2,
+    "coveragePct": 99.6,
+    "missingSamples": [
+      {
+        "id": "greenhouse-flexential-4341111009",
+        "company": "Flexential",
+        "location": "GA - Alpharetta (HUB)",
+        "sourceUrl": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4341111009"
+      },
+      {
+        "id": "greenhouse-flexential-4377149009",
+        "company": "Flexential",
+        "location": "NV - Las Vegas North",
+        "sourceUrl": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4377149009"
+      }
+    ],
     "countsByRegion": {
       "mid-atlantic": 101,
       "midwest": 103,
-      "west": 74,
+      "west": 75,
       "southeast": 91,
       "southwest": 67,
       "nationwide": 1,
@@ -290,8 +303,8 @@
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T00:49:25.671Z",
-    "publishedJobs": 564,
+    "checkedAt": "2026-09-06T00:50:18.602Z",
+    "publishedJobs": 567,
     "removedJobs": 0,
     "activeCareerEvents": 6
   },
@@ -646,22 +659,22 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T00:49:06.119Z",
-    "before": 564,
-    "after": 564,
+    "checkedAt": "2026-09-06T00:49:45.496Z",
+    "before": 567,
+    "after": 567,
     "removed": 0,
     "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 606,
-    "currentJobs": 564,
-    "newJobsThisRun": 0,
+    "trackedJobs": 609,
+    "currentJobs": 567,
+    "newJobsThisRun": 3,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 3,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T00:49:25.839Z"
+    "updatedAt": "2026-09-06T00:50:18.775Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -757,7 +770,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T00:49:05.981Z",
+    "checkedAt": "2026-09-06T00:49:45.355Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1413,5 +1426,22 @@
     "rejectedSeniorTitle": 3,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 2
+  },
+  "flexential": {
+    "checkedAt": "2026-09-06T00:49:45.293Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://www.flexential.com/careers",
+    "officialGreenhouseBoard": "https://job-boards.greenhouse.io/flexentialcorp",
+    "api": "https://boards-api.greenhouse.io/v1/boards/flexentialcorp/jobs?content=true",
+    "authoritativeSnapshot": true,
+    "listedJobs": 26,
+    "missionCandidates": 3,
+    "qualifyingRoles": 3,
+    "rejectedOutOfScopeTitle": 22,
+    "rejectedExcludedTitle": 1,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 0,
+    "rejectedInvalidUrl": 0
   }
 }

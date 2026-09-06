@@ -105,6 +105,7 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-compass-datacenters.mjs
           node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-digital-realty.mjs
           node scripts/validate-coresite-fallback.mjs
       - name: Validate approved homepage contract
         run: node scripts/validate-homepage-contract.mjs
@@ -167,6 +168,7 @@ jobs:
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
           node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-digital-realty.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-coresite-fallback.mjs
           node scripts/validate-data-freshness.mjs
@@ -189,6 +191,7 @@ jobs:
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-compass-datacenters.mjs
           node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-digital-realty.mjs
           node scripts/validate-coresite-fallback.mjs
           node scripts/validate-site-copy.mjs
           node scripts/validate-technical-seo.mjs

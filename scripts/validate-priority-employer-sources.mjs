@@ -19,6 +19,8 @@ const officialHostsByCompany = new Map([
   ['Cologix', new Set(['jobs.lever.co'])],
   ['Flexential', new Set(['job-boards.greenhouse.io'])],
   ['T5 Data Centers', new Set(['jobs.lever.co'])],
+  ['Stream Data Centers', new Set(['apply.workable.com'])],
+  ['Switch', new Set(['switchltd.hrmdirect.com'])],
   ['TierPoint', new Set(['careers-tierpoint.icims.com'])],
   ['Sabey Data Centers', new Set(['careers2-anothersource.icims.com'])],
   ['Novva Data Centers', new Set(['novva.com', 'www.novva.com'])],
@@ -30,13 +32,13 @@ const officialHostsByCompany = new Map([
   ['Aligned Data Centers', new Set(['aligneddc.wd12.myworkdayjobs.com'])]
 ]);
 
-// Lever and Greenhouse are shared ATS hosts, so hostname checks alone are not
-// enough to prove that a job belongs to the employer named in our feed. Pin the
-// board path for priority operators using those multi-tenant platforms.
+// Shared ATS hosts need more than hostname checks to prove that a posting
+// belongs to the employer named in our feed. Pin the employer-specific path.
 const sharedAtsPathPrefixesByCompany = new Map([
   ['Cologix', '/cologix/'],
   ['T5 Data Centers', '/t5datacenters/'],
-  ['Flexential', '/flexentialcorp/']
+  ['Flexential', '/flexentialcorp/'],
+  ['Stream Data Centers', '/stream-dc/j/']
 ]);
 
 // Dedicated employer snapshots are protected independently so a generic
@@ -44,6 +46,8 @@ const sharedAtsPathPrefixesByCompany = new Map([
 // Hyperscaler snapshots intentionally include a broader candidate set than the
 // final mission-fit feed, so for those sources we guard against total collapse
 // and source-host drift rather than requiring a fixed retention percentage.
+// New operator-specific snapshots are already mission-filtered and authoritative,
+// so they require exact URL parity with the public feed before deployment.
 const protectedSnapshots = [
   { company: 'Amazon Web Services', path: 'data/amazon-jobs.json', enforceRetentionRatio: false },
   { company: 'Google', path: 'data/google-jobs.json', enforceRetentionRatio: false },
@@ -51,6 +55,10 @@ const protectedSnapshots = [
   { company: 'Meta', path: 'data/meta-jobs.json', enforceRetentionRatio: false },
   { company: 'Oracle', path: 'data/oracle-jobs.json', enforceRetentionRatio: true },
   { company: 'Digital Realty', path: 'data/digital-realty-jobs.json', enforceRetentionRatio: true },
+  { company: 'Flexential', path: 'data/flexential-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
+  { company: 'T5 Data Centers', path: 'data/t5-data-centers-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
+  { company: 'Stream Data Centers', path: 'data/stream-data-centers-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
+  { company: 'Switch', path: 'data/switch-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'TierPoint', path: 'data/tierpoint-jobs.json', enforceRetentionRatio: true },
   { company: 'Sabey Data Centers', path: 'data/sabey-jobs.json', enforceRetentionRatio: true },
   { company: 'Novva Data Centers', path: 'data/novva-jobs.json', enforceRetentionRatio: true }
@@ -182,18 +190,30 @@ if (equinixEarlyExpected >= 3) {
   }
 }
 
-for (const { company, path, enforceRetentionRatio } of protectedSnapshots) {
+for (const { company, path, enforceRetentionRatio, enforceExactParity = false } of protectedSnapshots) {
   const snapshot = await readSnapshotJobs(path, company, violations);
   const foreign = snapshot.filter(job => String(job?.company || '').trim() !== company);
   if (foreign.length) violations.push(`${company}: dedicated snapshot contains ${foreign.length} record(s) owned by another company`);
   for (const job of snapshot) checkOfficialSource(company, job, `${company} snapshot`, violations);
 
   const snapshotCount = snapshot.length;
-  const publicCount = counts.get(company) || 0;
+  const publicCompanyJobs = jobs.filter(job => String(job?.company || '').trim() === company);
+  const publicCount = publicCompanyJobs.length;
   if (snapshotCount >= 3 && publicCount === 0) {
     violations.push(`${company}: ${snapshotCount} dedicated snapshot roles collapsed to zero in the public feed`);
   } else if (enforceRetentionRatio && snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
     violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} dedicated snapshot roles`);
+  }
+
+  if (enforceExactParity && snapshotCount > 0) {
+    if (publicCount !== snapshotCount) {
+      violations.push(`${company}: authoritative snapshot/public feed count mismatch (${snapshotCount} snapshot vs ${publicCount} public)`);
+    }
+    const publicUrls = new Set(publicCompanyJobs.map(job => String(job?.sourceUrl || '').trim()).filter(Boolean));
+    const missingUrls = snapshot.filter(job => !publicUrls.has(String(job?.sourceUrl || '').trim()));
+    if (missingUrls.length) {
+      violations.push(`${company}: ${missingUrls.length}/${snapshotCount} authoritative snapshot role(s) are missing from the public feed`);
+    }
   }
 }
 

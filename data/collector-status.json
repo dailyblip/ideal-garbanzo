@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T14:53:24.806Z",
+  "updatedAt": "2026-09-06T15:17:55.881Z",
   "jobs": 604,
   "sourcesAttempted": 50,
   "providers": {
@@ -13,10 +13,10 @@
     "icims": 1
   },
   "countsByType": {
+    "entry-level": 578,
     "trainee": 11,
-    "apprenticeship": 11,
     "internship": 4,
-    "entry-level": 578
+    "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 189,
@@ -280,7 +280,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T14:53:24.953Z",
+    "updatedAt": "2026-09-06T15:17:56.024Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 604,
@@ -288,19 +288,19 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 78,
-      "texas": 114,
       "mid-atlantic": 100,
-      "southwest": 76,
       "midwest": 117,
+      "west": 78,
       "southeast": 103,
-      "northeast": 15,
-      "nationwide": 1
+      "southwest": 76,
+      "nationwide": 1,
+      "texas": 114,
+      "northeast": 15
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T09:42:55.038Z",
-    "publishedJobs": 572,
+    "checkedAt": "2026-09-06T15:18:15.341Z",
+    "publishedJobs": 604,
     "removedJobs": 0,
     "activeCareerEvents": 6
   },
@@ -536,7 +536,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T14:53:25.003Z",
+    "checkedAt": "2026-09-06T15:17:56.089Z",
     "before": 604,
     "after": 604,
     "removed": 0,
@@ -546,12 +546,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 656,
     "currentJobs": 604,
-    "newJobsThisRun": 40,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 40,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T14:53:25.056Z"
+    "updatedAt": "2026-09-06T15:18:20.169Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -647,7 +647,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T14:53:24.898Z",
+    "checkedAt": "2026-09-06T15:17:55.948Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1269,7 +1269,7 @@
     "rejectedUnknownExperience": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-06T04:03:37.901Z",
+    "checkedAt": "2026-09-06T15:17:55.881Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",

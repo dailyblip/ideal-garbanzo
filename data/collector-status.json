@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T00:49:45.293Z",
+  "updatedAt": "2026-09-06T00:55:09.782Z",
   "jobs": 567,
   "sourcesAttempted": 48,
   "providers": {
@@ -19,9 +19,9 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 152,
+    "2-5-years": 150,
     "0-2-years": 397,
-    "no-experience": 18
+    "no-experience": 20
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -271,39 +271,26 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T00:49:45.429Z",
+    "updatedAt": "2026-09-06T00:55:09.910Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 565,
-    "regionMissing": 2,
-    "coveragePct": 99.6,
-    "missingSamples": [
-      {
-        "id": "greenhouse-flexential-4341111009",
-        "company": "Flexential",
-        "location": "GA - Alpharetta (HUB)",
-        "sourceUrl": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4341111009"
-      },
-      {
-        "id": "greenhouse-flexential-4377149009",
-        "company": "Flexential",
-        "location": "NV - Las Vegas North",
-        "sourceUrl": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4377149009"
-      }
-    ],
+    "regionAssigned": 567,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
       "mid-atlantic": 101,
       "midwest": 103,
       "west": 75,
-      "southeast": 91,
-      "southwest": 67,
+      "southeast": 92,
+      "southwest": 68,
       "nationwide": 1,
       "texas": 113,
       "northeast": 14
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T00:50:18.602Z",
+    "checkedAt": "2026-09-06T00:55:30.643Z",
     "publishedJobs": 567,
     "removedJobs": 0,
     "activeCareerEvents": 6
@@ -659,7 +646,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T00:49:45.496Z",
+    "checkedAt": "2026-09-06T00:55:09.972Z",
     "before": 567,
     "after": 567,
     "removed": 0,
@@ -669,12 +656,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 609,
     "currentJobs": 567,
-    "newJobsThisRun": 3,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 3,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 3,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T00:50:18.775Z"
+    "updatedAt": "2026-09-06T00:55:34.633Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -770,7 +757,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T00:49:45.355Z",
+    "checkedAt": "2026-09-06T00:55:09.843Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1428,7 +1415,7 @@
     "rejectedUnknownExperience": 2
   },
   "flexential": {
-    "checkedAt": "2026-09-06T00:49:45.293Z",
+    "checkedAt": "2026-09-06T00:55:09.782Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",

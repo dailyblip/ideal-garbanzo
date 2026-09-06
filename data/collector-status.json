@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-06T15:52:20.863Z",
+  "updatedAt": "2026-09-06T15:53:36.632Z",
   "jobs": 506,
-  "sourcesAttempted": 50,
+  "sourcesAttempted": 51,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
@@ -13,15 +13,15 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 12,
     "entry-level": 479,
+    "trainee": 12,
     "internship": 4,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "no-experience": 20,
     "0-2-years": 310,
-    "2-5-years": 176
+    "2-5-years": 176,
+    "no-experience": 20
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -286,7 +286,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T15:52:20.979Z",
+    "updatedAt": "2026-09-06T15:53:36.744Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 506,
@@ -294,14 +294,14 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 98,
-      "southwest": 67,
       "west": 62,
       "mid-atlantic": 72,
+      "midwest": 98,
       "southeast": 94,
-      "northeast": 14,
+      "southwest": 67,
+      "nationwide": 1,
       "texas": 98,
-      "nationwide": 1
+      "northeast": 14
     }
   },
   "postQa": {
@@ -542,7 +542,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T15:52:21.021Z",
+    "checkedAt": "2026-09-06T15:53:36.796Z",
     "before": 506,
     "after": 506,
     "removed": 0,
@@ -552,12 +552,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 665,
     "currentJobs": 506,
-    "newJobsThisRun": 9,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 9,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T15:52:31.923Z"
+    "updatedAt": "2026-09-06T15:53:36.847Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -653,19 +653,10 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T15:52:20.928Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "reason": "non-mission role family"
-      }
-    ]
+    "checkedAt": "2026-09-06T15:53:36.686Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": []
   },
   "oracleCareers": {
     "officialSource": "https://careers.oracle.com/",
@@ -761,13 +752,13 @@
         "reason": "classification"
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
         "location": ""
       },
       {

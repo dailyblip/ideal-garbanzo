@@ -1,0 +1,46 @@
+name: Refresh career ceiling roles
+
+on:
+  schedule:
+    - cron: '15 14 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/career-motivator-candidates.json'
+      - 'scripts/refresh-career-motivators.mjs'
+      - 'scripts/validate-career-motivators.mjs'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: career-ceiling-roles
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Refresh verified career-ceiling roles
+        run: node scripts/refresh-career-motivators.mjs
+      - name: Validate career-ceiling rules
+        run: node scripts/validate-career-motivators.mjs
+      - name: Commit refreshed cards when changed
+        run: |
+          if git diff --quiet -- data/career-motivators.json; then
+            echo "Career-ceiling roles unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/career-motivators.json
+          git commit -m "Refresh verified career ceiling roles"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

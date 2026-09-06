@@ -1,0 +1,84 @@
+name: Visual composition QA
+
+on:
+  workflow_run:
+    workflows: ["Refresh jobs and deploy site"]
+    types: [completed]
+  schedule:
+    - cron: '45 15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: visual-composition-qa
+  cancel-in-progress: true
+
+jobs:
+  visual-qa:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install browser QA runtime
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Validate career-ceiling cards
+        run: node scripts/validate-career-motivators.mjs
+      - name: Review live visual composition
+        id: composition
+        continue-on-error: true
+        env:
+          VISUAL_QA_BASE_URL: https://datacentercareers.us
+          VISUAL_QA_OUTPUT_DIR: artifacts/visual-qa
+        run: node scripts/visual-composition-qa.mjs
+      - name: Upload composition screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-composition-qa-${{ github.run_id }}
+          path: artifacts/visual-qa
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Open or update visual blocker
+        if: steps.composition.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Visual composition QA blocker';
+            const { data: issues } = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, state: 'open', per_page: 100 });
+            const existing = issues.find(issue => issue.title === title);
+            const body = [
+              'Automated composition QA found a visual regression on the live site.',
+              '',
+              `Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              '',
+              'Review the uploaded desktop/tablet/iPhone screenshots and report before making additional visual changes.'
+            ].join('\n');
+            if (existing) {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number, body });
+            } else {
+              await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body });
+            }
+      - name: Close recovered visual blocker
+        if: steps.composition.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Visual composition QA blocker';
+            const { data: issues } = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, state: 'open', per_page: 100 });
+            for (const issue of issues.filter(issue => issue.title === title)) {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, body: 'Visual composition QA is healthy again. Closing this blocker.' });
+              await github.rest.issues.update({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, state: 'closed', state_reason: 'completed' });
+            }
+      - name: Fail workflow on visual regression
+        if: steps.composition.outcome == 'failure'
+        run: exit 1

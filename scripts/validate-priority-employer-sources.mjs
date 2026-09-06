@@ -93,7 +93,7 @@ function confidentUsLocation(value = '') {
   if (!text) return false;
   const lower = text.toLowerCase().replace(/[-_/]+/g, ' ').replace(/\s+/g, ' ');
   if (/\b(?:united states|usa|u\.s\.a\.|u\.s\.)\b/i.test(text)) return true;
-  if (usStateNames.some(state => new RegExp(`\\b${state.replace(/ /g, '\\s+')}\\b`, 'i').test(lower))) return true;
+  if (usStateNames.some(state => new RegExp(`\b${state.replace(/ /g, '\s+')}\b`, 'i').test(lower))) return true;
   const abbreviationMatch = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
   return Boolean(abbreviationMatch && usStateAbbreviations.has(abbreviationMatch[1]));
 }
@@ -191,6 +191,33 @@ if (equinixEarlyExpected >= 3) {
   }
 }
 
+// GitHub-hosted Equinix fetches can return a rendered shell without the
+// qualifications body, so a short-lived set of source-verified SkillBridge
+// roles is restored during the build. Protect that verified set independently:
+// every role the fallback says it retained must still be present after mission
+// filtering and dedupe, and stale verification metadata must never outlive its
+// explicit expiry date.
+const equinixFallbackStatus = collectorStatus?.equinixVerifiedFallback || {};
+const equinixFallbackExpected = Number(equinixFallbackStatus?.retainedManaged || 0);
+const equinixFallbackLiveChecks = Number(equinixFallbackStatus?.liveChecksPassed || 0);
+const equinixFallbackExpired = equinixFallbackStatus?.expired === true;
+const equinixFallbackExpiresAt = Date.parse(String(equinixFallbackStatus?.expiresAt || ''));
+const equinixFallbackPublic = jobs.filter(job => String(job?.company || '').trim() === 'Equinix' && (
+  /^equinix-verified-/i.test(String(job?.id || '')) ||
+  job?.source === 'Equinix official careers (verified fallback)'
+)).length;
+if (!equinixFallbackExpired && Number.isFinite(equinixFallbackExpiresAt) && Date.now() >= equinixFallbackExpiresAt) {
+  violations.push(`Equinix verified fallback is still marked active after its ${equinixFallbackStatus.expiresAt} expiry`);
+}
+if (!equinixFallbackExpired && equinixFallbackExpected > 0) {
+  if (equinixFallbackPublic !== equinixFallbackExpected) {
+    violations.push(`Equinix verified fallback/public feed count mismatch (${equinixFallbackExpected} retained vs ${equinixFallbackPublic} public)`);
+  }
+  if (equinixFallbackLiveChecks < equinixFallbackExpected) {
+    violations.push(`Equinix verified fallback retained ${equinixFallbackExpected} role(s) but only ${equinixFallbackLiveChecks} official URL check(s) passed`);
+  }
+}
+
 for (const { company, path, enforceRetentionRatio, enforceExactParity = false } of protectedSnapshots) {
   const snapshot = await readSnapshotJobs(path, company, violations);
   const foreign = snapshot.filter(job => String(job?.company || '').trim() !== company);
@@ -250,4 +277,5 @@ if (violations.length) {
 const priorityJobs = represented.reduce((sum, [, count]) => sum + count, 0);
 console.log(`Priority employer source guard passed: ${priorityJobs} jobs from ${represented.length}/${officialHostsByCompany.size} priority operators use employer-direct career URLs.`);
 console.log(`  Equinix early-career managed roles: ${equinixEarlyPublic}/${equinixEarlyExpected || equinixEarlyPublic}`);
+console.log(`  Equinix verified fallback roles: ${equinixFallbackPublic}/${equinixFallbackExpected || equinixFallbackPublic}`);
 for (const [company, count] of represented) console.log(`  ${company}: ${count}`);

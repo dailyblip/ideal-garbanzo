@@ -20,11 +20,14 @@ function canonicalTitle(job) {
   };
   // Some Workday boards prepend internal numeric requisition labels to otherwise
   // identical public titles (for example, "989 - Data Center Technician L1").
-  // QA already treats those labels as non-semantic, so collapse them here too so
-  // duplicate roles never need to reach the live-link QA stage.
   title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
+  // Some employers append a location to the public title. Treat that as display
+  // metadata rather than a distinct role identity.
   title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
   title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  // Shift-only suffixes make cards look duplicated even when the employer has
+  // published separate requisitions. Keep one representative role per title.
+  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
   return normalizeIdentity(title);
 }
 
@@ -45,6 +48,11 @@ function requisitionId(url = '') {
   return '';
 }
 
+function hasListedPay(job) {
+  const pay = String(job?.pay || '').trim();
+  return Boolean(pay) && !/^pay not listed$/i.test(pay);
+}
+
 function qualityScore(job) {
   let score = 0;
   if (job.type === 'apprenticeship') score += 40;
@@ -52,13 +60,14 @@ function qualityScore(job) {
   else if (job.type === 'trainee') score += 30;
   if (job.experience === 'no-experience') score += 20;
   else if (job.experience === '0-2-years') score += 10;
-  if (job.pay && job.pay !== 'Pay not listed') score += 4;
-  if (Number.isFinite(Number(job.salaryMax))) score += 2;
+  // Prefer the representative posting that actually includes compensation.
+  if (hasListedPay(job)) score += 8;
+  if (Number.isFinite(Number(job.salaryMax))) score += 4;
+  if (Number.isFinite(Number(job.salaryMin))) score += 2;
   if (job.postedAt) score += 2;
   if (job.region) score += 1;
   // Prefer the clean public-facing title when a duplicate carries an internal
-  // numeric requisition prefix. This mirrors the later QA preference while
-  // removing the duplicate before publication checks.
+  // numeric requisition prefix.
   if (!hasNumericReqPrefix(job.title)) score += 4;
   return score;
 }
@@ -93,22 +102,29 @@ const kept = [];
 const byId = new Map();
 const byUrl = new Map();
 const byReq = new Map();
+const byCompanyTitle = new Map();
 const bySemantic = new Map();
 const removed = [];
 
-for (const job of jobs) {
+for (const rawJob of jobs) {
+  const job = { ...rawJob };
+  if (/^pay not listed$/i.test(String(job.pay || '').trim())) job.pay = '';
+
   const id = String(job.id || '').trim();
   const url = String(job.sourceUrl || '').trim();
   const company = normalizeIdentity(job.company);
+  const title = canonicalTitle(job);
   const req = requisitionId(url);
   const reqKey = req ? `${company}|${req}` : '';
-  const semanticKey = [company, canonicalTitle(job), normalizeIdentity(job.location)].join('|');
+  const companyTitleKey = company && title ? `${company}|${title}` : '';
+  const semanticKey = [company, title, normalizeIdentity(job.location)].join('|');
 
   let priorIndex = -1;
   let reason = '';
   if (id && byId.has(id)) { priorIndex = byId.get(id); reason = 'same-id'; }
   else if (url && byUrl.has(url)) { priorIndex = byUrl.get(url); reason = 'same-url'; }
   else if (reqKey && byReq.has(reqKey)) { priorIndex = byReq.get(reqKey); reason = 'same-requisition'; }
+  else if (companyTitleKey && byCompanyTitle.has(companyTitleKey)) { priorIndex = byCompanyTitle.get(companyTitleKey); reason = 'same-company-title'; }
   else if (semanticKey && bySemantic.has(semanticKey)) { priorIndex = bySemantic.get(semanticKey); reason = 'same-company-title-location'; }
 
   if (priorIndex >= 0) {
@@ -122,11 +138,14 @@ for (const job of jobs) {
     const winnerUrl = String(winner.sourceUrl || '').trim();
     const winnerReq = requisitionId(winnerUrl);
     const winnerCompany = normalizeIdentity(winner.company);
+    const winnerTitle = canonicalTitle(winner);
     const winnerReqKey = winnerReq ? `${winnerCompany}|${winnerReq}` : '';
-    const winnerSemantic = [winnerCompany, canonicalTitle(winner), normalizeIdentity(winner.location)].join('|');
+    const winnerCompanyTitleKey = winnerCompany && winnerTitle ? `${winnerCompany}|${winnerTitle}` : '';
+    const winnerSemantic = [winnerCompany, winnerTitle, normalizeIdentity(winner.location)].join('|');
     if (winnerId) byId.set(winnerId, priorIndex);
     if (winnerUrl) byUrl.set(winnerUrl, priorIndex);
     if (winnerReqKey) byReq.set(winnerReqKey, priorIndex);
+    if (winnerCompanyTitleKey) byCompanyTitle.set(winnerCompanyTitleKey, priorIndex);
     if (winnerSemantic) bySemantic.set(winnerSemantic, priorIndex);
     continue;
   }
@@ -135,6 +154,7 @@ for (const job of jobs) {
   if (id) byId.set(id, index);
   if (url) byUrl.set(url, index);
   if (reqKey) byReq.set(reqKey, index);
+  if (companyTitleKey) byCompanyTitle.set(companyTitleKey, index);
   if (semanticKey) bySemantic.set(semanticKey, index);
 }
 
@@ -150,9 +170,10 @@ try {
     before: jobs.length,
     after: kept.length,
     removed: removed.length,
+    policy: 'one representative posting per normalized employer + title',
     examples: removed.slice(0, 20)
   };
   await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 } catch {}
 
-console.log(`Post-normalization dedupe removed ${removed.length} duplicate${removed.length === 1 ? '' : 's'}; ${kept.length} jobs remain.`);
+console.log(`Post-normalization dedupe removed ${removed.length} duplicate-looking listing${removed.length === 1 ? '' : 's'}; ${kept.length} jobs remain.`);

@@ -1,0 +1,24 @@
+name: Generic source failure preservation guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
+      - '.github/workflows/generic-source-preservation-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate per-source outage preservation
+        run: node scripts/collect-jobs.mjs --test-preservation

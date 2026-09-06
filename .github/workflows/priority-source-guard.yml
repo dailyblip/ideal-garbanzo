@@ -14,6 +14,7 @@ on:
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
+      - 'scripts/validate-oracle-snapshot.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -29,6 +30,7 @@ on:
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
+      - 'scripts/validate-oracle-snapshot.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -46,3 +48,5 @@ jobs:
           node-version: 22
       - name: Verify priority jobs and snapshots stay employer-direct
         run: node scripts/validate-priority-employer-sources.mjs
+      - name: Verify Oracle snapshot matches the public feed exactly
+        run: node scripts/validate-oracle-snapshot.mjs

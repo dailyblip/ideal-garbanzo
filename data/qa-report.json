@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-05T23:48:15.351Z",
+  "checkedAt": "2026-09-06T00:49:25.671Z",
   "jobsBefore": 564,
   "jobsAfter": 564,
   "demoJobsRemoved": [],
@@ -54,7 +54,26 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "microsoft-1970393556989023",
+      "company": "Microsoft",
+      "title": "Data Center Technician",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393556989023",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "microsoft-1970393556952670",
+      "company": "Microsoft",
+      "title": "Critical Environment Mechanical Engineer",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393556952670",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 6,
   "careerEventsAfter": 6,

@@ -6,6 +6,7 @@ const TENANT = 'ironmountain';
 const SITE = 'iron-mountain-jobs';
 const LOCALE = 'en-US';
 const JOBS_PATH = 'data/jobs.json';
+const SNAPSHOT_PATH = 'data/iron-mountain-jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const PAGE_SIZE = 20;
 const MAX_PAGES = 100;
@@ -249,7 +250,11 @@ async function listJobs() {
 
 const currentJobs = await readJson(JOBS_PATH, []);
 const status = await readJson(STATUS_PATH, {});
-const previousSnapshot = currentJobs.filter(job => job.company === COMPANY || /ironmountain\.wd5\.myworkdayjobs\.com/i.test(String(job.sourceUrl || '')));
+const storedSnapshot = await readJson(SNAPSHOT_PATH, []);
+const publicPrevious = currentJobs.filter(job => job.company === COMPANY || /ironmountain\.wd5\.myworkdayjobs\.com/i.test(String(job.sourceUrl || '')));
+// Migration-safe fallback: until the first dedicated snapshot has been written,
+// preserve the currently published employer-direct records during a source outage.
+const previousSnapshot = Array.isArray(storedSnapshot) && storedSnapshot.length ? storedSnapshot : publicPrevious;
 const diagnostics = {
   listingPagesAttempted: 0,
   listingPagesSucceeded: 0,
@@ -259,6 +264,7 @@ const diagnostics = {
   detailAttempted: 0,
   detailSucceeded: 0,
   qualifyingRoles: 0,
+  snapshotRoles: 0,
   preservedPrevious: 0,
   drops: { titleOrContext: 0, nonUs: 0, experienceUnknown: 0, experienceOver5: 0, fetch: 0 }
 };
@@ -336,12 +342,14 @@ if (!sourceHealthy || !diagnostics.listingComplete) {
   nextSnapshot = dedupe([...verified, ...previousSnapshot]);
   diagnostics.preservedPrevious = previousSnapshot.length;
 }
+diagnostics.snapshotRoles = nextSnapshot.length;
 
 const withoutIronMountain = currentJobs.filter(job => job.company !== COMPANY && !/ironmountain\.wd5\.myworkdayjobs\.com/i.test(String(job.sourceUrl || '')));
 const merged = dedupe([...withoutIronMountain, ...nextSnapshot]);
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
 
+await writeFile(SNAPSHOT_PATH, JSON.stringify(nextSnapshot, null, 2) + '\n');
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify({
   ...status,
@@ -357,5 +365,5 @@ await writeFile(STATUS_PATH, JSON.stringify({
   }
 }, null, 2) + '\n');
 
-console.log(`Iron Mountain collector found ${verified.length} qualifying U.S. data-center roles; ${merged.length} total jobs after merge.`);
+console.log(`Iron Mountain collector found ${verified.length} qualifying U.S. data-center roles; ${nextSnapshot.length} protected snapshot roles; ${merged.length} total jobs after merge.`);
 if (errors.length) console.warn(`Iron Mountain collector warnings: ${errors.slice(0, 5).join(' | ')}`);

@@ -20,7 +20,7 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 // Corporate uses of "operations" are intentionally named here instead of
 // blocking the word globally, because hands-on critical/data-center operations
 // roles are a core part of the product.
-const obviousNonMissionTitlePattern = /\b(?:administrative business partner|business analyst|financial operations|financial analyst|finance analyst|procurement|purchasing|security operations|cybersecurity|information security|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel)\b/i;
+const obviousNonMissionTitlePattern = /\b(?:administrative business partner|business analyst|financial operations|financial analyst|finance analyst|procurement|purchasing|security operations|cybersecurity|information security|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel|enterprise it support|enterprise applications|process analytics)\b/i;
 // Keep this publication-time filter aligned with validate.mjs. If these roles are
 // allowed through here, the final deployment validator rejects the same feed and
 // turns ordinary source-taxonomy drift into an avoidable site deployment failure.
@@ -37,12 +37,17 @@ const titleRegressionCases = [
   { title: 'Business Analyst, Budget Planning & Financial Operations, Global', reason: 'non-mission role family' },
   { title: 'Purchasing Operations Specialist, NA', reason: 'non-mission role family' },
   { title: 'Security Operations Engineer', reason: 'non-mission role family' },
+  { title: 'Summer 2027 Internship: Enterprise IT Support', reason: 'non-mission role family' },
+  { title: 'Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern', reason: 'non-mission role family' },
+  { title: 'Summer 2027 Internship: Process Analytics - Technology Delivery Team', reason: 'non-mission role family' },
   { title: 'Data Center Facilities Manager', reason: 'senior/executive title' },
   { title: 'Critical Operations Supervisor', reason: 'senior/executive title' },
   { title: 'Data Center Architect', reason: 'senior/executive title' },
   { title: 'Critical Operations Technician I', reason: '' },
   { title: 'Data Center Operations Technician', reason: '' },
-  { title: 'Critical Facilities Engineer', reason: '' }
+  { title: 'Critical Facilities Engineer', reason: '' },
+  { title: 'Summer 2027 Internship: Facilities Engineering and Commissioning', reason: '' },
+  { title: 'Summer 2027 Internship: Data Center Infrastructure Management (DCIM)', reason: '' }
 ];
 for (const testCase of titleRegressionCases) {
   const actual = obviousTitleReason(testCase.title);

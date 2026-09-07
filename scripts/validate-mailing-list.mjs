@@ -59,7 +59,17 @@ for (const marker of ['BUTTONDOWN_API_KEY', 'X-Buttondown-Live-Dangerously', '/v
 if (!digestScript.includes("if (!config.enabled && !dryRun)")) fail('Weekly digest sender must stop when the mailing list is disabled.');
 if (!digestScript.includes('if (!weeklyJobs.length)')) fail('Weekly digest sender must skip empty newsletters.');
 if (!digestScript.includes('subscriber.metadata.region')) fail('Weekly digest sender must personalize content from the saved regional preference.');
-if (!digestScript.includes("job.region === region || job.region === 'nationwide'")) fail('Regional digests must include matching and nationwide roles.');
+
+for (const marker of [
+  'const digestJobMatchesRegion = (job, region) =>',
+  "if (job?.region === 'nationwide') return true;",
+  'Array.isArray(job?.regions) && job.regions.includes(region)',
+  "location.includes(';')",
+  'digestLocationMatchesRegion(location, region)',
+  'weeklyJobs.filter(job => digestJobMatchesRegion(job, region))'
+]) {
+  if (!digestScript.includes(marker)) fail(`Regional digest matching is missing: ${marker}`);
+}
 if (!digestScript.includes('regional_personalization: true')) fail('Weekly digest must stamp regional personalization metadata.');
 
-console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: resilient tagged signup with regional subscriber metadata and personalized Monday digests at ${config.sendTimeUtc} UTC.`);
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: resilient tagged signup with multi-location regional subscriber metadata and personalized Monday digests at ${config.sendTimeUtc} UTC.`);

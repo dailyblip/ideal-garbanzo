@@ -1,6 +1,7 @@
 name: One-shot full refresh dispatch
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:

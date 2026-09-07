@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T10:47:55.117Z",
+  "updatedAt": "2026-09-07T10:51:21.438Z",
   "jobs": 477,
   "sourcesAttempted": 28,
   "providers": {
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
-    "trainee": 12,
+    "entry-level": 440,
     "apprenticeship": 12,
-    "internship": 13,
-    "entry-level": 440
+    "trainee": 12,
+    "internship": 13
   },
   "countsByExperience": {
+    "0-2-years": 190,
     "2-5-years": 243,
-    "no-experience": 44,
-    "0-2-years": 190
+    "no-experience": 44
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -166,7 +166,7 @@
     ]
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-07T10:04:08.753Z",
+    "checkedAt": "2026-09-07T10:51:21.438Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -1419,23 +1419,13 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T10:47:55.224Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-US location": 1
-    },
-    "removed": [
-      {
-        "id": "gh-coreweave-4710680006",
-        "company": "CoreWeave",
-        "title": "Data Center Technician - Cambridge, ON",
-        "location": "Cambridge, ON",
-        "reason": "non-US location"
-      }
-    ]
+    "checkedAt": "2026-09-07T10:51:21.498Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T10:47:55.288Z",
+    "updatedAt": "2026-09-07T10:51:21.565Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 477,
@@ -1443,18 +1433,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 66,
-      "texas": 77,
+      "northeast": 15,
       "midwest": 87,
+      "texas": 77,
+      "southeast": 90,
+      "west": 66,
       "mid-atlantic": 71,
       "southwest": 70,
-      "southeast": 90,
-      "northeast": 15,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T10:47:55.349Z",
+    "checkedAt": "2026-09-07T10:51:21.635Z",
     "before": 477,
     "after": 477,
     "removed": 0,
@@ -1462,9 +1452,9 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-07T10:12:52.516Z",
-    "publishedJobs": 480,
-    "removedJobs": 5,
+    "checkedAt": "2026-09-07T10:51:33.977Z",
+    "publishedJobs": 477,
+    "removedJobs": 0,
     "activeCareerEvents": 6
   },
   "jobHistory": {
@@ -1476,6 +1466,6 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T10:47:55.405Z"
+    "updatedAt": "2026-09-07T10:51:34.158Z"
   }
 }

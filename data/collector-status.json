@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T10:51:21.438Z",
+  "updatedAt": "2026-09-07T10:51:44.390Z",
   "jobs": 477,
   "sourcesAttempted": 28,
   "providers": {
@@ -1419,13 +1419,13 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T10:51:21.498Z",
+    "checkedAt": "2026-09-07T10:51:44.452Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T10:51:21.565Z",
+    "updatedAt": "2026-09-07T10:51:44.519Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 477,
@@ -1444,7 +1444,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T10:51:21.635Z",
+    "checkedAt": "2026-09-07T10:51:44.582Z",
     "before": 477,
     "after": 477,
     "removed": 0,
@@ -1452,7 +1452,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-07T10:51:33.977Z",
+    "checkedAt": "2026-09-07T10:51:58.413Z",
     "publishedJobs": 477,
     "removedJobs": 0,
     "activeCareerEvents": 6
@@ -1466,6 +1466,23 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T10:51:34.158Z"
+    "updatedAt": "2026-09-07T10:51:58.594Z"
+  },
+  "flexential": {
+    "checkedAt": "2026-09-07T10:51:44.390Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://www.flexential.com/careers",
+    "officialGreenhouseBoard": "https://job-boards.greenhouse.io/flexentialcorp",
+    "api": "https://boards-api.greenhouse.io/v1/boards/flexentialcorp/jobs?content=true",
+    "authoritativeSnapshot": true,
+    "listedJobs": 26,
+    "missionCandidates": 3,
+    "qualifyingRoles": 3,
+    "rejectedOutOfScopeTitle": 22,
+    "rejectedExcludedTitle": 1,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 0,
+    "rejectedInvalidUrl": 0
   }
 }

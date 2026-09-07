@@ -131,10 +131,12 @@ for (const { path, company } of SNAPSHOT_SOURCES) {
 const publicResult = partitionMissionFit(jobs);
 let majorResult = { kept: [], removed: [] };
 let majorSnapshotPresent = false;
+let majorOriginalCount = 0;
 try {
   const majorJobs = JSON.parse(await readFile(MAJOR_PATH, 'utf8'));
   if (!Array.isArray(majorJobs)) throw new Error('major-jobs.json must contain an array');
   majorSnapshotPresent = true;
+  majorOriginalCount = majorJobs.length;
   majorResult = partitionMissionFit(majorJobs);
 } catch (error) {
   if (error?.code !== 'ENOENT') throw error;
@@ -156,17 +158,28 @@ status.missionFit = {
   majorSnapshotRemoved: majorResult.removed
 };
 
-// The reconciled major Workday snapshot is the authoritative source behind
-// public cards from Vantage/QTS/CyrusOne/STACK/NTT/Aligned. Apply the same
-// publication backstop to that snapshot so parity validation remains strict
-// without forcing known corporate/noise titles into the public feed.
+// Apply the same publication backstop to the major Workday snapshot so every
+// public major-employer card still traces to a mission-fit source record. Keep
+// the pre-existing reconciliation mode intact: targeted recovery can make the
+// snapshot intentionally larger than the last strict reconciliation, and this
+// filter must not accidentally turn that state into exact-title parity.
 if (majorSnapshotPresent && majorResult.removed.length) {
-  if (status?.majorSources && typeof status.majorSources === 'object') {
-    status.majorSources.jobs = majorResult.kept.length;
-    if (status.majorSources.reconciliation && typeof status.majorSources.reconciliation === 'object') {
-      status.majorSources.reconciliation.publishedUsJobs = majorResult.kept.length;
-      status.majorSources.reconciliation.missionFitRemoved = majorResult.removed.length;
+  const reconciliation = status?.majorSources?.reconciliation;
+  if (reconciliation && typeof reconciliation === 'object') {
+    const priorPublished = Number(reconciliation.publishedUsJobs);
+    const wasExactParity = Number.isFinite(priorPublished) && priorPublished === majorOriginalCount;
+    if (Number.isFinite(priorPublished)) {
+      if (wasExactParity) {
+        reconciliation.publishedUsJobs = majorResult.kept.length;
+      } else {
+        const adjustedPrior = Math.max(0, priorPublished - majorResult.removed.length);
+        reconciliation.publishedUsJobs = majorResult.kept.length > 0
+          ? Math.min(adjustedPrior, majorResult.kept.length - 1)
+          : 0;
+      }
     }
+    reconciliation.missionFitRemoved = majorResult.removed.length;
+    reconciliation.missionFitPreservedParityMode = wasExactParity ? 'exact' : 'coverage';
   }
   await writeFile(MAJOR_PATH, JSON.stringify(majorResult.kept, null, 2) + '\n');
 }
@@ -179,5 +192,5 @@ if (publicResult.removed.length) {
   console.log(`Removed: ${publicResult.removed.map(item => `${item.company}: ${item.title} [${item.reason}]`).join(' | ')}`);
 }
 if (majorResult.removed.length) {
-  console.log(`Pruned ${majorResult.removed.length} matching out-of-scope role(s) from the reconciled major Workday snapshot.`);
+  console.log(`Pruned ${majorResult.removed.length} matching out-of-scope role(s) from the major Workday snapshot.`);
 }

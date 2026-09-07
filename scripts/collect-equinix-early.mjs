@@ -224,6 +224,10 @@ function classifyExperience(title, description='') {
   const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required|\b0\+?\s+months?\s+(?:of\s+)?experience\b/i.test(requiredText);
   if (explicitNoExperience) return { experience:'no-experience' };
   if (/intern|co-?op|apprentice/i.test(t)) return { experience:'0-2-years' };
+  const explicitlyLearningNewTrade = /\bdesire to learn (?:a )?new skill(?: or trade)?\b/i.test(requiredText);
+  if (/(?:skillbridge|trainee|fellowship|work.?based learning)/i.test(t) && explicitlyLearningNewTrade) {
+    return { experience:'0-2-years' };
+  }
   return { drop:'unknown-experience' };
 }
 
@@ -234,6 +238,7 @@ function validateClassifier() {
     {name:'one-to-four relevant experience is mid-level eligible',title:'SkillBridge Critical Facilities Engineer, Data Center - Cohort Q3',description:"Qualifications: Working on bachelor's degree or relevant experience w/1-4 years in Mechanical Engineering or related field.",expected:'2-5-years'},
     {name:'preferred seniority does not override required two years',title:'Data Center Operations Trainee',description:'Minimum of two years of relevant experience. Preferred qualifications: seven years of experience.',expected:'0-2-years'},
     {name:'explicit no-experience language is truthful',title:'Data Center Operations Trainee',description:'No prior experience required. Training is provided.',expected:'no-experience'},
+    {name:'explicit learn-new-trade SkillBridge language is early-career eligible',title:'SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1 2027',description:'Do you have military experience? Or desire to learn a new skill or trade? This could be your next career move!',expected:'0-2-years'},
     {name:'bare SkillBridge title fails closed',title:'SkillBridge Data Center Technician - Trainee',description:'Hands-on data center operations training program.',expected:null},
     {name:'internship without stated years stays early-career',title:'Data Center Customer Operations Intern',description:'Support the data center operations team.',expected:'0-2-years'}
   ];

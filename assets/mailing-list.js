@@ -67,11 +67,3 @@
       if (fallbackAction) armSubmitState();
     });
 })();
-
-(() => {
-  if (document.querySelector('script[data-career-motivators]')) return;
-  const script = document.createElement('script');
-  script.src = 'assets/career-motivators.js';
-  script.dataset.careerMotivators = 'true';
-  document.head.appendChild(script);
-})();

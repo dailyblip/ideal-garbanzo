@@ -442,11 +442,12 @@ for (const job of merged) {
   job.postedHours = job.postedAt ? Math.max(0, Math.round((now - new Date(job.postedAt).getTime()) / 36e5)) : (job.postedHours ?? 9999);
 }
 
-const early = merged.filter(job => job.experience !== '2-5-years');
-const mid = merged.filter(job => job.experience === '2-5-years');
-const maxMid = Math.max(12, Math.floor(Math.max(early.length,1) * 0.30));
-merged = [...early, ...mid.sort((a,b)=>(a.postedHours??9999)-(b.postedHours??9999)).slice(0,maxMid)]
-  .sort((a,b) => priority(a) - priority(b) || (a.postedHours??9999) - (b.postedHours??9999));
+// Every role reaching this point has already passed the mission-fit and 0–5 year
+// experience guards. Do not apply a global mid-career quota here: it can
+// silently erase an employer whose qualifying roles happen to be 2–5 year
+// positions. Rank early-career roles first for presentation while retaining
+// all verified, in-scope opportunities in the public feed.
+merged = merged.sort((a,b) => priority(a) - priority(b) || (a.postedHours??9999) - (b.postedHours??9999));
 
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});

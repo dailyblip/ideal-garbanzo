@@ -1,25 +1,25 @@
 {
-  "updatedAt": "2026-09-07T17:48:46.104Z",
-  "jobs": 685,
-  "sourcesAttempted": 29,
+  "updatedAt": "2026-09-07T17:55:39.167Z",
+  "jobs": 684,
+  "sourcesAttempted": 30,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
     "ashby": 5,
     "icims": 1,
     "workday": 6,
-    "googleCareers": 2,
+    "googleCareers": 3,
     "metaCareers": 1,
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 647,
+    "entry-level": 646,
     "apprenticeship": 12,
     "trainee": 13,
     "internship": 13
   },
   "countsByExperience": {
-    "0-2-years": 380,
+    "0-2-years": 379,
     "2-5-years": 261,
     "no-experience": 44
   },
@@ -962,14 +962,14 @@
     "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 54,
-    "qualifyingRoles": 52,
+    "candidateRows": 53,
+    "qualifyingRoles": 51,
     "diagnostics": {
-      "canonicalLinks": 77,
-      "missionFitLinks": 54,
-      "uniqueCandidates": 54,
-      "detailAttempted": 54,
-      "detailVerified": 53,
+      "canonicalLinks": 75,
+      "missionFitLinks": 53,
+      "uniqueCandidates": 53,
+      "detailAttempted": 53,
+      "detailVerified": 52,
       "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
@@ -1424,16 +1424,16 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T17:48:46.203Z",
+    "checkedAt": "2026-09-07T17:55:39.281Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T17:48:46.279Z",
+    "updatedAt": "2026-09-07T17:55:39.351Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 685,
+    "regionAssigned": 684,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -1444,14 +1444,14 @@
       "southeast": 113,
       "west": 102,
       "mid-atlantic": 128,
-      "southwest": 87,
+      "southwest": 86,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T17:48:46.353Z",
-    "before": 685,
-    "after": 685,
+    "checkedAt": "2026-09-07T17:55:39.421Z",
+    "before": 684,
+    "after": 684,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1465,13 +1465,13 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 870,
-    "currentJobs": 685,
+    "currentJobs": 684,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T17:49:09.215Z"
+    "updatedAt": "2026-09-07T17:55:39.483Z"
   },
   "flexential": {
     "checkedAt": "2026-09-07T17:41:38.960Z",

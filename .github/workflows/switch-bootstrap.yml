@@ -6,8 +6,6 @@ on:
     paths:
       - scripts/collect-switch-careers.mjs
       - scripts/validate-switch-careers.mjs
-      - scripts/filter-mission-fit.mjs
-      - .github/workflows/switch-bootstrap.yml
   workflow_dispatch:
   schedule:
     - cron: '7 */12 * * *'
@@ -16,6 +14,8 @@ permissions:
   contents: write
   actions: write
 
+# Scheduled feed writers share the repository writer queue, but push triggers
+# stay source-specific so shared pipeline edits cannot consume a pending slot.
 concurrency:
   group: careers-source-writers
   cancel-in-progress: false

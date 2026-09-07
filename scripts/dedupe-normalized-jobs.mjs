@@ -25,8 +25,9 @@ function canonicalTitle(job) {
   // metadata rather than a distinct role identity.
   title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
   title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
-  // Shift-only suffixes make cards look duplicated even when the employer has
-  // published separate requisitions. Keep one representative role per title.
+  // Shift-only suffixes make cards look duplicated when the employer has
+  // published equivalent roles at the same site. Keep one representative role
+  // per normalized employer + title + location, while preserving other regions.
   title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
   return normalizeIdentity(title);
 }
@@ -102,7 +103,6 @@ const kept = [];
 const byId = new Map();
 const byUrl = new Map();
 const byReq = new Map();
-const byCompanyTitle = new Map();
 const bySemantic = new Map();
 const removed = [];
 
@@ -116,7 +116,6 @@ for (const rawJob of jobs) {
   const title = canonicalTitle(job);
   const req = requisitionId(url);
   const reqKey = req ? `${company}|${req}` : '';
-  const companyTitleKey = company && title ? `${company}|${title}` : '';
   const semanticKey = [company, title, normalizeIdentity(job.location)].join('|');
 
   let priorIndex = -1;
@@ -124,7 +123,6 @@ for (const rawJob of jobs) {
   if (id && byId.has(id)) { priorIndex = byId.get(id); reason = 'same-id'; }
   else if (url && byUrl.has(url)) { priorIndex = byUrl.get(url); reason = 'same-url'; }
   else if (reqKey && byReq.has(reqKey)) { priorIndex = byReq.get(reqKey); reason = 'same-requisition'; }
-  else if (companyTitleKey && byCompanyTitle.has(companyTitleKey)) { priorIndex = byCompanyTitle.get(companyTitleKey); reason = 'same-company-title'; }
   else if (semanticKey && bySemantic.has(semanticKey)) { priorIndex = bySemantic.get(semanticKey); reason = 'same-company-title-location'; }
 
   if (priorIndex >= 0) {
@@ -140,12 +138,10 @@ for (const rawJob of jobs) {
     const winnerCompany = normalizeIdentity(winner.company);
     const winnerTitle = canonicalTitle(winner);
     const winnerReqKey = winnerReq ? `${winnerCompany}|${winnerReq}` : '';
-    const winnerCompanyTitleKey = winnerCompany && winnerTitle ? `${winnerCompany}|${winnerTitle}` : '';
     const winnerSemantic = [winnerCompany, winnerTitle, normalizeIdentity(winner.location)].join('|');
     if (winnerId) byId.set(winnerId, priorIndex);
     if (winnerUrl) byUrl.set(winnerUrl, priorIndex);
     if (winnerReqKey) byReq.set(winnerReqKey, priorIndex);
-    if (winnerCompanyTitleKey) byCompanyTitle.set(winnerCompanyTitleKey, priorIndex);
     if (winnerSemantic) bySemantic.set(winnerSemantic, priorIndex);
     continue;
   }
@@ -154,7 +150,6 @@ for (const rawJob of jobs) {
   if (id) byId.set(id, index);
   if (url) byUrl.set(url, index);
   if (reqKey) byReq.set(reqKey, index);
-  if (companyTitleKey) byCompanyTitle.set(companyTitleKey, index);
   if (semanticKey) bySemantic.set(semanticKey, index);
 }
 
@@ -170,7 +165,7 @@ try {
     before: jobs.length,
     after: kept.length,
     removed: removed.length,
-    policy: 'one representative posting per normalized employer + title',
+    policy: 'one representative posting per normalized employer + title + location',
     examples: removed.slice(0, 20)
   };
   await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');

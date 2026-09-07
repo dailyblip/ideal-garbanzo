@@ -20,3 +20,5 @@ jobs:
           # Omit deploy_only so the typed workflow input uses its boolean false default.
           # Passing false through gh -F can serialize incompatibly and skip refresh.
           gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
+
+# Trigger a full refresh after the clear U.S. multi-location Workday reconciliation fix.

@@ -60,4 +60,14 @@ vm.runInNewContext(seoProbe, seoSandbox, { filename: 'scripts/generate-region-se
 assert.equal(typeof seoSandbox.__matchesRegion, 'function', 'regional SEO must expose jobMatchesRegion to the test probe');
 runContract('regional SEO', seoSandbox.__matchesRegion);
 
-console.log('Multi-location regional filtering contract passed for app and SEO.');
+const digestSource = await readFile('scripts/send-weekly-digest.mjs', 'utf8');
+const digestStart = digestSource.indexOf('const DIGEST_REGION_TERMS = {');
+const digestEnd = digestSource.indexOf('const slugify =');
+assert.ok(digestStart >= 0 && digestEnd > digestStart, 'weekly digest matcher block not found');
+const digestProbe = `${digestSource.slice(digestStart, digestEnd)}\nglobalThis.__matchesRegion = digestJobMatchesRegion;`;
+const digestSandbox = {};
+vm.runInNewContext(digestProbe, digestSandbox, { filename: 'scripts/send-weekly-digest.mjs#matcher' });
+assert.equal(typeof digestSandbox.__matchesRegion, 'function', 'weekly digest must expose digestJobMatchesRegion to the test probe');
+runContract('weekly digest', digestSandbox.__matchesRegion);
+
+console.log('Multi-location regional filtering contract passed for app, SEO, and weekly digest.');

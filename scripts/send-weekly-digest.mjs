@@ -71,6 +71,31 @@ const digestMetadata = {
   digest_key: digestKey
 };
 
+const DIGEST_REGION_TERMS = {
+  'mid-atlantic':['district of columbia','delaware','maryland','virginia','west virginia',', dc',', de',', md',', va',', wv','ashburn','manassas'],
+  'texas':['texas',', tx','dallas','austin','fort worth','san antonio','houston'],
+  'southwest':['arizona','new mexico','nevada','oklahoma',', az',', nm',', nv',', ok','phoenix','mesa'],
+  'midwest':['illinois','indiana','iowa','kansas','michigan','minnesota','missouri','nebraska','north dakota','ohio','south dakota','wisconsin',', il',', in',', ia',', ks',', mi',', mn',', mo',', ne',', nd',', oh',', sd',', wi'],
+  'southeast':['alabama','arkansas','florida','georgia','kentucky','louisiana','mississippi','north carolina','south carolina','tennessee',', al',', ar',', fl',', ga',', ky',', la',', ms',', nc',', sc',', tn'],
+  'northeast':['connecticut','maine','massachusetts','new hampshire','new jersey','new york','pennsylvania','rhode island','vermont',', ct',', me',', ma',', nh',', nj',', ny',', pa',', ri',', vt'],
+  'west':['alaska','california','colorado','hawaii','idaho','montana','oregon','utah','washington','wyoming',', ak',', ca',', co',', hi',', id',', mt',', or',', ut',', wa',', wy']
+};
+const digestLocationMatchesRegion = (location, region) => {
+  const value = String(location || '').toLowerCase().trim();
+  if (/^(?:united states|usa|us)$/.test(value)) return true;
+  if (value.includes('washington, dc') || value.includes('washington, d.c.')) return region === 'mid-atlantic';
+  return (DIGEST_REGION_TERMS[region] || []).some(term => value.includes(term));
+};
+const digestJobMatchesRegion = (job, region) => {
+  if (!region) return true;
+  if (job?.region === 'nationwide') return true;
+  if (Array.isArray(job?.regions) && job.regions.includes(region)) return true;
+  if (job?.region === region) return true;
+  const location = String(job?.location || '');
+  if (!job?.region || location.includes(';')) return digestLocationMatchesRegion(location, region);
+  return false;
+};
+
 const slugify = value => String(value ?? '')
   .trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'job';
 const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0, 32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g, '').slice(-10)}`;
@@ -99,7 +124,7 @@ if (!weeklyJobs.length) {
 }
 
 const displayRegion = job => REGION_LABELS[job.region] || (job.region === 'nationwide' ? 'Nationwide' : 'Other / Nationwide');
-const audienceJobs = region => weeklyJobs.filter(job => !region || job.region === region || job.region === 'nationwide');
+const audienceJobs = region => weeklyJobs.filter(job => digestJobMatchesRegion(job, region));
 const formatSubject = (count, regionLabel = '') => `${count} new ${regionLabel ? `${regionLabel} ` : ''}data center ${count === 1 ? 'job' : 'jobs'} this week`;
 
 function renderDigest(audience, regionLabel = '') {

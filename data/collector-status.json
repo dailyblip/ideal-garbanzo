@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-07T11:50:45.004Z",
-  "jobs": 687,
+  "updatedAt": "2026-09-07T14:57:05.063Z",
+  "jobs": 684,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -14,14 +14,14 @@
   },
   "countsByType": {
     "trainee": 12,
-    "entry-level": 650,
     "apprenticeship": 12,
-    "internship": 13
+    "internship": 13,
+    "entry-level": 647
   },
   "countsByExperience": {
+    "2-5-years": 261,
     "no-experience": 44,
-    "0-2-years": 382,
-    "2-5-years": 261
+    "0-2-years": 379
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1321,8 +1321,8 @@
         {
           "title": "Practicante Critical Facilities",
           "listingLabel": "Practicante Critical Facilities",
-          "pageTitle": "",
-          "heading": "",
+          "pageTitle": "Practicante Critical Facilities - Nuevo León, Mexico",
+          "heading": "Practicante Critical Facilities",
           "url": "https://careers.equinix.com/jobs/practicante-critical-facilities-nuevo-leon-mexico"
         },
         {
@@ -1456,28 +1456,28 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T11:50:45.115Z",
+    "updatedAt": "2026-09-07T14:57:05.130Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 687,
+    "regionAssigned": 684,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "west": 101,
+      "texas": 107,
       "midwest": 125,
+      "mid-atlantic": 128,
       "southwest": 87,
-      "west": 102,
-      "mid-atlantic": 130,
       "southeast": 113,
       "northeast": 22,
-      "texas": 107,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T11:50:45.157Z",
-    "before": 687,
-    "after": 687,
+    "checkedAt": "2026-09-07T14:57:05.187Z",
+    "before": 684,
+    "after": 684,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1491,13 +1491,13 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 869,
-    "currentJobs": 687,
-    "newJobsThisRun": 12,
+    "currentJobs": 684,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 12,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T11:51:04.021Z"
+    "updatedAt": "2026-09-07T14:57:05.238Z"
   },
   "flexential": {
     "checkedAt": "2026-09-07T10:51:44.390Z",

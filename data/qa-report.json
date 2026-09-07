@@ -1,33 +1,11 @@
 {
-  "checkedAt": "2026-09-07T18:24:46.501Z",
-  "jobsBefore": 479,
-  "jobsAfter": 476,
+  "checkedAt": "2026-09-07T18:30:54.622Z",
+  "jobsBefore": 612,
+  "jobsAfter": 612,
   "demoJobsRemoved": [],
-  "nonUsJobsRemoved": [
-    {
-      "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-      "company": "Serverfarm",
-      "title": "Junior Data Center Shift Engineer",
-      "location": "AMS1"
-    },
-    {
-      "id": "ashby-lambda-8308606de297f6",
-      "company": "Lambda",
-      "title": "Data Center Operations System Engineer III (Querétaro, Mexico)",
-      "location": "Querétaro, Mexico - Data Center"
-    }
-  ],
+  "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
+  "duplicatesRemoved": [],
   "deadJobLinksRemoved": [],
   "blockedJobLinks": [
     {

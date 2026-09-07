@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T10:51:44.390Z",
+  "updatedAt": "2026-09-07T10:52:26.175Z",
   "jobs": 477,
   "sourcesAttempted": 28,
   "providers": {
@@ -1419,13 +1419,13 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T10:51:44.452Z",
+    "checkedAt": "2026-09-07T10:52:26.234Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T10:51:44.519Z",
+    "updatedAt": "2026-09-07T10:52:26.297Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 477,
@@ -1444,7 +1444,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T10:51:44.582Z",
+    "checkedAt": "2026-09-07T10:52:26.354Z",
     "before": 477,
     "after": 477,
     "removed": 0,
@@ -1452,7 +1452,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-07T10:51:58.413Z",
+    "checkedAt": "2026-09-07T10:52:41.087Z",
     "publishedJobs": 477,
     "removedJobs": 0,
     "activeCareerEvents": 6
@@ -1466,7 +1466,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T10:51:58.594Z"
+    "updatedAt": "2026-09-07T10:52:41.258Z"
   },
   "flexential": {
     "checkedAt": "2026-09-07T10:51:44.390Z",
@@ -1484,5 +1484,25 @@
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0,
     "rejectedInvalidUrl": 0
+  },
+  "switchCareers": {
+    "checkedAt": "2026-09-07T10:52:26.175Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://www.switch.com/careers/",
+    "officialJobBoard": "https://switchltd.hrmdirect.com/employment/job-openings.php?jbsrc=1014&search=true&sort=pa",
+    "officialRssFeed": "https://switchltd.hrmdirect.com/employment/rss.php?search=true&dept=-1&city=-1&state=-1",
+    "authoritativeSnapshot": true,
+    "listedJobs": 123,
+    "candidateRoles": 28,
+    "qualifyingRoles": 21,
+    "rejectedOutOfScopeTitle": 95,
+    "rejectedSeniorTitle": 0,
+    "rejectedMissingDataCenterContext": 0,
+    "rejectedDetailTitleMismatch": 6,
+    "rejectedLeadershipRequirement": 0,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 1,
+    "detailErrors": []
   }
 }

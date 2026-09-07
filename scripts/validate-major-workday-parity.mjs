@@ -136,3 +136,8 @@ for (const company of officialHosts.keys()) {
   const publicCount = uniqueTitles(publicMajor.filter(job => clean(job?.company) === company)).size;
   console.log(`  ${company}: ${publicCount} public titles / ${snapshotCount} snapshot titles`);
 }
+
+// The parity validator already runs in refresh and deploy validation. Chain the
+// source-health guard here so incomplete/failed Workday listings cannot silently
+// bypass deployment protection once per-employer collector diagnostics exist.
+await import('./validate-major-workday-health.mjs');

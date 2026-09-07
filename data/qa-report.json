@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-07T10:52:41.087Z",
-  "jobsBefore": 477,
-  "jobsAfter": 477,
+  "checkedAt": "2026-09-07T11:51:03.926Z",
+  "jobsBefore": 687,
+  "jobsAfter": 687,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -117,7 +117,26 @@
       "finalUrl": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5127519007",
+      "company": "xAI",
+      "title": "Mechanical Commissioning Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5127519007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5214372007",
+      "company": "xAI",
+      "title": "Electrician, Operations - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5214372007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 6,
   "careerEventsAfter": 6,

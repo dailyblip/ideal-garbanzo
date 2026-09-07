@@ -17,9 +17,11 @@ permissions:
   contents: write
   actions: write
 
+# Microsoft refreshes data/jobs.json, so use the same non-cancelling writer
+# queue as the other employer-direct source workflows.
 concurrency:
-  group: microsoft-refresh
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   refresh:

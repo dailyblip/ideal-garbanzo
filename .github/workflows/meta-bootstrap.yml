@@ -15,9 +15,11 @@ permissions:
   actions: write
   contents: write
 
+# Meta writes the shared public feed, so it must serialize with every other
+# source workflow that can commit data/jobs.json.
 concurrency:
-  group: meta-careers-bootstrap
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   collect:

@@ -15,9 +15,12 @@ permissions:
   contents: write
   actions: write
 
+# Any workflow that commits data/jobs.json must share one repository-wide writer
+# queue. A source-specific group does not prevent two collectors from rebasing
+# and pushing the shared feed at the same time.
 concurrency:
-  group: aws-detail-recovery
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   recover:

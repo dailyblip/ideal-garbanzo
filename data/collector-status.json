@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T18:30:27.987Z",
+  "updatedAt": "2026-09-07T18:53:24.691Z",
   "jobs": 612,
   "sourcesAttempted": 27,
   "providers": {
@@ -14,14 +14,14 @@
   },
   "countsByType": {
     "trainee": 13,
-    "entry-level": 574,
     "apprenticeship": 12,
-    "internship": 13
+    "internship": 13,
+    "entry-level": 574
   },
   "countsByExperience": {
-    "no-experience": 44,
     "0-2-years": 311,
-    "2-5-years": 257
+    "2-5-years": 257,
+    "no-experience": 44
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1440,7 +1440,7 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T18:30:28.116Z",
+    "updatedAt": "2026-09-07T18:53:24.757Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 612,
@@ -1448,18 +1448,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 116,
-      "southwest": 76,
       "west": 85,
+      "texas": 96,
+      "midwest": 116,
       "mid-atlantic": 111,
+      "southwest": 76,
       "southeast": 106,
       "northeast": 21,
-      "texas": 96,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T18:30:28.165Z",
+    "checkedAt": "2026-09-07T18:53:24.826Z",
     "before": 612,
     "after": 612,
     "removed": 0,
@@ -1481,7 +1481,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T18:30:54.725Z"
+    "updatedAt": "2026-09-07T18:53:24.900Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

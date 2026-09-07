@@ -1,8 +1,8 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import crypto from 'node:crypto';
 
-const VERIFIED_AT = '2026-09-05T00:00:00.000Z';
-const EXPIRES_AT = '2026-09-13T00:00:00.000Z';
+const VERIFIED_AT = '2026-09-07T00:00:00.000Z';
+const EXPIRES_AT = '2026-09-15T00:00:00.000Z';
 const COMPANY = 'Equinix';
 const SOURCE = 'Equinix official careers (verified fallback)';
 const BROAD_SOURCE = 'Equinix official careers';
@@ -21,9 +21,16 @@ const knownOverExperiencePathSuffixes = [
 
 // Equinix's public job pages currently render full qualifications to browsers,
 // while GitHub-hosted collection sometimes receives a shell without that body.
-// These roles were verified directly against Equinix on 2026-09-05. The
-// fallback expires quickly, and every role URL must still return HTTP 200.
+// These roles were re-verified on Equinix's official careers pages on 2026-09-07.
+// The fallback expires quickly, and every role URL must still answer successfully.
 const verifiedRoles = [
+  {
+    requisition: 'JR-163301',
+    title: "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
+    url: 'https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali',
+    location: 'San Jose, CA; Englewood, CO; Miami, FL; Atlanta, GA; Chicago, IL; Secaucus, NJ; Dallas, TX; Ashburn, VA; Seattle, WA',
+    experience: '0-2-years'
+  },
   {
     requisition: 'JR-161457',
     title: "SkillBridge - Data Center Technician - Hiring our Heroes Cohort Q3' 2026",
@@ -155,6 +162,7 @@ if (!expired) {
     const live = await checkLive(role.url);
     checks.push({ requisition: role.requisition, status: live.status, ok: live.ok });
     if (!live.ok || existingUrls.has(role.url)) continue;
+    const experienceTag = role.experience === 'no-experience' ? 'No Experience Needed' : role.experience === '0-2-years' ? '0–2 Years' : '2–5 Years';
     additions.push({
       id: `equinix-verified-${hash(role.url)}`,
       title: role.title,
@@ -162,7 +170,7 @@ if (!expired) {
       location: role.location,
       type: 'trainee',
       experience: role.experience,
-      tags: ['Trainee', '2–5 Years', 'SkillBridge', /critical facilit/i.test(role.title) ? 'Critical Facilities' : 'Data Center Operations'],
+      tags: ['Trainee', experienceTag, 'SkillBridge', /critical facilit/i.test(role.title) ? 'Critical Facilities' : 'Data Center Operations'],
       pay: 'Pay not listed',
       salaryMin: null,
       salaryMax: null,

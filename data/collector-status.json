@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-09-07T10:12:30.370Z",
-  "jobs": 480,
-  "sourcesAttempted": 27,
+  "updatedAt": "2026-09-07T10:47:55.117Z",
+  "jobs": 477,
+  "sourcesAttempted": 28,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
     "ashby": 5,
     "icims": 1,
     "workday": 6,
-    "googleCareers": 1,
+    "googleCareers": 2,
     "metaCareers": 1,
     "oracleRecruitingCloud": 2
   },
@@ -16,12 +16,12 @@
     "trainee": 12,
     "apprenticeship": 12,
     "internship": 13,
-    "entry-level": 443
+    "entry-level": 440
   },
   "countsByExperience": {
-    "2-5-years": 244,
+    "2-5-years": 243,
     "no-experience": 44,
-    "0-2-years": 192
+    "0-2-years": 190
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -962,14 +962,14 @@
     "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 56,
-    "qualifyingRoles": 54,
+    "candidateRows": 54,
+    "qualifyingRoles": 52,
     "diagnostics": {
-      "canonicalLinks": 80,
-      "missionFitLinks": 57,
-      "uniqueCandidates": 56,
-      "detailAttempted": 56,
-      "detailVerified": 55,
+      "canonicalLinks": 77,
+      "missionFitLinks": 54,
+      "uniqueCandidates": 54,
+      "detailAttempted": 54,
+      "detailVerified": 53,
       "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
@@ -1419,82 +1419,34 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T10:12:30.428Z",
-    "removedCount": 2,
+    "checkedAt": "2026-09-07T10:47:55.224Z",
+    "removedCount": 1,
     "removedByReason": {
-      "non-mission role family": 2
+      "non-US location": 1
     },
     "removed": [
       {
-        "id": "oracle-careers-334333",
-        "company": "Oracle",
-        "title": "OCI Software Engineer Intern - OVIP",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "reason": "non-mission role family"
+        "id": "gh-coreweave-4710680006",
+        "company": "CoreWeave",
+        "title": "Data Center Technician - Cambridge, ON",
+        "location": "Cambridge, ON",
+        "reason": "non-US location"
       }
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T10:12:30.496Z",
-    "changed": 7,
-    "samples": [
-      {
-        "id": "workday-qtsdatacenters-R2026-1902",
-        "before": "US VA Ashburn 1 DC1",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0881",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0768",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "ashby-lambda-0bdbbcbdc49122",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1093",
-        "before": "US VA Manassas 1 DC1",
-        "after": "Manassas, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0917",
-        "before": "US VA Ashburn 1 DC1",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0893",
-        "before": "US OR Hillsboro 1 DC1",
-        "after": "Hillsboro, OR"
-      }
-    ],
-    "regionAssigned": 479,
-    "regionMissing": 1,
-    "coveragePct": 99.8,
-    "missingSamples": [
-      {
-        "id": "gh-coreweave-4710680006",
-        "company": "CoreWeave",
-        "location": "Cambridge, ON",
-        "sourceUrl": "https://coreweave.com/careers/job?4710680006&board=coreweave&gh_jid=4710680006"
-      }
-    ],
+    "updatedAt": "2026-09-07T10:47:55.288Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 477,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
       "west": 66,
       "texas": 77,
-      "midwest": 88,
-      "mid-atlantic": 72,
+      "midwest": 87,
+      "mid-atlantic": 71,
       "southwest": 70,
       "southeast": 90,
       "northeast": 15,
@@ -1502,149 +1454,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T10:12:30.556Z",
-    "before": 502,
-    "after": 485,
-    "removed": 17,
+    "checkedAt": "2026-09-07T10:47:55.349Z",
+    "before": 477,
+    "after": 477,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101903",
-        "keptId": "workday-nttglobaldatacenters-JR101981",
-        "company": "NTT Global Data Centers",
-        "title": "1046 - Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101821",
-        "keptId": "workday-nttglobaldatacenters-JR101755",
-        "company": "NTT Global Data Centers",
-        "title": "1162 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101981",
-        "keptId": "workday-nttglobaldatacenters-JR101166",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101755",
-        "keptId": "workday-nttglobaldatacenters-JR100547",
-        "company": "NTT Global Data Centers",
-        "title": "5203 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR100813",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR100547",
-        "keptId": "workday-nttglobaldatacenters-JR100436",
-        "company": "NTT Global Data Centers",
-        "title": "2227 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101968",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101929",
-        "keptId": "workday-nttglobaldatacenters-JR101129",
-        "company": "NTT Global Data Centers",
-        "title": "5174 - Data Center Technician L2",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101861",
-        "keptId": "workday-nttglobaldatacenters-JR101912",
-        "company": "NTT Global Data Centers",
-        "title": "1127 - Data Center Technician L2",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0982",
-        "keptId": "workday-qtsdatacenters-R2026-0893",
-        "company": "QTS Data Centers",
-        "title": "Critical Environment Engineer",
-        "location": "Hillsboro, OR"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101847",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101573",
-        "keptId": "workday-nttglobaldatacenters-JR101912",
-        "company": "NTT Global Data Centers",
-        "title": "1127 - Data Center Technician L2",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101799",
-        "keptId": "workday-nttglobaldatacenters-JR101533",
-        "company": "NTT Global Data Centers",
-        "title": "5155 - Data Center IT Infrastructure Technician",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101681",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101746",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101610",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101859",
-        "keptId": "workday-nttglobaldatacenters-JR101474",
-        "company": "NTT Global Data Centers",
-        "title": "5217 - Data Center Technician L1",
-        "location": "Gainesville, Virginia"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-07T10:12:52.516Z",
@@ -1655,12 +1470,12 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 857,
-    "currentJobs": 480,
-    "newJobsThisRun": 3,
-    "changedJobsThisRun": 175,
-    "migratedEntriesThisRun": 3,
+    "currentJobs": 477,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T10:12:52.699Z"
+    "updatedAt": "2026-09-07T10:47:55.405Z"
   }
 }

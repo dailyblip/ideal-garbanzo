@@ -1,0 +1,33 @@
+name: Region filter guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/app.js'
+      - 'scripts/generate-region-seo.mjs'
+      - 'scripts/test-region-filter-contract.mjs'
+      - '.github/workflows/region-filter-guard.yml'
+  pull_request:
+    paths:
+      - 'assets/app.js'
+      - 'scripts/generate-region-seo.mjs'
+      - 'scripts/test-region-filter-contract.mjs'
+      - '.github/workflows/region-filter-guard.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate regional filtering contract
+        run: |
+          node --check assets/app.js
+          node --check scripts/generate-region-seo.mjs
+          node scripts/test-region-filter-contract.mjs

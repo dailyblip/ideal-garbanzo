@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T05:11:34.559Z",
+  "updatedAt": "2026-09-07T05:16:23.378Z",
   "jobs": 399,
   "sourcesAttempted": 54,
   "providers": {
@@ -13,15 +13,15 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 7,
+    "entry-level": 376,
     "apprenticeship": 5,
-    "internship": 11,
-    "entry-level": 376
+    "trainee": 7,
+    "internship": 11
   },
   "countsByExperience": {
-    "2-5-years": 139,
+    "0-2-years": 246,
     "no-experience": 14,
-    "0-2-years": 246
+    "2-5-years": 139
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -286,27 +286,27 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T05:11:34.750Z",
+    "updatedAt": "2026-09-07T05:16:23.501Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 458,
+    "regionAssigned": 399,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 56,
-      "texas": 82,
-      "midwest": 85,
-      "mid-atlantic": 60,
-      "southwest": 65,
-      "southeast": 98,
-      "northeast": 11,
-      "nationwide": 1
+      "west": 54,
+      "midwest": 66,
+      "mid-atlantic": 58,
+      "southeast": 89,
+      "southwest": 53,
+      "nationwide": 1,
+      "texas": 68,
+      "northeast": 10
     }
   },
   "postQa": {
-    "checkedAt": "2026-09-06T19:39:07.583Z",
-    "publishedJobs": 370,
+    "checkedAt": "2026-09-07T05:16:35.834Z",
+    "publishedJobs": 399,
     "removedJobs": 0,
     "activeCareerEvents": 6
   },
@@ -554,156 +554,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T05:11:34.825Z",
-    "before": 458,
+    "checkedAt": "2026-09-07T05:16:23.558Z",
+    "before": 440,
     "after": 399,
-    "removed": 59,
+    "removed": 41,
     "policy": "one representative posting per normalized employer + title",
     "examples": [
-      {
-        "reason": "same-company-title",
-        "removedId": "google-116632107404403398",
-        "keptId": "google-99324102166094534",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "The Dalles, OR"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-128846410278675142",
-        "keptId": "google-135813199420105414",
-        "company": "Google",
-        "title": "Data Center Technician II",
-        "location": "Ridgeville, SC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-86635360024437446",
-        "keptId": "google-135813199420105414",
-        "company": "Google",
-        "title": "Data Center Technician II",
-        "location": "Ridgeville, SC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-141903903279981254",
-        "keptId": "google-135813199420105414",
-        "company": "Google",
-        "title": "Data Center Technician II",
-        "location": "Ridgeville, SC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-99324102166094534",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "The Dalles, OR"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-127997716151050950",
-        "keptId": "google-135813199420105414",
-        "company": "Google",
-        "title": "Data Center Technician II",
-        "location": "Ridgeville, SC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-111945220584547014",
-        "keptId": "google-135813199420105414",
-        "company": "Google",
-        "title": "Data Center Technician II",
-        "location": "Ridgeville, SC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-94030873338225350",
-        "keptId": "google-99324102166094534",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "The Dalles, OR"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-84315605775065798",
-        "keptId": "google-135813199420105414",
-        "company": "Google",
-        "title": "Data Center Technician II",
-        "location": "Ridgeville, SC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-77142772020060870",
-        "keptId": "google-81432623473140422",
-        "company": "Google",
-        "title": "Data Center Facilities Technician, Controls",
-        "location": "Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-104914577627456198",
-        "keptId": "google-81432623473140422",
-        "company": "Google",
-        "title": "Data Center Facilities Technician, Controls",
-        "location": "Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-73644372444226246",
-        "keptId": "google-127134421282104006",
-        "company": "Google",
-        "title": "Data Center Facilities Technician, Electrical",
-        "location": "Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-89075940830651078",
-        "keptId": "google-100681386993558214",
-        "company": "Google",
-        "title": "Data Center Facilities Technician, Mechanical",
-        "location": "Phoenix, AZ"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-121316827950129862",
-        "keptId": "google-113748503405961926",
-        "company": "Google",
-        "title": "Data Center Facilities Technician II, Electrical",
-        "location": "LaGrange, GA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-78626116285145798",
-        "keptId": "google-127134421282104006",
-        "company": "Google",
-        "title": "Data Center Facilities Technician, Electrical",
-        "location": "Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-128214940564497094",
-        "keptId": "google-127134421282104006",
-        "company": "Google",
-        "title": "Data Center Facilities Technician, Electrical",
-        "location": "Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-116848434169684678",
-        "keptId": "google-134762805038326470",
-        "company": "Google",
-        "title": "Data Center Facilities Technician I, Electrical",
-        "location": "Lima, OH"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "google-129490174336737990",
-        "keptId": "google-95654699541111494",
-        "company": "Google",
-        "title": "Data Center Facilities Technician, Fire Life Safety",
-        "location": "West Memphis, AR"
-      },
       {
         "reason": "same-company-title",
         "removedId": "icims-tierpoint-3041",
@@ -719,6 +575,150 @@
         "company": "TierPoint",
         "title": "Operations Technician I",
         "location": "Baltimore, MD"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "icims-tierpoint-3036",
+        "keptId": "icims-tierpoint-3045",
+        "company": "TierPoint",
+        "title": "Operations Technician I",
+        "location": "Baltimore, MD"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "icims-tierpoint-3028",
+        "keptId": "icims-tierpoint-3045",
+        "company": "TierPoint",
+        "title": "Operations Technician I",
+        "location": "Baltimore, MD"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "icims-tierpoint-3011",
+        "keptId": "icims-tierpoint-3034",
+        "company": "TierPoint",
+        "title": "Operations Technician II",
+        "location": "Fort Worth, TX"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "icims-tierpoint-2962",
+        "keptId": "icims-tierpoint-3038",
+        "company": "TierPoint",
+        "title": "MEP Technician II",
+        "location": "Charlotte, NC"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "icims-tierpoint-2959",
+        "keptId": "icims-tierpoint-3038",
+        "company": "TierPoint",
+        "title": "MEP Technician II",
+        "location": "Charlotte, NC"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "workable-stream-dc-62B4F3BCF5",
+        "keptId": "workable-stream-dc-CDC5638BF1",
+        "company": "Stream Data Centers",
+        "title": "Critical Engineering Technician",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "workable-stream-dc-CDC5638BF1",
+        "keptId": "workable-stream-dc-C4755E8B9E",
+        "company": "Stream Data Centers",
+        "title": "Critical Engineering Technician, Day Shift",
+        "location": "San Antonio, Texas"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "workable-stream-dc-5B9BD8650E",
+        "keptId": "workable-stream-dc-C4755E8B9E",
+        "company": "Stream Data Centers",
+        "title": "Critical Engineering Technician, Day Shift",
+        "location": "San Antonio, Texas"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "workable-stream-dc-5FBD18EE51",
+        "keptId": "workable-stream-dc-C4755E8B9E",
+        "company": "Stream Data Centers",
+        "title": "Critical Engineering Technician, Day Shift",
+        "location": "San Antonio, Texas"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3430787",
+        "keptId": "switch-3644869",
+        "company": "Switch",
+        "title": "DCO Facilities Technician I",
+        "location": "Keep Campus - Atlanta, GA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3644869",
+        "keptId": "switch-3710636",
+        "company": "Switch",
+        "title": "DCO Facilities Technician I",
+        "location": "Data Foundry - Austin, TX"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3644621",
+        "keptId": "switch-3756777",
+        "company": "Switch",
+        "title": "DCO Facilities Technician II",
+        "location": "Citadel Campus - Reno, NV"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3696630",
+        "keptId": "switch-3762485",
+        "company": "Switch",
+        "title": "Data Center Structured Cabling Technician",
+        "location": "Data Foundry - Austin, TX"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3774043",
+        "keptId": "switch-3783696",
+        "company": "Switch",
+        "title": "Mission Control Technician",
+        "location": "Keep Campus - Atlanta, GA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3776443",
+        "keptId": "switch-3789333",
+        "company": "Switch",
+        "title": "Network Infrastructure Technician I",
+        "location": "Pyramid Campus - Grand Rapids, MI"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3710636",
+        "keptId": "switch-3789601",
+        "company": "Switch",
+        "title": "DCO Facilities Technician I",
+        "location": "Citadel Campus - Reno, NV"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3734125",
+        "keptId": "switch-3801217",
+        "company": "Switch",
+        "title": "DCO Facilities Technician III",
+        "location": "Core - Las Vegas, NV"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "switch-3789333",
+        "keptId": "switch-3803666",
+        "company": "Switch",
+        "title": "Network Infrastructure Technician I",
+        "location": "Citadel Campus - Reno, NV"
       }
     ]
   },
@@ -731,7 +731,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T05:11:34.885Z"
+    "updatedAt": "2026-09-07T05:16:36.002Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -828,7 +828,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T05:11:34.681Z",
+    "checkedAt": "2026-09-07T05:16:23.441Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
@@ -1788,7 +1788,7 @@
     "detailErrors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-06T19:38:52.751Z",
+    "checkedAt": "2026-09-07T05:16:23.378Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",

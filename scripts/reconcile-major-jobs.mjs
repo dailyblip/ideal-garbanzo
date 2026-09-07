@@ -41,8 +41,17 @@ const usStateCodes = new Set([
   'WV', 'WI', 'WY'
 ]);
 
+// These are the same deliberately narrow U.S. campus-code families used by
+// normalize-job-locations.mjs. Workday occasionally returns only a site code
+// (for example NVA5) even though the requisition is clearly for a U.S. campus.
+// Keep this allowlist explicit so foreign codes such as DUB11 remain excluded.
+const verifiedUsSiteCodePattern = /^(?:NVA|IAD|DFW|DAL|PHX|LAS|ORD|CMH|NEO|ATL|MIA|CLT|RDU|NYC|EWR|BOS|SJC|SFO|LAX|SEA|PDX|DEN|SLC)[-_]?\d+\b/i;
+
 function primaryLocation(value) {
-  return clean(value).replace(/\s+\+\s+\d+\s+more\s+locations?\s*$/i, '').trim();
+  return clean(value)
+    .replace(/\s+\+\s+\d+\s+more\s+locations?\s*$/i, '')
+    .replace(/\bVirgina\b/gi, 'Virginia')
+    .trim();
 }
 
 function clearlyOutsideUnitedStates(job) {
@@ -55,6 +64,13 @@ function confidentlyInsideUnitedStates(job) {
   if (!location) return false;
   if (/\b(?:united states(?: of america)?|u\.s\.a\.?|usa)\b/i.test(location)) return true;
   if (/\bremote\b/i.test(location) && /\b(?:us|usa|united states)\b/i.test(location)) return true;
+  if (verifiedUsSiteCodePattern.test(location)) return true;
+
+  // Workday commonly emits remote labels such as "Remote - OK". A trailing
+  // USPS state code is enough to establish U.S. geography without guessing a
+  // city; normalize-job-locations.mjs will assign the correct regional filter.
+  const remoteState = location.match(/^remote\s*[-,]\s*([A-Z]{2})\b/i);
+  if (remoteState && usStateCodes.has(remoteState[1].toUpperCase())) return true;
 
   const normalizedLocation = normalize(location);
   if (/\bus\s+(?:al|ak|az|ar|ca|co|ct|de|dc|fl|ga|hi|id|il|in|ia|ks|ky|la|me|md|ma|mi|mn|ms|mo|mt|ne|nv|nh|nj|nm|ny|nc|nd|oh|ok|or|pa|ri|sc|sd|tn|tx|ut|vt|va|wa|wv|wi|wy)\b/.test(normalizedLocation)) return true;

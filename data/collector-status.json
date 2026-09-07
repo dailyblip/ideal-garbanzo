@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-07T10:52:26.175Z",
-  "jobs": 477,
-  "sourcesAttempted": 28,
+  "updatedAt": "2026-09-07T11:49:45.677Z",
+  "jobs": 478,
+  "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -10,17 +10,17 @@
     "workday": 6,
     "googleCareers": 2,
     "metaCareers": 1,
-    "oracleRecruitingCloud": 2
+    "oracleRecruitingCloud": 3
   },
   "countsByType": {
     "entry-level": 440,
     "apprenticeship": 12,
     "trainee": 12,
-    "internship": 13
+    "internship": 14
   },
   "countsByExperience": {
     "0-2-years": 190,
-    "2-5-years": 243,
+    "2-5-years": 244,
     "no-experience": 44
   },
   "errors": [
@@ -1425,17 +1425,17 @@
     "removed": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T10:52:26.297Z",
+    "updatedAt": "2026-09-07T11:49:45.740Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 477,
+    "regionAssigned": 478,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "northeast": 15,
       "midwest": 87,
-      "texas": 77,
+      "texas": 78,
       "southeast": 90,
       "west": 66,
       "mid-atlantic": 71,
@@ -1444,9 +1444,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T10:52:26.354Z",
-    "before": 477,
-    "after": 477,
+    "checkedAt": "2026-09-07T11:49:45.797Z",
+    "before": 478,
+    "after": 478,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1460,13 +1460,13 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 857,
-    "currentJobs": 477,
+    "currentJobs": 478,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T10:52:41.258Z"
+    "updatedAt": "2026-09-07T11:49:45.854Z"
   },
   "flexential": {
     "checkedAt": "2026-09-07T10:51:44.390Z",

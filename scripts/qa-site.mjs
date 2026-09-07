@@ -53,11 +53,36 @@ const clearlyForeignLocationTerms = [
   'navi mumbai', 'mumbai', 'osaka', 'taipei', 'cyberjaya', 'munich', 'zurich', 'jakarta', 'chon buri'
 ].map(normalize);
 
+const canadianProvinceCodePattern = /,\s*(?:AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT)\b(?:\s*,?\s*Canada)?\s*$/i;
+const canadianProvinceNamePattern = /,\s*(?:Alberta|British Columbia|Manitoba|New Brunswick|Newfoundland(?: and Labrador)?|Nova Scotia|Northwest Territories|Nunavut|Ontario|Prince Edward Island|Quebec|Saskatchewan|Yukon)\b(?:\s*,?\s*Canada)?\s*$/i;
+
+function canadianProvinceLocation(location = '') {
+  return String(location || '').split(';').map(part => part.trim()).filter(Boolean).some(segment =>
+    canadianProvinceCodePattern.test(segment) || canadianProvinceNamePattern.test(segment)
+  );
+}
+
 function clearlyOutsideUnitedStates(job) {
   // Match whole normalized terms rather than raw substrings. This prevents false positives
   // such as the country name "India" accidentally matching a legitimate Indiana posting.
   const text = ` ${normalize(`${job.location || ''} ${job.sourceUrl || ''}`)} `;
-  return clearlyForeignLocationTerms.some(term => term && text.includes(` ${term} `));
+  return canadianProvinceLocation(job.location) || clearlyForeignLocationTerms.some(term => term && text.includes(` ${term} `));
+}
+
+const locationClassifierRegressionCases = [
+  { location: 'Cambridge, ON', outsideUs: true },
+  { location: 'Toronto, Ontario', outsideUs: true },
+  { location: 'Richmond, BC', outsideUs: true },
+  { location: 'Cambridge, MA', outsideUs: false },
+  { location: 'Ontario, CA', outsideUs: false },
+  { location: 'Indianapolis, IN', outsideUs: false },
+  { location: 'Remote - OK', outsideUs: false }
+];
+for (const testCase of locationClassifierRegressionCases) {
+  const actual = clearlyOutsideUnitedStates({ location: testCase.location, sourceUrl: '' });
+  if (actual !== testCase.outsideUs) {
+    throw new Error(`Location QA regression for ${testCase.location}: expected outsideUs=${testCase.outsideUs}, got ${actual}`);
+  }
 }
 
 function unresolvedLocation(job) {
@@ -279,8 +304,16 @@ collectorStatus.postQa = {
 };
 if (collectorStatus.locationNormalization && typeof collectorStatus.locationNormalization === 'object') {
   const jobsWithRegion = finalJobs.filter(job => clean(job.region));
+  const jobsWithoutRegion = finalJobs.filter(job => !clean(job.region));
   collectorStatus.locationNormalization.regionAssigned = jobsWithRegion.length;
-  collectorStatus.locationNormalization.regionMissing = finalJobs.length - jobsWithRegion.length;
+  collectorStatus.locationNormalization.regionMissing = jobsWithoutRegion.length;
+  collectorStatus.locationNormalization.coveragePct = finalJobs.length ? Math.round((jobsWithRegion.length / finalJobs.length) * 1000) / 10 : 100;
+  collectorStatus.locationNormalization.missingSamples = jobsWithoutRegion.slice(0, 12).map(job => ({
+    id: job.id,
+    company: job.company,
+    location: job.location,
+    sourceUrl: job.sourceUrl
+  }));
   collectorStatus.locationNormalization.countsByRegion = countBy(jobsWithRegion, 'region');
 }
 

@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-09-07T01:47:20.484Z",
+  "updatedAt": "2026-09-07T05:11:34.559Z",
   "jobs": 399,
-  "sourcesAttempted": 53,
+  "sourcesAttempted": 54,
   "providers": {
     "lever": 6,
     "greenhouse": 3,
     "ashby": 5,
     "workday": 6,
-    "googleCareers": 4,
+    "googleCareers": 5,
     "oracleRecruitingCloud": 6,
     "metaCareers": 14,
     "icims": 1
@@ -286,21 +286,21 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T01:47:20.561Z",
+    "updatedAt": "2026-09-07T05:11:34.750Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 399,
+    "regionAssigned": 458,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 54,
-      "texas": 68,
-      "midwest": 66,
-      "mid-atlantic": 58,
-      "southwest": 53,
-      "southeast": 89,
-      "northeast": 10,
+      "west": 56,
+      "texas": 82,
+      "midwest": 85,
+      "mid-atlantic": 60,
+      "southwest": 65,
+      "southeast": 98,
+      "northeast": 11,
       "nationwide": 1
     }
   },
@@ -554,12 +554,173 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T01:47:20.622Z",
-    "before": 399,
+    "checkedAt": "2026-09-07T05:11:34.825Z",
+    "before": 458,
     "after": 399,
-    "removed": 0,
+    "removed": 59,
     "policy": "one representative posting per normalized employer + title",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title",
+        "removedId": "google-116632107404403398",
+        "keptId": "google-99324102166094534",
+        "company": "Google",
+        "title": "Data Center Technician, Night Shift",
+        "location": "The Dalles, OR"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-128846410278675142",
+        "keptId": "google-135813199420105414",
+        "company": "Google",
+        "title": "Data Center Technician II",
+        "location": "Ridgeville, SC"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-86635360024437446",
+        "keptId": "google-135813199420105414",
+        "company": "Google",
+        "title": "Data Center Technician II",
+        "location": "Ridgeville, SC"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-141903903279981254",
+        "keptId": "google-135813199420105414",
+        "company": "Google",
+        "title": "Data Center Technician II",
+        "location": "Ridgeville, SC"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-77675229853164230",
+        "keptId": "google-99324102166094534",
+        "company": "Google",
+        "title": "Data Center Technician, Night Shift",
+        "location": "The Dalles, OR"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-127997716151050950",
+        "keptId": "google-135813199420105414",
+        "company": "Google",
+        "title": "Data Center Technician II",
+        "location": "Ridgeville, SC"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-111945220584547014",
+        "keptId": "google-135813199420105414",
+        "company": "Google",
+        "title": "Data Center Technician II",
+        "location": "Ridgeville, SC"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-94030873338225350",
+        "keptId": "google-99324102166094534",
+        "company": "Google",
+        "title": "Data Center Technician, Night Shift",
+        "location": "The Dalles, OR"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-84315605775065798",
+        "keptId": "google-135813199420105414",
+        "company": "Google",
+        "title": "Data Center Technician II",
+        "location": "Ridgeville, SC"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-77142772020060870",
+        "keptId": "google-81432623473140422",
+        "company": "Google",
+        "title": "Data Center Facilities Technician, Controls",
+        "location": "Reno, NV"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-104914577627456198",
+        "keptId": "google-81432623473140422",
+        "company": "Google",
+        "title": "Data Center Facilities Technician, Controls",
+        "location": "Reno, NV"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-73644372444226246",
+        "keptId": "google-127134421282104006",
+        "company": "Google",
+        "title": "Data Center Facilities Technician, Electrical",
+        "location": "Reno, NV"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-89075940830651078",
+        "keptId": "google-100681386993558214",
+        "company": "Google",
+        "title": "Data Center Facilities Technician, Mechanical",
+        "location": "Phoenix, AZ"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-121316827950129862",
+        "keptId": "google-113748503405961926",
+        "company": "Google",
+        "title": "Data Center Facilities Technician II, Electrical",
+        "location": "LaGrange, GA"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-78626116285145798",
+        "keptId": "google-127134421282104006",
+        "company": "Google",
+        "title": "Data Center Facilities Technician, Electrical",
+        "location": "Reno, NV"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-128214940564497094",
+        "keptId": "google-127134421282104006",
+        "company": "Google",
+        "title": "Data Center Facilities Technician, Electrical",
+        "location": "Reno, NV"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-116848434169684678",
+        "keptId": "google-134762805038326470",
+        "company": "Google",
+        "title": "Data Center Facilities Technician I, Electrical",
+        "location": "Lima, OH"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "google-129490174336737990",
+        "keptId": "google-95654699541111494",
+        "company": "Google",
+        "title": "Data Center Facilities Technician, Fire Life Safety",
+        "location": "West Memphis, AR"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "icims-tierpoint-3041",
+        "keptId": "icims-tierpoint-3045",
+        "company": "TierPoint",
+        "title": "Operations Technician I",
+        "location": "Baltimore, MD"
+      },
+      {
+        "reason": "same-company-title",
+        "removedId": "icims-tierpoint-3040",
+        "keptId": "icims-tierpoint-3045",
+        "company": "TierPoint",
+        "title": "Operations Technician I",
+        "location": "Baltimore, MD"
+      }
+    ]
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
@@ -570,7 +731,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T01:47:20.686Z"
+    "updatedAt": "2026-09-07T05:11:34.885Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -667,7 +828,7 @@
     "errors": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-06T19:42:02.484Z",
+    "checkedAt": "2026-09-07T05:11:34.681Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []

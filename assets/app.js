@@ -63,14 +63,20 @@
     clearTimeout(showToast.timer);
     showToast.timer = setTimeout(() => toast.classList.remove('show'), 2600);
   };
-  const matchesRegion = (job, region) => {
-    if (!region) return true;
-    if (job?.region === 'nationwide') return true;
-    if (job?.region) return job.region === region;
-    const value = String(job?.location || '').toLowerCase().trim();
+  const locationMatchesRegion = (location, region) => {
+    const value = String(location || '').toLowerCase().trim();
     if (/^(?:united states|usa|us)$/.test(value)) return true;
     if (value.includes('washington, dc') || value.includes('washington, d.c.')) return region === 'mid-atlantic';
     return (regionTerms[region] || []).some(term => value.includes(term));
+  };
+  const matchesRegion = (job, region) => {
+    if (!region) return true;
+    if (job?.region === 'nationwide') return true;
+    if (Array.isArray(job?.regions) && job.regions.includes(region)) return true;
+    if (job?.region === region) return true;
+    const location = String(job?.location || '');
+    if (!job?.region || location.includes(';')) return locationMatchesRegion(location, region);
+    return false;
   };
   const postedLabel = hours => {
     if (hours >= 9999) return 'Recently listed';

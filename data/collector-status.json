@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T17:41:38.959Z",
+  "updatedAt": "2026-09-07T17:48:46.104Z",
   "jobs": 685,
   "sourcesAttempted": 29,
   "providers": {
@@ -1424,13 +1424,13 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T17:41:39.028Z",
+    "checkedAt": "2026-09-07T17:48:46.203Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T17:41:39.104Z",
+    "updatedAt": "2026-09-07T17:48:46.279Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 685,
@@ -1449,7 +1449,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T17:41:39.173Z",
+    "checkedAt": "2026-09-07T17:48:46.353Z",
     "before": 685,
     "after": 685,
     "removed": 0,
@@ -1457,7 +1457,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-07T17:42:07.191Z",
+    "checkedAt": "2026-09-07T17:49:08.960Z",
     "publishedJobs": 685,
     "removedJobs": 0,
     "activeCareerEvents": 6
@@ -1471,7 +1471,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T17:42:07.361Z"
+    "updatedAt": "2026-09-07T17:49:09.215Z"
   },
   "flexential": {
     "checkedAt": "2026-09-07T17:41:38.960Z",
@@ -1565,5 +1565,22 @@
       "https://www.amazon.jobs/en/jobs/3198499/engineering-operations-technician-aws-ais: 503 https://www.amazon.jobs/en/jobs/3198499/engineering-operations-technician-aws-ais"
     ],
     "errors": []
+  },
+  "streamDataCenters": {
+    "checkedAt": "2026-09-07T17:48:46.104Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",
+    "officialWorkableBoard": "https://apply.workable.com/stream-dc/",
+    "api": "https://www.workable.com/api/accounts/stream-dc?details=true",
+    "authoritativeSnapshot": true,
+    "listedJobs": 7,
+    "usJobs": 7,
+    "candidateRoles": 6,
+    "qualifyingRoles": 5,
+    "rejectedOutOfScopeTitle": 1,
+    "rejectedSeniorTitle": 1,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 0
   }
 }

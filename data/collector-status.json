@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-07T09:59:56.925Z",
-  "jobs": 477,
+  "updatedAt": "2026-09-07T10:12:30.370Z",
+  "jobs": 480,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -16,18 +16,18 @@
     "trainee": 12,
     "apprenticeship": 12,
     "internship": 13,
-    "entry-level": 440
+    "entry-level": 443
   },
   "countsByExperience": {
     "2-5-years": 244,
     "no-experience": 44,
-    "0-2-years": 189
+    "0-2-years": 192
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
   ],
   "sourceFailurePreservation": {
-    "checkedAt": "2026-09-07T09:43:31.341Z",
+    "checkedAt": "2026-09-07T10:03:48.433Z",
     "failedSources": [],
     "preservedJobs": 0,
     "preservedByCompany": {},
@@ -50,6 +50,12 @@
     },
     "samples": [
       {
+        "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
+        "title": "Supervisor, Data Center Operations",
+        "location": "Breinigsville, PA",
+        "reason": "classification"
+      },
+      {
         "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
         "title": "Cloud Engineer II",
         "location": ""
@@ -58,12 +64,6 @@
         "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
         "title": "Sr Revenue Assurance Analyst",
         "location": ""
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
-        "title": "Supervisor, Data Center Operations",
-        "location": "Breinigsville, PA",
-        "reason": "classification"
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
@@ -100,7 +100,7 @@
     "snapshotVerifiedAt": "2026-09-05T16:59:00Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 168,
-    "snapshotAgeHours": 40.7,
+    "snapshotAgeHours": 41.1,
     "removedExpiredFallback": 0
   },
   "novvaCareers": {
@@ -126,7 +126,7 @@
     "listingPagesAttempted": 18,
     "listingPagesSucceeded": 18,
     "listingComplete": true,
-    "listedTotal": 350,
+    "listedTotal": 351,
     "candidateRows": 11,
     "detailAttempted": 11,
     "detailSucceeded": 11,
@@ -166,7 +166,7 @@
     ]
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-07T09:44:06.405Z",
+    "checkedAt": "2026-09-07T10:04:08.753Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -259,12 +259,12 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-07T09:45:14.424Z",
+      "checkedAt": "2026-09-07T10:05:10.840Z",
       "rawJobs": 226,
-      "publishedUsJobs": 191,
+      "publishedUsJobs": 196,
       "nonUsRemoved": 28,
-      "unresolvedLocationRemoved": 7,
-      "siteCodeLocationsResolved": 2,
+      "unresolvedLocationRemoved": 2,
+      "siteCodeLocationsResolved": 7,
       "siteCodeLocationSamples": [
         {
           "company": "CyrusOne",
@@ -277,6 +277,36 @@
           "title": "Critical Environments Operator I",
           "before": "NVA1",
           "after": "Sterling, VA"
+        },
+        {
+          "company": "Aligned Data Centers",
+          "title": "Mechanical Engineer",
+          "before": "DFW01_02",
+          "after": "Plano, TX"
+        },
+        {
+          "company": "Aligned Data Centers",
+          "title": "Critical Facilities Technician",
+          "before": "DFW01_02",
+          "after": "Plano, TX"
+        },
+        {
+          "company": "Aligned Data Centers",
+          "title": "VP, Operations - South Region",
+          "before": "DFW01_02",
+          "after": "Plano, TX"
+        },
+        {
+          "company": "Aligned Data Centers",
+          "title": "Associate Mechanical Engineer",
+          "before": "DFW01_02",
+          "after": "Plano, TX"
+        },
+        {
+          "company": "Aligned Data Centers",
+          "title": "Associate Electrical Engineer",
+          "before": "DFW01_02",
+          "after": "Plano, TX"
         }
       ],
       "nonUsSamples": [
@@ -331,37 +361,12 @@
           "company": "CyrusOne",
           "title": "Critical Environments Operator IV",
           "location": "COL1"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Mechanical Engineer",
-          "location": "DFW01_02"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Critical Facilities Technician",
-          "location": "DFW01_02"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "VP, Operations - South Region",
-          "location": "DFW01_02"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Associate Mechanical Engineer",
-          "location": "DFW01_02"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Associate Electrical Engineer",
-          "location": "DFW01_02"
         }
       ]
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-07T09:47:21.129Z",
+    "checkedAt": "2026-09-07T10:07:26.915Z",
     "officialOnly": true,
     "additiveOnly": true,
     "recovered": 1,
@@ -910,8 +915,8 @@
         "query": "critical environment technician",
         "healthy": true,
         "pages": 23,
-        "reportedRows": 229,
-        "rows": 229
+        "reportedRows": 228,
+        "rows": 228
       },
       {
         "query": "critical environment field service engineer",
@@ -928,7 +933,7 @@
         "rows": 13
       }
     ],
-    "candidateRows": 347,
+    "candidateRows": 346,
     "plausibleRows": 34,
     "detailAttempts": 34,
     "detailVerified": 34,
@@ -945,8 +950,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-07T09:48:53.952Z",
-      "expiresAt": "2026-09-14T09:48:53.952Z",
+      "verifiedAt": "2026-09-07T10:09:18.454Z",
+      "expiresAt": "2026-09-14T10:09:18.454Z",
       "roles": 33,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -957,14 +962,14 @@
     "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 57,
-    "qualifyingRoles": 55,
+    "candidateRows": 56,
+    "qualifyingRoles": 54,
     "diagnostics": {
       "canonicalLinks": 80,
       "missionFitLinks": 57,
-      "uniqueCandidates": 57,
-      "detailAttempted": 57,
-      "detailVerified": 56,
+      "uniqueCandidates": 56,
+      "detailAttempted": 56,
+      "detailVerified": 55,
       "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
@@ -997,14 +1002,14 @@
       },
       "titleOrContextSamples": [
         {
-          "id": "906391792398202",
-          "title": "Enterprise Technical Sales Specialist, EMEA",
-          "url": "https://www.metacareers.com/profile/job_details/906391792398202/"
+          "id": "1515007723239026",
+          "title": "Account Manager, CEE, Polish",
+          "url": "https://www.metacareers.com/profile/job_details/1515007723239026/"
         },
         {
-          "id": "1397212694826926",
-          "title": "Product Designer",
-          "url": "https://www.metacareers.com/profile/job_details/1397212694826926/"
+          "id": "2887906508264541",
+          "title": "Software Engineer (Leadership) - Product",
+          "url": "https://www.metacareers.com/profile/job_details/2887906508264541/"
         },
         {
           "id": "1383499427086968",
@@ -1012,9 +1017,44 @@
           "url": "https://www.metacareers.com/profile/job_details/1383499427086968/"
         },
         {
+          "id": "9657291271065759",
+          "title": "Software Engineer, Product",
+          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
+        },
+        {
+          "id": "906391792398202",
+          "title": "Enterprise Technical Sales Specialist, EMEA",
+          "url": "https://www.metacareers.com/profile/job_details/906391792398202/"
+        },
+        {
+          "id": "981395441181534",
+          "title": "Research Engineer Robotics (Operations)",
+          "url": "https://www.metacareers.com/profile/job_details/981395441181534/"
+        },
+        {
           "id": "1061795906099278",
           "title": "Software Engineer - iOS (Technical Leadership)",
           "url": "https://www.metacareers.com/profile/job_details/1061795906099278/"
+        },
+        {
+          "id": "1397212694826926",
+          "title": "Product Designer",
+          "url": "https://www.metacareers.com/profile/job_details/1397212694826926/"
+        },
+        {
+          "id": "3713685685437806",
+          "title": "Data Engineer, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/3713685685437806/"
+        },
+        {
+          "id": "1070147800777577",
+          "title": "Data Scientist, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/1070147800777577/"
+        },
+        {
+          "id": "613354727793690",
+          "title": "Data Scientist, Analytics (Technical Leadership)",
+          "url": "https://www.metacareers.com/profile/job_details/613354727793690/"
         },
         {
           "id": "2486789151677735",
@@ -1022,19 +1062,14 @@
           "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
         },
         {
+          "id": "1949737129012337",
+          "title": "Construction Manager, Lease - Data Center Construction",
+          "url": "https://www.metacareers.com/profile/job_details/1949737129012337/"
+        },
+        {
           "id": "998357492128826",
           "title": "Software Engineer, Machine Learning",
           "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
-        },
-        {
-          "id": "9657291271065759",
-          "title": "Software Engineer, Product",
-          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
-        },
-        {
-          "id": "981395441181534",
-          "title": "Research Engineer Robotics (Operations)",
-          "url": "https://www.metacareers.com/profile/job_details/981395441181534/"
         },
         {
           "id": "1203016587809246",
@@ -1052,29 +1087,9 @@
           "url": "https://www.metacareers.com/profile/job_details/1047150807688665/"
         },
         {
-          "id": "1770870020490643",
-          "title": "Executive Administrative Partner",
-          "url": "https://www.metacareers.com/profile/job_details/1770870020490643/"
-        },
-        {
-          "id": "1949737129012337",
-          "title": "Construction Manager, Lease - Data Center Construction",
-          "url": "https://www.metacareers.com/profile/job_details/1949737129012337/"
-        },
-        {
-          "id": "3713685685437806",
-          "title": "Data Engineer, Product Analytics",
-          "url": "https://www.metacareers.com/profile/job_details/3713685685437806/"
-        },
-        {
-          "id": "613354727793690",
-          "title": "Data Scientist, Analytics (Technical Leadership)",
-          "url": "https://www.metacareers.com/profile/job_details/613354727793690/"
-        },
-        {
-          "id": "1070147800777577",
-          "title": "Data Scientist, Product Analytics",
-          "url": "https://www.metacareers.com/profile/job_details/1070147800777577/"
+          "id": "1277398403727586",
+          "title": "Software Engineer, Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/1277398403727586/"
         },
         {
           "id": "1288834486094873",
@@ -1082,19 +1097,9 @@
           "url": "https://www.metacareers.com/profile/job_details/1288834486094873/"
         },
         {
-          "id": "1277398403727586",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/1277398403727586/"
-        },
-        {
-          "id": "3374573439389340",
-          "title": "Software Engineer, iOS",
-          "url": "https://www.metacareers.com/profile/job_details/3374573439389340/"
-        },
-        {
-          "id": "2884019551956305",
-          "title": "Technical Program Manager, AI Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/2884019551956305/"
+          "id": "1665891037811282",
+          "title": "Software Engineer, Machine Learning RecSys",
+          "url": "https://www.metacareers.com/profile/job_details/1665891037811282/"
         }
       ],
       "locationSamples": [
@@ -1414,7 +1419,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T09:52:17.378Z",
+    "checkedAt": "2026-09-07T10:12:30.428Z",
     "removedCount": 2,
     "removedByReason": {
       "non-mission role family": 2
@@ -1435,10 +1440,46 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T09:59:56.989Z",
-    "changed": 0,
-    "samples": [],
-    "regionAssigned": 476,
+    "updatedAt": "2026-09-07T10:12:30.496Z",
+    "changed": 7,
+    "samples": [
+      {
+        "id": "workday-qtsdatacenters-R2026-1902",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0881",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0768",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "ashby-lambda-0bdbbcbdc49122",
+        "before": "San Jose Office (Zanker)",
+        "after": "San Jose, CA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1093",
+        "before": "US VA Manassas 1 DC1",
+        "after": "Manassas, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
+      }
+    ],
+    "regionAssigned": 479,
     "regionMissing": 1,
     "coveragePct": 99.8,
     "missingSamples": [
@@ -1451,38 +1492,175 @@
     ],
     "countsByRegion": {
       "west": 66,
-      "texas": 73,
+      "texas": 77,
       "midwest": 88,
       "mid-atlantic": 72,
-      "southwest": 71,
+      "southwest": 70,
       "southeast": 90,
       "northeast": 15,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T09:59:57.033Z",
-    "before": 477,
-    "after": 477,
-    "removed": 0,
+    "checkedAt": "2026-09-07T10:12:30.556Z",
+    "before": 502,
+    "after": 485,
+    "removed": 17,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101903",
+        "keptId": "workday-nttglobaldatacenters-JR101981",
+        "company": "NTT Global Data Centers",
+        "title": "1046 - Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101821",
+        "keptId": "workday-nttglobaldatacenters-JR101755",
+        "company": "NTT Global Data Centers",
+        "title": "1162 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101981",
+        "keptId": "workday-nttglobaldatacenters-JR101166",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101755",
+        "keptId": "workday-nttglobaldatacenters-JR100547",
+        "company": "NTT Global Data Centers",
+        "title": "5203 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR100813",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR100547",
+        "keptId": "workday-nttglobaldatacenters-JR100436",
+        "company": "NTT Global Data Centers",
+        "title": "2227 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101968",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101929",
+        "keptId": "workday-nttglobaldatacenters-JR101129",
+        "company": "NTT Global Data Centers",
+        "title": "5174 - Data Center Technician L2",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101861",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0982",
+        "keptId": "workday-qtsdatacenters-R2026-0893",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101847",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101573",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101799",
+        "keptId": "workday-nttglobaldatacenters-JR101533",
+        "company": "NTT Global Data Centers",
+        "title": "5155 - Data Center IT Infrastructure Technician",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101681",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101746",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101610",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101859",
+        "keptId": "workday-nttglobaldatacenters-JR101474",
+        "company": "NTT Global Data Centers",
+        "title": "5217 - Data Center Technician L1",
+        "location": "Gainesville, Virginia"
+      }
+    ]
   },
   "postQa": {
-    "checkedAt": "2026-09-07T10:00:17.697Z",
-    "publishedJobs": 477,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-07T10:12:52.516Z",
+    "publishedJobs": 480,
+    "removedJobs": 5,
     "activeCareerEvents": 6
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 854,
-    "currentJobs": 477,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 857,
+    "currentJobs": 480,
+    "newJobsThisRun": 3,
+    "changedJobsThisRun": 175,
+    "migratedEntriesThisRun": 3,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T10:00:18.407Z"
+    "updatedAt": "2026-09-07T10:12:52.699Z"
   }
 }

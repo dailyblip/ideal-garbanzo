@@ -134,9 +134,10 @@ for (const profile of profiles) {
           break;
         }
       }
-      const motivators = document.querySelectorAll('#jobList .career-motivator').length;
-      metrics.careerMotivators = motivators;
-      if (mode === 'desktop' && (motivators < 2 || motivators > 3)) fail(`Expected 2–3 career-ceiling cards in the default desktop view; found ${motivators}.`);
+
+      const careerCeilingCards = document.querySelectorAll('#jobList .career-motivator').length;
+      metrics.careerCeilingCards = careerCeilingCards;
+      if (careerCeilingCards > 0) fail(`Deprecated career-ceiling cards reappeared in the job feed; found ${careerCeilingCards}.`);
 
       return { errors, metrics };
     }, { mode: profile.mode });

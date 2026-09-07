@@ -1,5 +1,10 @@
+import './validate-accessibility.mjs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+
+// Pages runs this validator after all authored and generated HTML exists.
+// Keep accessibility in the same final deployment gate so a structural
+// accessibility regression cannot ship just because analytics still passes.
 
 const MEASUREMENT_ID = 'G-TD86GFYGW5';
 const EVENTS_SCRIPT = '/assets/analytics-events.js';

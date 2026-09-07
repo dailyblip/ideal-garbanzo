@@ -207,6 +207,11 @@ function regionFromText(value = '') {
     if (pattern.test(text)) return region;
   }
 
+  // State-specific remote roles belong in that state's region, not in the
+  // nationwide bucket. Workday commonly emits labels such as "Remote - OK".
+  const remoteStateMatch = text.match(/^remote\s*[-,]\s*([A-Z]{2})\b/i);
+  if (remoteStateMatch) return stateToRegion.get(remoteStateMatch[1].toLowerCase()) || '';
+
   // Normal city/state labels as well as semicolon-separated ATS variants such
   // as "Glendale; AZ". On multi-location Ashby records, the first listed
   // location is the employer's primary location and is used for filtering.
@@ -261,10 +266,14 @@ function entirelyRemoteLocation(location = '') {
 function inferRegion(job) {
   const location = String(job?.location || '').trim();
   if (!location) return '';
-  if (/^(?:United States|USA|US)$/i.test(location) || entirelyRemoteLocation(location)) return 'nationwide';
+  if (/^(?:United States|USA|US)$/i.test(location)) return 'nationwide';
 
+  // Prefer explicit state/site evidence before falling back to nationwide for
+  // generic remote labels so "Remote - OK" is Southwest while "Remote - US"
+  // remains nationwide.
   const direct = regionFromText(location);
   if (direct) return direct;
+  if (entirelyRemoteLocation(location)) return 'nationwide';
 
   const derived = fromWorkdayUrl(job?.sourceUrl || '') || fromEquinixUrl(job);
   if (derived) {

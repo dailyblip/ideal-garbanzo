@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
       - '.github/workflows/generic-ats-classifier-guard.yml'
   workflow_dispatch:
 
@@ -19,5 +20,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate generic ATS experience classification
-        run: node scripts/collect-jobs.mjs --test-experience-parser
+      - name: Validate generic ATS classifier implementation
+        run: |
+          node --check scripts/collect-jobs-core.mjs
+          node scripts/collect-jobs.mjs --test-experience-parser

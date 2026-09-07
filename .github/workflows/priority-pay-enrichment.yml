@@ -49,18 +49,20 @@ jobs:
       - name: Commit compensation updates
         id: commit
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/collector-status.json)" ]; then
-            echo "No priority compensation changes."
+          # collector-status.json records the scan timestamp even when no pay is
+          # found. Do not create a main-branch commit for that operational-only
+          # timestamp: Pages intentionally deploys product changes, and a
+          # status-only commit makes main appear newer than the live site even
+          # though the published artifact is unchanged.
+          if git diff --quiet -- data/jobs.json; then
+            git restore -- data/collector-status.json
+            echo "No publishable priority compensation changes."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "jobs_changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          if git diff --quiet -- data/jobs.json; then
-            echo "jobs_changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "jobs_changed=true" >> "$GITHUB_OUTPUT"
-          fi
+          echo "jobs_changed=true" >> "$GITHUB_OUTPUT"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

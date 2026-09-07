@@ -19,9 +19,12 @@ permissions:
   actions: write
   contents: write
 
+# Google and Equinix can be triggered by the same shared pipeline-file push.
+# Both may write data/jobs.json, so serialize them instead of allowing two
+# independently validated commits to race for refs/heads/main.
 concurrency:
-  group: google-careers-bootstrap
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   collect:

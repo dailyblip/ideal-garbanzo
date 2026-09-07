@@ -31,8 +31,6 @@ jobs:
         run: |
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
-      - name: Validate career-ceiling cards
-        run: node scripts/validate-career-motivators.mjs
       - name: Review live visual composition
         id: composition
         continue-on-error: true

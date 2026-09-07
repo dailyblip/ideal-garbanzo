@@ -6,12 +6,14 @@ on:
     paths:
       - 'assets/app.js'
       - 'scripts/generate-region-seo.mjs'
+      - 'scripts/send-weekly-digest.mjs'
       - 'scripts/test-region-filter-contract.mjs'
       - '.github/workflows/region-filter-guard.yml'
   pull_request:
     paths:
       - 'assets/app.js'
       - 'scripts/generate-region-seo.mjs'
+      - 'scripts/send-weekly-digest.mjs'
       - 'scripts/test-region-filter-contract.mjs'
       - '.github/workflows/region-filter-guard.yml'
 
@@ -30,4 +32,5 @@ jobs:
         run: |
           node --check assets/app.js
           node --check scripts/generate-region-seo.mjs
+          node --check scripts/send-weekly-digest.mjs
           node scripts/test-region-filter-contract.mjs

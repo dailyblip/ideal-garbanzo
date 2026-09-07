@@ -48,6 +48,10 @@ const excludedTitleTerms = [
   'senior', 'sr.', 'sr ', 'lead ', 'principal', 'manager', 'director', 'vice president',
   'vp ', 'head of', 'staff engineer', 'supervisor', 'superintendent', 'foreman',
   'counsel', 'attorney', 'recruiter', 'sales', 'account executive', 'architect',
+  'security operations', 'security engineer', 'cybersecurity', 'information security',
+  'business analyst', 'financial operations', 'procurement', 'purchasing', 'software engineer',
+  'site reliability engineer', 'machine learning', 'data scientist', 'product manager',
+  'program manager', 'human resources', 'marketing',
   'future opportunity', 'future opportunities', 'talent pool', 'general application',
   'express your interest'
 ];
@@ -147,7 +151,7 @@ function confidentUsLocation(value = '') {
   const states = [
     'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','District of Columbia'
   ];
-  if (states.some(state => new RegExp(`\\b${state.replace(/ /g, '\\s+')}\\b`, 'i').test(text))) return true;
+  if (states.some(state => new RegExp(`\b${state.replace(/ /g, '\s+')}\b`, 'i').test(text))) return true;
   const codes = new Set(['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']);
   const match = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
   return Boolean(match && codes.has(match[1]));
@@ -344,6 +348,18 @@ if (process.argv.includes('--test')) {
       title: 'Critical Operations Associate',
       description: 'Support electrical and mechanical systems in a 24x7 data center environment. High school diploma plus technical training or workplace equivalency.',
       expected: '0-2-years'
+    },
+    {
+      name: 'QTS security operations engineer rejected',
+      title: 'Security Operations Engineer',
+      description: 'Two years of experience supporting security operations for data center facilities in Denver.',
+      expected: null
+    },
+    {
+      name: 'purchasing operations role rejected',
+      title: 'Purchasing Operations Specialist',
+      description: 'Two years of experience supporting purchasing operations for data center facilities.',
+      expected: null
     },
     {
       name: 'three-year critical facilities role',

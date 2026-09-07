@@ -1,4 +1,5 @@
 name: One-shot full refresh dispatch
+# Reusable production refresh trigger for collector/reconciliation changes.
 
 on:
   workflow_dispatch:

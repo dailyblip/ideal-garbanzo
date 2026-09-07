@@ -7,12 +7,15 @@ on:
       - '.github/workflows/equinix-bootstrap.yml'
       - 'scripts/collect-equinix-v2.mjs'
       - 'scripts/collect-equinix-early.mjs'
+      - 'scripts/recover-equinix-rendered-details.mjs'
       - 'scripts/apply-equinix-verified-fallback.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
   workflow_dispatch:
+  schedule:
+    - cron: '47 14 * * *'
 
 permissions:
   actions: write
@@ -37,6 +40,8 @@ jobs:
         run: node scripts/collect-equinix-v2.mjs
       - name: Add Equinix US early-career roles
         run: node scripts/collect-equinix-early.mjs
+      - name: Recover requirements from official Equinix locale detail pages
+        run: node scripts/recover-equinix-rendered-details.mjs
       - name: Restore source-verified Equinix roles when rendered requirements are unavailable
         run: node scripts/apply-equinix-verified-fallback.mjs
       - name: Normalize locations and regions

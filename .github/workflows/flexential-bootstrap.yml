@@ -6,11 +6,9 @@ on:
     paths:
       - scripts/collect-flexential.mjs
       - scripts/validate-flexential.mjs
-      - scripts/filter-mission-fit.mjs
-      - .github/workflows/flexential-bootstrap.yml
   workflow_dispatch:
   schedule:
-    - cron: '7 */12 * * *'
+    - cron: '2 */12 * * *'
 
 permissions:
   contents: write

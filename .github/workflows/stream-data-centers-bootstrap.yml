@@ -6,11 +6,9 @@ on:
     paths:
       - scripts/collect-stream-data-centers.mjs
       - scripts/validate-stream-data-centers.mjs
-      - scripts/filter-mission-fit.mjs
-      - .github/workflows/stream-data-centers-bootstrap.yml
   workflow_dispatch:
   schedule:
-    - cron: '37 */12 * * *'
+    - cron: '32 */12 * * *'
 
 permissions:
   contents: write

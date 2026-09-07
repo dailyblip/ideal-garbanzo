@@ -4,21 +4,17 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/meta-bootstrap.yml'
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/recover-meta-structured.mjs'
-      - 'scripts/dedupe-normalized-jobs.mjs'
-      - 'scripts/stamp-job-history.mjs'
-      - 'scripts/validate-meta-snapshot.mjs'
 
 permissions:
   actions: write
   contents: write
 
-# Meta writes the shared public feed, so it must serialize with every other
-# source workflow that can commit data/jobs.json.
+# Keep duplicate Meta runs from overlapping. Shared pipeline edits are validated
+# by the main build instead of fanning out multiple feed-writing source jobs.
 concurrency:
-  group: careers-source-writers
+  group: meta-bootstrap
   cancel-in-progress: false
 
 jobs:

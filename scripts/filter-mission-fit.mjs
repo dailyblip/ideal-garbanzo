@@ -21,7 +21,10 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 // blocking the word globally, because hands-on critical/data-center operations
 // roles are a core part of the product.
 const obviousNonMissionTitlePattern = /\b(?:administrative business partner|business analyst|financial operations|financial analyst|finance analyst|procurement|purchasing|security operations|cybersecurity|information security|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel)\b/i;
-const obviousSeniorTitlePattern = /\b(?:senior|sr\.?|principal|staff engineer|staff technician|director|vice president|vp|chief|head of)\b/i;
+// Keep this publication-time filter aligned with validate.mjs. If these roles are
+// allowed through here, the final deployment validator rejects the same feed and
+// turns ordinary source-taxonomy drift into an avoidable site deployment failure.
+const obviousSeniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|staff technician|supervisor|superintendent|foreman|architect)\b/i;
 
 function obviousTitleReason(title = '') {
   const normalized = clean(title);
@@ -34,6 +37,9 @@ const titleRegressionCases = [
   { title: 'Business Analyst, Budget Planning & Financial Operations, Global', reason: 'non-mission role family' },
   { title: 'Purchasing Operations Specialist, NA', reason: 'non-mission role family' },
   { title: 'Security Operations Engineer', reason: 'non-mission role family' },
+  { title: 'Data Center Facilities Manager', reason: 'senior/executive title' },
+  { title: 'Critical Operations Supervisor', reason: 'senior/executive title' },
+  { title: 'Data Center Architect', reason: 'senior/executive title' },
   { title: 'Critical Operations Technician I', reason: '' },
   { title: 'Data Center Operations Technician', reason: '' },
   { title: 'Critical Facilities Engineer', reason: '' }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T14:59:36.779Z",
+  "updatedAt": "2026-09-07T17:38:02.345Z",
   "jobs": 685,
   "sourcesAttempted": 29,
   "providers": {
@@ -13,10 +13,10 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "trainee": 13,
+    "entry-level": 647,
     "apprenticeship": 12,
-    "internship": 13,
-    "entry-level": 647
+    "trainee": 13,
+    "internship": 13
   },
   "countsByExperience": {
     "0-2-years": 380,
@@ -1424,44 +1424,13 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T11:50:45.069Z",
-    "removedCount": 4,
-    "removedByReason": {
-      "non-mission role family": 4
-    },
-    "removed": [
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "oracle-careers-334333",
-        "company": "Oracle",
-        "title": "OCI Software Engineer Intern - OVIP",
-        "location": "Austin, TX, United States",
-        "reason": "non-mission role family"
-      }
-    ]
+    "checkedAt": "2026-09-07T17:38:02.412Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T14:59:36.846Z",
+    "updatedAt": "2026-09-07T17:38:02.483Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 685,
@@ -1469,18 +1438,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 102,
-      "texas": 107,
+      "northeast": 22,
       "midwest": 125,
+      "texas": 107,
+      "southeast": 113,
+      "west": 102,
       "mid-atlantic": 128,
       "southwest": 87,
-      "southeast": 113,
-      "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T14:59:36.918Z",
+    "checkedAt": "2026-09-07T17:38:02.550Z",
     "before": 685,
     "after": 685,
     "removed": 0,
@@ -1488,8 +1457,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-07T11:51:03.926Z",
-    "publishedJobs": 687,
+    "checkedAt": "2026-09-07T17:38:24.700Z",
+    "publishedJobs": 685,
     "removedJobs": 0,
     "activeCareerEvents": 6
   },
@@ -1497,12 +1466,12 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 870,
     "currentJobs": 685,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T14:59:36.978Z"
+    "updatedAt": "2026-09-07T17:38:24.879Z"
   },
   "flexential": {
     "checkedAt": "2026-09-07T10:51:44.390Z",
@@ -1522,7 +1491,7 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-07T10:52:26.175Z",
+    "checkedAt": "2026-09-07T17:38:02.345Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",

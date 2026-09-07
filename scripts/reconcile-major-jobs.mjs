@@ -41,10 +41,34 @@ const usStateCodes = new Set([
   'WV', 'WI', 'WY'
 ]);
 
+// Workday sometimes emits CyrusOne's official campus code instead of a city.
+// Keep this mapping company-specific and limited to U.S. campuses listed by
+// CyrusOne so the public feed gets readable geography without guessing.
+const cyrusOneCampusLocations = [
+  [/^PHX[1-8]$/i, 'Chandler, AZ'],
+  [/^CHI[1-3]$/i, 'Aurora, IL'],
+  [/^OCB1$/i, 'Council Bluffs, IA'],
+  [/^NYM1$/i, 'Somerset, NJ'],
+  [/^NYM2$/i, 'Totowa, NJ'],
+  [/^NYM5$/i, 'Norwalk, CT'],
+  [/^NYM7$/i, 'Wappingers Falls, NY'],
+  [/^DUR[1-2]$/i, 'Durham, NC'],
+  [/^CIN2$/i, 'Cincinnati, OH'],
+  [/^CIN5$/i, 'Lebanon, OH'],
+  [/^CIN6$/i, 'Florence, KY'],
+  [/^AUS[2-3]$/i, 'Austin, TX'],
+  [/^DFW1$/i, 'Carrollton, TX'],
+  [/^DFW2$/i, 'Lewisville, TX'],
+  [/^DFW[3-5]$/i, 'Allen, TX'],
+  [/^HOU[3-4]$/i, 'Houston, TX'],
+  [/^SAT[1-6]$/i, 'San Antonio, TX'],
+  [/^NVA[1-9]$/i, 'Sterling, VA'],
+  [/^PNW1$/i, 'Quincy, WA']
+];
+
 // These are the same deliberately narrow U.S. campus-code families used by
-// normalize-job-locations.mjs. Workday occasionally returns only a site code
-// (for example NVA5) even though the requisition is clearly for a U.S. campus.
-// Keep this allowlist explicit so foreign codes such as DUB11 remain excluded.
+// normalize-job-locations.mjs for operators whose codes do not have a verified
+// company-specific city mapping here. Foreign codes such as DUB11 stay excluded.
 const verifiedUsSiteCodePattern = /^(?:NVA|IAD|DFW|DAL|PHX|LAS|ORD|CMH|NEO|ATL|MIA|CLT|RDU|NYC|EWR|BOS|SJC|SFO|LAX|SEA|PDX|DEN|SLC)[-_]?\d+\b/i;
 
 function primaryLocation(value) {
@@ -52,6 +76,15 @@ function primaryLocation(value) {
     .replace(/\s+\+\s+\d+\s+more\s+locations?\s*$/i, '')
     .replace(/\bVirgina\b/gi, 'Virginia')
     .trim();
+}
+
+function canonicalMajorLocation(job) {
+  const location = primaryLocation(job?.location);
+  if (clean(job?.company) !== 'CyrusOne') return location;
+  for (const [pattern, replacement] of cyrusOneCampusLocations) {
+    if (pattern.test(location)) return replacement;
+  }
+  return location;
 }
 
 function clearlyOutsideUnitedStates(job) {
@@ -121,10 +154,21 @@ function dedupe(jobs) {
 }
 
 const jobs = await readJson(JOBS_PATH);
-const rawMajorSnapshot = dedupe((await readJson(MAJOR_PATH)).map(job => ({
-  ...job,
-  location: primaryLocation(job?.location)
-})));
+const rawMajorInput = await readJson(MAJOR_PATH);
+const siteCodeLocationChanges = [];
+const rawMajorSnapshot = dedupe(rawMajorInput.map(job => {
+  const before = primaryLocation(job?.location);
+  const after = canonicalMajorLocation(job);
+  if (after && after !== before) {
+    siteCodeLocationChanges.push({
+      company: clean(job?.company),
+      title: clean(job?.title),
+      before,
+      after
+    });
+  }
+  return { ...job, location: after };
+}));
 const foreignMajor = rawMajorSnapshot.filter(clearlyOutsideUnitedStates);
 const unresolvedMajor = rawMajorSnapshot.filter(job => !clearlyOutsideUnitedStates(job) && !confidentlyInsideUnitedStates(job));
 const majorSnapshot = rawMajorSnapshot.filter(job => !clearlyOutsideUnitedStates(job) && confidentlyInsideUnitedStates(job));
@@ -171,6 +215,8 @@ status.majorSources = {
     publishedUsJobs: majorSnapshot.length,
     nonUsRemoved: foreignMajor.length,
     unresolvedLocationRemoved: unresolvedMajor.length,
+    siteCodeLocationsResolved: siteCodeLocationChanges.length,
+    siteCodeLocationSamples: siteCodeLocationChanges.slice(0, 8),
     nonUsSamples: foreignMajor.slice(0, 8).map(job => ({ company: clean(job.company), title: clean(job.title), location: clean(job.location) })),
     unresolvedLocationSamples: unresolvedMajor.slice(0, 8).map(job => ({ company: clean(job.company), title: clean(job.title), location: clean(job.location) }))
   }
@@ -179,4 +225,4 @@ status.majorSources = {
 await writeFile(MAJOR_PATH, JSON.stringify(majorSnapshot, null, 2) + '\n');
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
-console.log(`Reconciled ${majorSnapshot.length} confidently U.S. major-employer jobs into the feed; filtered ${foreignMajor.length} clearly non-U.S. records, removed ${unresolvedMajor.length} unresolved-location records, and removed ${staleRemoved} stale records${preserveExisting ? ' while preserving normalized current records' : ''}.`);
+console.log(`Reconciled ${majorSnapshot.length} confidently U.S. major-employer jobs into the feed; normalized ${siteCodeLocationChanges.length} verified campus-code locations, filtered ${foreignMajor.length} clearly non-U.S. records, removed ${unresolvedMajor.length} unresolved-location records, and removed ${staleRemoved} stale records${preserveExisting ? ' while preserving normalized current records' : ''}.`);

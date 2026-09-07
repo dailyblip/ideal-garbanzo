@@ -17,9 +17,12 @@ permissions:
   contents: write
   actions: write
 
+# All workflows that can commit the shared jobs feed must use one repository-wide
+# writer queue. Source-specific concurrency groups still allow two collectors to
+# validate successfully and then collide while rebasing data/jobs.json.
 concurrency:
-  group: t5-data-centers-bootstrap
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   collect:

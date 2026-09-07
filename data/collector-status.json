@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T07:20:52.552Z",
+  "updatedAt": "2026-09-07T07:23:21.894Z",
   "jobs": 441,
   "sourcesAttempted": 27,
   "providers": {
@@ -1286,10 +1286,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 4,
-      "qualifyingRoles": 1,
+      "staleRemoved": 5,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 9,
+        "non-us": 10,
         "unknown-experience": 8,
         "context": 2,
         "title": 13
@@ -1318,6 +1318,10 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
         },
         {
+          "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
+        },
+        {
           "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
@@ -1328,10 +1332,6 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
-        },
-        {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -1343,8 +1343,8 @@
       "listingPagesAttempted": 11,
       "listingPagesSucceeded": 11,
       "candidateLinks": 7,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-05",
       "detailAttempted": 7,
@@ -1371,7 +1371,7 @@
     "rolesVerified": 5,
     "liveChecksPassed": 5,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 5,
     "retainedManaged": 5,
@@ -1425,7 +1425,7 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T07:20:52.636Z",
+    "updatedAt": "2026-09-07T07:23:21.956Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 440,
@@ -1451,7 +1451,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T07:20:52.697Z",
+    "checkedAt": "2026-09-07T07:23:22.014Z",
     "before": 441,
     "after": 441,
     "removed": 0,
@@ -1473,6 +1473,6 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T07:20:52.758Z"
+    "updatedAt": "2026-09-07T07:23:22.072Z"
   }
 }

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-06T23:41:56.012Z",
-  "jobs": 400,
+  "updatedAt": "2026-09-07T01:47:20.484Z",
+  "jobs": 399,
   "sourcesAttempted": 53,
   "providers": {
     "lever": 6,
@@ -13,15 +13,15 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 377,
-    "apprenticeship": 5,
     "trainee": 7,
-    "internship": 11
+    "apprenticeship": 5,
+    "internship": 11,
+    "entry-level": 376
   },
   "countsByExperience": {
-    "0-2-years": 247,
+    "2-5-years": 139,
     "no-experience": 14,
-    "2-5-years": 139
+    "0-2-years": 246
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -208,10 +208,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 4,
-      "qualifyingRoles": 1,
+      "staleRemoved": 5,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 9,
+        "non-us": 10,
         "unknown-experience": 8,
         "context": 2,
         "title": 13
@@ -240,6 +240,10 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
         },
         {
+          "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
+        },
+        {
           "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
@@ -250,10 +254,6 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
-        },
-        {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -265,8 +265,8 @@
       "listingPagesAttempted": 11,
       "listingPagesSucceeded": 11,
       "candidateLinks": 7,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-05",
       "detailAttempted": 7,
@@ -286,22 +286,22 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-06T20:52:00.636Z",
+    "updatedAt": "2026-09-07T01:47:20.561Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 418,
+    "regionAssigned": 399,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 59,
-      "midwest": 71,
-      "mid-atlantic": 63,
-      "southeast": 90,
-      "southwest": 54,
-      "texas": 69,
-      "nationwide": 1,
-      "northeast": 11
+      "west": 54,
+      "texas": 68,
+      "midwest": 66,
+      "mid-atlantic": 58,
+      "southwest": 53,
+      "southeast": 89,
+      "northeast": 10,
+      "nationwide": 1
     }
   },
   "postQa": {
@@ -554,168 +554,23 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-06T20:52:00.683Z",
-    "before": 418,
-    "after": 400,
-    "removed": 18,
+    "checkedAt": "2026-09-07T01:47:20.622Z",
+    "before": 399,
+    "after": 399,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title",
-    "examples": [
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1841",
-        "keptId": "workday-qtsdatacenters-R2026-1739",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I",
-        "location": "Ashburn, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1951",
-        "keptId": "workday-qtsdatacenters-R2026-1920",
-        "company": "QTS Data Centers",
-        "title": "Commissioning Engineer II",
-        "location": "Richmond, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1858",
-        "keptId": "workday-qtsdatacenters-R2026-1920",
-        "company": "QTS Data Centers",
-        "title": "Commissioning Engineer II",
-        "location": "Richmond, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1861",
-        "keptId": "workday-qtsdatacenters-R2026-1920",
-        "company": "QTS Data Centers",
-        "title": "Commissioning Engineer II",
-        "location": "Richmond, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-stackinfra-JR00233",
-        "keptId": "workday-stackinfra-JR00150",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Technician",
-        "location": "Santa Teresa, NM"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1824",
-        "keptId": "workday-qtsdatacenters-R2026-1739",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I",
-        "location": "Ashburn, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1843",
-        "keptId": "workday-qtsdatacenters-R2026-1920",
-        "company": "QTS Data Centers",
-        "title": "Commissioning Engineer II",
-        "location": "Richmond, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1576",
-        "keptId": "workday-qtsdatacenters-R2026-1739",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I",
-        "location": "Ashburn, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1839",
-        "keptId": "workday-qtsdatacenters-R2026-1739",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I",
-        "location": "Ashburn, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1752",
-        "keptId": "workday-qtsdatacenters-R2026-1739",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I",
-        "location": "Ashburn, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-0038",
-        "keptId": "workday-qtsdatacenters-R2026-1739",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I",
-        "location": "Ashburn, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1188",
-        "keptId": "workday-qtsdatacenters-R2026-1739",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I",
-        "location": "Ashburn, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1389",
-        "keptId": "workday-qtsdatacenters-R2026-1739",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I",
-        "location": "Ashburn, VA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-qtsdatacenters-R2026-1744",
-        "keptId": "workday-qtsdatacenters-R2026-1880",
-        "company": "QTS Data Centers",
-        "title": "Critical Operations Technician I (Nights)",
-        "location": "Phoenix, AZ"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-cyrusone-R0007612",
-        "keptId": "workday-cyrusone-R0007763",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Houston, TX"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-cyrusone-R0007614",
-        "keptId": "workday-cyrusone-R0007763",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Houston, TX"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-stackinfra-JR00277",
-        "keptId": "workday-stackinfra-JR00150",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Technician",
-        "location": "Santa Teresa, NM"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workday-stackinfra-JR00211",
-        "keptId": "workday-stackinfra-JR00150",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Technician",
-        "location": "Santa Teresa, NM"
-      }
-    ]
+    "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 778,
-    "currentJobs": 400,
-    "newJobsThisRun": 30,
+    "currentJobs": 399,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 30,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-06T20:52:00.766Z"
+    "updatedAt": "2026-09-07T01:47:20.686Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
@@ -942,7 +797,7 @@
     "rolesVerified": 5,
     "liveChecksPassed": 5,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 5,
     "retainedManaged": 5,

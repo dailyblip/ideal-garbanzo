@@ -88,6 +88,136 @@ function chooseBetter(a, b) {
   return a;
 }
 
+function identityKeys(job) {
+  const id = String(job?.id || '').trim();
+  const url = String(job?.sourceUrl || '').trim();
+  const company = normalizeIdentity(job?.company);
+  const title = canonicalTitle(job || {});
+  const req = requisitionId(url);
+  return {
+    id,
+    url,
+    reqKey: req ? `${company}|${req}` : '',
+    semanticKey: [company, title, normalizeIdentity(job?.location)].join('|')
+  };
+}
+
+function registerKeys(maps, keys, index) {
+  if (keys.id) maps.byId.set(keys.id, index);
+  if (keys.url) maps.byUrl.set(keys.url, index);
+  if (keys.reqKey) maps.byReq.set(keys.reqKey, index);
+  if (keys.semanticKey) maps.bySemantic.set(keys.semanticKey, index);
+}
+
+function unregisterKeys(maps, keys, index) {
+  // A replacement must stop owning every alias that belonged only to the
+  // discarded record. Otherwise a later, distinct opening that legitimately
+  // reuses an old source ID/URL/requisition can be collapsed into the winner.
+  for (const [map, key] of [
+    [maps.byId, keys.id],
+    [maps.byUrl, keys.url],
+    [maps.byReq, keys.reqKey],
+    [maps.bySemantic, keys.semanticKey]
+  ]) {
+    if (key && map.get(key) === index) map.delete(key);
+  }
+}
+
+function dedupeRecords(records) {
+  const kept = [];
+  const maps = {
+    byId: new Map(),
+    byUrl: new Map(),
+    byReq: new Map(),
+    bySemantic: new Map()
+  };
+  const removed = [];
+
+  for (const rawJob of records) {
+    const job = { ...rawJob };
+    if (/^pay not listed$/i.test(String(job.pay || '').trim())) job.pay = '';
+    const keys = identityKeys(job);
+
+    let priorIndex = -1;
+    let reason = '';
+    if (keys.id && maps.byId.has(keys.id)) { priorIndex = maps.byId.get(keys.id); reason = 'same-id'; }
+    else if (keys.url && maps.byUrl.has(keys.url)) { priorIndex = maps.byUrl.get(keys.url); reason = 'same-url'; }
+    else if (keys.reqKey && maps.byReq.has(keys.reqKey)) { priorIndex = maps.byReq.get(keys.reqKey); reason = 'same-requisition'; }
+    else if (keys.semanticKey && maps.bySemantic.has(keys.semanticKey)) { priorIndex = maps.bySemantic.get(keys.semanticKey); reason = 'same-company-title-location'; }
+
+    if (priorIndex >= 0) {
+      const prior = kept[priorIndex];
+      const winner = chooseBetter(prior, job);
+      const loser = winner === prior ? job : prior;
+
+      if (winner !== prior) {
+        unregisterKeys(maps, identityKeys(prior), priorIndex);
+        kept[priorIndex] = winner;
+      }
+      registerKeys(maps, identityKeys(winner), priorIndex);
+      removed.push({ reason, removedId: loser.id, keptId: winner.id, company: winner.company, title: winner.title, location: winner.location });
+      continue;
+    }
+
+    const index = kept.push(job) - 1;
+    registerKeys(maps, keys, index);
+  }
+
+  return { kept, removed };
+}
+
+// Regression: when a better representative replaces an earlier duplicate, the
+// discarded record's aliases must not remain live. The third record deliberately
+// reuses the discarded ID for a different site/title; it must survive. The fourth
+// record is a true duplicate of the current winner and still must collapse.
+const aliasRegression = dedupeRecords([
+  {
+    id: 'legacy-a',
+    title: '989 - Data Center Technician L1',
+    company: 'Example Data Centers',
+    location: 'Phoenix, AZ',
+    sourceUrl: 'https://jobs.example.com/jobs/123456',
+    type: 'entry-level',
+    experience: '2-5-years',
+    pay: ''
+  },
+  {
+    id: 'winner-b',
+    title: 'Data Center Technician L1',
+    company: 'Example Data Centers',
+    location: 'Phoenix, AZ',
+    sourceUrl: 'https://jobs.example.com/jobs/999999',
+    type: 'apprenticeship',
+    experience: 'no-experience',
+    pay: '$24 / hour'
+  },
+  {
+    id: 'legacy-a',
+    title: 'Critical Facilities Engineer',
+    company: 'Example Data Centers',
+    location: 'Dallas, TX',
+    sourceUrl: 'https://jobs.example.com/jobs/222222',
+    type: 'entry-level',
+    experience: '2-5-years',
+    pay: ''
+  },
+  {
+    id: 'duplicate-current',
+    title: 'Data Center Technician L1 - Phoenix, AZ',
+    company: 'Example Data Centers',
+    location: 'Phoenix, AZ',
+    sourceUrl: 'https://jobs.example.com/jobs/333333',
+    type: 'entry-level',
+    experience: '2-5-years',
+    pay: ''
+  }
+]);
+if (aliasRegression.kept.length !== 2 ||
+    !aliasRegression.kept.some(job => job.id === 'winner-b') ||
+    !aliasRegression.kept.some(job => job.id === 'legacy-a' && job.location === 'Dallas, TX')) {
+  throw new Error('Post-normalization dedupe alias regression: stale loser aliases can collapse a distinct later role.');
+}
+
 function countBy(values, key) {
   return values.reduce((counts, item) => {
     const value = String(item?.[key] || '').trim();
@@ -99,60 +229,7 @@ function countBy(values, key) {
 const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('data/jobs.json must contain an array.');
 
-const kept = [];
-const byId = new Map();
-const byUrl = new Map();
-const byReq = new Map();
-const bySemantic = new Map();
-const removed = [];
-
-for (const rawJob of jobs) {
-  const job = { ...rawJob };
-  if (/^pay not listed$/i.test(String(job.pay || '').trim())) job.pay = '';
-
-  const id = String(job.id || '').trim();
-  const url = String(job.sourceUrl || '').trim();
-  const company = normalizeIdentity(job.company);
-  const title = canonicalTitle(job);
-  const req = requisitionId(url);
-  const reqKey = req ? `${company}|${req}` : '';
-  const semanticKey = [company, title, normalizeIdentity(job.location)].join('|');
-
-  let priorIndex = -1;
-  let reason = '';
-  if (id && byId.has(id)) { priorIndex = byId.get(id); reason = 'same-id'; }
-  else if (url && byUrl.has(url)) { priorIndex = byUrl.get(url); reason = 'same-url'; }
-  else if (reqKey && byReq.has(reqKey)) { priorIndex = byReq.get(reqKey); reason = 'same-requisition'; }
-  else if (semanticKey && bySemantic.has(semanticKey)) { priorIndex = bySemantic.get(semanticKey); reason = 'same-company-title-location'; }
-
-  if (priorIndex >= 0) {
-    const prior = kept[priorIndex];
-    const winner = chooseBetter(prior, job);
-    const loser = winner === prior ? job : prior;
-    kept[priorIndex] = winner;
-    removed.push({ reason, removedId: loser.id, keptId: winner.id, company: winner.company, title: winner.title, location: winner.location });
-
-    const winnerId = String(winner.id || '').trim();
-    const winnerUrl = String(winner.sourceUrl || '').trim();
-    const winnerReq = requisitionId(winnerUrl);
-    const winnerCompany = normalizeIdentity(winner.company);
-    const winnerTitle = canonicalTitle(winner);
-    const winnerReqKey = winnerReq ? `${winnerCompany}|${winnerReq}` : '';
-    const winnerSemantic = [winnerCompany, winnerTitle, normalizeIdentity(winner.location)].join('|');
-    if (winnerId) byId.set(winnerId, priorIndex);
-    if (winnerUrl) byUrl.set(winnerUrl, priorIndex);
-    if (winnerReqKey) byReq.set(winnerReqKey, priorIndex);
-    if (winnerSemantic) bySemantic.set(winnerSemantic, priorIndex);
-    continue;
-  }
-
-  const index = kept.push(job) - 1;
-  if (id) byId.set(id, index);
-  if (url) byUrl.set(url, index);
-  if (reqKey) byReq.set(reqKey, index);
-  if (semanticKey) bySemantic.set(semanticKey, index);
-}
-
+const { kept, removed } = dedupeRecords(jobs);
 await writeFile(JOBS_PATH, JSON.stringify(kept, null, 2) + '\n');
 
 try {

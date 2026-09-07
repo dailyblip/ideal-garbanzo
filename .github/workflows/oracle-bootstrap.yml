@@ -4,19 +4,16 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/oracle-bootstrap.yml'
       - 'scripts/collect-oracle-careers.mjs'
-      - 'scripts/dedupe-normalized-jobs.mjs'
-      - 'scripts/stamp-job-history.mjs'
 
 permissions:
   actions: write
   contents: write
 
-# Oracle writes the shared jobs feed; serialize it with all other feed writers
-# rather than allowing source-specific runs to race at rebase/push time.
+# Prevent duplicate Oracle refreshes without sharing a pending slot with
+# unrelated employer workflows.
 concurrency:
-  group: careers-source-writers
+  group: oracle-bootstrap
   cancel-in-progress: false
 
 jobs:

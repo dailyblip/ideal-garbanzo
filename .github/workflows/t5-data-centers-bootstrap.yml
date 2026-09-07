@@ -4,22 +4,18 @@ on:
   push:
     branches: [main]
     paths:
-      - data/jobs.json
       - scripts/collect-t5-data-centers.mjs
       - scripts/validate-t5-data-centers.mjs
-      - scripts/filter-mission-fit.mjs
-      - .github/workflows/t5-data-centers-bootstrap.yml
   workflow_dispatch:
   schedule:
-    - cron: '53 */12 * * *'
+    - cron: '2 1,13 * * *'
 
 permissions:
   contents: write
   actions: write
 
-# All workflows that can commit the shared jobs feed must use one repository-wide
-# writer queue. Source-specific concurrency groups still allow two collectors to
-# validate successfully and then collide while rebasing data/jobs.json.
+# Scheduled feed writers share this queue. T5 no longer retriggers on every
+# data/jobs.json update, which prevents source-update cascades.
 concurrency:
   group: careers-source-writers
   cancel-in-progress: false

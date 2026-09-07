@@ -6,7 +6,6 @@ on:
     paths:
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/recover-amazon-details.mjs'
-      - '.github/workflows/aws-detail-recovery.yml'
   schedule:
     - cron: '0 14 * * *'
   workflow_dispatch:
@@ -15,11 +14,10 @@ permissions:
   contents: write
   actions: write
 
-# Any workflow that commits data/jobs.json must share one repository-wide writer
-# queue. A source-specific group does not prevent two collectors from rebasing
-# and pushing the shared feed at the same time.
+# Prevent duplicate AWS refreshes without placing unrelated source runs into a
+# cross-workflow queue where GitHub can replace older pending runs.
 concurrency:
-  group: careers-source-writers
+  group: aws-detail-recovery
   cancel-in-progress: false
 
 jobs:

@@ -9,18 +9,15 @@ on:
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
-      - 'scripts/stamp-job-history.mjs'
-      - 'scripts/validate-job-history.mjs'
-      - '.github/workflows/microsoft-bootstrap.yml'
 
 permissions:
   contents: write
   actions: write
 
-# Microsoft refreshes data/jobs.json, so use the same non-cancelling writer
-# queue as the other employer-direct source workflows.
+# Prevent duplicate Microsoft refreshes without sharing a pending slot with
+# unrelated employer workflows.
 concurrency:
-  group: careers-source-writers
+  group: microsoft-bootstrap
   cancel-in-progress: false
 
 jobs:

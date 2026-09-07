@@ -37,21 +37,13 @@ if (checkout) {
 if (!Array.isArray(activations)) throw new Error('featured-jobs.json must contain an array');
 const jobsById = new Map(jobs.map(job => [String(job.id), job]));
 const seen = new Set();
+let lifecycleStale = 0;
+
 for (const [index, activation] of activations.entries()) {
   const jobId = String(activation?.jobId || '').trim();
   if (!jobId) throw new Error(`Promotion activation ${index} missing jobId`);
   const tier = tiers[activation.tier];
   if (!tier) throw new Error(`Promotion activation ${jobId} has unsupported tier: ${activation.tier || 'missing'}`);
-  const job = jobsById.get(jobId);
-  if (!job) throw new Error(`Promotion activation points to missing job: ${jobId}`);
-  if (seen.has(jobId)) throw new Error(`Job has more than one active promotion record: ${jobId}`);
-  seen.add(jobId);
-
-  if (job.active === false) throw new Error(`Promotion ${jobId} points to an inactive job`);
-  if (job.demo === true) throw new Error(`Promotion ${jobId} points to a demo job`);
-  if (!allowedTypes.has(job.type)) throw new Error(`Promotion ${jobId} points to unsupported role type: ${job.type || 'missing'}`);
-  if (!allowedExperience.has(job.experience)) throw new Error(`Promotion ${jobId} points to unsupported experience level: ${job.experience || 'missing'}`);
-  if (!/^https:\/\//i.test(String(job.sourceUrl || ''))) throw new Error(`Promotion ${jobId} requires an HTTPS employer apply URL`);
 
   if (!activation.startsAt) throw new Error(`Promotion ${jobId} missing startsAt`);
   if (!activation.expiresAt) throw new Error(`Promotion ${jobId} missing expiresAt`);
@@ -60,13 +52,33 @@ for (const [index, activation] of activations.entries()) {
   if (!Number.isFinite(starts)) throw new Error(`Promotion ${jobId} has invalid startsAt`);
   if (!Number.isFinite(expires)) throw new Error(`Promotion ${jobId} has invalid expiresAt`);
   if (expires <= starts) throw new Error(`Promotion ${jobId} expires before it starts`);
-  if (expires <= now) throw new Error(`Promotion ${jobId} is expired and must be removed`);
 
   const durationMs = expires - starts;
   const maxDurationMs = tier.durationDays * DAY_MS;
   if (durationMs > maxDurationMs) {
     throw new Error(`Promotion ${jobId} exceeds the ${tier.durationDays}-day ${activation.tier} term`);
   }
+
+  // Expired or orphaned lifecycle records are harmless to candidates and are
+  // removed by prune-promotions.mjs. They should not take the entire site
+  // offline if a deploy lands before the cleanup workflow runs.
+  if (expires <= now) {
+    lifecycleStale += 1;
+    continue;
+  }
+
+  const job = jobsById.get(jobId);
+  if (!job || job.active === false || job.demo === true) {
+    lifecycleStale += 1;
+    continue;
+  }
+
+  if (seen.has(jobId)) throw new Error(`Job has more than one active promotion record: ${jobId}`);
+  seen.add(jobId);
+
+  if (!allowedTypes.has(job.type)) throw new Error(`Promotion ${jobId} points to unsupported role type: ${job.type || 'missing'}`);
+  if (!allowedExperience.has(job.experience)) throw new Error(`Promotion ${jobId} points to unsupported experience level: ${job.experience || 'missing'}`);
+  if (!/^https:\/\//i.test(String(job.sourceUrl || ''))) throw new Error(`Promotion ${jobId} requires an HTTPS employer apply URL`);
 }
 
 if (/\$(?:99|149)\b/.test(homepage)) throw new Error('Promotion prices belong in checkout, not on the homepage');
@@ -74,4 +86,7 @@ for (const label of ['Highlighted Job', 'Spotlight Position']) {
   if (!homepage.includes(label)) throw new Error(`Homepage employer card missing promotion option: ${label}`);
 }
 
-console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers and ${activations.length} scheduled/active promotion records.`);
+if (lifecycleStale) {
+  console.warn(`Promotion lifecycle warning: ${lifecycleStale} expired/orphaned record(s) await cleanup.`);
+}
+console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers, ${seen.size} live/scheduled promotion records, ${lifecycleStale} lifecycle-stale records.`);

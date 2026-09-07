@@ -1,0 +1,59 @@
+name: Promotion lifecycle hygiene
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/featured-jobs.json'
+      - 'data/employer-products.json'
+      - 'scripts/prune-promotions.mjs'
+      - 'scripts/validate-promotions.mjs'
+      - '.github/workflows/promotion-lifecycle.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '35 12 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: promotion-lifecycle
+  cancel-in-progress: true
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate promotion lifecycle scripts
+        run: |
+          node --check scripts/prune-promotions.mjs
+          node --check scripts/validate-promotions.mjs
+      - name: Remove expired and orphaned promotion activations
+        run: node scripts/prune-promotions.mjs
+      - name: Validate employer promotion products and live activations
+        run: node scripts/validate-promotions.mjs
+      - name: Commit lifecycle cleanup when needed
+        run: |
+          if git diff --quiet -- data/featured-jobs.json; then
+            echo "No stale promotion activations to remove."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/featured-jobs.json
+          git commit -m "Prune stale promotion activations"
+          git fetch origin main
+          if ! git rebase origin/main; then
+            git rebase --abort || true
+            echo "::error::Could not rebase promotion lifecycle cleanup onto latest main."
+            exit 1
+          fi
+          git push origin HEAD:main

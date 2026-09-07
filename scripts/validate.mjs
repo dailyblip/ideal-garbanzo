@@ -68,7 +68,6 @@ function canonicalTitle(job) {
 const ids = new Set();
 const urls = new Set();
 const semanticJobs = new Set();
-const companyTitleJobs = new Set();
 let regionalJobs = 0;
 for (const [i, job] of jobs.entries()) {
   for (const key of ['id','title','company','location','type','experience']) {
@@ -90,12 +89,10 @@ for (const [i, job] of jobs.entries()) {
     regionalJobs += 1;
   }
 
+  // Distinct employer requisitions with the same title are valid when they are
+  // in different locations. The regional job board must preserve those cards.
   const company = normalizeIdentity(job.company);
   const title = canonicalTitle(job);
-  const companyTitleKey = [company, title].join('|');
-  if (companyTitleJobs.has(companyTitleKey)) throw new Error(`Duplicate-looking published job title: ${job.company} / ${job.title}`);
-  companyTitleJobs.add(companyTitleKey);
-
   const semanticKey = [company, title, normalizeIdentity(job.location)].join('|');
   if (semanticJobs.has(semanticKey)) throw new Error(`Near-duplicate published job: ${job.company} / ${job.title} / ${job.location}`);
   semanticJobs.add(semanticKey);

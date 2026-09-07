@@ -3,6 +3,7 @@ import { constants } from 'node:fs';
 
 const html = await readFile('index.html', 'utf8');
 const css = await readFile('assets/styles.css', 'utf8');
+const mailingListJs = await readFile('assets/mailing-list.js', 'utf8');
 const employerHtml = await readFile('employers/index.html', 'utf8');
 const employerProducts = JSON.parse(await readFile('data/employer-products.json', 'utf8'));
 const errors = [];
@@ -57,6 +58,10 @@ requireMatch(/\.apply-link\{[^}]*min-height:44px/i.test(mobileCss), 'Mobile job 
 requireMatch(/\.employer-cta\{[^}]*min-height:44px/i.test(mobileCss), 'Mobile employer CTA must keep a 44px+ touch target.');
 requireMatch(/\.alert-strip input,\.alert-strip select\{[^}]*font-size:16px[^}]*min-height:46px/i.test(mobileCss), 'Mobile alert controls must remain readable and touch-friendly.');
 
+// Keep the public job stream focused on the audience mission. Senior-only
+// "career ceiling" cards must not be injected into the early-career feed.
+requireMatch(!/career-motivators|career ceiling|career-ceiling/i.test(mailingListJs), 'Mailing-list code must not inject senior career-ceiling content into the job feed.');
+
 // Employer promotion examples must follow the same compensation rule as the
 // candidate feed: show verified pay when present and otherwise leave it blank.
 requireMatch(!/Pay not listed/i.test(employerHtml), 'Employer promotion examples must leave unavailable compensation blank.');
@@ -68,10 +73,19 @@ if (!checkoutEnabled) {
   requireMatch(externalPlanLinks.length === 0, 'Employer purchase buttons must not point to external checkout while checkout is disabled.');
 }
 
-for (const forbidden of ['assets/hero-overrides.css', 'assets/home-tools.css']) {
+for (const forbidden of [
+  'assets/hero-overrides.css',
+  'assets/home-tools.css',
+  'assets/career-motivators.js',
+  'data/career-motivator-candidates.json',
+  'data/career-motivators.json',
+  'scripts/refresh-career-motivators.mjs',
+  'scripts/validate-career-motivators.mjs',
+  '.github/workflows/career-motivators.yml'
+]) {
   try {
     await access(forbidden, constants.F_OK);
-    errors.push(`Legacy homepage stylesheet must not exist: ${forbidden}`);
+    errors.push(`Forbidden homepage drift artifact must not exist: ${forbidden}`);
   } catch {}
 }
 
@@ -81,4 +95,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage visual, mobile, accessibility and employer-promotion contract passed.');
+console.log('Homepage visual, mobile, accessibility, feed-focus and employer-promotion contract passed.');

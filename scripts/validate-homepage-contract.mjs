@@ -3,6 +3,8 @@ import { constants } from 'node:fs';
 
 const html = await readFile('index.html', 'utf8');
 const css = await readFile('assets/styles.css', 'utf8');
+const employerHtml = await readFile('employers/index.html', 'utf8');
+const employerProducts = JSON.parse(await readFile('data/employer-products.json', 'utf8'));
 const errors = [];
 
 const requireMatch = (condition, message) => {
@@ -55,6 +57,17 @@ requireMatch(/\.apply-link\{[^}]*min-height:44px/i.test(mobileCss), 'Mobile job 
 requireMatch(/\.employer-cta\{[^}]*min-height:44px/i.test(mobileCss), 'Mobile employer CTA must keep a 44px+ touch target.');
 requireMatch(/\.alert-strip input,\.alert-strip select\{[^}]*font-size:16px[^}]*min-height:46px/i.test(mobileCss), 'Mobile alert controls must remain readable and touch-friendly.');
 
+// Employer promotion examples must follow the same compensation rule as the
+// candidate feed: show verified pay when present and otherwise leave it blank.
+requireMatch(!/Pay not listed/i.test(employerHtml), 'Employer promotion examples must leave unavailable compensation blank.');
+requireMatch(!/See what employers are buying\.?/i.test(employerHtml), 'Employer promotion page must not imply purchases before checkout is active.');
+const checkoutEnabled = employerProducts?.checkout?.enabled === true || employerProducts?.featuredJob?.checkoutEnabled === true;
+if (!checkoutEnabled) {
+  requireMatch(/Online payment is not active yet/i.test(employerHtml), 'Disabled employer checkout must be disclosed clearly on the employer page.');
+  const externalPlanLinks = [...employerHtml.matchAll(/<a\b[^>]*class=["'][^"']*plan-button[^"']*["'][^>]*href=["']https?:\/\//gi)];
+  requireMatch(externalPlanLinks.length === 0, 'Employer purchase buttons must not point to external checkout while checkout is disabled.');
+}
+
 for (const forbidden of ['assets/hero-overrides.css', 'assets/home-tools.css']) {
   try {
     await access(forbidden, constants.F_OK);
@@ -68,4 +81,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage visual, mobile and accessibility contract passed.');
+console.log('Homepage visual, mobile, accessibility and employer-promotion contract passed.');

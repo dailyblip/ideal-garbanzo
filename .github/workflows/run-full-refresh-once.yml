@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/run-full-refresh-once.yml'
+      - 'scripts/reconcile-major-jobs.mjs'
 
 permissions:
   contents: write

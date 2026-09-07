@@ -66,6 +66,13 @@ const cyrusOneCampusLocations = [
   [/^PNW1$/i, 'Quincy, WA']
 ];
 
+// Aligned's official locations page lists DFW-01 and DFW-02 at the same Plano,
+// Texas campus. Workday can combine that campus as DFW01_02; normalize only
+// that verified identifier rather than treating arbitrary DFW codes as cities.
+const alignedCampusLocations = [
+  [/^DFW0?1_0?2$/i, 'Plano, TX']
+];
+
 // These are the same deliberately narrow U.S. campus-code families used by
 // normalize-job-locations.mjs for operators whose codes do not have a verified
 // company-specific city mapping here. Foreign codes such as DUB11 stay excluded.
@@ -80,8 +87,13 @@ function primaryLocation(value) {
 
 function canonicalMajorLocation(job) {
   const location = primaryLocation(job?.location);
-  if (clean(job?.company) !== 'CyrusOne') return location;
-  for (const [pattern, replacement] of cyrusOneCampusLocations) {
+  const company = clean(job?.company);
+  const mappings = company === 'CyrusOne'
+    ? cyrusOneCampusLocations
+    : company === 'Aligned Data Centers'
+      ? alignedCampusLocations
+      : [];
+  for (const [pattern, replacement] of mappings) {
     if (pattern.test(location)) return replacement;
   }
   return location;

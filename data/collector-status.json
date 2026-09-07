@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T05:16:23.378Z",
+  "updatedAt": "2026-09-07T05:52:20.730Z",
   "jobs": 399,
   "sourcesAttempted": 54,
   "providers": {
@@ -13,15 +13,15 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 376,
-    "apprenticeship": 5,
     "trainee": 7,
-    "internship": 11
+    "apprenticeship": 5,
+    "internship": 11,
+    "entry-level": 376
   },
   "countsByExperience": {
-    "0-2-years": 246,
+    "2-5-years": 139,
     "no-experience": 14,
-    "2-5-years": 139
+    "0-2-years": 246
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -286,7 +286,7 @@
     }
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T05:16:23.501Z",
+    "updatedAt": "2026-09-07T05:52:20.790Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 399,
@@ -295,13 +295,13 @@
     "missingSamples": [],
     "countsByRegion": {
       "west": 54,
+      "texas": 68,
       "midwest": 66,
       "mid-atlantic": 58,
-      "southeast": 89,
       "southwest": 53,
-      "nationwide": 1,
-      "texas": 68,
-      "northeast": 10
+      "southeast": 89,
+      "northeast": 10,
+      "nationwide": 1
     }
   },
   "postQa": {
@@ -554,173 +554,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T05:16:23.558Z",
-    "before": 440,
+    "checkedAt": "2026-09-07T05:52:20.849Z",
+    "before": 399,
     "after": 399,
-    "removed": 41,
-    "policy": "one representative posting per normalized employer + title",
-    "examples": [
-      {
-        "reason": "same-company-title",
-        "removedId": "icims-tierpoint-3041",
-        "keptId": "icims-tierpoint-3045",
-        "company": "TierPoint",
-        "title": "Operations Technician I",
-        "location": "Baltimore, MD"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "icims-tierpoint-3040",
-        "keptId": "icims-tierpoint-3045",
-        "company": "TierPoint",
-        "title": "Operations Technician I",
-        "location": "Baltimore, MD"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "icims-tierpoint-3036",
-        "keptId": "icims-tierpoint-3045",
-        "company": "TierPoint",
-        "title": "Operations Technician I",
-        "location": "Baltimore, MD"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "icims-tierpoint-3028",
-        "keptId": "icims-tierpoint-3045",
-        "company": "TierPoint",
-        "title": "Operations Technician I",
-        "location": "Baltimore, MD"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "icims-tierpoint-3011",
-        "keptId": "icims-tierpoint-3034",
-        "company": "TierPoint",
-        "title": "Operations Technician II",
-        "location": "Fort Worth, TX"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "icims-tierpoint-2962",
-        "keptId": "icims-tierpoint-3038",
-        "company": "TierPoint",
-        "title": "MEP Technician II",
-        "location": "Charlotte, NC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "icims-tierpoint-2959",
-        "keptId": "icims-tierpoint-3038",
-        "company": "TierPoint",
-        "title": "MEP Technician II",
-        "location": "Charlotte, NC"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workable-stream-dc-62B4F3BCF5",
-        "keptId": "workable-stream-dc-CDC5638BF1",
-        "company": "Stream Data Centers",
-        "title": "Critical Engineering Technician",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workable-stream-dc-CDC5638BF1",
-        "keptId": "workable-stream-dc-C4755E8B9E",
-        "company": "Stream Data Centers",
-        "title": "Critical Engineering Technician, Day Shift",
-        "location": "San Antonio, Texas"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workable-stream-dc-5B9BD8650E",
-        "keptId": "workable-stream-dc-C4755E8B9E",
-        "company": "Stream Data Centers",
-        "title": "Critical Engineering Technician, Day Shift",
-        "location": "San Antonio, Texas"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "workable-stream-dc-5FBD18EE51",
-        "keptId": "workable-stream-dc-C4755E8B9E",
-        "company": "Stream Data Centers",
-        "title": "Critical Engineering Technician, Day Shift",
-        "location": "San Antonio, Texas"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3430787",
-        "keptId": "switch-3644869",
-        "company": "Switch",
-        "title": "DCO Facilities Technician I",
-        "location": "Keep Campus - Atlanta, GA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3644869",
-        "keptId": "switch-3710636",
-        "company": "Switch",
-        "title": "DCO Facilities Technician I",
-        "location": "Data Foundry - Austin, TX"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3644621",
-        "keptId": "switch-3756777",
-        "company": "Switch",
-        "title": "DCO Facilities Technician II",
-        "location": "Citadel Campus - Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3696630",
-        "keptId": "switch-3762485",
-        "company": "Switch",
-        "title": "Data Center Structured Cabling Technician",
-        "location": "Data Foundry - Austin, TX"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3774043",
-        "keptId": "switch-3783696",
-        "company": "Switch",
-        "title": "Mission Control Technician",
-        "location": "Keep Campus - Atlanta, GA"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3776443",
-        "keptId": "switch-3789333",
-        "company": "Switch",
-        "title": "Network Infrastructure Technician I",
-        "location": "Pyramid Campus - Grand Rapids, MI"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3710636",
-        "keptId": "switch-3789601",
-        "company": "Switch",
-        "title": "DCO Facilities Technician I",
-        "location": "Citadel Campus - Reno, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3734125",
-        "keptId": "switch-3801217",
-        "company": "Switch",
-        "title": "DCO Facilities Technician III",
-        "location": "Core - Las Vegas, NV"
-      },
-      {
-        "reason": "same-company-title",
-        "removedId": "switch-3789333",
-        "keptId": "switch-3803666",
-        "company": "Switch",
-        "title": "Network Infrastructure Technician I",
-        "location": "Citadel Campus - Reno, NV"
-      }
-    ]
+    "removed": 0,
+    "policy": "one representative posting per normalized employer + title + location",
+    "examples": []
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
@@ -731,7 +570,7 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T05:16:36.002Z"
+    "updatedAt": "2026-09-07T05:52:20.908Z"
   },
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",

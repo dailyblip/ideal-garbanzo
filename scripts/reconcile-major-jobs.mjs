@@ -41,15 +41,20 @@ const usStateCodes = new Set([
   'WV', 'WI', 'WY'
 ]);
 
+function primaryLocation(value) {
+  return clean(value).replace(/\s+\+\s+\d+\s+more\s+locations?\s*$/i, '').trim();
+}
+
 function clearlyOutsideUnitedStates(job) {
   const text = ` ${normalize(`${job?.location || ''} ${job?.sourceUrl || ''}`)} `;
   return clearlyForeignLocationTerms.some(term => term && text.includes(` ${term} `));
 }
 
 function confidentlyInsideUnitedStates(job) {
-  const location = clean(job?.location);
+  const location = primaryLocation(job?.location);
   if (!location) return false;
   if (/\b(?:united states(?: of america)?|u\.s\.a\.?|usa)\b/i.test(location)) return true;
+  if (/\bremote\b/i.test(location) && /\b(?:us|usa|united states)\b/i.test(location)) return true;
 
   const normalizedLocation = normalize(location);
   if (/\bus\s+(?:al|ak|az|ar|ca|co|ct|de|dc|fl|ga|hi|id|il|in|ia|ks|ky|la|me|md|ma|mi|mn|ms|mo|mt|ne|nv|nh|nj|nm|ny|nc|nd|oh|ok|or|pa|ri|sc|sd|tn|tx|ut|vt|va|wa|wv|wi|wy)\b/.test(normalizedLocation)) return true;
@@ -100,7 +105,10 @@ function dedupe(jobs) {
 }
 
 const jobs = await readJson(JOBS_PATH);
-const rawMajorSnapshot = dedupe(await readJson(MAJOR_PATH));
+const rawMajorSnapshot = dedupe((await readJson(MAJOR_PATH)).map(job => ({
+  ...job,
+  location: primaryLocation(job?.location)
+})));
 const foreignMajor = rawMajorSnapshot.filter(clearlyOutsideUnitedStates);
 const unresolvedMajor = rawMajorSnapshot.filter(job => !clearlyOutsideUnitedStates(job) && !confidentlyInsideUnitedStates(job));
 const majorSnapshot = rawMajorSnapshot.filter(job => !clearlyOutsideUnitedStates(job) && confidentlyInsideUnitedStates(job));

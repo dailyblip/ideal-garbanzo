@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-09-07T07:23:21.894Z",
+  "updatedAt": "2026-09-07T07:24:08.582Z",
   "jobs": 441,
-  "sourcesAttempted": 27,
+  "sourcesAttempted": 28,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
     "ashby": 5,
     "icims": 1,
     "workday": 6,
-    "googleCareers": 1,
+    "googleCareers": 2,
     "metaCareers": 1,
     "oracleRecruitingCloud": 2
   },
@@ -1404,28 +1404,13 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T07:08:19.778Z",
-    "removedCount": 2,
-    "removedByReason": {
-      "non-mission role family": 2
-    },
-    "removed": [
-      {
-        "id": "oracle-careers-334333",
-        "company": "Oracle",
-        "title": "OCI Software Engineer Intern - OVIP",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "reason": "non-mission role family"
-      }
-    ]
+    "checkedAt": "2026-09-07T07:24:08.689Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T07:23:21.956Z",
+    "updatedAt": "2026-09-07T07:24:08.752Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 440,
@@ -1451,7 +1436,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T07:23:22.014Z",
+    "checkedAt": "2026-09-07T07:24:08.813Z",
     "before": 441,
     "after": 441,
     "removed": 0,
@@ -1473,6 +1458,6 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T07:23:22.072Z"
+    "updatedAt": "2026-09-07T07:24:08.869Z"
   }
 }

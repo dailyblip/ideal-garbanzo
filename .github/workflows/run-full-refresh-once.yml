@@ -18,4 +18,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           # Use --field so the typed workflow input is sent as boolean false.
+          # This run rebuilds the feed after the regional dedupe correction.
           gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -F deploy_only=false

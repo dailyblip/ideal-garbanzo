@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/priority-pay-enrichment.yml'
       - 'scripts/enrich-priority-pay.mjs'
+      - 'scripts/sanitize-priority-pay-context.mjs'
   workflow_run:
     workflows:
       - 'Refresh jobs and deploy site'
@@ -38,10 +39,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate enrichment script
-        run: node --check scripts/enrich-priority-pay.mjs
+      - name: Validate enrichment scripts
+        run: |
+          node --check scripts/enrich-priority-pay.mjs
+          node --check scripts/sanitize-priority-pay-context.mjs
       - name: Recover employer-listed compensation
         run: node scripts/enrich-priority-pay.mjs
+      - name: Reject ambiguous conversion-only compensation
+        run: node scripts/sanitize-priority-pay-context.mjs
       - name: Validate public feed after enrichment
         run: |
           node scripts/validate.mjs

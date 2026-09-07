@@ -4,10 +4,12 @@ on:
   push:
     branches: [main]
     paths:
+      - '.github/workflows/major-workday-classifier-guard.yml'
       - 'scripts/collect-major-jobs.mjs'
       - 'scripts/recover-major-workday-targeted.mjs'
   pull_request:
     paths:
+      - '.github/workflows/major-workday-classifier-guard.yml'
       - 'scripts/collect-major-jobs.mjs'
       - 'scripts/recover-major-workday-targeted.mjs'
 

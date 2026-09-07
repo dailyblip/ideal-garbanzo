@@ -17,8 +17,8 @@ permissions:
   actions: write
 
 concurrency:
-  group: flexential-bootstrap
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   collect:

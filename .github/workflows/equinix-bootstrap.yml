@@ -21,9 +21,11 @@ permissions:
   actions: write
   contents: write
 
+# This shares a writer lock with Google because both bootstrap jobs can update
+# data/jobs.json. Queue them rather than racing two validated commits to main.
 concurrency:
-  group: equinix-careers-bootstrap
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   collect:

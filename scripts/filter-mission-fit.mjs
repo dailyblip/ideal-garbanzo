@@ -19,6 +19,39 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const obviousNonMissionTitlePattern = /\b(?:administrative business partner|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel)\b/i;
 const obviousSeniorTitlePattern = /\b(?:senior|sr\.?|principal|staff engineer|staff technician|director|vice president|vp|chief|head of)\b/i;
 
+// The product is U.S.-only. Keep a publication-time geography backstop here as
+// well as in QA so a clearly foreign record cannot reach the live site simply
+// because a deploy-only run skips the full refresh QA pass. Province codes are
+// anchored after a comma to avoid confusing U.S. cities such as Ontario, CA.
+const canadianProvinceCodePattern = /,\s*(?:AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT)\b(?:\s*,?\s*Canada)?\s*$/i;
+const canadianProvinceNamePattern = /,\s*(?:Alberta|British Columbia|Manitoba|New Brunswick|Newfoundland(?: and Labrador)?|Nova Scotia|Northwest Territories|Nunavut|Ontario|Prince Edward Island|Quebec|Saskatchewan|Yukon)\b(?:\s*,?\s*Canada)?\s*$/i;
+const foreignCountryPattern = /(?:^|[,;]\s*)(?:Canada|Mexico|Ireland|United Kingdom|UK|England|Germany|France|Netherlands|Switzerland|India|Japan|Taiwan|Singapore|Australia|China|Malaysia|Indonesia|Thailand|Brazil|South Africa|United Arab Emirates)\s*$/i;
+
+function clearlyNonUsLocation(location = '') {
+  return String(location || '').split(';').map(part => part.trim()).filter(Boolean).some(segment =>
+    canadianProvinceCodePattern.test(segment) ||
+    canadianProvinceNamePattern.test(segment) ||
+    foreignCountryPattern.test(segment)
+  );
+}
+
+const geographyRegressionCases = [
+  { location: 'Cambridge, ON', nonUs: true },
+  { location: 'Toronto, Ontario', nonUs: true },
+  { location: 'Richmond, BC', nonUs: true },
+  { location: 'Dublin, Ireland', nonUs: true },
+  { location: 'Cambridge, MA', nonUs: false },
+  { location: 'Ontario, CA', nonUs: false },
+  { location: 'Indianapolis, IN', nonUs: false },
+  { location: 'Remote - OK', nonUs: false }
+];
+for (const testCase of geographyRegressionCases) {
+  const actual = clearlyNonUsLocation(testCase.location);
+  if (actual !== testCase.nonUs) {
+    throw new Error(`Mission-fit geography regression for ${testCase.location}: expected nonUs=${testCase.nonUs}, got ${actual}`);
+  }
+}
+
 let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
@@ -42,12 +75,14 @@ const kept = [];
 const removed = [];
 for (const job of jobs) {
   const title = clean(job?.title);
+  const location = clean(job?.location);
   let reason = '';
   if (obviousNonMissionTitlePattern.test(title)) reason = 'non-mission role family';
   else if (obviousSeniorTitlePattern.test(title)) reason = 'senior/executive title';
+  else if (clearlyNonUsLocation(location)) reason = 'non-US location';
 
   if (reason) {
-    removed.push({ id: job?.id || '', company: job?.company || '', title, reason });
+    removed.push({ id: job?.id || '', company: job?.company || '', title, location, reason });
     continue;
   }
   kept.push(job);

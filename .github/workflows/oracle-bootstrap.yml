@@ -13,9 +13,11 @@ permissions:
   actions: write
   contents: write
 
+# Oracle writes the shared jobs feed; serialize it with all other feed writers
+# rather than allowing source-specific runs to race at rebase/push time.
 concurrency:
-  group: oracle-careers-bootstrap
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   collect:

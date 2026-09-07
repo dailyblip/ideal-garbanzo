@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-07T06:07:05.692Z",
-  "jobs": 404,
+  "updatedAt": "2026-09-07T07:08:19.703Z",
+  "jobs": 441,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -16,18 +16,18 @@
     "trainee": 12,
     "apprenticeship": 11,
     "internship": 13,
-    "entry-level": 368
+    "entry-level": 405
   },
   "countsByExperience": {
-    "2-5-years": 184,
-    "no-experience": 36,
-    "0-2-years": 184
+    "2-5-years": 213,
+    "no-experience": 43,
+    "0-2-years": 185
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
   ],
   "sourceFailurePreservation": {
-    "checkedAt": "2026-09-07T05:57:30.962Z",
+    "checkedAt": "2026-09-07T06:59:50.629Z",
     "failedSources": [],
     "preservedJobs": 0,
     "preservedByCompany": {},
@@ -85,7 +85,7 @@
     "candidateLinks": 0,
     "detailSucceeded": 0,
     "qualifyingRoles": 0,
-    "preservedPrevious": 1,
+    "preservedPrevious": 0,
     "drops": {
       "stale": 0,
       "titleOrExperience": 0,
@@ -100,7 +100,7 @@
     "snapshotVerifiedAt": "2026-09-05T16:59:00Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 168,
-    "snapshotAgeHours": 37,
+    "snapshotAgeHours": 38,
     "removedExpiredFallback": 0
   },
   "novvaCareers": {
@@ -166,7 +166,7 @@
     ]
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-07T05:57:49.825Z",
+    "checkedAt": "2026-09-07T07:00:11.442Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -200,7 +200,7 @@
       "Vantage Data Centers": {
         "sourceHealthy": true,
         "listingComplete": true,
-        "reportedRows": 168,
+        "reportedRows": 169,
         "uniqueRows": 168,
         "pagesAttempted": 9,
         "pagesSucceeded": 9,
@@ -259,11 +259,11 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-07T05:58:43.261Z",
+      "checkedAt": "2026-09-07T07:01:05.750Z",
       "rawJobs": 227,
-      "publishedUsJobs": 125,
+      "publishedUsJobs": 149,
       "nonUsRemoved": 28,
-      "unresolvedLocationRemoved": 74,
+      "unresolvedLocationRemoved": 50,
       "nonUsSamples": [
         {
           "company": "Vantage Data Centers",
@@ -310,183 +310,57 @@
         {
           "company": "Vantage Data Centers",
           "title": "Reliability Engineer, Mechanical, NA (Design)",
-          "location": "Remote - OK + 4 more locations"
+          "location": "Remote - OK"
         },
         {
           "company": "Vantage Data Centers",
           "title": "Critical Facilities Technician",
-          "location": "DUB11 + 1 more location"
+          "location": "DUB11"
         },
         {
-          "company": "Vantage Data Centers",
-          "title": "Business Analyst, Budget Planning & Financial Operations, Global",
-          "location": "Remote - US"
+          "company": "CyrusOne",
+          "title": "Critical Environments Operator III",
+          "location": "NVA5"
         },
         {
-          "company": "QTS Data Centers",
-          "title": "Commissioning Engineer II (Mechanical)",
-          "location": "Eagle Mountain, UT + 3 more locations"
+          "company": "CyrusOne",
+          "title": "Critical Environments Operator I",
+          "location": "NVA1"
         },
         {
-          "company": "QTS Data Centers",
-          "title": "Maintenance Program Engineer",
-          "location": "Cedar Rapids, IA + 4 more locations"
+          "company": "CyrusOne",
+          "title": "Critical Environments Operator IV",
+          "location": "COL1"
         },
         {
-          "company": "QTS Data Centers",
-          "title": "Commissioning Engineer II",
-          "location": "Richmond, VA + 2 more locations"
+          "company": "NTT Global Data Centers",
+          "title": "1107 - Data Center Technician L1",
+          "location": "Ashburn, Virgina"
         },
         {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Facilities Engineering and Commissioning",
-          "location": "Atlanta, GA + 1 more location"
+          "company": "NTT Global Data Centers",
+          "title": "Data Center Technician L1",
+          "location": "Ashburn, Virgina"
         },
         {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Data Center Infrastructure Management (DCIM)",
-          "location": "Suwanee, GA + 1 more location"
+          "company": "NTT Global Data Centers",
+          "title": "3592 - Data Center IT Infrastructure Technician",
+          "location": "Ashburn, Virgina"
         }
       ]
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-07T06:00:42.647Z",
+    "checkedAt": "2026-09-07T07:03:20.129Z",
     "officialOnly": true,
     "additiveOnly": true,
-    "recovered": 22,
+    "recovered": 1,
     "recoveredRoles": [
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Data Center Infrastructure Management (DCIM)",
-        "location": "Suwanee, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Data-Center-Infrastructure-Management--DCIM-_R2026-1892"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Critical Environment Engineer",
-        "location": "Piscataway, NJ",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Piscataway-NJ/Critical-Environment-Engineer_R2026-1092-2"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Maintenance Program Engineer",
-        "location": "Cedar Rapids, IA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Maintenance-Program-Engineer_R2026-1944-1"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Facilities Engineering and Commissioning",
-        "location": "Atlanta, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Atlanta-GA/Summer-2027-Internship--Facilities-Engineering-and-Commissioning_R2026-1905"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "QTS Commissioning Team",
-        "location": "Glendale, AZ",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Glendale-AZ/QTS-Commissioning-Team_R2026-1883-1"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Commissioning Engineer II (Mechanical)",
-        "location": "Eagle Mountain, UT",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Commissioning-Engineer-II--Mechanical-_R2026-1859-1"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Commissioning Engineer II",
-        "location": "Richmond, VA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/Commissioning-Engineer-II_R2026-1920"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Construction Project Engineer",
-        "location": "Fayetteville, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Fayetteville-GA/Summer-2027-Internship--Construction-Project-Engineer_R2026-1882"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Procurement Operations Analyst",
-        "location": "Duluth, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Procurement-Operations-Analyst_R2026-1481"
-      },
       {
         "company": "QTS Data Centers",
         "title": "Security Operations Engineer",
         "location": "Denver, CO",
         "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Denver-CO/Security-Operations-Engineer_R2026-1725-2"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Chandler, AZ",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator--Level-1-4-_R0007527"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Cincinnati, OH",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Cincinnati-OH/Critical-Environments-Operator--Level-1-4-_R0007528"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Sterling, VA",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator--Level-1-4-_R0007526"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Carrollton, TX",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator--Level-1-4-_R0007529"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Cincinnati, OH",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Cincinnati-OH/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007608"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Wappingers Falls, NY",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Wappingers-Falls-NY/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007612"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Sterling, VA",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007614"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Chandler, AZ",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007615"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Council Bluffs, IA",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Council-Bluffs-IA/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007613"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Carrollton, TX",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007618"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environment Operator Level (1-4)",
-        "location": "San Antonio, TX",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/San-Antonio-TX/Critical-Environment-Operator-Level--1-4-_R0007589"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Service Delivery Technician (Level 1-3)",
-        "location": "Sterling, VA",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Service-Delivery-Technician--Level-1-3-_R0007923"
       }
     ],
     "diagnostics": {
@@ -565,7 +439,7 @@
         "queriesSucceeded": 10,
         "candidates": 68,
         "qualifyingRoles": 46,
-        "additions": 10,
+        "additions": 1,
         "queryStats": [
           {
             "searchText": "data center",
@@ -635,7 +509,7 @@
         "queriesSucceeded": 10,
         "candidates": 62,
         "qualifyingRoles": 38,
-        "additions": 12,
+        "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
@@ -995,13 +869,13 @@
       }
     ],
     "candidateRows": 3686,
-    "uniqueCandidates": 1241,
+    "uniqueCandidates": 1240,
     "freshQualifyingRoles": 19,
     "preservedPreviousRoles": 0,
     "qualifyingRoles": 19,
     "drops": {
-      "nonUs": 361,
-      "title": 572,
+      "nonUs": 359,
+      "title": 573,
       "context": 0,
       "experience": 0,
       "unknownExperience": 289,
@@ -1025,16 +899,16 @@
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 24,
-        "reportedRows": 231,
-        "rows": 231
+        "pages": 23,
+        "reportedRows": 229,
+        "rows": 229
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 27,
-        "reportedRows": 269,
-        "rows": 269
+        "reportedRows": 267,
+        "rows": 267
       },
       {
         "query": "inventory and asset technician",
@@ -1044,7 +918,7 @@
         "rows": 13
       }
     ],
-    "candidateRows": 349,
+    "candidateRows": 347,
     "plausibleRows": 34,
     "detailAttempts": 34,
     "detailVerified": 34,
@@ -1061,8 +935,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-07T06:03:58.654Z",
-      "expiresAt": "2026-09-14T06:03:58.654Z",
+      "verifiedAt": "2026-09-07T07:05:09.105Z",
+      "expiresAt": "2026-09-14T07:05:09.105Z",
       "roles": 33,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -1113,29 +987,9 @@
       },
       "titleOrContextSamples": [
         {
-          "id": "9657291271065759",
-          "title": "Software Engineer, Product",
-          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
-        },
-        {
           "id": "1038226098734847",
           "title": "ASIC Engineer, Design Verification",
           "url": "https://www.metacareers.com/profile/job_details/1038226098734847/"
-        },
-        {
-          "id": "704019139159184",
-          "title": "Software Engineer (Leadership) - Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/704019139159184/"
-        },
-        {
-          "id": "2486789151677735",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
-        },
-        {
-          "id": "1577883924006732",
-          "title": "Market Specialist, Global Response Operations",
-          "url": "https://www.metacareers.com/profile/job_details/1577883924006732/"
         },
         {
           "id": "4454815524774630",
@@ -1148,39 +1002,34 @@
           "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
         },
         {
+          "id": "704019139159184",
+          "title": "Software Engineer (Leadership) - Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/704019139159184/"
+        },
+        {
           "id": "2834586140248926",
           "title": "Software Engineering Manager, Compilers, MTIA",
           "url": "https://www.metacareers.com/profile/job_details/2834586140248926/"
         },
         {
-          "id": "1203016587809246",
-          "title": "Software Engineer, iOS",
-          "url": "https://www.metacareers.com/profile/job_details/1203016587809246/"
+          "id": "1577883924006732",
+          "title": "Market Specialist, Global Response Operations",
+          "url": "https://www.metacareers.com/profile/job_details/1577883924006732/"
         },
         {
-          "id": "996188146810500",
-          "title": "Technical Program Manager- Core Ads Growth",
-          "url": "https://www.metacareers.com/profile/job_details/996188146810500/"
+          "id": "2486789151677735",
+          "title": "Software Engineer, Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
         },
         {
-          "id": "1229945984832289",
-          "title": "Product Designer",
-          "url": "https://www.metacareers.com/profile/job_details/1229945984832289/"
-        },
-        {
-          "id": "1431414232228373",
-          "title": "Technical Program Manager",
-          "url": "https://www.metacareers.com/profile/job_details/1431414232228373/"
+          "id": "9657291271065759",
+          "title": "Software Engineer, Product",
+          "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
         },
         {
           "id": "3713685685437806",
           "title": "Data Engineer, Product Analytics",
           "url": "https://www.metacareers.com/profile/job_details/3713685685437806/"
-        },
-        {
-          "id": "1989757405038430",
-          "title": "Technical Program Manager, ASIC",
-          "url": "https://www.metacareers.com/profile/job_details/1989757405038430/"
         },
         {
           "id": "2119062762001462",
@@ -1193,9 +1042,29 @@
           "url": "https://www.metacareers.com/profile/job_details/797114903338451/"
         },
         {
-          "id": "2176819739360965",
-          "title": "Production Engineering",
-          "url": "https://www.metacareers.com/profile/job_details/2176819739360965/"
+          "id": "1989757405038430",
+          "title": "Technical Program Manager, ASIC",
+          "url": "https://www.metacareers.com/profile/job_details/1989757405038430/"
+        },
+        {
+          "id": "996188146810500",
+          "title": "Technical Program Manager- Core Ads Growth",
+          "url": "https://www.metacareers.com/profile/job_details/996188146810500/"
+        },
+        {
+          "id": "1203016587809246",
+          "title": "Software Engineer, iOS",
+          "url": "https://www.metacareers.com/profile/job_details/1203016587809246/"
+        },
+        {
+          "id": "1431414232228373",
+          "title": "Technical Program Manager",
+          "url": "https://www.metacareers.com/profile/job_details/1431414232228373/"
+        },
+        {
+          "id": "1229945984832289",
+          "title": "Product Designer",
+          "url": "https://www.metacareers.com/profile/job_details/1229945984832289/"
         },
         {
           "id": "1944275393083944",
@@ -1203,14 +1072,19 @@
           "url": "https://www.metacareers.com/profile/job_details/1944275393083944/"
         },
         {
+          "id": "1043435508438416",
+          "title": "Energy Analyst, Data Center Portfolio",
+          "url": "https://www.metacareers.com/profile/job_details/1043435508438416/"
+        },
+        {
           "id": "1931634864176064",
           "title": "Network Engineer, Foundation & Support",
           "url": "https://www.metacareers.com/profile/job_details/1931634864176064/"
         },
         {
-          "id": "1010234865172301",
-          "title": "ASIC Engineer, Design",
-          "url": "https://www.metacareers.com/profile/job_details/1010234865172301/"
+          "id": "1070147800777577",
+          "title": "Data Scientist, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/1070147800777577/"
         }
       ],
       "locationSamples": [
@@ -1328,8 +1202,8 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2277,
-    "listingRows": 2274,
+    "totalOpenRoles": 2275,
+    "listingRows": 2272,
     "pagesAttempted": 13,
     "pagesSucceeded": 13,
     "candidateRows": 89,
@@ -1338,7 +1212,7 @@
     "preservedFromPrevious": 0,
     "qualifyingRoles": 19,
     "drops": {
-      "title": 2185,
+      "title": 2183,
       "nonUs": 36,
       "context": 14,
       "experience": 18,
@@ -1406,19 +1280,19 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 29,
-      "detailAttempted": 29,
-      "detailSucceeded": 29,
+      "candidateLinks": 33,
+      "detailAttempted": 33,
+      "detailSucceeded": 33,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 0,
+      "staleRemoved": 5,
       "qualifyingRoles": 0,
       "drops": {
         "non-us": 10,
-        "unknown-experience": 7,
+        "unknown-experience": 8,
         "context": 2,
-        "title": 10
+        "title": 13
       },
       "dropSamples": [
         {
@@ -1530,7 +1404,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-07T06:07:05.758Z",
+    "checkedAt": "2026-09-07T07:08:19.778Z",
     "removedCount": 2,
     "removedByReason": {
       "non-mission role family": 2
@@ -1551,9 +1425,14 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-07T06:07:05.824Z",
-    "changed": 3,
+    "updatedAt": "2026-09-07T07:08:19.846Z",
+    "changed": 7,
     "samples": [
+      {
+        "id": "workday-qtsdatacenters-R2026-1902",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
       {
         "id": "workday-qtsdatacenters-R2026-0881",
         "before": "US GA Atlanta Suwanee 1 DC1",
@@ -1568,9 +1447,24 @@
         "id": "ashby-lambda-0bdbbcbdc49122",
         "before": "San Jose Office (Zanker)",
         "after": "San Jose, CA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1093",
+        "before": "US VA Manassas 1 DC1",
+        "after": "Manassas, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
       }
     ],
-    "regionAssigned": 403,
+    "regionAssigned": 440,
     "regionMissing": 1,
     "coveragePct": 99.8,
     "missingSamples": [
@@ -1582,20 +1476,21 @@
       }
     ],
     "countsByRegion": {
-      "west": 57,
-      "texas": 59,
-      "midwest": 80,
-      "mid-atlantic": 45,
-      "southwest": 63,
-      "southeast": 87,
-      "northeast": 12
+      "west": 63,
+      "texas": 71,
+      "midwest": 83,
+      "mid-atlantic": 54,
+      "southwest": 64,
+      "southeast": 89,
+      "northeast": 15,
+      "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-07T06:07:05.884Z",
-    "before": 417,
-    "after": 409,
-    "removed": 8,
+    "checkedAt": "2026-09-07T07:08:19.906Z",
+    "before": 458,
+    "after": 446,
+    "removed": 12,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": [
       {
@@ -1661,24 +1556,56 @@
         "company": "NTT Global Data Centers",
         "title": "1127 - Data Center Technician L2",
         "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0893",
+        "keptId": "workday-qtsdatacenters-R2026-0982",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101847",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101573",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101859",
+        "keptId": "workday-nttglobaldatacenters-JR101474",
+        "company": "NTT Global Data Centers",
+        "title": "5217 - Data Center Technician L1",
+        "location": "Gainesville, Virginia"
       }
     ]
   },
   "postQa": {
-    "checkedAt": "2026-09-07T06:07:26.703Z",
-    "publishedJobs": 404,
+    "checkedAt": "2026-09-07T07:08:31.278Z",
+    "publishedJobs": 441,
     "removedJobs": 5,
     "activeCareerEvents": 6
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 830,
-    "currentJobs": 404,
-    "newJobsThisRun": 52,
-    "changedJobsThisRun": 159,
-    "migratedEntriesThisRun": 52,
+    "trackedJobs": 842,
+    "currentJobs": 441,
+    "newJobsThisRun": 12,
+    "changedJobsThisRun": 125,
+    "migratedEntriesThisRun": 12,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "updatedAt": "2026-09-07T06:07:26.901Z"
+    "updatedAt": "2026-09-07T07:08:31.479Z"
   }
 }

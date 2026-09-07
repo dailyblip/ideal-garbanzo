@@ -7,12 +7,53 @@ on:
       - '.github/workflows/run-full-refresh-once.yml'
 
 permissions:
+  contents: write
   actions: write
 
 jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Remove destructive 2-5 year feed cap
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/collect-early-career.mjs')
+          text = path.read_text()
+          old = """const early = merged.filter(job => job.experience !== '2-5-years');
+          const mid = merged.filter(job => job.experience === '2-5-years');
+          const maxMid = Math.max(12, Math.floor(Math.max(early.length,1) * 0.30));
+          merged = [...early, ...mid.sort((a,b)=>(a.postedHours??9999)-(b.postedHours??9999)).slice(0,maxMid)]
+            .sort((a,b) => priority(a) - priority(b) || (a.postedHours??9999) - (b.postedHours??9999));
+          """
+          new = """// Every role reaching this point has already passed the mission-fit and 0–5 year
+          // experience guards. Do not apply a global mid-career quota here: it can
+          // silently erase an employer whose qualifying roles happen to be 2–5 year
+          // positions. Rank early-career roles first for presentation while retaining
+          // all verified, in-scope opportunities in the public feed.
+          merged = merged.sort((a,b) => priority(a) - priority(b) || (a.postedHours??9999) - (b.postedHours??9999));
+          """
+          if old in text:
+              path.write_text(text.replace(old, new, 1))
+          elif 'Do not apply a global mid-career quota here' not in text:
+              raise SystemExit('Expected early-career cap block was not found; refusing an unsafe patch.')
+          PY
+      - name: Commit collector fix when needed
+        run: |
+          if git diff --quiet -- scripts/collect-early-career.mjs; then
+            echo "Mid-career retention fix already present."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add scripts/collect-early-career.mjs
+            git commit -m "Preserve mission-fit 2-5 year roles"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
       - name: Dispatch full production refresh
         env:
           GH_TOKEN: ${{ github.token }}
@@ -20,5 +61,3 @@ jobs:
           # Omit deploy_only so the typed workflow input uses its boolean false default.
           # Passing false through gh -F can serialize incompatibly and skip refresh.
           gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
-
-# Trigger a full refresh after the clear U.S. multi-location Workday reconciliation fix.

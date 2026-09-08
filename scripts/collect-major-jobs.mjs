@@ -31,6 +31,11 @@ const excludedTitleTerms = [
   'senior', 'sr.', 'sr ', 'lead ', 'principal', 'manager', 'director', 'vice president',
   'vp ', 'head of', 'staff engineer', 'supervisor', 'superintendent', 'foreman', 'counsel',
   'attorney', 'designer', 'architect', 'recruiter', 'sales', 'account executive',
+  'business analyst', 'financial operations', 'financial analyst', 'finance analyst',
+  'procurement', 'purchasing', 'security operations', 'cybersecurity', 'information security',
+  'software engineer', 'software developer', 'site reliability engineer', 'machine learning engineer',
+  'data scientist', 'talent acquisition', 'human resources', 'enterprise it support',
+  'enterprise applications', 'process analytics', 'marketing specialist',
   'future opportunity', 'future opportunities', 'talent pool', 'general application',
   'express your interest'
 ];
@@ -157,6 +162,24 @@ if (process.argv.includes('--test-experience-parser')) {
       name: 'unknown-experience generic engineer is rejected',
       title: 'Critical Environment Engineer',
       description: 'Maintain data center critical facility infrastructure and power systems.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'business operations noise is rejected at source',
+      title: 'Business Analyst, Budget Planning & Financial Operations, Global',
+      description: 'Support data center budget planning and financial operations with three years of relevant experience.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'purchasing operations noise is rejected at source',
+      title: 'Purchasing Operations Specialist, NA',
+      description: 'Support purchasing for critical data center facilities with three years of relevant experience.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'security operations noise is rejected at source',
+      title: 'Security Operations Engineer',
+      description: 'Support security operations at data center sites with two years of relevant experience.',
       expectedType: null, expectedExperience: null
     },
     {

@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-08T03:52:55.837Z",
+  "updatedAt": "2026-09-08T03:55:11.963Z",
   "jobs": 598,
-  "sourcesAttempted": 28,
+  "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -10,7 +10,7 @@
     "workday": 6,
     "googleCareers": 1,
     "metaCareers": 1,
-    "oracleRecruitingCloud": 3
+    "oracleRecruitingCloud": 4
   },
   "countsByType": {
     "trainee": 13,
@@ -1419,96 +1419,12 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T03:52:55.883Z",
-    "removedCount": 15,
+    "checkedAt": "2026-09-08T03:55:12.031Z",
+    "removedCount": 3,
     "removedByReason": {
-      "non-mission role family": 15
+      "non-mission role family": 3
     },
     "removed": [
-      {
-        "id": "workday-qtsdatacenters-R2026-1899",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Oracle Functional Business Analyst",
-        "location": "Duluth, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1907",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Process Analytics - Technology Delivery Team",
-        "location": "Suwanee, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1902",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Enterprise IT Support",
-        "location": "Ashburn, VA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1910",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
-        "location": "Suwanee, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-coreweave-4708211006",
-        "company": "CoreWeave",
-        "title": "Global Security Operations Center (GSOC) Operator",
-        "location": "Livingston, NJ",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-stackinfra-JR00331",
-        "company": "STACK Infrastructure",
-        "title": "Procurement Analyst, Operations Procurement",
-        "location": "Santa Teresa, NM",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1481",
-        "company": "QTS Data Centers",
-        "title": "Procurement Operations Analyst",
-        "location": "Duluth, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-coreweave-4702795006",
-        "company": "CoreWeave",
-        "title": "Data Center Operations Cost Analyst",
-        "location": "Livingston, NJ / New York, NY / Sunnyvale, CA / San Francisco, CA / Bellevue, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1725",
-        "company": "QTS Data Centers",
-        "title": "Security Operations Engineer",
-        "location": "Denver, CO",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-vantagedc-R24325",
-        "company": "Vantage Data Centers",
-        "title": "Business Analyst, Budget Planning & Financial Operations, Global",
-        "location": "Remote - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-vantagedc-R20724",
-        "company": "Vantage Data Centers",
-        "title": "Purchasing Operations Specialist, NA",
-        "location": "Denver, Colorado",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-cyrusone-R0007418",
-        "company": "CyrusOne",
-        "title": "Data Center Security Operations Technician",
-        "location": "Whitney, TX",
-        "reason": "non-mission role family"
-      },
       {
         "id": "oracle-careers-342953",
         "company": "Oracle",
@@ -1531,103 +1447,11 @@
         "reason": "non-mission role family"
       }
     ],
-    "majorSnapshotRemovedCount": 13,
-    "majorSnapshotRemoved": [
-      {
-        "id": "workday-vantagedc-R24325",
-        "company": "Vantage Data Centers",
-        "title": "Business Analyst, Budget Planning & Financial Operations, Global",
-        "location": "Remote - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-vantagedc-R20724",
-        "company": "Vantage Data Centers",
-        "title": "Purchasing Operations Specialist, NA",
-        "location": "Denver, Colorado",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1899",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Oracle Functional Business Analyst",
-        "location": "Duluth, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1907",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Process Analytics - Technology Delivery Team",
-        "location": "Suwanee, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1902",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Enterprise IT Support",
-        "location": "US VA Ashburn 1 DC1",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1910",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
-        "location": "Suwanee, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1481",
-        "company": "QTS Data Centers",
-        "title": "Procurement Operations Analyst",
-        "location": "Duluth, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-cyrusone-R0007418",
-        "company": "CyrusOne",
-        "title": "Data Center Security Operations Technician",
-        "location": "Whitney, TX",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-stackinfra-JR00247",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-stackinfra-JR00249",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Sterling, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-stackinfra-JR00331",
-        "company": "STACK Infrastructure",
-        "title": "Procurement Analyst, Operations Procurement",
-        "location": "Santa Teresa, NM",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-aligneddc-JR101023",
-        "company": "Aligned Data Centers",
-        "title": "VP, Operations - South Region",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1725",
-        "company": "QTS Data Centers",
-        "title": "Security Operations Engineer",
-        "location": "Denver, CO",
-        "reason": "non-mission role family"
-      }
-    ]
+    "majorSnapshotRemovedCount": 0,
+    "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T03:52:55.940Z",
+    "updatedAt": "2026-09-08T03:55:12.100Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 598,
@@ -1645,7 +1469,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T03:52:55.989Z",
+    "checkedAt": "2026-09-08T03:55:12.166Z",
     "before": 598,
     "after": 598,
     "removed": 0,
@@ -1668,7 +1492,7 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T03:52:56.030Z"
+    "updatedAt": "2026-09-08T03:55:12.226Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -24,6 +24,18 @@ const qtsCampusSlugAliases = new Map([
   ['us-or-hillsboro-1-dc1', 'Hillsboro, OR']
 ]);
 
+// Workday exposes these Aligned openings using internal campus codes instead
+// of cities. Keep the mapping employer-specific and limited to locations that
+// have been independently verified against Aligned's campus directory or the
+// host municipality's official campus announcement.
+const alignedSiteLocationAliases = new Map([
+  ['NEO-01', 'Sandusky, OH'],
+  ['DFW-04', 'Plano, TX'],
+  ['IAD-02', 'Ashburn, VA'],
+  ['PDX-01', 'Hillsboro, OR'],
+  ['PHX-13', 'Glendale, AZ']
+]);
+
 const regionStates = {
   'mid-atlantic': {
     codes: ['DC','DE','MD','VA','WV'],
@@ -182,6 +194,13 @@ function genericLocation(value = '') {
 
 function normalizeLocation(job) {
   let location = String(job.location || '').trim();
+  const company = String(job.company || '').trim();
+
+  if (company === 'Aligned Data Centers') {
+    const verifiedSiteLocation = alignedSiteLocationAliases.get(location.toUpperCase());
+    if (verifiedSiteLocation) location = verifiedSiteLocation;
+  }
+
   for (const [pattern, replacement] of typoFixes) location = location.replace(pattern, replacement);
   for (const [pattern, replacement] of locationAliases) {
     if (pattern.test(location)) {
@@ -197,6 +216,22 @@ function normalizeLocation(job) {
   }
 
   return location;
+}
+
+// Guard the plain-language display contract without applying site-code aliases
+// to another employer that happens to use the same internal code.
+for (const [job, expected] of [
+  [{ company:'Aligned Data Centers', location:'NEO-01' }, 'Sandusky, OH'],
+  [{ company:'Aligned Data Centers', location:'DFW-04' }, 'Plano, TX'],
+  [{ company:'Aligned Data Centers', location:'IAD-02' }, 'Ashburn, VA'],
+  [{ company:'Aligned Data Centers', location:'PDX-01' }, 'Hillsboro, OR'],
+  [{ company:'Aligned Data Centers', location:'PHX-13' }, 'Glendale, AZ'],
+  [{ company:'Vantage Data Centers', location:'DFW-04' }, 'DFW-04']
+]) {
+  const actual = normalizeLocation(job);
+  if (actual !== expected) {
+    throw new Error(`Location alias regression for ${job.company} ${job.location}: expected ${expected}, got ${actual}`);
+  }
 }
 
 function regionFromText(value = '') {
@@ -230,7 +265,7 @@ function regionFromText(value = '') {
   const lower = text.toLowerCase();
   // Test longer state names first so "West Virginia" is not reduced to "Virginia".
   for (const name of stateNamesLongestFirst) {
-    if (new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(lower)) {
+    if (new RegExp(`\b${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\b`, 'i').test(lower)) {
       return stateToRegion.get(name) || '';
     }
   }

@@ -267,7 +267,7 @@ function regionFromText(value = '') {
   const lower = text.toLowerCase();
   // Test longer state names first so "West Virginia" is not reduced to "Virginia".
   for (const name of stateNamesLongestFirst) {
-    if (new RegExp(`\b${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\b`, 'i').test(lower)) {
+    if (new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(lower)) {
       return stateToRegion.get(name) || '';
     }
   }
@@ -276,6 +276,22 @@ function regionFromText(value = '') {
     if (pattern.test(text)) return region;
   }
   return '';
+}
+
+// Full state names are common in Workday, Greenhouse, Ashby and Workable feeds.
+// Keep these cases executable so a template-literal escaping regression cannot
+// silently strip jobs from regional filters again.
+for (const [sample, expected] of [
+  ['Omaha, Nebraska', 'midwest'],
+  ['Katy, Texas, United States', 'texas'],
+  ['Tucson, Arizona', 'southwest'],
+  ['Wood Dale, Illinois, United States', 'midwest'],
+  ['Virginia, United States of America', 'mid-atlantic']
+]) {
+  const actual = regionFromText(sample);
+  if (actual !== expected) {
+    throw new Error(`Full state-name region regression for ${sample}: expected ${expected}, got ${actual}`);
+  }
 }
 
 function regionFromUrl(sourceUrl = '') {

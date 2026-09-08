@@ -22,6 +22,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: mission-fit-publication-guard
@@ -47,6 +48,7 @@ jobs:
           node --check scripts/stamp-job-history.mjs
           node --check scripts/validate-job-history.mjs
       - name: Enforce mission fit and publish a clean feed
+        id: publish
         shell: bash
         run: |
           set -euo pipefail
@@ -76,11 +78,21 @@ jobs:
             git add -- data/jobs.json data/major-jobs.json data/job-history.json
             if git diff --cached --quiet; then
               echo "Committed feed already satisfies mission-fit publication rules."
+              # A push into a guarded publication path still needs a deployment
+              # even when normalization itself produced no additional diff.
+              if [ "${{ github.event_name }}" = "push" ]; then
+                echo 'deploy=true' >> "$GITHUB_OUTPUT"
+              else
+                echo 'deploy=false' >> "$GITHUB_OUTPUT"
+              fi
               exit 0
             fi
 
             git commit -m "Enforce mission-fit publication guard"
             if git push origin HEAD:main; then
+              # Actions-token commits do not trigger downstream push workflows,
+              # so explicitly request a deploy after publishing repaired data.
+              echo 'deploy=true' >> "$GITHUB_OUTPUT"
               exit 0
             fi
 
@@ -89,4 +101,22 @@ jobs:
           done
 
           echo "::error::Could not publish a mission-fit feed after three attempts."
+          exit 1
+
+      - name: Deploy guarded publication state
+        if: steps.publish.outputs.deploy == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            if gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true; then
+              echo 'Deployment requested for the guarded main revision.'
+              exit 0
+            fi
+            echo "Deployment dispatch failed on attempt ${attempt}; retrying."
+            sleep $((attempt * 2))
+          done
+          echo '::error::Could not dispatch Pages after publishing guarded feed state.'
           exit 1

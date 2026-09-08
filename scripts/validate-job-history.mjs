@@ -6,6 +6,7 @@ const history = JSON.parse(await readFile('data/job-history.json', 'utf8'));
 const now = Date.now();
 const futureGrace = 6 * 60 * 60 * 1000;
 const HOUR_MS = 60 * 60 * 1000;
+const allowAging = process.argv.includes('--allow-aging');
 
 function validIso(value) {
   const parsed = Date.parse(String(value || ''));
@@ -54,15 +55,17 @@ for (const job of jobs) {
 
   // UI recency must stay useful even when an employer does not publish a date.
   // In that case stamp-job-history derives postedHours from firstSeenAt without
-  // fabricating a postedAt value. Keep the derived age within one hour of truth.
+  // fabricating a postedAt value. Full builds keep the age within one hour of
+  // truth. The lightweight publication guard may allow normal clock aging after
+  // repairing invalid/sentinel values, which avoids no-op commits every 15 min.
   const postedAtMs = validIso(job?.postedAt);
   const recencyAnchorMs = postedAtMs ?? firstSeenMs;
   const expectedRecencyHours = Math.max(0, Math.round((now - recencyAnchorMs) / HOUR_MS));
   const postedHours = Number(job?.postedHours);
-  if (!Number.isFinite(postedHours) || postedHours < 0) {
+  if (!Number.isFinite(postedHours) || postedHours < 0 || postedHours >= 9000) {
     throw new Error(`Job ${id} is missing a valid postedHours recency value.`);
   }
-  if (Math.abs(postedHours - expectedRecencyHours) > 1) {
+  if (!allowAging && Math.abs(postedHours - expectedRecencyHours) > 1) {
     throw new Error(`Job ${id} postedHours recency is stale (${postedHours} vs expected ${expectedRecencyHours}).`);
   }
 
@@ -81,4 +84,8 @@ for (const job of jobs) {
   if (expectedFingerprint !== String(historyEntry.fingerprint || '')) throw new Error(`Job ${id} content fingerprint does not match data/job-history.json.`);
 }
 
-console.log(`Job history validation passed for ${jobs.length} published jobs and ${Object.keys(history.jobs).length} tracked IDs with meaningful-change timestamps and current recency ages.`);
+console.log(
+  allowAging
+    ? `Job history structural validation passed for ${jobs.length} published jobs and ${Object.keys(history.jobs).length} tracked IDs; normal postedHours clock aging allowed.`
+    : `Job history validation passed for ${jobs.length} published jobs and ${Object.keys(history.jobs).length} tracked IDs with meaningful-change timestamps and current recency ages.`
+);

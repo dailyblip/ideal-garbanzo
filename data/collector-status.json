@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-08T10:45:43.042Z",
+  "updatedAt": "2026-09-08T11:58:34.221Z",
   "jobs": 593,
-  "sourcesAttempted": 31,
+  "sourcesAttempted": 32,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -50,15 +50,15 @@
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
-        "location": ""
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
         "title": "Supervisor, Data Center Operations",
         "location": "Breinigsville, PA",
         "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
+        "location": ""
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
@@ -1570,7 +1570,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T11:54:04.904Z",
+    "checkedAt": "2026-09-08T11:58:34.290Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1578,7 +1578,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T11:54:04.963Z",
+    "updatedAt": "2026-09-08T11:58:34.356Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 593,
@@ -1596,7 +1596,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T11:54:05.014Z",
+    "checkedAt": "2026-09-08T11:58:34.420Z",
     "before": 593,
     "after": 593,
     "removed": 0,
@@ -1619,7 +1619,7 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T11:54:05.104Z"
+    "updatedAt": "2026-09-08T11:58:34.480Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

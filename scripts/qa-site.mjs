@@ -230,6 +230,29 @@ async function checkUrl(url, { jobSpecific = false } = {}) {
   }
 }
 
+function hasActiveEquinixFallbackVerification(job, status, nowMs = Date.now()) {
+  if (clean(job?.company) !== 'Equinix') return false;
+  const managed = /^equinix-verified-/i.test(clean(job?.id)) ||
+    clean(job?.source) === 'Equinix official careers (verified fallback)';
+  if (!managed) return false;
+
+  const fallback = status?.equinixVerifiedFallback;
+  if (!fallback || fallback.expired === true) return false;
+  const expiresAt = Date.parse(clean(fallback.expiresAt));
+  if (!Number.isFinite(expiresAt) || nowMs >= expiresAt) return false;
+
+  const retainedManaged = Number(fallback.retainedManaged || 0);
+  const liveChecksPassed = Number(fallback.liveChecksPassed || 0);
+  return retainedManaged > 0 && liveChecksPassed >= retainedManaged;
+}
+
+function applyProviderVerification(job, check, status, nowMs = Date.now()) {
+  if (check?.state === 'dead' && hasActiveEquinixFallbackVerification(job, status, nowMs)) {
+    return { ...check, rawState: check.state, state: 'verified-retained', reason: check.reason || 'active-provider-verification' };
+  }
+  return check;
+}
+
 async function mapLimit(items, limit, fn) {
   const results = new Array(items.length);
   let next = 0;
@@ -256,14 +279,18 @@ const nonUsJobs = originalJobs.filter(job => job.demo !== true && clearlyOutside
 const unresolvedLocationJobs = originalJobs.filter(job => job.demo !== true && !clearlyOutsideUnitedStates(job) && unresolvedLocation(job));
 const eligibleJobs = originalJobs.filter(job => job.demo !== true && !clearlyOutsideUnitedStates(job) && !unresolvedLocation(job));
 const { jobs: dedupedJobs, duplicates } = dedupeJobs(eligibleJobs);
+const jobCheckTimeMs = Date.now();
 
-const jobChecks = await mapLimit(dedupedJobs, CONCURRENCY, async job => ({
-  id: job.id,
-  company: job.company,
-  title: job.title,
-  url: job.sourceUrl,
-  ...(await checkUrl(job.sourceUrl, { jobSpecific: true }))
-}));
+const jobChecks = await mapLimit(dedupedJobs, CONCURRENCY, async job => {
+  const check = await checkUrl(job.sourceUrl, { jobSpecific: true });
+  return {
+    id: job.id,
+    company: job.company,
+    title: job.title,
+    url: job.sourceUrl,
+    ...applyProviderVerification(job, check, collectorStatus, jobCheckTimeMs)
+  };
+});
 
 const deadIds = new Set(jobChecks.filter(check => check.state === 'dead').map(check => check.id));
 const finalJobs = dedupedJobs.filter(job => !deadIds.has(job.id));
@@ -300,7 +327,8 @@ collectorStatus.postQa = {
   checkedAt,
   publishedJobs: finalJobs.length,
   removedJobs: originalJobs.length - finalJobs.length,
-  activeCareerEvents: finalCareerEvents.length
+  activeCareerEvents: finalCareerEvents.length,
+  providerVerifiedRetained: jobChecks.filter(check => check.state === 'verified-retained').length
 };
 if (collectorStatus.locationNormalization && typeof collectorStatus.locationNormalization === 'object') {
   const jobsWithRegion = finalJobs.filter(job => clean(job.region));
@@ -326,6 +354,7 @@ const report = {
   unresolvedLocationJobsRemoved: unresolvedLocationJobs.map(job => ({ id: job.id, company: job.company, title: job.title, location: job.location })),
   duplicatesRemoved: duplicates,
   deadJobLinksRemoved: jobChecks.filter(check => check.state === 'dead'),
+  providerVerifiedJobLinksRetained: jobChecks.filter(check => check.state === 'verified-retained'),
   blockedJobLinks: jobChecks.filter(check => check.state === 'blocked'),
   transientJobLinks: jobChecks.filter(check => check.state === 'transient'),
   warningJobLinks: jobChecks.filter(check => check.state === 'warning'),
@@ -347,6 +376,8 @@ await writeFile(REPORT_PATH, JSON.stringify(report, null, 2) + '\n');
 
 console.log(`QA complete: ${originalJobs.length} -> ${finalJobs.length} jobs; ${originalEvents.length} -> ${finalCareerEvents.length} career events.`);
 console.log(`Removed ${duplicates.length} duplicate(s), ${demoJobs.length} demo job(s), ${nonUsJobs.length} clearly non-US job(s), ${unresolvedLocationJobs.length} unresolved-location job(s), and ${deadIds.size} confirmed dead job link(s).`);
+const providerVerifiedRetained = jobChecks.filter(check => check.state === 'verified-retained').length;
+if (providerVerifiedRetained) console.log(`Retained ${providerVerifiedRetained} job link(s) backed by active complete employer-specific verification despite a generic dead-link response.`);
 console.log(`Removed ${expiredCareerEvents.length} expired career event(s) and ${deadCareerEventIds.size} event(s) with confirmed dead organizer links.`);
 const eventWarnings = careerEventChecks.filter(check => check.state !== 'ok' && check.state !== 'dead');
 if (eventWarnings.length) console.warn(`Career event link warnings: ${eventWarnings.map(item => `${item.status ?? item.state} ${item.url}`).join(' | ')}`);

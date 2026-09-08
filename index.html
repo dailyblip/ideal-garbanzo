@@ -57,7 +57,7 @@
     <div class="alert-strip-copy">
       <span class="utility-kicker">JOB ALERTS</span>
       <h2>Get new openings every Monday.</h2>
-      <p>Choose a region for a focused weekly email, or keep all U.S. openings.</p>
+      <p>Choose a region and whether you want every opening or just early-career roles.</p>
       <select id="alertRegion" aria-label="Preferred job alert region">
         <option value="all">All U.S. regions</option>
         <option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option>
@@ -68,10 +68,15 @@
         <option value="northeast">Northeast</option>
         <option value="west">West</option>
       </select>
+      <select id="alertFocus" aria-label="Preferred job alert focus">
+        <option value="all">All openings (up to 5 years)</option>
+        <option value="early-career">Internships, apprenticeships &amp; beginner-friendly roles</option>
+      </select>
     </div>
     <form id="weeklyAlertForm" action="https://buttondown.com/api/emails/embed-subscribe/datacentercareers" method="post">
       <input type="email" id="alertEmail" name="email" placeholder="Email address" required aria-label="Email address" autocomplete="email">
       <input type="hidden" id="alertRegionValue" name="metadata__region" value="all">
+      <input type="hidden" id="alertFocusValue" name="metadata__focus" value="all">
       <input type="hidden" name="embed" value="1">
       <input type="hidden" name="tag" value="weekly-job-alerts">
       <input type="hidden" name="utm_source" value="datacentercareers.us">

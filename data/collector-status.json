@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-08T12:00:50.210Z",
+  "updatedAt": "2026-09-08T12:44:35.694Z",
   "jobs": 593,
-  "sourcesAttempted": 33,
+  "sourcesAttempted": 34,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -1570,7 +1570,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T12:00:50.277Z",
+    "checkedAt": "2026-09-08T12:44:35.763Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1578,7 +1578,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T12:00:50.346Z",
+    "updatedAt": "2026-09-08T12:44:35.836Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 593,
@@ -1596,7 +1596,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T12:00:50.411Z",
+    "checkedAt": "2026-09-08T12:44:35.902Z",
     "before": 593,
     "after": 593,
     "removed": 0,
@@ -1620,7 +1620,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T12:00:50.470Z"
+    "updatedAt": "2026-09-08T12:44:35.964Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

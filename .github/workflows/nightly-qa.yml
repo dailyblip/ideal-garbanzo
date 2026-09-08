@@ -1,6 +1,6 @@
 name: Nightly site QA
 
-# Scheduled and manual QA entrypoint for the production site and published feed.
+# Production QA entrypoint for scheduled, manual, and on-demand verification.
 on:
   push:
     branches: [main]

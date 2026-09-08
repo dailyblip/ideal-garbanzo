@@ -368,7 +368,7 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-08T05:50:17.559Z",
+    "checkedAt": "2026-09-08T11:51:05.877Z",
     "officialOnly": true,
     "additiveOnly": true,
     "recovered": 0,
@@ -385,7 +385,7 @@
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 167
+            "reportedTotal": 169
           },
           {
             "searchText": "critical facilities",
@@ -397,7 +397,7 @@
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 124
+            "reportedTotal": 125
           },
           {
             "searchText": "critical operations",
@@ -408,14 +408,14 @@
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 88,
-            "reportedTotal": 88
+            "rows": 89,
+            "reportedTotal": 89
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 91,
-            "reportedTotal": 91
+            "rows": 92,
+            "reportedTotal": 92
           },
           {
             "searchText": "technician",
@@ -427,19 +427,19 @@
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 116
+            "reportedTotal": 117
           },
           {
             "searchText": "apprentice",
             "healthy": true,
-            "rows": 0,
-            "reportedTotal": 0
+            "rows": 1,
+            "reportedTotal": 1
           },
           {
             "searchText": "trainee",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 167
+            "reportedTotal": 169
           }
         ],
         "errors": []
@@ -449,13 +449,13 @@
         "queriesSucceeded": 10,
         "candidates": 64,
         "qualifyingRoles": 43,
-        "additions": 0,
+        "additions": 2,
         "queryStats": [
           {
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 238
+            "reportedTotal": 239
           },
           {
             "searchText": "critical facilities",
@@ -508,8 +508,8 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 96,
-            "reportedTotal": 96
+            "rows": 97,
+            "reportedTotal": 97
           }
         ],
         "errors": []
@@ -657,7 +657,7 @@
       "NTT Global Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 58,
+        "candidates": 59,
         "qualifyingRoles": 3,
         "additions": 0,
         "queryStats": [
@@ -665,37 +665,37 @@
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 214
+            "reportedTotal": 216
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 126
+            "reportedTotal": 127
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 144
+            "reportedTotal": 145
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 138
+            "reportedTotal": 139
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 69,
-            "reportedTotal": 69
+            "rows": 70,
+            "reportedTotal": 70
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 82,
-            "reportedTotal": 82
+            "rows": 83,
+            "reportedTotal": 83
           },
           {
             "searchText": "technician",
@@ -707,7 +707,7 @@
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 151
+            "reportedTotal": 152
           },
           {
             "searchText": "apprentice",
@@ -718,8 +718,8 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 84,
-            "reportedTotal": 84
+            "rows": 85,
+            "reportedTotal": 85
           }
         ],
         "errors": []
@@ -796,7 +796,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-08T05:50:26.505Z",
+      "checkedAt": "2026-09-08T11:51:17.813Z",
       "removed": 2,
       "removedRoles": [
         {
@@ -1570,32 +1570,15 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T11:45:52.778Z",
-    "removedCount": 2,
-    "removedByReason": {
-      "non-mission role family": 2
-    },
-    "removed": [
-      {
-        "id": "gh-coreweave-4710768006",
-        "company": "CoreWeave",
-        "title": "GSOC Operator (WIDS)",
-        "location": "Livingston, NJ",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-coreweave-4711313006",
-        "company": "CoreWeave",
-        "title": "Data Center Security Engineer - WIDS",
-        "location": "Livingston, NJ",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-08T11:51:17.919Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T11:45:52.840Z",
+    "updatedAt": "2026-09-08T11:51:17.972Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 593,
@@ -1604,16 +1587,16 @@
     "missingSamples": [],
     "countsByRegion": {
       "west": 83,
-      "southeast": 100,
       "midwest": 116,
+      "southeast": 100,
+      "southwest": 74,
       "texas": 93,
-      "northeast": 17,
       "mid-atlantic": 110,
-      "southwest": 74
+      "northeast": 17
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T11:45:52.896Z",
+    "checkedAt": "2026-09-08T11:51:18.023Z",
     "before": 593,
     "after": 593,
     "removed": 0,
@@ -1636,7 +1619,7 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T11:45:52.990Z"
+    "updatedAt": "2026-09-08T11:51:18.119Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

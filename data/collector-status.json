@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-08T18:08:02.424Z",
-  "jobs": 661,
+  "updatedAt": "2026-09-08T19:48:49.431Z",
+  "jobs": 665,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -16,11 +16,11 @@
     "internship": 10,
     "trainee": 13,
     "apprenticeship": 12,
-    "entry-level": 626
+    "entry-level": 630
   },
   "countsByExperience": {
     "no-experience": 45,
-    "0-2-years": 364,
+    "0-2-years": 368,
     "2-5-years": 252
   },
   "errors": [
@@ -922,38 +922,38 @@
       {
         "query": "datacenter technician",
         "healthy": true,
-        "pages": 3,
-        "reportedRows": 28,
-        "rows": 28
+        "pages": 4,
+        "reportedRows": 32,
+        "rows": 32
       },
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 22,
-        "reportedRows": 216,
-        "rows": 216
+        "pages": 23,
+        "reportedRows": 227,
+        "rows": 227
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 26,
-        "reportedRows": 253,
-        "rows": 253
+        "pages": 27,
+        "reportedRows": 264,
+        "rows": 264
       },
       {
         "query": "inventory and asset technician",
         "healthy": true,
         "pages": 2,
-        "reportedRows": 12,
-        "rows": 12
+        "reportedRows": 14,
+        "rows": 14
       }
     ],
-    "candidateRows": 325,
-    "plausibleRows": 33,
-    "detailAttempts": 33,
-    "detailVerified": 33,
-    "currentQualifyingRoles": 32,
-    "qualifyingRoles": 32,
+    "candidateRows": 341,
+    "plausibleRows": 37,
+    "detailAttempts": 37,
+    "detailVerified": 37,
+    "currentQualifyingRoles": 36,
+    "qualifyingRoles": 36,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 1,
@@ -965,9 +965,9 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-08T13:57:33.584Z",
-      "expiresAt": "2026-09-15T13:57:33.584Z",
-      "roles": 32,
+      "verifiedAt": "2026-09-08T19:48:49.675Z",
+      "expiresAt": "2026-09-15T19:48:49.675Z",
+      "roles": 36,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
   },
@@ -1590,52 +1590,35 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T17:45:28.681Z",
-    "removedCount": 2,
-    "removedByReason": {
-      "non-mission role family": 2
-    },
-    "removed": [
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-08T19:48:49.495Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T18:08:02.482Z",
+    "updatedAt": "2026-09-08T19:48:49.563Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 661,
+    "regionAssigned": 665,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 103,
+      "west": 105,
       "texas": 102,
       "midwest": 125,
       "mid-atlantic": 123,
       "southwest": 83,
-      "southeast": 108,
-      "northeast": 17
+      "southeast": 109,
+      "northeast": 18
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T18:08:02.542Z",
-    "before": 661,
-    "after": 661,
+    "checkedAt": "2026-09-08T19:48:49.625Z",
+    "before": 665,
+    "after": 665,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1649,16 +1632,16 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 885,
-    "currentJobs": 661,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 889,
+    "currentJobs": 665,
+    "newJobsThisRun": 4,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 4,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T18:08:02.597Z"
+    "updatedAt": "2026-09-08T19:48:49.731Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

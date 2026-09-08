@@ -47,14 +47,14 @@ jobs:
       - name: Commit verified TierPoint snapshot
         id: commit
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/tierpoint-jobs.json data/job-history.json data/collector-status.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/jobs.json data/tierpoint-jobs.json data/job-history.json data/collector-status.json data/major-jobs.json)" ]; then
             echo "No TierPoint data or job-history changes."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.json data/tierpoint-jobs.json data/job-history.json data/collector-status.json
+          git add data/jobs.json data/tierpoint-jobs.json data/job-history.json data/collector-status.json data/major-jobs.json
           git commit -m "Refresh verified TierPoint jobs and history"
           git fetch origin main
           git rebase origin/main

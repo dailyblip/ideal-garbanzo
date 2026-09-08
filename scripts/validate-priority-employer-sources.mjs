@@ -98,7 +98,7 @@ function confidentUsLocation(value = '') {
   if (!text) return false;
   const lower = text.toLowerCase().replace(/[-_/]+/g, ' ').replace(/\s+/g, ' ');
   if (/\b(?:united states|usa|u\.s\.a\.|u\.s\.)\b/i.test(text)) return true;
-  if (usStateNames.some(state => new RegExp(`\b${state.replace(/ /g, '\s+')}\b`, 'i').test(lower))) return true;
+  if (usStateNames.some(state => new RegExp(`\\b${state.replace(/ /g, '\\s+')}\\b`, 'i').test(lower))) return true;
   const abbreviationMatch = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
   return Boolean(abbreviationMatch && usStateAbbreviations.has(abbreviationMatch[1]));
 }

@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-08T21:06:55.200Z",
-  "jobs": 664,
+  "jobs": 668,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
-    "internship": 10,
+    "internship": 12,
+    "entry-level": 632,
     "trainee": 12,
-    "apprenticeship": 12,
-    "entry-level": 630
+    "apprenticeship": 12
   },
   "countsByExperience": {
-    "no-experience": 44,
-    "0-2-years": 368,
-    "2-5-years": 252
+    "0-2-years": 370,
+    "2-5-years": 254,
+    "no-experience": 44
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -369,11 +369,36 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-08T16:59:52.322Z",
+    "checkedAt": "2026-09-08T21:26:50.604Z",
     "officialOnly": true,
     "additiveOnly": true,
-    "recovered": 0,
-    "recoveredRoles": [],
+    "recovered": 4,
+    "recoveredRoles": [
+      {
+        "company": "QTS Data Centers",
+        "title": "Summer 2027 Internship: Corporate Accounting",
+        "location": "Overland Park, KS",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Corporate-Accounting_R2026-1901"
+      },
+      {
+        "company": "QTS Data Centers",
+        "title": "Summer 2027 Internship: Legal Assistant",
+        "location": "Overland Park, KS",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Legal-Assistant_R2026-1969"
+      },
+      {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "location": "Allen, TX",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Allen-TX/Critical-Environments-Operator-III_JLL267319-1"
+      },
+      {
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Technician I (Night Shift)",
+        "location": "Manassas, VA",
+        "sourceUrl": "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Manassas-VA/Critical-Operations-Technician-I--Night-Shift-_JR00365"
+      }
+    ],
     "diagnostics": {
       "Vantage Data Centers": {
         "queriesAttempted": 10,
@@ -386,43 +411,43 @@
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 170
+            "reportedTotal": 168
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
-            "rows": 69,
-            "reportedTotal": 69
+            "rows": 68,
+            "reportedTotal": 68
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 125
+            "reportedTotal": 124
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 118
+            "reportedTotal": 117
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 89,
-            "reportedTotal": 89
+            "rows": 88,
+            "reportedTotal": 88
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 93,
-            "reportedTotal": 93
+            "rows": 92,
+            "reportedTotal": 92
           },
           {
             "searchText": "technician",
             "healthy": true,
-            "rows": 34,
-            "reportedTotal": 34
+            "rows": 33,
+            "reportedTotal": 33
           },
           {
             "searchText": "intern",
@@ -440,7 +465,7 @@
             "searchText": "trainee",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 170
+            "reportedTotal": 168
           }
         ],
         "errors": []
@@ -448,45 +473,45 @@
       "QTS Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 62,
-        "qualifyingRoles": 42,
-        "additions": 2,
+        "candidates": 68,
+        "qualifyingRoles": 46,
+        "additions": 4,
         "queryStats": [
           {
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 242
+            "reportedTotal": 238
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 137
+            "reportedTotal": 132
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 171
+            "reportedTotal": 163
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 184
+            "reportedTotal": 181
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 72,
-            "reportedTotal": 72
+            "rows": 70,
+            "reportedTotal": 70
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 81,
-            "reportedTotal": 81
+            "rows": 79,
+            "reportedTotal": 79
           },
           {
             "searchText": "technician",
@@ -498,7 +523,7 @@
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 175
+            "reportedTotal": 169
           },
           {
             "searchText": "apprentice",
@@ -509,8 +534,8 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 95,
-            "reportedTotal": 95
+            "rows": 96,
+            "reportedTotal": 96
           }
         ],
         "errors": []
@@ -518,9 +543,9 @@
       "CyrusOne": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 61,
-        "qualifyingRoles": 37,
-        "additions": 0,
+        "candidates": 62,
+        "qualifyingRoles": 38,
+        "additions": 1,
         "queryStats": [
           {
             "searchText": "data center",
@@ -549,14 +574,14 @@
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 65,
-            "reportedTotal": 65
+            "rows": 66,
+            "reportedTotal": 66
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 64,
-            "reportedTotal": 64
+            "rows": 65,
+            "reportedTotal": 65
           },
           {
             "searchText": "technician",
@@ -588,33 +613,33 @@
       "STACK Infrastructure": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 10,
-        "qualifyingRoles": 6,
-        "additions": 0,
+        "candidates": 11,
+        "qualifyingRoles": 7,
+        "additions": 1,
         "queryStats": [
           {
             "searchText": "data center",
             "healthy": true,
-            "rows": 66,
-            "reportedTotal": 66
+            "rows": 67,
+            "reportedTotal": 67
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
-            "rows": 47,
-            "reportedTotal": 47
+            "rows": 48,
+            "reportedTotal": 48
           },
           {
             "searchText": "critical environment",
             "healthy": true,
-            "rows": 36,
-            "reportedTotal": 36
+            "rows": 37,
+            "reportedTotal": 37
           },
           {
             "searchText": "critical operations",
             "healthy": true,
-            "rows": 43,
-            "reportedTotal": 43
+            "rows": 44,
+            "reportedTotal": 44
           },
           {
             "searchText": "mechanical engineer",
@@ -631,14 +656,14 @@
           {
             "searchText": "technician",
             "healthy": true,
-            "rows": 9,
-            "reportedTotal": 9
+            "rows": 10,
+            "reportedTotal": 10
           },
           {
             "searchText": "intern",
             "healthy": true,
-            "rows": 39,
-            "reportedTotal": 39
+            "rows": 40,
+            "reportedTotal": 40
           },
           {
             "searchText": "apprentice",
@@ -658,7 +683,7 @@
       "NTT Global Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 60,
+        "candidates": 61,
         "qualifyingRoles": 3,
         "additions": 0,
         "queryStats": [
@@ -666,49 +691,49 @@
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 219
+            "reportedTotal": 222
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 131
+            "reportedTotal": 133
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 149
+            "reportedTotal": 151
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 143
+            "reportedTotal": 145
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 75,
-            "reportedTotal": 75
+            "rows": 76,
+            "reportedTotal": 76
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 86,
-            "reportedTotal": 86
+            "rows": 87,
+            "reportedTotal": 87
           },
           {
             "searchText": "technician",
             "healthy": true,
-            "rows": 77,
-            "reportedTotal": 77
+            "rows": 78,
+            "reportedTotal": 78
           },
           {
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 154
+            "reportedTotal": 157
           },
           {
             "searchText": "apprentice",
@@ -719,8 +744,8 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 84,
-            "reportedTotal": 84
+            "rows": 85,
+            "reportedTotal": 85
           }
         ],
         "errors": []
@@ -728,51 +753,51 @@
       "Aligned Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 106,
-        "qualifyingRoles": 6,
+        "candidates": 104,
+        "qualifyingRoles": 5,
         "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 204
+            "reportedTotal": 202
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 147
+            "reportedTotal": 144
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 153
+            "reportedTotal": 151
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 174
+            "reportedTotal": 171
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 168
+            "reportedTotal": 165
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 175
+            "reportedTotal": 172
           },
           {
             "searchText": "technician",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 121
+            "reportedTotal": 118
           },
           {
             "searchText": "intern",
@@ -789,15 +814,15 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 73,
-            "reportedTotal": 73
+            "rows": 72,
+            "reportedTotal": 72
           }
         ],
         "errors": []
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-08T17:00:07.415Z",
+      "checkedAt": "2026-09-08T21:27:02.872Z",
       "removed": 2,
       "removedRoles": [
         {
@@ -1590,7 +1615,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T19:48:49.495Z",
+    "checkedAt": "2026-09-08T21:27:02.979Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1598,27 +1623,27 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T21:07:06.781Z",
+    "updatedAt": "2026-09-08T21:27:03.037Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 664,
+    "regionAssigned": 668,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "midwest": 127,
+      "texas": 103,
+      "mid-atlantic": 124,
       "west": 104,
-      "texas": 102,
-      "midwest": 125,
-      "mid-atlantic": 123,
-      "southwest": 83,
+      "northeast": 18,
       "southeast": 109,
-      "northeast": 18
+      "southwest": 83
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T21:07:06.835Z",
-    "before": 664,
-    "after": 664,
+    "checkedAt": "2026-09-08T21:27:03.093Z",
+    "before": 668,
+    "after": 668,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1632,16 +1657,16 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 889,
-    "currentJobs": 664,
-    "newJobsThisRun": 0,
+    "trackedJobs": 893,
+    "currentJobs": 668,
+    "newJobsThisRun": 4,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 4,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T21:07:06.928Z"
+    "updatedAt": "2026-09-08T21:27:03.188Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -379,7 +379,8 @@ const diagnostics = {
   sitemapJobs: 0,
   detailAttempted: 0,
   detailSucceeded: 0,
-  reusedFromSitemap: 0,
+  previousSnapshotCandidates: 0,
+  previousSnapshotReverified: 0,
   verified: 0,
   drops: { titleOrContext: 0, nonUsOrUnknownLocation: 0, experience: 0, fetch: 0 },
   titleOrContextSamples: [],
@@ -422,18 +423,15 @@ try {
 
 const activeIds = new Set(sitemapRows.map(row => row.id));
 const verified = [];
-if (diagnostics.sitemapFetched && activeIds.size) {
-  for (const [id, job] of previousById) {
-    if (activeIds.has(id)) {
-      verified.push({ ...job, active: true, demo: false });
-      diagnostics.reusedFromSitemap += 1;
-    }
-  }
-}
+const previousActiveIds = new Set(
+  diagnostics.sitemapFetched && activeIds.size
+    ? [...previousById.keys()].filter(id => activeIds.has(id))
+    : []
+);
+diagnostics.previousSnapshotCandidates = previousActiveIds.size;
 
-const existingIds = new Set(verified.map(job => String(job.id || '').replace(/^meta-/, '')));
 const detailSeeds = [...seeds.values()]
-  .filter(seed => !existingIds.has(seed.id))
+  .sort((a, b) => Number(previousActiveIds.has(b.id)) - Number(previousActiveIds.has(a.id)))
   .slice(0, diagnostics.embeddedCandidates ? Math.max(120, diagnostics.embeddedCandidates) : MAX_SITEMAP_DETAILS);
 
 for (let i = 0; i < detailSeeds.length; i += DETAIL_BATCH_SIZE) {
@@ -443,7 +441,9 @@ for (let i = 0; i < detailSeeds.length; i += DETAIL_BATCH_SIZE) {
     try {
       const html = await fetchText(seed.url);
       diagnostics.detailSucceeded += 1;
-      return extractDetail(html, seed, diagnostics);
+      const job = extractDetail(html, seed, diagnostics);
+      if (job && previousActiveIds.has(seed.id)) diagnostics.previousSnapshotReverified += 1;
+      return job;
     } catch (error) {
       diagnostics.drops.fetch += 1;
       if (errors.length < 40) errors.push(`detail ${seed.id}: ${error.message}`);

@@ -69,6 +69,7 @@ let seeded = 0;
 let repaired = 0;
 let changed = 0;
 let migrated = 0;
+let recencyRepaired = 0;
 let firstSeenRecencyFallbacks = 0;
 
 for (const job of jobs) {
@@ -115,13 +116,18 @@ for (const job of jobs) {
   // postedHours is the UI/sort recency field. Prefer the employer's posting date
   // when it is available; otherwise age the role from our persistent first-seen
   // timestamp instead of leaving verified jobs at the 9999-hour sentinel forever.
-  // Publication-guard repair mode deliberately leaves existing postedHours alone
-  // so a clean feed does not produce clock-only commits every few minutes.
+  // Publication-guard repair mode fixes only missing/invalid sentinel values so a
+  // clean feed does not produce clock-only commits every few minutes.
   const postedAt = validIso(job?.postedAt, nowMs);
   const recencyAt = postedAt || firstSeenAt;
   if (!postedAt) firstSeenRecencyFallbacks += 1;
+  const expectedPostedHours = Math.max(0, Math.round((nowMs - Date.parse(recencyAt)) / HOUR_MS));
+  const existingPostedHours = Number(job?.postedHours);
   if (!repairOnly) {
-    job.postedHours = Math.max(0, Math.round((nowMs - Date.parse(recencyAt)) / HOUR_MS));
+    job.postedHours = expectedPostedHours;
+  } else if (!Number.isFinite(existingPostedHours) || existingPostedHours < 0 || existingPostedHours >= 9000) {
+    job.postedHours = expectedPostedHours;
+    recencyRepaired += 1;
   }
 }
 
@@ -147,6 +153,7 @@ status.jobHistory = {
   migratedEntriesThisRun: migrated,
   seededExistingThisRun: initializing ? seeded : 0,
   repairedEntriesThisRun: repaired,
+  recencySentinelsRepairedThisRun: recencyRepaired,
   firstSeenRecencyFallbackJobs: firstSeenRecencyFallbacks,
   updatedAt: nowIso
 };
@@ -154,7 +161,7 @@ await writeFile(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`);
 
 console.log(
   repairOnly
-    ? `Job history repair pass: ${added} missing IDs added, ${repaired} invalid entries repaired, ${changed} content changes tracked; postedHours left unchanged.`
+    ? `Job history repair pass: ${added} missing IDs added, ${repaired} invalid entries repaired, ${recencyRepaired} recency sentinels repaired, ${changed} content changes tracked; healthy postedHours left unchanged.`
     : initializing
       ? `Initialized job history for ${seeded} existing jobs without marking the current feed as newly discovered.`
       : `Job history updated: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs, ${firstSeenRecencyFallbacks} using first-seen recency.`

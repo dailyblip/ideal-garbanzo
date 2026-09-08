@@ -5,6 +5,7 @@ const JOBS_PATH = 'data/jobs.json';
 const HISTORY_PATH = 'data/job-history.json';
 const STATUS_PATH = 'data/collector-status.json';
 const FUTURE_GRACE_MS = 6 * 60 * 60 * 1000;
+const HOUR_MS = 60 * 60 * 1000;
 
 async function readJson(path, fallback) {
   try {
@@ -25,7 +26,7 @@ function initialSeenAt(job, nowMs, nowIso) {
 
   const postedHours = Number(job?.postedHours);
   if (Number.isFinite(postedHours) && postedHours >= 0 && postedHours <= 24 * 365) {
-    return new Date(nowMs - postedHours * 60 * 60 * 1000).toISOString();
+    return new Date(nowMs - postedHours * HOUR_MS).toISOString();
   }
   return nowIso;
 }
@@ -67,6 +68,7 @@ let seeded = 0;
 let repaired = 0;
 let changed = 0;
 let migrated = 0;
+let firstSeenRecencyFallbacks = 0;
 
 for (const job of jobs) {
   const id = String(job?.id || '').trim();
@@ -108,6 +110,14 @@ for (const job of jobs) {
   historyEntries[id] = { firstSeenAt, lastChangedAt, fingerprint };
   job.firstSeenAt = firstSeenAt;
   job.lastChangedAt = lastChangedAt;
+
+  // postedHours is the UI/sort recency field. Prefer the employer's posting date
+  // when it is available; otherwise age the role from our persistent first-seen
+  // timestamp instead of leaving verified jobs at the 9999-hour sentinel forever.
+  const postedAt = validIso(job?.postedAt, nowMs);
+  const recencyAt = postedAt || firstSeenAt;
+  if (!postedAt) firstSeenRecencyFallbacks += 1;
+  job.postedHours = Math.max(0, Math.round((nowMs - Date.parse(recencyAt)) / HOUR_MS));
 }
 
 const sortedEntries = Object.fromEntries(
@@ -132,6 +142,7 @@ status.jobHistory = {
   migratedEntriesThisRun: migrated,
   seededExistingThisRun: initializing ? seeded : 0,
   repairedEntriesThisRun: repaired,
+  firstSeenRecencyFallbackJobs: firstSeenRecencyFallbacks,
   updatedAt: nowIso
 };
 await writeFile(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`);
@@ -139,5 +150,5 @@ await writeFile(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`);
 console.log(
   initializing
     ? `Initialized job history for ${seeded} existing jobs without marking the current feed as newly discovered.`
-    : `Job history updated: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs.`
+    : `Job history updated: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs, ${firstSeenRecencyFallbacks} using first-seen recency.`
 );

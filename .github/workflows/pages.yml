@@ -58,6 +58,8 @@ jobs:
         run: node scripts/reconcile-major-jobs.mjs
       - name: Recover verified U.S. priority Workday roles
         run: node scripts/recover-major-workday-targeted.mjs
+      - name: Scrub targeted Workday recovery noise
+        run: node scripts/scrub-major-targeted-noise.mjs
       - name: Add early-career internships and training roles
         run: node scripts/collect-early-career.mjs
       - name: Add official AWS data center roles

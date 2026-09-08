@@ -104,25 +104,33 @@ for (const profile of profiles) {
       }
 
       const alertRegion = rect('#alertRegion');
+      const alertFocus = rect('#alertFocus');
       const alertEmail = rect('#alertEmail');
       const alertJoin = rect('#weeklyAlertForm button[type="submit"]');
       const alertForm = rect('#weeklyAlertForm');
-      if (!alertRegion || !alertEmail || !alertJoin || !alertForm) fail('Newsletter controls are missing.');
+      if (!alertRegion || !alertFocus || !alertEmail || !alertJoin || !alertForm) fail('Newsletter controls are missing.');
       else if (mode === 'desktop') {
-        metrics.newsletterBottomDelta = Math.max(Math.abs(alertRegion.bottom-alertEmail.bottom), Math.abs(alertRegion.bottom-alertJoin.bottom));
-        if (!close(alertRegion.bottom, alertEmail.bottom, 5) || !close(alertEmail.bottom, alertJoin.bottom, 3)) fail('Desktop newsletter controls do not share a clean bottom baseline.');
-        if (!close(alertEmail.height, alertJoin.height, 3)) fail('Desktop newsletter email field and submit button heights are mismatched.');
+        metrics.newsletterBottomDelta = Math.max(Math.abs(alertFocus.bottom-alertEmail.bottom), Math.abs(alertFocus.bottom-alertJoin.bottom));
+        if (!close(alertRegion.left, alertFocus.left, 3) || !close(alertRegion.width, alertFocus.width, 3)) fail('Desktop newsletter preference controls are not aligned.');
+        if (alertRegion.bottom >= alertFocus.top) fail('Desktop newsletter preference controls overlap instead of stacking cleanly.');
+        if (!close(alertFocus.bottom, alertEmail.bottom, 5) || !close(alertEmail.bottom, alertJoin.bottom, 3)) fail('Desktop newsletter focus, email and submit controls do not share a clean bottom baseline.');
+        if (!close(alertFocus.height, alertEmail.height, 3) || !close(alertEmail.height, alertJoin.height, 3)) fail('Desktop newsletter focus, email and submit control heights are mismatched.');
       } else if (mode === 'tablet') {
-        if (!close(alertRegion.left, alertForm.left, 3) || !close(alertRegion.width, alertForm.width, 3)) fail('Tablet newsletter rows are not aligned to the same width.');
-        if (alertRegion.bottom >= alertEmail.top) fail('Tablet newsletter rows overlap instead of stacking cleanly.');
+        if (!close(alertRegion.left, alertFocus.left, 3) || !close(alertRegion.width, alertFocus.width, 3)) fail('Tablet newsletter preference controls are not aligned.');
+        if (!close(alertFocus.left, alertForm.left, 3) || !close(alertFocus.width, alertForm.width, 3)) fail('Tablet newsletter preference and signup rows are not aligned to the same width.');
+        if (alertRegion.bottom >= alertFocus.top || alertFocus.bottom >= alertEmail.top) fail('Tablet newsletter rows overlap instead of stacking cleanly.');
         if (!close(alertEmail.height, alertJoin.height, 3)) fail('Tablet newsletter email field and submit button heights are mismatched.');
       }
 
       if (mode === 'mobile') {
-        for (const selector of ['#alertRegion','#alertEmail','#weeklyAlertForm button[type="submit"]','.hero-search .btn']) {
+        for (const selector of ['#alertRegion','#alertFocus','#alertEmail','#weeklyAlertForm button[type="submit"]','.hero-search .btn']) {
           const r = rect(selector);
           if (!r) fail(`Mobile control missing: ${selector}.`);
           else if (r.height < 44) fail(`Mobile touch target ${selector} is only ${Math.round(r.height)}px high.`);
+        }
+        if (alertRegion && alertFocus) {
+          if (!close(alertRegion.left, alertFocus.left, 2) || !close(alertRegion.width, alertFocus.width, 2)) fail('Mobile newsletter preference controls are not aligned.');
+          if (alertRegion.bottom >= alertFocus.top) fail('Mobile newsletter preference controls overlap instead of stacking cleanly.');
         }
         if (alert && events && (!close(alert.left, events.left, 2) || !close(alert.right, events.right, 2))) fail('Mobile newsletter and events cards are not horizontally aligned.');
       }

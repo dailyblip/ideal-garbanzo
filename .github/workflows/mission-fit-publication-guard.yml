@@ -1,0 +1,82 @@
+name: Mission-fit publication guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/refresh-region-status.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - '.github/workflows/mission-fit-publication-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mission-fit-publication-guard
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate publication guard scripts
+        run: |
+          node --check scripts/filter-mission-fit.mjs
+          node --check scripts/normalize-job-locations.mjs
+          node --check scripts/dedupe-normalized-jobs.mjs
+          node --check scripts/refresh-region-status.mjs
+          node --check scripts/stamp-job-history.mjs
+      - name: Enforce mission fit and publish a clean feed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Several employer-specific refresh workflows write data/jobs.json.
+          # Rebuild from the latest main on every attempt so a concurrent source
+          # refresh cannot reintroduce corporate, senior, security, or foreign
+          # roles after the primary daily refresh has already cleaned the feed.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-priority-employer-sources.mjs
+
+            git add -u -- data/
+            if git diff --cached --quiet; then
+              echo "Committed feed already satisfies mission-fit publication rules."
+              exit 0
+            fi
+
+            git commit -m "Enforce mission-fit publication guard"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Main moved during publication guard attempt ${attempt}; retrying from latest main."
+            sleep $((attempt * 2))
+          done
+
+          echo "::error::Could not publish a mission-fit feed after three attempts."
+          exit 1

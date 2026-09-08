@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-08T11:58:34.221Z",
+  "updatedAt": "2026-09-08T12:00:50.210Z",
   "jobs": 593,
-  "sourcesAttempted": 32,
+  "sourcesAttempted": 33,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -56,25 +56,25 @@
         "reason": "classification"
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
-        "location": ""
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
         "title": "Sr Revenue Assurance Analyst",
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Raleigh, NC",
-        "reason": "classification"
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
+        "location": ""
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
         "title": "Operations Specialist",
         "location": "Hawthorne, NY",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Raleigh, NC",
         "reason": "classification"
       }
     ]
@@ -1570,7 +1570,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T11:58:34.290Z",
+    "checkedAt": "2026-09-08T12:00:50.277Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1578,7 +1578,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T11:58:34.356Z",
+    "updatedAt": "2026-09-08T12:00:50.346Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 593,
@@ -1596,7 +1596,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T11:58:34.420Z",
+    "checkedAt": "2026-09-08T12:00:50.411Z",
     "before": 593,
     "after": 593,
     "removed": 0,
@@ -1618,8 +1618,9 @@
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
+    "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T11:58:34.480Z"
+    "updatedAt": "2026-09-08T12:00:50.470Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

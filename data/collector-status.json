@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-09-08T15:54:40.502Z",
+  "updatedAt": "2026-09-08T16:51:26.718Z",
   "jobs": 461,
-  "sourcesAttempted": 27,
+  "sourcesAttempted": 28,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
     "ashby": 5,
     "icims": 1,
     "workday": 6,
-    "googleCareers": 1,
+    "googleCareers": 2,
     "metaCareers": 1,
     "oracleRecruitingCloud": 2
   },
@@ -1588,146 +1588,15 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T14:02:01.878Z",
-    "removedCount": 13,
-    "removedByReason": {
-      "non-mission role family": 10,
-      "non-US location": 3
-    },
-    "removed": [
-      {
-        "id": "workday-qtsdatacenters-R2026-1910",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
-        "location": "Suwanee, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1907",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Process Analytics - Technology Delivery Team",
-        "location": "Suwanee, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "oracle-careers-334333",
-        "company": "Oracle",
-        "title": "OCI Software Engineer Intern - OVIP",
-        "location": "Austin, TX, United States",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-coreweave-4708211006",
-        "company": "CoreWeave",
-        "title": "Global Security Operations Center (GSOC) Operator",
-        "location": "Livingston, NJ",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-coreweave-4710768006",
-        "company": "CoreWeave",
-        "title": "GSOC Operator (WIDS)",
-        "location": "Livingston, NJ",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-coreweave-4710680006",
-        "company": "CoreWeave",
-        "title": "Data Center Technician - Cambridge, ON",
-        "location": "Cambridge, ON",
-        "reason": "non-US location"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "location": "Southaven, MS; Memphis, TN",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-xai-5169675007",
-        "company": "xAI",
-        "title": "Network Operations Technician (SpaceXAI / Starlink)",
-        "location": "Dublin, Ireland",
-        "reason": "non-US location"
-      },
-      {
-        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
-        "company": "Serverfarm",
-        "title": "Data Center Technician",
-        "location": "Toronto, ON",
-        "reason": "non-US location"
-      },
-      {
-        "id": "gh-coreweave-4702795006",
-        "company": "CoreWeave",
-        "title": "Data Center Operations Cost Analyst",
-        "location": "Livingston, NJ / New York, NY / Sunnyvale, CA / San Francisco, CA / Bellevue, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-coreweave-4711313006",
-        "company": "CoreWeave",
-        "title": "Data Center Security Engineer - WIDS",
-        "location": "Livingston, NJ",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "oracle-careers-342953",
-        "company": "Oracle",
-        "title": "Data Center Business Operations Business Analyst",
-        "location": "Nashville, TN, United States",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "oracle-careers-333294",
-        "company": "Oracle",
-        "title": "Data Center Development Cost Management",
-        "location": "NM, United States",
-        "reason": "non-mission role family"
-      }
-    ],
-    "majorSnapshotRemovedCount": 5,
-    "majorSnapshotRemoved": [
-      {
-        "id": "workday-stackinfra-JR00247",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-stackinfra-JR00249",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Sterling, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-aligneddc-JR101023",
-        "company": "Aligned Data Centers",
-        "title": "VP, Operations - South Region",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1910",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
-        "location": "Suwanee, GA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1907",
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Process Analytics - Technology Delivery Team",
-        "location": "Suwanee, GA",
-        "reason": "non-mission role family"
-      }
-    ]
+    "checkedAt": "2026-09-08T16:51:26.856Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
+    "majorSnapshotRemovedCount": 0,
+    "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T15:54:40.607Z",
+    "updatedAt": "2026-09-08T16:51:26.929Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 461,
@@ -1736,16 +1605,16 @@
     "missingSamples": [],
     "countsByRegion": {
       "west": 67,
-      "texas": 75,
+      "texas": 76,
       "midwest": 88,
       "mid-atlantic": 69,
-      "southwest": 67,
+      "southwest": 66,
       "southeast": 84,
       "northeast": 11
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T15:54:40.669Z",
+    "checkedAt": "2026-09-08T16:51:26.996Z",
     "before": 461,
     "after": 461,
     "removed": 0,
@@ -1760,15 +1629,15 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 874,
+    "trackedJobs": 875,
     "currentJobs": 461,
-    "newJobsThisRun": 0,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T15:54:40.728Z"
+    "updatedAt": "2026-09-08T16:51:27.062Z"
   }
 }

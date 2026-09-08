@@ -20,12 +20,19 @@ const experienceNumberWords = new Map([
 ]);
 
 // Equinix's current careers pages expose job titles/URLs reliably to GitHub
-// runners but sometimes omit the rendered qualification body. These five live
-// US SkillBridge roles were verified against the official detail pages on
-// 2026-09-05. They are re-fetched on every run and only supply an experience
-// bucket when the live page still contains the expected title; a 404 or title
-// change removes the fallback automatically.
+// runners but sometimes omit the rendered qualification body. These six live
+// US SkillBridge roles were verified against official Equinix pages on
+// 2026-09-05 through 2026-09-08. They are re-fetched on every run and can only
+// supply a verified experience bucket while the same role remains discoverable
+// on Equinix's current jobs listing. This avoids trusting a generic detail shell.
 const verifiedCandidates = [
+  {
+    requisition:'JR-163301',
+    title:"SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
+    url:'https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali',
+    location:'San Jose, CA; Englewood, CO; Miami, FL; Atlanta, GA; Chicago, IL; Secaucus, NJ; Dallas, TX; Ashburn, VA; Seattle, WA',
+    experience:'0-2-years'
+  },
   {
     requisition:'JR-161457',
     title:"SkillBridge - Data Center Technician - Hiring our Heroes Cohort Q3' 2026",
@@ -62,7 +69,6 @@ const verifiedCandidates = [
     experience:'2-5-years'
   }
 ];
-const verifiedByUrl = new Map(verifiedCandidates.map(item => [item.url, item]));
 
 const clean = value => String(value ?? '')
   .replace(/<script\b[\s\S]*?<\/script>/gi,' ')
@@ -79,6 +85,30 @@ const clean = value => String(value ?? '')
 const lower = value => clean(value).toLowerCase();
 const normalize = value => lower(value).replace(/[^a-z0-9]+/g,' ').trim();
 const hash = value => crypto.createHash('sha1').update(String(value)).digest('hex').slice(0,14);
+
+function canonicalJobKey(value='') {
+  try {
+    return new URL(clean(value)).pathname
+      .toLowerCase()
+      .replace(/^\/[a-z]{2}\/jobs\//, '/jobs/')
+      .replace(/\/$/, '');
+  } catch {
+    return '';
+  }
+}
+
+function verifiedTitleMatches(actual='', expected='') {
+  const a = normalize(actual);
+  const e = normalize(expected);
+  if (!a || !e) return false;
+  if (a === e || a.includes(e) || e.includes(a)) return true;
+  if (!a.includes('skillbridge') || !e.includes('skillbridge')) return false;
+  return ['data center technician', 'critical facilities engineer']
+    .some(family => a.includes(family) && e.includes(family));
+}
+
+const verifiedByUrl = new Map(verifiedCandidates.map(item => [item.url, item]));
+const verifiedByKey = new Map(verifiedCandidates.map(item => [canonicalJobKey(item.url), item]));
 
 async function fetchText(url) {
   const controller = new AbortController();
@@ -250,7 +280,22 @@ function validateClassifier() {
   }
   if (failures.length) throw new Error(`Equinix early-career classifier regression: ${failures.join(' | ')}`);
 }
+
+function validateVerifiedMatching() {
+  const localized = canonicalJobKey('https://careers.equinix.com/de/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027/');
+  const canonical = canonicalJobKey('https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027');
+  const failures = [];
+  if (localized !== canonical) failures.push('localized Equinix job paths must resolve to the same identity');
+  if (!verifiedTitleMatches('SkillBridge - Data Center Technician - Trainee', "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027")) {
+    failures.push('cohort suffix variation should retain the same verified role family');
+  }
+  if (verifiedTitleMatches('SkillBridge Data Center Customer Operations Technician - Trainee', 'SkillBridge Critical Facilities Engineer - Trainee')) {
+    failures.push('different SkillBridge job families must not share a verified experience bucket');
+  }
+  if (failures.length) throw new Error(`Equinix verified-role matching regression: ${failures.join(' | ')}`);
+}
 validateClassifier();
+validateVerifiedMatching();
 
 function canonicalTitle(job) {
   return normalize(job.title.replace(/\s+[-–—]\s+(?:[A-Z][A-Za-z .'-]+,?\s*)+$/,'').trim());
@@ -289,6 +334,7 @@ for (const listing of listingUrls) {
     listingPagesSucceeded += 1;
   } catch (error) { errors.push(`listing ${listing}: ${error.message}`); }
 }
+const discoveredListingKeys = new Set([...candidates.keys()].map(canonicalJobKey).filter(Boolean));
 
 const priorSamples = status?.priorityEmployerExpansion?.Equinix?.dropSamples || [];
 let recoveredCandidates = 0;
@@ -300,9 +346,13 @@ for (const sample of priorSamples) {
   candidates.set(url,title);
 }
 let verifiedSeeded = 0;
+const candidateKeys = new Set([...candidates.keys()].map(canonicalJobKey).filter(Boolean));
 for (const item of verifiedCandidates) {
-  if (!candidates.has(item.url)) verifiedSeeded += 1;
+  const key = canonicalJobKey(item.url);
+  if (candidateKeys.has(key)) continue;
+  verifiedSeeded += 1;
   candidates.set(item.url,item.title);
+  candidateKeys.add(key);
 }
 
 const found = [];
@@ -322,11 +372,11 @@ for (const [url,label] of candidates) {
     if (!title || !usable(title,url)) { drops.unusable += 1; continue; }
     const description = clean(posting?.description || html);
     let classification = classifyExperience(title, description);
-    const verified = verifiedByUrl.get(url);
+    const key = canonicalJobKey(url);
+    const verified = verifiedByUrl.get(url) || verifiedByKey.get(key);
     if (classification.drop === 'unknown-experience' && verified) {
-      const pageText = normalize(clean(html));
-      const expectedTitle = normalize(verified.title);
-      if (pageText.includes(expectedTitle)) {
+      const currentlyListed = discoveredListingKeys.has(key);
+      if (currentlyListed && verifiedTitleMatches(title, verified.title)) {
         classification = { experience:verified.experience };
         verifiedFallbackUsed += 1;
       } else {
@@ -395,7 +445,7 @@ await writeFile('data/collector-status.json',JSON.stringify({
     recoveredCandidates,
     verifiedSeeded,
     verifiedFallbackUsed,
-    verifiedAt:'2026-09-05',
+    verifiedAt:'2026-09-08',
     detailAttempted,
     detailSucceeded,
     detailFailed,

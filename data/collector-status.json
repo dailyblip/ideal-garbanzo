@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-08T21:06:55.200Z",
-  "jobs": 668,
+  "jobs": 666,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -13,14 +13,14 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
-    "internship": 12,
     "entry-level": 632,
+    "internship": 10,
     "trainee": 12,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 370,
     "2-5-years": 254,
+    "0-2-years": 368,
     "no-experience": 44
   },
   "errors": [
@@ -369,36 +369,11 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-08T21:26:50.604Z",
+    "checkedAt": "2026-09-08T21:51:13.848Z",
     "officialOnly": true,
     "additiveOnly": true,
-    "recovered": 4,
-    "recoveredRoles": [
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Corporate Accounting",
-        "location": "Overland Park, KS",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Corporate-Accounting_R2026-1901"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Legal Assistant",
-        "location": "Overland Park, KS",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Legal-Assistant_R2026-1969"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator III",
-        "location": "Allen, TX",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Allen-TX/Critical-Environments-Operator-III_JLL267319-1"
-      },
-      {
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Technician I (Night Shift)",
-        "location": "Manassas, VA",
-        "sourceUrl": "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Manassas-VA/Critical-Operations-Technician-I--Night-Shift-_JR00365"
-      }
-    ],
+    "recovered": 0,
+    "recoveredRoles": [],
     "diagnostics": {
       "Vantage Data Centers": {
         "queriesAttempted": 10,
@@ -481,37 +456,37 @@
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 238
+            "reportedTotal": 240
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 132
+            "reportedTotal": 133
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 163
+            "reportedTotal": 164
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 181
+            "reportedTotal": 182
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 70,
-            "reportedTotal": 70
+            "rows": 71,
+            "reportedTotal": 71
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 79,
-            "reportedTotal": 79
+            "rows": 80,
+            "reportedTotal": 80
           },
           {
             "searchText": "technician",
@@ -523,7 +498,7 @@
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 169
+            "reportedTotal": 171
           },
           {
             "searchText": "apprentice",
@@ -534,8 +509,8 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 96,
-            "reportedTotal": 96
+            "rows": 98,
+            "reportedTotal": 98
           }
         ],
         "errors": []
@@ -545,7 +520,7 @@
         "queriesSucceeded": 10,
         "candidates": 62,
         "qualifyingRoles": 38,
-        "additions": 1,
+        "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
@@ -615,7 +590,7 @@
         "queriesSucceeded": 10,
         "candidates": 11,
         "qualifyingRoles": 7,
-        "additions": 1,
+        "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
@@ -822,9 +797,21 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-08T21:27:02.872Z",
-      "removed": 2,
+      "checkedAt": "2026-09-08T21:51:26.428Z",
+      "removed": 4,
       "removedRoles": [
+        {
+          "company": "QTS Data Centers",
+          "title": "Summer 2027 Internship: Corporate Accounting",
+          "location": "Overland Park, KS",
+          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Corporate-Accounting_R2026-1901"
+        },
+        {
+          "company": "QTS Data Centers",
+          "title": "Summer 2027 Internship: Legal Assistant",
+          "location": "Overland Park, KS",
+          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Legal-Assistant_R2026-1969"
+        },
         {
           "company": "QTS Data Centers",
           "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
@@ -1615,7 +1602,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T21:27:02.979Z",
+    "checkedAt": "2026-09-08T21:51:26.465Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1623,27 +1610,27 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T21:27:03.037Z",
+    "updatedAt": "2026-09-08T21:51:26.508Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 668,
+    "regionAssigned": 666,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 127,
       "texas": 103,
       "mid-atlantic": 124,
       "west": 104,
       "northeast": 18,
       "southeast": 109,
-      "southwest": 83
+      "southwest": 83,
+      "midwest": 125
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T21:27:03.093Z",
-    "before": 668,
-    "after": 668,
+    "checkedAt": "2026-09-08T21:51:26.569Z",
+    "before": 666,
+    "after": 666,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1658,15 +1645,15 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 893,
-    "currentJobs": 668,
-    "newJobsThisRun": 4,
+    "currentJobs": 666,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 4,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T21:27:03.188Z"
+    "updatedAt": "2026-09-08T21:51:26.634Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

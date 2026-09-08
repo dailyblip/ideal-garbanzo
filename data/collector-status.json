@@ -366,24 +366,17 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-07T18:18:54.168Z",
+    "checkedAt": "2026-09-08T00:49:51.857Z",
     "officialOnly": true,
     "additiveOnly": true,
-    "recovered": 1,
-    "recoveredRoles": [
-      {
-        "company": "QTS Data Centers",
-        "title": "Security Operations Engineer",
-        "location": "Denver, CO",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Denver-CO/Security-Operations-Engineer_R2026-1725-2"
-      }
-    ],
+    "recovered": 0,
+    "recoveredRoles": [],
     "diagnostics": {
       "Vantage Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 35,
-        "qualifyingRoles": 10,
+        "candidates": 32,
+        "qualifyingRoles": 0,
         "additions": 0,
         "queryStats": [
           {
@@ -452,9 +445,9 @@
       "QTS Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 68,
-        "qualifyingRoles": 46,
-        "additions": 1,
+        "candidates": 64,
+        "qualifyingRoles": 43,
+        "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
@@ -522,8 +515,8 @@
       "CyrusOne": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 62,
-        "qualifyingRoles": 38,
+        "candidates": 61,
+        "qualifyingRoles": 37,
         "additions": 0,
         "queryStats": [
           {
@@ -592,7 +585,7 @@
       "STACK Infrastructure": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 11,
+        "candidates": 10,
         "qualifyingRoles": 6,
         "additions": 0,
         "queryStats": [
@@ -662,33 +655,33 @@
       "NTT Global Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 59,
-        "qualifyingRoles": 28,
+        "candidates": 58,
+        "qualifyingRoles": 3,
         "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 228
+            "reportedTotal": 214
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 131
+            "reportedTotal": 126
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 150
+            "reportedTotal": 144
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 143
+            "reportedTotal": 138
           },
           {
             "searchText": "mechanical engineer",
@@ -699,8 +692,8 @@
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 88,
-            "reportedTotal": 88
+            "rows": 82,
+            "reportedTotal": 82
           },
           {
             "searchText": "technician",
@@ -712,7 +705,7 @@
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 165
+            "reportedTotal": 151
           },
           {
             "searchText": "apprentice",
@@ -723,8 +716,8 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 86,
-            "reportedTotal": 86
+            "rows": 84,
+            "reportedTotal": 84
           }
         ],
         "errors": []

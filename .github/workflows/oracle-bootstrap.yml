@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/validate-oracle-snapshot.mjs'
+      - '.github/workflows/oracle-bootstrap.yml'
 
 permissions:
   actions: write
@@ -29,6 +32,8 @@ jobs:
           node-version: 22
       - name: Collect official Oracle Careers roles
         run: node scripts/collect-oracle-careers.mjs
+      - name: Enforce mission-fit role families
+        run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations and regions
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
@@ -40,6 +45,7 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-oracle-snapshot.mjs
       - name: Commit Oracle snapshot when changed
         id: commit
         run: |

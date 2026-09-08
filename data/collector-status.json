@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-08T17:45:28.598Z",
-  "jobs": 665,
+  "updatedAt": "2026-09-08T18:08:02.424Z",
+  "jobs": 661,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -13,14 +13,14 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
-    "trainee": 13,
-    "entry-level": 630,
     "internship": 10,
-    "apprenticeship": 12
+    "trainee": 13,
+    "apprenticeship": 12,
+    "entry-level": 626
   },
   "countsByExperience": {
     "no-experience": 45,
-    "0-2-years": 368,
+    "0-2-years": 364,
     "2-5-years": 252
   },
   "errors": [
@@ -1430,18 +1430,17 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 33,
-      "detailAttempted": 33,
-      "detailSucceeded": 33,
+      "candidateLinks": 34,
+      "detailAttempted": 34,
+      "detailSucceeded": 34,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 7,
-      "qualifyingRoles": 0,
+      "qualifyingRoles": 1,
       "drops": {
         "non-us": 10,
-        "unknown-experience": 9,
-        "context": 1,
+        "unknown-experience": 10,
         "title": 13
       },
       "dropSamples": [
@@ -1461,13 +1460,6 @@
           "url": "https://careers.equinix.com/jobs/practicante-critical-facilities-nuevo-leon-mexico"
         },
         {
-          "title": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
-          "listingLabel": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
-        },
-        {
           "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
         },
@@ -1482,6 +1474,10 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -1523,7 +1519,7 @@
     "listingFallbacksUsed": 0,
     "verifiedWindowFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 7,
     "retainedManaged": 7,
@@ -1619,27 +1615,27 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T17:45:28.738Z",
+    "updatedAt": "2026-09-08T18:08:02.482Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 665,
+    "regionAssigned": 661,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "west": 103,
+      "texas": 102,
       "midwest": 125,
+      "mid-atlantic": 123,
       "southwest": 83,
-      "west": 104,
-      "mid-atlantic": 125,
-      "southeast": 109,
-      "northeast": 17,
-      "texas": 102
+      "southeast": 108,
+      "northeast": 17
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T17:45:28.791Z",
-    "before": 665,
-    "after": 665,
+    "checkedAt": "2026-09-08T18:08:02.542Z",
+    "before": 661,
+    "after": 661,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1654,15 +1650,15 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 885,
-    "currentJobs": 665,
-    "newJobsThisRun": 10,
+    "currentJobs": 661,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 10,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T17:45:46.924Z"
+    "updatedAt": "2026-09-08T18:08:02.597Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -9,6 +9,7 @@ on:
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
+      - '.github/workflows/microsoft-bootstrap.yml'
 
 permissions:
   contents: write
@@ -38,14 +39,14 @@ jobs:
         run: node scripts/apply-microsoft-verified-fallback.mjs
       - name: Collect official Microsoft data center roles
         run: node scripts/collect-microsoft-datacenter.mjs
-      - name: Persist freshly verified Microsoft snapshot
-        run: node scripts/persist-microsoft-snapshot.mjs
       - name: Enforce mission-fit roles
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Persist freshly verified publishable Microsoft snapshot
+        run: node scripts/persist-microsoft-snapshot.mjs
       - name: Persist first-seen dates for weekly alerts
         run: node scripts/stamp-job-history.mjs
       - name: Validate employer-direct sources and feed

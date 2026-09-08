@@ -20,7 +20,7 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 // Corporate uses of "operations" are intentionally named here instead of
 // blocking the word globally, because hands-on critical/data-center operations
 // roles are a core part of the product.
-const obviousNonMissionTitlePattern = /\b(?:administrative business partner|business analyst|financial operations|financial analyst|finance analyst|procurement|purchasing|cost management|cost estimator|cost analyst|cost controls|security operations|security engineer|security analyst|security specialist|security technician|security officer|security guard|physical security|global security operations center|gsoc|wireless intrusion detection|cybersecurity|information security|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel|enterprise it support|enterprise applications|process analytics)\b/i;
+const obviousNonMissionTitlePattern = /\b(?:administrative business partner|business analyst|financial operations|financial analyst|finance analyst|finance|accounting|accountant|procurement|purchasing|cost management|cost estimator|cost analyst|cost controls|security operations|security engineer|security analyst|security specialist|security technician|security officer|security guard|physical security|global security operations center|gsoc|wireless intrusion detection|cybersecurity|information security|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel|legal assistant|legal intern|paralegal|law clerk|enterprise it support|enterprise applications|process analytics)\b/i;
 // Keep this publication-time filter aligned with validate.mjs. If these roles are
 // allowed through here, the final deployment validator rejects the same feed and
 // turns ordinary source-taxonomy drift into an avoidable site deployment failure.
@@ -44,6 +44,8 @@ const titleRegressionCases = [
   { title: 'Summer 2027 Internship: Enterprise IT Support', reason: 'non-mission role family' },
   { title: 'Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern', reason: 'non-mission role family' },
   { title: 'Summer 2027 Internship: Process Analytics - Technology Delivery Team', reason: 'non-mission role family' },
+  { title: 'Summer 2027 Internship: Corporate Accounting', reason: 'non-mission role family' },
+  { title: 'Summer 2027 Internship: Legal Assistant', reason: 'non-mission role family' },
   { title: 'Data Center Facilities Manager', reason: 'senior/executive title' },
   { title: 'Critical Operations Supervisor', reason: 'senior/executive title' },
   { title: 'Data Center Architect', reason: 'senior/executive title' },

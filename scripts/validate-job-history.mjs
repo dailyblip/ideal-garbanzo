@@ -5,6 +5,7 @@ const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 const history = JSON.parse(await readFile('data/job-history.json', 'utf8'));
 const now = Date.now();
 const futureGrace = 6 * 60 * 60 * 1000;
+const HOUR_MS = 60 * 60 * 1000;
 
 function validIso(value) {
   const parsed = Date.parse(String(value || ''));
@@ -51,6 +52,20 @@ for (const job of jobs) {
   if (firstSeenMs === null) throw new Error(`Job ${id} is missing a valid firstSeenAt timestamp.`);
   if (firstSeenMs > now + futureGrace) throw new Error(`Job ${id} has a firstSeenAt timestamp too far in the future.`);
 
+  // UI recency must stay useful even when an employer does not publish a date.
+  // In that case stamp-job-history derives postedHours from firstSeenAt without
+  // fabricating a postedAt value. Keep the derived age within one hour of truth.
+  const postedAtMs = validIso(job?.postedAt);
+  const recencyAnchorMs = postedAtMs ?? firstSeenMs;
+  const expectedRecencyHours = Math.max(0, Math.round((now - recencyAnchorMs) / HOUR_MS));
+  const postedHours = Number(job?.postedHours);
+  if (!Number.isFinite(postedHours) || postedHours < 0) {
+    throw new Error(`Job ${id} is missing a valid postedHours recency value.`);
+  }
+  if (Math.abs(postedHours - expectedRecencyHours) > 1) {
+    throw new Error(`Job ${id} postedHours recency is stale (${postedHours} vs expected ${expectedRecencyHours}).`);
+  }
+
   const lastChangedAt = String(job?.lastChangedAt || '');
   const lastChangedMs = validIso(lastChangedAt);
   if (lastChangedMs === null) throw new Error(`Job ${id} is missing a valid lastChangedAt timestamp.`);
@@ -66,4 +81,4 @@ for (const job of jobs) {
   if (expectedFingerprint !== String(historyEntry.fingerprint || '')) throw new Error(`Job ${id} content fingerprint does not match data/job-history.json.`);
 }
 
-console.log(`Job history validation passed for ${jobs.length} published jobs and ${Object.keys(history.jobs).length} tracked IDs with meaningful-change timestamps.`);
+console.log(`Job history validation passed for ${jobs.length} published jobs and ${Object.keys(history.jobs).length} tracked IDs with meaningful-change timestamps and current recency ages.`);

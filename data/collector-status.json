@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-08T06:40:40.236Z",
-  "jobs": 597,
+  "updatedAt": "2026-09-08T09:25:24.151Z",
+  "jobs": 595,
   "sourcesAttempted": 30,
   "providers": {
     "lever": 7,
@@ -14,13 +14,13 @@
   },
   "countsByType": {
     "trainee": 13,
-    "entry-level": 563,
+    "entry-level": 561,
     "apprenticeship": 12,
     "internship": 9
   },
   "countsByExperience": {
-    "0-2-years": 304,
-    "2-5-years": 249,
+    "0-2-years": 303,
+    "2-5-years": 248,
     "no-experience": 44
   },
   "errors": [
@@ -1446,48 +1446,171 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T06:40:40.438Z",
-    "changed": 0,
-    "samples": [],
-    "regionAssigned": 597,
-    "regionMissing": 0,
-    "coveragePct": 100,
-    "missingSamples": [],
+    "updatedAt": "2026-09-08T09:25:24.223Z",
+    "changed": 11,
+    "samples": [
+      {
+        "id": "workday-aligneddc-JR101166",
+        "before": "ORD-03",
+        "after": "Elk Grove Village, IL"
+      },
+      {
+        "id": "workday-aligneddc-JR101165",
+        "before": "PDX-01",
+        "after": "Hillsboro, OR"
+      },
+      {
+        "id": "workday-aligneddc-JR101068",
+        "before": "DFW-04",
+        "after": "Plano, TX"
+      },
+      {
+        "id": "workday-aligneddc-JR101148",
+        "before": "ORD-03",
+        "after": "Elk Grove Village, IL"
+      },
+      {
+        "id": "workday-aligneddc-JR101086",
+        "before": "IAD-02",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-aligneddc-JR100970",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-aligneddc-JR100971",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-aligneddc-JR101013",
+        "before": "IAD-02",
+        "after": "Ashburn, VA"
+      }
+    ],
+    "regionAssigned": 583,
+    "regionMissing": 12,
+    "coveragePct": 98,
+    "missingSamples": [
+      {
+        "id": "workday-nttglobaldatacenters-JR101240",
+        "company": "NTT Global Data Centers",
+        "location": "Virginia, United States of America",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Virginia-United-States-of-America/XMLNAME-914---Data-Center-Technician-L2_JR101240"
+      },
+      {
+        "id": "lever-lightedge-0765f29e-ee42-4aa3-bd86-80adfa1a3bf5",
+        "company": "LightEdge Solutions",
+        "location": "Omaha, Nebraska",
+        "sourceUrl": "https://jobs.lever.co/lightedge/0765f29e-ee42-4aa3-bd86-80adfa1a3bf5"
+      },
+      {
+        "id": "gh-elementcritical-4730973005",
+        "company": "Element Critical",
+        "location": "Katy, Texas, United States",
+        "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4730973005"
+      },
+      {
+        "id": "ashby-tensorwave-8127963682ddd7",
+        "company": "TensorWave",
+        "location": "Tucson, Arizona",
+        "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/c3bda642-1ee6-428d-8cc0-60d2d8965a49"
+      },
+      {
+        "id": "ashby-tensorwave-e1ccc2383f8d82",
+        "company": "TensorWave",
+        "location": "Miami, Florida",
+        "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/6d7ec2ad-36ff-42c1-8252-58e8c0208fd5"
+      },
+      {
+        "id": "gh-elementcritical-4721207005",
+        "company": "Element Critical",
+        "location": "Wood Dale, Illinois, United States",
+        "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4721207005"
+      },
+      {
+        "id": "lever-lightedge-572330d1-551e-4d19-a251-6878821d498a",
+        "company": "LightEdge Solutions",
+        "location": "Lewisville, Texas",
+        "sourceUrl": "https://jobs.lever.co/lightedge/572330d1-551e-4d19-a251-6878821d498a"
+      },
+      {
+        "id": "gh-elementcritical-4684121005",
+        "company": "Element Critical",
+        "location": "Katy, Texas, United States",
+        "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4684121005"
+      },
+      {
+        "id": "workable-stream-dc-62B4F3BCF5",
+        "company": "Stream Data Centers",
+        "location": "Chaska, Minnesota",
+        "sourceUrl": "https://apply.workable.com/stream-dc/j/62B4F3BCF5/"
+      },
+      {
+        "id": "workable-stream-dc-C4755E8B9E",
+        "company": "Stream Data Centers",
+        "location": "San Antonio, Texas",
+        "sourceUrl": "https://apply.workable.com/stream-dc/j/C4755E8B9E/"
+      },
+      {
+        "id": "workable-stream-dc-5B9BD8650E",
+        "company": "Stream Data Centers",
+        "location": "Elk Grove Village, Illinois",
+        "sourceUrl": "https://apply.workable.com/stream-dc/j/5B9BD8650E/"
+      },
+      {
+        "id": "workable-stream-dc-5FBD18EE51",
+        "company": "Stream Data Centers",
+        "location": "Goodyear, Arizona",
+        "sourceUrl": "https://apply.workable.com/stream-dc/j/5FBD18EE51/"
+      }
+    ],
     "countsByRegion": {
       "west": 83,
       "northeast": 19,
-      "southeast": 100,
-      "midwest": 116,
-      "texas": 95,
-      "mid-atlantic": 110,
-      "southwest": 74
+      "southeast": 99,
+      "midwest": 112,
+      "texas": 89,
+      "mid-atlantic": 109,
+      "southwest": 72
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T06:40:40.505Z",
+    "checkedAt": "2026-09-08T09:25:24.270Z",
     "before": 597,
-    "after": 597,
-    "removed": 0,
+    "after": 596,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-aligneddc-JR101027",
+        "keptId": "workday-aligneddc-JR101068",
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "location": "Plano, TX"
+      }
+    ]
   },
   "postQa": {
-    "checkedAt": "2026-09-08T05:54:52.863Z",
-    "publishedJobs": 597,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-08T09:25:52.396Z",
+    "publishedJobs": 595,
+    "removedJobs": 1,
     "activeCareerEvents": 6
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 870,
-    "currentJobs": 597,
+    "currentJobs": 595,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
+    "changedJobsThisRun": 11,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T06:40:40.569Z"
+    "updatedAt": "2026-09-08T09:25:52.516Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-08T05:54:52.863Z",
-  "jobsBefore": 597,
-  "jobsAfter": 597,
+  "checkedAt": "2026-09-08T09:25:52.396Z",
+  "jobsBefore": 596,
+  "jobsAfter": 595,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10501274",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10501274/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10501274/data-center-technician"
+    }
+  ],
   "blockedJobLinks": [
     {
       "id": "coresite-17818219",
@@ -117,7 +127,35 @@
       "finalUrl": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-coreweave-4710090006",
+      "company": "CoreWeave",
+      "title": "Data Center Technician - Quincy, WA",
+      "url": "https://coreweave.com/careers/job?4710090006&board=coreweave&gh_jid=4710090006",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5142979007",
+      "company": "xAI",
+      "title": "Electrician (Construction) - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5142979007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-4538639007",
+      "company": "xAI",
+      "title": "Facilities Operations Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/4538639007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 6,
   "careerEventsAfter": 6,

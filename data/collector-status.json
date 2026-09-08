@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-08T10:45:43.042Z",
-  "jobs": 595,
+  "jobs": 593,
   "sourcesAttempted": 31,
   "providers": {
     "lever": 7,
@@ -14,13 +14,13 @@
   },
   "countsByType": {
     "trainee": 13,
-    "entry-level": 561,
+    "entry-level": 559,
     "apprenticeship": 12,
     "internship": 9
   },
   "countsByExperience": {
-    "0-2-years": 303,
-    "2-5-years": 248,
+    "0-2-years": 302,
+    "2-5-years": 247,
     "no-experience": 44
   },
   "errors": [
@@ -1570,35 +1570,52 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T06:40:40.363Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-08T11:45:52.778Z",
+    "removedCount": 2,
+    "removedByReason": {
+      "non-mission role family": 2
+    },
+    "removed": [
+      {
+        "id": "gh-coreweave-4710768006",
+        "company": "CoreWeave",
+        "title": "GSOC Operator (WIDS)",
+        "location": "Livingston, NJ",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "gh-coreweave-4711313006",
+        "company": "CoreWeave",
+        "title": "Data Center Security Engineer - WIDS",
+        "location": "Livingston, NJ",
+        "reason": "non-mission role family"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T10:45:28.375Z",
+    "updatedAt": "2026-09-08T11:45:52.840Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 595,
+    "regionAssigned": 593,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "west": 83,
-      "northeast": 19,
       "southeast": 100,
       "midwest": 116,
       "texas": 93,
+      "northeast": 17,
       "mid-atlantic": 110,
       "southwest": 74
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T10:45:28.421Z",
-    "before": 595,
-    "after": 595,
+    "checkedAt": "2026-09-08T11:45:52.896Z",
+    "before": 593,
+    "after": 593,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1612,14 +1629,14 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 870,
-    "currentJobs": 595,
+    "currentJobs": 593,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T10:45:28.464Z"
+    "updatedAt": "2026-09-08T11:45:52.990Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

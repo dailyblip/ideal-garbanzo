@@ -23,14 +23,16 @@ const knownOverExperiencePathSuffixes = [
 // while GitHub-hosted collection sometimes receives a shell or a false 404 for
 // an otherwise-current detail page. These roles were re-verified on Equinix's
 // official careers pages through 2026-09-08. The fallback expires quickly, and
-// each role must either answer directly or still appear on a designated current
-// official listing page before it is allowed into the published feed.
+// each role must either answer directly, still appear on a designated current
+// official listing page, or be inside an explicit short verification grace
+// window after a fresh manual source check.
 const verifiedRoles = [
   {
     requisition: 'JR-159872',
     title: 'Data Center Development Intern Roles',
     url: 'https://careers.equinix.com/jobs/data-center-development-intern-roles-dallas-texas-united-states-ashburn-virginia-elk-grove-village-illinois-san-jose-california',
     listingUrl: 'https://careers.equinix.com/internships',
+    verifiedUntil: '2026-09-10T23:59:59.000Z',
     location: 'San Jose, CA; Elk Grove Village, IL; Dallas, TX; Ashburn, VA',
     type: 'internship',
     experience: 'no-experience',
@@ -123,33 +125,52 @@ async function checkCurrent(role) {
     };
   }
 
-  if (!role.listingUrl) {
+  let listing = null;
+  let listed = false;
+  if (role.listingUrl) {
+    listing = await fetchPage(role.listingUrl);
+    const expectedPath = new URL(role.url).pathname.toLowerCase().replace(/\/$/, '');
+    const listingBody = listing.body.toLowerCase();
+    listed = listing.ok && (
+      listingBody.includes(expectedPath) ||
+      listingBody.includes(role.title.toLowerCase()) ||
+      listingBody.includes(role.requisition.toLowerCase())
+    );
+    if (listed) {
+      return {
+        ok: true,
+        status: listing.status,
+        verification: 'official-listing',
+        detailStatus: detail.status,
+        listingStatus: listing.status
+      };
+    }
+  }
+
+  // Equinix intermittently serves false 404s / thin shells to GitHub runners.
+  // A source-verified role may survive that transient behavior only for its own
+  // short grace window. The window is intentionally much shorter than the
+  // general fallback expiry so a genuinely closed internship cannot linger.
+  const withinVerifiedWindow = role.verifiedUntil && Date.now() < Date.parse(role.verifiedUntil);
+  const transientDetail = detail.status === 0 || detail.status === 403 || detail.status === 404 || detail.status === 429 || detail.status >= 500;
+  if (withinVerifiedWindow && transientDetail) {
     return {
-      ok: false,
+      ok: true,
       status: detail.status,
-      verification: 'detail',
+      verification: 'verified-window',
       detailStatus: detail.status,
-      listingStatus: null,
-      error: detail.error
+      listingStatus: listing?.status ?? null,
+      verifiedUntil: role.verifiedUntil
     };
   }
 
-  const listing = await fetchPage(role.listingUrl);
-  const expectedPath = new URL(role.url).pathname.toLowerCase().replace(/\/$/, '');
-  const listingBody = listing.body.toLowerCase();
-  const listed = listing.ok && (
-    listingBody.includes(expectedPath) ||
-    listingBody.includes(role.title.toLowerCase()) ||
-    listingBody.includes(role.requisition.toLowerCase())
-  );
-
   return {
-    ok: listed,
-    status: listed ? listing.status : detail.status,
-    verification: listed ? 'official-listing' : 'detail-and-listing',
+    ok: false,
+    status: detail.status,
+    verification: role.listingUrl ? 'detail-and-listing' : 'detail',
     detailStatus: detail.status,
-    listingStatus: listing.status,
-    error: detail.error || listing.error
+    listingStatus: listing?.status ?? null,
+    error: detail.error || listing?.error
   };
 }
 
@@ -244,7 +265,8 @@ if (!expired) {
       ok: live.ok,
       verification: live.verification,
       detailStatus: live.detailStatus,
-      listingStatus: live.listingStatus
+      listingStatus: live.listingStatus,
+      verifiedUntil: live.verifiedUntil ?? null
     });
     if (!live.ok || existingUrls.has(role.url)) continue;
     const type = fallbackType(role);
@@ -295,6 +317,7 @@ await writeFile('data/collector-status.json', JSON.stringify({
     rolesVerified: verifiedRoles.length,
     liveChecksPassed: checks.filter(check => check.ok).length,
     listingFallbacksUsed: checks.filter(check => check.verification === 'official-listing').length,
+    verifiedWindowFallbacksUsed: checks.filter(check => check.verification === 'verified-window').length,
     removedManaged,
     removedBroadEarly,
     removedKnownOverExperience,
@@ -306,4 +329,4 @@ await writeFile('data/collector-status.json', JSON.stringify({
 
 console.log(expired
   ? `Equinix verified fallback expired at ${EXPIRES_AT}; removed ${removedManaged} managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); added 0.`
-  : `Equinix verified fallback removed ${removedManaged} prior managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); checked ${checks.length} official role sources and retained ${retainedManaged} current fallback role(s) (${checks.filter(check => check.ok).length} current checks passed, ${checks.filter(check => check.verification === 'official-listing').length} via official listing).`);
+  : `Equinix verified fallback removed ${removedManaged} prior managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); checked ${checks.length} official role sources and retained ${retainedManaged} current fallback role(s) (${checks.filter(check => check.ok).length} current checks passed, ${checks.filter(check => check.verification === 'official-listing').length} via official listing, ${checks.filter(check => check.verification === 'verified-window').length} via short verified window).`);

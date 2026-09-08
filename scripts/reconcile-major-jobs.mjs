@@ -41,13 +41,14 @@ const usStateCodes = new Set([
   'WV', 'WI', 'WY'
 ]);
 
-// Workday sometimes emits CyrusOne's official campus code instead of a city.
-// Keep this mapping company-specific and limited to U.S. campuses listed by
-// CyrusOne so the public feed gets readable geography without guessing.
+// Workday sometimes emits CyrusOne campus codes instead of a city. Keep this
+// mapping company-specific and limited to verified U.S. campuses so the public
+// feed gets readable geography without guessing across employers.
 const cyrusOneCampusLocations = [
   [/^PHX[1-8]$/i, 'Chandler, AZ'],
   [/^CHI[1-3]$/i, 'Aurora, IL'],
   [/^OCB1$/i, 'Council Bluffs, IA'],
+  [/^COL1$/i, 'New Albany, OH'],
   [/^NYM1$/i, 'Somerset, NJ'],
   [/^NYM2$/i, 'Totowa, NJ'],
   [/^NYM5$/i, 'Norwalk, CT'],
@@ -97,6 +98,18 @@ function canonicalMajorLocation(job) {
     if (pattern.test(location)) return replacement;
   }
   return location;
+}
+
+// Keep the site-code fix scoped to CyrusOne. A different employer using the
+// same token must remain untouched rather than inheriting guessed geography.
+for (const [job, expected] of [
+  [{ company: 'CyrusOne', location: 'COL1' }, 'New Albany, OH'],
+  [{ company: 'Vantage Data Centers', location: 'COL1' }, 'COL1']
+]) {
+  const actual = canonicalMajorLocation(job);
+  if (actual !== expected) {
+    throw new Error(`Major location regression for ${job.company} ${job.location}: expected ${expected}, got ${actual}`);
+  }
 }
 
 function clearlyOutsideUnitedStates(job) {

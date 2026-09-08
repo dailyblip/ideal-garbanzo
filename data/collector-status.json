@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T15:50:27.436Z",
+  "updatedAt": "2026-09-08T15:54:40.502Z",
   "jobs": 461,
   "sourcesAttempted": 27,
   "providers": {
@@ -1430,15 +1430,23 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 5,
-      "qualifyingRoles": 2,
+      "staleRemoved": 7,
+      "qualifyingRoles": 0,
       "drops": {
+        "non-us": 10,
         "unknown-experience": 9,
         "context": 1,
-        "non-us": 8,
         "title": 13
       },
       "dropSamples": [
+        {
+          "title": "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali"
+        },
+        {
+          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
+        },
         {
           "title": "Practicante Critical Facilities",
           "listingLabel": "Practicante Critical Facilities",
@@ -1468,14 +1476,6 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
-        },
-        {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
-        },
-        {
-          "title": "SkillBridge, Data Center Customer Operations Technician - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-san-jose-california-united-states"
         }
       ],
       "errors": []
@@ -1486,13 +1486,13 @@
       "listingComplete": true,
       "listingPagesAttempted": 11,
       "listingPagesSucceeded": 11,
-      "candidateLinks": 8,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 4,
+      "candidateLinks": 7,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-08",
-      "detailAttempted": 8,
-      "detailSucceeded": 8,
+      "detailAttempted": 7,
+      "detailSucceeded": 7,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
@@ -1500,7 +1500,7 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 8,
+        "unknownExperience": 7,
         "unusable": 0,
         "verifiedMismatch": 6
       },
@@ -1515,8 +1515,9 @@
     "rolesVerified": 7,
     "liveChecksPassed": 7,
     "listingFallbacksUsed": 0,
+    "verifiedWindowFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 2,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 7,
     "retainedManaged": 7,
@@ -1527,7 +1528,8 @@
         "ok": true,
         "verification": "detail",
         "detailStatus": 202,
-        "listingStatus": null
+        "listingStatus": null,
+        "verifiedUntil": null
       },
       {
         "requisition": "JR-163301",
@@ -1535,7 +1537,8 @@
         "ok": true,
         "verification": "detail",
         "detailStatus": 202,
-        "listingStatus": null
+        "listingStatus": null,
+        "verifiedUntil": null
       },
       {
         "requisition": "JR-161457",
@@ -1543,7 +1546,8 @@
         "ok": true,
         "verification": "detail",
         "detailStatus": 202,
-        "listingStatus": null
+        "listingStatus": null,
+        "verifiedUntil": null
       },
       {
         "requisition": "JR-161458",
@@ -1551,7 +1555,8 @@
         "ok": true,
         "verification": "detail",
         "detailStatus": 202,
-        "listingStatus": null
+        "listingStatus": null,
+        "verifiedUntil": null
       },
       {
         "requisition": "JR-163300",
@@ -1559,7 +1564,8 @@
         "ok": true,
         "verification": "detail",
         "detailStatus": 202,
-        "listingStatus": null
+        "listingStatus": null,
+        "verifiedUntil": null
       },
       {
         "requisition": "JR-158170",
@@ -1567,7 +1573,8 @@
         "ok": true,
         "verification": "detail",
         "detailStatus": 202,
-        "listingStatus": null
+        "listingStatus": null,
+        "verifiedUntil": null
       },
       {
         "requisition": "JR-811161",
@@ -1575,7 +1582,8 @@
         "ok": true,
         "verification": "detail",
         "detailStatus": 202,
-        "listingStatus": null
+        "listingStatus": null,
+        "verifiedUntil": null
       }
     ]
   },
@@ -1719,7 +1727,7 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T15:50:27.502Z",
+    "updatedAt": "2026-09-08T15:54:40.607Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 461,
@@ -1737,7 +1745,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T15:50:27.566Z",
+    "checkedAt": "2026-09-08T15:54:40.669Z",
     "before": 461,
     "after": 461,
     "removed": 0,
@@ -1761,6 +1769,6 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T15:50:27.627Z"
+    "updatedAt": "2026-09-08T15:54:40.728Z"
   }
 }

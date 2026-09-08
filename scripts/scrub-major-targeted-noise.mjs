@@ -3,8 +3,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 // Targeted Workday recovery is intentionally broad so it can find roles missed
 // by an employer's default listing. Keep a final, source-specific publication
 // gate here so broad internship/operations searches cannot reintroduce
-// enterprise IT, analytics, finance or other corporate roles that the main
-// Workday collector already rejects.
+// enterprise IT, analytics, finance, legal, accounting or other corporate roles
+// that the main Workday collector already rejects.
 const TARGETED_EMPLOYERS = new Set([
   'Vantage Data Centers',
   'QTS Data Centers',
@@ -22,6 +22,12 @@ const CORPORATE_TITLE_TERMS = [
   'financial operations',
   'financial analyst',
   'finance analyst',
+  'accounting',
+  'accountant',
+  'finance',
+  'legal',
+  'paralegal',
+  'law clerk',
   'procurement',
   'purchasing',
   'security operations',
@@ -62,6 +68,16 @@ if (process.argv.includes('--test')) {
     },
     {
       title: 'Summer 2027 Internship: Process Analytics - Technology Delivery Team',
+      company: 'QTS Data Centers',
+      remove: true
+    },
+    {
+      title: 'Summer 2027 Internship: Corporate Accounting',
+      company: 'QTS Data Centers',
+      remove: true
+    },
+    {
+      title: 'Summer 2027 Internship: Legal Assistant',
       company: 'QTS Data Centers',
       remove: true
     },

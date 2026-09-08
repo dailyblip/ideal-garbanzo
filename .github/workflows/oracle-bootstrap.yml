@@ -49,14 +49,17 @@ jobs:
       - name: Commit Oracle snapshot when changed
         id: commit
         run: |
-          if [ -z "$(git status --porcelain -- data/oracle-jobs.json data/jobs.json data/job-history.json data/collector-status.json)" ]; then
+          if [ -z "$(git status --porcelain --untracked-files=no -- data/)" ]; then
             echo "No Oracle Careers data changes."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/oracle-jobs.json data/jobs.json data/job-history.json data/collector-status.json
+          # The mission-fit gate can prune both the public feed and the shared
+          # major-employer snapshot. Stage every tracked data artifact it touched
+          # so the subsequent rebase never fails on an unstaged refresh file.
+          git add -u -- data/
           git commit -m "Bootstrap verified Oracle Careers roles"
           git fetch origin main
           git rebase origin/main

@@ -20,15 +20,17 @@ const knownOverExperiencePathSuffixes = [
 ];
 
 // Equinix's public job pages currently render full qualifications to browsers,
-// while GitHub-hosted collection sometimes receives a shell without that body.
-// These roles were re-verified on Equinix's official careers pages through
-// 2026-09-08. The fallback expires quickly, and every role URL must still answer
-// successfully before it is allowed into the published feed.
+// while GitHub-hosted collection sometimes receives a shell or a false 404 for
+// an otherwise-current detail page. These roles were re-verified on Equinix's
+// official careers pages through 2026-09-08. The fallback expires quickly, and
+// each role must either answer directly or still appear on a designated current
+// official listing page before it is allowed into the published feed.
 const verifiedRoles = [
   {
     requisition: 'JR-159872',
     title: 'Data Center Development Intern Roles',
     url: 'https://careers.equinix.com/jobs/data-center-development-intern-roles-dallas-texas-united-states-ashburn-virginia-elk-grove-village-illinois-san-jose-california',
+    listingUrl: 'https://careers.equinix.com/internships',
     location: 'San Jose, CA; Elk Grove Village, IL; Dallas, TX; Ashburn, VA',
     type: 'internship',
     experience: 'no-experience',
@@ -85,25 +87,70 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const hash = value => crypto.createHash('sha1').update(String(value)).digest('hex').slice(0, 14);
 
-async function checkLive(url) {
+const requestHeaders = {
+  accept: 'text/html,application/xhtml+xml',
+  'accept-language': 'en-US,en;q=0.9',
+  'user-agent': 'DataCenterCareersBot/2.2 (+https://datacentercareers.us/)'
+};
+
+async function fetchPage(url) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 20000);
   try {
     const response = await fetch(url, {
-      headers: {
-        accept: 'text/html,application/xhtml+xml',
-        'accept-language': 'en-US,en;q=0.9',
-        'user-agent': 'DataCenterCareersBot/2.2 (+https://datacentercareers.us/)'
-      },
+      headers: requestHeaders,
       redirect: 'follow',
       signal: controller.signal
     });
-    return { ok: response.ok, status: response.status };
+    const body = response.ok ? await response.text() : '';
+    return { ok: response.ok, status: response.status, body };
   } catch (error) {
-    return { ok: false, status: 0, error: error.message };
+    return { ok: false, status: 0, body: '', error: error.message };
   } finally {
     clearTimeout(timer);
   }
+}
+
+async function checkCurrent(role) {
+  const detail = await fetchPage(role.url);
+  if (detail.ok) {
+    return {
+      ok: true,
+      status: detail.status,
+      verification: 'detail',
+      detailStatus: detail.status,
+      listingStatus: null
+    };
+  }
+
+  if (!role.listingUrl) {
+    return {
+      ok: false,
+      status: detail.status,
+      verification: 'detail',
+      detailStatus: detail.status,
+      listingStatus: null,
+      error: detail.error
+    };
+  }
+
+  const listing = await fetchPage(role.listingUrl);
+  const expectedPath = new URL(role.url).pathname.toLowerCase().replace(/\/$/, '');
+  const listingBody = listing.body.toLowerCase();
+  const listed = listing.ok && (
+    listingBody.includes(expectedPath) ||
+    listingBody.includes(role.title.toLowerCase()) ||
+    listingBody.includes(role.requisition.toLowerCase())
+  );
+
+  return {
+    ok: listed,
+    status: listed ? listing.status : detail.status,
+    verification: listed ? 'official-listing' : 'detail-and-listing',
+    detailStatus: detail.status,
+    listingStatus: listing.status,
+    error: detail.error || listing.error
+  };
 }
 
 function canonicalTitle(job) {
@@ -190,8 +237,15 @@ const checks = [];
 
 if (!expired) {
   for (const role of verifiedRoles) {
-    const live = await checkLive(role.url);
-    checks.push({ requisition: role.requisition, status: live.status, ok: live.ok });
+    const live = await checkCurrent(role);
+    checks.push({
+      requisition: role.requisition,
+      status: live.status,
+      ok: live.ok,
+      verification: live.verification,
+      detailStatus: live.detailStatus,
+      listingStatus: live.listingStatus
+    });
     if (!live.ok || existingUrls.has(role.url)) continue;
     const type = fallbackType(role);
     additions.push({
@@ -240,6 +294,7 @@ await writeFile('data/collector-status.json', JSON.stringify({
     expired,
     rolesVerified: verifiedRoles.length,
     liveChecksPassed: checks.filter(check => check.ok).length,
+    listingFallbacksUsed: checks.filter(check => check.verification === 'official-listing').length,
     removedManaged,
     removedBroadEarly,
     removedKnownOverExperience,
@@ -251,4 +306,4 @@ await writeFile('data/collector-status.json', JSON.stringify({
 
 console.log(expired
   ? `Equinix verified fallback expired at ${EXPIRES_AT}; removed ${removedManaged} managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); added 0.`
-  : `Equinix verified fallback removed ${removedManaged} prior managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); checked ${checks.length} official URLs and retained ${retainedManaged} live fallback role(s) (${checks.filter(check => check.ok).length} live checks passed).`);
+  : `Equinix verified fallback removed ${removedManaged} prior managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); checked ${checks.length} official role sources and retained ${retainedManaged} current fallback role(s) (${checks.filter(check => check.ok).length} current checks passed, ${checks.filter(check => check.verification === 'official-listing').length} via official listing).`);

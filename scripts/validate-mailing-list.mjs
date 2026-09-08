@@ -24,6 +24,9 @@ for (const marker of [
   'method="post"',
   'id="alertRegion"',
   'id="alertRegionValue" name="metadata__region" value="all"',
+  'id="alertFocus"',
+  'id="alertFocusValue" name="metadata__focus" value="all"',
+  '<option value="early-career">Internships, apprenticeships &amp; beginner-friendly roles</option>',
   '<option value="mid-atlantic">Northern Virginia / Mid-Atlantic</option>',
   '<option value="texas">Texas</option>',
   '<option value="west">West</option>',
@@ -44,7 +47,12 @@ if (!signupScript.includes('config?.enabled === true')) fail('Signup script must
 if (!signupScript.includes("const fallbackAction = form.getAttribute('action') || '';")) fail('Signup script must preserve the static Buttondown fallback action.');
 if (!signupScript.includes("document.getElementById('alertRegion')")) fail('Signup script must read the regional alert preference.');
 if (!signupScript.includes("document.getElementById('alertRegionValue')")) fail('Signup script must persist the regional alert preference to Buttondown metadata.');
+if (!signupScript.includes("document.getElementById('alertFocus')")) fail('Signup script must read the early-career alert preference.');
+if (!signupScript.includes("document.getElementById('alertFocusValue')")) fail('Signup script must persist the early-career alert preference to Buttondown metadata.');
+if (!signupScript.includes("const allowedFocus = new Set(['all', 'early-career']);")) fail('Signup script must reject unsupported alert-focus metadata values.');
 if (!signupScript.includes('syncRegionPreference();')) fail('Signup script must synchronize the regional preference before submission.');
+if (!signupScript.includes('syncFocusPreference();')) fail('Signup script must synchronize the early-career preference before submission.');
+if (!signupScript.includes('syncPreferences();')) fail('Signup script must synchronize all alert preferences before submission.');
 if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script must not disable the static fallback when config fetch fails.');
 
 if (!workflow.includes("cron: '0 16 * * 1'")) fail('Weekly digest workflow must run Mondays at 16:00 UTC.');
@@ -59,6 +67,7 @@ for (const marker of ['BUTTONDOWN_API_KEY', 'X-Buttondown-Live-Dangerously', '/v
 if (!digestScript.includes("if (!config.enabled && !dryRun)")) fail('Weekly digest sender must stop when the mailing list is disabled.');
 if (!digestScript.includes('if (!weeklyJobs.length)')) fail('Weekly digest sender must skip empty newsletters.');
 if (!digestScript.includes('subscriber.metadata.region')) fail('Weekly digest sender must personalize content from the saved regional preference.');
+if (!digestScript.includes('subscriber.metadata.focus')) fail('Weekly digest sender must personalize content from the saved early-career preference.');
 
 for (const marker of [
   'const digestJobMatchesRegion = (job, region) =>',
@@ -70,6 +79,17 @@ for (const marker of [
 ]) {
   if (!digestScript.includes(marker)) fail(`Regional digest matching is missing: ${marker}`);
 }
+for (const marker of [
+  "const EARLY_CAREER_FOCUS = 'early-career';",
+  "new Set(['internship', 'apprenticeship', 'trainee'])",
+  "new Set(['no-experience', '0-2-years'])",
+  'const digestJobMatchesEarlyCareerFocus = job =>',
+  'const earlyCareerJobs = audience => audience.filter(digestJobMatchesEarlyCareerFocus);',
+  "subscriber.metadata.focus == '${EARLY_CAREER_FOCUS}'",
+  'focus_personalization: true'
+]) {
+  if (!digestScript.includes(marker)) fail(`Early-career digest personalization is missing: ${marker}`);
+}
 if (!digestScript.includes('regional_personalization: true')) fail('Weekly digest must stamp regional personalization metadata.');
 
-console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: resilient tagged signup with multi-location regional subscriber metadata and personalized Monday digests at ${config.sendTimeUtc} UTC.`);
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: resilient tagged signup with regional + early-career subscriber metadata and personalized Monday digests at ${config.sendTimeUtc} UTC.`);

@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-08T16:51:26.718Z",
+  "updatedAt": "2026-09-08T16:54:58.805Z",
   "jobs": 461,
-  "sourcesAttempted": 28,
+  "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
+    "entry-level": 426,
     "internship": 10,
     "trainee": 13,
-    "apprenticeship": 12,
-    "entry-level": 426
+    "apprenticeship": 12
   },
   "countsByExperience": {
+    "2-5-years": 236,
     "no-experience": 45,
-    "0-2-years": 180,
-    "2-5-years": 236
+    "0-2-years": 180
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -50,8 +50,8 @@
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
         "location": ""
       },
       {
@@ -61,20 +61,20 @@
         "reason": "classification"
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
         "location": ""
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Raleigh, NC",
-        "reason": "classification"
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
         "title": "Operations Specialist",
         "location": "Hawthorne, NY",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Raleigh, NC",
         "reason": "classification"
       }
     ]
@@ -1588,7 +1588,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T16:51:26.856Z",
+    "checkedAt": "2026-09-08T16:54:58.872Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1596,7 +1596,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T16:51:26.929Z",
+    "updatedAt": "2026-09-08T16:54:58.940Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 461,
@@ -1604,17 +1604,17 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 67,
       "texas": 76,
+      "west": 67,
       "midwest": 88,
-      "mid-atlantic": 69,
-      "southwest": 66,
       "southeast": 84,
+      "southwest": 66,
+      "mid-atlantic": 69,
       "northeast": 11
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T16:51:26.996Z",
+    "checkedAt": "2026-09-08T16:54:59.001Z",
     "before": 461,
     "after": 461,
     "removed": 0,
@@ -1631,13 +1631,13 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 875,
     "currentJobs": 461,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T16:51:27.062Z"
+    "updatedAt": "2026-09-08T16:54:59.070Z"
   }
 }

@@ -7,7 +7,7 @@ const OFFICIAL_HOST = 'eeho.fa.us2.oraclecloud.com';
 const VALID_EXPERIENCE = new Set(['no-experience', '0-2-years', '2-5-years']);
 const SENIOR_TITLE = /(^|[^a-z])(senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|chief|supervisor|architect)([^a-z]|$)/i;
 const STRONG_DATA_CENTER_TITLE = /\b(data\s*center|data\s*centre|datacenter|critical facilities?|critical environments?)\b/i;
-const CLEARLY_NON_OPERATIONAL_TITLE = /\b(software|application|frontend|backend|full[ -]?stack|database|product|ux|ui|machine learning|data scientist)\b/i;
+const CLEARLY_NON_OPERATIONAL_TITLE = /\b(business analyst|business operations|cost management|cost estimator|cost analyst|cost controls|procurement|purchasing|finance|financial|security operations|cybersecurity|information security|software|application|frontend|backend|full[ -]?stack|database|product|ux|ui|machine learning|data scientist)\b/i;
 
 async function readArray(path) {
   const value = JSON.parse(await readFile(path, 'utf8'));
@@ -33,8 +33,23 @@ function sourceUrl(job, context) {
 
 function parityProtected(job) {
   const title = String(job?.title || '').trim();
+  if (CLEARLY_NON_OPERATIONAL_TITLE.test(title)) return false;
   if (STRONG_DATA_CENTER_TITLE.test(title)) return true;
-  return !CLEARLY_NON_OPERATIONAL_TITLE.test(title);
+  return true;
+}
+
+const parityRegressionCases = [
+  { title: 'Data Center Business Operations Business Analyst', protected: false },
+  { title: 'Data Center Development Cost Management', protected: false },
+  { title: 'Data Center Technician 2', protected: true },
+  { title: 'Critical Facilities Engineer', protected: true },
+  { title: 'Mechanical Engineer 2', protected: true }
+];
+for (const testCase of parityRegressionCases) {
+  const actual = parityProtected({ title: testCase.title });
+  if (actual !== testCase.protected) {
+    throw new Error(`Oracle role-family regression for ${testCase.title}: expected protected=${testCase.protected}, got ${actual}`);
+  }
 }
 
 const snapshot = await readArray(SNAPSHOT_PATH);

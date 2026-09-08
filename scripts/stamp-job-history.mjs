@@ -115,17 +115,22 @@ for (const job of jobs) {
 
   // postedHours is the UI/sort recency field. Prefer the employer's posting date
   // when it is available; otherwise age the role from our persistent first-seen
-  // timestamp instead of leaving verified jobs at the 9999-hour sentinel forever.
+  // timestamp instead of leaving verified jobs at the legacy 9999-hour sentinel.
   // Publication-guard repair mode fixes only missing/invalid sentinel values so a
-  // clean feed does not produce clock-only commits every few minutes.
+  // clean feed does not produce clock-only commits every few minutes. Real jobs
+  // can legitimately be older than 9,000 hours, so age alone is never invalid.
   const postedAt = validIso(job?.postedAt, nowMs);
   const recencyAt = postedAt || firstSeenAt;
   if (!postedAt) firstSeenRecencyFallbacks += 1;
   const expectedPostedHours = Math.max(0, Math.round((nowMs - Date.parse(recencyAt)) / HOUR_MS));
-  const existingPostedHours = Number(job?.postedHours);
+  const rawPostedHours = job?.postedHours;
+  const existingPostedHours = rawPostedHours === null || rawPostedHours === undefined || rawPostedHours === ''
+    ? Number.NaN
+    : Number(rawPostedHours);
+  const legacySentinel = !postedAt && existingPostedHours === 9999 && expectedPostedHours !== 9999;
   if (!repairOnly) {
     job.postedHours = expectedPostedHours;
-  } else if (!Number.isFinite(existingPostedHours) || existingPostedHours < 0 || existingPostedHours >= 9000) {
+  } else if (!Number.isFinite(existingPostedHours) || existingPostedHours < 0 || legacySentinel) {
     job.postedHours = expectedPostedHours;
     recencyRepaired += 1;
   }

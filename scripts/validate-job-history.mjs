@@ -57,12 +57,18 @@ for (const job of jobs) {
   // In that case stamp-job-history derives postedHours from firstSeenAt without
   // fabricating a postedAt value. Full builds keep the age within one hour of
   // truth. The lightweight publication guard may allow normal clock aging after
-  // repairing invalid/sentinel values, which avoids no-op commits every 15 min.
+  // repairing missing or legacy-sentinel values, which avoids no-op commits.
+  // Real employer postings can legitimately remain open longer than 9,000 hours,
+  // so age alone is not treated as invalid.
   const postedAtMs = validIso(job?.postedAt);
   const recencyAnchorMs = postedAtMs ?? firstSeenMs;
   const expectedRecencyHours = Math.max(0, Math.round((now - recencyAnchorMs) / HOUR_MS));
-  const postedHours = Number(job?.postedHours);
-  if (!Number.isFinite(postedHours) || postedHours < 0 || postedHours >= 9000) {
+  const rawPostedHours = job?.postedHours;
+  const postedHours = rawPostedHours === null || rawPostedHours === undefined || rawPostedHours === ''
+    ? Number.NaN
+    : Number(rawPostedHours);
+  const legacySentinel = postedAtMs === null && postedHours === 9999 && expectedRecencyHours !== 9999;
+  if (!Number.isFinite(postedHours) || postedHours < 0 || legacySentinel) {
     throw new Error(`Job ${id} is missing a valid postedHours recency value.`);
   }
   if (!allowAging && Math.abs(postedHours - expectedRecencyHours) > 1) {

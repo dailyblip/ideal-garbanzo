@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-08T04:57:30.324Z",
-  "jobs": 599,
+  "jobs": 597,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -16,10 +16,10 @@
     "trainee": 13,
     "entry-level": 563,
     "apprenticeship": 12,
-    "internship": 11
+    "internship": 9
   },
   "countsByExperience": {
-    "0-2-years": 306,
+    "0-2-years": 304,
     "2-5-years": 249,
     "no-experience": 44
   },
@@ -368,24 +368,11 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-08T05:15:12.346Z",
+    "checkedAt": "2026-09-08T05:50:17.559Z",
     "officialOnly": true,
     "additiveOnly": true,
-    "recovered": 2,
-    "recoveredRoles": [
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
-        "location": "Suwanee, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Enterprise-Applications--SharePoint-Access--Intern_R2026-1910"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Process Analytics - Technology Delivery Team",
-        "location": "Suwanee, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Process-Analytics---Technology-Delivery-Team_R2026-1907"
-      }
-    ],
+    "recovered": 0,
+    "recoveredRoles": [],
     "diagnostics": {
       "Vantage Data Centers": {
         "queriesAttempted": 10,
@@ -462,7 +449,7 @@
         "queriesSucceeded": 10,
         "candidates": 64,
         "qualifyingRoles": 43,
-        "additions": 2,
+        "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
@@ -807,6 +794,25 @@
         ],
         "errors": []
       }
+    },
+    "publicationScrub": {
+      "checkedAt": "2026-09-08T05:50:26.505Z",
+      "removed": 2,
+      "removedRoles": [
+        {
+          "company": "QTS Data Centers",
+          "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
+          "location": "Suwanee, GA",
+          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Enterprise-Applications--SharePoint-Access--Intern_R2026-1910"
+        },
+        {
+          "company": "QTS Data Centers",
+          "title": "Summer 2027 Internship: Process Analytics - Technology Delivery Team",
+          "location": "Suwanee, GA",
+          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Process-Analytics---Technology-Delivery-Team_R2026-1907"
+        }
+      ],
+      "policy": "Reject corporate title families from targeted major-employer recovery before publication."
     }
   },
   "earlyCareerDiscovery": {
@@ -1440,10 +1446,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T05:15:23.206Z",
+    "updatedAt": "2026-09-08T05:50:26.582Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 599,
+    "regionAssigned": 597,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -1451,16 +1457,16 @@
       "west": 83,
       "midwest": 116,
       "southwest": 74,
-      "southeast": 102,
+      "southeast": 100,
       "texas": 95,
       "mid-atlantic": 110,
       "northeast": 19
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T05:15:23.258Z",
-    "before": 599,
-    "after": 599,
+    "checkedAt": "2026-09-08T05:50:26.630Z",
+    "before": 597,
+    "after": 597,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1474,14 +1480,14 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 870,
-    "currentJobs": 599,
+    "currentJobs": 597,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 2,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T05:15:23.347Z"
+    "updatedAt": "2026-09-08T05:50:26.716Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

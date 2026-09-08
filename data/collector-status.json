@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-08T21:06:55.200Z",
+  "updatedAt": "2026-09-08T23:42:36.433Z",
   "jobs": 666,
-  "sourcesAttempted": 29,
+  "sourcesAttempted": 30,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -10,7 +10,7 @@
     "workday": 6,
     "googleCareers": 2,
     "metaCareers": 1,
-    "oracleRecruitingCloud": 2
+    "oracleRecruitingCloud": 3
   },
   "countsByType": {
     "entry-level": 632,
@@ -1364,24 +1364,55 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2263,
-    "listingRows": 2260,
+    "totalOpenRoles": 2286,
+    "listingRows": 2283,
     "pagesAttempted": 13,
     "pagesSucceeded": 13,
-    "candidateRows": 89,
-    "detailAttempted": 89,
+    "candidateRows": 91,
+    "detailAttempted": 91,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
-    "qualifyingRoles": 19,
+    "qualifyingRoles": 16,
     "drops": {
-      "title": 2171,
+      "title": 2192,
       "nonUs": 36,
       "context": 14,
-      "experience": 18,
+      "experience": 19,
       "missingId": 0,
       "fetch": 0
     },
-    "errors": []
+    "errors": [],
+    "missionFitScrub": {
+      "checkedAt": "2026-09-08T23:42:36.501Z",
+      "removedFromSnapshot": 4,
+      "removedFromPublicFeed": 4,
+      "removed": [
+        {
+          "id": "oracle-careers-343898",
+          "title": "Data Center Construction Cost Estimator (Nashville, TN)",
+          "location": "Nashville, TN, United States",
+          "reason": "non-operational role family"
+        },
+        {
+          "id": "oracle-careers-342953",
+          "title": "Data Center Business Operations Business Analyst",
+          "location": "Nashville, TN, United States",
+          "reason": "non-operational role family"
+        },
+        {
+          "id": "oracle-careers-333294",
+          "title": "Data Center Development Cost Management",
+          "location": "NM, United States",
+          "reason": "non-operational role family"
+        },
+        {
+          "id": "oracle-careers-334333",
+          "title": "OCI Software Engineer Intern - OVIP",
+          "location": "Austin, TX, United States",
+          "reason": "non-operational role family"
+        }
+      ]
+    }
   },
   "digitalRealty": {
     "officialSource": "https://www.digitalrealty.com/about/careers",
@@ -1602,7 +1633,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T21:51:26.465Z",
+    "checkedAt": "2026-09-08T23:42:36.569Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1610,7 +1641,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T21:51:26.508Z",
+    "updatedAt": "2026-09-08T23:42:36.644Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 666,
@@ -1628,7 +1659,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T21:51:26.569Z",
+    "checkedAt": "2026-09-08T23:42:36.713Z",
     "before": 666,
     "after": 666,
     "removed": 0,
@@ -1653,7 +1684,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T21:51:26.634Z"
+    "updatedAt": "2026-09-08T23:42:36.778Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

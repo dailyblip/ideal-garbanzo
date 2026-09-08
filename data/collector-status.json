@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-08T14:56:26.449Z",
-  "jobs": 460,
+  "updatedAt": "2026-09-08T15:44:32.008Z",
+  "jobs": 461,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
+    "internship": 10,
     "trainee": 13,
     "apprenticeship": 12,
-    "internship": 9,
     "entry-level": 426
   },
   "countsByExperience": {
+    "no-experience": 45,
     "0-2-years": 180,
-    "2-5-years": 236,
-    "no-experience": 44
+    "2-5-years": 236
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1430,10 +1430,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 6,
-      "qualifyingRoles": 0,
+      "staleRemoved": 5,
+      "qualifyingRoles": 1,
       "drops": {
-        "non-us": 10,
+        "non-us": 9,
         "unknown-experience": 9,
         "context": 1,
         "title": 13
@@ -1470,12 +1470,12 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
         {
-          "title": "SkillBridge Critical Facilities Engineer - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
-        },
-        {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -1487,8 +1487,8 @@
       "listingPagesAttempted": 11,
       "listingPagesSucceeded": 11,
       "candidateLinks": 7,
-      "recoveredCandidates": 5,
-      "verifiedSeeded": 2,
+      "recoveredCandidates": 4,
+      "verifiedSeeded": 3,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-08",
       "detailAttempted": 7,
@@ -1509,17 +1509,22 @@
   },
   "equinixVerifiedFallback": {
     "officialSource": "https://careers.equinix.com/",
-    "verifiedAt": "2026-09-07T00:00:00.000Z",
+    "verifiedAt": "2026-09-08T00:00:00.000Z",
     "expiresAt": "2026-09-15T00:00:00.000Z",
     "expired": false,
-    "rolesVerified": 6,
-    "liveChecksPassed": 6,
+    "rolesVerified": 7,
+    "liveChecksPassed": 7,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
-    "added": 6,
-    "retainedManaged": 6,
+    "added": 7,
+    "retainedManaged": 7,
     "checks": [
+      {
+        "requisition": "JR-159872",
+        "status": 202,
+        "ok": true
+      },
       {
         "requisition": "JR-163301",
         "status": 202,
@@ -1692,15 +1697,15 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T14:56:26.506Z",
+    "updatedAt": "2026-09-08T15:44:32.085Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 460,
+    "regionAssigned": 461,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 66,
+      "west": 67,
       "texas": 75,
       "midwest": 88,
       "mid-atlantic": 69,
@@ -1710,9 +1715,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T14:56:26.558Z",
-    "before": 460,
-    "after": 460,
+    "checkedAt": "2026-09-08T15:44:32.148Z",
+    "before": 461,
+    "after": 461,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1725,15 +1730,15 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 873,
-    "currentJobs": 460,
-    "newJobsThisRun": 0,
+    "trackedJobs": 874,
+    "currentJobs": 461,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 92,
-    "updatedAt": "2026-09-08T14:56:26.610Z"
+    "firstSeenRecencyFallbackJobs": 93,
+    "updatedAt": "2026-09-08T15:44:32.209Z"
   }
 }

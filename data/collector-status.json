@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-09-08T05:54:34.236Z",
+  "updatedAt": "2026-09-08T06:40:40.236Z",
   "jobs": 597,
-  "sourcesAttempted": 29,
+  "sourcesAttempted": 30,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
     "ashby": 5,
     "icims": 1,
     "workday": 6,
-    "googleCareers": 1,
+    "googleCareers": 2,
     "metaCareers": 1,
     "oracleRecruitingCloud": 4
   },
@@ -1438,7 +1438,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T04:57:30.414Z",
+    "checkedAt": "2026-09-08T06:40:40.363Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1446,7 +1446,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T05:54:34.283Z",
+    "updatedAt": "2026-09-08T06:40:40.438Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 597,
@@ -1455,16 +1455,16 @@
     "missingSamples": [],
     "countsByRegion": {
       "west": 83,
-      "midwest": 116,
-      "southwest": 74,
+      "northeast": 19,
       "southeast": 100,
+      "midwest": 116,
       "texas": 95,
       "mid-atlantic": 110,
-      "northeast": 19
+      "southwest": 74
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T05:54:34.322Z",
+    "checkedAt": "2026-09-08T06:40:40.505Z",
     "before": 597,
     "after": 597,
     "removed": 0,
@@ -1487,7 +1487,7 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T05:54:53.005Z"
+    "updatedAt": "2026-09-08T06:40:40.569Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

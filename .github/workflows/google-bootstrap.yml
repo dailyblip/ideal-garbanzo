@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-google-careers.mjs'
+      - '.github/workflows/google-bootstrap.yml'
   workflow_dispatch:
   schedule:
     - cron: '47 */12 * * *'
@@ -60,14 +61,15 @@ jobs:
       - name: Commit Google snapshot when changed
         id: commit
         run: |
-          if [ -z "$(git status --porcelain -- data/google-jobs.json data/jobs.json data/job-history.json data/collector-status.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/google-jobs.json data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json)" ]; then
             echo "No Google Careers data changes."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/google-jobs.json data/jobs.json data/job-history.json data/collector-status.json
+          # filter-mission-fit.mjs may also prune the shared major Workday snapshot.
+          git add data/google-jobs.json data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
           git commit -m "Bootstrap verified Google Careers roles"
           git fetch origin main
           git rebase origin/main

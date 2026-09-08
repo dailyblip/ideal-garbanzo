@@ -5,11 +5,10 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
+      - 'data/major-jobs.json'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
-      - 'scripts/refresh-region-status.mjs'
-      - 'scripts/stamp-job-history.mjs'
       - '.github/workflows/mission-fit-publication-guard.yml'
   # Commits made with the default Actions token do not recursively start new
   # push workflows. This cheap scheduled pass therefore also catches output
@@ -42,8 +41,6 @@ jobs:
           node --check scripts/filter-mission-fit.mjs
           node --check scripts/normalize-job-locations.mjs
           node --check scripts/dedupe-normalized-jobs.mjs
-          node --check scripts/refresh-region-status.mjs
-          node --check scripts/stamp-job-history.mjs
       - name: Enforce mission fit and publish a clean feed
         shell: bash
         run: |
@@ -62,13 +59,15 @@ jobs:
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/refresh-region-status.mjs
-            node scripts/stamp-job-history.mjs
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-priority-employer-sources.mjs
 
-            git add -u -- data/
+            # Guard only the publishable feed/snapshot. The filter scripts also
+            # refresh diagnostic timestamps in collector-status.json; staging
+            # that file here would create a meaningless commit every 15 minutes.
+            # Likewise, do not restamp postedHours/history during a no-op guard.
+            git add -- data/jobs.json data/major-jobs.json
             if git diff --cached --quiet; then
               echo "Committed feed already satisfies mission-fit publication rules."
               exit 0

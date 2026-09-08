@@ -369,29 +369,16 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-08T13:55:09.839Z",
+    "checkedAt": "2026-09-08T16:59:52.322Z",
     "officialOnly": true,
     "additiveOnly": true,
-    "recovered": 2,
-    "recoveredRoles": [
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
-        "location": "Suwanee, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Enterprise-Applications--SharePoint-Access--Intern_R2026-1910"
-      },
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Process Analytics - Technology Delivery Team",
-        "location": "Suwanee, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Process-Analytics---Technology-Delivery-Team_R2026-1907"
-      }
-    ],
+    "recovered": 0,
+    "recoveredRoles": [],
     "diagnostics": {
       "Vantage Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 32,
+        "candidates": 33,
         "qualifyingRoles": 0,
         "additions": 0,
         "queryStats": [
@@ -399,7 +386,7 @@
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 169
+            "reportedTotal": 170
           },
           {
             "searchText": "critical facilities",
@@ -428,20 +415,20 @@
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 92,
-            "reportedTotal": 92
+            "rows": 93,
+            "reportedTotal": 93
           },
           {
             "searchText": "technician",
             "healthy": true,
-            "rows": 35,
-            "reportedTotal": 35
+            "rows": 34,
+            "reportedTotal": 34
           },
           {
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 117
+            "reportedTotal": 119
           },
           {
             "searchText": "apprentice",
@@ -453,7 +440,7 @@
             "searchText": "trainee",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 169
+            "reportedTotal": 170
           }
         ],
         "errors": []
@@ -461,57 +448,57 @@
       "QTS Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
-        "candidates": 64,
-        "qualifyingRoles": 43,
+        "candidates": 62,
+        "qualifyingRoles": 42,
         "additions": 2,
         "queryStats": [
           {
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 241
+            "reportedTotal": 242
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 136
+            "reportedTotal": 137
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 173
+            "reportedTotal": 171
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 185
+            "reportedTotal": 184
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 73,
-            "reportedTotal": 73
+            "rows": 72,
+            "reportedTotal": 72
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 82,
-            "reportedTotal": 82
+            "rows": 81,
+            "reportedTotal": 81
           },
           {
             "searchText": "technician",
             "healthy": true,
-            "rows": 28,
-            "reportedTotal": 28
+            "rows": 27,
+            "reportedTotal": 27
           },
           {
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 173
+            "reportedTotal": 175
           },
           {
             "searchText": "apprentice",
@@ -522,8 +509,8 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 97,
-            "reportedTotal": 97
+            "rows": 95,
+            "reportedTotal": 95
           }
         ],
         "errors": []
@@ -608,26 +595,26 @@
           {
             "searchText": "data center",
             "healthy": true,
-            "rows": 67,
-            "reportedTotal": 67
+            "rows": 66,
+            "reportedTotal": 66
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
-            "rows": 48,
-            "reportedTotal": 48
+            "rows": 47,
+            "reportedTotal": 47
           },
           {
             "searchText": "critical environment",
             "healthy": true,
-            "rows": 37,
-            "reportedTotal": 37
+            "rows": 36,
+            "reportedTotal": 36
           },
           {
             "searchText": "critical operations",
             "healthy": true,
-            "rows": 44,
-            "reportedTotal": 44
+            "rows": 43,
+            "reportedTotal": 43
           },
           {
             "searchText": "mechanical engineer",
@@ -685,31 +672,31 @@
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 130
+            "reportedTotal": 131
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 148
+            "reportedTotal": 149
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 142
+            "reportedTotal": 143
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 74,
-            "reportedTotal": 74
+            "rows": 75,
+            "reportedTotal": 75
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 87,
-            "reportedTotal": 87
+            "rows": 86,
+            "reportedTotal": 86
           },
           {
             "searchText": "technician",
@@ -749,7 +736,7 @@
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 202
+            "reportedTotal": 204
           },
           {
             "searchText": "critical facilities",
@@ -761,25 +748,25 @@
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 152
+            "reportedTotal": 153
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 173
+            "reportedTotal": 174
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 167
+            "reportedTotal": 168
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 174
+            "reportedTotal": 175
           },
           {
             "searchText": "technician",
@@ -790,8 +777,8 @@
           {
             "searchText": "intern",
             "healthy": true,
-            "rows": 70,
-            "reportedTotal": 70
+            "rows": 71,
+            "reportedTotal": 71
           },
           {
             "searchText": "apprentice",
@@ -802,12 +789,31 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 72,
-            "reportedTotal": 72
+            "rows": 73,
+            "reportedTotal": 73
           }
         ],
         "errors": []
       }
+    },
+    "publicationScrub": {
+      "checkedAt": "2026-09-08T17:00:07.415Z",
+      "removed": 2,
+      "removedRoles": [
+        {
+          "company": "QTS Data Centers",
+          "title": "Summer 2027 Internship: Enterprise Applications (SharePoint Access) Intern",
+          "location": "Suwanee, GA",
+          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Enterprise-Applications--SharePoint-Access--Intern_R2026-1910"
+        },
+        {
+          "company": "QTS Data Centers",
+          "title": "Summer 2027 Internship: Process Analytics - Technology Delivery Team",
+          "location": "Suwanee, GA",
+          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Process-Analytics---Technology-Delivery-Team_R2026-1907"
+        }
+      ],
+      "policy": "Reject corporate title families from targeted major-employer recovery before publication."
     }
   },
   "earlyCareerDiscovery": {
@@ -1588,7 +1594,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T16:54:58.872Z",
+    "checkedAt": "2026-09-08T17:00:07.447Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1596,7 +1602,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T16:54:58.940Z",
+    "updatedAt": "2026-09-08T17:00:07.488Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 461,
@@ -1614,7 +1620,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T16:54:59.001Z",
+    "checkedAt": "2026-09-08T17:00:07.545Z",
     "before": 461,
     "after": 461,
     "removed": 0,
@@ -1638,6 +1644,6 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T16:54:59.070Z"
+    "updatedAt": "2026-09-08T17:00:07.606Z"
   }
 }

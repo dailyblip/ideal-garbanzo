@@ -11,6 +11,7 @@ on:
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - '.github/workflows/mission-fit-publication-guard.yml'
   # Commits made with the default Actions token do not recursively start new
   # push workflows. This cheap scheduled pass therefore also catches output
@@ -44,6 +45,7 @@ jobs:
           node --check scripts/normalize-job-locations.mjs
           node --check scripts/dedupe-normalized-jobs.mjs
           node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
       - name: Enforce mission fit and publish a clean feed
         shell: bash
         run: |
@@ -64,13 +66,13 @@ jobs:
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/stamp-job-history.mjs --repair-only
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-priority-employer-sources.mjs
 
             # Guard only publishable feed/history state. Diagnostic timestamps in
             # collector-status.json are intentionally not staged. Repair-only
-            # history mode also leaves postedHours unchanged, avoiding clock-only
-            # commits when the feed is already healthy.
+            # history mode fixes invalid recency sentinels while leaving healthy
+            # postedHours alone, avoiding clock-only commits on a clean feed.
             git add -- data/jobs.json data/major-jobs.json data/job-history.json
             if git diff --cached --quiet; then
               echo "Committed feed already satisfies mission-fit publication rules."

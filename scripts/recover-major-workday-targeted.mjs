@@ -151,7 +151,7 @@ function confidentUsLocation(value = '') {
   const states = [
     'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','District of Columbia'
   ];
-  if (states.some(state => new RegExp(`\b${state.replace(/ /g, '\s+')}\b`, 'i').test(text))) return true;
+  if (states.some(state => new RegExp(`\b${state.replace(/ /g, '\\s+')}\b`, 'i').test(text))) return true;
   const codes = new Set(['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']);
   const match = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
   return Boolean(match && codes.has(match[1]));
@@ -427,8 +427,19 @@ for (const board of boards) {
   };
 }
 
+const checkedAt = new Date().toISOString();
+status.majorTargetedRecovery = {
+  checkedAt,
+  officialOnly: true,
+  additiveOnly: true,
+  recovered: recovered.length,
+  recoveredRoles: recovered.map(job => ({ company: job.company, title: job.title, location: job.location, sourceUrl: job.sourceUrl })),
+  diagnostics
+};
+await writeFile('data/collector-status.json', JSON.stringify(status, null, 2) + '\n');
+
 if (!recovered.length) {
-  console.log('Targeted major Workday recovery found no new verified U.S. 0-5 year roles.');
+  console.log('Targeted major Workday recovery found no new verified U.S. 0-5 year roles; source diagnostics were refreshed.');
   process.exit(0);
 }
 
@@ -440,16 +451,6 @@ for (const job of recovered) {
 
 const nextMajor = dedupe([...major, ...recovered]);
 const nextJobs = dedupe([...jobs, ...recovered]).sort((a, b) => (a.postedHours ?? 9999) - (b.postedHours ?? 9999));
-status.majorTargetedRecovery = {
-  checkedAt: new Date().toISOString(),
-  officialOnly: true,
-  additiveOnly: true,
-  recovered: recovered.length,
-  recoveredRoles: recovered.map(job => ({ company: job.company, title: job.title, location: job.location, sourceUrl: job.sourceUrl })),
-  diagnostics
-};
-
 await writeFile('data/major-jobs.json', JSON.stringify(nextMajor, null, 2) + '\n');
 await writeFile('data/jobs.json', JSON.stringify(nextJobs, null, 2) + '\n');
-await writeFile('data/collector-status.json', JSON.stringify(status, null, 2) + '\n');
 console.log(`Targeted major Workday recovery added ${recovered.length} verified role(s): ${recovered.map(job => `${job.company} — ${job.title} (${job.location})`).join('; ')}`);

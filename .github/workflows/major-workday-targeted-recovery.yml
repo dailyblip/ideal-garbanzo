@@ -67,6 +67,7 @@ jobs:
       - name: Normalize and validate reconciled roles
         if: steps.recovery.outputs.roles_changed == 'true'
         run: |
+          node scripts/filter-mission-fit.mjs
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
@@ -79,18 +80,54 @@ jobs:
 
       - name: Commit targeted recovery state
         if: steps.recovery.outputs.changed == 'true'
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
-          if git diff --cached --quiet; then
-            echo 'Targeted recovery left no data changes to commit.'
-            exit 0
-          fi
-          git commit -m 'Reconcile targeted major-employer roles and health'
-          git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+
+          # Employer-specific writers and the global publication guard can move
+          # main while the official Workday liveness scan is running. Rebasing
+          # generated JSON snapshots creates avoidable conflicts, so rebuild the
+          # recovery from the newest main and retry the push instead.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+              echo "Main moved during recovery; rebuilding from latest main (attempt ${attempt})."
+              git reset --hard origin/main
+
+              node scripts/recover-major-workday-targeted.mjs
+              node scripts/prune-closed-major-workday.mjs
+              node scripts/scrub-major-targeted-noise.mjs
+              node scripts/filter-mission-fit.mjs
+              node scripts/normalize-job-locations.mjs
+              node scripts/dedupe-normalized-jobs.mjs
+              node scripts/normalize-display-copy.mjs
+              node scripts/stamp-job-history.mjs
+              node scripts/refresh-region-status.mjs
+              node scripts/validate.mjs
+              node scripts/validate-job-history.mjs
+              node scripts/validate-priority-employer-sources.mjs
+              node scripts/validate-major-workday-parity.mjs
+            fi
+
+            git add data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo 'Targeted recovery left no data changes to commit.'
+              exit 0
+            fi
+
+            git commit -m 'Reconcile targeted major-employer roles and health'
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Main moved before targeted recovery push completed; retrying from latest main."
+            sleep $((attempt * 2))
+          done
+
+          echo '::error::Could not publish targeted Workday recovery after three fresh rebuilds.'
+          exit 1
 
       - name: Deploy reconciled roles
         if: steps.recovery.outputs.roles_changed == 'true'

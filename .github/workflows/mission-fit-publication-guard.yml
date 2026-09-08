@@ -11,6 +11,11 @@ on:
       - 'scripts/refresh-region-status.mjs'
       - 'scripts/stamp-job-history.mjs'
       - '.github/workflows/mission-fit-publication-guard.yml'
+  # Commits made with the default Actions token do not recursively start new
+  # push workflows. This cheap scheduled pass therefore also catches output
+  # from employer-specific writers that publish between the daily full refreshes.
+  schedule:
+    - cron: '7,22,37,52 * * * *'
   workflow_dispatch:
 
 permissions:

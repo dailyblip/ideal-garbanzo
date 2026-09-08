@@ -32,6 +32,7 @@ const alignedSiteLocationAliases = new Map([
   ['NEO-01', 'Sandusky, OH'],
   ['DFW-04', 'Plano, TX'],
   ['IAD-02', 'Ashburn, VA'],
+  ['ORD-03', 'Elk Grove Village, IL'],
   ['PDX-01', 'Hillsboro, OR'],
   ['PHX-13', 'Glendale, AZ']
 ]);
@@ -224,6 +225,7 @@ for (const [job, expected] of [
   [{ company:'Aligned Data Centers', location:'NEO-01' }, 'Sandusky, OH'],
   [{ company:'Aligned Data Centers', location:'DFW-04' }, 'Plano, TX'],
   [{ company:'Aligned Data Centers', location:'IAD-02' }, 'Ashburn, VA'],
+  [{ company:'Aligned Data Centers', location:'ORD-03' }, 'Elk Grove Village, IL'],
   [{ company:'Aligned Data Centers', location:'PDX-01' }, 'Hillsboro, OR'],
   [{ company:'Aligned Data Centers', location:'PHX-13' }, 'Glendale, AZ'],
   [{ company:'Vantage Data Centers', location:'DFW-04' }, 'DFW-04']

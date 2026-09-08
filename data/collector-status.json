@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-08T09:25:24.151Z",
+  "updatedAt": "2026-09-08T10:45:28.329Z",
   "jobs": 595,
-  "sourcesAttempted": 30,
+  "sourcesAttempted": 31,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -9,7 +9,7 @@
     "icims": 1,
     "workday": 6,
     "googleCareers": 2,
-    "metaCareers": 1,
+    "metaCareers": 2,
     "oracleRecruitingCloud": 4
   },
   "countsByType": {
@@ -1003,22 +1003,58 @@
       "searchPagesSucceeded": 2,
       "embeddedCandidates": 0,
       "sitemapFetched": true,
-      "sitemapJobs": 898,
-      "detailAttempted": 891,
-      "detailSucceeded": 891,
-      "reusedFromSitemap": 7,
+      "sitemapJobs": 896,
+      "detailAttempted": 896,
+      "detailSucceeded": 896,
+      "previousSnapshotCandidates": 7,
+      "previousSnapshotReverified": 0,
       "verified": 0,
       "drops": {
-        "titleOrContext": 883,
+        "titleOrContext": 881,
         "nonUsOrUnknownLocation": 1,
-        "experience": 7,
+        "experience": 14,
         "fetch": 0
       },
       "titleOrContextSamples": [
         {
-          "id": "2486789151677735",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
+          "id": "1802377544217407",
+          "title": "Case Manager, eDiscovery & Information Governance Team",
+          "url": "https://www.metacareers.com/profile/job_details/1802377544217407/"
+        },
+        {
+          "id": "7868993783158276",
+          "title": "Production Engineering",
+          "url": "https://www.metacareers.com/profile/job_details/7868993783158276/"
+        },
+        {
+          "id": "1405524448080606",
+          "title": "Performance & Capacity Engineering - Capacity Planning Optimization",
+          "url": "https://www.metacareers.com/profile/job_details/1405524448080606/"
+        },
+        {
+          "id": "4502174973433397",
+          "title": "Data Scientist, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/4502174973433397/"
+        },
+        {
+          "id": "1949737129012337",
+          "title": "Construction Manager, Lease - Data Center Construction",
+          "url": "https://www.metacareers.com/profile/job_details/1949737129012337/"
+        },
+        {
+          "id": "612870871828801",
+          "title": "Software Engineer, Product",
+          "url": "https://www.metacareers.com/profile/job_details/612870871828801/"
+        },
+        {
+          "id": "1229945984832289",
+          "title": "Product Designer",
+          "url": "https://www.metacareers.com/profile/job_details/1229945984832289/"
+        },
+        {
+          "id": "1877090059603504",
+          "title": "Mechanical Subject Matter Expert, Data Center Environmental Systems",
+          "url": "https://www.metacareers.com/profile/job_details/1877090059603504/"
         },
         {
           "id": "1283364266159062",
@@ -1026,94 +1062,59 @@
           "url": "https://www.metacareers.com/profile/job_details/1283364266159062/"
         },
         {
-          "id": "2202408333845361",
-          "title": "Enterprise Technical Sales Specialist, EMEA",
-          "url": "https://www.metacareers.com/profile/job_details/2202408333845361/"
-        },
-        {
-          "id": "1070147800777577",
-          "title": "Data Scientist, Product Analytics",
-          "url": "https://www.metacareers.com/profile/job_details/1070147800777577/"
-        },
-        {
-          "id": "1394915781774041",
-          "title": "Software Engineer, Android",
-          "url": "https://www.metacareers.com/profile/job_details/1394915781774041/"
-        },
-        {
-          "id": "1065276992935295",
-          "title": "Network Development Manager, Network Investments",
-          "url": "https://www.metacareers.com/profile/job_details/1065276992935295/"
-        },
-        {
-          "id": "2642803532856407",
-          "title": "Product Manager (Leadership) - Risk",
-          "url": "https://www.metacareers.com/profile/job_details/2642803532856407/"
-        },
-        {
-          "id": "998357492128826",
-          "title": "Software Engineer, Machine Learning",
-          "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
-        },
-        {
-          "id": "1434849621914402",
-          "title": "Machine Learning Engineer, Experimentation",
-          "url": "https://www.metacareers.com/profile/job_details/1434849621914402/"
-        },
-        {
-          "id": "906391792398202",
-          "title": "Enterprise Technical Sales Specialist, EMEA",
-          "url": "https://www.metacareers.com/profile/job_details/906391792398202/"
-        },
-        {
-          "id": "1102967612389866",
-          "title": "Lead Counsel, Regulatory Litigation",
-          "url": "https://www.metacareers.com/profile/job_details/1102967612389866/"
-        },
-        {
-          "id": "1277398403727586",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/1277398403727586/"
-        },
-        {
-          "id": "1641729270190677",
-          "title": "Product Marketing Manager",
-          "url": "https://www.metacareers.com/profile/job_details/1641729270190677/"
-        },
-        {
-          "id": "1087913390320811",
-          "title": "Software Engineer, Accessibility",
-          "url": "https://www.metacareers.com/profile/job_details/1087913390320811/"
-        },
-        {
-          "id": "1203016587809246",
-          "title": "Software Engineer, iOS",
-          "url": "https://www.metacareers.com/profile/job_details/1203016587809246/"
-        },
-        {
-          "id": "1515007723239026",
-          "title": "Account Manager, CEE, Polish",
-          "url": "https://www.metacareers.com/profile/job_details/1515007723239026/"
-        },
-        {
-          "id": "613354727793690",
-          "title": "Data Scientist, Analytics (Technical Leadership)",
-          "url": "https://www.metacareers.com/profile/job_details/613354727793690/"
-        },
-        {
           "id": "9657291271065759",
           "title": "Software Engineer, Product",
           "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
         },
         {
-          "id": "1943786999834780",
+          "id": "955432583936869",
           "title": "Product Design Engineer",
-          "url": "https://www.metacareers.com/profile/job_details/1943786999834780/"
+          "url": "https://www.metacareers.com/profile/job_details/955432583936869/"
         },
         {
-          "id": "2887906508264541",
-          "title": "Software Engineer (Leadership) - Product",
-          "url": "https://www.metacareers.com/profile/job_details/2887906508264541/"
+          "id": "1645503493182815",
+          "title": "Software Engineer, Machine Learning RecSys",
+          "url": "https://www.metacareers.com/profile/job_details/1645503493182815/"
+        },
+        {
+          "id": "1734358140739006",
+          "title": "Network Engineer, Deployment & Support",
+          "url": "https://www.metacareers.com/profile/job_details/1734358140739006/"
+        },
+        {
+          "id": "2018699405745973",
+          "title": "Site Logistics Operations Specialist",
+          "url": "https://www.metacareers.com/profile/job_details/2018699405745973/"
+        },
+        {
+          "id": "2282367178830920",
+          "title": "Software Engineer (Technical Leadership)",
+          "url": "https://www.metacareers.com/profile/job_details/2282367178830920/"
+        },
+        {
+          "id": "2486789151677735",
+          "title": "Software Engineer, Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
+        },
+        {
+          "id": "435020605866341",
+          "title": "Data Scientist, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/435020605866341/"
+        },
+        {
+          "id": "1201679578735137",
+          "title": "Network Engineer, Foundations and Support",
+          "url": "https://www.metacareers.com/profile/job_details/1201679578735137/"
+        },
+        {
+          "id": "687249053364137",
+          "title": "Technical Program Manager",
+          "url": "https://www.metacareers.com/profile/job_details/687249053364137/"
+        },
+        {
+          "id": "1728618411914287",
+          "title": "Client Solutions Manager",
+          "url": "https://www.metacareers.com/profile/job_details/1728618411914287/"
         }
       ],
       "locationSamples": [
@@ -1127,6 +1128,78 @@
         }
       ],
       "experienceSamples": [
+        {
+          "id": "1435494154152569",
+          "title": "Critical Facility Engineer",
+          "location": "El Paso, TX",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upo... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1435494154152569/"
+        },
+        {
+          "id": "2781256275574469",
+          "title": "Mechanical Subject Matter Expert, Data Center Operations",
+          "location": "Beaver Dam, WI",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a data center Mechanical Subject Matter Expert (SME) to join our Data Center Facility Operations team. Our data centers serve as the fou... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/2781256275574469/"
+        },
+        {
+          "id": "795179610064299",
+          "title": "Critical Facility Engineer",
+          "location": "Rayville, LA",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upon... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/795179610064299/"
+        },
+        {
+          "id": "1713216779808487",
+          "title": "Critical Facility Engineer",
+          "location": "Temple, TX",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upon... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1713216779808487/"
+        },
+        {
+          "id": "1685872255913876",
+          "title": "Data Center Production Operations Engineer",
+          "location": "Los Lunas, NM",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a forward thinking experienced engineer to join the Production Operations team within our Data Centers. These Data Centers are the found... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1685872255913876/"
+        },
+        {
+          "id": "2787411734955554",
+          "title": "Electrical Subject Matter Expert, Data Center Operations",
+          "location": "Temple, TX",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a data center Electrical Subject Matter Expert (SME) to join our Data Center Facility Operations team. Our data centers serve as the fou... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/2787411734955554/"
+        },
+        {
+          "id": "1690022942358388",
+          "title": "Critical Facility Engineer",
+          "location": "Henrico, VA",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upon... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1690022942358388/"
+        },
+        {
+          "id": "1641406750475279",
+          "title": "Critical Facility Engineer",
+          "location": "Henrico, VA",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers form the backbone of Meta&#039;s global infra... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1641406750475279/"
+        },
         {
           "id": "1626919348826835",
           "title": "Data Center Production Operations Engineer",
@@ -1144,15 +1217,6 @@
           "scoped": false,
           "qualifications": "Meta is seeking a Data Center Production Operations Engineer to support the reliability, efficiency, and scalability of our global data center infrastru... Meta Careers",
           "url": "https://www.metacareers.com/profile/job_details/2773731913009465/"
-        },
-        {
-          "id": "1641406750475279",
-          "title": "Critical Facility Engineer",
-          "location": "Henrico, VA",
-          "years": [],
-          "scoped": false,
-          "qualifications": "Meta is seeking a Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers form the backbone of Meta&#039;s global infra... Meta Careers",
-          "url": "https://www.metacareers.com/profile/job_details/1641406750475279/"
         },
         {
           "id": "1027492196490833",
@@ -1192,19 +1256,75 @@
         }
       ],
       "verifiedSamples": [],
-      "recoveredFromStructuredData": 2
+      "recoveredFromStructuredData": 9
     },
     "errors": [],
     "structuredRecovery": {
-      "attempted": 7,
-      "fetched": 7,
-      "recovered": 2,
+      "attempted": 14,
+      "fetched": 14,
+      "recovered": 9,
       "minimumFromVisibleHtml": 0,
-      "minimumFromJobPostingJsonLd": 5,
+      "minimumFromJobPostingJsonLd": 12,
       "minimumFromStructuredData": 0,
       "noMinimumQualifications": 2,
       "noSupportedExperience": 3,
       "recoveredSamples": [
+        {
+          "id": "meta-1435494154152569",
+          "title": "Critical Facility Engineer",
+          "location": "El Paso, TX",
+          "minYears": 2,
+          "source": "jobposting-jsonld",
+          "url": "https://www.metacareers.com/profile/job_details/1435494154152569/"
+        },
+        {
+          "id": "meta-2781256275574469",
+          "title": "Mechanical Subject Matter Expert, Data Center Operations",
+          "location": "Beaver Dam, WI",
+          "minYears": 4,
+          "source": "jobposting-jsonld",
+          "url": "https://www.metacareers.com/profile/job_details/2781256275574469/"
+        },
+        {
+          "id": "meta-795179610064299",
+          "title": "Critical Facility Engineer",
+          "location": "Rayville, LA",
+          "minYears": 2,
+          "source": "jobposting-jsonld",
+          "url": "https://www.metacareers.com/profile/job_details/795179610064299/"
+        },
+        {
+          "id": "meta-1713216779808487",
+          "title": "Critical Facility Engineer",
+          "location": "Temple, TX",
+          "minYears": 3,
+          "source": "jobposting-jsonld",
+          "url": "https://www.metacareers.com/profile/job_details/1713216779808487/"
+        },
+        {
+          "id": "meta-1685872255913876",
+          "title": "Data Center Production Operations Engineer",
+          "location": "Los Lunas, NM",
+          "minYears": 5,
+          "source": "jobposting-jsonld",
+          "url": "https://www.metacareers.com/profile/job_details/1685872255913876/"
+        },
+        {
+          "id": "meta-2787411734955554",
+          "title": "Electrical Subject Matter Expert, Data Center Operations",
+          "location": "Temple, TX",
+          "minYears": 2,
+          "source": "jobposting-jsonld",
+          "url": "https://www.metacareers.com/profile/job_details/2787411734955554/"
+        },
+        {
+          "id": "meta-1690022942358388",
+          "title": "Critical Facility Engineer",
+          "location": "Henrico, VA",
+          "minYears": 2,
+          "source": "jobposting-jsonld",
+          "url": "https://www.metacareers.com/profile/job_details/1690022942358388/"
+        },
         {
           "id": "meta-1641406750475279",
           "title": "Critical Facility Engineer",
@@ -1446,153 +1566,30 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T09:25:24.223Z",
-    "changed": 11,
-    "samples": [
-      {
-        "id": "workday-aligneddc-JR101166",
-        "before": "ORD-03",
-        "after": "Elk Grove Village, IL"
-      },
-      {
-        "id": "workday-aligneddc-JR101165",
-        "before": "PDX-01",
-        "after": "Hillsboro, OR"
-      },
-      {
-        "id": "workday-aligneddc-JR101068",
-        "before": "DFW-04",
-        "after": "Plano, TX"
-      },
-      {
-        "id": "workday-aligneddc-JR101148",
-        "before": "ORD-03",
-        "after": "Elk Grove Village, IL"
-      },
-      {
-        "id": "workday-aligneddc-JR101086",
-        "before": "IAD-02",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-aligneddc-JR100970",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      },
-      {
-        "id": "workday-aligneddc-JR100971",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      },
-      {
-        "id": "workday-aligneddc-JR101013",
-        "before": "IAD-02",
-        "after": "Ashburn, VA"
-      }
-    ],
-    "regionAssigned": 583,
-    "regionMissing": 12,
-    "coveragePct": 98,
-    "missingSamples": [
-      {
-        "id": "workday-nttglobaldatacenters-JR101240",
-        "company": "NTT Global Data Centers",
-        "location": "Virginia, United States of America",
-        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Virginia-United-States-of-America/XMLNAME-914---Data-Center-Technician-L2_JR101240"
-      },
-      {
-        "id": "lever-lightedge-0765f29e-ee42-4aa3-bd86-80adfa1a3bf5",
-        "company": "LightEdge Solutions",
-        "location": "Omaha, Nebraska",
-        "sourceUrl": "https://jobs.lever.co/lightedge/0765f29e-ee42-4aa3-bd86-80adfa1a3bf5"
-      },
-      {
-        "id": "gh-elementcritical-4730973005",
-        "company": "Element Critical",
-        "location": "Katy, Texas, United States",
-        "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4730973005"
-      },
-      {
-        "id": "ashby-tensorwave-8127963682ddd7",
-        "company": "TensorWave",
-        "location": "Tucson, Arizona",
-        "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/c3bda642-1ee6-428d-8cc0-60d2d8965a49"
-      },
-      {
-        "id": "ashby-tensorwave-e1ccc2383f8d82",
-        "company": "TensorWave",
-        "location": "Miami, Florida",
-        "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/6d7ec2ad-36ff-42c1-8252-58e8c0208fd5"
-      },
-      {
-        "id": "gh-elementcritical-4721207005",
-        "company": "Element Critical",
-        "location": "Wood Dale, Illinois, United States",
-        "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4721207005"
-      },
-      {
-        "id": "lever-lightedge-572330d1-551e-4d19-a251-6878821d498a",
-        "company": "LightEdge Solutions",
-        "location": "Lewisville, Texas",
-        "sourceUrl": "https://jobs.lever.co/lightedge/572330d1-551e-4d19-a251-6878821d498a"
-      },
-      {
-        "id": "gh-elementcritical-4684121005",
-        "company": "Element Critical",
-        "location": "Katy, Texas, United States",
-        "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4684121005"
-      },
-      {
-        "id": "workable-stream-dc-62B4F3BCF5",
-        "company": "Stream Data Centers",
-        "location": "Chaska, Minnesota",
-        "sourceUrl": "https://apply.workable.com/stream-dc/j/62B4F3BCF5/"
-      },
-      {
-        "id": "workable-stream-dc-C4755E8B9E",
-        "company": "Stream Data Centers",
-        "location": "San Antonio, Texas",
-        "sourceUrl": "https://apply.workable.com/stream-dc/j/C4755E8B9E/"
-      },
-      {
-        "id": "workable-stream-dc-5B9BD8650E",
-        "company": "Stream Data Centers",
-        "location": "Elk Grove Village, Illinois",
-        "sourceUrl": "https://apply.workable.com/stream-dc/j/5B9BD8650E/"
-      },
-      {
-        "id": "workable-stream-dc-5FBD18EE51",
-        "company": "Stream Data Centers",
-        "location": "Goodyear, Arizona",
-        "sourceUrl": "https://apply.workable.com/stream-dc/j/5FBD18EE51/"
-      }
-    ],
+    "updatedAt": "2026-09-08T10:45:28.375Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 595,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
       "west": 83,
       "northeast": 19,
-      "southeast": 99,
-      "midwest": 112,
-      "texas": 89,
-      "mid-atlantic": 109,
-      "southwest": 72
+      "southeast": 100,
+      "midwest": 116,
+      "texas": 93,
+      "mid-atlantic": 110,
+      "southwest": 74
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T09:25:24.270Z",
-    "before": 597,
-    "after": 596,
-    "removed": 1,
+    "checkedAt": "2026-09-08T10:45:28.421Z",
+    "before": 595,
+    "after": 595,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-aligneddc-JR101027",
-        "keptId": "workday-aligneddc-JR101068",
-        "company": "Aligned Data Centers",
-        "title": "Critical Facilities Technician",
-        "location": "Plano, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-08T09:25:52.396Z",
@@ -1605,12 +1602,12 @@
     "trackedJobs": 870,
     "currentJobs": 595,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 11,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T09:25:52.516Z"
+    "updatedAt": "2026-09-08T10:45:28.464Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -14,6 +14,9 @@ const REGION_LABELS = {
 };
 const TYPE_RANK = { apprenticeship: 0, internship: 1, trainee: 2, 'entry-level': 3 };
 const PROMOTION_RANK = { spotlightJob: 0, highlightedJob: 1 };
+const EARLY_CAREER_FOCUS = 'early-career';
+const EARLY_CAREER_TYPES = new Set(['internship', 'apprenticeship', 'trainee']);
+const EARLY_CAREER_EXPERIENCE = new Set(['no-experience', '0-2-years']);
 const DIGEST_SOURCE = 'datacentercareers-weekly-digest';
 
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
@@ -95,6 +98,8 @@ const digestJobMatchesRegion = (job, region) => {
   if (!job?.region || location.includes(';')) return digestLocationMatchesRegion(location, region);
   return false;
 };
+const digestJobMatchesEarlyCareerFocus = job =>
+  EARLY_CAREER_TYPES.has(String(job?.type || '')) || EARLY_CAREER_EXPERIENCE.has(String(job?.experience || ''));
 
 const slugify = value => String(value ?? '')
   .trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'job';
@@ -125,18 +130,27 @@ if (!weeklyJobs.length) {
 
 const displayRegion = job => REGION_LABELS[job.region] || (job.region === 'nationwide' ? 'Nationwide' : 'Other / Nationwide');
 const audienceJobs = region => weeklyJobs.filter(job => digestJobMatchesRegion(job, region));
-const formatSubject = (count, regionLabel = '') => `${count} new ${regionLabel ? `${regionLabel} ` : ''}data center ${count === 1 ? 'job' : 'jobs'} this week`;
+const earlyCareerJobs = audience => audience.filter(digestJobMatchesEarlyCareerFocus);
+const formatSubject = (count, regionLabel = '', focus = '') =>
+  `${count} new ${regionLabel ? `${regionLabel} ` : ''}${focus === EARLY_CAREER_FOCUS ? 'early-career ' : ''}data center ${count === 1 ? 'job' : 'jobs'} this week`;
 
-function renderDigest(audience, regionLabel = '') {
+function renderDigest(audience, regionLabel = '', focus = '') {
   const total = audience.length;
   const shown = audience.slice(0, MAX_JOBS);
   const lines = [];
+  const earlyCareerOnly = focus === EARLY_CAREER_FOCUS;
+  const regionPhrase = regionLabel ? `${regionLabel} ` : '';
+  const focusPhrase = earlyCareerOnly ? 'early-career ' : '';
+  const preferenceParts = [];
+  if (regionLabel) preferenceParts.push(regionLabel);
+  if (earlyCareerOnly) preferenceParts.push('internships, apprenticeships and beginner-friendly roles');
+  const preferenceText = preferenceParts.length ? ` matching ${preferenceParts.join(' + ')}` : '';
 
   if (!total) {
     lines.push(
-      `# No new ${regionLabel || 'data center'} openings this week`,
+      `# No new ${regionPhrase}${focusPhrase}data center openings this week`,
       '',
-      `We did not add a new verified ${regionLabel ? `${regionLabel} ` : ''}data center opportunity in the last seven days. Current openings are still available on the site.`,
+      `We did not add a new verified data center opportunity${preferenceText} in the last seven days. Current openings are still available on the site.`,
       '',
       `[Browse all current data center jobs](${SITE_URL}/jobs/)`,
       '',
@@ -147,9 +161,9 @@ function renderDigest(audience, regionLabel = '') {
   }
 
   lines.push(
-    regionLabel ? `# New ${regionLabel} data center jobs this week` : '# New data center jobs this week',
+    `# New ${regionPhrase}${focusPhrase}data center jobs this week`,
     '',
-    `We added **${total} new ${total === 1 ? 'opportunity' : 'opportunities'}**${regionLabel ? ` matching your ${regionLabel} preference` : ''} over the last seven days.`,
+    `We added **${total} new ${total === 1 ? 'opportunity' : 'opportunities'}**${preferenceText} over the last seven days.`,
     ''
   );
 
@@ -183,28 +197,36 @@ function renderDigest(audience, regionLabel = '') {
   return lines.join('\n');
 }
 
+const renderFocusBody = (allJobs, regionLabel = '') => {
+  const focusedJobs = earlyCareerJobs(allJobs);
+  return `{% if subscriber.metadata.focus == '${EARLY_CAREER_FOCUS}' %}\n${renderDigest(focusedJobs, regionLabel, EARLY_CAREER_FOCUS)}\n{% else %}\n${renderDigest(allJobs, regionLabel)}\n{% endif %}`;
+};
+const renderFocusSubject = (allJobs, regionLabel = '') => {
+  const focusedJobs = earlyCareerJobs(allJobs);
+  return `{% if subscriber.metadata.focus == '${EARLY_CAREER_FOCUS}' %}${formatSubject(focusedJobs.length, regionLabel, EARLY_CAREER_FOCUS)}{% else %}${formatSubject(allJobs.length, regionLabel)}{% endif %}`;
+};
+
 const regionalAudiences = Object.entries(REGION_LABELS).map(([region, label]) => ({
   region,
   label,
   jobs: audienceJobs(region)
 }));
-const nationalBody = renderDigest(weeklyJobs);
 const bodyBranches = regionalAudiences.map(({ region, label, jobs: regionJobs }, index) => {
   const keyword = index === 0 ? 'if' : 'elif';
-  return `{% ${keyword} subscriber.metadata.region == '${region}' %}\n${renderDigest(regionJobs, label)}`;
+  return `{% ${keyword} subscriber.metadata.region == '${region}' %}\n${renderFocusBody(regionJobs, label)}`;
 });
-const body = `${bodyBranches.join('\n')}\n{% else %}\n${nationalBody}\n{% endif %}`;
+const body = `${bodyBranches.join('\n')}\n{% else %}\n${renderFocusBody(weeklyJobs)}\n{% endif %}`;
 
 const subjectBranches = regionalAudiences.map(({ region, label, jobs: regionJobs }, index) => {
   const keyword = index === 0 ? 'if' : 'elif';
-  return `{% ${keyword} subscriber.metadata.region == '${region}' %}${formatSubject(regionJobs.length, label)}`;
+  return `{% ${keyword} subscriber.metadata.region == '${region}' %}${renderFocusSubject(regionJobs, label)}`;
 });
-const subject = `${subjectBranches.join('')}{% else %}${formatSubject(weeklyJobs.length)}{% endif %}`;
+const subject = `${subjectBranches.join('')}{% else %}${renderFocusSubject(weeklyJobs)}{% endif %}`;
 
 if (dryRun) {
-  console.log(`DRY RUN (${digestKey}): ${weeklyJobs.length} national new jobs.`);
+  console.log(`DRY RUN (${digestKey}): ${weeklyJobs.length} national new jobs; ${earlyCareerJobs(weeklyJobs).length} match early-career focus.`);
   for (const { region, label, jobs: regionJobs } of regionalAudiences) {
-    console.log(`  ${label} (${region}): ${regionJobs.length} new jobs including nationwide roles`);
+    console.log(`  ${label} (${region}): ${regionJobs.length} new jobs including nationwide roles; ${earlyCareerJobs(regionJobs).length} early-career focused`);
   }
   console.log(`\nSUBJECT TEMPLATE\n${subject}\n\nBODY TEMPLATE\n${body}`);
   process.exit(0);
@@ -249,7 +271,7 @@ if (email) {
       status: 'draft',
       slug: `data-center-jobs-weekly-${digestKey}`,
       description: `Data Center Careers weekly job digest for the week of ${digestKey}.`,
-      metadata: { ...digestMetadata, total_jobs: weeklyJobs.length, regional_personalization: true }
+      metadata: { ...digestMetadata, total_jobs: weeklyJobs.length, regional_personalization: true, focus_personalization: true }
     })
   });
   if (!create.ok) throw new Error(`Buttondown draft creation failed (${create.status}): ${await create.text()}`);
@@ -267,9 +289,9 @@ const publish = await fetch(`https://api.buttondown.com/v1/emails/${encodeURICom
     body,
     slug: `data-center-jobs-weekly-${digestKey}`,
     description: `Data Center Careers weekly job digest for the week of ${digestKey}.`,
-    metadata: { ...digestMetadata, total_jobs: weeklyJobs.length, regional_personalization: true }
+    metadata: { ...digestMetadata, total_jobs: weeklyJobs.length, regional_personalization: true, focus_personalization: true }
   })
 });
 if (!publish.ok) throw new Error(`Buttondown publish failed (${publish.status}): ${await publish.text()}`);
 
-console.log(`Sent Monday weekly digest ${email.id} for ${digestKey} with ${weeklyJobs.length} newly added jobs and region-aware subscriber personalization.`);
+console.log(`Sent Monday weekly digest ${email.id} for ${digestKey} with ${weeklyJobs.length} newly added jobs and region- and focus-aware subscriber personalization.`);

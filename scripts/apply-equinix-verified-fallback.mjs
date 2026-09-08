@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import crypto from 'node:crypto';
 
-const VERIFIED_AT = '2026-09-07T00:00:00.000Z';
+const VERIFIED_AT = '2026-09-08T00:00:00.000Z';
 const EXPIRES_AT = '2026-09-15T00:00:00.000Z';
 const COMPANY = 'Equinix';
 const SOURCE = 'Equinix official careers (verified fallback)';
@@ -21,9 +21,22 @@ const knownOverExperiencePathSuffixes = [
 
 // Equinix's public job pages currently render full qualifications to browsers,
 // while GitHub-hosted collection sometimes receives a shell without that body.
-// These roles were re-verified on Equinix's official careers pages on 2026-09-07.
-// The fallback expires quickly, and every role URL must still answer successfully.
+// These roles were re-verified on Equinix's official careers pages through
+// 2026-09-08. The fallback expires quickly, and every role URL must still answer
+// successfully before it is allowed into the published feed.
 const verifiedRoles = [
+  {
+    requisition: 'JR-159872',
+    title: 'Data Center Development Intern Roles',
+    url: 'https://careers.equinix.com/jobs/data-center-development-intern-roles-dallas-texas-united-states-ashburn-virginia-elk-grove-village-illinois-san-jose-california',
+    location: 'San Jose, CA; Elk Grove Village, IL; Dallas, TX; Ashburn, VA',
+    type: 'internship',
+    experience: 'no-experience',
+    pay: '$25.00–$35.00 / hr',
+    salaryMin: 25,
+    salaryMax: 35,
+    salarySortMax: 72800
+  },
   {
     requisition: 'JR-163301',
     title: "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
@@ -135,6 +148,24 @@ function dedupe(jobs) {
   return out;
 }
 
+function fallbackType(role) {
+  if (role.type) return role.type;
+  if (/apprentice/i.test(role.title)) return 'apprenticeship';
+  if (/intern|co-?op/i.test(role.title)) return 'internship';
+  return 'trainee';
+}
+
+function fallbackTags(role, type) {
+  const experienceTag = role.experience === 'no-experience' ? 'No Experience Needed' : role.experience === '0-2-years' ? '0–2 Years' : '2–5 Years';
+  const tags = [
+    type === 'internship' ? 'Internship' : type === 'apprenticeship' ? 'Apprenticeship' : 'Trainee',
+    experienceTag
+  ];
+  if (/skillbridge/i.test(role.title)) tags.push('SkillBridge');
+  tags.push(/critical facilit/i.test(role.title) ? 'Critical Facilities' : 'Data Center Operations');
+  return [...new Set(tags)].slice(0, 5);
+}
+
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 let status = {};
 try { status = JSON.parse(await readFile('data/collector-status.json', 'utf8')); } catch {}
@@ -162,19 +193,19 @@ if (!expired) {
     const live = await checkLive(role.url);
     checks.push({ requisition: role.requisition, status: live.status, ok: live.ok });
     if (!live.ok || existingUrls.has(role.url)) continue;
-    const experienceTag = role.experience === 'no-experience' ? 'No Experience Needed' : role.experience === '0-2-years' ? '0–2 Years' : '2–5 Years';
+    const type = fallbackType(role);
     additions.push({
       id: `equinix-verified-${hash(role.url)}`,
       title: role.title,
       company: COMPANY,
       location: role.location,
-      type: 'trainee',
+      type,
       experience: role.experience,
-      tags: ['Trainee', experienceTag, 'SkillBridge', /critical facilit/i.test(role.title) ? 'Critical Facilities' : 'Data Center Operations'],
-      pay: 'Pay not listed',
-      salaryMin: null,
-      salaryMax: null,
-      salarySortMax: null,
+      tags: fallbackTags(role, type),
+      pay: role.pay || 'Pay not listed',
+      salaryMin: role.salaryMin ?? null,
+      salaryMax: role.salaryMax ?? null,
+      salarySortMax: role.salarySortMax ?? null,
       postedAt: null,
       postedHours: 9999,
       source: SOURCE,

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T15:44:32.008Z",
+  "updatedAt": "2026-09-08T15:50:27.436Z",
   "jobs": 461,
   "sourcesAttempted": 27,
   "providers": {
@@ -1431,22 +1431,14 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 5,
-      "qualifyingRoles": 1,
+      "qualifyingRoles": 2,
       "drops": {
-        "non-us": 9,
         "unknown-experience": 9,
         "context": 1,
+        "non-us": 8,
         "title": 13
       },
       "dropSamples": [
-        {
-          "title": "SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali"
-        },
-        {
-          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
-        },
         {
           "title": "Practicante Critical Facilities",
           "listingLabel": "Practicante Critical Facilities",
@@ -1470,12 +1462,20 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
         {
+          "title": "SkillBridge Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
+        },
+        {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
         },
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
+        },
+        {
+          "title": "SkillBridge, Data Center Customer Operations Technician - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-san-jose-california-united-states"
         }
       ],
       "errors": []
@@ -1486,13 +1486,13 @@
       "listingComplete": true,
       "listingPagesAttempted": 11,
       "listingPagesSucceeded": 11,
-      "candidateLinks": 7,
+      "candidateLinks": 8,
       "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
+      "verifiedSeeded": 4,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-08",
-      "detailAttempted": 7,
-      "detailSucceeded": 7,
+      "detailAttempted": 8,
+      "detailSucceeded": 8,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
@@ -1500,7 +1500,7 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 7,
+        "unknownExperience": 8,
         "unusable": 0,
         "verifiedMismatch": 6
       },
@@ -1514,8 +1514,9 @@
     "expired": false,
     "rolesVerified": 7,
     "liveChecksPassed": 7,
+    "listingFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 2,
     "removedKnownOverExperience": 0,
     "added": 7,
     "retainedManaged": 7,
@@ -1523,37 +1524,58 @@
       {
         "requisition": "JR-159872",
         "status": 202,
-        "ok": true
+        "ok": true,
+        "verification": "detail",
+        "detailStatus": 202,
+        "listingStatus": null
       },
       {
         "requisition": "JR-163301",
         "status": 202,
-        "ok": true
+        "ok": true,
+        "verification": "detail",
+        "detailStatus": 202,
+        "listingStatus": null
       },
       {
         "requisition": "JR-161457",
         "status": 202,
-        "ok": true
+        "ok": true,
+        "verification": "detail",
+        "detailStatus": 202,
+        "listingStatus": null
       },
       {
         "requisition": "JR-161458",
         "status": 202,
-        "ok": true
+        "ok": true,
+        "verification": "detail",
+        "detailStatus": 202,
+        "listingStatus": null
       },
       {
         "requisition": "JR-163300",
         "status": 202,
-        "ok": true
+        "ok": true,
+        "verification": "detail",
+        "detailStatus": 202,
+        "listingStatus": null
       },
       {
         "requisition": "JR-158170",
         "status": 202,
-        "ok": true
+        "ok": true,
+        "verification": "detail",
+        "detailStatus": 202,
+        "listingStatus": null
       },
       {
         "requisition": "JR-811161",
         "status": 202,
-        "ok": true
+        "ok": true,
+        "verification": "detail",
+        "detailStatus": 202,
+        "listingStatus": null
       }
     ]
   },
@@ -1697,7 +1719,7 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T15:44:32.085Z",
+    "updatedAt": "2026-09-08T15:50:27.502Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 461,
@@ -1715,7 +1737,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T15:44:32.148Z",
+    "checkedAt": "2026-09-08T15:50:27.566Z",
     "before": 461,
     "after": 461,
     "removed": 0,
@@ -1732,13 +1754,13 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 874,
     "currentJobs": 461,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T15:44:32.209Z"
+    "updatedAt": "2026-09-08T15:50:27.627Z"
   }
 }

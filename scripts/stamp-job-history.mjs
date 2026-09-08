@@ -6,6 +6,7 @@ const HISTORY_PATH = 'data/job-history.json';
 const STATUS_PATH = 'data/collector-status.json';
 const FUTURE_GRACE_MS = 6 * 60 * 60 * 1000;
 const HOUR_MS = 60 * 60 * 1000;
+const repairOnly = process.argv.includes('--repair-only');
 
 async function readJson(path, fallback) {
   try {
@@ -114,10 +115,14 @@ for (const job of jobs) {
   // postedHours is the UI/sort recency field. Prefer the employer's posting date
   // when it is available; otherwise age the role from our persistent first-seen
   // timestamp instead of leaving verified jobs at the 9999-hour sentinel forever.
+  // Publication-guard repair mode deliberately leaves existing postedHours alone
+  // so a clean feed does not produce clock-only commits every few minutes.
   const postedAt = validIso(job?.postedAt, nowMs);
   const recencyAt = postedAt || firstSeenAt;
   if (!postedAt) firstSeenRecencyFallbacks += 1;
-  job.postedHours = Math.max(0, Math.round((nowMs - Date.parse(recencyAt)) / HOUR_MS));
+  if (!repairOnly) {
+    job.postedHours = Math.max(0, Math.round((nowMs - Date.parse(recencyAt)) / HOUR_MS));
+  }
 }
 
 const sortedEntries = Object.fromEntries(
@@ -148,7 +153,9 @@ status.jobHistory = {
 await writeFile(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`);
 
 console.log(
-  initializing
-    ? `Initialized job history for ${seeded} existing jobs without marking the current feed as newly discovered.`
-    : `Job history updated: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs, ${firstSeenRecencyFallbacks} using first-seen recency.`
+  repairOnly
+    ? `Job history repair pass: ${added} missing IDs added, ${repaired} invalid entries repaired, ${changed} content changes tracked; postedHours left unchanged.`
+    : initializing
+      ? `Initialized job history for ${seeded} existing jobs without marking the current feed as newly discovered.`
+      : `Job history updated: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs, ${firstSeenRecencyFallbacks} using first-seen recency.`
 );

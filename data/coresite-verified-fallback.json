@@ -2,7 +2,7 @@
   "verifiedAt": "2026-09-05T08:45:00Z",
   "expiresAt": "2026-09-12T08:45:00Z",
   "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
-  "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; these roles were individually re-verified on CoreSite's official careers listing and job-detail pages on September 5, 2026.",
+  "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were individually verified on CoreSite's official careers listing and job-detail pages between September 5 and September 8, 2026.",
   "jobs": [
     {
       "id": "coresite-17818219",
@@ -289,6 +289,52 @@
       "postedHours": 9999,
       "source": "CoreSite Careers",
       "sourceUrl": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2",
+      "active": true,
+      "demo": false
+    },
+    {
+      "id": "coresite-18173786",
+      "title": "Critical Operations Engineer II (SV7) (Swing)",
+      "company": "CoreSite",
+      "location": "Santa Clara, CA",
+      "type": "entry-level",
+      "experience": "2-5-years",
+      "tags": [
+        "2–5 Years",
+        "Electrical",
+        "Critical Facilities"
+      ],
+      "pay": "$50–$55 / hr",
+      "salaryMin": 50,
+      "salaryMax": 55,
+      "salarySortMax": 114400,
+      "postedAt": null,
+      "postedHours": 9999,
+      "source": "CoreSite Careers",
+      "sourceUrl": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing",
+      "active": true,
+      "demo": false
+    },
+    {
+      "id": "coresite-18174188",
+      "title": "Critical Operations Engineer II (SV7) (Day)",
+      "company": "CoreSite",
+      "location": "Santa Clara, CA",
+      "type": "entry-level",
+      "experience": "2-5-years",
+      "tags": [
+        "2–5 Years",
+        "Electrical",
+        "Critical Facilities"
+      ],
+      "pay": "$50–$55 / hr",
+      "salaryMin": 50,
+      "salaryMax": 55,
+      "salarySortMax": 114400,
+      "postedAt": null,
+      "postedHours": 9999,
+      "source": "CoreSite Careers",
+      "sourceUrl": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day",
       "active": true,
       "demo": false
     }

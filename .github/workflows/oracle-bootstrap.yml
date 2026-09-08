@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
       - '.github/workflows/oracle-bootstrap.yml'
 
@@ -31,6 +32,8 @@ jobs:
           node-version: 22
       - name: Collect official Oracle Careers roles
         run: node scripts/collect-oracle-careers.mjs
+      - name: Scrub non-operational Oracle role families
+        run: node scripts/scrub-oracle-mission-fit.mjs
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations and regions

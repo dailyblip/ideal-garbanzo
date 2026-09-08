@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-08T03:55:11.963Z",
-  "jobs": 598,
+  "updatedAt": "2026-09-08T04:04:37.048Z",
+  "jobs": 597,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -13,14 +13,14 @@
     "oracleRecruitingCloud": 4
   },
   "countsByType": {
-    "trainee": 13,
+    "entry-level": 563,
     "apprenticeship": 12,
-    "internship": 9,
-    "entry-level": 564
+    "trainee": 13,
+    "internship": 9
   },
   "countsByExperience": {
     "0-2-years": 304,
-    "2-5-years": 250,
+    "2-5-years": 249,
     "no-experience": 44
   },
   "errors": [
@@ -1419,57 +1419,33 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T03:55:12.031Z",
-    "removedCount": 3,
-    "removedByReason": {
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "oracle-careers-342953",
-        "company": "Oracle",
-        "title": "Data Center Business Operations Business Analyst",
-        "location": "Nashville, TN, United States",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "oracle-careers-333294",
-        "company": "Oracle",
-        "title": "Data Center Development Cost Management",
-        "location": "NM, United States",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "oracle-careers-334333",
-        "company": "Oracle",
-        "title": "OCI Software Engineer Intern - OVIP",
-        "location": "Austin, TX, United States",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-08T04:04:37.093Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T03:55:12.100Z",
+    "updatedAt": "2026-09-08T04:04:37.253Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 598,
+    "regionAssigned": 597,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "northeast": 19,
+      "southeast": 100,
       "west": 83,
-      "texas": 95,
       "midwest": 116,
+      "texas": 95,
       "mid-atlantic": 110,
-      "southwest": 74,
-      "southeast": 101,
-      "northeast": 19
+      "southwest": 74
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T03:55:12.166Z",
+    "checkedAt": "2026-09-08T04:04:37.299Z",
     "before": 598,
     "after": 598,
     "removed": 0,
@@ -1477,22 +1453,22 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-07T18:30:54.622Z",
-    "publishedJobs": 612,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-08T04:04:55.536Z",
+    "publishedJobs": 597,
+    "removedJobs": 1,
     "activeCareerEvents": 6
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 870,
-    "currentJobs": 598,
+    "currentJobs": 597,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-08T03:55:12.226Z"
+    "updatedAt": "2026-09-08T04:04:55.739Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1559,5 +1535,25 @@
       "https://www.amazon.jobs/en/jobs/10479334/data-center-generator-service-technician: 503 https://www.amazon.jobs/en/jobs/10479334/data-center-generator-service-technician"
     ],
     "errors": []
+  },
+  "switchCareers": {
+    "checkedAt": "2026-09-08T04:04:37.048Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://www.switch.com/careers/",
+    "officialJobBoard": "https://switchltd.hrmdirect.com/employment/job-openings.php?jbsrc=1014&search=true&sort=pa",
+    "officialRssFeed": "https://switchltd.hrmdirect.com/employment/rss.php?search=true&dept=-1&city=-1&state=-1",
+    "authoritativeSnapshot": true,
+    "listedJobs": 123,
+    "candidateRoles": 28,
+    "qualifyingRoles": 21,
+    "rejectedOutOfScopeTitle": 95,
+    "rejectedSeniorTitle": 0,
+    "rejectedMissingDataCenterContext": 0,
+    "rejectedDetailTitleMismatch": 6,
+    "rejectedLeadershipRequirement": 0,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 1,
+    "detailErrors": []
   }
 }

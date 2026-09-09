@@ -42,6 +42,25 @@
     if (!link) return;
 
     const href = link.href || '';
+    const sponsorPlacement = link.closest('[data-sponsor-id]');
+    if (sponsorPlacement) {
+      track('sponsor_click', {
+        sponsor_id: sponsorPlacement.dataset.sponsorId || 'unknown',
+        placement: sponsorPlacement.dataset.sponsorPlacement || 'unknown',
+        sponsor_name: sponsorPlacement.dataset.sponsorName || 'unknown',
+        destination_url: href
+      });
+      return;
+    }
+
+    if (link.matches('[data-advertise-action]')) {
+      track('advertising_interest_click', {
+        action: link.dataset.advertiseAction || text(link) || 'unknown',
+        destination_url: href
+      });
+      return;
+    }
+
     const jobCard = link.closest('.job-card');
     const seoDetail = link.closest('.seo-detail-card');
     const isHomepageApply = Boolean(jobCard && link.target === '_blank' && /apply/i.test(text(link)));

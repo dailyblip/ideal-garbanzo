@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-09T04:11:41.585Z",
-  "jobs": 670,
+  "jobs": 669,
   "sourcesAttempted": 30,
   "providers": {
     "lever": 7,
@@ -13,13 +13,13 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 636,
+    "entry-level": 635,
     "apprenticeship": 12,
     "trainee": 7,
     "internship": 15
   },
   "countsByExperience": {
-    "2-5-years": 256,
+    "2-5-years": 255,
     "0-2-years": 370,
     "no-experience": 44
   },
@@ -81,26 +81,31 @@
   },
   "sabeyCareers": {
     "officialSource": "https://sabey.com/about/careers",
-    "sourceHealthy": false,
-    "candidateLinks": 0,
-    "detailSucceeded": 0,
+    "recruiterBoard": "https://careers2-anothersource.icims.com/jobs/search?hashed=-625979185&ss=1",
+    "sourceHealthy": true,
+    "listingMethod": "official-recruiter-board",
+    "usedRecruiterBoardFallback": true,
+    "recruiterBoardComplete": true,
+    "candidateLinks": 4,
+    "detailSucceeded": 4,
     "qualifyingRoles": 0,
-    "preservedPrevious": 1,
+    "preservedPrevious": 0,
     "drops": {
-      "stale": 0,
-      "titleOrExperience": 0,
+      "stale": 1,
+      "titleOrExperience": 3,
       "location": 0,
+      "nonSabey": 0,
       "fetch": 0
     },
     "errors": [
-      "403 https://sabey.com/about/careers"
+      "official listing: 403 https://sabey.com/about/careers"
     ],
-    "snapshotRoles": 1,
-    "snapshotRestored": 1,
-    "snapshotVerifiedAt": "2026-09-05T16:59:00Z",
+    "snapshotRoles": 0,
+    "snapshotRestored": 0,
+    "snapshotVerifiedAt": "2026-09-09T04:51:29.514Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 168,
-    "snapshotAgeHours": 68.9,
+    "snapshotAgeHours": 83.9,
     "removedExpiredFallback": 0
   },
   "novvaCareers": {
@@ -1542,7 +1547,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T04:11:41.643Z",
+    "checkedAt": "2026-09-09T04:51:29.578Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1550,16 +1555,16 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T04:11:41.696Z",
+    "updatedAt": "2026-09-09T04:51:29.650Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 670,
+    "regionAssigned": 669,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 133,
-      "texas": 103,
+      "texas": 102,
       "mid-atlantic": 122,
       "west": 102,
       "northeast": 18,
@@ -1568,9 +1573,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T04:11:41.745Z",
-    "before": 671,
-    "after": 671,
+    "checkedAt": "2026-09-09T04:51:29.716Z",
+    "before": 669,
+    "after": 669,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1585,15 +1590,15 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 908,
-    "currentJobs": 670,
+    "currentJobs": 669,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 92,
-    "updatedAt": "2026-09-09T04:12:01.463Z"
+    "firstSeenRecencyFallbackJobs": 91,
+    "updatedAt": "2026-09-09T04:51:29.781Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

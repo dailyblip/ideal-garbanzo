@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 
 const listingUrls = [
   'https://careers.equinix.com/global-internship',
+  'https://careers.equinix.com/military-programs',
   'https://careers.equinix.com/internships',
   'https://careers.equinix.com/students-recent-grads',
   'https://careers.equinix.com/hiring-operations-us-equinix',
@@ -21,15 +22,16 @@ const experienceNumberWords = new Map([
 
 // Equinix's current careers pages expose job titles/URLs reliably to GitHub
 // runners but sometimes omit the rendered qualification body. These six live
-// US SkillBridge roles were verified against official Equinix pages on
-// 2026-09-05 through 2026-09-08. They are re-fetched on every run and can only
-// supply a verified experience bucket while the same role remains discoverable
-// on Equinix's current jobs listing. This avoids trusting a generic detail shell.
+// US SkillBridge roles were verified against official Equinix pages through
+// 2026-09-09. They are re-fetched on every run and can only supply a verified
+// experience bucket while the same role remains discoverable on Equinix's
+// current jobs or military-program listing. This avoids trusting a generic
+// detail shell while tolerating an employer-side job URL/title refresh.
 const verifiedCandidates = [
   {
     requisition:'JR-163301',
-    title:"SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1' 2027",
-    url:'https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali',
+    title:"SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
+    url:'https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ',
     location:'San Jose, CA; Englewood, CO; Miami, FL; Atlanta, GA; Chicago, IL; Secaucus, NJ; Dallas, TX; Ashburn, VA; Seattle, WA',
     experience:'0-2-years'
   },
@@ -109,6 +111,23 @@ function verifiedTitleMatches(actual='', expected='') {
 
 const verifiedByUrl = new Map(verifiedCandidates.map(item => [item.url, item]));
 const verifiedByKey = new Map(verifiedCandidates.map(item => [canonicalJobKey(item.url), item]));
+const verifiedByRequisition = new Map(verifiedCandidates.map(item => [item.requisition.toUpperCase(), item]));
+
+function verifiedCandidateFor(url='', title='', description='') {
+  const exact = verifiedByUrl.get(url) || verifiedByKey.get(canonicalJobKey(url));
+  if (exact) return exact;
+
+  // Equinix occasionally changes a public job slug/title while preserving the
+  // requisition. Recover only when both the official requisition and job family
+  // agree, so a page shell or recommendation carousel cannot borrow another
+  // role's verified experience bucket.
+  const requisitions = clean(description).match(/\bJR-\d+\b/gi) || [];
+  for (const requisition of requisitions) {
+    const candidate = verifiedByRequisition.get(requisition.toUpperCase());
+    if (candidate && verifiedTitleMatches(title, candidate.title)) return candidate;
+  }
+  return null;
+}
 
 async function fetchText(url) {
   const controller = new AbortController();
@@ -268,7 +287,7 @@ function validateClassifier() {
     {name:'one-to-four relevant experience is mid-level eligible',title:'SkillBridge Critical Facilities Engineer, Data Center - Cohort Q3',description:"Qualifications: Working on bachelor's degree or relevant experience w/1-4 years in Mechanical Engineering or related field.",expected:'2-5-years'},
     {name:'preferred seniority does not override required two years',title:'Data Center Operations Trainee',description:'Minimum of two years of relevant experience. Preferred qualifications: seven years of experience.',expected:'0-2-years'},
     {name:'explicit no-experience language is truthful',title:'Data Center Operations Trainee',description:'No prior experience required. Training is provided.',expected:'no-experience'},
-    {name:'explicit learn-new-trade SkillBridge language is early-career eligible',title:'SkillBridge - Critical Facilities Engineer, Data Center - Cohort Q1 2027',description:'Do you have military experience? Or desire to learn a new skill or trade? This could be your next career move!',expected:'0-2-years'},
+    {name:'explicit learn-new-trade SkillBridge language is early-career eligible',title:'SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1 2027)',description:'Do you have military experience? Or desire to learn a new skill or trade? This could be your next career move!',expected:'0-2-years'},
     {name:'bare SkillBridge title fails closed',title:'SkillBridge Data Center Technician - Trainee',description:'Hands-on data center operations training program.',expected:null},
     {name:'internship without stated years stays early-career',title:'Data Center Customer Operations Intern',description:'Support the data center operations team.',expected:'0-2-years'}
   ];
@@ -292,6 +311,12 @@ function validateVerifiedMatching() {
   if (verifiedTitleMatches('SkillBridge Data Center Customer Operations Technician - Trainee', 'SkillBridge Critical Facilities Engineer - Trainee')) {
     failures.push('different SkillBridge job families must not share a verified experience bucket');
   }
+  const movedRole = verifiedCandidateFor(
+    'https://careers.equinix.com/jobs/employer-changed-public-slug-united-states',
+    "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
+    'Current official role. JR-163301'
+  );
+  if (movedRole?.requisition !== 'JR-163301') failures.push('requisition-backed matching must survive an employer-side URL change');
   if (failures.length) throw new Error(`Equinix verified-role matching regression: ${failures.join(' | ')}`);
 }
 validateClassifier();
@@ -373,7 +398,7 @@ for (const [url,label] of candidates) {
     const description = clean(posting?.description || html);
     let classification = classifyExperience(title, description);
     const key = canonicalJobKey(url);
-    const verified = verifiedByUrl.get(url) || verifiedByKey.get(key);
+    const verified = verifiedCandidateFor(url, title, description);
     if (classification.drop === 'unknown-experience' && verified) {
       const currentlyListed = discoveredListingKeys.has(key);
       if (currentlyListed && verifiedTitleMatches(title, verified.title)) {
@@ -445,7 +470,7 @@ await writeFile('data/collector-status.json',JSON.stringify({
     recoveredCandidates,
     verifiedSeeded,
     verifiedFallbackUsed,
-    verifiedAt:'2026-09-08',
+    verifiedAt:'2026-09-09',
     detailAttempted,
     detailSucceeded,
     detailFailed,

@@ -1,40 +1,12 @@
 {
-  "checkedAt": "2026-09-09T02:49:29.422Z",
-  "jobsBefore": 673,
-  "jobsAfter": 670,
+  "checkedAt": "2026-09-09T03:25:14.678Z",
+  "jobsBefore": 669,
+  "jobsAfter": 669,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10517277",
-      "company": "Amazon Web Services",
-      "title": "Data Center Engineering Operations Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10517277/data-center-engineering-operations-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10517277/data-center-engineering-operations-technician"
-    },
-    {
-      "id": "amazon-10459201",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician, DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10459201/data-center-technician-dcc-communities",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10459201/data-center-technician-dcc-communities"
-    }
-  ],
+  "duplicatesRemoved": [],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",

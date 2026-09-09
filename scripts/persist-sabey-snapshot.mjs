@@ -7,11 +7,14 @@ const COMPANY = 'Sabey Data Centers';
 const MAX_SNAPSHOT_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
 const isSabey = job => String(job?.company || '').trim() === COMPANY;
+const normalizeSabeyTitle = title => String(title || '')
+  .replace(/^Job Posting Title\s+/i, '')
+  .trim();
 const identity = job => [job?.company, job?.title, job?.location]
   .map(value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim())
   .join('|');
 
-const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
+let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
 let status = {};
@@ -43,6 +46,20 @@ const snapshotAgeMs = Number.isFinite(verifiedAtMs) ? now - verifiedAtMs : Infin
 const snapshotFresh = snapshotJobs.length > 0
   && snapshotAgeMs >= 0
   && snapshotAgeMs <= MAX_SNAPSHOT_AGE_MS;
+
+let normalizedTitles = 0;
+if (source.sourceHealthy) {
+  jobs = jobs.map(job => {
+    if (!isSabey(job)) return job;
+    const title = normalizeSabeyTitle(job.title);
+    if (!title || title === job.title) return job;
+    normalizedTitles += 1;
+    return { ...job, title };
+  });
+  if (normalizedTitles) {
+    await writeFile(JOBS_PATH, JSON.stringify(jobs, null, 2) + '\n');
+  }
+}
 
 const currentSabey = jobs.filter(isSabey);
 let effectiveSabey = currentSabey;
@@ -85,11 +102,12 @@ status.sabeyCareers.snapshotMaxAgeHours = MAX_SNAPSHOT_AGE_MS / (60 * 60 * 1000)
 status.sabeyCareers.snapshotAgeHours = Number.isFinite(snapshotAgeMs)
   ? Math.round((snapshotAgeMs / (60 * 60 * 1000)) * 10) / 10
   : null;
+status.sabeyCareers.normalizedTitles = normalizedTitles;
 status.sabeyCareers.removedExpiredFallback = removedExpiredFallback;
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
 if (source.sourceHealthy) {
-  console.log(`Sabey snapshot refreshed with ${currentSabey.length} verified role(s).`);
+  console.log(`Sabey snapshot refreshed with ${currentSabey.length} verified role(s); normalized ${normalizedTitles} iCIMS title prefix(es).`);
 } else if (snapshotFresh) {
   console.warn(`Sabey source was unhealthy; restored ${snapshotJobs.length} role(s) from a snapshot no older than 168 hours.`);
 } else if (currentSabey.length) {

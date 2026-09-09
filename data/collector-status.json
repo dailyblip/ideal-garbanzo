@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-08T23:42:36.433Z",
-  "jobs": 666,
+  "jobs": 665,
   "sourcesAttempted": 30,
   "providers": {
     "lever": 7,
@@ -13,14 +13,14 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 632,
-    "internship": 10,
+    "entry-level": 631,
+    "apprenticeship": 12,
     "trainee": 12,
-    "apprenticeship": 12
+    "internship": 10
   },
   "countsByExperience": {
-    "2-5-years": 254,
-    "0-2-years": 368,
+    "2-5-years": 252,
+    "0-2-years": 369,
     "no-experience": 44
   },
   "errors": [
@@ -259,117 +259,68 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-08T13:52:47.173Z",
-      "rawJobs": 216,
-      "publishedUsJobs": 183,
-      "nonUsRemoved": 27,
-      "unresolvedLocationRemoved": 1,
-      "siteCodeLocationsResolved": 8,
+      "checkedAt": "2026-09-09T01:54:18.288Z",
+      "rawJobs": 184,
+      "publishedUsJobs": 184,
+      "nonUsRemoved": 0,
+      "unresolvedLocationRemoved": 0,
+      "siteCodeLocationsResolved": 17,
       "siteCodeLocationSamples": [
         {
-          "company": "CyrusOne",
-          "title": "Critical Environments Operator III",
-          "before": "NVA5",
-          "after": "Sterling, VA"
-        },
-        {
-          "company": "CyrusOne",
-          "title": "Critical Environments Operator I",
-          "before": "NVA1",
-          "after": "Sterling, VA"
-        },
-        {
-          "company": "CyrusOne",
-          "title": "Critical Environments Operator IV",
-          "before": "COL1",
-          "after": "New Albany, OH"
+          "company": "Aligned Data Centers",
+          "title": "Critical Facilities Technician",
+          "before": "ORD-03",
+          "after": "Elk Grove Village, IL"
         },
         {
           "company": "Aligned Data Centers",
-          "title": "Mechanical Engineer",
-          "before": "DFW01_02",
+          "title": "Critical Facilities Technician",
+          "before": "PDX-01",
+          "after": "Hillsboro, OR"
+        },
+        {
+          "company": "Aligned Data Centers",
+          "title": "Critical Facilities Technician",
+          "before": "DFW-04",
           "after": "Plano, TX"
         },
         {
           "company": "Aligned Data Centers",
           "title": "Critical Facilities Technician",
-          "before": "DFW01_02",
-          "after": "Plano, TX"
+          "before": "PHX-03",
+          "after": "Phoenix, AZ"
         },
         {
           "company": "Aligned Data Centers",
-          "title": "VP, Operations - South Region",
-          "before": "DFW01_02",
-          "after": "Plano, TX"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Associate Mechanical Engineer",
-          "before": "DFW01_02",
-          "after": "Plano, TX"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Associate Electrical Engineer",
-          "before": "DFW01_02",
-          "after": "Plano, TX"
-        }
-      ],
-      "nonUsSamples": [
-        {
-          "company": "Vantage Data Centers",
-          "title": "HVAC Technician, NA",
-          "location": "Montreal, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Stationary Mechanical Technician, NA",
-          "location": "Montreal, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facilities Technician, NA",
-          "location": "Montreal, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Electrical Technician, NA",
-          "location": "Montreal, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facilities Engineer - London, North Acton",
-          "location": "London, England"
-        },
-        {
-          "company": "Vantage Data Centers",
           "title": "Critical Facilities Technician",
-          "location": "Zurich, Switzerland"
+          "before": "PHX-06",
+          "after": "Chandler, AZ"
         },
         {
-          "company": "Vantage Data Centers",
-          "title": "Site Operations Administrator, TPE",
-          "location": "Taipei, Taiwan"
+          "company": "Aligned Data Centers",
+          "title": "Critical Facilities Maintenance Technician",
+          "before": "PHX-07",
+          "after": "Waddell, AZ"
         },
         {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facilities Engineer, Japan",
-          "location": "Osaka, Japan"
-        }
-      ],
-      "unresolvedLocationSamples": [
+          "company": "Aligned Data Centers",
+          "title": "Facility Technician",
+          "before": "ORD-01",
+          "after": "Northlake, IL"
+        },
         {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facilities Technician",
-          "location": "DUB11"
+          "company": "Aligned Data Centers",
+          "title": "Critical Facilities Maintenance Technician",
+          "before": "ORD-03",
+          "after": "Elk Grove Village, IL"
         }
       ],
-      "missionFitRemoved": 5,
-      "missionFitPreservedParityMode": "coverage"
+      "nonUsSamples": [],
+      "unresolvedLocationSamples": []
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-08T21:51:13.848Z",
+    "checkedAt": "2026-09-09T01:54:09.173Z",
     "officialOnly": true,
     "additiveOnly": true,
     "recovered": 0,
@@ -391,44 +342,44 @@
           {
             "searchText": "critical facilities",
             "healthy": true,
-            "rows": 68,
-            "reportedTotal": 68
+            "rows": 69,
+            "reportedTotal": 69
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 124
+            "reportedTotal": 125
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 117
+            "reportedTotal": 118
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 88,
-            "reportedTotal": 88
+            "rows": 89,
+            "reportedTotal": 89
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 92,
-            "reportedTotal": 92
+            "rows": 93,
+            "reportedTotal": 93
           },
           {
             "searchText": "technician",
             "healthy": true,
-            "rows": 33,
-            "reportedTotal": 33
+            "rows": 34,
+            "reportedTotal": 34
           },
           {
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 119
+            "reportedTotal": 118
           },
           {
             "searchText": "apprentice",
@@ -456,37 +407,37 @@
             "searchText": "data center",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 240
+            "reportedTotal": 243
           },
           {
             "searchText": "critical facilities",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 133
+            "reportedTotal": 135
           },
           {
             "searchText": "critical environment",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 164
+            "reportedTotal": 165
           },
           {
             "searchText": "critical operations",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 182
+            "reportedTotal": 183
           },
           {
             "searchText": "mechanical engineer",
             "healthy": true,
-            "rows": 71,
-            "reportedTotal": 71
+            "rows": 72,
+            "reportedTotal": 72
           },
           {
             "searchText": "electrical engineer",
             "healthy": true,
-            "rows": 80,
-            "reportedTotal": 80
+            "rows": 81,
+            "reportedTotal": 81
           },
           {
             "searchText": "technician",
@@ -498,7 +449,7 @@
             "searchText": "intern",
             "healthy": true,
             "rows": 100,
-            "reportedTotal": 171
+            "reportedTotal": 174
           },
           {
             "searchText": "apprentice",
@@ -509,8 +460,8 @@
           {
             "searchText": "trainee",
             "healthy": true,
-            "rows": 98,
-            "reportedTotal": 98
+            "rows": 100,
+            "reportedTotal": 100
           }
         ],
         "errors": []
@@ -797,7 +748,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-08T21:51:26.428Z",
+      "checkedAt": "2026-09-09T01:54:18.240Z",
       "removed": 4,
       "removedRoles": [
         {
@@ -1633,7 +1584,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-08T23:42:36.569Z",
+    "checkedAt": "2026-09-09T01:54:18.377Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1641,30 +1592,232 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-08T23:42:36.644Z",
-    "changed": 0,
-    "samples": [],
-    "regionAssigned": 666,
+    "updatedAt": "2026-09-09T01:54:18.426Z",
+    "changed": 11,
+    "samples": [
+      {
+        "id": "workday-aligneddc-JR101086",
+        "before": "IAD-02",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-aligneddc-JR100970",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-aligneddc-JR100971",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0881",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1093",
+        "before": "US VA Manassas 1 DC1",
+        "after": "Manassas, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0768",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      }
+    ],
+    "regionAssigned": 665,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "texas": 103,
-      "mid-atlantic": 124,
+      "mid-atlantic": 122,
       "west": 104,
       "northeast": 18,
-      "southeast": 109,
+      "southeast": 110,
       "southwest": 83,
       "midwest": 125
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-08T23:42:36.713Z",
-    "before": 666,
-    "after": 666,
-    "removed": 0,
+    "checkedAt": "2026-09-09T01:54:18.468Z",
+    "before": 690,
+    "after": 665,
+    "removed": 25,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101968",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101903",
+        "keptId": "workday-nttglobaldatacenters-JR101981",
+        "company": "NTT Global Data Centers",
+        "title": "1046 - Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101861",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0982",
+        "keptId": "workday-qtsdatacenters-R2026-0893",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007618",
+        "keptId": "workday-cyrusone-R0007529",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Carrollton, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007617",
+        "keptId": "workday-cyrusone-R0007763",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Houston, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007527",
+        "keptId": "workday-cyrusone-R0007615",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Chandler, AZ"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007526",
+        "keptId": "workday-cyrusone-R0007614",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Sterling, VA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007668",
+        "keptId": "workday-cyrusone-R0007613",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Council Bluffs, IA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007628",
+        "keptId": "workday-cyrusone-R0007611",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Durham, NC"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007762",
+        "keptId": "workday-cyrusone-R0007610",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Austin, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007608",
+        "keptId": "workday-cyrusone-R0007528",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Cincinnati, OH"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101573",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101799",
+        "keptId": "workday-nttglobaldatacenters-JR101533",
+        "company": "NTT Global Data Centers",
+        "title": "5155 - Data Center IT Infrastructure Technician",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101847",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101681",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101746",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101821",
+        "keptId": "workday-nttglobaldatacenters-JR101755",
+        "company": "NTT Global Data Centers",
+        "title": "1162 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101610",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101859",
+        "keptId": "workday-nttglobaldatacenters-JR101474",
+        "company": "NTT Global Data Centers",
+        "title": "5217 - Data Center Technician L1",
+        "location": "Gainesville, Virginia"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-08T17:45:42.261Z",
@@ -1675,16 +1828,16 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 893,
-    "currentJobs": 666,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 899,
+    "currentJobs": 665,
+    "newJobsThisRun": 6,
+    "changedJobsThisRun": 10,
+    "migratedEntriesThisRun": 6,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-08T23:42:36.778Z"
+    "updatedAt": "2026-09-09T01:54:18.542Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

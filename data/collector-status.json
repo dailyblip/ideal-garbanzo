@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T05:23:05.785Z",
+  "updatedAt": "2026-09-09T05:23:38.252Z",
   "jobs": 688,
   "sourcesAttempted": 31,
   "providers": {
@@ -1558,7 +1558,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T05:23:05.859Z",
+    "checkedAt": "2026-09-09T05:23:38.320Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1566,7 +1566,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T05:23:05.935Z",
+    "updatedAt": "2026-09-09T05:23:38.385Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 688,
@@ -1584,7 +1584,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T05:23:06.006Z",
+    "checkedAt": "2026-09-09T05:23:38.445Z",
     "before": 688,
     "after": 688,
     "removed": 0,
@@ -1592,7 +1592,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-09T05:23:24.630Z",
+    "checkedAt": "2026-09-09T05:23:59.500Z",
     "publishedJobs": 688,
     "removedJobs": 0,
     "activeCareerEvents": 6,
@@ -1603,13 +1603,13 @@
     "trackedJobs": 928,
     "currentJobs": 688,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-09T05:23:24.773Z"
+    "updatedAt": "2026-09-09T05:23:59.624Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1766,7 +1766,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-09T05:23:05.785Z",
+    "checkedAt": "2026-09-09T05:23:38.252Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

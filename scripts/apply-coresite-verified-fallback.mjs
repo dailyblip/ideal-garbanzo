@@ -32,6 +32,27 @@ function dedupe(jobs) {
   return out;
 }
 
+function normalizeFallbackJob(job) {
+  const title = clean(job?.title);
+  let type = job?.type;
+  let tags = Array.isArray(job?.tags) ? job.tags.map(clean).filter(Boolean) : [];
+
+  // Snapshot metadata can outlive source-specific classifier fixes. Preserve the
+  // employer-verified requisition while deriving program type from the job title
+  // so an explicit internship never disappears from the site's internship path.
+  if (/\bintern(?:ship)?\b/i.test(title)) {
+    type = 'internship';
+    tags = tags.filter(tag => !/^trainee$/i.test(tag));
+    if (!tags.some(tag => /^internship$/i.test(tag))) tags.unshift('Internship');
+  } else if (/\bapprentice(?:ship)?\b/i.test(title)) {
+    type = 'apprenticeship';
+    tags = tags.filter(tag => !/^trainee$/i.test(tag));
+    if (!tags.some(tag => /^apprenticeship$/i.test(tag))) tags.unshift('Apprenticeship');
+  }
+
+  return { ...job, type, tags: [...new Set(tags)].slice(0, 5) };
+}
+
 function validateFallback(payload) {
   if (!payload || !Array.isArray(payload.jobs) || !payload.jobs.length) throw new Error('CoreSite fallback must contain at least one job.');
   const verifiedAt = Date.parse(payload.verifiedAt);
@@ -63,7 +84,9 @@ if (status?.coreSite?.sourceHealthy === true) {
 
 const withoutCoreSite = jobs.filter(job => !isCoreSite(job));
 const fallbackActive = now >= verifiedAt && now <= expiresAt;
-const fallbackJobs = fallbackActive ? fallback.jobs.map(job => ({ ...job, active: true, demo: false })) : [];
+const normalizedFallback = fallback.jobs.map(normalizeFallbackJob);
+const classificationCorrections = normalizedFallback.reduce((count, job, index) => count + (job.type !== fallback.jobs[index]?.type ? 1 : 0), 0);
+const fallbackJobs = fallbackActive ? normalizedFallback.map(job => ({ ...job, active: true, demo: false })) : [];
 const merged = dedupe([...withoutCoreSite, ...fallbackJobs]);
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
@@ -83,6 +106,7 @@ await writeFile(STATUS_PATH, JSON.stringify({
       verifiedAt: fallback.verifiedAt,
       expiresAt: fallback.expiresAt,
       roles: fallbackJobs.length,
+      classificationCorrections,
       officialSource: fallback.officialSource,
       reason: fallback.reason
     }
@@ -90,7 +114,7 @@ await writeFile(STATUS_PATH, JSON.stringify({
 }, null, 2) + '\n');
 
 if (fallbackActive) {
-  console.log(`CoreSite official collector is blocked; published ${fallbackJobs.length} individually verified roles until ${fallback.expiresAt}.`);
+  console.log(`CoreSite official collector is blocked; published ${fallbackJobs.length} individually verified roles until ${fallback.expiresAt} (${classificationCorrections} program classification correction(s)).`);
 } else {
   console.warn(`CoreSite verified fallback expired at ${fallback.expiresAt}; removed CoreSite fallback roles rather than serving stale jobs.`);
 }

@@ -1,0 +1,50 @@
+import { readFile } from 'node:fs/promises';
+
+const COMPANY = 'CoreWeave';
+const SNAPSHOT_PATH = 'data/coreweave-jobs.json';
+const JOBS_PATH = 'data/jobs.json';
+const STATUS_PATH = 'data/collector-status.json';
+const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
+const seniorPattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|head|supervisor)\b/i;
+const missionPattern = /\b(?:data center technician|critical facilit(?:y|ies) technician|critical operations technician|data center operator|data center operations technician|command center systems engineer|facilities technician|electrical technician)\b/i;
+
+const snapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
+const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
+const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
+if (!Array.isArray(snapshot)) throw new Error('CoreWeave snapshot must be an array');
+if (!Array.isArray(jobs)) throw new Error('jobs.json must be an array');
+
+const violations = [];
+for (const job of snapshot) {
+  if (String(job?.company || '').trim() !== COMPANY) violations.push(`${job?.id || '(missing id)'} has the wrong company`);
+  if (!missionPattern.test(String(job?.title || ''))) violations.push(`${job?.id || '(missing id)'} has an off-mission title: ${job?.title || '(missing)'}`);
+  if (seniorPattern.test(String(job?.title || ''))) violations.push(`${job?.id || '(missing id)'} leaks a senior title: ${job?.title}`);
+  if (!allowedExperience.has(String(job?.experience || ''))) violations.push(`${job?.id || '(missing id)'} has invalid experience bucket: ${job?.experience || '(missing)'}`);
+  if (job?.active !== true || job?.demo === true) violations.push(`${job?.id || '(missing id)'} is inactive or demo data`);
+  let url;
+  try { url = new URL(String(job?.sourceUrl || '')); } catch {}
+  if (!url || url.protocol !== 'https:' || !['coreweave.com', 'www.coreweave.com'].includes(url.hostname.toLowerCase()) || url.pathname !== '/careers' || !url.searchParams.get('gh_jid')) {
+    violations.push(`${job?.id || '(missing id)'} does not use the official CoreWeave career route`);
+  }
+}
+
+const publicJobs = jobs.filter(job => String(job?.company || '').trim() === COMPANY);
+const snapshotIds = new Set(snapshot.map(job => String(job?.id || '')).filter(Boolean));
+const publicIds = new Set(publicJobs.map(job => String(job?.id || '')).filter(Boolean));
+for (const id of snapshotIds) if (!publicIds.has(id)) violations.push(`snapshot role ${id} is missing from public jobs.json`);
+for (const id of publicIds) if (!snapshotIds.has(id)) violations.push(`public role ${id} is not present in the authoritative CoreWeave snapshot`);
+
+const health = status?.coreWeaveCareers || {};
+if (health.sourceHealthy === true) {
+  if (!health.boardToken) violations.push('healthy CoreWeave source is missing the selected Greenhouse board token');
+  if (Number(health.sourceRoles || 0) < snapshot.length) violations.push('CoreWeave source role count is smaller than the retained snapshot');
+  if (Number(health.qualifyingRoles || 0) !== snapshot.length) violations.push(`CoreWeave qualifying count ${health.qualifyingRoles || 0} does not match snapshot ${snapshot.length}`);
+}
+
+if (violations.length) {
+  console.error('CoreWeave source validation failed:');
+  for (const violation of violations) console.error(`- ${violation}`);
+  process.exit(1);
+}
+
+console.log(`CoreWeave validation passed: ${snapshot.length} employer-direct 0–5 year role(s), exact public-feed parity.`);

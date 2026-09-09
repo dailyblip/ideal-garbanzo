@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-09T18:01:44.564Z",
-  "jobs": 701,
+  "updatedAt": "2026-09-09T19:48:40.782Z",
+  "jobs": 702,
   "sourcesAttempted": 33,
   "providers": {
     "lever": 7,
@@ -14,13 +14,13 @@
   },
   "countsByType": {
     "internship": 15,
-    "trainee": 8,
+    "trainee": 9,
     "apprenticeship": 12,
     "entry-level": 666
   },
   "countsByExperience": {
     "no-experience": 53,
-    "0-2-years": 375,
+    "0-2-years": 376,
     "2-5-years": 273
   },
   "errors": [
@@ -1598,10 +1598,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 6,
-      "qualifyingRoles": 1,
+      "staleRemoved": 7,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 6,
+        "non-us": 7,
         "unknown-experience": 11,
         "context": 1,
         "title": 14
@@ -1630,6 +1630,10 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
         },
         {
+          "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
+        },
+        {
           "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
@@ -1640,10 +1644,6 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
-        },
-        {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -1655,9 +1655,11 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
-      "verifiedFallbackUsed": 0,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
+      "broadListingCurrent": true,
+      "broadListingEvidenceAdded": 5,
+      "verifiedFallbackUsed": 4,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
       "detailSucceeded": 7,
@@ -1665,12 +1667,12 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 0,
-      "qualifyingRoles": 0,
+      "qualifyingRoles": 4,
       "drops": {
         "experience": 0,
-        "unknownExperience": 7,
+        "unknownExperience": 3,
         "unusable": 0,
-        "verifiedMismatch": 6
+        "verifiedMismatch": 2
       },
       "errors": []
     }
@@ -1685,10 +1687,10 @@
     "listingFallbacksUsed": 0,
     "verifiedWindowFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
-    "added": 7,
-    "retainedManaged": 7,
+    "added": 4,
+    "retainedManaged": 4,
     "checks": [
       {
         "requisition": "JR-159872",
@@ -1764,27 +1766,27 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T18:01:44.639Z",
+    "updatedAt": "2026-09-09T19:48:40.855Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 701,
+    "regionAssigned": 702,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 107,
-      "texas": 116,
+      "west": 108,
       "midwest": 139,
       "mid-atlantic": 126,
+      "texas": 116,
       "southwest": 85,
       "southeast": 108,
       "northeast": 20
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T18:01:44.714Z",
-    "before": 701,
-    "after": 701,
+    "checkedAt": "2026-09-09T19:48:40.925Z",
+    "before": 702,
+    "after": 702,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1798,16 +1800,16 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 951,
-    "currentJobs": 701,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 952,
+    "currentJobs": 702,
+    "newJobsThisRun": 1,
+    "changedJobsThisRun": 3,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 108,
-    "updatedAt": "2026-09-09T18:01:44.786Z"
+    "firstSeenRecencyFallbackJobs": 109,
+    "updatedAt": "2026-09-09T19:48:40.992Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

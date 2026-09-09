@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-09T11:58:31.002Z",
-  "jobs": 689,
+  "jobs": 687,
   "sourcesAttempted": 31,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 655,
+    "entry-level": 653,
     "apprenticeship": 12,
     "trainee": 7,
     "internship": 15
   },
   "countsByExperience": {
-    "0-2-years": 370,
-    "2-5-years": 275,
-    "no-experience": 44
+    "0-2-years": 362,
+    "2-5-years": 273,
+    "no-experience": 52
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1743,7 +1743,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T15:01:37.296Z",
+    "checkedAt": "2026-09-09T15:45:31.117Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1751,50 +1751,59 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T15:01:37.355Z",
+    "updatedAt": "2026-09-09T15:45:31.190Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 689,
+    "regionAssigned": 687,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 137,
       "texas": 112,
-      "mid-atlantic": 122,
+      "mid-atlantic": 121,
       "west": 106,
-      "northeast": 19,
+      "northeast": 18,
       "southeast": 110,
       "southwest": 83
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T15:01:37.410Z",
+    "checkedAt": "2026-09-09T15:45:31.257Z",
     "before": 689,
-    "after": 689,
-    "removed": 0,
+    "after": 688,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "coreweave-4696011006",
+        "keptId": "coreweave-4709264006",
+        "company": "CoreWeave",
+        "title": "Data Center Technician",
+        "location": "Sandusky, OH"
+      }
+    ]
   },
   "postQa": {
-    "checkedAt": "2026-09-09T15:02:03.911Z",
-    "publishedJobs": 689,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-09T15:46:00.365Z",
+    "publishedJobs": 687,
+    "removedJobs": 1,
     "activeCareerEvents": 6,
-    "providerVerifiedRetained": 2
+    "providerVerifiedRetained": 3
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 930,
-    "currentJobs": 689,
-    "newJobsThisRun": 0,
+    "trackedJobs": 938,
+    "currentJobs": 687,
+    "newJobsThisRun": 8,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 8,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-09T15:02:04.066Z"
+    "updatedAt": "2026-09-09T15:46:00.546Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1986,6 +1995,20 @@
       "nonUs": 0,
       "experience": 0,
       "fetch": 0
+    },
+    "errors": []
+  },
+  "coreWeaveCareers": {
+    "careersUrl": "https://www.coreweave.com/careers",
+    "sourceHealthy": true,
+    "boardToken": "coreweave",
+    "sourceRoles": 289,
+    "qualifyingRoles": 9,
+    "preservedPrevious": 0,
+    "drops": {
+      "title": 278,
+      "experience": 0,
+      "location": 2
     },
     "errors": []
   }

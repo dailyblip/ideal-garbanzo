@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-09T15:47:17.494Z",
+  "checkedAt": "2026-09-09T16:02:35.151Z",
   "jobsBefore": 687,
-  "jobsAfter": 687,
+  "jobsAfter": 686,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "lever-t5-16f5281f-6d9b-43c7-b66b-992f3f23a798",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/16f5281f-6d9b-43c7-b66b-992f3f23a798",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/16f5281f-6d9b-43c7-b66b-992f3f23a798"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",
@@ -172,6 +182,78 @@
   ],
   "transientJobLinks": [
     {
+      "id": "gh-xai-5225280007",
+      "company": "xAI",
+      "title": "Controls Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5225280007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5205550007",
+      "company": "xAI",
+      "title": "Operations Engineer, Facility Operations - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5205550007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5212286007",
+      "company": "xAI",
+      "title": "Facilities Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5212286007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5182374007",
+      "company": "xAI",
+      "title": "Facilities Infrastructure Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5182374007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5168434007",
+      "company": "xAI",
+      "title": "Associate Data Center Operations Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5168434007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5215585007",
+      "company": "xAI",
+      "title": "Data Center Operations Technician, MMR/MDF & Fiber Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5215585007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5182357007",
+      "company": "xAI",
+      "title": "Electrical Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5182357007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5189148007",
+      "company": "xAI",
+      "title": "Electrical Reliability Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5189148007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
       "id": "gh-xai-5201130007",
       "company": "xAI",
       "title": "Facilities Maintenance Technician - Memphis",
@@ -181,10 +263,73 @@
       "error": "timeout"
     },
     {
-      "id": "lever-t5-d6d609a6-2912-4a77-a8f3-e2da287cd484",
-      "company": "T5 Data Centers",
-      "title": "Critical Facilities Technician",
-      "url": "https://jobs.lever.co/t5datacenters/d6d609a6-2912-4a77-a8f3-e2da287cd484",
+      "id": "gh-xai-5189147007",
+      "company": "xAI",
+      "title": "Power Systems Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5189147007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5134220007",
+      "company": "xAI",
+      "title": "Electrical Commissioning Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5134220007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5215038007",
+      "company": "xAI",
+      "title": "Electrician, Construction (Colossus) - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5215038007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5225839007",
+      "company": "xAI",
+      "title": "Mechanical Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5225839007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-4939298007",
+      "company": "xAI",
+      "title": "Facilities Maintenance Assistant - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/4939298007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5142979007",
+      "company": "xAI",
+      "title": "Electrician (Construction) - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5142979007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-4538639007",
+      "company": "xAI",
+      "title": "Facilities Operations Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/4538639007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5214372007",
+      "company": "xAI",
+      "title": "Electrician, Operations - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5214372007",
       "state": "transient",
       "status": null,
       "error": "timeout"

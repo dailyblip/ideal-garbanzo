@@ -5,7 +5,10 @@ import { promisify } from 'node:util';
 const exec = promisify(execFile);
 const COMPANY = 'CoreSite';
 const ORIGIN = 'https://jobs.coresite.com';
-const LISTING_PATH = '/search/data-center-operations/jobs/in';
+const LISTING_PATHS = [
+  '/search/data-center-operations/jobs/in',
+  '/search/jobs'
+];
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const MAX_PAGES = 5;
@@ -216,6 +219,50 @@ function dedupe(jobs) {
   return out;
 }
 
+async function scanListing(listingPath) {
+  const seeds = new Map();
+  let pagesAttempted = 0;
+  let pagesSucceeded = 0;
+  let listedTotal = null;
+  let listingFailed = false;
+  let reachedEnd = false;
+  let error = '';
+
+  for (let page = 1; page <= MAX_PAGES; page += 1) {
+    pagesAttempted += 1;
+    const url = `${ORIGIN}${listingPath}${page === 1 ? '' : `?page=${page}`}`;
+    try {
+      const html = await fetchText(url);
+      pagesSucceeded += 1;
+      const total = listingTotal(html);
+      if (Number.isFinite(total)) listedTotal = total;
+      const rows = listingRows(html);
+      let added = 0;
+      for (const row of rows) {
+        if (!seeds.has(row.id)) { seeds.set(row.id, row); added += 1; }
+      }
+      if (listedTotal && seeds.size >= listedTotal) { reachedEnd = true; break; }
+      if (page > 1 && added === 0) { reachedEnd = true; break; }
+    } catch (fetchError) {
+      listingFailed = true;
+      error = fetchError.message;
+      break;
+    }
+  }
+
+  const sourceHealthy = pagesSucceeded > 0 && seeds.size > 0;
+  return {
+    listingPath,
+    seeds,
+    pagesAttempted,
+    pagesSucceeded,
+    listedTotal,
+    listingComplete: sourceHealthy && !listingFailed && reachedEnd,
+    sourceHealthy,
+    error
+  };
+}
+
 const currentJobs = await readJson(JOBS_PATH, []);
 const previousJobs = await committedJobs();
 const previousSnapshot = previousJobs.filter(job => job.company === COMPANY || /(^|\.)jobs\.coresite\.com\//i.test(String(job.sourceUrl || '')));
@@ -228,42 +275,55 @@ const diagnostics = {
   listingComplete: false,
   listedTotal: null,
   candidateRows: 0,
+  listingAttempts: [],
+  selectedListingPath: null,
   detailAttempted: 0,
   detailSucceeded: 0,
   preservedOnFailure: 0,
   drops: { title: 0, location: 0, experienceUnknown: 0, experienceOver5: 0, fetch: 0 }
 };
 
-const seeds = new Map();
-let listingFailed = false;
-let reachedEnd = false;
-for (let page = 1; page <= MAX_PAGES; page += 1) {
-  diagnostics.listingPagesAttempted += 1;
-  const url = `${ORIGIN}${LISTING_PATH}${page === 1 ? '' : `?page=${page}`}`;
-  try {
-    const html = await fetchText(url);
-    diagnostics.listingPagesSucceeded += 1;
-    const total = listingTotal(html);
-    if (Number.isFinite(total)) diagnostics.listedTotal = total;
-    const rows = listingRows(html);
-    let added = 0;
-    for (const row of rows) {
-      if (!seeds.has(row.id)) { seeds.set(row.id, row); added += 1; }
-    }
-    if (diagnostics.listedTotal && seeds.size >= diagnostics.listedTotal) { reachedEnd = true; break; }
-    if (page > 1 && added === 0) { reachedEnd = true; break; }
-  } catch (error) {
-    listingFailed = true;
-    errors.push(`listing page ${page}: ${error.message}`);
+let selectedListing = null;
+let partialListing = null;
+for (const listingPath of LISTING_PATHS) {
+  const attempt = await scanListing(listingPath);
+  diagnostics.listingAttempts.push({
+    path: listingPath,
+    pagesAttempted: attempt.pagesAttempted,
+    pagesSucceeded: attempt.pagesSucceeded,
+    listedTotal: attempt.listedTotal,
+    candidateRows: attempt.seeds.size,
+    listingComplete: attempt.listingComplete,
+    sourceHealthy: attempt.sourceHealthy,
+    error: attempt.error || null
+  });
+  if (attempt.listingComplete) {
+    selectedListing = attempt;
     break;
+  }
+  if (attempt.sourceHealthy && !partialListing) partialListing = attempt;
+}
+if (!selectedListing) selectedListing = partialListing;
+
+const seeds = selectedListing?.seeds || new Map();
+const sourceHealthy = selectedListing?.sourceHealthy === true;
+const activeListingPath = selectedListing?.listingPath || LISTING_PATHS[0];
+if (selectedListing) {
+  diagnostics.listingPagesAttempted = selectedListing.pagesAttempted;
+  diagnostics.listingPagesSucceeded = selectedListing.pagesSucceeded;
+  diagnostics.listingComplete = selectedListing.listingComplete;
+  diagnostics.listedTotal = selectedListing.listedTotal;
+  diagnostics.candidateRows = seeds.size;
+  diagnostics.selectedListingPath = activeListingPath;
+} else {
+  diagnostics.listingPagesAttempted = diagnostics.listingAttempts.reduce((sum, attempt) => sum + attempt.pagesAttempted, 0);
+  diagnostics.listingPagesSucceeded = diagnostics.listingAttempts.reduce((sum, attempt) => sum + attempt.pagesSucceeded, 0);
+  for (const attempt of diagnostics.listingAttempts) {
+    if (attempt.error && errors.length < 30) errors.push(`listing ${attempt.path}: ${attempt.error}`);
   }
 }
 
-diagnostics.candidateRows = seeds.size;
-diagnostics.listingComplete = !listingFailed && reachedEnd && seeds.size > 0;
-const sourceHealthy = diagnostics.listingPagesSucceeded > 0 && seeds.size > 0;
 const verified = [];
-
 const detailSeeds = [...seeds.values()];
 for (let i = 0; i < detailSeeds.length; i += BATCH_SIZE) {
   const batch = detailSeeds.slice(i, i + BATCH_SIZE);
@@ -321,7 +381,8 @@ await writeFile(STATUS_PATH, JSON.stringify({
   countsByType,
   countsByExperience,
   coreSite: {
-    officialSource: `${ORIGIN}${LISTING_PATH}`,
+    officialSource: `${ORIGIN}${activeListingPath}`,
+    sourceCandidates: LISTING_PATHS.map(path => `${ORIGIN}${path}`),
     sourceHealthy,
     qualifyingRoles: nextSnapshot.length,
     diagnostics,
@@ -333,4 +394,5 @@ await writeFile(STATUS_PATH, JSON.stringify({
   ]
 }, null, 2) + '\n');
 
-console.log(`CoreSite: ${nextSnapshot.length} qualifying roles; ${diagnostics.candidateRows} listed; source ${sourceHealthy ? (diagnostics.listingComplete ? 'healthy/complete' : 'healthy/partial') : 'unavailable'}; preserved ${diagnostics.preservedOnFailure}.`);
+const sourceMode = activeListingPath === LISTING_PATHS[0] ? 'targeted' : 'official-root-fallback';
+console.log(`CoreSite: ${nextSnapshot.length} qualifying roles; ${diagnostics.candidateRows} listed; source ${sourceHealthy ? (diagnostics.listingComplete ? `healthy/complete (${sourceMode})` : `healthy/partial (${sourceMode})`) : 'unavailable'}; preserved ${diagnostics.preservedOnFailure}.`);

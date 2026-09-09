@@ -6,7 +6,6 @@ on:
     paths:
       - scripts/collect-coreweave-careers.mjs
       - scripts/validate-coreweave.mjs
-      - data/coreweave-jobs.json
       - .github/workflows/coreweave-bootstrap.yml
   workflow_dispatch:
   schedule:

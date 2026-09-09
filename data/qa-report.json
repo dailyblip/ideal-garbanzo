@@ -1,22 +1,21 @@
 {
-  "checkedAt": "2026-09-09T16:49:08.346Z",
-  "jobsBefore": 687,
-  "jobsAfter": 686,
+  "checkedAt": "2026-09-09T17:03:11.513Z",
+  "jobsBefore": 686,
+  "jobsAfter": 685,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
+  "duplicatesRemoved": [
     {
-      "id": "lever-t5-16f5281f-6d9b-43c7-b66b-992f3f23a798",
-      "company": "T5 Data Centers",
-      "title": "Critical Facilities Technician",
-      "url": "https://jobs.lever.co/t5datacenters/16f5281f-6d9b-43c7-b66b-992f3f23a798",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://jobs.lever.co/t5datacenters/16f5281f-6d9b-43c7-b66b-992f3f23a798"
+      "reason": "same-company-title-location",
+      "removedId": "workday-qtsdatacenters-R2026-0768",
+      "keptId": "workday-qtsdatacenters-R2026-0881",
+      "company": "QTS Data Centers",
+      "title": "Regional Data Center Controls Quality Engineer",
+      "location": "Suwanee, GA"
     }
   ],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",
@@ -180,7 +179,26 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5168434007",
+      "company": "xAI",
+      "title": "Associate Data Center Operations Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5168434007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5134220007",
+      "company": "xAI",
+      "title": "Electrical Commissioning Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5134220007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 6,
   "careerEventsAfter": 6,

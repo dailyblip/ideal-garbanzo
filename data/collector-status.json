@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-09T04:57:41.836Z",
-  "jobs": 669,
+  "jobs": 671,
   "sourcesAttempted": 30,
   "providers": {
     "lever": 7,
@@ -13,13 +13,13 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 635,
+    "entry-level": 637,
     "apprenticeship": 12,
     "trainee": 7,
     "internship": 15
   },
   "countsByExperience": {
-    "2-5-years": 255,
+    "2-5-years": 257,
     "0-2-years": 370,
     "no-experience": 44
   },
@@ -82,47 +82,25 @@
   "sabeyCareers": {
     "officialSource": "https://sabey.com/about/careers",
     "recruiterBoard": "https://careers2-anothersource.icims.com/jobs/search?hashed=-625979185&ss=1",
-    "sourceHealthy": false,
+    "sourceHealthy": true,
     "listingMethod": "official-recruiter-board",
     "usedRecruiterBoardFallback": true,
     "recruiterBoardComplete": true,
     "candidateLinks": 3,
     "detailSucceeded": 3,
-    "qualifyingRoles": 0,
+    "qualifyingRoles": 2,
     "preservedPrevious": 0,
     "drops": {
       "stale": 0,
-      "titleOrExperience": 3,
+      "titleOrExperience": 1,
       "location": 0,
       "nonSabey": 0,
       "fetch": 0
     },
     "rejectSamples": [
       {
-        "id": "102555",
-        "title": "Another Source",
-        "reason": "title-or-experience",
-        "years": [
-          3,
-          3
-        ],
-        "textLength": 10633,
-        "hasExperienceMarker": true
-      },
-      {
-        "id": "102554",
-        "title": "Another Source",
-        "reason": "title-or-experience",
-        "years": [
-          3,
-          3
-        ],
-        "textLength": 10502,
-        "hasExperienceMarker": true
-      },
-      {
         "id": "102521",
-        "title": "Another Source",
+        "title": "Job Posting Title Data Center Project Engineer",
         "reason": "title-or-experience",
         "years": [],
         "textLength": 11139,
@@ -132,12 +110,12 @@
     "errors": [
       "official listing: 403 https://sabey.com/about/careers"
     ],
-    "snapshotRoles": 0,
+    "snapshotRoles": 2,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-09T04:51:29.514Z",
-    "snapshotFresh": false,
+    "snapshotVerifiedAt": "2026-09-09T05:00:30.445Z",
+    "snapshotFresh": true,
     "snapshotMaxAgeHours": 168,
-    "snapshotAgeHours": 0.1,
+    "snapshotAgeHours": 0.2,
     "removedExpiredFallback": 0
   },
   "novvaCareers": {
@@ -1579,7 +1557,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T04:58:18.642Z",
+    "checkedAt": "2026-09-09T05:00:30.514Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1587,16 +1565,16 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T04:58:18.718Z",
+    "updatedAt": "2026-09-09T05:00:30.588Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 669,
+    "regionAssigned": 671,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 133,
-      "texas": 102,
+      "texas": 104,
       "mid-atlantic": 122,
       "west": 102,
       "northeast": 18,
@@ -1605,9 +1583,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T04:58:18.789Z",
-    "before": 669,
-    "after": 669,
+    "checkedAt": "2026-09-09T05:00:30.662Z",
+    "before": 671,
+    "after": 671,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1621,16 +1599,16 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 908,
-    "currentJobs": 669,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 909,
+    "currentJobs": 671,
+    "newJobsThisRun": 1,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-09T04:58:18.853Z"
+    "firstSeenRecencyFallbackJobs": 93,
+    "updatedAt": "2026-09-09T05:00:30.730Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,20 +1,11 @@
 {
-  "checkedAt": "2026-09-09T17:03:11.513Z",
-  "jobsBefore": 686,
+  "checkedAt": "2026-09-09T17:13:39.261Z",
+  "jobsBefore": 685,
   "jobsAfter": 685,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
+  "duplicatesRemoved": [],
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
@@ -181,19 +172,10 @@
   ],
   "transientJobLinks": [
     {
-      "id": "gh-xai-5168434007",
-      "company": "xAI",
-      "title": "Associate Data Center Operations Technician - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5168434007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    },
-    {
-      "id": "gh-xai-5134220007",
-      "company": "xAI",
-      "title": "Electrical Commissioning Technician - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5134220007",
+      "id": "workday-qtsdatacenters-R2026-1903",
+      "company": "QTS Data Centers",
+      "title": "Summer 2027 Internship: Construction Project Development",
+      "url": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Manassas-VA/Summer-2027-Internship---Construction-Project-Development_R2026-1903",
       "state": "transient",
       "status": null,
       "error": "timeout"

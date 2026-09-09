@@ -20,6 +20,7 @@ const GENERIC_COMPANIES = [
   'Element Critical',
   'CoreWeave',
   'Flexential',
+  'EdgeConneX',
   'Lambda',
   'Crusoe',
   'Fluidstack',

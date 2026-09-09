@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T17:26:46.291Z",
+  "updatedAt": "2026-09-09T18:00:28.022Z",
   "jobs": 705,
   "sourcesAttempted": 33,
   "providers": {
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "trainee": 8,
     "entry-level": 670,
+    "trainee": 8,
     "apprenticeship": 12,
     "internship": 15
   },
   "countsByExperience": {
-    "no-experience": 53,
+    "2-5-years": 273,
     "0-2-years": 379,
-    "2-5-years": 273
+    "no-experience": 53
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1756,39 +1756,15 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T17:26:46.383Z",
-    "removedCount": 3,
-    "removedByReason": {
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-09T18:00:28.100Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T17:26:46.447Z",
+    "updatedAt": "2026-09-09T18:00:28.176Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 705,
@@ -1796,17 +1772,17 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 109,
-      "midwest": 139,
-      "southwest": 85,
-      "west": 108,
       "mid-atlantic": 128,
       "texas": 116,
-      "northeast": 20
+      "midwest": 139,
+      "southeast": 109,
+      "west": 108,
+      "northeast": 20,
+      "southwest": 85
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T17:26:46.504Z",
+    "checkedAt": "2026-09-09T18:00:28.247Z",
     "before": 705,
     "after": 705,
     "removed": 0,
@@ -1814,7 +1790,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-09T17:27:08.246Z",
+    "checkedAt": "2026-09-09T18:01:11.094Z",
     "publishedJobs": 705,
     "removedJobs": 0,
     "activeCareerEvents": 6,
@@ -1824,14 +1800,14 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 951,
     "currentJobs": 705,
-    "newJobsThisRun": 10,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 10,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 108,
-    "updatedAt": "2026-09-09T17:27:08.369Z"
+    "updatedAt": "2026-09-09T18:01:11.224Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1977,7 +1953,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-09T05:23:38.252Z",
+    "checkedAt": "2026-09-09T18:00:28.022Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",
@@ -1986,12 +1962,12 @@
     "talentReefClientId": "14459",
     "talentReefBrand": null,
     "authoritativeSnapshot": true,
-    "listedJobs": 48,
-    "externalJobs": 48,
-    "usJobs": 48,
+    "listedJobs": 47,
+    "externalJobs": 47,
+    "usJobs": 47,
     "candidateRoles": 34,
     "qualifyingRoles": 17,
-    "rejectedOutOfScopeTitle": 24,
+    "rejectedOutOfScopeTitle": 23,
     "rejectedOver5Years": 2,
     "rejectedUnknownExperience": 5,
     "rejectedLocation": 0

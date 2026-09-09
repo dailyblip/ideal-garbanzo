@@ -8,6 +8,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/refresh-career-events.mjs'
+      - 'scripts/career-event-evidence.mjs'
+      - 'scripts/test-career-event-evidence.mjs'
       - 'scripts/validate-career-event-freshness.mjs'
       - 'data/career-events.json'
       - '.github/workflows/career-events-refresh.yml'
@@ -30,6 +32,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Test event-content verification rules
+        run: node scripts/test-career-event-evidence.mjs
       - name: Reverify organizer pages and prune stale events
         run: node scripts/refresh-career-events.mjs
       - name: Validate career-event publication contract

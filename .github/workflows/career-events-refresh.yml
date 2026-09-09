@@ -1,0 +1,50 @@
+name: Refresh verified career events
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 11 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/refresh-career-events.mjs'
+      - 'scripts/validate-career-event-freshness.mjs'
+      - 'data/career-events.json'
+      - '.github/workflows/career-events-refresh.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: career-events-refresh
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Reverify organizer pages and prune stale events
+        run: node scripts/refresh-career-events.mjs
+      - name: Validate career-event publication contract
+        run: node scripts/validate-career-event-freshness.mjs
+      - name: Commit verified event changes
+        run: |
+          if git diff --quiet -- data/career-events.json; then
+            echo "Career-event feed is current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/career-events.json
+          git commit -m "Refresh verified career events"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

@@ -24,7 +24,9 @@ const obviousNonMissionTitlePattern = /\b(?:administrative business partner|busi
 // Keep this publication-time filter aligned with validate.mjs. If these roles are
 // allowed through here, the final deployment validator rejects the same feed and
 // turns ordinary source-taxonomy drift into an avoidable site deployment failure.
-const obviousSeniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|staff technician|supervisor|superintendent|foreman|architect)\b/i;
+// "Staff" is treated as a senior IC level regardless of the role family; this
+// catches titles such as Staff Electrical Operator as well as Staff Engineer.
+const obviousSeniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff|supervisor|superintendent|foreman|architect)\b/i;
 
 function obviousTitleReason(title = '') {
   const normalized = clean(title);
@@ -73,6 +75,8 @@ const titleRegressionCases = [
   { title: 'Data Center Facilities Manager', reason: 'senior/executive title' },
   { title: 'Critical Operations Supervisor', reason: 'senior/executive title' },
   { title: 'Data Center Architect', reason: 'senior/executive title' },
+  { title: 'Staff Electrical Operator', reason: 'senior/executive title' },
+  { title: 'Staff Data Center Operations Engineer', reason: 'senior/executive title' },
   { title: 'Critical Operations Technician I', reason: '' },
   { title: 'Data Center Operations Technician', reason: '' },
   { title: 'Critical Facilities Engineer', reason: '' },

@@ -7,6 +7,7 @@ on:
       - 'assets/app.js'
       - 'scripts/generate-region-seo.mjs'
       - 'scripts/send-weekly-digest.mjs'
+      - 'scripts/send-weekly-job-alert.mjs'
       - 'scripts/test-region-filter-contract.mjs'
       - '.github/workflows/region-filter-guard.yml'
   pull_request:
@@ -14,6 +15,7 @@ on:
       - 'assets/app.js'
       - 'scripts/generate-region-seo.mjs'
       - 'scripts/send-weekly-digest.mjs'
+      - 'scripts/send-weekly-job-alert.mjs'
       - 'scripts/test-region-filter-contract.mjs'
       - '.github/workflows/region-filter-guard.yml'
 
@@ -33,4 +35,5 @@ jobs:
           node --check assets/app.js
           node --check scripts/generate-region-seo.mjs
           node --check scripts/send-weekly-digest.mjs
+          node --check scripts/send-weekly-job-alert.mjs
           node scripts/test-region-filter-contract.mjs

@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-09T15:02:03.911Z",
-  "jobsBefore": 689,
-  "jobsAfter": 689,
+  "checkedAt": "2026-09-09T15:46:00.365Z",
+  "jobsBefore": 688,
+  "jobsAfter": 687,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10498311",
+      "company": "Amazon Web Services",
+      "title": "Data Center Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10498311/data-center-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10498311/data-center-operations-technician"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",
@@ -27,6 +37,17 @@
       "state": "verified-retained",
       "status": 404,
       "finalUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-boca-raton-florida-chicago-illinois-englewood-colorado-san-jose-california",
+      "rawState": "dead",
+      "reason": "active-provider-verification"
+    },
+    {
+      "id": "equinix-verified-9ad4e32d1e5093",
+      "company": "Equinix",
+      "title": "SkillBridge Critical Facilities Engineer, Data Center - Hiring our Heroes Cohort Q3' 2026",
+      "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-chicago-illinois-denver-colorado-miami-florida-san-jose-calif",
+      "state": "verified-retained",
+      "status": 404,
+      "finalUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-chicago-illinois-denver-colorado-miami-florida-san-jose-calif",
       "rawState": "dead",
       "reason": "active-provider-verification"
     }

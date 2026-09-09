@@ -33,6 +33,30 @@ function obviousTitleReason(title = '') {
   return '';
 }
 
+function normalizeExplicitProgram(job = {}) {
+  const title = clean(job?.title);
+  let expectedType = '';
+  let expectedTag = '';
+  if (/\bintern(?:ship)?\b/i.test(title)) {
+    expectedType = 'internship';
+    expectedTag = 'Internship';
+  } else if (/\bapprentice(?:ship)?\b/i.test(title)) {
+    expectedType = 'apprenticeship';
+    expectedTag = 'Apprenticeship';
+  } else if (/\btrainee\b/i.test(title)) {
+    expectedType = 'trainee';
+    expectedTag = 'Trainee';
+  }
+  if (!expectedType) return job;
+
+  const tags = (Array.isArray(job?.tags) ? job.tags : [])
+    .map(clean)
+    .filter(Boolean)
+    .filter(tag => !/^(?:internship|apprenticeship|trainee)$/i.test(tag));
+  tags.unshift(expectedTag);
+  return { ...job, type: expectedType, tags: [...new Set(tags)].slice(0, 5) };
+}
+
 const titleRegressionCases = [
   { title: 'Business Analyst, Budget Planning & Financial Operations, Global', reason: 'non-mission role family' },
   { title: 'Data Center Business Operations Business Analyst', reason: 'non-mission role family' },
@@ -59,6 +83,38 @@ for (const testCase of titleRegressionCases) {
   const actual = obviousTitleReason(testCase.title);
   if (actual !== testCase.reason) {
     throw new Error(`Mission-fit title regression for ${testCase.title}: expected "${testCase.reason}", got "${actual}"`);
+  }
+}
+
+const programRegressionCases = [
+  {
+    job: { title: 'SkillBridge Data Center Operations Technician Internship', type: 'trainee', tags: ['Trainee', 'Training / Mentorship'] },
+    type: 'internship',
+    tag: 'Internship'
+  },
+  {
+    job: { title: 'Data Center Technician Apprenticeship', type: 'entry-level', tags: ['0–2 Years'] },
+    type: 'apprenticeship',
+    tag: 'Apprenticeship'
+  },
+  {
+    job: { title: 'Critical Facilities Trainee', type: 'entry-level', tags: ['No Experience Needed'] },
+    type: 'trainee',
+    tag: 'Trainee'
+  },
+  {
+    job: { title: 'Internal Data Center Infrastructure Projects', type: 'entry-level', tags: ['0–2 Years'] },
+    type: 'entry-level',
+    tag: null
+  }
+];
+for (const testCase of programRegressionCases) {
+  const actual = normalizeExplicitProgram(testCase.job);
+  if (actual.type !== testCase.type || (testCase.tag && !actual.tags?.includes(testCase.tag))) {
+    throw new Error(`Early-career program regression for ${testCase.job.title}: expected ${testCase.type}, got ${actual.type}`);
+  }
+  if (testCase.tag && actual.tags?.some(tag => /^(?:internship|apprenticeship|trainee)$/i.test(tag) && tag !== testCase.tag)) {
+    throw new Error(`Early-career program regression for ${testCase.job.title}: conflicting program tags remain.`);
   }
 }
 
@@ -105,7 +161,8 @@ function removalReason(job = {}) {
 function partitionMissionFit(records = []) {
   const kept = [];
   const removed = [];
-  for (const job of records) {
+  for (const rawJob of records) {
+    const job = normalizeExplicitProgram(rawJob);
     const title = clean(job?.title);
     const location = clean(job?.location);
     const reason = removalReason(job);

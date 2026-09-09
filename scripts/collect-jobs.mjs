@@ -30,7 +30,8 @@ const GENERIC_SOURCES = [
 const GENERIC_COMPANIES = GENERIC_SOURCES.map(source => source.company);
 const GENERIC_COMPANY_SET = new Set(GENERIC_COMPANIES);
 const AUTHORITATIVE_SNAPSHOTS = [
-  { company: 'Cologix', path: 'data/cologix-jobs.json' }
+  { company: 'Cologix', path: 'data/cologix-jobs.json' },
+  { company: 'EdgeConneX', path: 'data/edgeconnex-jobs.json' }
 ];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();

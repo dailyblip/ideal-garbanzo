@@ -52,7 +52,7 @@
           <li>Highlighted listing treatment and badge</li>
           <li>Priority placement in matching job results</li>
         </ul>
-        <a class="btn btn-primary plan-button" href="#checkout">Choose Highlighted</a>
+        <a class="btn btn-primary plan-button" href="#request-placement">Choose Highlighted</a>
       </article>
 
       <article class="plan-card spotlight-plan">
@@ -65,7 +65,7 @@
           <li>Homepage priority while active</li>
           <li>Eligibility for relevant job-alert emails</li>
         </ul>
-        <a class="btn btn-secondary plan-button" href="#checkout">Choose Spotlight</a>
+        <a class="btn btn-secondary plan-button" href="#request-placement">Choose Spotlight</a>
       </article>
     </div>
   </section>
@@ -113,10 +113,23 @@
     <p>We accept data-center/facilities/electrical/critical-environment/operations roles, internships, apprenticeships, trainee/no-experience opportunities and appropriate 0–5 year infrastructure positions. Unrelated software roles, senior/executive-heavy openings and jobs outside the site's mission are not eligible for paid placement.</p>
   </section>
 
-  <section class="checkout-panel" id="checkout" aria-labelledby="checkout-title">
-    <span class="utility-kicker">CHECKOUT</span>
-    <h2 id="checkout-title">Ready to promote a job?</h2>
-    <p>The promotion page and placement tiers are ready for checkout plumbing. Online payment is not active yet, so this page will not collect money until the payment flow is connected and tested.</p>
+  <section class="checkout-panel" id="request-placement" aria-labelledby="request-placement-title">
+    <span class="utility-kicker">REQUEST PLACEMENT</span>
+    <h2 id="request-placement-title">Send us the job you want to promote.</h2>
+    <p>Online payment is not active yet. Send a work email and the official employer job URL so we can review the role for mission fit before any placement is activated. Submitting an inquiry does not publish the job or create a charge.</p>
+    <form class="hero-search" action="https://buttondown.com/api/emails/embed-subscribe/datacentercareers" method="post">
+      <label><span>Work email</span><input type="email" name="email" autocomplete="email" required placeholder="you@company.com"></label>
+      <label><span>Official job URL</span><input type="url" name="metadata__job_url" autocomplete="url" required placeholder="https://careers.company.com/..."></label>
+      <input type="hidden" name="embed" value="1">
+      <input type="hidden" name="tag" value="employer-inquiries">
+      <input type="hidden" name="metadata__interest" value="employer-promotion">
+      <input type="hidden" name="metadata__source" value="employers-page">
+      <input type="hidden" name="utm_source" value="datacentercareers.us">
+      <input type="hidden" name="utm_medium" value="website">
+      <input type="hidden" name="utm_campaign" value="employer-placement-inquiry">
+      <button class="btn btn-primary" type="submit">Request placement</button>
+    </form>
+    <p class="employer-status">This form creates an employer-placement inquiry only. Weekly job alerts require a separate subscription.</p>
   </section>
 </main>
 

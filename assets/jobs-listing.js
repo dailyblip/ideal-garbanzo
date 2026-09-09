@@ -36,7 +36,7 @@
         <input type="hidden" name="utm_campaign" value="weekly-job-alerts">
       </form>
       <p class="jobs-results-summary">One email a week with new employer-direct data center openings. If you choose a region above, we’ll save that preference with your signup.</p>`;
-    root.insertAdjacentElement('afterend', section);
+    root.insertAdjacentElement('beforebegin', section);
 
     const form = section.querySelector('#jobs-newsletter-form');
     const regionValue = section.querySelector('#jobs-newsletter-region');
@@ -68,7 +68,7 @@
     'west':['alaska','california','colorado','hawaii','idaho','montana','oregon','utah','washington','wyoming',', ak',', ca',', co',', hi',', id',', mt',', or',', ut',', wa',', wy']
   };
 
-  const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[ch]));
   const slugify = value => String(value ?? '').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70) || 'job';
   const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0,32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g,'').slice(-10)}`;
   const typeLabel = value => ({internship:'Internship',apprenticeship:'Apprenticeship',trainee:'Trainee program','entry-level':'Entry-level job'})[value] || 'Data center job';

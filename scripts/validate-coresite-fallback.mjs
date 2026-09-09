@@ -47,6 +47,13 @@ function validateFallback(payload) {
   return { violations, verifiedAt, expiresAt };
 }
 
+function expectedProgramType(job = {}) {
+  const title = clean(job?.title);
+  if (/\bintern(?:ship)?\b/i.test(title)) return 'internship';
+  if (/\bapprentice(?:ship)?\b/i.test(title)) return 'apprenticeship';
+  return '';
+}
+
 const [jobs, status, fallback] = await Promise.all([readJson(JOBS_PATH), readJson(STATUS_PATH), readJson(FALLBACK_PATH)]);
 if (!Array.isArray(jobs)) throw new Error('CoreSite fallback guard requires data/jobs.json to be an array.');
 const { violations, verifiedAt, expiresAt } = validateFallback(fallback);
@@ -57,9 +64,25 @@ const publicCoreSite = jobs.filter(isCoreSite);
 const fallbackTitles = new Set((fallback?.jobs || []).map(canonicalTitle).filter(Boolean));
 const publicTitles = new Set(publicCoreSite.map(canonicalTitle).filter(Boolean));
 
+for (const job of publicCoreSite) {
+  const expected = expectedProgramType(job);
+  if (expected && job?.type !== expected) {
+    violations.push(`public CoreSite role ${clean(job?.id) || clean(job?.title)} is titled as ${expected} but classified as ${job?.type || '(missing)'}`);
+  }
+}
+
 if (!sourceHealthy && fallbackActive && Array.isArray(fallback?.jobs)) {
   const missingTitles = [...fallbackTitles].filter(title => !publicTitles.has(title));
   if (missingTitles.length) violations.push(`active fallback lost ${missingTitles.length}/${fallbackTitles.size} unique verified role title(s)`);
+
+  // Repeated titles can represent distinct openings in different cities. Title
+  // parity alone could lose four of five SkillBridge internships and still pass,
+  // so require every verified requisition ID to survive the fallback publication.
+  const fallbackIds = new Set(fallback.jobs.map(job => clean(job?.id)).filter(Boolean));
+  const publicIds = new Set(publicCoreSite.map(job => clean(job?.id)).filter(Boolean));
+  const missingIds = [...fallbackIds].filter(id => !publicIds.has(id));
+  if (missingIds.length) violations.push(`active fallback lost ${missingIds.length}/${fallbackIds.size} verified requisition(s): ${missingIds.join(', ')}`);
+
   for (const job of publicCoreSite) {
     if (!/^https:\/\/jobs\.coresite\.com\/jobs\/\d+/i.test(clean(job?.sourceUrl))) violations.push(`public CoreSite card ${clean(job?.id) || clean(job?.title)} is not employer-direct`);
   }

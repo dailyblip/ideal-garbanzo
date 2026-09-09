@@ -91,12 +91,44 @@
     "qualifyingRoles": 0,
     "preservedPrevious": 0,
     "drops": {
-      "stale": 1,
-      "titleOrExperience": 2,
+      "stale": 0,
+      "titleOrExperience": 3,
       "location": 0,
       "nonSabey": 0,
       "fetch": 0
     },
+    "rejectSamples": [
+      {
+        "id": "102555",
+        "title": "Another Source",
+        "reason": "title-or-experience",
+        "years": [
+          3,
+          3
+        ],
+        "textLength": 10633,
+        "hasExperienceMarker": true
+      },
+      {
+        "id": "102554",
+        "title": "Another Source",
+        "reason": "title-or-experience",
+        "years": [
+          3,
+          3
+        ],
+        "textLength": 10502,
+        "hasExperienceMarker": true
+      },
+      {
+        "id": "102521",
+        "title": "Another Source",
+        "reason": "title-or-experience",
+        "years": [],
+        "textLength": 11139,
+        "hasExperienceMarker": true
+      }
+    ],
     "errors": [
       "official listing: 403 https://sabey.com/about/careers"
     ],
@@ -1547,7 +1579,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T04:57:41.945Z",
+    "checkedAt": "2026-09-09T04:58:18.642Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1555,7 +1587,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T04:57:42.022Z",
+    "updatedAt": "2026-09-09T04:58:18.718Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 669,
@@ -1573,7 +1605,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T04:57:42.089Z",
+    "checkedAt": "2026-09-09T04:58:18.789Z",
     "before": 669,
     "after": 669,
     "removed": 0,
@@ -1598,7 +1630,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-09T04:58:07.205Z"
+    "updatedAt": "2026-09-09T04:58:18.853Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

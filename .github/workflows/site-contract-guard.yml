@@ -32,5 +32,7 @@ jobs:
         run: node scripts/validate-accessibility.mjs
       - name: Validate source workflow isolation
         run: node scripts/validate-source-workflow-isolation.mjs
+      - name: Validate CoreSite official listing failover
+        run: node scripts/validate-coresite-source-failover.mjs
       - name: Validate plain-language site copy
         run: node scripts/validate-site-copy.mjs

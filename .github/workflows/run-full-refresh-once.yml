@@ -8,6 +8,8 @@ on:
     paths:
       - '.github/workflows/run-full-refresh-once.yml'
       - 'scripts/reconcile-major-jobs.mjs'
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
 
 permissions:
   contents: write

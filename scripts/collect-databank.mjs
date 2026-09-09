@@ -36,7 +36,7 @@ const normalizeIdentity = value => lower(value).replace(/[^a-z0-9]+/g, ' ').trim
 const strongTitlePattern = /\b(?:data cent(?:er|re)(?: operations?)? technician|data cent(?:er|re) engineering intern|data cent(?:er|re) operations?|critical infrastructure(?: technician| engineer| operator)?|critical facilit(?:y|ies)(?: technician| engineer| operator)?|facilit(?:y|ies) technician|electrical technician|mechanical technician|critical environment(?:s)?(?: technician| engineer| operator)?)\b/i;
 const contextualTitlePattern = /\b(?:technician|operator|engineer|electrician|mechanic|intern|apprentice|trainee)\b/i;
 const dataCenterContextPattern = /\b(?:data cent(?:er|re)|critical infrastructure|critical facilit(?:y|ies)|critical environment|colocation|mission[- ]critical|ups|switchgear|generator|pdu|bms|epms|crah|crac|chiller|cooling|white space|server racks?)\b/i;
-const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman|architect|security|sales|account executive|solutions engineer|project manager|product manager|analyst|finance|procurement|marketing|software|developer|data scientist|human resources|recruiter)\b/i;
+const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman|architect|security|sales|account executive|solutions engineer|technical support|support engineer|project manager|product manager|analyst|finance|procurement|marketing|software|developer|data scientist|human resources|recruiter)\b/i;
 const excludedDescriptionPattern = /\b(?:evergreen requisition|talent pool|talent community|general application|future opportunit(?:y|ies))\b/i;
 
 const stateAbbrPattern = /(?:,|\s)\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)(?:\b|$)/i;
@@ -65,6 +65,8 @@ function statedExperienceYears(text = '') {
   ];
   for (const pattern of patterns) {
     for (const match of normalized.matchAll(pattern)) {
+      const suffix = normalized.slice((match.index ?? 0) + match[0].length, (match.index ?? 0) + match[0].length + 60);
+      if (/^\s*(?:is|are|would be)?\s*(?:preferred|desired|a plus|helpful|beneficial)\b/i.test(suffix)) continue;
       values.push(Number(match[1]));
       if (match[2]) values.push(Number(match[2]));
     }
@@ -139,9 +141,12 @@ function payFor(source = {}) {
   const salaryMin = Number.isFinite(min) && min > 0 ? min : null;
   const salaryMax = Number.isFinite(max) && max > 0 ? max : null;
   if (!salaryMin && !salaryMax) return { pay: 'Pay not listed', salaryMin: null, salaryMax: null, salarySortMax: null };
-  const salaried = source?.isSalaried === true || String(source?.isSalaried).toLowerCase() === 'true';
   const low = salaryMin ?? salaryMax;
   const high = salaryMax ?? salaryMin;
+  const published = lower(source?.pubCompensation || '');
+  const explicitlyAnnual = /\b(?:annual|annually|year|yearly|yr|salary|salaried)\b/i.test(published);
+  const explicitlyHourly = /\b(?:hour|hourly|hr)\b/i.test(published);
+  const salaried = explicitlyAnnual || (!explicitlyHourly && (source?.isSalaried === true || String(source?.isSalaried).toLowerCase() === 'true' || high >= 1000));
   return {
     pay: `$${Number(low).toLocaleString('en-US')}–$${Number(high).toLocaleString('en-US')} / ${salaried ? 'year' : 'hr'}`,
     salaryMin: low,
@@ -252,11 +257,14 @@ async function listPostings(clientId) {
 if (process.argv.includes('--test-classifier')) {
   const cases = [
     ['technician one no explicit years', 'Data Center Technician 1', 'Maintain data center critical infrastructure, UPS and generators.', 'entry-level', '0-2-years'],
+    ['technician one preferred range stays early', 'Data Center Technician 1', 'High school diploma required. 0-4 years of data center or NOC experience preferred.', 'entry-level', '0-2-years'],
     ['technician two mid-level', 'Data Center Technician 2', 'Maintain data center critical infrastructure and cooling systems.', 'entry-level', '2-5-years'],
     ['engineering internship', 'Data Center Engineering Intern', 'Support data center facilities engineering projects.', 'internship', '0-2-years'],
     ['five-year critical infrastructure accepted', 'Critical Infrastructure Technician', 'Minimum 5 years of experience in mission critical operations.', 'entry-level', '2-5-years'],
+    ['building systems at five years accepted', 'Building Systems Engineer', 'Design BMS and EPMS for data center facilities. 5+ years of experience in building systems engineering.', 'entry-level', '2-5-years'],
     ['seven-year role rejected', 'Critical Infrastructure Engineer', 'Minimum 7 years of experience in data center critical infrastructure.', null, null],
     ['business internship rejected', 'Business Operations Analyst Intern', 'Support pricing and managed services operations in a data center company.', null, null],
+    ['technical support rejected', 'Technical Support Engineer 2 (Remote)', 'Support Windows, Linux, cloud, application and network issues across a multi data center environment. 5+ years of IT experience required.', null, null],
     ['solutions engineer rejected', 'Solutions Engineer', 'Five years of experience designing data center solutions for customers.', null, null],
     ['unknown unlevelled role rejected', 'Critical Facilities Engineer', 'Operate mission-critical electrical and mechanical systems.', null, null]
   ];
@@ -269,11 +277,19 @@ if (process.argv.includes('--test-classifier')) {
       failures.push(`${name}: expected ${expectedType}/${expectedExperience}, got ${actualType}/${actualExperience}`);
     }
   }
+  const annualPay = payFor({ minCompensation: 140000, maxCompensation: 160000, isSalaried: false });
+  if (annualPay.pay !== '$140,000–$160,000 / year' || annualPay.salarySortMax !== 160000) {
+    failures.push(`annual compensation inference: got ${annualPay.pay} / ${annualPay.salarySortMax}`);
+  }
+  const hourlyPay = payFor({ minCompensation: 28.28, maxCompensation: 30, isSalaried: false });
+  if (hourlyPay.pay !== '$28.28–$30 / hr' || hourlyPay.salarySortMax !== 62400) {
+    failures.push(`hourly compensation inference: got ${hourlyPay.pay} / ${hourlyPay.salarySortMax}`);
+  }
   if (failures.length) {
     failures.forEach(failure => console.error(`DataBank classifier regression: ${failure}`));
     process.exit(1);
   }
-  console.log(`DataBank classifier passed ${cases.length} regression cases.`);
+  console.log(`DataBank classifier passed ${cases.length} role cases plus compensation inference.`);
   process.exit(0);
 }
 

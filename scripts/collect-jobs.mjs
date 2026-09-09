@@ -115,6 +115,27 @@ function countsBy(jobs, field) {
   }, {});
 }
 
+// collect-jobs-core.mjs rewrites collector-status.json with the current generic
+// ATS scan. Preserve diagnostics owned by dedicated collectors (major Workday,
+// DataBank, Cologix, Meta, etc.) so a generic refresh cannot silently erase the
+// evidence used by source-health guards. Current generic top-level fields still
+// win, and its errors remain current-run-only for failure preservation logic.
+function mergeCollectorStatus(previousStatus = {}, currentGenericStatus = {}) {
+  return {
+    ...previousStatus,
+    ...currentGenericStatus,
+    genericDirectSources: {
+      updatedAt: currentGenericStatus.updatedAt || new Date().toISOString(),
+      jobs: Number(currentGenericStatus.jobs || 0),
+      sourcesAttempted: Number(currentGenericStatus.sourcesAttempted || 0),
+      providers: currentGenericStatus.providers || {},
+      countsByType: currentGenericStatus.countsByType || {},
+      countsByExperience: currentGenericStatus.countsByExperience || {},
+      errors: Array.isArray(currentGenericStatus.errors) ? currentGenericStatus.errors : []
+    }
+  };
+}
+
 function runSelfTest() {
   const previous = [
     { id:'old-lightedge', company:'LightEdge Solutions', title:'Data Center Operations Tier 1 Technician', location:'Lewisville, TX', sourceUrl:'https://jobs.lever.co/lightedge/old', active:true, demo:false },
@@ -149,7 +170,31 @@ function runSelfTest() {
   const authoritativeEmpty = overlayCompanySnapshot(genericCologix, 'Cologix', []);
   if (authoritativeEmpty.some(job => job.company === 'Cologix')) throw new Error('authoritative empty Cologix snapshot did not clear stale generic roles');
 
-  console.log('Generic source failure preservation and authoritative snapshot overlay passed regression tests.');
+  const previousStatus = {
+    jobs: 688,
+    errors: ['CoreSite Careers: 403 listing'],
+    majorSources: { attempted: 6, succeeded: 6, jobs: 217 },
+    dataBank: { sourceHealthy: true, qualifyingRoles: 17 },
+    cologix: { sourceHealthy: true, qualifyingRoles: 9 }
+  };
+  const currentGenericStatus = {
+    updatedAt: '2026-09-09T06:00:00.000Z',
+    jobs: 42,
+    sourcesAttempted: 17,
+    providers: { lever: 7, greenhouse: 5, ashby: 5 },
+    countsByType: { 'entry-level': 40, internship: 2 },
+    countsByExperience: { '0-2-years': 25, '2-5-years': 17 },
+    errors: ['EdgeConneX: 503 upstream unavailable']
+  };
+  const mergedStatus = mergeCollectorStatus(previousStatus, currentGenericStatus);
+  if (mergedStatus.majorSources?.jobs !== 217) throw new Error('generic status merge erased major Workday diagnostics');
+  if (mergedStatus.dataBank?.qualifyingRoles !== 17) throw new Error('generic status merge erased DataBank diagnostics');
+  if (mergedStatus.cologix?.qualifyingRoles !== 9) throw new Error('generic status merge erased Cologix diagnostics');
+  if (mergedStatus.jobs !== 42 || mergedStatus.sourcesAttempted !== 17) throw new Error('current generic status did not remain authoritative for current-run fields');
+  if (mergedStatus.genericDirectSources?.errors?.[0] !== 'EdgeConneX: 503 upstream unavailable') throw new Error('generic status diagnostics were not namespaced');
+  if (mergedStatus.errors?.[0] !== 'EdgeConneX: 503 upstream unavailable') throw new Error('current generic errors were not kept current-run-only');
+
+  console.log('Generic source failure, authoritative overlay, and collector-status preservation regression tests passed.');
 }
 
 if (process.argv.includes('--test-preservation')) {
@@ -164,10 +209,12 @@ if (process.argv.includes('--test-experience-parser')) {
 }
 
 const previous = await readJson(JOBS_PATH, []);
+const previousStatus = await readJson(STATUS_PATH, {});
 await import('./collect-jobs-core.mjs');
 const fresh = await readJson(JOBS_PATH, []);
-const status = await readJson(STATUS_PATH, {});
-const errors = Array.isArray(status?.errors) ? status.errors : [];
+const currentGenericStatus = await readJson(STATUS_PATH, {});
+const errors = Array.isArray(currentGenericStatus?.errors) ? currentGenericStatus.errors : [];
+const status = mergeCollectorStatus(previousStatus, currentGenericStatus);
 const result = preserveFailedSources(previous, fresh, errors);
 const authoritative = await applyAuthoritativeSnapshots(result.jobs);
 

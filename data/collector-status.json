@@ -112,10 +112,11 @@
     ],
     "snapshotRoles": 2,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-09T05:00:30.445Z",
+    "snapshotVerifiedAt": "2026-09-09T05:05:18.921Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 168,
-    "snapshotAgeHours": 0.2,
+    "snapshotAgeHours": 0.1,
+    "normalizedTitles": 2,
     "removedExpiredFallback": 0
   },
   "novvaCareers": {
@@ -1557,7 +1558,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T05:00:30.514Z",
+    "checkedAt": "2026-09-09T05:05:18.990Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1565,7 +1566,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T05:00:30.588Z",
+    "updatedAt": "2026-09-09T05:05:19.062Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 671,
@@ -1583,7 +1584,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T05:00:30.662Z",
+    "checkedAt": "2026-09-09T05:05:19.128Z",
     "before": 671,
     "after": 671,
     "removed": 0,
@@ -1601,14 +1602,14 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 909,
     "currentJobs": 671,
-    "newJobsThisRun": 1,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 1,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 2,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-09T05:00:30.730Z"
+    "updatedAt": "2026-09-09T05:05:19.188Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -34,10 +34,33 @@ function canonicalTitle(job) {
   title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
   title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
   title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  // Workday occasionally republishes the same public role family with a short
+  // internal acronym appended in parentheses (for example, QTS's CBQE variant).
+  // The public feed may keep one representative requisition after normalization,
+  // so treat acronym-only suffixes as title metadata for parity purposes while
+  // preserving descriptive specialties such as "(Mechanical)".
+  title = title.replace(/\s*\([A-Z][A-Z0-9]{1,10}\)\s*$/u, '');
   title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
   return normalize(title);
 }
 const uniqueTitles = records => new Set((records || []).map(canonicalTitle).filter(Boolean));
+
+const canonicalTitleRegressionCases = [
+  {
+    job: { title: 'Regional Data Center Controls Quality Engineer (CBQE)', location: 'Suwanee, GA' },
+    expected: 'regional data center controls quality engineer'
+  },
+  {
+    job: { title: 'Commissioning Engineer II (Mechanical)', location: 'Eagle Mountain, UT' },
+    expected: 'commissioning engineer ii mechanical'
+  }
+];
+for (const testCase of canonicalTitleRegressionCases) {
+  const actual = canonicalTitle(testCase.job);
+  if (actual !== testCase.expected) {
+    throw new Error(`Major Workday canonical-title regression for ${testCase.job.title}: expected ${testCase.expected}, got ${actual}`);
+  }
+}
 
 async function readJson(path) { return JSON.parse(await readFile(path, 'utf8')); }
 

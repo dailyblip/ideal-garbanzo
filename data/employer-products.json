@@ -25,6 +25,12 @@
     "enabled": false,
     "url": ""
   },
+  "inquiry": {
+    "enabled": true,
+    "provider": "buttondown",
+    "endpoint": "https://buttondown.com/api/emails/embed-subscribe/datacentercareers",
+    "tag": "employer-inquiries"
+  },
   "checkoutOptions": [
     "highlightedJob",
     "spotlightJob"

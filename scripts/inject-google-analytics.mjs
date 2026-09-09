@@ -3,6 +3,7 @@ import { join } from 'node:path';
 
 const MEASUREMENT_ID = 'G-TD86GFYGW5';
 const EVENTS_SCRIPT = '<script defer src="/assets/analytics-events.js"></script>';
+const SPONSORSHIP_SCRIPT = '<script defer src="/assets/sponsorships.js"></script>';
 const SKIP_DIRS = new Set(['.git', '.github', 'node_modules']);
 
 const tag = `<!-- Google tag (gtag.js) -->
@@ -18,6 +19,11 @@ const tag = `<!-- Google tag (gtag.js) -->
 // reuse the final normalized job feed and meaningful last-change dates. Build
 // them before analytics injection so every deployable page receives tracking.
 await import('./generate-region-seo.mjs');
+
+// The advertising page is generated from current inventory so the media kit
+// never hard-codes stale job or employer counts. It also enters the sitemap
+// before analytics and sponsorship delivery are injected across HTML pages.
+await import('./generate-advertising-page.mjs');
 
 async function htmlFiles(dir = '.') {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -35,6 +41,7 @@ async function htmlFiles(dir = '.') {
 
 let tagInjected = 0;
 let eventsInjected = 0;
+let sponsorshipInjected = 0;
 for (const file of await htmlFiles()) {
   let html = await readFile(file, 'utf8');
   let changed = false;
@@ -53,7 +60,14 @@ for (const file of await htmlFiles()) {
     changed = true;
   }
 
+  if (!html.includes('/assets/sponsorships.js')) {
+    if (!/<\/head>/i.test(html)) throw new Error(`Cannot inject sponsorship delivery; ${file} has no </head> element.`);
+    html = html.replace(/<\/head>/i, `${SPONSORSHIP_SCRIPT}\n</head>`);
+    sponsorshipInjected += 1;
+    changed = true;
+  }
+
   if (changed) await writeFile(file, html);
 }
 
-console.log(`Google Analytics ${MEASUREMENT_ID}: tag injected into ${tagInjected} HTML files; custom event tracking injected into ${eventsInjected}.`);
+console.log(`Google Analytics ${MEASUREMENT_ID}: tag injected into ${tagInjected} HTML files; custom event tracking injected into ${eventsInjected}; sponsorship delivery injected into ${sponsorshipInjected}.`);

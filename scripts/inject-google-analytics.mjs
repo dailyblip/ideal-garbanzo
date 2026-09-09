@@ -20,6 +20,10 @@ const tag = `<!-- Google tag (gtag.js) -->
 // them before analytics injection so every deployable page receives tracking.
 await import('./generate-region-seo.mjs');
 
+// Paid campaigns fail closed. Invalid dates, destinations, placements, or
+// missing political/issue disclosure fields stop the build before publication.
+await import('./validate-sponsorships.mjs');
+
 // The advertising page is generated from current inventory so the media kit
 // never hard-codes stale job or employer counts. It also enters the sitemap
 // before analytics and sponsorship delivery are injected across HTML pages.

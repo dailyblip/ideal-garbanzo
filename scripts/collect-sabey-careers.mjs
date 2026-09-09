@@ -62,7 +62,7 @@ function classify(title, text) {
   if (years.some(year => year >= 3)) return { type: 'entry-level', experience: '2-5-years' };
   if (years.some(year => year <= 2)) return { type: 'entry-level', experience: '0-2-years' };
 
-  // High-school requirements and level numerals do not prove a 0–5 year
+  // A diploma requirement or a level numeral does not establish a 0–5 year
   // experience ceiling. Fail closed until the recruiter page states one.
   return null;
 }
@@ -77,6 +77,19 @@ function normalizeRecruiterUrl(value = '') {
     if (url.origin !== RECRUITER_ORIGIN) return '';
     if (!/^\/jobs\/\d+\/.+\/job\/?$/i.test(url.pathname)) return '';
     if (!url.searchParams.has('in_iframe')) url.searchParams.set('in_iframe', '1');
+    return url.href;
+  } catch {
+    return '';
+  }
+}
+
+function mobileRecruiterUrl(value = '') {
+  try {
+    const url = new URL(value, RECRUITER_BOARD);
+    if (url.origin !== RECRUITER_ORIGIN) return '';
+    url.search = '';
+    url.searchParams.set('mobile', 'true');
+    url.searchParams.set('needsRedirect', 'false');
     return url.href;
   } catch {
     return '';
@@ -110,6 +123,16 @@ function isSabeyDataCenterDetail(html) {
   const text = clean(html);
   return /\bCompany\s+Sabey Data Center(?:s| Properties(?:,\s*LLC)?)\b/i.test(text)
     || /Another Source(?:'s)? client,\s*Sabey Data Center(?:s| Properties(?:,\s*LLC)?)\b/i.test(text);
+}
+
+function extractTitle(html) {
+  const h1 = clean(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
+  const titleTag = clean(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '');
+  let title = h1 || titleTag.replace(/\s*\|\s*Careers at[\s\S]*$/i, '').trim();
+  title = title
+    .replace(/\s+-\s+Sabey Data Center(?:s| Properties(?:,\s*LLC)?)(?:\s+in\s+.+)?$/i, '')
+    .trim();
+  return title;
 }
 
 if (process.argv.includes('--test-experience-parser')) {
@@ -167,6 +190,11 @@ if (process.argv.includes('--test-experience-parser')) {
   if (recruiterLinks.length !== 1 || !recruiterLinks[0].includes('/jobs/102554/')) {
     failures.push(`recruiter fallback isolation: expected only Sabey iCIMS job 102554, got ${recruiterLinks.join(', ') || 'none'}`);
   }
+
+  const titleFixture = '<title>Data Center Electrical Project Engineer - Sabey Data Centers in Round Rock, Texas | Careers at Round Rock, TX 78664</title>';
+  if (extractTitle(titleFixture) !== 'Data Center Electrical Project Engineer') {
+    failures.push(`title-tag fallback: expected normalized job title, got ${extractTitle(titleFixture) || 'blank'}`);
+  }
   if (!isSabeyDataCenterDetail('<div>Company Sabey Data Centers Category Engineering</div>')) {
     failures.push('Sabey detail identity: expected Sabey Data Centers company marker to pass');
   }
@@ -178,7 +206,7 @@ if (process.argv.includes('--test-experience-parser')) {
     for (const failure of failures) console.error(`Sabey collector regression: ${failure}`);
     process.exit(1);
   }
-  console.log(`Sabey collector passed ${cases.length} experience cases plus recruiter-board isolation checks.`);
+  console.log(`Sabey collector passed ${cases.length} experience cases plus recruiter-board isolation and title-fallback checks.`);
   process.exit(0);
 }
 
@@ -205,13 +233,6 @@ function tagsFor(title, text, experience) {
   return [...new Set(tags)].slice(0, 5);
 }
 
-function extractTitle(html) {
-  const h1 = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i);
-  let title = clean(h1?.[1] || '');
-  title = title.replace(/\s+-\s+Sabey Data Center(?:s| Properties(?:, LLC)?)\s*$/i, '').trim();
-  return title;
-}
-
 function extractLocation(html) {
   const titleTag = clean(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '');
   const titleLocation = titleTag.match(/\|\s*Careers at\s+(.+?)(?:\s+\d{5}(?:-\d{4})?)?$/i)?.[1]?.trim();
@@ -227,8 +248,17 @@ function extractLocation(html) {
 function applicationDeadlinePassed(text) {
   const match = clean(text).match(/Application Deadline\s+(\d{1,2})\/(\d{1,2})\/(\d{4})/i);
   if (!match) return false;
-  const endOfDayUtc = Date.UTC(Number(match[3]), Number(match[1]) - 1, Number(match[2]) + 1) - 1;
-  return Date.now() > endOfDayUtc;
+  // Use the end of the deadline day in the latest continental U.S. timezone so
+  // a listing is never removed early simply because the collector runs in UTC.
+  const conservativeDeadlineUtc = Date.UTC(Number(match[3]), Number(match[1]) - 1, Number(match[2]) + 1, 8);
+  return Date.now() >= conservativeDeadlineUtc;
+}
+
+function detailScore(detail) {
+  const text = clean(detail?.html || '');
+  const title = extractTitle(detail?.html || '');
+  const years = statedExperienceYears(text);
+  return text.length + (title ? 20000 : 0) + (years.length ? 40000 : 0) + (isSabeyDataCenterDetail(detail?.html || '') ? 10000 : 0);
 }
 
 async function fetchText(url) {
@@ -243,6 +273,22 @@ async function fetchText(url) {
   return { html: await response.text(), finalUrl: response.url || url };
 }
 
+async function fetchRecruiterDetail(url) {
+  const primary = await fetchText(url);
+  const primaryTitle = extractTitle(primary.html);
+  const primaryYears = statedExperienceYears(clean(primary.html));
+  if (primaryTitle && primaryYears.length) return primary;
+
+  const alternateUrl = mobileRecruiterUrl(url);
+  if (!alternateUrl || alternateUrl === primary.finalUrl) return primary;
+  try {
+    const alternate = await fetchText(alternateUrl);
+    return detailScore(alternate) > detailScore(primary) ? alternate : primary;
+  } catch {
+    return primary;
+  }
+}
+
 let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 let status = {};
@@ -251,6 +297,7 @@ try { status = JSON.parse(await readFile(STATUS_PATH, 'utf8')); } catch {}
 const previousSabey = jobs.filter(job => job?.company === COMPANY || /^Official Sabey careers$/i.test(String(job?.source || '')));
 const errors = [];
 const drops = { stale: 0, titleOrExperience: 0, location: 0, nonSabey: 0, fetch: 0 };
+const rejectSamples = [];
 let listingFetched = false;
 let listingMethod = 'none';
 let recruiterBoardComplete = false;
@@ -285,7 +332,9 @@ candidateLinks = links.length;
 
 for (const url of links) {
   try {
-    const detail = await fetchText(url);
+    const detail = listingMethod === 'official-recruiter-board'
+      ? await fetchRecruiterDetail(url)
+      : await fetchText(url);
     detailSucceeded += 1;
     if (!isSabeyDataCenterDetail(detail.html)) {
       drops.nonSabey += 1;
@@ -293,25 +342,38 @@ for (const url of links) {
     }
 
     const text = clean(detail.html);
+    const title = extractTitle(detail.html);
+    const years = statedExperienceYears(text);
+    const idMatch = detail.finalUrl.match(/\/jobs\/(\d+)\//i) || url.match(/\/jobs\/(\d+)\//i);
+    const diagnosticId = idMatch?.[1] || hash(detail.finalUrl || url);
+
     if (applicationDeadlinePassed(text)) {
       drops.stale += 1;
+      if (rejectSamples.length < 5) rejectSamples.push({ id: diagnosticId, title, reason: 'deadline', years });
       continue;
     }
 
-    const title = extractTitle(detail.html);
     const location = extractLocation(detail.html);
     const cls = classify(title, text);
     if (!cls) {
       drops.titleOrExperience += 1;
+      if (rejectSamples.length < 5) rejectSamples.push({
+        id: diagnosticId,
+        title,
+        reason: 'title-or-experience',
+        years,
+        textLength: text.length,
+        hasExperienceMarker: /\bexperience\b/i.test(text)
+      });
       continue;
     }
     if (!location) {
       drops.location += 1;
+      if (rejectSamples.length < 5) rejectSamples.push({ id: diagnosticId, title, reason: 'location', years });
       continue;
     }
 
-    const idMatch = detail.finalUrl.match(/\/jobs\/(\d+)\//i) || url.match(/\/jobs\/(\d+)\//i);
-    const id = `sabey-${idMatch?.[1] || hash(detail.finalUrl || `${title}|${location}`)}`;
+    const id = `sabey-${diagnosticId}`;
     qualifying.push({
       id,
       title,
@@ -364,6 +426,7 @@ status.sabeyCareers = {
   qualifyingRoles: qualifying.length,
   preservedPrevious: sourceHealthy ? 0 : previousSabey.length,
   drops,
+  rejectSamples,
   errors: errors.slice(0, 12)
 };
 status.jobs = jobs.length;
@@ -374,4 +437,5 @@ await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 console.log(`Sabey careers (${listingMethod}): ${candidateLinks} candidate links, ${detailSucceeded} live detail pages, ${qualifying.length} qualifying 0–5 year roles.`);
 if (listingMethod === 'official-recruiter-board') console.warn('Sabey official page was unavailable; recovered discovery through its official Another Source iCIMS recruiter board.');
 if (!sourceHealthy && previousSabey.length) console.warn(`Sabey source incomplete; preserved ${previousSabey.length} previously published role(s).`);
+if (rejectSamples.length) console.warn(`Sabey rejected candidate diagnostics: ${JSON.stringify(rejectSamples)}`);
 if (errors.length) console.warn(`Sabey source warnings: ${errors.slice(0, 6).join(' | ')}`);

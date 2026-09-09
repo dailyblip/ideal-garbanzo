@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-09T20:49:13.917Z",
-  "jobs": 702,
+  "jobs": 703,
   "sourcesAttempted": 34,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "internship": 15,
+    "entry-level": 667,
     "trainee": 9,
     "apprenticeship": 12,
-    "entry-level": 666
+    "internship": 15
   },
   "countsByExperience": {
-    "no-experience": 53,
-    "0-2-years": 376,
-    "2-5-years": 273
+    "2-5-years": 273,
+    "0-2-years": 377,
+    "no-experience": 53
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -275,7 +275,7 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-09T17:01:20.383Z",
+      "checkedAt": "2026-09-09T21:15:00.541Z",
       "rawJobs": 188,
       "publishedUsJobs": 188,
       "nonUsRemoved": 0,
@@ -287,31 +287,18 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-09T17:00:49.100Z",
+    "checkedAt": "2026-09-09T21:14:46.744Z",
     "officialOnly": true,
     "additiveOnly": true,
     "searchPaginationPolicy": "paginate-to-reported-total",
-    "recovered": 2,
-    "recoveredRoles": [
-      {
-        "company": "QTS Data Centers",
-        "title": "Commissioning Engineer I",
-        "location": "Richmond, VA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/Commissioning-Engineer-I_R2026-2018"
-      },
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator III",
-        "location": "Whitney, TX",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator-III_R0007750-1"
-      }
-    ],
+    "recovered": 0,
+    "recoveredRoles": [],
     "diagnostics": {
       "Vantage Data Centers": {
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
         "queriesIncomplete": 0,
-        "candidates": 34,
+        "candidates": 32,
         "qualifyingRoles": 0,
         "additions": 0,
         "queryStats": [
@@ -328,8 +315,8 @@
             "searchText": "critical facilities",
             "healthy": true,
             "complete": true,
-            "rows": 73,
-            "reportedTotal": 73,
+            "rows": 72,
+            "reportedTotal": 72,
             "pagesAttempted": 4,
             "pagesSucceeded": 4
           },
@@ -337,8 +324,8 @@
             "searchText": "critical environment",
             "healthy": true,
             "complete": true,
-            "rows": 130,
-            "reportedTotal": 130,
+            "rows": 129,
+            "reportedTotal": 129,
             "pagesAttempted": 7,
             "pagesSucceeded": 7
           },
@@ -346,8 +333,8 @@
             "searchText": "critical operations",
             "healthy": true,
             "complete": true,
-            "rows": 123,
-            "reportedTotal": 123,
+            "rows": 122,
+            "reportedTotal": 122,
             "pagesAttempted": 7,
             "pagesSucceeded": 7
           },
@@ -355,8 +342,8 @@
             "searchText": "mechanical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 92,
-            "reportedTotal": 92,
+            "rows": 91,
+            "reportedTotal": 91,
             "pagesAttempted": 5,
             "pagesSucceeded": 5
           },
@@ -364,8 +351,8 @@
             "searchText": "electrical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 95,
-            "reportedTotal": 95,
+            "rows": 94,
+            "reportedTotal": 94,
             "pagesAttempted": 5,
             "pagesSucceeded": 5
           },
@@ -373,8 +360,8 @@
             "searchText": "technician",
             "healthy": true,
             "complete": true,
-            "rows": 36,
-            "reportedTotal": 36,
+            "rows": 37,
+            "reportedTotal": 37,
             "pagesAttempted": 2,
             "pagesSucceeded": 2
           },
@@ -382,10 +369,10 @@
             "searchText": "intern",
             "healthy": true,
             "complete": true,
-            "rows": 119,
-            "reportedTotal": 119,
-            "pagesAttempted": 6,
-            "pagesSucceeded": 6
+            "rows": 121,
+            "reportedTotal": 121,
+            "pagesAttempted": 7,
+            "pagesSucceeded": 7
           },
           {
             "searchText": "apprentice",
@@ -412,16 +399,16 @@
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
         "queriesIncomplete": 0,
-        "candidates": 71,
-        "qualifyingRoles": 47,
-        "additions": 5,
+        "candidates": 73,
+        "qualifyingRoles": 49,
+        "additions": 4,
         "queryStats": [
           {
             "searchText": "data center",
             "healthy": true,
             "complete": true,
-            "rows": 247,
-            "reportedTotal": 247,
+            "rows": 246,
+            "reportedTotal": 246,
             "pagesAttempted": 13,
             "pagesSucceeded": 13
           },
@@ -438,8 +425,8 @@
             "searchText": "critical environment",
             "healthy": true,
             "complete": true,
-            "rows": 169,
-            "reportedTotal": 169,
+            "rows": 170,
+            "reportedTotal": 170,
             "pagesAttempted": 9,
             "pagesSucceeded": 9
           },
@@ -447,8 +434,8 @@
             "searchText": "critical operations",
             "healthy": true,
             "complete": true,
-            "rows": 187,
-            "reportedTotal": 187,
+            "rows": 188,
+            "reportedTotal": 188,
             "pagesAttempted": 10,
             "pagesSucceeded": 10
           },
@@ -456,8 +443,8 @@
             "searchText": "mechanical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 73,
-            "reportedTotal": 73,
+            "rows": 74,
+            "reportedTotal": 74,
             "pagesAttempted": 4,
             "pagesSucceeded": 4
           },
@@ -465,8 +452,8 @@
             "searchText": "electrical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 83,
-            "reportedTotal": 83,
+            "rows": 84,
+            "reportedTotal": 84,
             "pagesAttempted": 5,
             "pagesSucceeded": 5
           },
@@ -483,8 +470,8 @@
             "searchText": "intern",
             "healthy": true,
             "complete": true,
-            "rows": 175,
-            "reportedTotal": 175,
+            "rows": 173,
+            "reportedTotal": 173,
             "pagesAttempted": 9,
             "pagesSucceeded": 9
           },
@@ -501,8 +488,8 @@
             "searchText": "trainee",
             "healthy": true,
             "complete": true,
-            "rows": 102,
-            "reportedTotal": 102,
+            "rows": 103,
+            "reportedTotal": 103,
             "pagesAttempted": 6,
             "pagesSucceeded": 6
           }
@@ -515,7 +502,7 @@
         "queriesIncomplete": 0,
         "candidates": 64,
         "qualifyingRoles": 41,
-        "additions": 1,
+        "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
@@ -622,8 +609,8 @@
             "searchText": "data center",
             "healthy": true,
             "complete": true,
-            "rows": 70,
-            "reportedTotal": 70,
+            "rows": 71,
+            "reportedTotal": 71,
             "pagesAttempted": 4,
             "pagesSucceeded": 4
           },
@@ -631,8 +618,8 @@
             "searchText": "critical facilities",
             "healthy": true,
             "complete": true,
-            "rows": 51,
-            "reportedTotal": 51,
+            "rows": 52,
+            "reportedTotal": 52,
             "pagesAttempted": 3,
             "pagesSucceeded": 3
           },
@@ -640,8 +627,8 @@
             "searchText": "critical environment",
             "healthy": true,
             "complete": true,
-            "rows": 38,
-            "reportedTotal": 38,
+            "rows": 39,
+            "reportedTotal": 39,
             "pagesAttempted": 2,
             "pagesSucceeded": 2
           },
@@ -649,8 +636,8 @@
             "searchText": "critical operations",
             "healthy": true,
             "complete": true,
-            "rows": 46,
-            "reportedTotal": 46,
+            "rows": 47,
+            "reportedTotal": 47,
             "pagesAttempted": 3,
             "pagesSucceeded": 3
           },
@@ -676,8 +663,8 @@
             "searchText": "technician",
             "healthy": true,
             "complete": true,
-            "rows": 11,
-            "reportedTotal": 11,
+            "rows": 12,
+            "reportedTotal": 12,
             "pagesAttempted": 1,
             "pagesSucceeded": 1
           },
@@ -685,8 +672,8 @@
             "searchText": "intern",
             "healthy": true,
             "complete": true,
-            "rows": 42,
-            "reportedTotal": 42,
+            "rows": 43,
+            "reportedTotal": 43,
             "pagesAttempted": 3,
             "pagesSucceeded": 3
           },
@@ -824,8 +811,8 @@
             "searchText": "data center",
             "healthy": true,
             "complete": true,
-            "rows": 203,
-            "reportedTotal": 203,
+            "rows": 204,
+            "reportedTotal": 204,
             "pagesAttempted": 11,
             "pagesSucceeded": 11
           },
@@ -833,8 +820,8 @@
             "searchText": "critical facilities",
             "healthy": true,
             "complete": true,
-            "rows": 145,
-            "reportedTotal": 145,
+            "rows": 146,
+            "reportedTotal": 146,
             "pagesAttempted": 8,
             "pagesSucceeded": 8
           },
@@ -851,8 +838,8 @@
             "searchText": "critical operations",
             "healthy": true,
             "complete": true,
-            "rows": 172,
-            "reportedTotal": 172,
+            "rows": 173,
+            "reportedTotal": 173,
             "pagesAttempted": 9,
             "pagesSucceeded": 9
           },
@@ -860,8 +847,8 @@
             "searchText": "mechanical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 166,
-            "reportedTotal": 166,
+            "rows": 167,
+            "reportedTotal": 167,
             "pagesAttempted": 9,
             "pagesSucceeded": 9
           },
@@ -869,8 +856,8 @@
             "searchText": "electrical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 173,
-            "reportedTotal": 173,
+            "rows": 174,
+            "reportedTotal": 174,
             "pagesAttempted": 9,
             "pagesSucceeded": 9
           },
@@ -878,8 +865,8 @@
             "searchText": "technician",
             "healthy": true,
             "complete": true,
-            "rows": 119,
-            "reportedTotal": 119,
+            "rows": 120,
+            "reportedTotal": 120,
             "pagesAttempted": 6,
             "pagesSucceeded": 6
           },
@@ -905,8 +892,8 @@
             "searchText": "trainee",
             "healthy": true,
             "complete": true,
-            "rows": 73,
-            "reportedTotal": 73,
+            "rows": 74,
+            "reportedTotal": 74,
             "pagesAttempted": 4,
             "pagesSucceeded": 4
           }
@@ -915,7 +902,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-09T17:01:20.319Z",
+      "checkedAt": "2026-09-09T21:15:00.476Z",
       "removed": 4,
       "removedRoles": [
         {
@@ -1770,7 +1757,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T18:00:28.100Z",
+    "checkedAt": "2026-09-09T21:15:00.664Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1778,30 +1765,232 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T20:48:51.971Z",
-    "changed": 0,
-    "samples": [],
-    "regionAssigned": 702,
+    "updatedAt": "2026-09-09T21:15:00.727Z",
+    "changed": 11,
+    "samples": [
+      {
+        "id": "workday-aligneddc-JR101086",
+        "before": "IAD-02",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-aligneddc-JR100970",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-aligneddc-JR100971",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0881",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1093",
+        "before": "US VA Manassas 1 DC1",
+        "after": "Manassas, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0768",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      }
+    ],
+    "regionAssigned": 703,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 108,
-      "midwest": 139,
       "mid-atlantic": 126,
       "texas": 116,
-      "southwest": 85,
-      "southeast": 108,
-      "northeast": 20
+      "midwest": 139,
+      "southeast": 109,
+      "west": 108,
+      "northeast": 20,
+      "southwest": 85
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T20:48:52.027Z",
-    "before": 702,
-    "after": 702,
-    "removed": 0,
+    "checkedAt": "2026-09-09T21:15:00.786Z",
+    "before": 728,
+    "after": 703,
+    "removed": 25,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101968",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101903",
+        "keptId": "workday-nttglobaldatacenters-JR101981",
+        "company": "NTT Global Data Centers",
+        "title": "1046 - Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101861",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0982",
+        "keptId": "workday-qtsdatacenters-R2026-0893",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007618",
+        "keptId": "workday-cyrusone-R0007529",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Carrollton, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007617",
+        "keptId": "workday-cyrusone-R0007763",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Houston, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007527",
+        "keptId": "workday-cyrusone-R0007615",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Chandler, AZ"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007526",
+        "keptId": "workday-cyrusone-R0007614",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Sterling, VA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007668",
+        "keptId": "workday-cyrusone-R0007613",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Council Bluffs, IA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007628",
+        "keptId": "workday-cyrusone-R0007611",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Durham, NC"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007762",
+        "keptId": "workday-cyrusone-R0007610",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Austin, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007608",
+        "keptId": "workday-cyrusone-R0007528",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Cincinnati, OH"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101573",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101799",
+        "keptId": "workday-nttglobaldatacenters-JR101533",
+        "company": "NTT Global Data Centers",
+        "title": "5155 - Data Center IT Infrastructure Technician",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101847",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101681",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101746",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101821",
+        "keptId": "workday-nttglobaldatacenters-JR101755",
+        "company": "NTT Global Data Centers",
+        "title": "1162 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101610",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101859",
+        "keptId": "workday-nttglobaldatacenters-JR101474",
+        "company": "NTT Global Data Centers",
+        "title": "5217 - Data Center Technician L1",
+        "location": "Gainesville, Virginia"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-09T18:01:11.094Z",
@@ -1813,7 +2002,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 952,
-    "currentJobs": 702,
+    "currentJobs": 703,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1821,7 +2010,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-09T20:48:52.077Z"
+    "updatedAt": "2026-09-09T21:15:00.887Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

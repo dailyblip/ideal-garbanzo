@@ -223,9 +223,24 @@ async function fetchJson(url, options = {}) {
 async function searchBoard(board, searchText) {
   const endpoint = `${board.origin}/wday/cxs/${board.tenant}/${board.site}/jobs`;
   const rows = [];
+  const seen = new Set();
   let offset = 0;
   let reportedTotal = null;
-  for (let page = 0; page < 5; page += 1) {
+  let pagesAttempted = 0;
+  let pagesSucceeded = 0;
+  let complete = false;
+  let incompleteReason = '';
+
+  // Search result sets on several priority Workday boards exceed 100 jobs.
+  // Paginate to the employer-reported total instead of silently stopping after
+  // five pages, while retaining a conservative cap against runaway endpoints.
+  for (let page = 0; page < 25; page += 1) {
+    if (reportedTotal !== null && offset >= reportedTotal) {
+      complete = true;
+      break;
+    }
+
+    pagesAttempted += 1;
     const payload = await fetchJson(endpoint, {
       method: 'POST',
       headers: {
@@ -234,13 +249,62 @@ async function searchBoard(board, searchText) {
       },
       body: JSON.stringify({ appliedFacets: {}, limit: 20, offset, searchText })
     });
+    pagesSucceeded += 1;
+
     const pageRows = Array.isArray(payload.jobPostings) ? payload.jobPostings : [];
-    if (page === 0) reportedTotal = Number.isFinite(Number(payload.total)) ? Number(payload.total) : null;
-    rows.push(...pageRows);
+    if (page === 0) {
+      const reported = Number(payload.total);
+      if (!Number.isFinite(reported) || reported < 0) {
+        incompleteReason = 'Workday search did not return a valid total count';
+        break;
+      }
+      reportedTotal = reported;
+      if (reportedTotal === 0) {
+        complete = true;
+        break;
+      }
+    }
+
+    let fresh = 0;
+    for (const row of pageRows) {
+      const key = row.externalPath || row.bulletFields?.[0] || `${row.title}|${row.locationsText}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      rows.push(row);
+      fresh += 1;
+    }
+
     offset += pageRows.length;
-    if (!pageRows.length || (reportedTotal !== null && offset >= reportedTotal) || pageRows.length < 20) break;
+    if (reportedTotal !== null && offset >= reportedTotal) {
+      complete = true;
+      break;
+    }
+    if (!pageRows.length) {
+      incompleteReason = `search ended at ${offset}/${reportedTotal ?? 'unknown'} rows`;
+      break;
+    }
+    if (pageRows.length < 20) {
+      incompleteReason = `short search page returned ${pageRows.length} rows at ${offset}/${reportedTotal ?? 'unknown'}`;
+      break;
+    }
+    if (fresh === 0) {
+      incompleteReason = `duplicate search page before reaching reported total (${offset}/${reportedTotal ?? 'unknown'})`;
+      break;
+    }
   }
-  return { rows, reportedTotal };
+
+  if (!complete && !incompleteReason) {
+    incompleteReason = `search pagination cap reached at ${offset}/${reportedTotal ?? 'unknown'} rows`;
+  }
+
+  return {
+    rows,
+    reportedTotal,
+    complete,
+    incompleteReason,
+    pagesAttempted,
+    pagesSucceeded
+  };
 }
 
 function titleCandidate(title = '') {
@@ -260,10 +324,31 @@ async function recoverBoard(board) {
         if (!titleCandidate(row.title) || !row.externalPath) continue;
         candidates.set(row.externalPath, row);
       }
-      queryStats.push({ searchText, healthy: true, rows: result.rows.length, reportedTotal: result.reportedTotal });
+      if (!result.complete) {
+        errors.push(`${searchText}: incomplete search pagination (${result.incompleteReason})`);
+      }
+      queryStats.push({
+        searchText,
+        healthy: result.complete,
+        complete: result.complete,
+        rows: result.rows.length,
+        reportedTotal: result.reportedTotal,
+        pagesAttempted: result.pagesAttempted,
+        pagesSucceeded: result.pagesSucceeded,
+        ...(result.incompleteReason ? { incompleteReason: result.incompleteReason } : {})
+      });
     } catch (error) {
       errors.push(`${searchText}: ${error.message}`);
-      queryStats.push({ searchText, healthy: false, rows: 0, reportedTotal: null });
+      queryStats.push({
+        searchText,
+        healthy: false,
+        complete: false,
+        rows: 0,
+        reportedTotal: null,
+        pagesAttempted: 0,
+        pagesSucceeded: 0,
+        incompleteReason: error.message
+      });
     }
   }
 
@@ -419,6 +504,7 @@ for (const board of boards) {
   diagnostics[board.company] = {
     queriesAttempted: searchTerms.length,
     queriesSucceeded: result.queryStats.filter(query => query.healthy).length,
+    queriesIncomplete: result.queryStats.filter(query => !query.complete).length,
     candidates: result.candidates,
     qualifyingRoles: result.jobs.length,
     additions: additions.length,
@@ -432,6 +518,7 @@ status.majorTargetedRecovery = {
   checkedAt,
   officialOnly: true,
   additiveOnly: true,
+  searchPaginationPolicy: 'paginate-to-reported-total',
   recovered: recovered.length,
   recoveredRoles: recovered.map(job => ({ company: job.company, title: job.title, location: job.location, sourceUrl: job.sourceUrl })),
   diagnostics

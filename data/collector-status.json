@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T20:48:51.915Z",
+  "updatedAt": "2026-09-09T20:49:13.917Z",
   "jobs": 702,
   "sourcesAttempted": 34,
   "providers": {
@@ -1474,6 +1474,18 @@
         }
       ],
       "fetchErrors": []
+    },
+    "payEnrichment": {
+      "checkedAt": "2026-09-09T20:49:13.917Z",
+      "candidates": 7,
+      "fetched": 7,
+      "payRecovered": 0,
+      "jsonLdRecovered": 0,
+      "textRecovered": 0,
+      "blankLabelsCleared": 7,
+      "samples": [],
+      "errors": [],
+      "changedRecords": 14
     }
   },
   "oracleCareers": {

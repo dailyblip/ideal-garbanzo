@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-09T09:26:37.507Z",
-  "jobs": 688,
+  "updatedAt": "2026-09-09T11:52:41.351Z",
+  "jobs": 687,
   "sourcesAttempted": 31,
   "providers": {
     "lever": 7,
@@ -13,13 +13,13 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 654,
+    "entry-level": 653,
     "apprenticeship": 12,
     "trainee": 7,
     "internship": 15
   },
   "countsByExperience": {
-    "0-2-years": 371,
+    "0-2-years": 370,
     "2-5-years": 273,
     "no-experience": 44
   },
@@ -1747,7 +1747,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T10:56:18.081Z",
+    "checkedAt": "2026-09-09T11:52:41.413Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1755,51 +1755,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T10:56:18.142Z",
-    "changed": 11,
-    "samples": [
-      {
-        "id": "workday-aligneddc-JR101086",
-        "before": "IAD-02",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-aligneddc-JR100970",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      },
-      {
-        "id": "workday-aligneddc-JR100971",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0881",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1093",
-        "before": "US VA Manassas 1 DC1",
-        "after": "Manassas, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0917",
-        "before": "US VA Ashburn 1 DC1",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0893",
-        "before": "US OR Hillsboro 1 DC1",
-        "after": "Hillsboro, OR"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0768",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      }
-    ],
-    "regionAssigned": 688,
+    "updatedAt": "2026-09-09T11:52:41.478Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 687,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -1809,190 +1768,29 @@
       "mid-atlantic": 122,
       "west": 106,
       "northeast": 19,
-      "southeast": 111,
+      "southeast": 110,
       "southwest": 83
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T10:56:18.205Z",
-    "before": 713,
+    "checkedAt": "2026-09-09T11:52:41.535Z",
+    "before": 688,
     "after": 688,
-    "removed": 25,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101968",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101903",
-        "keptId": "workday-nttglobaldatacenters-JR101981",
-        "company": "NTT Global Data Centers",
-        "title": "1046 - Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101861",
-        "keptId": "workday-nttglobaldatacenters-JR101912",
-        "company": "NTT Global Data Centers",
-        "title": "1127 - Data Center Technician L2",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0982",
-        "keptId": "workday-qtsdatacenters-R2026-0893",
-        "company": "QTS Data Centers",
-        "title": "Critical Environment Engineer",
-        "location": "Hillsboro, OR"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007618",
-        "keptId": "workday-cyrusone-R0007529",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Carrollton, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007617",
-        "keptId": "workday-cyrusone-R0007763",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Houston, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007527",
-        "keptId": "workday-cyrusone-R0007615",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Chandler, AZ"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007526",
-        "keptId": "workday-cyrusone-R0007614",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Sterling, VA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007668",
-        "keptId": "workday-cyrusone-R0007613",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Council Bluffs, IA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007628",
-        "keptId": "workday-cyrusone-R0007611",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Durham, NC"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007762",
-        "keptId": "workday-cyrusone-R0007610",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Austin, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007608",
-        "keptId": "workday-cyrusone-R0007528",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Cincinnati, OH"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101573",
-        "keptId": "workday-nttglobaldatacenters-JR101912",
-        "company": "NTT Global Data Centers",
-        "title": "1127 - Data Center Technician L2",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101799",
-        "keptId": "workday-nttglobaldatacenters-JR101533",
-        "company": "NTT Global Data Centers",
-        "title": "5155 - Data Center IT Infrastructure Technician",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101847",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101681",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101746",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101821",
-        "keptId": "workday-nttglobaldatacenters-JR101755",
-        "company": "NTT Global Data Centers",
-        "title": "1162 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101610",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101859",
-        "keptId": "workday-nttglobaldatacenters-JR101474",
-        "company": "NTT Global Data Centers",
-        "title": "5217 - Data Center Technician L1",
-        "location": "Gainesville, Virginia"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-09T09:26:58.597Z",
+    "checkedAt": "2026-09-09T11:53:06.778Z",
     "publishedJobs": 687,
-    "removedJobs": 0,
+    "removedJobs": 1,
     "activeCareerEvents": 6,
     "providerVerifiedRetained": 2
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 928,
-    "currentJobs": 688,
+    "currentJobs": 687,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2000,7 +1798,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-09T10:56:18.304Z"
+    "updatedAt": "2026-09-09T11:53:06.901Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2086,7 +1884,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-09T06:48:13.162Z",
+    "checkedAt": "2026-09-09T11:52:41.351Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

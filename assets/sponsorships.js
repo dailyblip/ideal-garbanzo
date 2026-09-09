@@ -87,6 +87,28 @@
     return paidForBy ? `Sponsored by ${paidForBy}.` : `Sponsored by ${clean(campaign.sponsorName)}.`;
   }
 
+  function homepageMarkup(campaign, href) {
+    return `
+      <div>
+        <div class="featured-label">SPONSORED</div>
+        <h2>${esc(campaign.headline)}</h2>
+        <p>${esc(campaign.body)}</p>
+        <small>${esc(disclosureText(campaign))}</small>
+      </div>
+      <a class="btn btn-primary" href="${esc(href)}" target="_blank" rel="sponsored noopener noreferrer">${esc(campaign.ctaText || 'Learn more')}</a>`;
+  }
+
+  function seoMarkup(campaign, href) {
+    return `
+      <div class="seo-job-main">
+        <span class="seo-kicker">SPONSORED</span>
+        <h2>${esc(campaign.headline)}</h2>
+        <p class="seo-meta">${esc(campaign.body)}</p>
+        <small>${esc(disclosureText(campaign))}</small>
+      </div>
+      <div class="seo-job-side"><span>${esc(campaign.sponsorName)}</span><a href="${esc(href)}" target="_blank" rel="sponsored noopener noreferrer">${esc(campaign.ctaText || 'Learn more')} →</a></div>`;
+  }
+
   function renderCampaign(campaign, context) {
     document.querySelectorAll('.sponsored-message').forEach(node => node.remove());
     if (!campaign) return;
@@ -94,19 +116,15 @@
     const href = safeUrl(campaign.destinationUrl);
     if (!href) return;
     const aside = document.createElement('aside');
-    aside.className = 'sponsored-message';
     aside.dataset.sponsorshipId = clean(campaign.id);
     aside.setAttribute('aria-label', `Sponsored message from ${clean(campaign.sponsorName)}`);
-    aside.innerHTML = `
-      <div class="sponsored-message__label">SPONSORED</div>
-      <div class="sponsored-message__body">
-        <div>
-          <h2>${esc(campaign.headline)}</h2>
-          <p>${esc(campaign.body)}</p>
-          <small>${esc(disclosureText(campaign))}</small>
-        </div>
-        <a class="sponsored-message__cta" href="${esc(href)}" target="_blank" rel="sponsored noopener noreferrer">${esc(campaign.ctaText || 'Learn more')}</a>
-      </div>`;
+    if (context.placement === 'homepage') {
+      aside.className = 'featured sponsored-message';
+      aside.innerHTML = homepageMarkup(campaign, href);
+    } else {
+      aside.className = 'seo-job-card sponsored-message';
+      aside.innerHTML = seoMarkup(campaign, href);
+    }
 
     const anchor = insertionPoint(context);
     if (!anchor?.parentNode) return;

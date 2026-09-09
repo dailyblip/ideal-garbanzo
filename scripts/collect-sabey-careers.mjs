@@ -76,6 +76,7 @@ function normalizeRecruiterUrl(value = '') {
     const url = new URL(decodeHref(value), RECRUITER_BOARD);
     if (url.origin !== RECRUITER_ORIGIN) return '';
     if (!/^\/jobs\/\d+\/.+\/job\/?$/i.test(url.pathname)) return '';
+    if (!url.searchParams.has('in_iframe')) url.searchParams.set('in_iframe', '1');
     return url.href;
   } catch {
     return '';
@@ -98,6 +99,7 @@ function extractRecruiterSabeyLinks(html) {
   for (const match of html.matchAll(pattern)) {
     const label = clean(match[2]);
     if (!/\bSabey Data Center(?:s| Properties(?:,\s*LLC)?)\b/i.test(label)) continue;
+    if (!missionTitlePattern.test(label) || excludedTitlePattern.test(label)) continue;
     const url = normalizeRecruiterUrl(match[1]);
     if (url && !links.includes(url)) links.push(url);
   }
@@ -157,7 +159,8 @@ if (process.argv.includes('--test-experience-parser')) {
 
   const recruiterFixture = `
     <a href="/jobs/102554/data-center-electrical-project-engineer---sabey-data-center-properties%2C-llc/job">Data Center Electrical Project Engineer - Sabey Data Center Properties, LLC</a>
-    <a href="/jobs/999999/facilities-technician---other-client/job">Facilities Technician - Other Client</a>
+    <a href="/jobs/102536/safety-manager---sabey-data-centers/job">Safety Manager - Sabey Data Centers</a>
+    <a href="/jobs/999999/data-center-facilities-technician---other-client/job">Data Center Facilities Technician - Other Client</a>
     <a href="https://example.com/jobs/102555/data-center-mechanical-project-engineer---sabey-data-centers/job">Data Center Mechanical Project Engineer - Sabey Data Centers</a>
   `;
   const recruiterLinks = extractRecruiterSabeyLinks(recruiterFixture);
@@ -333,7 +336,7 @@ for (const url of links) {
 
 const sourceHealthy = listingFetched && (
   listingMethod === 'official-recruiter-board'
-    ? recruiterBoardComplete && (candidateLinks === 0 || detailSucceeded > 0)
+    ? recruiterBoardComplete && (candidateLinks === 0 || qualifying.length > 0)
     : candidateLinks > 0 && detailSucceeded > 0
 );
 if (sourceHealthy) {

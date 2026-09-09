@@ -96,6 +96,12 @@ function mobileRecruiterUrl(value = '') {
   }
 }
 
+function sabeyTitleFromLabel(value = '') {
+  return clean(value)
+    .replace(/\s+-\s+Sabey Data Center(?:s| Properties(?:,\s*LLC)?)(?:\s+in\s+.+)?$/i, '')
+    .trim();
+}
+
 function extractJobLinks(html) {
   const links = [];
   const pattern = /href=["']([^"']*(?:careers2-anothersource\.icims\.com)?\/jobs\/\d+\/[^"']*\/job[^"']*)["']/gi;
@@ -106,17 +112,21 @@ function extractJobLinks(html) {
   return links;
 }
 
-function extractRecruiterSabeyLinks(html) {
-  const links = [];
+function extractRecruiterSabeyCandidates(html) {
+  const candidates = [];
+  const seen = new Set();
   const pattern = /<a\b[^>]*href=["']([^"']*\/jobs\/\d+\/[^"']*\/job[^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi;
   for (const match of html.matchAll(pattern)) {
     const label = clean(match[2]);
     if (!/\bSabey Data Center(?:s| Properties(?:,\s*LLC)?)\b/i.test(label)) continue;
-    if (!missionTitlePattern.test(label) || excludedTitlePattern.test(label)) continue;
+    const title = sabeyTitleFromLabel(label);
+    if (!missionTitlePattern.test(title) || excludedTitlePattern.test(title)) continue;
     const url = normalizeRecruiterUrl(match[1]);
-    if (url && !links.includes(url)) links.push(url);
+    if (!url || seen.has(url)) continue;
+    seen.add(url);
+    candidates.push({ url, title });
   }
-  return links;
+  return candidates;
 }
 
 function isSabeyDataCenterDetail(html) {
@@ -125,14 +135,19 @@ function isSabeyDataCenterDetail(html) {
     || /Another Source(?:'s)? client,\s*Sabey Data Center(?:s| Properties(?:,\s*LLC)?)\b/i.test(text);
 }
 
-function extractTitle(html) {
+function extractTitle(html, listingTitle = '') {
   const h1 = clean(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
   const titleTag = clean(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '');
-  let title = h1 || titleTag.replace(/\s*\|\s*Careers at[\s\S]*$/i, '').trim();
-  title = title
+  const metadataTitle = (h1 || titleTag.replace(/\s*\|\s*Careers at[\s\S]*$/i, '').trim())
     .replace(/\s+-\s+Sabey Data Center(?:s| Properties(?:,\s*LLC)?)(?:\s+in\s+.+)?$/i, '')
     .trim();
-  return title;
+
+  // iCIMS can return a recruiter shell whose H1/title is simply
+  // "Another Source" even though the full job body is present. In that case
+  // trust the title on the same verified Sabey search-result anchor that
+  // supplied this detail URL, while still re-verifying Sabey in the body.
+  if (metadataTitle && !/^Another Source$/i.test(metadataTitle)) return metadataTitle;
+  return sabeyTitleFromLabel(listingTitle);
 }
 
 if (process.argv.includes('--test-experience-parser')) {
@@ -186,14 +201,18 @@ if (process.argv.includes('--test-experience-parser')) {
     <a href="/jobs/999999/data-center-facilities-technician---other-client/job">Data Center Facilities Technician - Other Client</a>
     <a href="https://example.com/jobs/102555/data-center-mechanical-project-engineer---sabey-data-centers/job">Data Center Mechanical Project Engineer - Sabey Data Centers</a>
   `;
-  const recruiterLinks = extractRecruiterSabeyLinks(recruiterFixture);
-  if (recruiterLinks.length !== 1 || !recruiterLinks[0].includes('/jobs/102554/')) {
-    failures.push(`recruiter fallback isolation: expected only Sabey iCIMS job 102554, got ${recruiterLinks.join(', ') || 'none'}`);
+  const recruiterCandidates = extractRecruiterSabeyCandidates(recruiterFixture);
+  if (recruiterCandidates.length !== 1 || !recruiterCandidates[0].url.includes('/jobs/102554/') || recruiterCandidates[0].title !== 'Data Center Electrical Project Engineer') {
+    failures.push(`recruiter fallback isolation: expected only Sabey iCIMS job 102554 with normalized title, got ${JSON.stringify(recruiterCandidates)}`);
   }
 
   const titleFixture = '<title>Data Center Electrical Project Engineer - Sabey Data Centers in Round Rock, Texas | Careers at Round Rock, TX 78664</title>';
   if (extractTitle(titleFixture) !== 'Data Center Electrical Project Engineer') {
     failures.push(`title-tag fallback: expected normalized job title, got ${extractTitle(titleFixture) || 'blank'}`);
+  }
+  const shellFixture = '<title>Another Source</title><h1>Another Source</h1>';
+  if (extractTitle(shellFixture, 'Data Center Mechanical Project Engineer') !== 'Data Center Mechanical Project Engineer') {
+    failures.push('recruiter shell title fallback did not use the verified search-result title');
   }
   if (!isSabeyDataCenterDetail('<div>Company Sabey Data Centers Category Engineering</div>')) {
     failures.push('Sabey detail identity: expected Sabey Data Centers company marker to pass');
@@ -258,7 +277,7 @@ function detailScore(detail) {
   const text = clean(detail?.html || '');
   const title = extractTitle(detail?.html || '');
   const years = statedExperienceYears(text);
-  return text.length + (title ? 20000 : 0) + (years.length ? 40000 : 0) + (isSabeyDataCenterDetail(detail?.html || '') ? 10000 : 0);
+  return text.length + (title && !/^Another Source$/i.test(title) ? 20000 : 0) + (years.length ? 40000 : 0) + (isSabeyDataCenterDetail(detail?.html || '') ? 10000 : 0);
 }
 
 async function fetchText(url) {
@@ -275,9 +294,8 @@ async function fetchText(url) {
 
 async function fetchRecruiterDetail(url) {
   const primary = await fetchText(url);
-  const primaryTitle = extractTitle(primary.html);
   const primaryYears = statedExperienceYears(clean(primary.html));
-  if (primaryTitle && primaryYears.length) return primary;
+  if (primaryYears.length) return primary;
 
   const alternateUrl = mobileRecruiterUrl(url);
   if (!alternateUrl || alternateUrl === primary.finalUrl) return primary;
@@ -304,7 +322,7 @@ let recruiterBoardComplete = false;
 let candidateLinks = 0;
 let detailSucceeded = 0;
 const qualifying = [];
-let links = [];
+let candidates = [];
 
 try {
   const listing = await fetchText(OFFICIAL_SOURCE);
@@ -312,7 +330,7 @@ try {
   if (!officialLinks.length) throw new Error('official careers page exposed no iCIMS job links');
   listingFetched = true;
   listingMethod = 'official-careers-page';
-  links = officialLinks;
+  candidates = officialLinks.map(url => ({ url, title: '' }));
 } catch (error) {
   errors.push(`official listing: ${error.message}`);
   try {
@@ -322,15 +340,16 @@ try {
     if (!recruiterBoardComplete) throw new Error('recruiter board did not expose expected search-result markers');
     listingFetched = true;
     listingMethod = 'official-recruiter-board';
-    links = extractRecruiterSabeyLinks(recruiter.html);
+    candidates = extractRecruiterSabeyCandidates(recruiter.html);
   } catch (fallbackError) {
     errors.push(`recruiter board: ${fallbackError.message}`);
   }
 }
 
-candidateLinks = links.length;
+candidateLinks = candidates.length;
 
-for (const url of links) {
+for (const candidate of candidates) {
+  const { url, title: listingTitle } = candidate;
   try {
     const detail = listingMethod === 'official-recruiter-board'
       ? await fetchRecruiterDetail(url)
@@ -342,7 +361,7 @@ for (const url of links) {
     }
 
     const text = clean(detail.html);
-    const title = extractTitle(detail.html);
+    const title = extractTitle(detail.html, listingTitle);
     const years = statedExperienceYears(text);
     const idMatch = detail.finalUrl.match(/\/jobs\/(\d+)\//i) || url.match(/\/jobs\/(\d+)\//i);
     const diagnosticId = idMatch?.[1] || hash(detail.finalUrl || url);

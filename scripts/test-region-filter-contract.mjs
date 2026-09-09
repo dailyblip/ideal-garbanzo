@@ -70,4 +70,16 @@ vm.runInNewContext(digestProbe, digestSandbox, { filename: 'scripts/send-weekly-
 assert.equal(typeof digestSandbox.__matchesRegion, 'function', 'weekly digest must expose digestJobMatchesRegion to the test probe');
 runContract('weekly digest', digestSandbox.__matchesRegion);
 
-console.log('Multi-location regional filtering contract passed for app, SEO, and weekly digest.');
+const alertSource = await readFile('scripts/send-weekly-job-alert.mjs', 'utf8');
+const alertStart = alertSource.indexOf('const ALERT_REGION_TERMS = {');
+const alertEnd = alertSource.indexOf('function rankJobs');
+assert.ok(alertStart >= 0 && alertEnd > alertStart, 'weekly job alert matcher block not found');
+const alertProbe = `${alertSource.slice(alertStart, alertEnd)}\nglobalThis.__matchesRegion = alertJobMatchesRegion;`;
+const alertSandbox = {
+  clean: value => String(value ?? '').replace(/\s+/g, ' ').trim()
+};
+vm.runInNewContext(alertProbe, alertSandbox, { filename: 'scripts/send-weekly-job-alert.mjs#matcher' });
+assert.equal(typeof alertSandbox.__matchesRegion, 'function', 'weekly job alert must expose alertJobMatchesRegion to the test probe');
+runContract('weekly job alert', alertSandbox.__matchesRegion);
+
+console.log('Multi-location regional filtering contract passed for app, SEO, weekly digest, and weekly job alerts.');

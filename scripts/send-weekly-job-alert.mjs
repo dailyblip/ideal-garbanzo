@@ -34,6 +34,32 @@ const isEarlyCareer = job => EARLY_TYPES.has(job.type) || EARLY_EXPERIENCE.has(j
 const isPublishable = job => job?.active === true && job?.demo !== true && /^https:\/\//i.test(String(job?.sourceUrl || ''));
 const clean = value => String(value || '').replace(/\s+/g, ' ').trim();
 const escapeMd = value => clean(value).replace(/([\\[\]*_`])/g, '\\$1');
+const ALERT_REGION_TERMS = {
+  'mid-atlantic':['district of columbia','delaware','maryland','virginia','west virginia',', dc',', de',', md',', va',', wv','ashburn','manassas'],
+  texas:['texas',', tx','dallas','austin','fort worth','san antonio','houston'],
+  southwest:['arizona','new mexico','nevada','oklahoma',', az',', nm',', nv',', ok','phoenix','mesa'],
+  midwest:['illinois','indiana','iowa','kansas','michigan','minnesota','missouri','nebraska','north dakota','ohio','south dakota','wisconsin',', il',', in',', ia',', ks',', mi',', mn',', mo',', ne',', nd',', oh',', sd',', wi'],
+  southeast:['alabama','arkansas','florida','georgia','kentucky','louisiana','mississippi','north carolina','south carolina','tennessee',', al',', ar',', fl',', ga',', ky',', la',', ms',', nc',', sc',', tn'],
+  northeast:['connecticut','maine','massachusetts','new hampshire','new jersey','new york','pennsylvania','rhode island','vermont',', ct',', me',', ma',', nh',', nj',', ny',', pa',', ri',', vt'],
+  west:['alaska','california','colorado','hawaii','idaho','montana','oregon','utah','washington','wyoming',', ak',', ca',', co',', hi',', id',', mt',', or',', ut',', wa',', wy']
+};
+
+function alertLocationMatchesRegion(location, region) {
+  const value = clean(location).toLowerCase();
+  if (/^(?:united states|usa|us)$/.test(value)) return true;
+  if (value.includes('washington, dc') || value.includes('washington, d.c.')) return region === 'mid-atlantic';
+  return (ALERT_REGION_TERMS[region] || []).some(term => value.includes(term));
+}
+
+function alertJobMatchesRegion(job, region) {
+  if (!region) return true;
+  if (job?.region === 'nationwide') return true;
+  if (Array.isArray(job?.regions) && job.regions.includes(region)) return true;
+  if (job?.region === region) return true;
+  const location = clean(job?.location);
+  if (!job?.region || location.includes(';')) return alertLocationMatchesRegion(location, region);
+  return false;
+}
 
 function rankJobs(a, b) {
   const earlyDelta = Number(isEarlyCareer(b)) - Number(isEarlyCareer(a));
@@ -100,8 +126,8 @@ function buildBody(newJobs) {
   blocks.push(focusBlock(allUs, allUsEarly, 'New openings across the U.S.'));
 
   for (const [region, label] of REGION_LABELS) {
-    const regional = newJobs.filter(job => job.region === region).slice(0, MAX_PER_REGION);
-    const regionalEarly = newJobs.filter(job => job.region === region && isEarlyCareer(job)).slice(0, MAX_PER_REGION);
+    const regional = newJobs.filter(job => alertJobMatchesRegion(job, region)).slice(0, MAX_PER_REGION);
+    const regionalEarly = newJobs.filter(job => alertJobMatchesRegion(job, region) && isEarlyCareer(job)).slice(0, MAX_PER_REGION);
     blocks.push(`{% elif subscriber.metadata.region == '${region}' %}`);
     blocks.push(focusBlock(regional, regionalEarly, `New openings: ${label}`));
   }
@@ -174,7 +200,7 @@ async function main() {
   const now = new Date();
   const newJobs = selectNewJobs(jobs, now.getTime());
   const earlyCount = newJobs.filter(isEarlyCareer).length;
-  const regionalCounts = Object.fromEntries([...REGION_LABELS.keys()].map(region => [region, newJobs.filter(job => job.region === region).length]));
+  const regionalCounts = Object.fromEntries([...REGION_LABELS.keys()].map(region => [region, newJobs.filter(job => alertJobMatchesRegion(job, region)).length]));
   const body = buildBody(newJobs);
 
   if (!body.includes("subscriber.metadata.region") || !body.includes("subscriber.metadata.focus")) {

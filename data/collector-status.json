@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T08:48:53.975Z",
+  "updatedAt": "2026-09-09T09:26:37.507Z",
   "jobs": 687,
   "sourcesAttempted": 31,
   "providers": {
@@ -1386,6 +1386,7 @@
       "verifiedAt": "2026-09-05T08:45:00Z",
       "expiresAt": "2026-09-12T08:45:00Z",
       "roles": 14,
+      "classificationCorrections": 5,
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
       "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were individually verified on CoreSite's official careers listing and job-detail pages between September 5 and September 8, 2026."
     }
@@ -1570,7 +1571,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T08:48:54.044Z",
+    "updatedAt": "2026-09-09T09:26:37.572Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 687,
@@ -1588,7 +1589,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T08:48:54.113Z",
+    "checkedAt": "2026-09-09T09:26:37.627Z",
     "before": 687,
     "after": 687,
     "removed": 0,
@@ -1596,8 +1597,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-09T06:48:32.681Z",
-    "publishedJobs": 688,
+    "checkedAt": "2026-09-09T09:26:58.597Z",
+    "publishedJobs": 687,
     "removedJobs": 0,
     "activeCareerEvents": 6,
     "providerVerifiedRetained": 2
@@ -1613,7 +1614,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-09T08:48:54.183Z"
+    "updatedAt": "2026-09-09T09:26:58.732Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

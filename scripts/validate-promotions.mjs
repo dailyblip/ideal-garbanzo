@@ -4,6 +4,7 @@ const products = JSON.parse(await readFile('data/employer-products.json', 'utf8'
 const activations = JSON.parse(await readFile('data/featured-jobs.json', 'utf8'));
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 const homepage = await readFile('index.html', 'utf8');
+const employerPage = await readFile('employers/index.html', 'utf8');
 
 const tiers = {
   highlightedJob: { priceUsd: 99, durationDays: 30, label: 'Highlighted Job' },
@@ -33,6 +34,20 @@ if (checkout) {
   if (typeof checkout.enabled !== 'boolean') throw new Error('Employer checkout enabled flag must be boolean');
   if (checkout.enabled && !/^https:\/\//i.test(String(checkout.url || ''))) throw new Error('Enabled employer checkout requires an HTTPS URL');
 }
+
+const inquiry = products?.inquiry;
+if (!inquiry || inquiry.enabled !== true) throw new Error('Employer placement inquiry must be enabled while checkout is unavailable');
+if (inquiry.provider !== 'buttondown') throw new Error('Employer inquiry provider must be Buttondown');
+if (!/^https:\/\//i.test(String(inquiry.endpoint || ''))) throw new Error('Employer inquiry endpoint must use HTTPS');
+if (inquiry.tag !== 'employer-inquiries') throw new Error('Employer inquiry must use the employer-inquiries tag');
+if (!employerPage.includes(`action="${inquiry.endpoint}"`)) throw new Error('Employer page inquiry form is not wired to the configured endpoint');
+if (!employerPage.includes(`name="tag" value="${inquiry.tag}"`)) throw new Error('Employer page inquiry form is missing the configured tag');
+if (!/type="email"[^>]*name="email"|name="email"[^>]*type="email"/i.test(employerPage)) throw new Error('Employer inquiry must require an email address');
+if (!/type="url"[^>]*name="metadata__job_url"|name="metadata__job_url"[^>]*type="url"/i.test(employerPage)) throw new Error('Employer inquiry must collect an official job URL');
+if (!employerPage.includes('name="metadata__interest" value="employer-promotion"')) throw new Error('Employer inquiry is missing promotion-interest metadata');
+if (employerPage.includes('value="weekly-job-alerts"')) throw new Error('Employer inquiry must not opt advertisers into candidate job alerts');
+if (!employerPage.includes('id="request-placement"')) throw new Error('Employer placement CTAs must have a request-placement destination');
+if ((employerPage.match(/href="#request-placement"/g) || []).length < 2) throw new Error('Both employer promotion tiers must point to the placement inquiry');
 
 if (!Array.isArray(activations)) throw new Error('featured-jobs.json must contain an array');
 const jobsById = new Map(jobs.map(job => [String(job.id), job]));
@@ -89,4 +104,4 @@ for (const label of ['Highlighted Job', 'Spotlight Position']) {
 if (lifecycleStale) {
   console.warn(`Promotion lifecycle warning: ${lifecycleStale} expired/orphaned record(s) await cleanup.`);
 }
-console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers, ${seen.size} live/scheduled promotion records, ${lifecycleStale} lifecycle-stale records.`);
+console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers, employer inquiry active, ${seen.size} live/scheduled promotion records, ${lifecycleStale} lifecycle-stale records.`);

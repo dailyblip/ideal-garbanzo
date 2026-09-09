@@ -6,7 +6,6 @@ on:
     paths:
       - 'scripts/collect-cologix.mjs'
       - 'scripts/validate-cologix.mjs'
-      - 'scripts/collect-jobs.mjs'
       - '.github/workflows/cologix-bootstrap.yml'
   workflow_dispatch:
   schedule:

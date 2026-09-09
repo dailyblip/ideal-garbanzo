@@ -26,7 +26,7 @@ for (const [i, job] of googleJobs.entries()) {
 }
 
 const careerEvents = JSON.parse(await readFile('data/career-events.json', 'utf8'));
-if (!Array.isArray(careerEvents)) throw new Error('career-events.json must contain an array');
+if (!Array.isArray(careerEvents)) throw new Error('data/career-events.json must contain an array');
 const careerEventIds = new Set();
 const isoDate = value => {
   const text = String(value || '').trim();
@@ -48,7 +48,7 @@ for (const [i, event] of careerEvents.entries()) {
 await import('./validate-career-event-freshness.mjs');
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;
+const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;
 const allowedRegions = new Set(['mid-atlantic','texas','southwest','midwest','southeast','northeast','west','nationwide']);
 function canonicalTitle(job) {
   let title = String(job.title || '').trim();

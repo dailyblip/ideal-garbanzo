@@ -1,0 +1,55 @@
+name: Weekly job alert
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/send-weekly-job-alert.mjs'
+      - 'data/jobs.json'
+      - 'data/mailing-list.json'
+      - '.github/workflows/weekly-job-alert.yml'
+  schedule:
+    - cron: '5 5 * * 1'
+  workflow_dispatch:
+    inputs:
+      schedule_alert:
+        description: 'Schedule the next Monday alert in Buttondown'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-job-alert
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate personalized weekly digest
+        run: node scripts/send-weekly-job-alert.mjs --dry-run
+
+  schedule-alert:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.schedule_alert)
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Schedule Monday Buttondown alert
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: node scripts/send-weekly-job-alert.mjs --schedule

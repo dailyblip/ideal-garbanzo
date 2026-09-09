@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-09T16:53:59.662Z",
+  "updatedAt": "2026-09-09T16:56:30.846Z",
   "jobs": 684,
-  "sourcesAttempted": 32,
+  "sourcesAttempted": 33,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -14,9 +14,9 @@
   },
   "countsByType": {
     "entry-level": 650,
-    "apprenticeship": 12,
+    "internship": 15,
     "trainee": 7,
-    "internship": 15
+    "apprenticeship": 12
   },
   "countsByExperience": {
     "0-2-years": 361,
@@ -42,7 +42,7 @@
     "listing": {
       "pagesAttempted": 2,
       "pagesSucceeded": 2,
-      "candidateLinks": 19
+      "candidateLinks": 18
     },
     "drops": {
       "parse": 3,
@@ -50,8 +50,8 @@
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
         "location": ""
       },
       {
@@ -61,8 +61,8 @@
         "reason": "classification"
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
         "location": ""
       },
       {
@@ -1743,7 +1743,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T16:53:59.789Z",
+    "checkedAt": "2026-09-09T16:56:30.920Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1751,7 +1751,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T16:53:59.863Z",
+    "updatedAt": "2026-09-09T16:56:30.997Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 684,
@@ -1759,17 +1759,17 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "southwest": 83,
       "midwest": 137,
       "texas": 112,
-      "mid-atlantic": 121,
-      "west": 105,
       "northeast": 18,
+      "west": 105,
       "southeast": 108,
-      "southwest": 83
+      "mid-atlantic": 121
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T16:53:59.939Z",
+    "checkedAt": "2026-09-09T16:56:31.069Z",
     "before": 684,
     "after": 684,
     "removed": 0,
@@ -1787,14 +1787,14 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 939,
     "currentJobs": 684,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 108,
-    "updatedAt": "2026-09-09T16:54:00.003Z"
+    "updatedAt": "2026-09-09T16:56:31.133Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

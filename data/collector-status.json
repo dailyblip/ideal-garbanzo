@@ -82,17 +82,17 @@
   "sabeyCareers": {
     "officialSource": "https://sabey.com/about/careers",
     "recruiterBoard": "https://careers2-anothersource.icims.com/jobs/search?hashed=-625979185&ss=1",
-    "sourceHealthy": true,
+    "sourceHealthy": false,
     "listingMethod": "official-recruiter-board",
     "usedRecruiterBoardFallback": true,
     "recruiterBoardComplete": true,
-    "candidateLinks": 4,
-    "detailSucceeded": 4,
+    "candidateLinks": 3,
+    "detailSucceeded": 3,
     "qualifyingRoles": 0,
     "preservedPrevious": 0,
     "drops": {
       "stale": 1,
-      "titleOrExperience": 3,
+      "titleOrExperience": 2,
       "location": 0,
       "nonSabey": 0,
       "fetch": 0
@@ -103,9 +103,9 @@
     "snapshotRoles": 0,
     "snapshotRestored": 0,
     "snapshotVerifiedAt": "2026-09-09T04:51:29.514Z",
-    "snapshotFresh": true,
+    "snapshotFresh": false,
     "snapshotMaxAgeHours": 168,
-    "snapshotAgeHours": 83.9,
+    "snapshotAgeHours": 0.1,
     "removedExpiredFallback": 0
   },
   "novvaCareers": {
@@ -1547,7 +1547,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T04:51:29.578Z",
+    "checkedAt": "2026-09-09T04:54:35.268Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1555,7 +1555,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T04:51:29.650Z",
+    "updatedAt": "2026-09-09T04:54:35.342Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 669,
@@ -1573,7 +1573,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T04:51:29.716Z",
+    "checkedAt": "2026-09-09T04:54:35.416Z",
     "before": 669,
     "after": 669,
     "removed": 0,
@@ -1598,7 +1598,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-09T04:51:29.781Z"
+    "updatedAt": "2026-09-09T04:54:35.480Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

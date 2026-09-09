@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-09T18:00:28.022Z",
-  "jobs": 705,
+  "updatedAt": "2026-09-09T18:01:44.564Z",
+  "jobs": 701,
   "sourcesAttempted": 33,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 670,
+    "internship": 15,
     "trainee": 8,
     "apprenticeship": 12,
-    "internship": 15
+    "entry-level": 666
   },
   "countsByExperience": {
-    "2-5-years": 273,
-    "0-2-years": 379,
-    "no-experience": 53
+    "no-experience": 53,
+    "0-2-years": 375,
+    "2-5-years": 273
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1592,16 +1592,16 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 35,
-      "detailAttempted": 35,
-      "detailSucceeded": 35,
+      "candidateLinks": 33,
+      "detailAttempted": 33,
+      "detailSucceeded": 33,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 7,
-      "qualifyingRoles": 0,
+      "staleRemoved": 6,
+      "qualifyingRoles": 1,
       "drops": {
-        "non-us": 9,
+        "non-us": 6,
         "unknown-experience": 11,
         "context": 1,
         "title": 14
@@ -1630,10 +1630,6 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
         },
         {
-          "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
-        },
-        {
           "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
@@ -1644,6 +1640,10 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -1655,8 +1655,8 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 5,
-      "verifiedSeeded": 2,
+      "recoveredCandidates": 4,
+      "verifiedSeeded": 3,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -1685,7 +1685,7 @@
     "listingFallbacksUsed": 0,
     "verifiedWindowFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 7,
     "retainedManaged": 7,
@@ -1764,27 +1764,27 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T18:00:28.176Z",
+    "updatedAt": "2026-09-09T18:01:44.639Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 705,
+    "regionAssigned": 701,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "mid-atlantic": 128,
+      "west": 107,
       "texas": 116,
       "midwest": 139,
-      "southeast": 109,
-      "west": 108,
-      "northeast": 20,
-      "southwest": 85
+      "mid-atlantic": 126,
+      "southwest": 85,
+      "southeast": 108,
+      "northeast": 20
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T18:00:28.247Z",
-    "before": 705,
-    "after": 705,
+    "checkedAt": "2026-09-09T18:01:44.714Z",
+    "before": 701,
+    "after": 701,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1799,7 +1799,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 951,
-    "currentJobs": 705,
+    "currentJobs": 701,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1807,7 +1807,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 108,
-    "updatedAt": "2026-09-09T18:01:11.224Z"
+    "updatedAt": "2026-09-09T18:01:44.786Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

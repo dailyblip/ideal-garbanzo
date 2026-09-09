@@ -7,7 +7,7 @@ const STATUS_PATH = 'data/collector-status.json';
 const allowedExperiences = new Set(['no-experience', '0-2-years', '2-5-years']);
 const missionTitlePattern = /\b(?:data cent(?:er|re) (?:technician|operator|operations|facilities|facility|engineer)|critical facilit(?:y|ies) (?:technician|operator|engineer)|facilit(?:y|ies) (?:technician|operator|engineer)|(?:electrical|mechanical) operations engineer|operations engineer)\b/i;
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|chief|manager|director|vice president|vp|head of|supervisor|superintendent|foreman)\b/i;
-const usLocationPattern = /,\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)\b/;
+const usLocationPattern = /^[A-Za-z][A-Za-z .'-]{1,60},\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)$/;
 
 const jobs = JSON.parse(await readFile(PUBLIC_PATH, 'utf8'));
 let snapshot = [];
@@ -39,11 +39,12 @@ if (source) {
 function validateRole(job, label, requireRegion) {
   const id = String(job?.id || '(missing id)');
   const title = String(job?.title || '');
+  const location = String(job?.location || '');
   requireOk(job?.company === COMPANY, `${label} ${id} has unexpected company ${job?.company || '(blank)'}.`);
   requireOk(Boolean(job?.id), `${label} role is missing an id.`);
   requireOk(missionTitlePattern.test(title), `${label} ${id} is outside hands-on data-center scope: ${title || '(blank)'}.`);
   requireOk(!seniorTitlePattern.test(title), `${label} ${id} leaked a senior title: ${title || '(blank)'}.`);
-  requireOk(usLocationPattern.test(String(job?.location || '')), `${label} ${id} is not normalized to a U.S. location: ${job?.location || '(blank)'}.`);
+  requireOk(usLocationPattern.test(location) && !/apply now|data center operations/i.test(location), `${label} ${id} is not normalized to a clean U.S. city/state location: ${location || '(blank)'}.`);
   requireOk(allowedExperiences.has(job?.experience), `${label} ${id} has invalid experience classification: ${job?.experience || '(blank)'}.`);
   requireOk(job?.active === true && job?.demo !== true, `${label} ${id} must be active and non-demo.`);
   requireOk(String(job?.source || '').toLowerCase().includes('official edgeconnex'), `${label} ${id} must identify the official EdgeConneX source.`);

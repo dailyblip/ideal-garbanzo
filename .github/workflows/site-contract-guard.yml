@@ -24,6 +24,8 @@ jobs:
           node-version: 22
       - name: Validate regional filtering contract
         run: node scripts/test-region-filter-contract.mjs
+      - name: Validate jobs search and filter contract
+        run: node scripts/validate-jobs-browser.mjs
       - name: Validate approved homepage contract
         run: node scripts/validate-homepage-contract.mjs
       - name: Validate authored-page accessibility

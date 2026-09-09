@@ -16,6 +16,10 @@
 
   const PAGE_SIZE = 25;
   const state = { jobs: [], page: 1 };
+  const validSorts = new Set(['recommended','newest','company','location','pay']);
+  const validTypes = new Set(['','apprenticeship','internship','trainee','entry-level']);
+  const validExperience = new Set(['','no-experience','0-2-years','2-5-years']);
+  const validRegions = new Set(['','mid-atlantic','texas','southwest','midwest','southeast','northeast','west']);
   const regionTerms = {
     'mid-atlantic':['district of columbia','delaware','maryland','virginia','west virginia',', dc',', de',', md',', va',', wv','ashburn','manassas'],
     'texas':['texas',', tx','dallas','austin','fort worth','san antonio','houston'],
@@ -47,6 +51,35 @@
     if (value < 24) return `${Math.max(1, Math.round(value))}h ago`;
     return `${Math.max(1, Math.round(value / 24))}d ago`;
   };
+
+  function hydrateFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    search.value = String(params.get('q') || '').slice(0, 120);
+    const requestedSort = params.get('sort') || 'recommended';
+    sort.value = validSorts.has(requestedSort) ? requestedSort : 'recommended';
+    const requestedType = params.get('type') || '';
+    type.value = validTypes.has(requestedType) ? requestedType : '';
+    const requestedExperience = params.get('experience') || '';
+    experience.value = validExperience.has(requestedExperience) ? requestedExperience : '';
+    const requestedRegion = params.get('region') || '';
+    region.value = validRegions.has(requestedRegion) ? requestedRegion : '';
+    const requestedPage = Number.parseInt(params.get('page') || '1', 10);
+    state.page = Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+  }
+
+  function syncUrl() {
+    const params = new URLSearchParams();
+    const query = search.value.trim();
+    if (query) params.set('q', query);
+    if (sort.value !== 'recommended') params.set('sort', sort.value);
+    if (type.value) params.set('type', type.value);
+    if (experience.value) params.set('experience', experience.value);
+    if (region.value) params.set('region', region.value);
+    if (state.page > 1) params.set('page', String(state.page));
+    const queryString = params.toString();
+    const nextUrl = `${window.location.pathname}${queryString ? `?${queryString}` : ''}${window.location.hash || ''}`;
+    window.history.replaceState(null, '', nextUrl);
+  }
 
   function locationMatchesRegion(location, selectedRegion) {
     const value = String(location || '').toLowerCase().trim();
@@ -133,6 +166,7 @@
       ? `Showing ${startNumber}–${endNumber} of ${jobs.length} matching opportunities`
       : 'No opportunities match those filters';
     renderPagination(totalPages);
+    syncUrl();
   }
 
   function onFilterChange() {
@@ -164,6 +198,7 @@
     root.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
+  hydrateFromUrl();
   fetch(`${window.location.origin}/data/jobs.json`, { cache: 'no-store' })
     .then(response => {
       if (!response.ok) throw new Error('Unable to load job data');

@@ -20,6 +20,7 @@ on:
       - 'scripts/validate-oracle-snapshot.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-edgeconnex-snapshot.mjs'
+      - 'scripts/validate-coreweave.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -41,6 +42,7 @@ on:
       - 'scripts/validate-oracle-snapshot.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-edgeconnex-snapshot.mjs'
+      - 'scripts/validate-coreweave.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -70,3 +72,5 @@ jobs:
         run: node scripts/validate-digital-realty.mjs
       - name: Verify EdgeConneX snapshot and public-feed parity
         run: node scripts/validate-edgeconnex-snapshot.mjs
+      - name: Verify CoreWeave snapshot and public-feed opportunity parity
+        run: node scripts/validate-coreweave.mjs

@@ -67,11 +67,23 @@ const cyrusOneCampusLocations = [
   [/^PNW1$/i, 'Quincy, WA']
 ];
 
-// Aligned's official locations page lists DFW-01 and DFW-02 at the same Plano,
-// Texas campus. Workday can combine that campus as DFW01_02; normalize only
-// that verified identifier rather than treating arbitrary DFW codes as cities.
+// Aligned publishes exact site IDs and postal locations on its official
+// locations pages. Keep these mappings exact and company-scoped so Workday
+// campus codes become useful city/state labels without guessing across sites.
 const alignedCampusLocations = [
-  [/^DFW0?1_0?2$/i, 'Plano, TX']
+  [/^DFW0?1_0?2$/i, 'Plano, TX'],
+  [/^DFW[-_]?0?4$/i, 'Plano, TX'],
+  [/^ORD[-_]?0?1$/i, 'Northlake, IL'],
+  [/^ORD[-_]?0?2$/i, 'Northlake, IL'],
+  [/^ORD[-_]?0?3$/i, 'Elk Grove Village, IL'],
+  [/^PDX[-_]?0?1$/i, 'Hillsboro, OR'],
+  [/^PHX[-_]?0?[1-3]$/i, 'Phoenix, AZ'],
+  [/^PHX[-_]?0?4$/i, 'Chandler, AZ'],
+  [/^PHX[-_]?0?5$/i, 'Phoenix, AZ'],
+  [/^PHX[-_]?0?6$/i, 'Chandler, AZ'],
+  [/^PHX[-_]?0?7$/i, 'Waddell, AZ'],
+  [/^IAD[-_]?0?4$/i, 'Frederick, MD'],
+  [/^IAD[-_]?0?6$/i, 'Frederick, MD']
 ];
 
 // These are the same deliberately narrow U.S. campus-code families used by
@@ -100,16 +112,45 @@ function canonicalMajorLocation(job) {
   return location;
 }
 
-// Keep the site-code fix scoped to CyrusOne. A different employer using the
-// same token must remain untouched rather than inheriting guessed geography.
+function mergeCanonicalSnapshot(existingJobs, snapshotJobs) {
+  const existingByKey = new Map(existingJobs.map(job => [jobKey(job), job]));
+  return snapshotJobs.map(job => {
+    const existing = existingByKey.get(jobKey(job));
+    // Preserve history/enrichment fields that exist only in the public feed,
+    // but let the current authoritative snapshot win for location, title, pay,
+    // source URL and other fields it actually supplies.
+    return existing ? { ...existing, ...job } : job;
+  });
+}
+
+// Keep campus-code mappings company-specific, and ensure preserve-existing mode
+// still applies fresh canonical fields instead of freezing older display data.
 for (const [job, expected] of [
   [{ company: 'CyrusOne', location: 'COL1' }, 'New Albany, OH'],
-  [{ company: 'Vantage Data Centers', location: 'COL1' }, 'COL1']
+  [{ company: 'Vantage Data Centers', location: 'COL1' }, 'COL1'],
+  [{ company: 'Aligned Data Centers', location: 'DFW01_02' }, 'Plano, TX'],
+  [{ company: 'Aligned Data Centers', location: 'DFW-04' }, 'Plano, TX'],
+  [{ company: 'Aligned Data Centers', location: 'ORD-03' }, 'Elk Grove Village, IL'],
+  [{ company: 'Aligned Data Centers', location: 'PDX-01' }, 'Hillsboro, OR'],
+  [{ company: 'Aligned Data Centers', location: 'PHX-03' }, 'Phoenix, AZ'],
+  [{ company: 'Aligned Data Centers', location: 'PHX-06' }, 'Chandler, AZ'],
+  [{ company: 'Aligned Data Centers', location: 'PHX-07' }, 'Waddell, AZ'],
+  [{ company: 'Aligned Data Centers', location: 'IAD-04' }, 'Frederick, MD'],
+  [{ company: 'Aligned Data Centers', location: 'IAD-06' }, 'Frederick, MD'],
+  [{ company: 'Vantage Data Centers', location: 'PHX-06' }, 'PHX-06']
 ]) {
   const actual = canonicalMajorLocation(job);
   if (actual !== expected) {
     throw new Error(`Major location regression for ${job.company} ${job.location}: expected ${expected}, got ${actual}`);
   }
+}
+
+const preserveRegression = mergeCanonicalSnapshot(
+  [{ id: 'regression-role', company: 'Aligned Data Centers', location: 'PHX-06', firstSeenAt: 'keep-me' }],
+  [{ id: 'regression-role', company: 'Aligned Data Centers', location: 'Chandler, AZ', pay: '$35–$45 / hr' }]
+)[0];
+if (preserveRegression.location !== 'Chandler, AZ' || preserveRegression.firstSeenAt !== 'keep-me' || preserveRegression.pay !== '$35–$45 / hr') {
+  throw new Error('Major preserve-existing regression: current canonical fields must override stale feed fields while retaining feed-only history.');
 }
 
 function clearlyOutsideUnitedStates(job) {
@@ -212,10 +253,7 @@ const staleRemoved = oldMajor.filter(job => !currentKeys.has(jobKey(job))).lengt
 
 let authoritativeMajor = majorSnapshot;
 if (preserveExisting) {
-  const retained = oldMajor.filter(job => currentKeys.has(jobKey(job)));
-  const retainedKeys = new Set(retained.map(jobKey));
-  const newJobs = majorSnapshot.filter(job => !retainedKeys.has(jobKey(job)));
-  authoritativeMajor = dedupe([...retained, ...newJobs]);
+  authoritativeMajor = mergeCanonicalSnapshot(oldMajor, majorSnapshot);
 }
 
 const merged = dedupe([...nonMajor, ...authoritativeMajor]);

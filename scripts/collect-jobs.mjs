@@ -27,6 +27,9 @@ const GENERIC_COMPANIES = [
   'TensorWave'
 ];
 const GENERIC_COMPANY_SET = new Set(GENERIC_COMPANIES);
+const AUTHORITATIVE_SNAPSHOTS = [
+  { company: 'Cologix', path: 'data/cologix-jobs.json' }
+];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -81,6 +84,28 @@ function preserveFailedSources(previous, fresh, errors = []) {
   };
 }
 
+function overlayCompanySnapshot(jobs, company, snapshot) {
+  if (!Array.isArray(snapshot)) return jobs;
+  return dedupe([
+    ...jobs.filter(job => clean(job?.company) !== company),
+    ...snapshot
+  ]);
+}
+
+async function applyAuthoritativeSnapshots(jobs) {
+  let merged = jobs;
+  const restoredByCompany = {};
+  for (const { company, path } of AUTHORITATIVE_SNAPSHOTS) {
+    let snapshot;
+    try { snapshot = JSON.parse(await readFile(path, 'utf8')); }
+    catch { continue; }
+    if (!Array.isArray(snapshot)) continue;
+    merged = overlayCompanySnapshot(merged, company, snapshot);
+    restoredByCompany[company] = snapshot.length;
+  }
+  return { jobs: merged, restoredByCompany };
+}
+
 function countsBy(jobs, field) {
   return jobs.reduce((counts, job) => {
     const value = clean(job?.[field]) || 'unknown';
@@ -110,7 +135,20 @@ function runSelfTest() {
   if (healthyEmpty.jobs.some(job => job.company === 'LightEdge Solutions')) throw new Error('successful zero-result source was treated as an outage');
   if (!healthyEmpty.jobs.some(job => job.id === 'major-role')) throw new Error('non-generic production role was lost on healthy refresh');
 
-  console.log('Generic source failure preservation passed regression tests.');
+  const genericCologix = [
+    ...fresh,
+    { id:'generic-cologix', company:'Cologix', title:'Data Center Technician', location:'Columbus, OH', sourceUrl:'https://jobs.lever.co/cologix/generic', active:true, demo:false }
+  ];
+  const verifiedCologix = [
+    { id:'verified-cologix', company:'Cologix', title:'Data Center Technician', location:'Columbus, OH', sourceUrl:'https://jobs.lever.co/cologix/verified', active:true, demo:false }
+  ];
+  const overlaid = overlayCompanySnapshot(genericCologix, 'Cologix', verifiedCologix);
+  if (!overlaid.some(job => job.id === 'verified-cologix')) throw new Error('authoritative Cologix snapshot was not restored');
+  if (overlaid.some(job => job.id === 'generic-cologix')) throw new Error('generic Cologix role survived authoritative overlay');
+  const authoritativeEmpty = overlayCompanySnapshot(genericCologix, 'Cologix', []);
+  if (authoritativeEmpty.some(job => job.company === 'Cologix')) throw new Error('authoritative empty Cologix snapshot did not clear stale generic roles');
+
+  console.log('Generic source failure preservation and authoritative snapshot overlay passed regression tests.');
 }
 
 if (process.argv.includes('--test-preservation')) {
@@ -130,9 +168,10 @@ const fresh = await readJson(JOBS_PATH, []);
 const status = await readJson(STATUS_PATH, {});
 const errors = Array.isArray(status?.errors) ? status.errors : [];
 const result = preserveFailedSources(previous, fresh, errors);
+const authoritative = await applyAuthoritativeSnapshots(result.jobs);
 
 const now = Date.now();
-for (const job of result.jobs) {
+for (const job of authoritative.jobs) {
   if (job?.postedAt) {
     const timestamp = new Date(job.postedAt).getTime();
     if (Number.isFinite(timestamp)) job.postedHours = Math.max(0, Math.round((now - timestamp) / 36e5));
@@ -141,23 +180,31 @@ for (const job of result.jobs) {
 
 const nextStatus = {
   ...status,
-  jobs: result.jobs.length,
-  countsByType: countsBy(result.jobs, 'type'),
-  countsByExperience: countsBy(result.jobs, 'experience'),
+  jobs: authoritative.jobs.length,
+  countsByType: countsBy(authoritative.jobs, 'type'),
+  countsByExperience: countsBy(authoritative.jobs, 'experience'),
   sourceFailurePreservation: {
     checkedAt: new Date().toISOString(),
     failedSources: result.failed,
     preservedJobs: Object.values(result.preservedByCompany).reduce((sum, count) => sum + count, 0),
     preservedByCompany: result.preservedByCompany,
     policy: 'Preserve last verified roles only for generic ATS providers that failed to fetch; successful zero-result refreshes remain authoritative.'
+  },
+  authoritativeSnapshotOverlay: {
+    checkedAt: new Date().toISOString(),
+    restoredByCompany: authoritative.restoredByCompany,
+    policy: 'Dedicated employer-direct snapshots replace overlapping generic ATS results before later publication gates.'
   }
 };
 
-await writeFile(JOBS_PATH, JSON.stringify(result.jobs, null, 2) + '\n');
+await writeFile(JOBS_PATH, JSON.stringify(authoritative.jobs, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(nextStatus, null, 2) + '\n');
 
 if (result.failed.length) {
   console.warn(`Preserved ${nextStatus.sourceFailurePreservation.preservedJobs} prior role(s) across failed generic source(s): ${result.failed.join(', ')}`);
 } else {
   console.log('Generic employer-direct refresh completed without source-failure preservation.');
+}
+if (Object.keys(authoritative.restoredByCompany).length) {
+  console.log(`Restored authoritative employer snapshots: ${Object.entries(authoritative.restoredByCompany).map(([company, count]) => `${company}=${count}`).join(', ')}`);
 }

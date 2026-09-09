@@ -1,22 +1,12 @@
 {
-  "checkedAt": "2026-09-09T15:46:00.365Z",
-  "jobsBefore": 688,
+  "checkedAt": "2026-09-09T15:47:17.494Z",
+  "jobsBefore": 687,
   "jobsAfter": 687,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10498311",
-      "company": "Amazon Web Services",
-      "title": "Data Center Operations Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10498311/data-center-operations-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10498311/data-center-operations-technician"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",
@@ -180,7 +170,26 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5201130007",
+      "company": "xAI",
+      "title": "Facilities Maintenance Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5201130007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "lever-t5-d6d609a6-2912-4a77-a8f3-e2da287cd484",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/d6d609a6-2912-4a77-a8f3-e2da287cd484",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 6,
   "careerEventsAfter": 6,

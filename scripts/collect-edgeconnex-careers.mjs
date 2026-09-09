@@ -142,9 +142,17 @@ function extractLocation(jsonLd, text) {
     const country = clean(address?.addressCountry?.name || address?.addressCountry || '');
     if (city && region && (!country || /^(?:us|usa|united states|united states of america)$/i.test(country))) return `${city}, ${region}`;
   }
+
+  const cleaned = clean(text);
   const codes = [...stateCodes].join('|');
-  const match = clean(text).match(new RegExp(`\\b([A-Z][A-Za-z .'-]{1,60}?),\\s*(${codes})\\b`));
-  return match ? `${clean(match[1])}, ${match[2]}` : '';
+  const boardFooter = cleaned.match(new RegExp(`\\bData Center Operations\\s+([A-Z][A-Za-z .'-]{1,60}?),\\s*(${codes})\\b`, 'i'));
+  if (boardFooter) return `${clean(boardFooter[1])}, ${boardFooter[2].toUpperCase()}`;
+
+  const matches = [...cleaned.matchAll(new RegExp(`\\b([A-Z][A-Za-z .'-]{1,45}?),\\s*(${codes})\\b`, 'g'))];
+  if (!matches.length) return '';
+  const last = matches[matches.length - 1];
+  const city = clean(last[1]).replace(/^(?:Apply now|Data Center Operations)\s+/i, '').trim();
+  return city ? `${city}, ${last[2].toUpperCase()}` : '';
 }
 
 function extractPay(jsonLd, text) {

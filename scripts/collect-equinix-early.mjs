@@ -24,9 +24,9 @@ const experienceNumberWords = new Map([
 // runners but sometimes omit the rendered qualification body. These six live
 // US SkillBridge roles were verified against official Equinix pages through
 // 2026-09-09. They are re-fetched on every run and can only supply a verified
-// experience bucket while the same role remains discoverable on Equinix's
-// current jobs or military-program listing. This avoids trusting a generic
-// detail shell while tolerating an employer-side job URL/title refresh.
+// experience bucket while the same role is backed by current employer-direct
+// listing evidence. That evidence may come from this focused early-career pass
+// or from the complete broad Equinix pass that runs immediately before it.
 const verifiedCandidates = [
   {
     requisition:'JR-163301',
@@ -127,6 +127,12 @@ function verifiedCandidateFor(url='', title='', description='') {
     if (candidate && verifiedTitleMatches(title, candidate.title)) return candidate;
   }
   return null;
+}
+
+function canUseVerifiedExperience(url='', title='', verified, currentListingKeys=new Set()) {
+  if (!verified || !verifiedTitleMatches(title, verified.title)) return false;
+  const key = canonicalJobKey(url);
+  return Boolean(key && currentListingKeys.has(key));
 }
 
 async function fetchText(url) {
@@ -317,6 +323,17 @@ function validateVerifiedMatching() {
     'Current official role. JR-163301'
   );
   if (movedRole?.requisition !== 'JR-163301') failures.push('requisition-backed matching must survive an employer-side URL change');
+  const verified = verifiedCandidates.find(item => item.requisition === 'JR-163300');
+  const currentKeys = new Set([canonicalJobKey(verified.url)]);
+  if (!canUseVerifiedExperience(verified.url, verified.title, verified, currentKeys)) {
+    failures.push('fresh employer-direct listing evidence must allow a verified requirement bucket');
+  }
+  if (canUseVerifiedExperience(verified.url, 'SkillBridge Data Center Customer Operations Technician - Trainee', verified, currentKeys)) {
+    failures.push('fresh listing evidence must not override a mismatched verified job family');
+  }
+  if (canUseVerifiedExperience(verified.url, verified.title, verified, new Set())) {
+    failures.push('verified experience must fail closed without current employer-direct listing evidence');
+  }
   if (failures.length) throw new Error(`Equinix verified-role matching regression: ${failures.join(' | ')}`);
 }
 validateClassifier();
@@ -359,9 +376,12 @@ for (const listing of listingUrls) {
     listingPagesSucceeded += 1;
   } catch (error) { errors.push(`listing ${listing}: ${error.message}`); }
 }
-const discoveredListingKeys = new Set([...candidates.keys()].map(canonicalJobKey).filter(Boolean));
+const currentListingKeys = new Set([...candidates.keys()].map(canonicalJobKey).filter(Boolean));
 
 const priorSamples = status?.priorityEmployerExpansion?.Equinix?.dropSamples || [];
+const broadEquinixStatus = status?.priorityEmployerExpansion?.Equinix || {};
+const broadListingCurrent = broadEquinixStatus.sourceHealthy === true && broadEquinixStatus.listingComplete === true;
+let broadListingEvidenceAdded = 0;
 let recoveredCandidates = 0;
 for (const sample of priorSamples) {
   const url = clean(sample?.url);
@@ -369,6 +389,11 @@ for (const sample of priorSamples) {
   if (!/^https:\/\/careers\.equinix\.com\//i.test(url) || !/united-states/i.test(url) || !usable(title,url)) continue;
   if (!candidates.has(url)) recoveredCandidates += 1;
   candidates.set(url,title);
+  if (broadListingCurrent) {
+    const key = canonicalJobKey(url);
+    if (key && !currentListingKeys.has(key)) broadListingEvidenceAdded += 1;
+    if (key) currentListingKeys.add(key);
+  }
 }
 let verifiedSeeded = 0;
 const candidateKeys = new Set([...candidates.keys()].map(canonicalJobKey).filter(Boolean));
@@ -397,11 +422,9 @@ for (const [url,label] of candidates) {
     if (!title || !usable(title,url)) { drops.unusable += 1; continue; }
     const description = clean(posting?.description || html);
     let classification = classifyExperience(title, description);
-    const key = canonicalJobKey(url);
     const verified = verifiedCandidateFor(url, title, description);
     if (classification.drop === 'unknown-experience' && verified) {
-      const currentlyListed = discoveredListingKeys.has(key);
-      if (currentlyListed && verifiedTitleMatches(title, verified.title)) {
+      if (canUseVerifiedExperience(url, title, verified, currentListingKeys)) {
         classification = { experience:verified.experience };
         verifiedFallbackUsed += 1;
       } else {
@@ -469,6 +492,8 @@ await writeFile('data/collector-status.json',JSON.stringify({
     candidateLinks:candidates.size,
     recoveredCandidates,
     verifiedSeeded,
+    broadListingCurrent,
+    broadListingEvidenceAdded,
     verifiedFallbackUsed,
     verifiedAt:'2026-09-09',
     detailAttempted,
@@ -482,5 +507,5 @@ await writeFile('data/collector-status.json',JSON.stringify({
     errors
   }}
 },null,2)+'\n');
-console.log(`Equinix early-career pass found ${managedNext.length} qualifying US roles from ${candidates.size} candidates (${verifiedFallbackUsed} source-verified requirement fallbacks; ${staleRemoved} stale removed; ${drops.experience} over-experience and ${drops.unknownExperience} unknown-experience dropped).`);
+console.log(`Equinix early-career pass found ${managedNext.length} qualifying US roles from ${candidates.size} candidates (${verifiedFallbackUsed} current employer-direct requirement fallbacks; ${staleRemoved} stale removed; ${drops.experience} over-experience and ${drops.unknownExperience} unknown-experience dropped).`);
 if(errors.length) console.warn(`Equinix early-career warnings: ${errors.join(' | ')}`);

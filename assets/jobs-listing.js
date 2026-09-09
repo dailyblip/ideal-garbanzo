@@ -17,32 +17,37 @@
   function addNewsletterBar() {
     if (document.querySelector('[data-jobs-newsletter]')) return;
     const section = document.createElement('section');
-    section.className = 'jobs-browser';
+    section.className = 'jobs-newsletter';
     section.setAttribute('data-jobs-newsletter', '');
     section.setAttribute('aria-labelledby', 'jobs-newsletter-heading');
     section.innerHTML = `
-      <div class="jobs-tools-head">
-        <div><span class="seo-kicker">WEEKLY JOB ALERTS</span><h2 id="jobs-newsletter-heading">Get new openings every Monday.</h2></div>
+      <div class="jobs-newsletter-copy">
+        <span class="seo-kicker">JOB ALERTS</span>
+        <strong id="jobs-newsletter-heading">Get new openings every Monday.</strong>
       </div>
-      <form class="jobs-search-row" id="jobs-newsletter-form" action="https://buttondown.com/api/emails/embed-subscribe/datacentercareers" method="post">
-        <label class="jobs-field" for="jobs-newsletter-email"><span>Email address</span><input id="jobs-newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required></label>
-        <button class="jobs-reset" type="submit">Join weekly list</button>
-        <input type="hidden" id="jobs-newsletter-region" name="metadata__region" value="all">
-        <input type="hidden" name="metadata__focus" value="all">
+      <form class="jobs-newsletter-form" id="jobs-newsletter-form" action="https://buttondown.com/api/emails/embed-subscribe/datacentercareers" method="post">
+        <label class="jobs-newsletter-field" for="jobs-newsletter-region"><span>Region</span><select id="jobs-newsletter-region" name="metadata__region" aria-label="Preferred job alert region"><option value="all">All U.S. regions</option><option value="mid-atlantic">Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select></label>
+        <label class="jobs-newsletter-field" for="jobs-newsletter-focus"><span>Alert focus</span><select id="jobs-newsletter-focus" name="metadata__focus" aria-label="Preferred job alert focus"><option value="all">All openings (up to 5 years)</option><option value="early-career">Early-career only</option></select></label>
+        <label class="jobs-newsletter-field jobs-newsletter-email" for="jobs-newsletter-email"><span>Email address</span><input id="jobs-newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Email address" required></label>
+        <button class="jobs-newsletter-submit" type="submit">Join weekly list</button>
         <input type="hidden" name="embed" value="1">
         <input type="hidden" name="tag" value="weekly-job-alerts">
         <input type="hidden" name="utm_source" value="datacentercareers.us">
         <input type="hidden" name="utm_medium" value="jobs-page">
         <input type="hidden" name="utm_campaign" value="weekly-job-alerts">
-      </form>
-      <p class="jobs-results-summary">One email a week with new employer-direct data center openings. If you choose a region above, we’ll save that preference with your signup.</p>`;
+      </form>`;
     root.insertAdjacentElement('beforebegin', section);
 
+    const newsletterRegion = section.querySelector('#jobs-newsletter-region');
     const form = section.querySelector('#jobs-newsletter-form');
-    const regionValue = section.querySelector('#jobs-newsletter-region');
     const submit = form?.querySelector('button[type="submit"]');
+    const syncFromJobsRegion = () => {
+      const selected = String(region.value || '').trim();
+      if (selected && newsletterRegion?.querySelector(`option[value="${CSS.escape(selected)}"]`)) newsletterRegion.value = selected;
+    };
+    syncFromJobsRegion();
+    region.addEventListener('change', syncFromJobsRegion);
     form?.addEventListener('submit', () => {
-      if (regionValue) regionValue.value = region.value || 'all';
       if (submit) {
         submit.disabled = true;
         submit.textContent = 'Opening signup…';

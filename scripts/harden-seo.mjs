@@ -181,6 +181,46 @@ function overviewHtml(job, overview) {
   return `<section class="seo-role-overview" aria-labelledby="role-overview-heading"><h2 id="role-overview-heading">At a glance</h2><p>${esc(overview)}</p><ul><li><strong>Opportunity:</strong> ${esc(opportunity)}</li><li><strong>Experience:</strong> ${esc(experience)}</li>${focus.length ? `<li><strong>Focus:</strong> ${esc(readableList(focus))}</li>` : ''}</ul></section>`;
 }
 
+function jobsBrowserHtml() {
+  return `<section class="jobs-browser" data-jobs-browser aria-labelledby="jobs-tools-heading">
+    <div class="jobs-tools-head"><div><span class="seo-kicker">FIND THE RIGHT OPENING</span><h2 id="jobs-tools-heading">Search and filter jobs</h2></div><button class="jobs-reset" id="jobs-reset" type="button">Reset</button></div>
+    <div class="jobs-search-row">
+      <label class="jobs-field jobs-search-field" for="jobs-search"><span>Search jobs</span><input id="jobs-search" type="search" inputmode="search" autocomplete="off" placeholder="Job title, company, city or skill"></label>
+      <label class="jobs-field" for="jobs-sort"><span>Sort by</span><select id="jobs-sort"><option value="recommended">Best match for early career</option><option value="newest">Newest</option><option value="company">Company A–Z</option><option value="location">Location A–Z</option><option value="pay">Highest listed pay</option></select></label>
+    </div>
+    <div class="jobs-filter-grid">
+      <label class="jobs-field" for="jobs-type"><span>Opportunity type</span><select id="jobs-type"><option value="">All types</option><option value="apprenticeship">Apprenticeships</option><option value="internship">Internships</option><option value="trainee">Trainee programs</option><option value="entry-level">Entry-level jobs</option></select></label>
+      <label class="jobs-field" for="jobs-experience"><span>Experience</span><select id="jobs-experience"><option value="">All experience levels</option><option value="no-experience">No experience required</option><option value="0-2-years">0–2 years</option><option value="2-5-years">2–5 years</option></select></label>
+      <label class="jobs-field" for="jobs-region"><span>Region</span><select id="jobs-region"><option value="">All U.S. regions</option><option value="mid-atlantic">Mid-Atlantic</option><option value="texas">Texas</option><option value="southwest">Southwest</option><option value="midwest">Midwest</option><option value="southeast">Southeast</option><option value="northeast">Northeast</option><option value="west">West</option></select></label>
+    </div>
+    <p class="jobs-results-summary" id="jobs-results-summary" aria-live="polite">Showing the current job listings below.</p>
+  </section>
+  <p class="jobs-results-empty" id="jobs-results-empty" hidden>No openings match those filters. Try removing a filter or using a broader search.</p>`;
+}
+
+async function enhanceJobsListing() {
+  const path = 'jobs/index.html';
+  let html = await readFile(path, 'utf8');
+  if (!html.includes('data-jobs-browser')) {
+    const listMarker = '<section class="seo-list"';
+    const listIndex = html.indexOf(listMarker);
+    if (listIndex < 0) throw new Error('jobs/index.html is missing the listing marker.');
+    html = `${html.slice(0, listIndex)}${jobsBrowserHtml()}\n      ${html.slice(listIndex)}`;
+  }
+  html = html.replace('<section class="seo-list" aria-label="Data center jobs">', '<section class="seo-list" data-job-results aria-label="Data center jobs">');
+  if (!html.includes('/assets/jobs-listing.css')) {
+    html = html.replace('</head>', `<link rel="stylesheet" href="${baseUrl}/assets/jobs-listing.css">\n</head>`);
+  }
+  if (!html.includes('/assets/jobs-listing.js')) {
+    html = html.replace('</body>', `<script src="${baseUrl}/assets/jobs-listing.js" defer></script></body>`);
+  }
+  const required = ['data-jobs-browser','id="jobs-search"','id="jobs-sort"','id="jobs-type"','id="jobs-experience"','id="jobs-region"','data-job-results','/assets/jobs-listing.css','/assets/jobs-listing.js'];
+  for (const marker of required) {
+    if (!html.includes(marker)) throw new Error(`jobs/index.html is missing jobs browser marker: ${marker}`);
+  }
+  await writeFile(path, html);
+}
+
 let enhancedLocations = 0;
 let enrichedJobPages = 0;
 for (const job of jobs) {
@@ -225,6 +265,8 @@ if (enrichedJobPages !== jobs.length) {
   throw new Error(`Only ${enrichedJobPages}/${jobs.length} generated job pages received SEO enrichment.`);
 }
 
+await enhanceJobsListing();
+
 let sitemap = await readFile('sitemap.xml', 'utf8');
 const lastmods = sitemapLastmods();
 let correctedLastmods = 0;
@@ -242,4 +284,4 @@ if (!sitemap.includes(`<loc>${employerUrl}</loc>`)) {
 await writeFile('sitemap.xml', sitemap);
 await writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}/sitemap.xml\n`);
 
-console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context; ${enhancedLocations}/${jobs.length} received structured location data; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap.`);
+console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context; ${enhancedLocations}/${jobs.length} received structured location data; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap; jobs search/filter/sort controls enabled.`);

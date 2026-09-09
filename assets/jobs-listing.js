@@ -14,6 +14,44 @@
   const empty = document.getElementById('jobs-results-empty');
   if (!list || !search || !sort || !type || !experience || !region || !reset || !summary || !empty) return;
 
+  function addNewsletterBar() {
+    if (document.querySelector('[data-jobs-newsletter]')) return;
+    const section = document.createElement('section');
+    section.className = 'jobs-browser';
+    section.setAttribute('data-jobs-newsletter', '');
+    section.setAttribute('aria-labelledby', 'jobs-newsletter-heading');
+    section.innerHTML = `
+      <div class="jobs-tools-head">
+        <div><span class="seo-kicker">WEEKLY JOB ALERTS</span><h2 id="jobs-newsletter-heading">Get new openings every Monday.</h2></div>
+      </div>
+      <form class="jobs-search-row" id="jobs-newsletter-form" action="https://buttondown.com/api/emails/embed-subscribe/datacentercareers" method="post">
+        <label class="jobs-field" for="jobs-newsletter-email"><span>Email address</span><input id="jobs-newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required></label>
+        <button class="jobs-reset" type="submit">Join weekly list</button>
+        <input type="hidden" id="jobs-newsletter-region" name="metadata__region" value="all">
+        <input type="hidden" name="metadata__focus" value="all">
+        <input type="hidden" name="embed" value="1">
+        <input type="hidden" name="tag" value="weekly-job-alerts">
+        <input type="hidden" name="utm_source" value="datacentercareers.us">
+        <input type="hidden" name="utm_medium" value="jobs-page">
+        <input type="hidden" name="utm_campaign" value="weekly-job-alerts">
+      </form>
+      <p class="jobs-results-summary">One email a week with new employer-direct data center openings. If you choose a region above, we’ll save that preference with your signup.</p>`;
+    root.insertAdjacentElement('afterend', section);
+
+    const form = section.querySelector('#jobs-newsletter-form');
+    const regionValue = section.querySelector('#jobs-newsletter-region');
+    const submit = form?.querySelector('button[type="submit"]');
+    form?.addEventListener('submit', () => {
+      if (regionValue) regionValue.value = region.value || 'all';
+      if (submit) {
+        submit.disabled = true;
+        submit.textContent = 'Opening signup…';
+      }
+    });
+  }
+
+  addNewsletterBar();
+
   const PAGE_SIZE = 25;
   const state = { jobs: [], page: 1 };
   const validSorts = new Set(['recommended','newest','company','location','pay']);

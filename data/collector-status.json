@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T04:11:41.585Z",
+  "updatedAt": "2026-09-09T04:57:41.836Z",
   "jobs": 669,
   "sourcesAttempted": 30,
   "providers": {
@@ -1547,7 +1547,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T04:54:35.268Z",
+    "checkedAt": "2026-09-09T04:57:41.945Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1555,7 +1555,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T04:54:35.342Z",
+    "updatedAt": "2026-09-09T04:57:42.022Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 669,
@@ -1573,7 +1573,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T04:54:35.416Z",
+    "checkedAt": "2026-09-09T04:57:42.089Z",
     "before": 669,
     "after": 669,
     "removed": 0,
@@ -1581,9 +1581,9 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-09T04:12:01.052Z",
-    "publishedJobs": 670,
-    "removedJobs": 1,
+    "checkedAt": "2026-09-09T04:58:07.019Z",
+    "publishedJobs": 669,
+    "removedJobs": 0,
     "activeCareerEvents": 6,
     "providerVerifiedRetained": 2
   },
@@ -1598,7 +1598,7 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-09T04:54:35.480Z"
+    "updatedAt": "2026-09-09T04:58:07.205Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1736,5 +1736,22 @@
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 1,
     "detailErrors": []
+  },
+  "streamDataCenters": {
+    "checkedAt": "2026-09-09T04:57:41.836Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",
+    "officialWorkableBoard": "https://apply.workable.com/stream-dc/",
+    "api": "https://www.workable.com/api/accounts/stream-dc?details=true",
+    "authoritativeSnapshot": true,
+    "listedJobs": 7,
+    "usJobs": 7,
+    "candidateRoles": 6,
+    "qualifyingRoles": 5,
+    "rejectedOutOfScopeTitle": 1,
+    "rejectedSeniorTitle": 1,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 0
   }
 }

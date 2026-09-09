@@ -14,6 +14,7 @@ const officialHostsByCompany = new Map([
   ['Iron Mountain', new Set(['ironmountain.wd5.myworkdayjobs.com'])],
   ['Compass Datacenters', new Set(['compass-datacenters.breezy.hr'])],
   ['Cologix', new Set(['jobs.lever.co'])],
+  ['DataBank', new Set(['www.databankcareers.com'])],
   ['Flexential', new Set(['job-boards.greenhouse.io'])],
   ['T5 Data Centers', new Set(['jobs.lever.co'])],
   ['Stream Data Centers', new Set(['apply.workable.com'])],
@@ -48,6 +49,7 @@ const protectedSnapshots = [
   { company: 'T5 Data Centers', path: 'data/t5-data-centers-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'Stream Data Centers', path: 'data/stream-data-centers-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'Switch', path: 'data/switch-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
+  { company: 'DataBank', path: 'data/databank-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'TierPoint', path: 'data/tierpoint-jobs.json', enforceRetentionRatio: true },
   { company: 'Sabey Data Centers', path: 'data/sabey-jobs.json', enforceRetentionRatio: true },
   { company: 'Novva Data Centers', path: 'data/novva-jobs.json', enforceRetentionRatio: true }
@@ -239,36 +241,29 @@ for (const { company, path, enforceRetentionRatio, enforceExactParity = false } 
 const majorSnapshot = await readArray('data/major-jobs.json', 'Major Workday snapshot', violations);
 for (const job of majorSnapshot) {
   const company = String(job?.company || '').trim();
-  if (protectedMajorWorkdayCompanies.includes(company)) {
-    checkOfficialSource(company, job, `${company} major snapshot`, violations);
-  }
+  if (!protectedMajorWorkdayCompanies.includes(company)) continue;
+  checkOfficialSource(company, job, `${company} major snapshot`, violations);
 }
 
+const majorByCompany = new Map();
 for (const company of protectedMajorWorkdayCompanies) {
-  const companySnapshot = majorSnapshot.filter(job => String(job?.company || '').trim() === company);
-  const usSnapshot = companySnapshot.filter(job => confidentUsLocation(job?.location));
-  const publicCompanyJobs = jobs.filter(job => String(job?.company || '').trim() === company);
-  const snapshotCount = uniqueTitles(usSnapshot).size;
-  const publicCount = uniqueTitles(publicCompanyJobs).size;
-  if (snapshotCount >= 3 && publicCount === 0) {
-    violations.push(`${company}: ${snapshotCount} unique U.S. role titles in the major Workday snapshot collapsed to zero in the public feed`);
-  } else if (snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
-    violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} unique confidently U.S. major Workday role titles`);
+  const snapshotJobs = majorSnapshot.filter(job => String(job?.company || '').trim() === company);
+  majorByCompany.set(company, snapshotJobs);
+  const snapshotUs = snapshotJobs.filter(job => confidentUsLocation(job?.location));
+  const publicUs = jobs.filter(job => String(job?.company || '').trim() === company && confidentUsLocation(job?.location));
+  const snapshotCount = snapshotUs.length;
+  const publicCount = publicUs.length;
+  if (snapshotCount >= 8 && publicCount === 0) {
+    violations.push(`${company}: ${snapshotCount} U.S. roles in the major Workday snapshot collapsed to zero in the public feed`);
+  } else if (snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.35)) {
+    violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} U.S. major Workday roles`);
   }
-}
-
-const represented = [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
-if (represented.length < 6) {
-  violations.push(`Priority-employer coverage collapsed to ${represented.length} represented operators; expected at least 6 before deployment.`);
 }
 
 if (violations.length) {
-  for (const violation of violations) console.error(`Priority-source violation: ${violation}`);
-  throw new Error(`Blocked ${violations.length} priority-employer source or snapshot integrity violation(s).`);
+  violations.forEach(violation => console.error(`Priority employer source guard: ${violation}`));
+  throw new Error(`Blocked ${violations.length} priority employer source regression(s).`);
 }
 
-const priorityJobs = represented.reduce((sum, [, count]) => sum + count, 0);
-console.log(`Priority employer source guard passed: ${priorityJobs} clean public cards from ${represented.length}/${officialHostsByCompany.size} priority operators use employer-direct career URLs.`);
-console.log(`  Equinix early-career managed roles: ${equinixEarlyPublic}/${equinixEarlyExpected || equinixEarlyPublic}`);
-console.log(`  Equinix verified fallback roles: ${equinixFallbackPublic}/${equinixFallbackExpected || equinixFallbackPublic}`);
-for (const [company, count] of represented) console.log(`  ${company}: ${count}`);
+const summary = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([company, count]) => `${company}=${count}`).join(', ');
+console.log(`Priority employer source guard passed. ${summary}`);

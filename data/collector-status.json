@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-09T11:58:31.002Z",
-  "jobs": 687,
+  "jobs": 689,
   "sourcesAttempted": 31,
   "providers": {
     "lever": 7,
@@ -13,14 +13,14 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 653,
+    "entry-level": 655,
     "apprenticeship": 12,
     "trainee": 7,
     "internship": 15
   },
   "countsByExperience": {
     "0-2-years": 370,
-    "2-5-years": 273,
+    "2-5-years": 275,
     "no-experience": 44
   },
   "errors": [
@@ -1743,7 +1743,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-09T13:47:29.942Z",
+    "checkedAt": "2026-09-09T14:57:08.093Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1751,15 +1751,15 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-09T13:47:29.999Z",
+    "updatedAt": "2026-09-09T14:57:08.153Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 687,
+    "regionAssigned": 689,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 135,
+      "midwest": 137,
       "texas": 112,
       "mid-atlantic": 122,
       "west": 106,
@@ -1769,32 +1769,32 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-09T13:47:30.063Z",
-    "before": 687,
-    "after": 687,
+    "checkedAt": "2026-09-09T14:57:08.209Z",
+    "before": 689,
+    "after": 689,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-09T13:47:50.517Z",
-    "publishedJobs": 687,
+    "checkedAt": "2026-09-09T14:57:44.372Z",
+    "publishedJobs": 689,
     "removedJobs": 0,
     "activeCareerEvents": 6,
     "providerVerifiedRetained": 2
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 928,
-    "currentJobs": 687,
-    "newJobsThisRun": 0,
+    "trackedJobs": 930,
+    "currentJobs": 689,
+    "newJobsThisRun": 2,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-09T13:47:50.677Z"
+    "firstSeenRecencyFallbackJobs": 111,
+    "updatedAt": "2026-09-09T14:57:44.534Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1969,5 +1969,24 @@
     "rejectedOver5Years": 2,
     "rejectedUnknownExperience": 5,
     "rejectedLocation": 0
+  },
+  "edgeconnexCareers": {
+    "officialSource": "https://www.edgeconnex.com/company/why-join-us/",
+    "boardUrl": "https://ats.rippling.com/edgeconnex/jobs",
+    "provider": "rippling",
+    "sourceHealthy": true,
+    "listingFetched": true,
+    "candidateLinks": 20,
+    "detailSucceeded": 20,
+    "qualifyingRoles": 2,
+    "preservedPrevious": 0,
+    "drops": {
+      "inactive": 0,
+      "seniorOrOffMission": 18,
+      "nonUs": 0,
+      "experience": 0,
+      "fetch": 0
+    },
+    "errors": []
   }
 }

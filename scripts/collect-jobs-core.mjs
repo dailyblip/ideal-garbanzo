@@ -14,7 +14,8 @@ const greenhouseBoards = [
   ['xai','xAI'],
   ['elementcritical','Element Critical'],
   ['coreweave','CoreWeave'],
-  ['flexentialcorp','Flexential']
+  ['flexentialcorp','Flexential'],
+  ['edgeconnex','EdgeConneX']
 ];
 const ashbyBoards = [
   ['lambda','Lambda'],
@@ -52,6 +53,8 @@ const excludedTitleTerms = [
   'senior','sr.','sr ','lead ','principal','manager','director','vice president','vp ','head of','staff engineer',
   'supervisor','superintendent','foreman','counsel','attorney','designer','architect','recruiter','sales','account executive',
   'software engineer','software developer','machine learning engineer','ml engineer',
+  'business analyst','accounting','accountant','finance','financial analyst','financial operations','procurement','purchasing',
+  'security operations','physical security','cybersecurity','information security','marketing','legal assistant','paralegal',
   'future opportunity','future opportunities','talent pool','talent community','general application','express your interest'
 ];
 const excludedDescriptionTerms = [
@@ -172,6 +175,18 @@ if (process.argv.includes('--test-experience-parser')) {
       title: 'Critical Facilities Technician II',
       description: 'Maintain data center UPS systems, generators and cooling infrastructure.',
       expectedType: 'entry-level', expectedExperience: '2-5-years'
+    },
+    {
+      name: 'corporate accounting internship is rejected despite data-center boilerplate',
+      title: 'Accounting Intern',
+      description: 'Support the accounting team at a global data center operator with colocation facilities and critical infrastructure.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'business analyst role is rejected despite data-center wording',
+      title: 'Business Analyst, Data Center Capacity Reporting',
+      description: 'Analyze data center capacity reporting and colocation facility metrics. Minimum of 2 years of relevant experience.',
+      expectedType: null, expectedExperience: null
     },
     {
       name: 'internship remains eligible without stated years',

@@ -8,25 +8,26 @@ const STATUS_PATH = 'data/collector-status.json';
 // A provider that responds successfully is authoritative, including a legitimate
 // zero-result response. We preserve prior roles only when that provider actually
 // failed to fetch.
-const GENERIC_COMPANIES = [
-  'Serverfarm',
-  'LightEdge Solutions',
-  'Cologix',
-  'ECL',
-  'Hive',
-  'CAI',
-  'T5 Data Centers',
-  'xAI',
-  'Element Critical',
-  'CoreWeave',
-  'Flexential',
-  'EdgeConneX',
-  'Lambda',
-  'Crusoe',
-  'Fluidstack',
-  'Gimlet Labs',
-  'TensorWave'
+const GENERIC_SOURCES = [
+  { company: 'Serverfarm', provider: 'lever' },
+  { company: 'LightEdge Solutions', provider: 'lever' },
+  { company: 'Cologix', provider: 'lever' },
+  { company: 'ECL', provider: 'lever' },
+  { company: 'Hive', provider: 'lever' },
+  { company: 'CAI', provider: 'lever' },
+  { company: 'T5 Data Centers', provider: 'lever' },
+  { company: 'xAI', provider: 'greenhouse' },
+  { company: 'Element Critical', provider: 'greenhouse' },
+  { company: 'CoreWeave', provider: 'greenhouse' },
+  { company: 'Flexential', provider: 'greenhouse' },
+  { company: 'EdgeConneX', provider: 'greenhouse' },
+  { company: 'Lambda', provider: 'ashby' },
+  { company: 'Crusoe', provider: 'ashby' },
+  { company: 'Fluidstack', provider: 'ashby' },
+  { company: 'Gimlet Labs', provider: 'ashby' },
+  { company: 'TensorWave', provider: 'ashby' }
 ];
+const GENERIC_COMPANIES = GENERIC_SOURCES.map(source => source.company);
 const GENERIC_COMPANY_SET = new Set(GENERIC_COMPANIES);
 const AUTHORITATIVE_SNAPSHOTS = [
   { company: 'Cologix', path: 'data/cologix-jobs.json' }
@@ -46,6 +47,34 @@ function failedCompanies(errors = []) {
     if (errors.some(error => clean(error).startsWith(`${company}:`))) failures.add(company);
   }
   return failures;
+}
+
+function buildGenericSourceDiagnostics(fresh = [], errors = []) {
+  const failed = failedCompanies(errors);
+  const counts = new Map();
+  const errorByCompany = new Map();
+
+  for (const job of fresh) {
+    const company = clean(job?.company);
+    if (!GENERIC_COMPANY_SET.has(company)) continue;
+    counts.set(company, (counts.get(company) || 0) + 1);
+  }
+  for (const error of errors) {
+    const message = clean(error);
+    for (const company of GENERIC_COMPANIES) {
+      if (!message.startsWith(`${company}:`)) continue;
+      errorByCompany.set(company, clean(message.slice(company.length + 1)));
+      break;
+    }
+  }
+
+  return GENERIC_SOURCES.map(({ company, provider }) => ({
+    company,
+    provider,
+    sourceHealthy: !failed.has(company),
+    qualifyingRoles: counts.get(company) || 0,
+    error: errorByCompany.get(company) || ''
+  }));
 }
 
 function dedupe(jobs) {
@@ -131,6 +160,7 @@ function mergeCollectorStatus(previousStatus = {}, currentGenericStatus = {}) {
       providers: currentGenericStatus.providers || {},
       countsByType: currentGenericStatus.countsByType || {},
       countsByExperience: currentGenericStatus.countsByExperience || {},
+      sourceDiagnostics: Array.isArray(currentGenericStatus.sourceDiagnostics) ? currentGenericStatus.sourceDiagnostics : [],
       errors: Array.isArray(currentGenericStatus.errors) ? currentGenericStatus.errors : []
     }
   };
@@ -156,6 +186,15 @@ function runSelfTest() {
   const healthyEmpty = preserveFailedSources(previous, [], []);
   if (healthyEmpty.jobs.some(job => job.company === 'LightEdge Solutions')) throw new Error('successful zero-result source was treated as an outage');
   if (!healthyEmpty.jobs.some(job => job.id === 'major-role')) throw new Error('non-generic production role was lost on healthy refresh');
+
+  const sourceDiagnostics = buildGenericSourceDiagnostics(fresh, ['EdgeConneX: 503 upstream unavailable']);
+  const serverfarmDiagnostic = sourceDiagnostics.find(item => item.company === 'Serverfarm');
+  const flexentialDiagnostic = sourceDiagnostics.find(item => item.company === 'Flexential');
+  const edgeconnexDiagnostic = sourceDiagnostics.find(item => item.company === 'EdgeConneX');
+  if (!serverfarmDiagnostic?.sourceHealthy || serverfarmDiagnostic.qualifyingRoles !== 1) throw new Error('healthy generic source role count was not diagnosed');
+  if (!flexentialDiagnostic?.sourceHealthy || flexentialDiagnostic.qualifyingRoles !== 0) throw new Error('healthy zero-result generic source was not diagnosed distinctly');
+  if (edgeconnexDiagnostic?.sourceHealthy !== false || !edgeconnexDiagnostic.error.includes('503')) throw new Error('failed generic source was not diagnosed with its error');
+  if (sourceDiagnostics.length !== GENERIC_SOURCES.length) throw new Error('generic source diagnostics do not cover every configured source');
 
   const genericCologix = [
     ...fresh,
@@ -184,6 +223,7 @@ function runSelfTest() {
     providers: { lever: 7, greenhouse: 5, ashby: 5 },
     countsByType: { 'entry-level': 40, internship: 2 },
     countsByExperience: { '0-2-years': 25, '2-5-years': 17 },
+    sourceDiagnostics,
     errors: ['EdgeConneX: 503 upstream unavailable']
   };
   const mergedStatus = mergeCollectorStatus(previousStatus, currentGenericStatus);
@@ -191,10 +231,11 @@ function runSelfTest() {
   if (mergedStatus.dataBank?.qualifyingRoles !== 17) throw new Error('generic status merge erased DataBank diagnostics');
   if (mergedStatus.cologix?.qualifyingRoles !== 9) throw new Error('generic status merge erased Cologix diagnostics');
   if (mergedStatus.jobs !== 42 || mergedStatus.sourcesAttempted !== 17) throw new Error('current generic status did not remain authoritative for current-run fields');
+  if (mergedStatus.genericDirectSources?.sourceDiagnostics?.length !== GENERIC_SOURCES.length) throw new Error('generic per-source diagnostics were not namespaced');
   if (mergedStatus.genericDirectSources?.errors?.[0] !== 'EdgeConneX: 503 upstream unavailable') throw new Error('generic status diagnostics were not namespaced');
   if (mergedStatus.errors?.[0] !== 'EdgeConneX: 503 upstream unavailable') throw new Error('current generic errors were not kept current-run-only');
 
-  console.log('Generic source failure, authoritative overlay, and collector-status preservation regression tests passed.');
+  console.log('Generic source failure, per-source health, authoritative overlay, and collector-status preservation regression tests passed.');
 }
 
 if (process.argv.includes('--test-preservation')) {
@@ -214,6 +255,7 @@ await import('./collect-jobs-core.mjs');
 const fresh = await readJson(JOBS_PATH, []);
 const currentGenericStatus = await readJson(STATUS_PATH, {});
 const errors = Array.isArray(currentGenericStatus?.errors) ? currentGenericStatus.errors : [];
+currentGenericStatus.sourceDiagnostics = buildGenericSourceDiagnostics(fresh, errors);
 const status = mergeCollectorStatus(previousStatus, currentGenericStatus);
 const result = preserveFailedSources(previous, fresh, errors);
 const authoritative = await applyAuthoritativeSnapshots(result.jobs);
@@ -248,6 +290,10 @@ const nextStatus = {
 await writeFile(JOBS_PATH, JSON.stringify(authoritative.jobs, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(nextStatus, null, 2) + '\n');
 
+const sourceSummary = currentGenericStatus.sourceDiagnostics
+  .map(item => `${item.company}=${item.sourceHealthy ? item.qualifyingRoles : 'ERROR'}`)
+  .join(', ');
+console.log(`Generic source health: ${sourceSummary}`);
 if (result.failed.length) {
   console.warn(`Preserved ${nextStatus.sourceFailurePreservation.preservedJobs} prior role(s) across failed generic source(s): ${result.failed.join(', ')}`);
 } else {

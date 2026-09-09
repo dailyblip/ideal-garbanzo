@@ -2,6 +2,8 @@ import { readFile } from 'node:fs/promises';
 
 const sourceWorkflows = [
   '.github/workflows/aws-detail-recovery.yml',
+  '.github/workflows/cologix-bootstrap.yml',
+  '.github/workflows/databank-bootstrap.yml',
   '.github/workflows/equinix-bootstrap.yml',
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/google-bootstrap.yml',
@@ -25,6 +27,8 @@ const sharedPipelinePaths = [
 ];
 
 const sharedWriterQueue = new Set([
+  '.github/workflows/cologix-bootstrap.yml',
+  '.github/workflows/databank-bootstrap.yml',
   '.github/workflows/equinix-bootstrap.yml',
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/google-bootstrap.yml',

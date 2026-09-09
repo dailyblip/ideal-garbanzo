@@ -9,6 +9,7 @@ const sourceWorkflows = [
   '.github/workflows/google-bootstrap.yml',
   '.github/workflows/meta-bootstrap.yml',
   '.github/workflows/microsoft-bootstrap.yml',
+  '.github/workflows/novva-bootstrap.yml',
   '.github/workflows/oracle-bootstrap.yml',
   '.github/workflows/stream-data-centers-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml',
@@ -32,6 +33,7 @@ const sharedWriterQueue = new Set([
   '.github/workflows/equinix-bootstrap.yml',
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/google-bootstrap.yml',
+  '.github/workflows/novva-bootstrap.yml',
   '.github/workflows/stream-data-centers-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml',
   '.github/workflows/t5-data-centers-bootstrap.yml'

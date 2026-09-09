@@ -8,6 +8,8 @@ const allowedTypes = new Set(['entry-level', 'internship', 'apprenticeship', 'tr
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman|architect|security|sales|account executive|solutions engineer|project manager|product manager|analyst|finance|procurement|marketing|software|developer|data scientist|human resources|recruiter)\b/i;
 const missionTitlePattern = /\b(?:data cent(?:er|re)|critical infrastructure|critical facilit(?:y|ies)|critical environment|facilit(?:y|ies) technician|electrical technician|mechanical technician)\b/i;
+const contextualInfraTitlePattern = /\b(?:technician|operator|engineer|electrician|mechanic|intern|apprentice|trainee)\b/i;
+const missionEvidenceTags = new Set(['Critical Facilities', 'Electrical', 'Network / Cabling']);
 const stateAbbrPattern = /(?:,|\s)\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)(?:\b|$)/i;
 const usStateNames = ['alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware','florida','georgia','hawaii','idaho','illinois','indiana','iowa','kansas','kentucky','louisiana','maine','maryland','massachusetts','michigan','minnesota','mississippi','missouri','montana','nebraska','nevada','new hampshire','new jersey','new mexico','new york','north carolina','north dakota','ohio','oklahoma','oregon','pennsylvania','rhode island','south carolina','south dakota','tennessee','texas','utah','vermont','virginia','washington','west virginia','wisconsin','wyoming','district of columbia'];
 
@@ -15,6 +17,12 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const lower = value => clean(value).toLowerCase();
 const normalize = value => lower(value).replace(/[^a-z0-9]+/g, ' ').trim();
 const isUsLocation = value => stateAbbrPattern.test(clean(value)) || usStateNames.some(state => lower(value).includes(state));
+const hasMissionEvidence = job => {
+  const title = clean(job?.title);
+  if (missionTitlePattern.test(title)) return true;
+  if (!contextualInfraTitlePattern.test(title)) return false;
+  return (Array.isArray(job?.tags) ? job.tags : []).some(tag => missionEvidenceTags.has(clean(tag)));
+};
 
 const snapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
 const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
@@ -37,7 +45,7 @@ for (const job of Array.isArray(snapshot) ? snapshot : []) {
   if (clean(job?.company) !== COMPANY) violations.push(`wrong company: ${clean(job?.company) || '(blank)'}`);
   if (!clean(job?.title)) violations.push(`blank title for ${job?.id || '(no id)'}`);
   if (excludedTitlePattern.test(clean(job?.title))) violations.push(`senior/out-of-scope title survived: ${job.title}`);
-  if (!missionTitlePattern.test(clean(job?.title))) violations.push(`non-mission title survived: ${job.title}`);
+  if (!hasMissionEvidence(job)) violations.push(`non-mission title survived without infrastructure evidence: ${job.title}`);
   if (!allowedTypes.has(clean(job?.type))) violations.push(`invalid type ${job?.type} for ${job?.title}`);
   if (!allowedExperience.has(clean(job?.experience))) violations.push(`invalid experience ${job?.experience} for ${job?.title}`);
   if (!isUsLocation(job?.location)) violations.push(`non-US or unresolved location ${job?.location} for ${job?.title}`);

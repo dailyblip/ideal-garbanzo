@@ -45,17 +45,20 @@ function freshnessDecision({ verifiedAt, nowMs, sourceHealthy }) {
 async function historicalCollectorStatuses(limit = 80) {
   let commits = [];
   try {
-    const { stdout } = await exec('git', ['log', '--format=%H', `-${limit}`, '--', STATUS_PATH], { maxBuffer: 1024 * 1024 });
-    commits = stdout.split(/\r?\n/).map(value => value.trim()).filter(Boolean);
+    const { stdout } = await exec('git', ['log', '--format=%H%x09%cI', `-${limit}`, '--', STATUS_PATH], { maxBuffer: 1024 * 1024 });
+    commits = stdout.split(/\r?\n/).map(line => {
+      const [sha, committedAt] = line.trim().split('\t');
+      return { sha, committedAt };
+    }).filter(entry => entry.sha);
   } catch {
     return [];
   }
 
   const statuses = [];
-  for (const sha of commits) {
+  for (const { sha, committedAt } of commits) {
     try {
       const { stdout } = await exec('git', ['show', `${sha}:${STATUS_PATH}`], { maxBuffer: 8 * 1024 * 1024 });
-      statuses.push({ sha, status: JSON.parse(stdout) });
+      statuses.push({ sha, committedAt, status: JSON.parse(stdout) });
     } catch {
       // Keep walking history if an individual status file cannot be read.
     }
@@ -67,7 +70,9 @@ async function lastAuthoritativeVerification(history) {
   for (const entry of history) {
     const diagnostic = entry.status?.priorityEmployerExpansion?.Equinix;
     if (!sourceIsAuthoritative(diagnostic)) continue;
-    const timestamp = diagnostic?.checkedAt || entry.status?.updatedAt;
+    // Prefer an explicit source check time. Otherwise use the commit that recorded
+    // the authoritative result before falling back to the status file's global time.
+    const timestamp = diagnostic?.checkedAt || entry.committedAt || entry.status?.updatedAt;
     const parsed = Date.parse(String(timestamp || ''));
     if (Number.isFinite(parsed)) return { at: parsed, sha: entry.sha };
   }

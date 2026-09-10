@@ -1,0 +1,67 @@
+name: Microsoft stale fallback watchdog
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/enforce-microsoft-fallback-freshness.mjs'
+      - 'scripts/apply-microsoft-verified-fallback.mjs'
+      - 'scripts/persist-microsoft-snapshot.mjs'
+      - 'scripts/validate-microsoft-snapshot.mjs'
+      - '.github/workflows/microsoft-stale-fallback-watch.yml'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: microsoft-stale-fallback-watch
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test Microsoft fallback age policy
+        run: node scripts/enforce-microsoft-fallback-freshness.mjs --test
+      - name: Enforce Microsoft fallback freshness
+        run: node scripts/enforce-microsoft-fallback-freshness.mjs
+      - name: Validate Microsoft snapshot state
+        run: node scripts/validate-microsoft-snapshot.mjs
+      - name: Commit stale-fallback state when changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain --untracked-files=no -- data/jobs.json data/collector-status.json)" ]; then
+            echo "Microsoft fallback state is unchanged."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u -- data/jobs.json data/collector-status.json
+          git commit -m "Enforce Microsoft fallback freshness"
+          git fetch origin main
+          if ! git rebase origin/main; then
+            git rebase --abort || true
+            echo "::error::Could not rebase Microsoft freshness state onto latest main."
+            exit 1
+          fi
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy Microsoft freshness change
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

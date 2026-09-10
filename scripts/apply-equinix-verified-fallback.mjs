@@ -88,6 +88,7 @@ const verifiedRoles = [
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const hash = value => crypto.createHash('sha1').update(String(value)).digest('hex').slice(0, 14);
+const officialSearchUrl = role => `https://careers.equinix.com/jobs/search?query=${encodeURIComponent(role.requisition)}`;
 
 const requestHeaders = {
   accept: 'text/html,application/xhtml+xml',
@@ -259,6 +260,8 @@ const checks = [];
 if (!expired) {
   for (const role of verifiedRoles) {
     const live = await checkCurrent(role);
+    const useSearchFallback = live.ok && (live.detailStatus === 404 || live.detailStatus === 410);
+    const sourceUrl = useSearchFallback ? officialSearchUrl(role) : role.url;
     checks.push({
       requisition: role.requisition,
       status: live.status,
@@ -266,9 +269,14 @@ if (!expired) {
       verification: live.verification,
       detailStatus: live.detailStatus,
       listingStatus: live.listingStatus,
-      verifiedUntil: live.verifiedUntil ?? null
+      verifiedUntil: live.verifiedUntil ?? null,
+      sourceUrl,
+      clickFallbackUsed: useSearchFallback
     });
-    if (!live.ok || existingUrls.has(role.url)) continue;
+    if (!live.ok || existingUrls.has(sourceUrl)) continue;
+    if (useSearchFallback && !sourceUrl.includes(encodeURIComponent(role.requisition))) {
+      throw new Error(`Equinix search fallback lost requisition targeting for ${role.requisition}.`);
+    }
     const type = fallbackType(role);
     additions.push({
       id: `equinix-verified-${hash(role.url)}`,
@@ -285,7 +293,7 @@ if (!expired) {
       postedAt: null,
       postedHours: 9999,
       source: SOURCE,
-      sourceUrl: role.url,
+      sourceUrl,
       active: true,
       demo: false
     });
@@ -318,6 +326,7 @@ await writeFile('data/collector-status.json', JSON.stringify({
     liveChecksPassed: checks.filter(check => check.ok).length,
     listingFallbacksUsed: checks.filter(check => check.verification === 'official-listing').length,
     verifiedWindowFallbacksUsed: checks.filter(check => check.verification === 'verified-window').length,
+    searchClickFallbacksUsed: checks.filter(check => check.clickFallbackUsed).length,
     removedManaged,
     removedBroadEarly,
     removedKnownOverExperience,
@@ -329,4 +338,4 @@ await writeFile('data/collector-status.json', JSON.stringify({
 
 console.log(expired
   ? `Equinix verified fallback expired at ${EXPIRES_AT}; removed ${removedManaged} managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); added 0.`
-  : `Equinix verified fallback removed ${removedManaged} prior managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); checked ${checks.length} official role sources and retained ${retainedManaged} current fallback role(s) (${checks.filter(check => check.ok).length} current checks passed, ${checks.filter(check => check.verification === 'official-listing').length} via official listing, ${checks.filter(check => check.verification === 'verified-window').length} via short verified window).`);
+  : `Equinix verified fallback removed ${removedManaged} prior managed role(s), ${removedBroadEarly} broad early-program role(s), and ${removedKnownOverExperience} known over-experience role(s); checked ${checks.length} official role sources and retained ${retainedManaged} current fallback role(s) (${checks.filter(check => check.ok).length} current checks passed, ${checks.filter(check => check.verification === 'official-listing').length} via official listing, ${checks.filter(check => check.verification === 'verified-window').length} via short verified window, ${checks.filter(check => check.clickFallbackUsed).length} using requisition-targeted search links).`);

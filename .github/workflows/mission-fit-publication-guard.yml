@@ -14,6 +14,7 @@ on:
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/refresh-career-events.mjs'
       - 'scripts/validate-job-history.mjs'
+      - 'scripts/sync-major-reconciliation-status.mjs'
       - '.github/workflows/mission-fit-publication-guard.yml'
   # Commits made with the default Actions token do not recursively start new
   # push workflows. This cheap scheduled pass therefore also catches output
@@ -50,6 +51,7 @@ jobs:
           node --check scripts/stamp-job-history.mjs
           node --check scripts/refresh-career-events.mjs
           node --check scripts/validate-job-history.mjs
+          node --check scripts/sync-major-reconciliation-status.mjs
       - name: Enforce mission fit and publish a clean feed
         id: publish
         shell: bash
@@ -78,11 +80,20 @@ jobs:
             node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-priority-employer-sources.mjs
 
-            # Guard only publishable feed/history state. Diagnostic timestamps in
-            # collector-status.json are intentionally not staged. Repair-only
-            # history mode fixes invalid recency sentinels while leaving healthy
-            # postedHours alone, avoiding clock-only commits on a clean feed.
-            git add -- data/jobs.json data/major-jobs.json data/job-history.json data/career-events.json
+            # The transforms above update diagnostic timestamps in collector-status
+            # on every run, and those clock-only changes should not create commits.
+            # Restore the committed diagnostics, then persist only a proven repair
+            # when a mission-fit prune made the major Workday snapshot smaller than
+            # its last exact reconciliation marker. The repair script refuses to
+            # lower that marker unless public/snapshot source and title parity match.
+            git checkout -- data/collector-status.json
+            node scripts/sync-major-reconciliation-status.mjs
+            node scripts/validate-major-workday-parity.mjs
+
+            # Guard only publishable feed/history state plus a reconciliation repair
+            # when one was actually needed. With collector-status restored above,
+            # staging it here cannot create a timestamp-only commit.
+            git add -- data/jobs.json data/major-jobs.json data/job-history.json data/career-events.json data/collector-status.json
             if git diff --cached --quiet; then
               echo "Committed feed already satisfies mission-fit publication rules."
               # A push into a guarded publication path still needs a deployment

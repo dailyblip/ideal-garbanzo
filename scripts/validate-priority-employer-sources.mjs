@@ -45,6 +45,7 @@ const protectedSnapshots = [
   { company: 'Oracle', path: 'data/oracle-jobs.json', enforceRetentionRatio: true },
   { company: 'Digital Realty', path: 'data/digital-realty-jobs.json', enforceRetentionRatio: true },
   { company: 'Iron Mountain', path: 'data/iron-mountain-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
+  { company: 'Cologix', path: 'data/cologix-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'Flexential', path: 'data/flexential-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'T5 Data Centers', path: 'data/t5-data-centers-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
   { company: 'Stream Data Centers', path: 'data/stream-data-centers-jobs.json', enforceRetentionRatio: true, enforceExactParity: true },
@@ -84,7 +85,7 @@ function canonicalTitle(job) {
   const location = normalizeIdentity(job?.location);
   const locationTokens = new Set(location.split(' ').filter(token => token.length > 1));
   const tailBelongsToLocation = tail => {
-    const tokens = normalizeIdentity(tail).split(' ').filter(token => token.length > 1);
+    const tokens = normalizeIdentity(tail).split(' ').filter(token => token.length > 1));
     return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
   };
   title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
@@ -224,8 +225,8 @@ for (const { company, path, enforceRetentionRatio, enforceExactParity = false } 
   const publicTitles = uniqueTitles(publicCompanyJobs);
   const snapshotCount = snapshotTitles.size;
   const publicCount = publicTitles.size;
-  if (snapshotCount >= 3 && publicCount === 0) {
-    violations.push(`${company}: ${snapshotCount} unique dedicated snapshot roles collapsed to zero in the public feed`);
+  if (snapshotCount > 0 && publicCount === 0) {
+    violations.push(`${company}: ${snapshotCount} unique dedicated snapshot role${snapshotCount === 1 ? '' : 's'} collapsed to zero in the public feed`);
   } else if (enforceRetentionRatio && snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.40)) {
     violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} unique dedicated role titles`);
   }
@@ -253,8 +254,8 @@ for (const company of protectedMajorWorkdayCompanies) {
   const publicUs = jobs.filter(job => String(job?.company || '').trim() === company && confidentUsLocation(job?.location));
   const snapshotCount = snapshotUs.length;
   const publicCount = publicUs.length;
-  if (snapshotCount >= 8 && publicCount === 0) {
-    violations.push(`${company}: ${snapshotCount} U.S. roles in the major Workday snapshot collapsed to zero in the public feed`);
+  if (snapshotCount > 0 && publicCount === 0) {
+    violations.push(`${company}: ${snapshotCount} U.S. role${snapshotCount === 1 ? '' : 's'} in the major Workday snapshot collapsed to zero in the public feed`);
   } else if (snapshotCount >= 8 && publicCount < Math.ceil(snapshotCount * 0.35)) {
     violations.push(`${company}: public feed retained only ${publicCount}/${snapshotCount} U.S. major Workday roles`);
   }

@@ -94,6 +94,8 @@ jobs:
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize job locations
         run: node scripts/normalize-job-locations.mjs
+      - name: Expand Workday multi-location regional coverage
+        run: node scripts/enrich-workday-multilocation.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
       - name: Normalize display copy punctuation
@@ -189,6 +191,8 @@ jobs:
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize job locations for the build
         run: node scripts/normalize-job-locations.mjs
+      - name: Expand Workday multi-location regional coverage for the build
+        run: node scripts/enrich-workday-multilocation.mjs
       - name: Deduplicate normalized jobs for the build
         run: node scripts/dedupe-normalized-jobs.mjs
       - name: Refresh regional coverage for the build

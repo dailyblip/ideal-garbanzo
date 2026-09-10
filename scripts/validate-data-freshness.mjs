@@ -17,6 +17,11 @@ const majorEmployers = [
   'Aligned Data Centers'
 ];
 
+const preservedPrioritySources = [
+  { company: 'CoreWeave', statusKey: 'coreWeaveCareers' },
+  { company: 'EdgeConneX', statusKey: 'edgeconnexCareers' }
+];
+
 if (!Number.isFinite(MAX_AGE_HOURS) || MAX_AGE_HOURS <= 0) {
   throw new Error('DATA_FRESHNESS_MAX_HOURS must be a positive number.');
 }
@@ -63,6 +68,14 @@ function healthyMajorDiagnostic(diagnostic) {
   );
 }
 
+function healthyPreservedPrioritySource(diagnostic) {
+  return Boolean(
+    diagnostic &&
+    diagnostic.sourceHealthy === true &&
+    Number(diagnostic.preservedPrevious || 0) === 0
+  );
+}
+
 async function historicalCollectorStatuses(limit = 60) {
   let commits = [];
   try {
@@ -89,7 +102,17 @@ async function historicalCollectorStatuses(limit = 60) {
   return statuses;
 }
 
-async function validateMajorFallbackFreshness(status) {
+async function lastHealthyVerification(history, predicate) {
+  for (const entry of history) {
+    if (!predicate(entry.status)) continue;
+    const parsed = Date.parse(String(entry.status?.updatedAt || ''));
+    if (!Number.isFinite(parsed)) continue;
+    return { at: parsed, sha: entry.sha };
+  }
+  return null;
+}
+
+async function validateMajorFallbackFreshness(status, history = null) {
   const diagnostics = status?.majorSources?.employerDiagnostics;
   if (!diagnostics || typeof diagnostics !== 'object') {
     console.log('Major Workday fallback freshness deferred until employer diagnostics are present.');
@@ -99,36 +122,62 @@ async function validateMajorFallbackFreshness(status) {
   const fallbackEmployers = majorEmployers.filter(company => !healthyMajorDiagnostic(diagnostics[company]));
   if (!fallbackEmployers.length) return [];
 
-  const history = await historicalCollectorStatuses();
-  if (!history.length) {
+  const collectorHistory = history || await historicalCollectorStatuses();
+  if (!collectorHistory.length) {
     throw new Error('Major-employer fallback is active but collector-status history could not be read to establish last verification time.');
   }
 
   const fallbackAges = [];
   for (const company of fallbackEmployers) {
-    let lastVerifiedAt = null;
-    let lastVerifiedSha = '';
+    const lastVerified = await lastHealthyVerification(
+      collectorHistory,
+      historicalStatus => healthyMajorDiagnostic(historicalStatus?.majorSources?.employerDiagnostics?.[company])
+    );
 
-    for (const entry of history) {
-      const historicalDiagnostic = entry.status?.majorSources?.employerDiagnostics?.[company];
-      if (!healthyMajorDiagnostic(historicalDiagnostic)) continue;
-      const parsed = Date.parse(String(entry.status?.updatedAt || ''));
-      if (!Number.isFinite(parsed)) continue;
-      lastVerifiedAt = parsed;
-      lastVerifiedSha = entry.sha;
-      break;
-    }
-
-    if (!Number.isFinite(lastVerifiedAt)) {
+    if (!lastVerified) {
       throw new Error(`${company} is using a retained Workday snapshot and no prior healthy verification timestamp was found in collector history.`);
     }
 
-    const ageHours = Math.max(0, (now - lastVerifiedAt) / 3600000);
+    const ageHours = Math.max(0, (now - lastVerified.at) / 3600000);
     if (ageHours > MAX_MAJOR_FALLBACK_AGE_HOURS) {
       throw new Error(`${company} retained Workday snapshot is stale (${Math.floor(ageHours)}h since last healthy verification; maximum ${MAX_MAJOR_FALLBACK_AGE_HOURS}h). Block deployment until the employer source verifies again.`);
     }
 
-    fallbackAges.push({ company, ageHours, sha: lastVerifiedSha });
+    fallbackAges.push({ company, ageHours, sha: lastVerified.sha });
+  }
+
+  return fallbackAges;
+}
+
+async function validatePreservedPriorityFreshness(status, history = null) {
+  const activeFallbacks = preservedPrioritySources.filter(({ statusKey }) => {
+    const diagnostic = status?.[statusKey];
+    return diagnostic?.sourceHealthy === false && Number(diagnostic?.preservedPrevious || 0) > 0;
+  });
+  if (!activeFallbacks.length) return [];
+
+  const collectorHistory = history || await historicalCollectorStatuses();
+  if (!collectorHistory.length) {
+    throw new Error('A preserved priority-employer snapshot is active but collector-status history could not be read to establish last verification time.');
+  }
+
+  const fallbackAges = [];
+  for (const { company, statusKey } of activeFallbacks) {
+    const lastVerified = await lastHealthyVerification(
+      collectorHistory,
+      historicalStatus => healthyPreservedPrioritySource(historicalStatus?.[statusKey])
+    );
+
+    if (!lastVerified) {
+      throw new Error(`${company} is using a preserved source snapshot and no prior healthy verification timestamp was found in collector history.`);
+    }
+
+    const ageHours = Math.max(0, (now - lastVerified.at) / 3600000);
+    if (ageHours > MAX_MAJOR_FALLBACK_AGE_HOURS) {
+      throw new Error(`${company} preserved source snapshot is stale (${Math.floor(ageHours)}h since last healthy verification; maximum ${MAX_MAJOR_FALLBACK_AGE_HOURS}h). Block deployment until the employer source verifies again.`);
+    }
+
+    fallbackAges.push({ company, ageHours, sha: lastVerified.sha });
   }
 
   return fallbackAges;
@@ -150,9 +199,16 @@ const markers = [
 
 const ages = markers.map(([label, value]) => [label, validateTimestamp(label, value)]);
 const oldest = ages.reduce((max, [, hours]) => Math.max(max, hours), 0);
-const fallbackAges = await validateMajorFallbackFreshness(status);
+const needsHistory = majorEmployers.some(company => !healthyMajorDiagnostic(status?.majorSources?.employerDiagnostics?.[company])) ||
+  preservedPrioritySources.some(({ statusKey }) => status?.[statusKey]?.sourceHealthy === false && Number(status?.[statusKey]?.preservedPrevious || 0) > 0);
+const history = needsHistory ? await historicalCollectorStatuses() : null;
+const fallbackAges = await validateMajorFallbackFreshness(status, history);
+const preservedFallbackAges = await validatePreservedPriorityFreshness(status, history);
 
 console.log(`Data freshness passed: ${jobs.length} jobs; oldest refresh/QA marker is ${oldest.toFixed(1)}h old (limit ${MAX_AGE_HOURS}h).`);
 for (const fallback of fallbackAges) {
   console.warn(`Major-employer fallback freshness: ${fallback.company} last verified ${fallback.ageHours.toFixed(1)}h ago (limit ${MAX_MAJOR_FALLBACK_AGE_HOURS}h; history ${fallback.sha.slice(0, 8)}).`);
+}
+for (const fallback of preservedFallbackAges) {
+  console.warn(`Priority snapshot fallback freshness: ${fallback.company} last verified ${fallback.ageHours.toFixed(1)}h ago (limit ${MAX_MAJOR_FALLBACK_AGE_HOURS}h; history ${fallback.sha.slice(0, 8)}).`);
 }

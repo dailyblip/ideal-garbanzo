@@ -27,6 +27,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -38,6 +39,10 @@ jobs:
         run: |
           node --check scripts/recover-amazon-details.mjs
           node scripts/recover-amazon-details.mjs
+      - name: Enforce AWS fallback freshness
+        run: |
+          node scripts/enforce-amazon-fallback-freshness.mjs --test
+          node scripts/enforce-amazon-fallback-freshness.mjs
       - name: Normalize recovered feed
         run: |
           node scripts/filter-mission-fit.mjs

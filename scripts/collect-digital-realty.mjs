@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
 
 // Digital Realty's official careers page redirects to this Oracle Recruiting Cloud
@@ -10,6 +11,9 @@ const SITE = 'CX';
 const LANG = 'en';
 const PAGE_SIZE = 200;
 const MAX_PAGES = 10;
+const SNAPSHOT_PATH = 'data/digital-realty-jobs.json';
+const MAX_FALLBACK_AGE_HOURS = 96;
+const MAX_FALLBACK_AGE_MS = MAX_FALLBACK_AGE_HOURS * 60 * 60 * 1000;
 
 const strongTitleTerms = [
   'data center', 'data centre', 'critical facilities', 'critical facility',
@@ -74,6 +78,15 @@ const normalizeIdentity = value => lower(value).replace(/[^a-z0-9]+/g, ' ').trim
 async function readJson(path, fallback) {
   try { return JSON.parse(await readFile(path, 'utf8')); }
   catch { return fallback; }
+}
+
+function gitLastChangedAt(path) {
+  try {
+    const value = execFileSync('git', ['log', '-1', '--format=%cI', '--', path], { encoding: 'utf8' }).trim();
+    return Number.isFinite(Date.parse(value)) ? value : null;
+  } catch {
+    return null;
+  }
 }
 
 async function fetchJson(url) {
@@ -306,7 +319,7 @@ async function hydrateCandidate(row) {
 }
 
 const currentJobs = await readJson('data/jobs.json', []);
-const previousSnapshot = await readJson('data/digital-realty-jobs.json', []);
+const previousSnapshot = await readJson(SNAPSHOT_PATH, []);
 const priorStatus = await readJson('data/collector-status.json', {});
 const previousById = new Map(previousSnapshot.map(job => [String(job.id || ''), job]));
 const errors = [];
@@ -316,11 +329,19 @@ let candidateRows = 0;
 let detailAttempts = 0;
 let detailFailures = 0;
 let preservedPrevious = 0;
+let fallbackUsed = false;
+let fallbackFresh = false;
+let fallbackExpired = false;
+let fallbackAgeHours = null;
+let lastHealthyAt = priorStatus?.digitalRealty?.lastHealthyAt || null;
+let snapshotVerifiedAt = lastHealthyAt || gitLastChangedAt(SNAPSHOT_PATH);
 let snapshot = [];
 
 try {
   const rows = await listRequisitions();
   sourceHealthy = true;
+  lastHealthyAt = new Date().toISOString();
+  snapshotVerifiedAt = lastHealthyAt;
   const candidates = rows.filter(row => {
     const keep = titleCandidate(firstText(row, ['Title','title']));
     if (!keep) drops.title += 1;
@@ -353,11 +374,20 @@ try {
   snapshot = dedupe(jobs);
 } catch (error) {
   errors.push(error.message);
-  snapshot = previousSnapshot;
-}
-
-if (!sourceHealthy && !snapshot.length) {
-  throw new Error(`Digital Realty collector failed and no prior snapshot exists: ${errors.join(' | ')}`);
+  const verifiedMs = Date.parse(String(snapshotVerifiedAt || ''));
+  if (Number.isFinite(verifiedMs)) fallbackAgeHours = Math.max(0, (Date.now() - verifiedMs) / (60 * 60 * 1000));
+  fallbackFresh = previousSnapshot.length > 0 && Number.isFinite(verifiedMs) && Date.now() - verifiedMs <= MAX_FALLBACK_AGE_MS;
+  if (fallbackFresh) {
+    snapshot = previousSnapshot;
+    fallbackUsed = true;
+  } else {
+    snapshot = [];
+    fallbackExpired = previousSnapshot.length > 0;
+    if (fallbackExpired) {
+      const age = Number.isFinite(fallbackAgeHours) ? `${fallbackAgeHours.toFixed(1)} hours old` : 'of unknown age';
+      errors.push(`prior snapshot is ${age}; refusing to publish it beyond the ${MAX_FALLBACK_AGE_HOURS}-hour verification window`);
+    }
+  }
 }
 
 const withoutDigitalRealty = currentJobs.filter(job => job.company !== COMPANY);
@@ -371,7 +401,7 @@ const countsByExperience = merged.reduce((acc, job) => {
   return acc;
 }, {});
 
-await writeFile('data/digital-realty-jobs.json', JSON.stringify(snapshot, null, 2) + '\n');
+await writeFile(SNAPSHOT_PATH, JSON.stringify(snapshot, null, 2) + '\n');
 await writeFile('data/jobs.json', JSON.stringify(merged, null, 2) + '\n');
 await writeFile('data/collector-status.json', JSON.stringify({
   ...priorStatus,
@@ -393,10 +423,24 @@ await writeFile('data/collector-status.json', JSON.stringify({
     detailFailures,
     preservedPrevious,
     qualifyingRoles: snapshot.length,
+    lastHealthyAt,
+    snapshotVerifiedAt,
+    snapshotMaxAgeHours: MAX_FALLBACK_AGE_HOURS,
+    fallbackUsed,
+    fallbackFresh,
+    fallbackExpired,
+    fallbackAgeHours: Number.isFinite(fallbackAgeHours) ? Number(fallbackAgeHours.toFixed(1)) : null,
     drops,
     errors
   },
   errors: [...(priorStatus.errors || []), ...errors.map(error => `Digital Realty: ${error}`)]
 }, null, 2) + '\n');
 
-console.log(`Digital Realty official source ${sourceHealthy ? 'succeeded' : 'fell back to prior snapshot'}; ${snapshot.length} qualifying roles; ${merged.length} total jobs; ${detailFailures} detail failures; ${preservedPrevious} preserved previous roles.`);
+const sourceState = sourceHealthy
+  ? 'succeeded'
+  : fallbackUsed
+    ? `used a fresh prior snapshot (${Number(fallbackAgeHours || 0).toFixed(1)}h old)`
+    : fallbackExpired
+      ? 'rejected an expired prior snapshot'
+      : 'failed with no verified fallback';
+console.log(`Digital Realty official source ${sourceState}; ${snapshot.length} qualifying roles; ${merged.length} total jobs; ${detailFailures} detail failures; ${preservedPrevious} preserved previous roles.`);

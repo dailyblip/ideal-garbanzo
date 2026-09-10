@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-10T16:41:50.847Z",
+  "updatedAt": "2026-09-10T16:44:57.047Z",
   "jobs": 691,
-  "sourcesAttempted": 36,
+  "sourcesAttempted": 37,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -14,9 +14,9 @@
   },
   "countsByType": {
     "entry-level": 656,
-    "apprenticeship": 12,
     "trainee": 8,
-    "internship": 15
+    "internship": 15,
+    "apprenticeship": 12
   },
   "countsByExperience": {
     "no-experience": 53,
@@ -50,15 +50,15 @@
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
-        "location": ""
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
         "title": "Supervisor, Data Center Operations",
         "location": "Breinigsville, PA",
         "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
+        "location": ""
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
@@ -66,15 +66,15 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Hawthorne, NY",
-        "reason": "classification"
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
         "title": "Operations Specialist",
         "location": "Raleigh, NC",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Hawthorne, NY",
         "reason": "classification"
       }
     ]
@@ -1772,7 +1772,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T16:41:50.965Z",
+    "checkedAt": "2026-09-10T16:44:57.228Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1780,7 +1780,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T16:41:51.037Z",
+    "updatedAt": "2026-09-10T16:44:57.304Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 691,
@@ -1789,16 +1789,16 @@
     "missingSamples": [],
     "countsByRegion": {
       "west": 104,
-      "mid-atlantic": 122,
-      "texas": 115,
-      "midwest": 138,
-      "southeast": 105,
       "northeast": 21,
-      "southwest": 86
+      "mid-atlantic": 122,
+      "southwest": 86,
+      "midwest": 138,
+      "texas": 115,
+      "southeast": 105
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T16:41:51.113Z",
+    "checkedAt": "2026-09-10T16:44:57.379Z",
     "before": 691,
     "after": 691,
     "removed": 0,
@@ -1824,7 +1824,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-10T16:41:51.172Z"
+    "updatedAt": "2026-09-10T16:44:57.444Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

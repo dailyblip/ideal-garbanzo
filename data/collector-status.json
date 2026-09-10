@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-10T07:31:01.103Z",
-  "jobs": 691,
+  "updatedAt": "2026-09-10T09:25:40.293Z",
+  "jobs": 693,
   "sourcesAttempted": 35,
   "providers": {
     "lever": 7,
@@ -13,14 +13,14 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 655,
+    "entry-level": 657,
     "trainee": 9,
     "apprenticeship": 12,
     "internship": 15
   },
   "countsByExperience": {
-    "0-2-years": 371,
-    "2-5-years": 267,
+    "0-2-years": 370,
+    "2-5-years": 270,
     "no-experience": 53
   },
   "errors": [
@@ -1555,7 +1555,7 @@
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
     "sourceHealthy": false,
-    "qualifyingRoles": 14,
+    "qualifyingRoles": 17,
     "diagnostics": {
       "listingPagesAttempted": 1,
       "listingPagesSucceeded": 0,
@@ -1578,12 +1578,12 @@
     ],
     "verifiedFallback": {
       "active": true,
-      "verifiedAt": "2026-09-05T08:45:00Z",
-      "expiresAt": "2026-09-12T08:45:00Z",
-      "roles": 14,
-      "classificationCorrections": 5,
+      "verifiedAt": "2026-09-10T02:40:00Z",
+      "expiresAt": "2026-09-17T02:40:00Z",
+      "roles": 17,
+      "classificationCorrections": 0,
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
-      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were individually verified on CoreSite's official careers listing and job-detail pages between September 5 and September 8, 2026."
+      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages."
     }
   },
   "priorityEmployerExpansion": {
@@ -1783,10 +1783,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T07:31:01.254Z",
+    "updatedAt": "2026-09-10T09:25:40.367Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 691,
+    "regionAssigned": 693,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -1795,39 +1795,39 @@
       "southeast": 106,
       "texas": 115,
       "mid-atlantic": 123,
-      "west": 102,
-      "northeast": 20,
+      "west": 103,
+      "northeast": 21,
       "southwest": 86
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T07:31:01.323Z",
-    "before": 691,
-    "after": 691,
+    "checkedAt": "2026-09-10T09:25:40.428Z",
+    "before": 694,
+    "after": 694,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-10T07:31:26.615Z",
-    "publishedJobs": 691,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-10T09:26:03.298Z",
+    "publishedJobs": 693,
+    "removedJobs": 1,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 955,
-    "currentJobs": 691,
-    "newJobsThisRun": 0,
+    "trackedJobs": 958,
+    "currentJobs": 693,
+    "newJobsThisRun": 3,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 3,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-10T07:31:26.752Z"
+    "firstSeenRecencyFallbackJobs": 112,
+    "updatedAt": "2026-09-10T09:26:03.453Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

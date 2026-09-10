@@ -1,58 +1,12 @@
 {
-  "checkedAt": "2026-09-10T03:23:48.163Z",
-  "jobsBefore": 701,
-  "jobsAfter": 696,
+  "checkedAt": "2026-09-10T04:08:59.025Z",
+  "jobsBefore": 699,
+  "jobsAfter": 699,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10531646",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician, DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10531646/data-center-technician-dcc-communities",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10531646/data-center-technician-dcc-communities"
-    },
-    {
-      "id": "amazon-10513908",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10513908/data-center-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10513908/data-center-technician"
-    },
-    {
-      "id": "amazon-10488204",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician, Night Shift, DCEO - Nights",
-      "url": "https://www.amazon.jobs/en/jobs/10488204/engineering-operation-technician-night-shift-dceo-nights",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10488204/engineering-operation-technician-night-shift-dceo-nights"
-    },
-    {
-      "id": "amazon-10385517",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician, DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10385517/data-center-technician-dcc-communities",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10385517/data-center-technician-dcc-communities"
-    }
-  ],
+  "duplicatesRemoved": [],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",

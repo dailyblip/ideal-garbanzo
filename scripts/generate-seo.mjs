@@ -135,7 +135,32 @@ async function writeHtml(path, html) {
   await writeFile(path, html);
 }
 
-async function generateListing({root,title,h1,description,intro,filter}) {
+function topEmployerNames(list, limit = 6) {
+  const counts = new Map();
+  for (const job of list) {
+    const company = clean(job.company);
+    if (!company) continue;
+    counts.set(company, (counts.get(company) || 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, limit)
+    .map(([name]) => name);
+}
+
+function readableNames(names) {
+  if (!names.length) return '';
+  if (names.length === 1) return names[0];
+  if (names.length === 2) return `${names[0]} and ${names[1]}`;
+  return `${names.slice(0,-1).join(', ')}, and ${names.at(-1)}`;
+}
+
+function relatedLinksHtml(links) {
+  if (!links?.length) return '';
+  return `<aside class="seo-related"><h2>Keep exploring</h2>${links.map(([label,url]) => `<a href="${url}">${esc(label)}</a>`).join('')}</aside>`;
+}
+
+async function generateListing({root,title,h1,description,intro,filter,contextHtml=null,relatedLinks=[]}) {
   const list = orderedJobs.filter(filter);
   const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   const urls = [];
@@ -154,16 +179,23 @@ async function generateListing({root,title,h1,description,intro,filter}) {
     const prev = page > 1 ? pagePath(root,page-1) : '';
     const next = page < pages ? pagePath(root,page+1) : '';
     const pagination = pages > 1 ? `<nav class="seo-pagination" aria-label="Pagination">${page>1?`<a href="${prev}">← Previous</a>`:'<span></span>'}<span>Page ${page} of ${pages}</span>${page<pages?`<a href="${next}">Next →</a>`:'<span></span>'}</nav>` : '';
+    const intentContext = page === 1 && typeof contextHtml === 'function' ? contextHtml(list) : '';
+    const related = page === 1 ? relatedLinksHtml(relatedLinks) : '';
     const html = `${head({title:pageTitle,description,canonical,schema:json(itemList),prev,next})}<body>${siteHeader()}<main class="seo-shell">
       <nav class="breadcrumbs"><a href="${baseUrl}/">Home</a> / <span>${esc(h1)}</span></nav>
       <header class="seo-page-head"><span class="seo-kicker">EMPLOYER-DIRECT OPPORTUNITIES</span><h1>${esc(h1)}</h1><p>${esc(intro)}</p><strong>${list.length} current opportunities</strong></header>
-      <section class="seo-list" aria-label="${esc(h1)}">${subset.map(card).join('')}</section>${pagination}
+      <section class="seo-list" aria-label="${esc(h1)}">${subset.map(card).join('')}</section>${pagination}${intentContext}${related}
     </main>${footer()}</body></html>`;
     const out = page === 1 ? `${root}/index.html` : `${root}/page/${page}/index.html`;
     await writeHtml(out,html);
     urls.push(canonical);
   }
   return urls;
+}
+
+function employerContext(list) {
+  const employers = topEmployerNames(list);
+  return employers.length ? ` Current openings represented on this page include ${esc(readableNames(employers))}.` : '';
 }
 
 function jobLocationSchema(location) {
@@ -211,7 +243,7 @@ async function generateJobPages() {
       <p>${esc(description)}</p>
       <a class="seo-apply" href="${esc(job.sourceUrl)}" rel="nofollow noopener" target="_blank">View & apply on employer site →</a>
       <p class="seo-source">Listing source: employer career site. We link directly to the employer so applicants can verify the current posting.</p></article>
-      <aside class="seo-related"><h2>Explore more opportunities</h2><a href="${baseUrl}/apprenticeships/">Data center apprenticeships</a><a href="${baseUrl}/internships/">Data center internships</a><a href="${baseUrl}/entry-level/">Entry-level data center jobs</a><a href="${baseUrl}/jobs/">All data center jobs</a></aside>
+      <aside class="seo-related"><h2>Explore more opportunities</h2><a href="${baseUrl}/no-experience/">Data center jobs with no experience</a><a href="${baseUrl}/trainee-jobs/">Data center trainee jobs</a><a href="${baseUrl}/apprenticeships/">Data center apprenticeships</a><a href="${baseUrl}/internships/">Data center internships</a><a href="${baseUrl}/entry-level/">Entry-level data center jobs</a><a href="${baseUrl}/career-events/">Data center hiring events</a><a href="${baseUrl}/jobs/">All data center jobs</a></aside>
     </main>${footer()}</body></html>`;
     await writeHtml(`jobs/${jobSlug(job)}/index.html`,html);
     urls.push(canonical);
@@ -224,24 +256,38 @@ await rm('apprenticeships',{recursive:true,force:true});
 await rm('internships',{recursive:true,force:true});
 await rm('entry-level',{recursive:true,force:true});
 await rm('no-experience',{recursive:true,force:true});
+await rm('trainee-jobs',{recursive:true,force:true});
 await rm('career-events',{recursive:true,force:true});
 
 const urls = [baseUrl + '/'];
 urls.push(...await generateListing({
   root:'jobs',
-  title:'Data Center Jobs, Internships & Apprenticeships | Data Center Careers',
+  title:'Data Center Jobs | Current Employer-Direct Openings',
   h1:'Data center jobs',
-  description:'Browse current employer-direct data center jobs, internships, apprenticeships and trainee opportunities across the United States.',
-  intro:'Browse current openings from employer career sites. We prioritize apprenticeships, internships, trainee programs and true early-career roles.',
-  filter:()=>true
+  description:'Browse current employer-direct data center jobs, including technician, operations, critical-facilities, internships, apprenticeships and trainee roles.',
+  intro:'Browse current openings from employer career sites. We prioritize hands-on data center work, apprenticeships, internships, trainee programs and appropriate early- to mid-career roles.',
+  filter:()=>true,
+  relatedLinks:[
+    ['Data center jobs with no experience', `${baseUrl}/no-experience/`],
+    ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
+    ['Data center apprenticeships', `${baseUrl}/apprenticeships/`],
+    ['Data center hiring events', `${baseUrl}/career-events/`]
+  ]
 }));
 urls.push(...await generateListing({
   root:'apprenticeships',
-  title:'Data Center Apprenticeships | Paid Training & Apprentice Jobs',
+  title:'Data Center Apprenticeships | Current Paid Training Openings',
   h1:'Data center apprenticeships',
-  description:'Find current data center apprenticeships, paid training programs and apprentice-level infrastructure jobs from employer career sites.',
-  intro:'Paid apprenticeships and structured training routes into electrical, critical-facilities, operations, cabling and data-center infrastructure work.',
-  filter:job=>job.type==='apprenticeship' || job.type==='trainee'
+  description:'Find current employer-direct data center apprenticeships and closely related paid trainee programs in facilities, electrical, operations and infrastructure.',
+  intro:'Current apprenticeship and structured training routes into electrical, critical-facilities, operations, cabling and data center infrastructure work.',
+  filter:job=>job.type==='apprenticeship' || job.type==='trainee',
+  contextHtml:list=>`<section class="guide-section" aria-labelledby="apprenticeship-search-heading"><span class="seo-kicker">BEGINNER PATHWAYS</span><h2 id="apprenticeship-search-heading">Apprenticeships are not always labeled “apprentice.”</h2><p>Employers also use titles such as trainee, technician I and structured development program. This page keeps those closely related beginner routes together so you do not miss a paid training opportunity.${employerContext(list)}</p><div class="guide-actions"><a class="guide-secondary" href="${baseUrl}/how-to-get-a-data-center-apprenticeship/">How to get a data center apprenticeship →</a><a class="guide-secondary" href="${baseUrl}/trainee-jobs/">See trainee jobs →</a></div></section>`,
+  relatedLinks:[
+    ['How to get a data center apprenticeship', `${baseUrl}/how-to-get-a-data-center-apprenticeship/`],
+    ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
+    ['Jobs with no experience required', `${baseUrl}/no-experience/`],
+    ['Entry-level data center jobs', `${baseUrl}/entry-level/`]
+  ]
 }));
 urls.push(...await generateListing({
   root:'internships',
@@ -257,25 +303,52 @@ urls.push(...await generateListing({
   h1:'Entry-level data center jobs',
   description:'Browse entry-level data center jobs for no-experience and 0–2 year candidates, including technicians, operators and critical-facilities roles.',
   intro:'Beginner-friendly openings for first-time applicants and workers with up to two years of relevant experience.',
-  filter:job=>job.experience==='no-experience' || job.experience==='0-2-years'
+  filter:job=>job.experience==='no-experience' || job.experience==='0-2-years',
+  relatedLinks:[
+    ['Jobs with no experience required', `${baseUrl}/no-experience/`],
+    ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
+    ['Data center apprenticeships', `${baseUrl}/apprenticeships/`]
+  ]
 }));
 urls.push(...await generateListing({
   root:'no-experience',
-  title:'Data Center Jobs With No Experience Required | Beginner Roles',
-  h1:'No-experience data center jobs',
-  description:'Find beginner data center jobs and training-friendly roles that are classified as requiring no prior industry experience.',
-  intro:'The most beginner-friendly roles in the current inventory, including trainee, apprentice and no-experience opportunities.',
-  filter:job=>job.experience==='no-experience'
+  title:'Data Center Jobs With No Experience | Current Beginner Openings',
+  h1:'Data center jobs with no experience required',
+  description:'Browse current employer-direct data center jobs with no experience required, including trainee, apprentice and beginner technician openings.',
+  intro:'Current beginner-friendly openings whose published minimum qualifications do not require prior data center industry experience.',
+  filter:job=>job.experience==='no-experience',
+  contextHtml:list=>`<section class="guide-section" aria-labelledby="no-experience-heading"><span class="seo-kicker">HOW WE FILTER</span><h2 id="no-experience-heading">What “no experience required” means here</h2><p>We use the employer's published minimum qualifications to identify openings that do not require prior data center experience. A role may still require a high school diploma, shift availability, basic technical ability, a driver's license, safety training or another clearly stated qualification.${employerContext(list)}</p><p>Always read the official employer posting before applying. “No experience required” does not mean every applicant automatically qualifies.</p></section>`,
+  relatedLinks:[
+    ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
+    ['Data center apprenticeships', `${baseUrl}/apprenticeships/`],
+    ['Entry-level jobs with 0–2 years', `${baseUrl}/entry-level/`],
+    ['How to get a job at a data center', `${baseUrl}/how-to-get-a-data-center-job/`]
+  ]
+}));
+urls.push(...await generateListing({
+  root:'trainee-jobs',
+  title:'Data Center Trainee Jobs | Current Paid Training Openings',
+  h1:'Data center trainee jobs',
+  description:'Find current employer-direct data center trainee jobs and structured training programs in facilities, operations, electrical and infrastructure work.',
+  intro:'Current trainee and structured development roles designed to build hands-on data center, critical-facilities and infrastructure experience.',
+  filter:job=>job.type==='trainee',
+  contextHtml:list=>`<section class="guide-section" aria-labelledby="trainee-search-heading"><span class="seo-kicker">PAID TRAINING PATHS</span><h2 id="trainee-search-heading">Trainee roles can be an alternative to apprenticeships.</h2><p>Some employers use “trainee,” “development program” or technician-level titles instead of “apprentice.” These openings can provide supervised, paid experience in operations, facilities, electrical, mechanical or infrastructure work.${employerContext(list)}</p><p>If there are few trainee openings near you, also check apprenticeships and jobs whose minimum qualifications require no prior data center experience.</p></section>`,
+  relatedLinks:[
+    ['Data center apprenticeships', `${baseUrl}/apprenticeships/`],
+    ['Jobs with no experience required', `${baseUrl}/no-experience/`],
+    ['Entry-level data center jobs', `${baseUrl}/entry-level/`],
+    ['How to get a data center apprenticeship', `${baseUrl}/how-to-get-a-data-center-apprenticeship/`]
+  ]
 }));
 urls.push(...await generateJobPages());
 
 const eventsCanonical = `${baseUrl}/career-events/`;
 const eventSchema = {'@context':'https://schema.org','@type':'ItemList','itemListElement':events.map((event,index)=>({'@type':'ListItem','position':index+1,'item':{'@type':'Event','name':event.name,'startDate':event.date,'eventAttendanceMode':event.location==='Online'?'https://schema.org/OnlineEventAttendanceMode':'https://schema.org/OfflineEventAttendanceMode','location':event.location==='Online'?{'@type':'VirtualLocation','url':event.url}:{'@type':'Place','name':event.location},'organizer':{'@type':'Organization','name':event.organizer},'url':event.url}}))};
-const eventsHtml = `${head({title:'Data Center Career Events | Hiring, Training & Industry Events',description:'Upcoming verified career-focused data center events, hiring events and industry programs for people entering the field.',canonical:eventsCanonical,schema:json(eventSchema)})}<body>${siteHeader()}<main class="seo-shell"><nav class="breadcrumbs"><a href="${baseUrl}/">Home</a> / <span>Career events</span></nav><header class="seo-page-head"><span class="seo-kicker">VERIFIED CAREER EVENTS</span><h1>Data center career events</h1><p>Upcoming career-focused events verified from organizer pages.</p></header><section class="seo-list">${events.map(e=>`<article class="seo-event"><time datetime="${e.date}">${e.date}</time><div><h2>${esc(e.name)}</h2><p>${esc(e.location)} · ${esc(e.organizer)}</p></div><a href="${esc(e.url)}" target="_blank" rel="noopener">Event details →</a></article>`).join('') || '<p>No verified upcoming events are currently listed. Check back soon.</p>'}</section></main>${footer()}</body></html>`;
+const eventsHtml = `${head({title:'Data Center Hiring Events | Upcoming Career & Training Events',description:'Find upcoming verified data center hiring events, career fairs, training events and industry programs for people entering or advancing in the field.',canonical:eventsCanonical,schema:json(eventSchema)})}<body>${siteHeader()}<main class="seo-shell"><nav class="breadcrumbs"><a href="${baseUrl}/">Home</a> / <span>Hiring events</span></nav><header class="seo-page-head"><span class="seo-kicker">VERIFIED CAREER EVENTS</span><h1>Data center hiring events</h1><p>Upcoming hiring, career and training events verified from organizer pages. We keep only events with a confirmed event name and date.</p><strong>${events.length} upcoming verified events</strong></header><section class="seo-list">${events.map(e=>`<article class="seo-event"><time datetime="${e.date}">${e.date}</time><div><h2>${esc(e.name)}</h2><p>${esc(e.location)} · ${esc(e.organizer)}</p></div><a href="${esc(e.url)}" target="_blank" rel="noopener">Event details →</a></article>`).join('') || '<p>No verified upcoming events are currently listed. Check back soon.</p>'}</section><section class="guide-section" aria-labelledby="event-filter-heading"><span class="seo-kicker">WHAT WE INCLUDE</span><h2 id="event-filter-heading">Real data center hiring and career events, not generic event listings.</h2><p>We prioritize employer hiring events, workforce programs, training opportunities and industry events with a clear career connection. Every event is tied to an organizer page so you can confirm the details before attending.</p></section>${relatedLinksHtml([['Data center jobs with no experience', `${baseUrl}/no-experience/`],['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],['Data center apprenticeships', `${baseUrl}/apprenticeships/`],['All data center jobs', `${baseUrl}/jobs/`]])}</main>${footer()}</body></html>`;
 await writeHtml('career-events/index.html',eventsHtml);
 urls.push(eventsCanonical);
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set(urls)].map(url=>`  <url><loc>${esc(url)}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n')}\n</urlset>\n`;
 await writeFile('sitemap.xml',sitemap);
 await writeFile('robots.txt',`User-agent: *\nAllow: /\nSitemap: ${baseUrl}/sitemap.xml\n`);
-console.log(`Generated ${orderedJobs.length} job pages plus paginated category pages for ${baseUrl}.`);
+console.log(`Generated ${orderedJobs.length} job pages plus search-focused category pages for ${baseUrl}.`);

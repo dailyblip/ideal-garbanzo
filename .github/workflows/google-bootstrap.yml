@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-google-careers.mjs'
+      - 'scripts/collect-google-careers-fresh.mjs'
       - '.github/workflows/google-bootstrap.yml'
   workflow_dispatch:
   schedule:
@@ -31,18 +32,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Test Google fallback freshness policy
+        run: node scripts/collect-google-careers-fresh.mjs --self-test
       - name: Collect official Google Careers roles
-        run: node scripts/collect-google-careers.mjs
+        run: node scripts/collect-google-careers-fresh.mjs
       - name: Confirm collector merged the Google snapshot
         run: |
           node - <<'NODE'
           const jobs = require('./data/jobs.json');
           const snapshot = require('./data/google-jobs.json');
+          const status = require('./data/collector-status.json');
           const publicGoogle = jobs.filter(job => job.company === 'Google');
           if (publicGoogle.length !== snapshot.length) {
             throw new Error(`Google collector merge mismatch: ${snapshot.length} snapshot vs ${publicGoogle.length} public immediately after collection`);
           }
-          console.log(`Google collector merge: ${publicGoogle.length}/${snapshot.length} roles present.`);
+          if (status.googleCareers?.fallbackExpired && (snapshot.length || publicGoogle.length)) {
+            throw new Error(`Expired Google fallback still publishes ${snapshot.length} snapshot / ${publicGoogle.length} public role(s)`);
+          }
+          console.log(`Google collector merge: ${publicGoogle.length}/${snapshot.length} roles present; fallbackExpired=${Boolean(status.googleCareers?.fallbackExpired)}.`);
           NODE
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs

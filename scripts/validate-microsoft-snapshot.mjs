@@ -6,6 +6,7 @@ const STATUS_PATH = 'data/collector-status.json';
 const COMPANY = 'Microsoft';
 const OFFICIAL_HOST = 'apply.careers.microsoft.com';
 const MIN_PUBLIC_RETENTION = 0.80;
+const MAX_FALLBACK_AGE_HOURS = 96;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -56,6 +57,8 @@ if (!Number.isFinite(verifiedAt) || !Number.isFinite(expiresAt) || expiresAt <= 
 if (expiresAt - verifiedAt > 8 * 24 * 60 * 60 * 1000) {
   throw new Error('Microsoft snapshot fallback window exceeds the allowed short-term recovery period.');
 }
+const policyExpiresAt = Math.min(expiresAt, verifiedAt + MAX_FALLBACK_AGE_HOURS * 60 * 60 * 1000);
+const policyFresh = Date.now() < policyExpiresAt;
 
 const ids = new Set();
 const urls = new Set();
@@ -78,6 +81,10 @@ for (const job of snapshot.jobs) {
 
 const jobs = await readJson(JOBS_PATH, []);
 if (!Array.isArray(jobs)) throw new Error('data/jobs.json must contain an array.');
+const status = await readJson(STATUS_PATH, {});
+const microsoftStatus = status?.microsoftDatacenter || {};
+const sourceHealthy = microsoftStatus.sourceHealthy === true && microsoftStatus.sourceMode !== 'retained-previous';
+const fallback = microsoftStatus.snapshotFallback || {};
 const publicMicrosoft = jobs.filter(job => clean(job?.company) === COMPANY);
 for (const job of publicMicrosoft) {
   let url;
@@ -87,30 +94,37 @@ for (const job of publicMicrosoft) {
     throw new Error(`Microsoft public role ${job?.id || '(missing)'} is not employer-direct.`);
   }
 }
+
+if (!sourceHealthy && !policyFresh && publicMicrosoft.length) {
+  throw new Error(`Microsoft public feed still contains ${publicMicrosoft.length} role(s) more than ${MAX_FALLBACK_AGE_HOURS} hours after the last verified employer-direct snapshot.`);
+}
+
 const snapshotTitles = uniqueTitles(snapshot.jobs);
 const publicTitles = uniqueTitles(publicMicrosoft);
 const missingTitles = [...snapshotTitles].filter(title => !publicTitles.has(title));
+const shouldEnforceRetention = sourceHealthy || policyFresh || fallback.active === true;
 
 // The public feed intentionally collapses same-employer/same-title postings
-// across locations and shifts. Protect unique role coverage rather than raw
-// requisition count so source integrity and a clean feed can coexist.
-if (snapshotTitles.size >= 8) {
+// across locations and shifts. Protect unique role coverage while the source or
+// its short-lived verified fallback is still valid.
+if (shouldEnforceRetention && snapshotTitles.size >= 8) {
   const minimumRetained = Math.ceil(snapshotTitles.size * MIN_PUBLIC_RETENTION);
   if (publicTitles.size < minimumRetained) {
     throw new Error(`Microsoft public feed retained only ${publicTitles.size}/${snapshotTitles.size} unique verified role titles; expected at least ${minimumRetained}.`);
   }
 }
-if (missingTitles.length > Math.floor(snapshotTitles.size * (1 - MIN_PUBLIC_RETENTION))) {
+if (shouldEnforceRetention && missingTitles.length > Math.floor(snapshotTitles.size * (1 - MIN_PUBLIC_RETENTION))) {
   throw new Error(`Microsoft public feed is missing ${missingTitles.length}/${snapshotTitles.size} unique verified role title(s).`);
 }
 
-const status = await readJson(STATUS_PATH, {});
-const fallback = status?.microsoftDatacenter?.snapshotFallback || {};
 if (fallback.active === true) {
   const fallbackExpiresAt = Date.parse(clean(fallback.expiresAt));
   const fallbackRoles = Number(fallback.roles || 0);
   if (!Number.isFinite(fallbackExpiresAt)) {
     throw new Error('Microsoft snapshot fallback is active without a valid expiry timestamp.');
+  }
+  if (fallbackExpiresAt > verifiedAt + MAX_FALLBACK_AGE_HOURS * 60 * 60 * 1000) {
+    throw new Error(`Microsoft snapshot fallback extends beyond the ${MAX_FALLBACK_AGE_HOURS}-hour employer-verification window.`);
   }
   if (Date.now() >= fallbackExpiresAt) {
     throw new Error(`Microsoft snapshot fallback is still active after its ${fallback.expiresAt} expiry.`);
@@ -123,10 +137,10 @@ if (fallback.active === true) {
   }
 }
 
-if (Date.now() > expiresAt) {
-  console.warn(`Microsoft snapshot is structurally valid but expired at ${snapshot.expiresAt}; fallback restoration is disabled until a fresh direct-source refresh.`);
+if (!policyFresh) {
+  console.warn(`Microsoft snapshot exceeded the ${MAX_FALLBACK_AGE_HOURS}-hour publication window at ${new Date(policyExpiresAt).toISOString()}; fallback restoration is disabled until a fresh direct-source refresh.`);
 } else {
-  console.log(`Microsoft snapshot validation passed: ${snapshot.jobs.length} employer-direct requisitions represented by ${publicTitles.size} clean public role title(s), recoverable through ${snapshot.expiresAt}.`);
+  console.log(`Microsoft snapshot validation passed: ${snapshot.jobs.length} employer-direct requisitions represented by ${publicTitles.size} clean public role title(s), recoverable through ${new Date(policyExpiresAt).toISOString()}.`);
 }
 if (fallback.active === true) {
   console.log(`Microsoft zero-collapse fallback integrity passed: ${publicTitles.size}/${snapshotTitles.size} unique verified role titles remain public.`);

@@ -5,6 +5,7 @@ const STATUS_PATH = 'data/collector-status.json';
 const SNAPSHOT_PATH = 'data/microsoft-jobs.json';
 const COMPANY = 'Microsoft';
 const OFFICIAL_HOST = 'apply.careers.microsoft.com';
+const MAX_FALLBACK_AGE_HOURS = 96;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -72,9 +73,11 @@ if (!snapshot) {
   process.exit(0);
 }
 
-const { expiresAt } = validateSnapshot(snapshot);
-if (Date.now() > expiresAt) {
-  console.warn(`Microsoft verified snapshot expired at ${snapshot.expiresAt}; stale roles were not restored.`);
+const { verifiedAt, expiresAt } = validateSnapshot(snapshot);
+const policyExpiresAt = verifiedAt + MAX_FALLBACK_AGE_HOURS * 60 * 60 * 1000;
+const effectiveExpiresAt = Math.min(expiresAt, policyExpiresAt);
+if (Date.now() > effectiveExpiresAt) {
+  console.warn(`Microsoft verified snapshot exceeded the ${MAX_FALLBACK_AGE_HOURS}-hour fallback window; stale roles were not restored.`);
   process.exit(0);
 }
 
@@ -96,9 +99,9 @@ await writeFile(STATUS_PATH, JSON.stringify({
     snapshotFallback: {
       active: true,
       verifiedAt: snapshot.verifiedAt,
-      expiresAt: snapshot.expiresAt,
+      expiresAt: new Date(effectiveExpiresAt).toISOString(),
       roles: restored.length,
-      reason: 'Recovered only after Microsoft roles collapsed to zero before a fresh direct-source refresh.'
+      reason: `Recovered only after Microsoft roles collapsed to zero and only within ${MAX_FALLBACK_AGE_HOURS} hours of the last employer-direct verification.`
     }
   }
 }, null, 2) + '\n');

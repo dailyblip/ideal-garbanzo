@@ -5,7 +5,7 @@ const STATUS_PATH = 'data/collector-status.json';
 const SNAPSHOT_PATH = 'data/microsoft-jobs.json';
 const COMPANY = 'Microsoft';
 const OFFICIAL_HOST = 'apply.careers.microsoft.com';
-const FALLBACK_DAYS = 7;
+const FALLBACK_DAYS = 4;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const isMicrosoft = job => clean(job?.company) === COMPANY || /^https:\/\/apply\.careers\.microsoft\.com\//i.test(clean(job?.sourceUrl));

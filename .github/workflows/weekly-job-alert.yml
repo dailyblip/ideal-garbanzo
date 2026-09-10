@@ -4,7 +4,11 @@ on:
   push:
     branches: [main]
     paths:
+      - 'index.html'
+      - 'assets/mailing-list.js'
       - 'scripts/send-weekly-job-alert.mjs'
+      - 'scripts/validate-mailing-list.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'data/jobs.json'
       - 'data/mailing-list.json'
       - '.github/workflows/weekly-job-alert.yml'
@@ -35,7 +39,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate personalized weekly digest
+      - name: Validate weekly mailing configuration
+        run: node scripts/validate-mailing-list.mjs
+      - name: Validate persisted first-seen job history
+        run: node scripts/validate-job-history.mjs
+      - name: Validate personalized weekly alert
         run: node scripts/send-weekly-job-alert.mjs --dry-run
 
   schedule-alert:

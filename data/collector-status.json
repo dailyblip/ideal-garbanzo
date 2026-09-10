@@ -1757,7 +1757,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T04:41:45.415Z",
+    "checkedAt": "2026-09-10T04:53:02.815Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1765,7 +1765,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T04:41:45.494Z",
+    "updatedAt": "2026-09-10T04:53:02.880Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 699,
@@ -1783,24 +1783,15 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T04:41:45.566Z",
-    "before": 700,
+    "checkedAt": "2026-09-10T04:53:02.944Z",
+    "before": 699,
     "after": 699,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "coreweave-4696011006",
-        "keptId": "coreweave-4709264006",
-        "company": "CoreWeave",
-        "title": "Data Center Technician",
-        "location": "Sandusky, OH"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-10T04:42:12.794Z",
+    "checkedAt": "2026-09-10T04:53:22.500Z",
     "publishedJobs": 699,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -1816,9 +1807,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 8,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-10T04:42:12.986Z"
+    "updatedAt": "2026-09-10T04:53:22.685Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

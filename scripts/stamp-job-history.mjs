@@ -21,6 +21,55 @@ function validIso(value, nowMs) {
   return Number.isFinite(parsed) && parsed <= nowMs + FUTURE_GRACE_MS ? new Date(parsed).toISOString() : null;
 }
 
+function isWorkdayJob(job = {}) {
+  return /^workday-/i.test(String(job?.id || '').trim()) || /myworkdayjobs\.com/i.test(String(job?.sourceUrl || ''));
+}
+
+// Workday search endpoints often report relative labels such as "Today" or
+// "2 days ago" rather than an exact posting timestamp. Some collectors have to
+// turn those labels into an ISO timestamp at collection time. Keeping the exact
+// collection clock makes an unchanged job look newly modified on later runs and
+// can distort job-alert recency and sitemap lastmod dates. Workday postings are
+// therefore treated as date-granularity evidence and normalized to UTC midnight.
+function canonicalPostedAt(job, nowMs) {
+  const postedAt = validIso(job?.postedAt, nowMs);
+  if (!postedAt || !isWorkdayJob(job)) return postedAt;
+  return `${postedAt.slice(0, 10)}T00:00:00.000Z`;
+}
+
+const postingDateRegressionCases = [
+  {
+    job: {
+      id: 'workday-qtsdatacenters-R2026-2018',
+      sourceUrl: 'https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/example',
+      postedAt: '2026-09-09T16:58:38.378Z'
+    },
+    expected: '2026-09-09T00:00:00.000Z'
+  },
+  {
+    job: {
+      id: 'generic-123',
+      sourceUrl: 'https://example.com/jobs/123',
+      postedAt: '2026-09-09T16:58:38.378Z'
+    },
+    expected: '2026-09-09T16:58:38.378Z'
+  },
+  {
+    job: {
+      id: 'other-123',
+      sourceUrl: 'https://example.wd1.myworkdayjobs.com/en-US/Careers/job/example',
+      postedAt: '2026-09-08T23:12:00.000Z'
+    },
+    expected: '2026-09-08T00:00:00.000Z'
+  }
+];
+for (const testCase of postingDateRegressionCases) {
+  const actual = canonicalPostedAt(testCase.job, Date.parse('2026-09-10T12:00:00.000Z'));
+  if (actual !== testCase.expected) {
+    throw new Error(`Workday posting-date regression: expected ${testCase.expected}, got ${actual}`);
+  }
+}
+
 function initialSeenAt(job, nowMs, nowIso) {
   const postedAt = validIso(job?.postedAt, nowMs);
   if (postedAt) return postedAt;
@@ -71,10 +120,17 @@ let changed = 0;
 let migrated = 0;
 let recencyRepaired = 0;
 let firstSeenRecencyFallbacks = 0;
+let normalizedWorkdayPostingDates = 0;
 
 for (const job of jobs) {
   const id = String(job?.id || '').trim();
   if (!id) throw new Error('Cannot stamp job history: published job is missing id.');
+
+  const normalizedPostedAt = canonicalPostedAt(job, nowMs);
+  if (normalizedPostedAt && normalizedPostedAt !== job.postedAt) {
+    job.postedAt = normalizedPostedAt;
+    normalizedWorkdayPostingDates += 1;
+  }
 
   const existingEntry = historyEntries[id] && typeof historyEntries[id] === 'object' ? historyEntries[id] : {};
   const existingFirstSeen = validIso(existingEntry.firstSeenAt, nowMs);
@@ -159,6 +215,7 @@ status.jobHistory = {
   seededExistingThisRun: initializing ? seeded : 0,
   repairedEntriesThisRun: repaired,
   recencySentinelsRepairedThisRun: recencyRepaired,
+  normalizedWorkdayPostingDatesThisRun: normalizedWorkdayPostingDates,
   firstSeenRecencyFallbackJobs: firstSeenRecencyFallbacks,
   updatedAt: nowIso
 };
@@ -166,8 +223,8 @@ await writeFile(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`);
 
 console.log(
   repairOnly
-    ? `Job history repair pass: ${added} missing IDs added, ${repaired} invalid entries repaired, ${recencyRepaired} recency sentinels repaired, ${changed} content changes tracked; healthy postedHours left unchanged.`
+    ? `Job history repair pass: ${added} missing IDs added, ${repaired} invalid entries repaired, ${recencyRepaired} recency sentinels repaired, ${normalizedWorkdayPostingDates} Workday posting dates normalized, ${changed} content changes tracked; healthy postedHours left unchanged.`
     : initializing
       ? `Initialized job history for ${seeded} existing jobs without marking the current feed as newly discovered.`
-      : `Job history updated: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs, ${firstSeenRecencyFallbacks} using first-seen recency.`
+      : `Job history updated: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs, ${normalizedWorkdayPostingDates} Workday posting dates normalized, ${firstSeenRecencyFallbacks} using first-seen recency.`
 );

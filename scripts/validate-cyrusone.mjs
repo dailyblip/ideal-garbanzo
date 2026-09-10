@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
+// Dedicated source guard for the official CyrusOne Workday feed.
 const COMPANY = 'CyrusOne';
 const HOST = 'cyrusone.wd1.myworkdayjobs.com';
 const SNAPSHOT_PATH = 'data/cyrusone-jobs.json';

@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-10T16:12:51.309Z",
-  "jobsBefore": 691,
-  "jobsAfter": 691,
+  "checkedAt": "2026-09-10T16:24:28.533Z",
+  "jobsBefore": 692,
+  "jobsAfter": 692,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -197,7 +197,17 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-elementcritical-4730973005",
+      "company": "Element Critical",
+      "title": "Operations Technician I",
+      "url": "https://job-boards.greenhouse.io/elementcritical/jobs/4730973005",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 5,
   "careerEventsAfter": 5,

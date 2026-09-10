@@ -1,19 +1,27 @@
-import { readFile } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 
 const config = JSON.parse(await readFile('data/mailing-list.json', 'utf8'));
 const homepage = await readFile('index.html', 'utf8');
 const signupScript = await readFile('assets/mailing-list.js', 'utf8');
-const digestScript = await readFile('scripts/send-weekly-digest.mjs', 'utf8');
-const workflow = await readFile('.github/workflows/weekly-digest.yml', 'utf8');
+const alertScript = await readFile('scripts/send-weekly-job-alert.mjs', 'utf8');
+const workflow = await readFile('.github/workflows/weekly-job-alert.yml', 'utf8');
 
 const fail = message => { throw new Error(message); };
+const assertMissing = async path => {
+  try {
+    await access(path);
+  } catch {
+    return;
+  }
+  fail(`Deprecated duplicate mailing pipeline must stay removed: ${path}`);
+};
 
 if (config.provider !== 'buttondown') fail('Mailing list provider must be Buttondown.');
 if (config.enabled !== true) fail('Mailing list must be enabled once the Buttondown account is configured.');
 if (!/^[a-z0-9][a-z0-9_-]{1,62}$/i.test(String(config.username || ''))) fail('Buttondown username is missing or invalid.');
 if (config.cadence !== 'weekly') fail('Mailing list cadence must remain weekly.');
-if (config.sendDay !== 'Monday') fail('Weekly digest must send on Monday.');
-if (config.sendTimeUtc !== '16:00') fail('Weekly digest send time must remain 16:00 UTC.');
+if (config.sendDay !== 'Monday') fail('Weekly alert must send on Monday.');
+if (config.sendTimeUtc !== '16:00') fail('Weekly alert send time must remain 16:00 UTC.');
 
 const expectedAction = `https://buttondown.com/api/emails/embed-subscribe/${config.username}`;
 for (const marker of [
@@ -41,55 +49,70 @@ for (const marker of [
   if (!homepage.includes(marker)) fail(`Homepage weekly signup is missing: ${marker}`);
 }
 
-if (!signupScript.includes('data/mailing-list.json')) fail('Signup script must load the mailing-list configuration.');
-if (!signupScript.includes('buttondown.com/api/emails/embed-subscribe/')) fail('Signup script must submit to Buttondown embedded subscribe.');
-if (!signupScript.includes('config?.enabled === true')) fail('Signup script must respect the enabled flag.');
-if (!signupScript.includes("const fallbackAction = form.getAttribute('action') || '';")) fail('Signup script must preserve the static Buttondown fallback action.');
-if (!signupScript.includes("document.getElementById('alertRegion')")) fail('Signup script must read the regional alert preference.');
-if (!signupScript.includes("document.getElementById('alertRegionValue')")) fail('Signup script must persist the regional alert preference to Buttondown metadata.');
-if (!signupScript.includes("document.getElementById('alertFocus')")) fail('Signup script must read the early-career alert preference.');
-if (!signupScript.includes("document.getElementById('alertFocusValue')")) fail('Signup script must persist the early-career alert preference to Buttondown metadata.');
-if (!signupScript.includes("const allowedFocus = new Set(['all', 'early-career']);")) fail('Signup script must reject unsupported alert-focus metadata values.');
-if (!signupScript.includes('syncRegionPreference();')) fail('Signup script must synchronize the regional preference before submission.');
-if (!signupScript.includes('syncFocusPreference();')) fail('Signup script must synchronize the early-career preference before submission.');
-if (!signupScript.includes('syncPreferences();')) fail('Signup script must synchronize all alert preferences before submission.');
+for (const marker of [
+  'data/mailing-list.json',
+  'buttondown.com/api/emails/embed-subscribe/',
+  'config?.enabled === true',
+  "const fallbackAction = form.getAttribute('action') || '';",
+  "document.getElementById('alertRegion')",
+  "document.getElementById('alertRegionValue')",
+  "document.getElementById('alertFocus')",
+  "document.getElementById('alertFocusValue')",
+  "const allowedFocus = new Set(['all', 'early-career']);",
+  'syncRegionPreference();',
+  'syncFocusPreference();',
+  'syncPreferences();'
+]) {
+  if (!signupScript.includes(marker)) fail(`Signup plumbing is missing: ${marker}`);
+}
 if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script must not disable the static fallback when config fetch fails.');
 
-if (!workflow.includes("cron: '0 16 * * 1'")) fail('Weekly digest workflow must run Mondays at 16:00 UTC.');
-if (!workflow.includes('BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}')) fail('Weekly digest workflow must use the Buttondown API secret.');
-if (!workflow.includes('default: true')) fail('Manual weekly digest runs must default to dry-run mode.');
-if (!workflow.includes("- 'index.html'")) fail('Weekly digest preflight must run when the signup form changes.');
-if (!workflow.includes("- 'assets/mailing-list.js'")) fail('Weekly digest preflight must run when signup plumbing changes.');
-
-for (const marker of ['BUTTONDOWN_API_KEY', 'X-Buttondown-Live-Dangerously', '/v1/emails', '/publish', "status: 'draft'"]) {
-  if (!digestScript.includes(marker)) fail(`Weekly digest sender is missing safety/integration marker: ${marker}`);
+for (const marker of [
+  "cron: '5 5 * * 1'",
+  "run: node scripts/validate-mailing-list.mjs",
+  "run: node scripts/send-weekly-job-alert.mjs --dry-run",
+  'BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}',
+  'run: node scripts/send-weekly-job-alert.mjs --schedule',
+  "- 'index.html'",
+  "- 'assets/mailing-list.js'",
+  "- 'scripts/validate-mailing-list.mjs'"
+]) {
+  if (!workflow.includes(marker)) fail(`Weekly alert workflow is missing: ${marker}`);
 }
-if (!digestScript.includes("if (!config.enabled && !dryRun)")) fail('Weekly digest sender must stop when the mailing list is disabled.');
-if (!digestScript.includes('if (!weeklyJobs.length)')) fail('Weekly digest sender must skip empty newsletters.');
-if (!digestScript.includes('subscriber.metadata.region')) fail('Weekly digest sender must personalize content from the saved regional preference.');
-if (!digestScript.includes('subscriber.metadata.focus')) fail('Weekly digest sender must personalize content from the saved early-career preference.');
 
 for (const marker of [
-  'const digestJobMatchesRegion = (job, region) =>',
+  "const ALERT_TAG = 'weekly-job-alerts';",
+  "const SITE_BASE = 'https://datacentercareers.us';",
+  "const EARLY_TYPES = new Set(['internship', 'apprenticeship', 'trainee']);",
+  "const EARLY_EXPERIENCE = new Set(['no-experience', '0-2-years']);",
+  'subscriber.metadata.region',
+  'subscriber.metadata.focus',
+  'utm_source',
+  'weekly-email',
+  'function jobDetailUrl(job)',
+  'function nextMonday1600Utc(now = new Date())',
+  'function findExistingDigest(digestKey)',
+  'dcc_digest_key',
+  "status: 'scheduled'",
+  'publish_date: sendAt.toISOString()',
+  "filters: [{ field: 'subscriber.tags', operator: 'contains', value: ALERT_TAG }]",
+  'Digest body bypasses the site'
+]) {
+  if (!alertScript.includes(marker)) fail(`Weekly alert sender is missing: ${marker}`);
+}
+
+for (const marker of [
+  'function alertJobMatchesRegion(job, region)',
   "if (job?.region === 'nationwide') return true;",
   'Array.isArray(job?.regions) && job.regions.includes(region)',
   "location.includes(';')",
-  'digestLocationMatchesRegion(location, region)',
-  'weeklyJobs.filter(job => digestJobMatchesRegion(job, region))'
+  'alertLocationMatchesRegion(location, region)',
+  'newJobs.filter(job => alertJobMatchesRegion(job, region))'
 ]) {
-  if (!digestScript.includes(marker)) fail(`Regional digest matching is missing: ${marker}`);
+  if (!alertScript.includes(marker)) fail(`Regional alert matching is missing: ${marker}`);
 }
-for (const marker of [
-  "const EARLY_CAREER_FOCUS = 'early-career';",
-  "new Set(['internship', 'apprenticeship', 'trainee'])",
-  "new Set(['no-experience', '0-2-years'])",
-  'const digestJobMatchesEarlyCareerFocus = job =>',
-  'const earlyCareerJobs = audience => audience.filter(digestJobMatchesEarlyCareerFocus);',
-  "subscriber.metadata.focus == '${EARLY_CAREER_FOCUS}'",
-  'focus_personalization: true'
-]) {
-  if (!digestScript.includes(marker)) fail(`Early-career digest personalization is missing: ${marker}`);
-}
-if (!digestScript.includes('regional_personalization: true')) fail('Weekly digest must stamp regional personalization metadata.');
 
-console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: resilient tagged signup with regional + early-career subscriber metadata and personalized Monday digests at ${config.sendTimeUtc} UTC.`);
+await assertMissing('.github/workflows/weekly-digest.yml');
+await assertMissing('scripts/send-weekly-digest.mjs');
+
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline scheduled for ${config.sendTimeUtc} UTC with tracked Data Center Careers job links.`);

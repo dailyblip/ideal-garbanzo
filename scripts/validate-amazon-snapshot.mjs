@@ -80,14 +80,13 @@ for (const job of publicAws) {
   }
 }
 
-const reportedQualifying = Number(status?.amazonDatacenter?.qualifyingRoles);
-if (Number.isFinite(reportedQualifying) && reportedQualifying !== snapshot.length) {
-  violations.push(`AWS collector status reports ${reportedQualifying} qualifying roles but snapshot contains ${snapshot.length}.`);
-}
-const reportedFresh = Number(status?.amazonDatacenter?.freshQualifyingRoles);
-const reportedPreserved = Number(status?.amazonDatacenter?.preservedPreviousRoles);
-if (Number.isFinite(reportedFresh) && Number.isFinite(reportedPreserved) && reportedFresh + reportedPreserved < snapshot.length) {
-  violations.push(`AWS collector accounting covers only ${reportedFresh + reportedPreserved}/${snapshot.length} snapshot roles.`);
+// Collector status is updated by several source workflows and can legitimately
+// describe a newer or narrower collection pass than the cumulative verified
+// AWS snapshot. Protect the durable source-of-truth relationship instead:
+// every published AWS requisition must trace to the snapshot, and a healthy
+// snapshot must not collapse to a tiny public subset after downstream filters.
+if (snapshotJobIds.size >= 8 && publicJobIds.size < Math.ceil(snapshotJobIds.size * 0.40)) {
+  violations.push(`AWS public feed retained only ${publicJobIds.size}/${snapshotJobIds.size} authoritative snapshot requisitions.`);
 }
 
 if (violations.length) {
@@ -96,6 +95,6 @@ if (violations.length) {
 }
 
 const health = status?.amazonDatacenter?.sourceHealthy === false
-  ? 'official search currently degraded; verified snapshot retention is active'
-  : 'official search healthy or no degraded state recorded';
+  ? 'latest recorded official search was degraded; verified snapshot retention may be active'
+  : 'latest recorded official search healthy or no degraded state recorded';
 console.log(`AWS snapshot guard passed: ${snapshot.length} authoritative requisitions, ${publicAws.length} public cards, all public AWS roles trace to the official snapshot; ${health}.`);

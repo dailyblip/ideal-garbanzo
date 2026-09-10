@@ -5,6 +5,7 @@ import { promisify } from 'node:util';
 const exec = promisify(execFile);
 const MAX_AGE_HOURS = Number(process.env.DATA_FRESHNESS_MAX_HOURS || 48);
 const MAX_MAJOR_FALLBACK_AGE_HOURS = Number(process.env.MAJOR_FALLBACK_MAX_HOURS || 96);
+const MAX_GENERIC_FALLBACK_AGE_HOURS = Number(process.env.GENERIC_FALLBACK_MAX_HOURS || 96);
 const MAX_FUTURE_SKEW_MINUTES = 10;
 const now = Date.now();
 
@@ -27,6 +28,9 @@ if (!Number.isFinite(MAX_AGE_HOURS) || MAX_AGE_HOURS <= 0) {
 }
 if (!Number.isFinite(MAX_MAJOR_FALLBACK_AGE_HOURS) || MAX_MAJOR_FALLBACK_AGE_HOURS <= 0) {
   throw new Error('MAJOR_FALLBACK_MAX_HOURS must be a positive number.');
+}
+if (!Number.isFinite(MAX_GENERIC_FALLBACK_AGE_HOURS) || MAX_GENERIC_FALLBACK_AGE_HOURS <= 0) {
+  throw new Error('GENERIC_FALLBACK_MAX_HOURS must be a positive number.');
 }
 
 async function readJson(path) {
@@ -76,6 +80,18 @@ function healthyPreservedPrioritySource(diagnostic) {
   );
 }
 
+function genericSourceDiagnostic(status, company) {
+  const namespaced = Array.isArray(status?.genericDirectSources?.sourceDiagnostics)
+    ? status.genericDirectSources.sourceDiagnostics
+    : [];
+  const legacy = Array.isArray(status?.sourceDiagnostics) ? status.sourceDiagnostics : [];
+  return [...namespaced, ...legacy].find(item => item?.company === company) || null;
+}
+
+function healthyGenericSource(status, company) {
+  return genericSourceDiagnostic(status, company)?.sourceHealthy === true;
+}
+
 async function historicalCollectorStatuses(limit = 60) {
   let commits = [];
   try {
@@ -106,6 +122,17 @@ async function lastHealthyVerification(history, predicate) {
   for (const entry of history) {
     if (!predicate(entry.status)) continue;
     const parsed = Date.parse(String(entry.status?.updatedAt || ''));
+    if (!Number.isFinite(parsed)) continue;
+    return { at: parsed, sha: entry.sha };
+  }
+  return null;
+}
+
+async function lastHealthyGenericVerification(history, company) {
+  for (const entry of history) {
+    if (!healthyGenericSource(entry.status, company)) continue;
+    const timestamp = entry.status?.genericDirectSources?.updatedAt || entry.status?.updatedAt;
+    const parsed = Date.parse(String(timestamp || ''));
     if (!Number.isFinite(parsed)) continue;
     return { at: parsed, sha: entry.sha };
   }
@@ -183,6 +210,47 @@ async function validatePreservedPriorityFreshness(status, history = null) {
   return fallbackAges;
 }
 
+async function validateGenericFallbackFreshness(status, history = null) {
+  const preservation = status?.sourceFailurePreservation;
+  const preservedByCompany = preservation?.preservedByCompany;
+  if (!preservedByCompany || typeof preservedByCompany !== 'object') return [];
+
+  const failedSources = new Set(Array.isArray(preservation?.failedSources) ? preservation.failedSources : []);
+  const authoritativeOverlays = status?.authoritativeSnapshotOverlay?.restoredByCompany || {};
+  const activeFallbacks = Object.entries(preservedByCompany)
+    .filter(([company, count]) => Number(count || 0) > 0 && Number(authoritativeOverlays?.[company] || 0) === 0)
+    .map(([company, count]) => ({ company, count: Number(count) }));
+  if (!activeFallbacks.length) return [];
+
+  for (const { company } of activeFallbacks) {
+    if (!failedSources.has(company)) {
+      throw new Error(`${company} has preserved generic-source roles but is not listed in sourceFailurePreservation.failedSources.`);
+    }
+  }
+
+  const collectorHistory = history || await historicalCollectorStatuses();
+  if (!collectorHistory.length) {
+    throw new Error('Generic ATS fallback roles are active but collector-status history could not be read to establish last verification time.');
+  }
+
+  const fallbackAges = [];
+  for (const { company, count } of activeFallbacks) {
+    const lastVerified = await lastHealthyGenericVerification(collectorHistory, company);
+    if (!lastVerified) {
+      throw new Error(`${company} has ${count} preserved generic-source role(s) and no prior healthy verification timestamp was found in collector history.`);
+    }
+
+    const ageHours = Math.max(0, (now - lastVerified.at) / 3600000);
+    if (ageHours > MAX_GENERIC_FALLBACK_AGE_HOURS) {
+      throw new Error(`${company} generic-source fallback is stale (${Math.floor(ageHours)}h since last healthy verification; maximum ${MAX_GENERIC_FALLBACK_AGE_HOURS}h). Block deployment until the employer source verifies again or the preserved roles are removed.`);
+    }
+
+    fallbackAges.push({ company, count, ageHours, sha: lastVerified.sha });
+  }
+
+  return fallbackAges;
+}
+
 const status = await readJson('data/collector-status.json');
 const qaReport = await readJson('data/qa-report.json');
 const jobs = await readJson('data/jobs.json');
@@ -199,11 +267,16 @@ const markers = [
 
 const ages = markers.map(([label, value]) => [label, validateTimestamp(label, value)]);
 const oldest = ages.reduce((max, [, hours]) => Math.max(max, hours), 0);
+const preservedGenericCompanies = Object.entries(status?.sourceFailurePreservation?.preservedByCompany || {})
+  .filter(([company, count]) => Number(count || 0) > 0 && Number(status?.authoritativeSnapshotOverlay?.restoredByCompany?.[company] || 0) === 0)
+  .map(([company]) => company);
 const needsHistory = majorEmployers.some(company => !healthyMajorDiagnostic(status?.majorSources?.employerDiagnostics?.[company])) ||
-  preservedPrioritySources.some(({ statusKey }) => status?.[statusKey]?.sourceHealthy === false && Number(status?.[statusKey]?.preservedPrevious || 0) > 0);
+  preservedPrioritySources.some(({ statusKey }) => status?.[statusKey]?.sourceHealthy === false && Number(status?.[statusKey]?.preservedPrevious || 0) > 0) ||
+  preservedGenericCompanies.length > 0;
 const history = needsHistory ? await historicalCollectorStatuses() : null;
 const fallbackAges = await validateMajorFallbackFreshness(status, history);
 const preservedFallbackAges = await validatePreservedPriorityFreshness(status, history);
+const genericFallbackAges = await validateGenericFallbackFreshness(status, history);
 
 console.log(`Data freshness passed: ${jobs.length} jobs; oldest refresh/QA marker is ${oldest.toFixed(1)}h old (limit ${MAX_AGE_HOURS}h).`);
 for (const fallback of fallbackAges) {
@@ -211,4 +284,7 @@ for (const fallback of fallbackAges) {
 }
 for (const fallback of preservedFallbackAges) {
   console.warn(`Priority snapshot fallback freshness: ${fallback.company} last verified ${fallback.ageHours.toFixed(1)}h ago (limit ${MAX_MAJOR_FALLBACK_AGE_HOURS}h; history ${fallback.sha.slice(0, 8)}).`);
+}
+for (const fallback of genericFallbackAges) {
+  console.warn(`Generic ATS fallback freshness: ${fallback.company} preserving ${fallback.count} role(s), last verified ${fallback.ageHours.toFixed(1)}h ago (limit ${MAX_GENERIC_FALLBACK_AGE_HOURS}h; history ${fallback.sha.slice(0, 8)}).`);
 }

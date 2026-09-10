@@ -1,40 +1,12 @@
 {
-  "checkedAt": "2026-09-10T15:56:27.859Z",
-  "jobsBefore": 694,
+  "checkedAt": "2026-09-10T16:12:51.309Z",
+  "jobsBefore": 691,
   "jobsAfter": 691,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10532221",
-      "company": "Amazon Web Services",
-      "title": "Work Based Learning Program Data Center Operations Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10532221/work-based-learning-program-data-center-operations-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10532221/work-based-learning-program-data-center-operations-technician"
-    },
-    {
-      "id": "amazon-10504890",
-      "company": "Amazon Web Services",
-      "title": "Data Center Network Deploy Technician, GND Deploy",
-      "url": "https://www.amazon.jobs/en/jobs/10504890/data-center-network-deploy-technician-gnd-deploy",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10504890/data-center-network-deploy-technician-gnd-deploy"
-    }
-  ],
+  "duplicatesRemoved": [],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",

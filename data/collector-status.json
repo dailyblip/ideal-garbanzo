@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-09-10T16:44:57.047Z",
+  "updatedAt": "2026-09-10T16:46:04.263Z",
   "jobs": 691,
-  "sourcesAttempted": 37,
+  "sourcesAttempted": 38,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
     "ashby": 5,
     "icims": 1,
     "workday": 6,
-    "googleCareers": 6,
+    "googleCareers": 7,
     "metaCareers": 2,
     "oracleRecruitingCloud": 3
   },
@@ -1110,7 +1110,14 @@
         "fetch": 0
       }
     },
-    "errors": []
+    "errors": [],
+    "lastHealthyAt": "2026-09-10T16:46:04.268Z",
+    "freshnessCheckedAt": "2026-09-10T16:46:04.268Z",
+    "fallbackMaxAgeHours": 96,
+    "fallbackAgeHours": 0,
+    "fallbackExpired": false,
+    "usedPreviousSnapshot": false,
+    "staleRolesRemoved": 0
   },
   "metaCareers": {
     "officialSource": "https://www.metacareers.com/jobsearch/",
@@ -1772,7 +1779,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T16:44:57.228Z",
+    "checkedAt": "2026-09-10T16:46:04.368Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1780,7 +1787,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T16:44:57.304Z",
+    "updatedAt": "2026-09-10T16:46:04.427Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 691,
@@ -1791,14 +1798,14 @@
       "west": 104,
       "northeast": 21,
       "mid-atlantic": 122,
-      "southwest": 86,
       "midwest": 138,
       "texas": 115,
+      "southwest": 86,
       "southeast": 105
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T16:44:57.379Z",
+    "checkedAt": "2026-09-10T16:46:04.481Z",
     "before": 691,
     "after": 691,
     "removed": 0,
@@ -1824,7 +1831,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-10T16:44:57.444Z"
+    "updatedAt": "2026-09-10T16:46:04.533Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

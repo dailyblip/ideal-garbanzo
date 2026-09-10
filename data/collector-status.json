@@ -277,13 +277,16 @@
     "reconciliation": {
       "checkedAt": "2026-09-10T05:25:11.751Z",
       "rawJobs": 188,
-      "publishedUsJobs": 188,
+      "publishedUsJobs": 187,
       "nonUsRemoved": 0,
       "unresolvedLocationRemoved": 0,
       "siteCodeLocationsResolved": 0,
       "siteCodeLocationSamples": [],
       "nonUsSamples": [],
-      "unresolvedLocationSamples": []
+      "unresolvedLocationSamples": [],
+      "publicationGuardAdjustedAt": "2026-09-10T07:54:11.055Z",
+      "publicationGuardPreviousPublishedUsJobs": 188,
+      "publicationGuardReason": "snapshot-pruned-after-reconciliation"
     }
   },
   "majorTargetedRecovery": {

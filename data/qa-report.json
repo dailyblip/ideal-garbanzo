@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-10T16:35:18.273Z",
+  "checkedAt": "2026-09-10T16:41:19.912Z",
   "jobsBefore": 692,
   "jobsAfter": 692,
   "demoJobsRemoved": [],
@@ -197,7 +197,26 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5227699007",
+      "company": "xAI",
+      "title": "Electrical Technician (Medium Voltage) - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5227699007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-elementcritical-4691807005",
+      "company": "Element Critical",
+      "title": "Data Center Controls Engineer",
+      "url": "https://job-boards.greenhouse.io/elementcritical/jobs/4691807005",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 5,
   "careerEventsAfter": 5,

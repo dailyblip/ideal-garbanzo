@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-10T17:54:37.592Z",
-  "jobs": 693,
+  "updatedAt": "2026-09-10T20:49:51.524Z",
+  "jobs": 692,
   "sourcesAttempted": 39,
   "providers": {
     "lever": 7,
@@ -14,12 +14,12 @@
   },
   "countsByType": {
     "internship": 15,
-    "trainee": 10,
+    "trainee": 9,
     "apprenticeship": 12,
     "entry-level": 656
   },
   "countsByExperience": {
-    "no-experience": 55,
+    "no-experience": 54,
     "0-2-years": 369,
     "2-5-years": 269
   },
@@ -1794,10 +1794,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T17:54:37.701Z",
+    "updatedAt": "2026-09-10T20:49:56.861Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 693,
+    "regionAssigned": 692,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -1807,14 +1807,14 @@
       "mid-atlantic": 123,
       "texas": 116,
       "southwest": 87,
-      "southeast": 109,
+      "southeast": 108,
       "northeast": 21
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T17:54:37.804Z",
-    "before": 693,
-    "after": 693,
+    "checkedAt": "2026-09-10T20:49:56.918Z",
+    "before": 692,
+    "after": 692,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1829,7 +1829,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 978,
-    "currentJobs": 693,
+    "currentJobs": 692,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1838,7 +1838,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-10T17:54:37.878Z"
+    "updatedAt": "2026-09-10T20:49:57.014Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1901,18 +1901,18 @@
     "errors": []
   },
   "earlyCareerStalePrune": {
-    "checkedAt": "2026-09-08T21:06:55.200Z",
-    "candidates": 70,
-    "open": 62,
+    "checkedAt": "2026-09-10T20:49:51.524Z",
+    "candidates": 81,
+    "open": 72,
     "definitivelyClosed": 1,
     "transientRetained": 5,
-    "providerVerifiedRetained": 2,
+    "providerVerifiedRetained": 3,
     "removed": [
       {
-        "id": "amazon-10442767",
+        "id": "amazon-10532221",
         "company": "Amazon Web Services",
         "title": "Work Based Learning Program Data Center Operations Technician",
-        "sourceUrl": "https://www.amazon.jobs/en/jobs/10442767/work-based-learning-program-data-center-operations-technician"
+        "sourceUrl": "https://www.amazon.jobs/en/jobs/10532221/work-based-learning-program-data-center-operations-technician"
       }
     ],
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."

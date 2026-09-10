@@ -85,7 +85,7 @@ function canonicalTitle(job) {
   const location = normalizeIdentity(job?.location);
   const locationTokens = new Set(location.split(' ').filter(token => token.length > 1));
   const tailBelongsToLocation = tail => {
-    const tokens = normalizeIdentity(tail).split(' ').filter(token => token.length > 1));
+    const tokens = normalizeIdentity(tail).split(' ').filter(token => token.length > 1);
     return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
   };
   title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');

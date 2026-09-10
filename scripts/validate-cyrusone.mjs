@@ -20,6 +20,13 @@ requireOk(Array.isArray(snapshot) && snapshot.length > 0, 'CyrusOne snapshot mus
 requireOk(Array.isArray(jobs), 'Combined jobs feed must be an array.');
 const ids = new Set(jobs.map(job => clean(job?.id)));
 const identities = new Set();
+const dedupeExamples = Array.isArray(status?.normalizationDedupe?.examples) ? status.normalizationDedupe.examples : [];
+const removedCyrusOneIds = new Set(
+  dedupeExamples
+    .filter(item => clean(item?.company) === COMPANY)
+    .map(item => clean(item?.removedId))
+    .filter(Boolean)
+);
 
 for (const job of snapshot) {
   requireOk(clean(job?.company) === COMPANY, `Unexpected company in CyrusOne snapshot: ${job?.company}`);
@@ -29,16 +36,20 @@ for (const job of snapshot) {
   requireOk(clean(job?.source) === 'Employer career site', `CyrusOne role ${job?.id} must use employer career site source label.`);
   requireOk(clean(job?.sourceUrl).startsWith(`https://${HOST}/`), `CyrusOne role ${job?.id} has a non-official source URL.`);
   requireOk(!/\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|security)\b/i.test(clean(job?.title)), `CyrusOne role ${job?.id} violates senior/noise title policy.`);
-  requireOk(ids.has(clean(job?.id)), `CyrusOne role ${job?.id} is missing from combined jobs feed.`);
+  const present = ids.has(clean(job?.id));
+  requireOk(present || removedCyrusOneIds.has(clean(job?.id)), `CyrusOne role ${job?.id} is missing from the combined feed without a recorded normalization-dedupe removal.`);
   const identity = [job?.title, job?.location].map(value => clean(value).toLowerCase()).join('|');
-  requireOk(!identities.has(identity), `Duplicate CyrusOne role identity: ${identity}`);
+  requireOk(!identities.has(identity), `Duplicate CyrusOne source-snapshot role identity: ${identity}`);
   identities.add(identity);
 }
 
 const feedCyrusOne = jobs.filter(job => clean(job?.company) === COMPANY);
-requireOk(feedCyrusOne.length === snapshot.length, `Combined feed CyrusOne count ${feedCyrusOne.length} does not match snapshot count ${snapshot.length}.`);
+requireOk(feedCyrusOne.length > 0, 'Combined feed must retain at least one CyrusOne role after normalization dedupe.');
+requireOk(feedCyrusOne.length <= snapshot.length, `Combined feed CyrusOne count ${feedCyrusOne.length} cannot exceed snapshot count ${snapshot.length}.`);
+const missingCount = snapshot.length - feedCyrusOne.length;
+requireOk(removedCyrusOneIds.size >= missingCount, `CyrusOne snapshot/feed difference is ${missingCount}, but only ${removedCyrusOneIds.size} CyrusOne normalization-dedupe removals were recorded.`);
 requireOk(status?.cyrusOne?.sourceHealthy === true, 'Collector status must report CyrusOne source healthy.');
-requireOk(Number(status?.cyrusOne?.qualifyingRoles) === snapshot.length, 'Collector status qualifyingRoles must match snapshot count.');
+requireOk(Number(status?.cyrusOne?.qualifyingRoles) === snapshot.length, 'Collector status qualifyingRoles must match source snapshot count before normalization dedupe.');
 requireOk(Number(status?.cyrusOne?.listedJobs) >= snapshot.length, 'Collector status listedJobs must cover published roles.');
 
 if (errors.length) {
@@ -46,4 +57,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`CyrusOne validation passed: ${snapshot.length} official Workday role(s), all present in combined feed.`);
+console.log(`CyrusOne validation passed: ${snapshot.length} official Workday role(s) verified; ${feedCyrusOne.length} representative role(s) retained after normalization dedupe.`);

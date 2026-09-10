@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-10T16:46:04.263Z",
+  "updatedAt": "2026-09-10T16:54:27.101Z",
   "jobs": 691,
   "sourcesAttempted": 38,
   "providers": {
@@ -14,9 +14,9 @@
   },
   "countsByType": {
     "entry-level": 656,
+    "apprenticeship": 12,
     "trainee": 8,
-    "internship": 15,
-    "apprenticeship": 12
+    "internship": 15
   },
   "countsByExperience": {
     "no-experience": 53,
@@ -182,7 +182,7 @@
     ]
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-10T05:39:00.841Z",
+    "checkedAt": "2026-09-10T16:54:27.101Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -1779,7 +1779,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T16:46:04.368Z",
+    "checkedAt": "2026-09-10T16:54:27.166Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1787,7 +1787,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T16:46:04.427Z",
+    "updatedAt": "2026-09-10T16:54:27.224Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 691,
@@ -1796,16 +1796,16 @@
     "missingSamples": [],
     "countsByRegion": {
       "west": 104,
-      "northeast": 21,
       "mid-atlantic": 122,
-      "midwest": 138,
       "texas": 115,
-      "southwest": 86,
-      "southeast": 105
+      "midwest": 138,
+      "southeast": 105,
+      "northeast": 21,
+      "southwest": 86
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T16:46:04.481Z",
+    "checkedAt": "2026-09-10T16:54:27.278Z",
     "before": 691,
     "after": 691,
     "removed": 0,
@@ -1813,8 +1813,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-10T16:41:19.912Z",
-    "publishedJobs": 692,
+    "checkedAt": "2026-09-10T16:54:56.105Z",
+    "publishedJobs": 691,
     "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
@@ -1831,7 +1831,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-10T16:46:04.533Z"
+    "updatedAt": "2026-09-10T16:54:56.254Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

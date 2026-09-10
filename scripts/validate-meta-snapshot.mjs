@@ -4,6 +4,8 @@ const COMPANY = 'Meta';
 const SNAPSHOT_PATH = 'data/meta-jobs.json';
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
+const DEFAULT_MAX_FALLBACK_AGE_HOURS = 96;
+const MIN_HEALTHY_SITEMAP_JOBS = 50;
 
 const allowedTypes = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
@@ -14,6 +16,7 @@ const usStateAbbreviations = new Set([
   'VT','VA','WA','WV','WI','WY','DC'
 ]);
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|architect|program manager|project manager|product manager|capacity manager|partnerships?|strategy|counsel|attorney|recruiter|sales)\b/i;
+const retainedFallbackPattern = /Retained previous Meta snapshot because/i;
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
@@ -51,6 +54,19 @@ function hasUsLocation(value) {
   return Boolean(match && usStateAbbreviations.has(match[1]));
 }
 
+function retainedFallback(metaStatus = {}) {
+  return Array.isArray(metaStatus?.errors) && metaStatus.errors.some(error => retainedFallbackPattern.test(String(error || '')));
+}
+
+function currentCollectorVerified(metaStatus = {}) {
+  const diagnostics = metaStatus?.diagnostics || {};
+  if (metaStatus?.sourceHealthy !== true || retainedFallback(metaStatus)) return false;
+  if (diagnostics?.sitemapFetched === true) {
+    return Number(diagnostics?.sitemapJobs || 0) >= MIN_HEALTHY_SITEMAP_JOBS;
+  }
+  return Number(diagnostics?.detailSucceeded || 0) > 0 && Number(diagnostics?.verified || 0) > 0;
+}
+
 const violations = [];
 let snapshot = [];
 let jobs = [];
@@ -60,6 +76,32 @@ try { jobs = await readJson(JOBS_PATH); } catch (error) { violations.push(`Publi
 try { status = await readJson(STATUS_PATH); } catch (error) { violations.push(`Collector status could not be read: ${error.message}`); }
 if (!Array.isArray(snapshot)) { violations.push('Meta snapshot must be an array.'); snapshot = []; }
 if (!Array.isArray(jobs)) { violations.push('Public feed must be an array.'); jobs = []; }
+
+const publicMeta = jobs.filter(job => clean(job?.company) === COMPANY);
+const metaStatus = status?.metaCareers || {};
+const freshness = status?.metaFallbackFreshness || {};
+const collectorVerified = currentCollectorVerified(metaStatus);
+const fallbackActive = !collectorVerified && (metaStatus?.sourceHealthy === false || retainedFallback(metaStatus) || freshness?.active === true || freshness?.expired === true);
+const configuredMaxAge = Number(freshness?.maxAgeHours);
+const maxFallbackAgeHours = Number.isFinite(configuredMaxAge) && configuredMaxAge > 0 ? configuredMaxAge : DEFAULT_MAX_FALLBACK_AGE_HOURS;
+const lastHealthyMs = Date.parse(String(freshness?.lastHealthyAt || ''));
+const fallbackAgeHours = Number.isFinite(lastHealthyMs) ? Math.max(0, (Date.now() - lastHealthyMs) / 36e5) : null;
+const computedExpired = fallbackActive && fallbackAgeHours !== null && fallbackAgeHours >= maxFallbackAgeHours;
+const fallbackExpired = !collectorVerified && (freshness?.expired === true || computedExpired);
+
+if (fallbackActive && freshness?.lastHealthyAt && !Number.isFinite(lastHealthyMs)) {
+  violations.push(`Meta fallback has an invalid lastHealthyAt timestamp: ${freshness.lastHealthyAt}`);
+}
+if (fallbackActive && !clean(freshness?.lastHealthyAt) && freshness?.expired !== true) {
+  violations.push('Meta fallback has no durable lastHealthyAt evidence; publication must fail closed until the watchdog verifies the official sitemap.');
+}
+if (freshness?.active === true && freshness?.expired === true) {
+  violations.push('Meta fallback cannot be marked active and expired at the same time.');
+}
+if (fallbackExpired) {
+  if (snapshot.length !== 0) violations.push(`Meta fallback exceeded ${maxFallbackAgeHours} hours but ${snapshot.length} snapshot role(s) remain published.`);
+  if (publicMeta.length !== 0) violations.push(`Meta fallback exceeded ${maxFallbackAgeHours} hours but ${publicMeta.length} public role(s) remain published.`);
+}
 
 const snapshotIds = new Set();
 const snapshotUrls = new Set();
@@ -81,7 +123,6 @@ for (const job of snapshot) {
   if (parsedUrl) { if (snapshotUrls.has(parsedUrl.url)) violations.push(`Meta snapshot contains duplicate URL ${parsedUrl.url}.`); snapshotUrls.add(parsedUrl.url); }
 }
 
-const publicMeta = jobs.filter(job => clean(job?.company) === COMPANY);
 for (const job of publicMeta) {
   if (!canonicalMetaUrl(job?.sourceUrl)) violations.push(`Public Meta role ${job?.id || '(missing id)'} does not use a canonical employer-direct Meta Careers detail URL.`);
 }
@@ -92,12 +133,21 @@ const unexpectedTitles = [...publicTitles].filter(title => !snapshotTitles.has(t
 if (missingTitles.length) violations.push(`Meta public feed is missing ${missingTitles.length}/${snapshotTitles.size} authoritative unique role title(s).`);
 if (unexpectedTitles.length) violations.push(`Meta public feed contains ${unexpectedTitles.length} unique role title(s) not traceable to the authoritative snapshot.`);
 
-const reportedQualifying = Number(status?.metaCareers?.qualifyingRoles);
+const reportedQualifying = Number(metaStatus?.qualifyingRoles);
 if (Number.isFinite(reportedQualifying) && reportedQualifying !== snapshot.length) violations.push(`Meta collector status reports ${reportedQualifying} qualifying roles but snapshot contains ${snapshot.length}.`);
 
 if (violations.length) {
   for (const violation of violations) console.error(`Meta snapshot violation: ${violation}`);
   throw new Error(`Blocked ${violations.length} Meta snapshot integrity violation(s).`);
 }
-const health = status?.metaCareers?.sourceHealthy === false ? 'official source currently degraded; verified snapshot retained' : 'official source healthy or no degraded state recorded';
-console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative requisitions represented by ${publicTitles.size} clean public role title(s); ${health}.`);
+
+if (fallbackExpired) {
+  console.log('Meta snapshot guard passed: employer-direct fallback is expired and no Meta roles remain published pending fresh verification.');
+} else if (fallbackActive) {
+  const ageLabel = fallbackAgeHours === null ? 'unknown' : `${Math.round(fallbackAgeHours * 10) / 10} hours`;
+  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative role(s) remain inside the ${maxFallbackAgeHours}-hour fallback window (${ageLabel} since last healthy verification).`);
+} else if (freshness?.lastHealthyAt) {
+  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative requisitions represented by ${publicTitles.size} clean public role title(s); official sitemap liveness is durably verified.`);
+} else {
+  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative requisitions represented by ${publicTitles.size} clean public role title(s); official source healthy or no degraded state recorded.`);
+}

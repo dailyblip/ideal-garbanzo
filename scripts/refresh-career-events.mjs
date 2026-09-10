@@ -7,6 +7,7 @@ const CONCURRENCY = 4;
 const MAX_UNVERIFIED_AGE_DAYS = 30;
 const RESTAMP_AFTER_DAYS = 7;
 const MAX_BODY_CHARS = 1_500_000;
+const pruneExpiredOnly = process.argv.includes('--prune-expired-only');
 const allowedAudiences = new Set([
   'students',
   'interns',
@@ -124,6 +125,20 @@ const expired = [];
 for (const event of events) {
   if (event.date < todayIso) expired.push(event);
   else upcoming.push(event);
+}
+
+// Deployment and publication guards need a deterministic midnight rollover path
+// that never depends on an organizer website being reachable. This mode removes
+// only events whose date has already passed; full organizer verification remains
+// part of the normal event-refresh/QA process.
+if (pruneExpiredOnly) {
+  const kept = [...upcoming].sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
+  const nextContent = JSON.stringify(kept, null, 2) + '\n';
+  const currentContent = JSON.stringify(events, null, 2) + '\n';
+  if (nextContent !== currentContent) await writeFile(EVENTS_PATH, nextContent);
+  console.log(`Career-event expiry prune: ${events.length} -> ${kept.length} published events.`);
+  if (expired.length) console.log(`Pruned ${expired.length} expired event(s): ${expired.map(event => event.id).join(', ')}`);
+  process.exit(0);
 }
 
 const checks = await mapLimit(upcoming, CONCURRENCY, async event => ({

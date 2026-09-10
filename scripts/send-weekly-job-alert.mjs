@@ -7,6 +7,7 @@ const ALERT_TAG = 'weekly-job-alerts';
 const WINDOW_DAYS = 7;
 const MAX_ALL_US = 16;
 const MAX_PER_REGION = 10;
+const SITE_BASE = 'https://datacentercareers.us';
 const EARLY_TYPES = new Set(['internship', 'apprenticeship', 'trainee']);
 const EARLY_EXPERIENCE = new Set(['no-experience', '0-2-years']);
 const REGION_LABELS = new Map([
@@ -33,6 +34,8 @@ const jobSeenTime = job => asTime(job.firstSeenAt) || asTime(job.postedAt);
 const isEarlyCareer = job => EARLY_TYPES.has(job.type) || EARLY_EXPERIENCE.has(job.experience);
 const isPublishable = job => job?.active === true && job?.demo !== true && /^https:\/\//i.test(String(job?.sourceUrl || ''));
 const clean = value => String(value || '').replace(/\s+/g, ' ').trim();
+const slugify = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'job';
+const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0, 32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g, '').slice(-10)}`;
 const escapeMd = value => clean(value).replace(/([\\[\]*_`])/g, '\\$1');
 const ALERT_REGION_TERMS = {
   'mid-atlantic':['district of columbia','delaware','maryland','virginia','west virginia',', dc',', de',', md',', va',', wv','ashburn','manassas'],
@@ -43,6 +46,19 @@ const ALERT_REGION_TERMS = {
   northeast:['connecticut','maine','massachusetts','new hampshire','new jersey','new york','pennsylvania','rhode island','vermont',', ct',', me',', ma',', nh',', nj',', ny',', pa',', ri',', vt'],
   west:['alaska','california','colorado','hawaii','idaho','montana','oregon','utah','washington','wyoming',', ak',', ca',', co',', hi',', id',', mt',', or',', ut',', wa',', wy']
 };
+
+function trackedSiteUrl(path, content = '') {
+  const url = new URL(path, `${SITE_BASE}/`);
+  url.searchParams.set('utm_source', 'weekly-email');
+  url.searchParams.set('utm_medium', 'email');
+  url.searchParams.set('utm_campaign', 'weekly-job-alerts');
+  if (content) url.searchParams.set('utm_content', content);
+  return url.toString();
+}
+
+function jobDetailUrl(job) {
+  return trackedSiteUrl(`/jobs/${jobSlug(job)}/`, clean(job.id) || jobSlug(job));
+}
 
 function alertLocationMatchesRegion(location, region) {
   const value = clean(location).toLowerCase();
@@ -97,12 +113,13 @@ function formatJob(job) {
   const location = escapeMd(job.location);
   const pay = clean(job.pay) ? ` · ${escapeMd(job.pay)}` : '';
   const badge = isEarlyCareer(job) ? ' · Early-career fit' : '';
-  return `- **[${title}](${job.sourceUrl})** — ${company} · ${location}${pay}${badge}`;
+  return `- **[${title}](${jobDetailUrl(job)})** — ${company} · ${location}${pay}${badge}`;
 }
 
 function listBlock(jobs, emptyMessage) {
-  if (!jobs.length) return `${emptyMessage}\n\n[Browse current openings](https://datacentercareers.us/jobs/)`;
-  return `${jobs.map(formatJob).join('\n')}\n\n[Browse all current openings](https://datacentercareers.us/jobs/)`;
+  const browseUrl = trackedSiteUrl('/jobs/', 'browse-all');
+  if (!jobs.length) return `${emptyMessage}\n\n[Browse current openings](${browseUrl})`;
+  return `${jobs.map(formatJob).join('\n')}\n\n[Browse all current openings](${browseUrl})`;
 }
 
 function focusBlock(allJobs, earlyJobs, label) {
@@ -140,13 +157,13 @@ function buildBody(newJobs) {
     '<!-- buttondown-editor-mode: plaintext -->',
     '# This week in data center careers',
     '',
-    'These are employer-direct openings added to Data Center Careers during the last seven days. We keep the list focused on internships, apprenticeships, skilled trades, critical facilities, operations and appropriate 0–5 year infrastructure roles.',
+    'These are employer-direct openings added to Data Center Careers during the last seven days. Open a role to see its details, then continue to the verified employer career page to apply.',
     '',
     blocks.join('\n\n'),
     '',
     'Want to change what you receive? Use your Buttondown subscriber portal to update your preferences or unsubscribe.',
     '',
-    'Data Center Careers · [datacentercareers.us](https://datacentercareers.us/)'
+    `Data Center Careers · [datacentercareers.us](${trackedSiteUrl('/', 'footer-home')})`
   ].join('\n');
 }
 
@@ -206,12 +223,18 @@ async function main() {
   if (!body.includes("subscriber.metadata.region") || !body.includes("subscriber.metadata.focus")) {
     throw new Error('Digest body lost subscriber preference templating.');
   }
-  if (!body.includes('https://datacentercareers.us/jobs/')) throw new Error('Digest body is missing the jobs browse link.');
+  if (!body.includes(`${SITE_BASE}/jobs/`) || !body.includes('utm_source=weekly-email')) {
+    throw new Error('Digest body is missing tracked Data Center Careers job links.');
+  }
+  const directEmployerLinks = newJobs.filter(job => body.includes(`](${job.sourceUrl})`));
+  if (directEmployerLinks.length) {
+    throw new Error(`Digest body bypasses the site for ${directEmployerLinks.length} job link(s).`);
+  }
 
   console.log(JSON.stringify({ totalJobs: jobs.length, newJobs: newJobs.length, earlyCareerNewJobs: earlyCount, regionalCounts }, null, 2));
 
   if (dryRun || !schedule) {
-    console.log(`Weekly alert dry-run passed; generated ${body.length} characters of personalized Markdown.`);
+    console.log(`Weekly alert dry-run passed; generated ${body.length} characters of personalized Markdown with tracked site links.`);
     return;
   }
 

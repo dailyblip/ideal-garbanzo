@@ -20,6 +20,8 @@ Core audience: people seeking entry-level data center jobs, internships, apprent
 
 Priority operators are collected from their official career systems. The main daily scan is supplemented by a conservative targeted Workday recovery pass for Vantage, QTS, CyrusOne, STACK, NTT Global Data Centers, and Aligned so mission-fit 0–5 year roles that are temporarily omitted from broad listings can still be discovered and detail-verified. The recovery pass is additive only and fails closed on unknown experience requirements.
 
+Source ownership matters: Vantage, QTS, CyrusOne, STACK, NTT Global Data Centers, and Aligned are owned by the reconciled major Workday pipeline (`collect-major-jobs.mjs` plus targeted recovery). Do not add a second dedicated feed writer for one of these employers without first transferring that employer out of the major Workday snapshot and updating the parity guard. This prevents competing collectors from replacing each other's verified requisitions or breaking deployment parity.
+
 ## Promotion model
 
 - Standard employer posting

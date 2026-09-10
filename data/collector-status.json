@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-10T16:12:17.073Z",
+  "updatedAt": "2026-09-10T16:34:56.988Z",
   "jobs": 692,
   "sourcesAttempted": 35,
   "providers": {
@@ -19,9 +19,9 @@
     "internship": 15
   },
   "countsByExperience": {
+    "no-experience": 53,
     "2-5-years": 270,
-    "0-2-years": 369,
-    "no-experience": 53
+    "0-2-years": 369
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1772,7 +1772,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T16:30:54.945Z",
+    "checkedAt": "2026-09-10T16:34:57.061Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1780,7 +1780,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T16:30:55.004Z",
+    "updatedAt": "2026-09-10T16:34:57.119Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 692,
@@ -1788,17 +1788,17 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "west": 104,
       "mid-atlantic": 122,
       "texas": 115,
       "midwest": 139,
       "southeast": 105,
-      "west": 104,
       "northeast": 21,
       "southwest": 86
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T16:30:55.059Z",
+    "checkedAt": "2026-09-10T16:34:57.169Z",
     "before": 692,
     "after": 692,
     "removed": 0,
@@ -1806,7 +1806,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-10T16:31:35.837Z",
+    "checkedAt": "2026-09-10T16:35:18.273Z",
     "publishedJobs": 692,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -1824,7 +1824,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-10T16:31:35.998Z"
+    "updatedAt": "2026-09-10T16:35:18.416Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1953,7 +1953,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-10T05:00:27.098Z",
+    "checkedAt": "2026-09-10T16:34:56.988Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

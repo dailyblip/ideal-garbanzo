@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-10T17:50:41.311Z",
-  "jobs": 698,
+  "updatedAt": "2026-09-10T17:53:40.750Z",
+  "jobs": 697,
   "sourcesAttempted": 39,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 4
   },
   "countsByType": {
+    "entry-level": 660,
     "trainee": 10,
-    "entry-level": 661,
     "apprenticeship": 12,
     "internship": 15
   },
   "countsByExperience": {
     "no-experience": 55,
     "0-2-years": 373,
-    "2-5-years": 270
+    "2-5-years": 269
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1786,7 +1786,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T17:50:41.451Z",
+    "checkedAt": "2026-09-10T17:53:40.823Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1794,25 +1794,25 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T17:50:41.535Z",
+    "updatedAt": "2026-09-10T17:53:40.894Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 698,
+    "regionAssigned": 697,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "northeast": 21,
-      "southeast": 110,
-      "midwest": 138,
-      "southwest": 87,
       "west": 101,
+      "northeast": 21,
       "mid-atlantic": 125,
-      "texas": 116
+      "southeast": 110,
+      "midwest": 137,
+      "texas": 116,
+      "southwest": 87
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T17:50:41.608Z",
+    "checkedAt": "2026-09-10T17:53:40.962Z",
     "before": 698,
     "after": 698,
     "removed": 0,
@@ -1820,25 +1820,25 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-10T17:24:53.257Z",
-    "publishedJobs": 698,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-10T17:54:12.082Z",
+    "publishedJobs": 697,
+    "removedJobs": 1,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 978,
-    "currentJobs": 698,
+    "currentJobs": 697,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 16,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-10T17:50:41.674Z"
+    "updatedAt": "2026-09-10T17:54:12.211Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1989,7 +1989,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-10T07:31:01.104Z",
+    "checkedAt": "2026-09-10T17:53:40.750Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

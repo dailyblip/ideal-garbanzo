@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-10T17:24:53.257Z",
+  "checkedAt": "2026-09-10T17:54:12.082Z",
   "jobsBefore": 698,
-  "jobsAfter": 698,
+  "jobsAfter": 697,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10500743",
+      "company": "Amazon Web Services",
+      "title": "Controls Engineer, Data Center Capacity Delivery",
+      "url": "https://www.amazon.jobs/en/jobs/10500743/controls-engineer-data-center-capacity-delivery",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10500743/controls-engineer-data-center-capacity-delivery"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",
@@ -197,26 +207,7 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [
-    {
-      "id": "gh-xai-4939298007",
-      "company": "xAI",
-      "title": "Facilities Maintenance Assistant - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/4939298007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    },
-    {
-      "id": "gh-xai-5182046007",
-      "company": "xAI",
-      "title": "Mechanical Engineer (Data Center Infrastructure)",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5182046007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 5,
   "careerEventsAfter": 5,

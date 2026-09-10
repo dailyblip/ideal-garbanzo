@@ -8,6 +8,7 @@ on:
       - 'scripts/collect-equinix-early.mjs'
       - 'scripts/recover-equinix-rendered-details.mjs'
       - 'scripts/apply-equinix-verified-fallback.mjs'
+      - 'scripts/enforce-equinix-fallback-freshness.mjs'
   workflow_dispatch:
   schedule:
     - cron: '47 14 * * *'
@@ -30,6 +31,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -41,6 +43,10 @@ jobs:
         run: node scripts/recover-equinix-rendered-details.mjs
       - name: Restore source-verified Equinix roles when rendered requirements are unavailable
         run: node scripts/apply-equinix-verified-fallback.mjs
+      - name: Enforce Equinix broad-source fallback freshness
+        run: |
+          node scripts/enforce-equinix-fallback-freshness.mjs --test
+          node scripts/enforce-equinix-fallback-freshness.mjs
       - name: Normalize locations and regions
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs

@@ -2,8 +2,10 @@ import { readFile } from 'node:fs/promises';
 
 const SNAPSHOT_PATH = 'data/oracle-jobs.json';
 const JOBS_PATH = 'data/jobs.json';
+const STATUS_PATH = 'data/collector-status.json';
 const COMPANY = 'Oracle';
 const OFFICIAL_HOST = 'eeho.fa.us2.oraclecloud.com';
+const DEFAULT_MAX_FALLBACK_AGE_HOURS = 96;
 const VALID_EXPERIENCE = new Set(['no-experience', '0-2-years', '2-5-years']);
 const SENIOR_TITLE = /(^|[^a-z])(senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|chief|supervisor|architect)([^a-z]|$)/i;
 const STRONG_DATA_CENTER_TITLE = /\b(data\s*center|data\s*centre|datacenter|critical facilities?|critical environments?)\b/i;
@@ -12,6 +14,12 @@ const CLEARLY_NON_OPERATIONAL_TITLE = /\b(business analyst|business operations|c
 async function readArray(path) {
   const value = JSON.parse(await readFile(path, 'utf8'));
   if (!Array.isArray(value)) throw new Error(`${path} must contain a JSON array`);
+  return value;
+}
+
+async function readObject(path) {
+  const value = JSON.parse(await readFile(path, 'utf8'));
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${path} must contain a JSON object`);
   return value;
 }
 
@@ -54,11 +62,40 @@ for (const testCase of parityRegressionCases) {
 
 const snapshot = await readArray(SNAPSHOT_PATH);
 const jobs = await readArray(JOBS_PATH);
+const collectorStatus = await readObject(STATUS_PATH);
 const publicOracle = jobs.filter(job => String(job?.company || '').trim() === COMPANY);
 const protectedSnapshot = snapshot.filter(parityProtected);
 const violations = [];
 
-if (snapshot.length < 3) {
+const oracleStatus = collectorStatus?.oracleCareers || {};
+const sourceHealthy = oracleStatus?.sourceHealthy === true && oracleStatus?.listingComplete === true;
+const fallbackFreshness = oracleStatus?.fallbackFreshness || {};
+const configuredMaxAge = Number(fallbackFreshness?.maxAgeHours);
+const maxFallbackAgeHours = Number.isFinite(configuredMaxAge) && configuredMaxAge > 0
+  ? configuredMaxAge
+  : DEFAULT_MAX_FALLBACK_AGE_HOURS;
+const lastHealthyMs = Date.parse(String(fallbackFreshness?.lastHealthyAt || ''));
+const fallbackAgeHours = Number.isFinite(lastHealthyMs)
+  ? Math.max(0, (Date.now() - lastHealthyMs) / 36e5)
+  : null;
+const computedExpired = !sourceHealthy && fallbackAgeHours !== null && fallbackAgeHours >= maxFallbackAgeHours;
+const fallbackExpired = !sourceHealthy && (fallbackFreshness?.expired === true || computedExpired);
+
+if (!sourceHealthy && fallbackFreshness?.lastHealthyAt && !Number.isFinite(lastHealthyMs)) {
+  violations.push(`Oracle fallback has an invalid lastHealthyAt timestamp: ${fallbackFreshness.lastHealthyAt}`);
+}
+if (!sourceHealthy && fallbackFreshness?.active === true && fallbackFreshness?.expired === true) {
+  violations.push('Oracle fallback cannot be marked active and expired at the same time');
+}
+
+if (fallbackExpired) {
+  if (snapshot.length !== 0) {
+    violations.push(`Oracle fallback exceeded ${maxFallbackAgeHours} hours but ${snapshot.length} snapshot role(s) remain published`);
+  }
+  if (publicOracle.length !== 0) {
+    violations.push(`Oracle fallback exceeded ${maxFallbackAgeHours} hours but ${publicOracle.length} public role(s) remain published`);
+  }
+} else if (snapshot.length < 3) {
   violations.push(`Oracle snapshot unexpectedly contains only ${snapshot.length} role(s)`);
 }
 
@@ -109,15 +146,17 @@ for (const job of publicOracle) {
   }
 }
 
-if (publicOracle.length !== protectedSnapshot.length) {
+if (!fallbackExpired && publicOracle.length !== protectedSnapshot.length) {
   violations.push(`Oracle mission-fit snapshot/public feed count mismatch (${protectedSnapshot.length} protected snapshot vs ${publicOracle.length} public)`);
 }
 
-for (const url of protectedUrls) {
-  if (!publicUrls.has(url)) violations.push(`Mission-fit Oracle snapshot role missing from public feed: ${url}`);
-}
-for (const url of publicUrls) {
-  if (!protectedUrls.has(url)) violations.push(`Public Oracle role is not present in the mission-fit authoritative snapshot: ${url}`);
+if (!fallbackExpired) {
+  for (const url of protectedUrls) {
+    if (!publicUrls.has(url)) violations.push(`Mission-fit Oracle snapshot role missing from public feed: ${url}`);
+  }
+  for (const url of publicUrls) {
+    if (!protectedUrls.has(url)) violations.push(`Public Oracle role is not present in the mission-fit authoritative snapshot: ${url}`);
+  }
 }
 
 if (violations.length) {
@@ -125,4 +164,11 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} Oracle snapshot integrity violation(s).`);
 }
 
-console.log(`Oracle snapshot guard passed: ${publicOracle.length} mission-fit employer-direct roles match the protected snapshot exactly; ${snapshot.length - protectedSnapshot.length} clearly non-operational candidate role(s) remain excluded.`);
+if (fallbackExpired) {
+  console.log(`Oracle snapshot guard passed: fallback is expired and no Oracle roles remain published pending a healthy official-source refresh.`);
+} else if (!sourceHealthy && fallbackFreshness?.lastHealthyAt) {
+  const ageLabel = fallbackAgeHours === null ? 'unknown' : `${Math.round(fallbackAgeHours * 10) / 10} hours`;
+  console.log(`Oracle snapshot guard passed: ${publicOracle.length} employer-direct roles remain inside the ${maxFallbackAgeHours}-hour fallback window (${ageLabel} since last healthy check).`);
+} else {
+  console.log(`Oracle snapshot guard passed: ${publicOracle.length} mission-fit employer-direct roles match the protected snapshot exactly; ${snapshot.length - protectedSnapshot.length} clearly non-operational candidate role(s) remain excluded.`);
+}

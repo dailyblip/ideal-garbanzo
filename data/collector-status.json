@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-09-10T16:34:56.988Z",
-  "jobs": 692,
-  "sourcesAttempted": 35,
+  "updatedAt": "2026-09-10T16:41:50.847Z",
+  "jobs": 691,
+  "sourcesAttempted": 36,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
     "ashby": 5,
     "icims": 1,
     "workday": 6,
-    "googleCareers": 5,
+    "googleCareers": 6,
     "metaCareers": 2,
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 657,
+    "entry-level": 656,
     "apprenticeship": 12,
     "trainee": 8,
     "internship": 15
@@ -21,7 +21,7 @@
   "countsByExperience": {
     "no-experience": 53,
     "2-5-years": 270,
-    "0-2-years": 369
+    "0-2-years": 368
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1094,14 +1094,14 @@
     "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 48,
-    "qualifyingRoles": 46,
+    "candidateRows": 47,
+    "qualifyingRoles": 45,
     "diagnostics": {
-      "canonicalLinks": 70,
-      "missionFitLinks": 48,
-      "uniqueCandidates": 48,
-      "detailAttempted": 48,
-      "detailVerified": 47,
+      "canonicalLinks": 69,
+      "missionFitLinks": 47,
+      "uniqueCandidates": 47,
+      "detailAttempted": 47,
+      "detailVerified": 46,
       "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
@@ -1772,7 +1772,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T16:40:47.802Z",
+    "checkedAt": "2026-09-10T16:41:50.965Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1780,10 +1780,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T16:40:47.875Z",
+    "updatedAt": "2026-09-10T16:41:51.037Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 692,
+    "regionAssigned": 691,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -1791,16 +1791,16 @@
       "west": 104,
       "mid-atlantic": 122,
       "texas": 115,
-      "midwest": 139,
+      "midwest": 138,
       "southeast": 105,
       "northeast": 21,
       "southwest": 86
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T16:40:47.942Z",
-    "before": 692,
-    "after": 692,
+    "checkedAt": "2026-09-10T16:41:51.113Z",
+    "before": 691,
+    "after": 691,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1815,7 +1815,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 959,
-    "currentJobs": 692,
+    "currentJobs": 691,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1823,8 +1823,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-10T16:41:20.094Z"
+    "firstSeenRecencyFallbackJobs": 111,
+    "updatedAt": "2026-09-10T16:41:51.172Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

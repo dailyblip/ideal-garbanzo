@@ -48,6 +48,10 @@ if (!employerPage.includes('name="metadata__interest" value="employer-promotion"
 if (employerPage.includes('value="weekly-job-alerts"')) throw new Error('Employer inquiry must not opt advertisers into candidate job alerts');
 if (!employerPage.includes('id="request-placement"')) throw new Error('Employer placement CTAs must have a request-placement destination');
 if ((employerPage.match(/href="#request-placement"/g) || []).length < 2) throw new Error('Both employer promotion tiers must point to the placement inquiry');
+for (const key of Object.keys(tiers)) {
+  const tierPattern = new RegExp(`type="submit"[^>]*name="metadata__tier"[^>]*value="${key}"|name="metadata__tier"[^>]*value="${key}"[^>]*type="submit"|value="${key}"[^>]*name="metadata__tier"[^>]*type="submit"`, 'i');
+  if (!tierPattern.test(employerPage)) throw new Error(`Employer inquiry must submit the selected promotion tier: ${key}`);
+}
 
 if (!Array.isArray(activations)) throw new Error('featured-jobs.json must contain an array');
 const jobsById = new Map(jobs.map(job => [String(job.id), job]));
@@ -104,4 +108,4 @@ for (const label of ['Highlighted Job', 'Spotlight Position']) {
 if (lifecycleStale) {
   console.warn(`Promotion lifecycle warning: ${lifecycleStale} expired/orphaned record(s) await cleanup.`);
 }
-console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers, employer inquiry active, ${seen.size} live/scheduled promotion records, ${lifecycleStale} lifecycle-stale records.`);
+console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers, employer inquiry captures selected tier, ${seen.size} live/scheduled promotion records, ${lifecycleStale} lifecycle-stale records.`);

@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-10T17:24:32.697Z",
+  "updatedAt": "2026-09-10T17:50:41.311Z",
   "jobs": 698,
-  "sourcesAttempted": 38,
+  "sourcesAttempted": 39,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
@@ -10,7 +10,7 @@
     "workday": 6,
     "googleCareers": 7,
     "metaCareers": 2,
-    "oracleRecruitingCloud": 3
+    "oracleRecruitingCloud": 4
   },
   "countsByType": {
     "trainee": 10,
@@ -1495,18 +1495,18 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2286,
-    "listingRows": 2283,
+    "totalOpenRoles": 2212,
+    "listingRows": 2209,
     "pagesAttempted": 13,
     "pagesSucceeded": 13,
-    "candidateRows": 91,
-    "detailAttempted": 91,
+    "candidateRows": 90,
+    "detailAttempted": 90,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
     "qualifyingRoles": 16,
     "drops": {
-      "title": 2192,
-      "nonUs": 36,
+      "title": 2119,
+      "nonUs": 35,
       "context": 14,
       "experience": 19,
       "missingId": 0,
@@ -1514,7 +1514,7 @@
     },
     "errors": [],
     "missionFitScrub": {
-      "checkedAt": "2026-09-08T23:42:36.501Z",
+      "checkedAt": "2026-09-10T17:50:41.379Z",
       "removedFromSnapshot": 4,
       "removedFromPublicFeed": 4,
       "removed": [
@@ -1786,54 +1786,15 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T17:24:32.778Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-10T17:50:41.451Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T17:24:32.834Z",
+    "updatedAt": "2026-09-10T17:50:41.535Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 698,
@@ -1851,7 +1812,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T17:24:32.887Z",
+    "checkedAt": "2026-09-10T17:50:41.608Z",
     "before": 698,
     "after": 698,
     "removed": 0,
@@ -1869,15 +1830,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 978,
     "currentJobs": 698,
-    "newJobsThisRun": 18,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 18,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 16,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-10T17:24:53.436Z"
+    "updatedAt": "2026-09-10T17:50:41.674Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

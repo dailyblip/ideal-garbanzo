@@ -39,6 +39,10 @@ for (const company of protectedCompanies) {
     violations.push(`${company}: source is marked healthy while also using the previous snapshot`);
   }
 
+  if (sourceHealthy && !listingComplete) {
+    violations.push(`${company}: source is marked healthy even though the Workday listing is incomplete`);
+  }
+
   if (!sourceHealthy && !usedPreviousSnapshot) {
     violations.push(`${company}: unhealthy source did not preserve the previous employer snapshot`);
   }
@@ -51,8 +55,8 @@ for (const company of protectedCompanies) {
 
     if (!Number.isFinite(uniqueRows) || uniqueRows < 1) {
       violations.push(`${company}: healthy Workday listing reported ${reportedRows} jobs but returned no unique postings`);
-    } else if (uniqueRows > reportedRows) {
-      violations.push(`${company}: Workday returned ${uniqueRows} unique postings for a reported total of ${reportedRows}`);
+    } else if (uniqueRows !== reportedRows) {
+      violations.push(`${company}: Workday pagination returned ${uniqueRows} unique postings for a reported total of ${reportedRows}; refusing to treat a partial or duplicate listing as complete`);
     }
   }
 }
@@ -74,4 +78,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} major Workday source-health regression(s).`);
 }
 
-console.log(`Major Workday health guard passed for ${protectedCompanies.length} priority employers.`);
+console.log(`Major Workday health guard passed for ${protectedCompanies.length} priority employers with exact Workday listing parity.`);

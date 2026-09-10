@@ -7,10 +7,12 @@ on:
       - 'data/jobs.json'
       - 'data/major-jobs.json'
       - 'data/job-history.json'
+      - 'data/career-events.json'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/refresh-career-events.mjs'
       - 'scripts/validate-job-history.mjs'
       - '.github/workflows/mission-fit-publication-guard.yml'
   # Commits made with the default Actions token do not recursively start new
@@ -46,6 +48,7 @@ jobs:
           node --check scripts/normalize-job-locations.mjs
           node --check scripts/dedupe-normalized-jobs.mjs
           node --check scripts/stamp-job-history.mjs
+          node --check scripts/refresh-career-events.mjs
           node --check scripts/validate-job-history.mjs
       - name: Enforce mission fit and publish a clean feed
         id: publish
@@ -67,6 +70,10 @@ jobs:
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/stamp-job-history.mjs --repair-only
+            # Midnight must not leave yesterday's event in a feed that otherwise
+            # passes publication QA. This mode is local/deterministic and does not
+            # depend on organizer sites being reachable during a guard run.
+            node scripts/refresh-career-events.mjs --prune-expired-only
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-priority-employer-sources.mjs
@@ -75,7 +82,7 @@ jobs:
             # collector-status.json are intentionally not staged. Repair-only
             # history mode fixes invalid recency sentinels while leaving healthy
             # postedHours alone, avoiding clock-only commits on a clean feed.
-            git add -- data/jobs.json data/major-jobs.json data/job-history.json
+            git add -- data/jobs.json data/major-jobs.json data/job-history.json data/career-events.json
             if git diff --cached --quiet; then
               echo "Committed feed already satisfies mission-fit publication rules."
               # A push into a guarded publication path still needs a deployment

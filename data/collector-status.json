@@ -1757,7 +1757,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T04:08:40.084Z",
+    "checkedAt": "2026-09-10T04:41:45.415Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1765,7 +1765,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T04:08:40.154Z",
+    "updatedAt": "2026-09-10T04:41:45.494Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 699,
@@ -1783,15 +1783,24 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T04:08:40.221Z",
-    "before": 699,
+    "checkedAt": "2026-09-10T04:41:45.566Z",
+    "before": 700,
     "after": 699,
-    "removed": 0,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "coreweave-4696011006",
+        "keptId": "coreweave-4709264006",
+        "company": "CoreWeave",
+        "title": "Data Center Technician",
+        "location": "Sandusky, OH"
+      }
+    ]
   },
   "postQa": {
-    "checkedAt": "2026-09-10T04:08:59.025Z",
+    "checkedAt": "2026-09-10T04:42:12.794Z",
     "publishedJobs": 699,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -1801,15 +1810,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 955,
     "currentJobs": 699,
-    "newJobsThisRun": 3,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 3,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 8,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-10T04:08:59.214Z"
+    "updatedAt": "2026-09-10T04:42:12.986Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1997,11 +2006,11 @@
     "careersUrl": "https://www.coreweave.com/careers",
     "sourceHealthy": true,
     "boardToken": "coreweave",
-    "sourceRoles": 289,
+    "sourceRoles": 290,
     "qualifyingRoles": 9,
     "preservedPrevious": 0,
     "drops": {
-      "title": 278,
+      "title": 279,
       "experience": 0,
       "location": 2
     },

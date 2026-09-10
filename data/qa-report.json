@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-10T07:31:26.615Z",
-  "jobsBefore": 691,
-  "jobsAfter": 691,
+  "checkedAt": "2026-09-10T09:26:03.298Z",
+  "jobsBefore": 694,
+  "jobsAfter": 693,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10479334",
+      "company": "Amazon Web Services",
+      "title": "Data Center Generator Service Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10479334/data-center-generator-service-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10479334/data-center-generator-service-technician"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [
     {
       "id": "equinix-verified-849adefbfb2246",
@@ -44,24 +54,6 @@
   ],
   "blockedJobLinks": [
     {
-      "id": "coresite-17818222",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship"
-    },
-    {
-      "id": "coresite-18085845",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship"
-    },
-    {
       "id": "coresite-17818219",
       "company": "CoreSite",
       "title": "SkillBridge Data Center Operations Technician Internship",
@@ -89,6 +81,24 @@
       "finalUrl": "https://jobs.coresite.com/jobs/17818221-skillbridge-data-center-operations-technician-internship"
     },
     {
+      "id": "coresite-17818222",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship"
+    },
+    {
+      "id": "coresite-18085845",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship"
+    },
+    {
       "id": "coresite-18083157",
       "company": "CoreSite",
       "title": "Data Center Operations Technician II (Night) (SV9)",
@@ -105,24 +115,6 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
-    },
-    {
-      "id": "coresite-18173786",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer II (SV7) (Swing)",
-      "url": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing"
-    },
-    {
-      "id": "coresite-18174188",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer II (SV7) (Day)",
-      "url": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day"
     },
     {
       "id": "coresite-17781601",
@@ -168,6 +160,51 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2"
+    },
+    {
+      "id": "coresite-18173786",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer II (SV7) (Swing)",
+      "url": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing"
+    },
+    {
+      "id": "coresite-18174188",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer II (SV7) (Day)",
+      "url": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day"
+    },
+    {
+      "id": "coresite-18130151",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (Swing) (DE3)",
+      "url": "https://jobs.coresite.com/jobs/18130151-critical-operations-engineer-i-swing-de3",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18130151-critical-operations-engineer-i-swing-de3"
+    },
+    {
+      "id": "coresite-18217963",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (Night)",
+      "url": "https://jobs.coresite.com/jobs/18217963-critical-operations-engineer-i-night",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18217963-critical-operations-engineer-i-night"
+    },
+    {
+      "id": "coresite-18218038",
+      "company": "CoreSite",
+      "title": "Data Center Operations Technician II (Night)",
+      "url": "https://jobs.coresite.com/jobs/18218038-data-center-operations-technician-ii-night",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18218038-data-center-operations-technician-ii-night"
     }
   ],
   "transientJobLinks": [],

@@ -4,6 +4,7 @@ const COMPANY = 'Amazon Web Services';
 const SNAPSHOT_PATH = 'data/amazon-jobs.json';
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
+const DEFAULT_MAX_FALLBACK_AGE_HOURS = 96;
 const allowedHosts = new Set(['amazon.jobs', 'www.amazon.jobs']);
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
@@ -22,6 +23,12 @@ function canonicalAmazonJob(value) {
     jobId: match[1],
     canonicalUrl: `https://www.amazon.jobs/en/jobs/${match[1]}`
   };
+}
+
+function completeHealthySearch(amazon = {}) {
+  const attempted = Number(amazon?.queriesAttempted || 0);
+  const succeeded = Number(amazon?.queriesSucceeded || 0);
+  return amazon?.sourceHealthy === true && attempted > 0 && succeeded === attempted && Number(amazon?.preservedPreviousRoles || 0) === 0;
 }
 
 const violations = [];
@@ -80,12 +87,37 @@ for (const job of publicAws) {
   }
 }
 
+const amazonStatus = status?.amazonDatacenter || {};
+const sourceHealthy = completeHealthySearch(amazonStatus);
+const fallbackFreshness = amazonStatus?.fallbackFreshness || {};
+const configuredMaxAge = Number(fallbackFreshness?.maxAgeHours);
+const maxFallbackAgeHours = Number.isFinite(configuredMaxAge) && configuredMaxAge > 0
+  ? configuredMaxAge
+  : DEFAULT_MAX_FALLBACK_AGE_HOURS;
+const preservedPreviousRoles = Number(amazonStatus?.preservedPreviousRoles || 0);
+const fallbackActive = !sourceHealthy && preservedPreviousRoles > 0;
+const lastHealthyMs = Date.parse(String(fallbackFreshness?.lastHealthyAt || ''));
+const fallbackAgeHours = Number.isFinite(lastHealthyMs)
+  ? Math.max(0, (Date.now() - lastHealthyMs) / 36e5)
+  : null;
+const fallbackExpired = !sourceHealthy && (fallbackFreshness?.expired === true || (fallbackAgeHours !== null && fallbackAgeHours >= maxFallbackAgeHours));
+
+if (fallbackActive && fallbackFreshness?.lastHealthyAt && !Number.isFinite(lastHealthyMs)) {
+  violations.push(`AWS fallback has an invalid lastHealthyAt timestamp: ${fallbackFreshness.lastHealthyAt}.`);
+}
+if (fallbackFreshness?.active === true && fallbackFreshness?.expired === true) {
+  violations.push('AWS fallback cannot be marked active and expired at the same time.');
+}
+if (fallbackExpired && (snapshot.length > 0 || publicAws.length > 0)) {
+  violations.push(`AWS fallback exceeded ${maxFallbackAgeHours} hours but ${snapshot.length} snapshot role(s) and ${publicAws.length} public role(s) remain published.`);
+}
+
 // Collector status is updated by several source workflows and can legitimately
 // describe a newer or narrower collection pass than the cumulative verified
 // AWS snapshot. Protect the durable source-of-truth relationship instead:
-// every published AWS requisition must trace to the snapshot, and a healthy
+// every published AWS requisition must trace to the snapshot, and a current
 // snapshot must not collapse to a tiny public subset after downstream filters.
-if (snapshotJobIds.size >= 8 && publicJobIds.size < Math.ceil(snapshotJobIds.size * 0.40)) {
+if (!fallbackExpired && snapshotJobIds.size >= 8 && publicJobIds.size < Math.ceil(snapshotJobIds.size * 0.40)) {
   violations.push(`AWS public feed retained only ${publicJobIds.size}/${snapshotJobIds.size} authoritative snapshot requisitions.`);
 }
 
@@ -94,7 +126,15 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} AWS snapshot integrity violation(s).`);
 }
 
-const health = status?.amazonDatacenter?.sourceHealthy === false
-  ? 'latest recorded official search was degraded; verified snapshot retention may be active'
-  : 'latest recorded official search healthy or no degraded state recorded';
+let health;
+if (fallbackExpired) {
+  health = 'verified fallback expired and no AWS roles remain published';
+} else if (fallbackActive && fallbackFreshness?.lastHealthyAt) {
+  const ageLabel = fallbackAgeHours === null ? 'unknown' : `${Math.round(fallbackAgeHours * 10) / 10}h`;
+  health = `degraded official search; preserved roles are inside the ${maxFallbackAgeHours}h fallback window (${ageLabel} since last healthy verification)`;
+} else if (!sourceHealthy) {
+  health = 'latest recorded official search was degraded; no expired retained fallback detected';
+} else {
+  health = 'latest recorded official search is complete and healthy';
+}
 console.log(`AWS snapshot guard passed: ${snapshot.length} authoritative requisitions, ${publicAws.length} public cards, all public AWS roles trace to the official snapshot; ${health}.`);

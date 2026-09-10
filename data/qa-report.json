@@ -1,11 +1,20 @@
 {
-  "checkedAt": "2026-09-10T16:54:56.105Z",
-  "jobsBefore": 691,
-  "jobsAfter": 691,
+  "checkedAt": "2026-09-10T17:04:07.818Z",
+  "jobsBefore": 693,
+  "jobsAfter": 692,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [],
+  "duplicatesRemoved": [
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-qtsdatacenters-R2026-0768",
+      "keptId": "workday-qtsdatacenters-R2026-0881",
+      "company": "QTS Data Centers",
+      "title": "Regional Data Center Controls Quality Engineer",
+      "location": "Suwanee, GA"
+    }
+  ],
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {

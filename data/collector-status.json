@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-10T04:08:40.013Z",
-  "jobs": 678,
+  "jobs": 699,
   "sourcesAttempted": 34,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 642,
+    "entry-level": 663,
     "trainee": 9,
     "apprenticeship": 12,
     "internship": 15
   },
   "countsByExperience": {
-    "2-5-years": 268,
+    "2-5-years": 271,
     "0-2-years": 375,
-    "no-experience": 35
+    "no-experience": 53
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1757,7 +1757,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T04:48:37.216Z",
+    "checkedAt": "2026-09-10T04:41:45.415Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1765,99 +1765,43 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T04:48:37.291Z",
+    "updatedAt": "2026-09-10T04:41:45.494Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 678,
+    "regionAssigned": 699,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "mid-atlantic": 116,
-      "southeast": 104,
-      "texas": 110,
+      "mid-atlantic": 125,
+      "texas": 115,
+      "midwest": 139,
+      "southeast": 106,
       "west": 107,
       "northeast": 20,
-      "southwest": 85,
-      "midwest": 136
+      "southwest": 87
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T04:48:37.362Z",
-    "before": 686,
-    "after": 678,
-    "removed": 8,
+    "checkedAt": "2026-09-10T04:41:45.566Z",
+    "before": 700,
+    "after": 699,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": [
       {
         "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007618",
-        "keptId": "workday-cyrusone-R0007529",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Carrollton, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007617",
-        "keptId": "workday-cyrusone-R0007763",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Houston, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007527",
-        "keptId": "workday-cyrusone-R0007615",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Chandler, AZ"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007614",
-        "keptId": "workday-cyrusone-R0007526",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Sterling, VA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007613",
-        "keptId": "workday-cyrusone-R0007668",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Council Bluffs, IA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007611",
-        "keptId": "workday-cyrusone-R0007628",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Durham, NC"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007610",
-        "keptId": "workday-cyrusone-R0007762",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Austin, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007528",
-        "keptId": "workday-cyrusone-R0007608",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Cincinnati, OH"
+        "removedId": "coreweave-4696011006",
+        "keptId": "coreweave-4709264006",
+        "company": "CoreWeave",
+        "title": "Data Center Technician",
+        "location": "Sandusky, OH"
       }
     ]
   },
   "postQa": {
-    "checkedAt": "2026-09-10T04:48:56.394Z",
-    "publishedJobs": 678,
+    "checkedAt": "2026-09-10T04:42:12.794Z",
+    "publishedJobs": 699,
     "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
@@ -1865,16 +1809,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 955,
-    "currentJobs": 678,
+    "currentJobs": 699,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 20,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 8,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-10T04:48:56.596Z"
+    "updatedAt": "2026-09-10T04:42:12.986Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2071,18 +2015,5 @@
       "location": 2
     },
     "errors": []
-  },
-  "cyrusOne": {
-    "checkedAt": "2026-09-10T04:48:21.753Z",
-    "provider": "Workday",
-    "officialCareersUrl": "https://www.cyrusone.com/company/careers",
-    "sourceHealthy": true,
-    "listedJobs": 106,
-    "candidateRoles": 64,
-    "usCandidateRoles": 59,
-    "qualifyingRoles": 28,
-    "rejectedOutOfScope": 0,
-    "rejectedOver5Years": 0,
-    "rejectedUnknownExperience": 31
   }
 }

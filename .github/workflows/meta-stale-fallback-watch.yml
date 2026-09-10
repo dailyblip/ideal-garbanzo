@@ -1,0 +1,58 @@
+name: Meta stale fallback watchdog
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/meta-jobs.json'
+      - 'scripts/collect-meta-careers.mjs'
+      - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/enforce-meta-fallback-freshness.mjs'
+      - 'scripts/validate-meta-snapshot.mjs'
+      - '.github/workflows/meta-stale-fallback-watch.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: meta-stale-fallback-watch
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test Meta stale-fallback policy
+        run: node scripts/enforce-meta-fallback-freshness.mjs --test
+      - name: Verify Meta sitemap and enforce fallback freshness
+        run: node scripts/enforce-meta-fallback-freshness.mjs
+      - name: Validate Meta snapshot state
+        run: node scripts/validate-meta-snapshot.mjs
+      - name: Commit Meta freshness state when changed
+        run: |
+          if [ -z "$(git status --porcelain --untracked-files=no -- data/jobs.json data/meta-jobs.json data/collector-status.json)" ]; then
+            echo "Meta freshness state is unchanged."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u -- data/jobs.json data/meta-jobs.json data/collector-status.json
+          git commit -m "Verify Meta role freshness"
+          git fetch origin main
+          if ! git rebase origin/main; then
+            git rebase --abort || true
+            echo "::error::Could not rebase Meta freshness state onto latest main."
+            exit 1
+          fi
+          git push origin HEAD:main

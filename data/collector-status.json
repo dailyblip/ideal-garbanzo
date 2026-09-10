@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-10T05:43:15.637Z",
+  "updatedAt": "2026-09-10T06:19:18.506Z",
   "jobs": 699,
   "sourcesAttempted": 35,
   "providers": {
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "internship": 15,
+    "entry-level": 663,
     "trainee": 9,
     "apprenticeship": 12,
-    "entry-level": 663
+    "internship": 15
   },
   "countsByExperience": {
-    "no-experience": 53,
     "0-2-years": 375,
-    "2-5-years": 271
+    "2-5-years": 271,
+    "no-experience": 53
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1772,7 +1772,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T05:39:00.925Z",
+    "checkedAt": "2026-09-10T06:19:18.572Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1780,7 +1780,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T05:43:15.690Z",
+    "updatedAt": "2026-09-10T06:19:18.640Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 699,
@@ -1788,17 +1788,17 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 107,
       "midwest": 139,
-      "mid-atlantic": 125,
-      "texas": 115,
-      "southwest": 87,
       "southeast": 106,
-      "northeast": 20
+      "texas": 115,
+      "mid-atlantic": 125,
+      "west": 107,
+      "northeast": 20,
+      "southwest": 87
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T05:43:15.817Z",
+    "checkedAt": "2026-09-10T06:19:18.700Z",
     "before": 699,
     "after": 699,
     "removed": 0,
@@ -1806,9 +1806,9 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-10T05:39:18.483Z",
+    "checkedAt": "2026-09-10T06:19:40.347Z",
     "publishedJobs": 699,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
   },
@@ -1824,7 +1824,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-10T05:43:15.868Z"
+    "updatedAt": "2026-09-10T06:19:40.477Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1899,7 +1899,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-09T17:13:13.160Z",
+    "checkedAt": "2026-09-10T06:19:18.506Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

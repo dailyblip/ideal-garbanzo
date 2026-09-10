@@ -1,20 +1,11 @@
 {
-  "checkedAt": "2026-09-10T05:39:18.483Z",
-  "jobsBefore": 700,
+  "checkedAt": "2026-09-10T06:19:40.347Z",
+  "jobsBefore": 699,
   "jobsAfter": 699,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
+  "duplicatesRemoved": [],
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
@@ -53,24 +44,6 @@
   ],
   "blockedJobLinks": [
     {
-      "id": "coresite-18173786",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer II (SV7) (Swing)",
-      "url": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing"
-    },
-    {
-      "id": "coresite-18174188",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer II (SV7) (Day)",
-      "url": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day"
-    },
-    {
       "id": "coresite-17818222",
       "company": "CoreSite",
       "title": "SkillBridge Data Center Operations Technician Internship",
@@ -87,51 +60,6 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship"
-    },
-    {
-      "id": "coresite-17781601",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer II (Swing) (NY2)",
-      "url": "https://jobs.coresite.com/jobs/17781601-critical-operations-engineer-ii-swing-ny2",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17781601-critical-operations-engineer-ii-swing-ny2"
-    },
-    {
-      "id": "coresite-17781587",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer I (Night) (CH2)",
-      "url": "https://jobs.coresite.com/jobs/17781587-critical-operations-engineer-i-night-ch2",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17781587-critical-operations-engineer-i-night-ch2"
-    },
-    {
-      "id": "coresite-18119051",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer I (SV4) (Night)",
-      "url": "https://jobs.coresite.com/jobs/18119051-critical-operations-engineer-i-sv4-night",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18119051-critical-operations-engineer-i-sv4-night"
-    },
-    {
-      "id": "coresite-18106481",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer I (Swing) (LA2)",
-      "url": "https://jobs.coresite.com/jobs/18106481-critical-operations-engineer-i-swing-la2",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18106481-critical-operations-engineer-i-swing-la2"
-    },
-    {
-      "id": "coresite-17900857",
-      "company": "CoreSite",
-      "title": "Critical Operations Engineer I (Swing) (MI2)",
-      "url": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2"
     },
     {
       "id": "coresite-17818219",
@@ -177,9 +105,82 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
+    },
+    {
+      "id": "coresite-18173786",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer II (SV7) (Swing)",
+      "url": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18173786-critical-operations-engineer-ii-sv7-swing"
+    },
+    {
+      "id": "coresite-18174188",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer II (SV7) (Day)",
+      "url": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day"
+    },
+    {
+      "id": "coresite-17781601",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer II (Swing) (NY2)",
+      "url": "https://jobs.coresite.com/jobs/17781601-critical-operations-engineer-ii-swing-ny2",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17781601-critical-operations-engineer-ii-swing-ny2"
+    },
+    {
+      "id": "coresite-17781587",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (Night) (CH2)",
+      "url": "https://jobs.coresite.com/jobs/17781587-critical-operations-engineer-i-night-ch2",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17781587-critical-operations-engineer-i-night-ch2"
+    },
+    {
+      "id": "coresite-18119051",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (SV4) (Night)",
+      "url": "https://jobs.coresite.com/jobs/18119051-critical-operations-engineer-i-sv4-night",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18119051-critical-operations-engineer-i-sv4-night"
+    },
+    {
+      "id": "coresite-18106481",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (Swing) (LA2)",
+      "url": "https://jobs.coresite.com/jobs/18106481-critical-operations-engineer-i-swing-la2",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18106481-critical-operations-engineer-i-swing-la2"
+    },
+    {
+      "id": "coresite-17900857",
+      "company": "CoreSite",
+      "title": "Critical Operations Engineer I (Swing) (MI2)",
+      "url": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5134220007",
+      "company": "xAI",
+      "title": "Electrical Commissioning Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5134220007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 5,
   "careerEventsAfter": 5,

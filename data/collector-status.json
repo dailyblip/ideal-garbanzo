@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-10T17:53:40.750Z",
-  "jobs": 697,
+  "updatedAt": "2026-09-10T17:54:37.592Z",
+  "jobs": 693,
   "sourcesAttempted": 39,
   "providers": {
     "lever": 7,
@@ -13,14 +13,14 @@
     "oracleRecruitingCloud": 4
   },
   "countsByType": {
-    "entry-level": 660,
+    "internship": 15,
     "trainee": 10,
     "apprenticeship": 12,
-    "internship": 15
+    "entry-level": 656
   },
   "countsByExperience": {
     "no-experience": 55,
-    "0-2-years": 373,
+    "0-2-years": 369,
     "2-5-years": 269
   },
   "errors": [
@@ -1615,9 +1615,9 @@
       "qualifyingRoles": 0,
       "drops": {
         "non-us": 7,
-        "unknown-experience": 10,
+        "unknown-experience": 9,
         "context": 1,
-        "title": 14
+        "title": 15
       },
       "dropSamples": [
         {
@@ -1794,27 +1794,27 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T17:53:40.894Z",
+    "updatedAt": "2026-09-10T17:54:37.701Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 697,
+    "regionAssigned": 693,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 101,
-      "northeast": 21,
-      "mid-atlantic": 125,
-      "southeast": 110,
+      "west": 100,
       "midwest": 137,
+      "mid-atlantic": 123,
       "texas": 116,
-      "southwest": 87
+      "southwest": 87,
+      "southeast": 109,
+      "northeast": 21
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T17:53:40.962Z",
-    "before": 698,
-    "after": 698,
+    "checkedAt": "2026-09-10T17:54:37.804Z",
+    "before": 693,
+    "after": 693,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1829,7 +1829,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 978,
-    "currentJobs": 697,
+    "currentJobs": 693,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1838,7 +1838,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-10T17:54:12.211Z"
+    "updatedAt": "2026-09-10T17:54:37.878Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

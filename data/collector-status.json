@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-10T05:39:00.841Z",
+  "updatedAt": "2026-09-10T05:43:15.637Z",
   "jobs": 699,
   "sourcesAttempted": 35,
   "providers": {
@@ -13,15 +13,15 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 663,
+    "internship": 15,
     "trainee": 9,
     "apprenticeship": 12,
-    "internship": 15
+    "entry-level": 663
   },
   "countsByExperience": {
-    "2-5-years": 271,
+    "no-experience": 53,
     "0-2-years": 375,
-    "no-experience": 53
+    "2-5-years": 271
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1591,17 +1591,17 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 33,
-      "detailAttempted": 33,
-      "detailSucceeded": 33,
+      "candidateLinks": 32,
+      "detailAttempted": 32,
+      "detailSucceeded": 32,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 7,
+      "staleRemoved": 8,
       "qualifyingRoles": 0,
       "drops": {
         "non-us": 7,
-        "unknown-experience": 11,
+        "unknown-experience": 10,
         "context": 1,
         "title": 14
       },
@@ -1685,6 +1685,7 @@
     "liveChecksPassed": 7,
     "listingFallbacksUsed": 0,
     "verifiedWindowFallbacksUsed": 0,
+    "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
     "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
@@ -1698,7 +1699,9 @@
         "verification": "detail",
         "detailStatus": 202,
         "listingStatus": null,
-        "verifiedUntil": null
+        "verifiedUntil": null,
+        "sourceUrl": "https://careers.equinix.com/jobs/data-center-development-intern-roles-dallas-texas-united-states-ashburn-virginia-elk-grove-village-illinois-san-jose-california",
+        "clickFallbackUsed": false
       },
       {
         "requisition": "JR-163301",
@@ -1707,7 +1710,9 @@
         "verification": "detail",
         "detailStatus": 202,
         "listingStatus": null,
-        "verifiedUntil": null
+        "verifiedUntil": null,
+        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali",
+        "clickFallbackUsed": false
       },
       {
         "requisition": "JR-161457",
@@ -1716,7 +1721,9 @@
         "verification": "detail",
         "detailStatus": 202,
         "listingStatus": null,
-        "verifiedUntil": null
+        "verifiedUntil": null,
+        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-boca-raton-florida-chicago-illinois-englewood-colorado-san-jose-california",
+        "clickFallbackUsed": false
       },
       {
         "requisition": "JR-161458",
@@ -1725,7 +1732,9 @@
         "verification": "detail",
         "detailStatus": 202,
         "listingStatus": null,
-        "verifiedUntil": null
+        "verifiedUntil": null,
+        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-chicago-illinois-denver-colorado-miami-florida-san-jose-calif",
+        "clickFallbackUsed": false
       },
       {
         "requisition": "JR-163300",
@@ -1734,7 +1743,9 @@
         "verification": "detail",
         "detailStatus": 202,
         "listingStatus": null,
-        "verifiedUntil": null
+        "verifiedUntil": null,
+        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california",
+        "clickFallbackUsed": false
       },
       {
         "requisition": "JR-158170",
@@ -1743,7 +1754,9 @@
         "verification": "detail",
         "detailStatus": 202,
         "listingStatus": null,
-        "verifiedUntil": null
+        "verifiedUntil": null,
+        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states",
+        "clickFallbackUsed": false
       },
       {
         "requisition": "JR-811161",
@@ -1752,7 +1765,9 @@
         "verification": "detail",
         "detailStatus": 202,
         "listingStatus": null,
-        "verifiedUntil": null
+        "verifiedUntil": null,
+        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states",
+        "clickFallbackUsed": false
       }
     ]
   },
@@ -1765,7 +1780,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T05:39:01.000Z",
+    "updatedAt": "2026-09-10T05:43:15.690Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 699,
@@ -1773,19 +1788,19 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "west": 107,
+      "midwest": 139,
       "mid-atlantic": 125,
       "texas": 115,
-      "midwest": 139,
+      "southwest": 87,
       "southeast": 106,
-      "west": 107,
-      "northeast": 20,
-      "southwest": 87
+      "northeast": 20
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T05:39:01.072Z",
-    "before": 700,
-    "after": 700,
+    "checkedAt": "2026-09-10T05:43:15.817Z",
+    "before": 699,
+    "after": 699,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1809,7 +1824,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-10T05:39:18.686Z"
+    "updatedAt": "2026-09-10T05:43:15.868Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

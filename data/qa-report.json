@@ -1,48 +1,12 @@
 {
-  "checkedAt": "2026-09-11T03:20:17.174Z",
-  "jobsBefore": 699,
+  "checkedAt": "2026-09-11T03:55:03.302Z",
+  "jobsBefore": 695,
   "jobsAfter": 694,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
+  "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10534761",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10534761/data-center-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10534761/data-center-technician"
-    },
-    {
-      "id": "amazon-10531636",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician, DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10531636/data-center-technician-dcc-communities",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10531636/data-center-technician-dcc-communities"
-    },
-    {
-      "id": "amazon-10510180",
-      "company": "Amazon Web Services",
-      "title": "Data Center Controls Engineer, Controls Deployment Service",
-      "url": "https://www.amazon.jobs/en/jobs/10510180/data-center-controls-engineer-controls-deployment-service",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10510180/data-center-controls-engineer-controls-deployment-service"
-    },
     {
       "id": "lever-t5-f5e3adcc-e7e0-4257-92f1-998e7a3d4940",
       "company": "T5 Data Centers",

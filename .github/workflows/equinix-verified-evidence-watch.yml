@@ -1,0 +1,68 @@
+name: Equinix verified fallback evidence watchdog
+
+on:
+  schedule:
+    - cron: '7 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/apply-equinix-verified-fallback.mjs'
+      - '.github/workflows/equinix-verified-evidence-watch.yml'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: equinix-verified-evidence-watch
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test exact Equinix evidence policy
+        run: node scripts/enforce-equinix-verified-evidence.mjs --test
+      - name: Enforce exact per-role Equinix fallback evidence
+        run: node scripts/enforce-equinix-verified-evidence.mjs
+      - name: Validate feed and product contract
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Commit evidence cleanup when changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain --untracked-files=no -- data/jobs.json data/collector-status.json)" ]; then
+            echo "Equinix per-role evidence state is unchanged."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u -- data/jobs.json data/collector-status.json
+          git commit -m "Enforce Equinix per-role verification evidence"
+          git fetch origin main
+          if ! git rebase origin/main; then
+            git rebase --abort || true
+            echo "::error::Could not rebase Equinix evidence cleanup onto latest main."
+            exit 1
+          fi
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy evidence cleanup
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-10T22:49:38.561Z",
-  "jobs": 699,
+  "updatedAt": "2026-09-11T03:19:55.321Z",
+  "jobs": 694,
   "sourcesAttempted": 40,
   "providers": {
     "lever": 7,
@@ -16,12 +16,12 @@
     "internship": 15,
     "trainee": 9,
     "apprenticeship": 12,
-    "entry-level": 663
+    "entry-level": 658
   },
   "countsByExperience": {
     "no-experience": 54,
-    "0-2-years": 373,
-    "2-5-years": 272
+    "0-2-years": 369,
+    "2-5-years": 271
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1936,7 +1936,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-10T21:46:55.595Z",
+    "checkedAt": "2026-09-11T03:19:55.383Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1944,25 +1944,25 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-10T22:49:38.718Z",
+    "updatedAt": "2026-09-11T03:19:55.442Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 699,
+    "regionAssigned": 694,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "west": 102,
-      "midwest": 138,
+      "midwest": 137,
       "mid-atlantic": 125,
       "texas": 116,
-      "southwest": 87,
-      "southeast": 110,
-      "northeast": 21
+      "southwest": 86,
+      "southeast": 108,
+      "northeast": 20
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-10T22:49:38.785Z",
+    "checkedAt": "2026-09-11T03:19:55.499Z",
     "before": 699,
     "after": 699,
     "removed": 0,
@@ -1970,16 +1970,16 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-10T17:54:12.082Z",
-    "publishedJobs": 697,
-    "removedJobs": 1,
+    "checkedAt": "2026-09-11T03:20:17.174Z",
+    "publishedJobs": 694,
+    "removedJobs": 5,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 985,
-    "currentJobs": 699,
+    "currentJobs": 694,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1988,7 +1988,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-10T22:49:38.846Z"
+    "updatedAt": "2026-09-11T03:20:17.330Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2085,7 +2085,7 @@
     "rejectedUnknownExperience": 0
   },
   "flexential": {
-    "checkedAt": "2026-09-10T15:55:57.069Z",
+    "checkedAt": "2026-09-11T03:19:55.321Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",

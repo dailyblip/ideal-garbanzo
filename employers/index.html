@@ -9,6 +9,7 @@
   <link rel="canonical" href="https://datacentercareers.us/employers/">
   <meta name="theme-color" content="#17324d">
   <link rel="stylesheet" href="../assets/styles.css">
+  <script src="../assets/employer-inquiry.js" defer></script>
 </head>
 <body class="employer-page">
 <header class="site-header employer-page-header">
@@ -116,23 +117,16 @@
   <section class="checkout-panel" id="request-placement" aria-labelledby="request-placement-title">
     <span class="utility-kicker">REQUEST PLACEMENT</span>
     <h2 id="request-placement-title">Send us the job you want to promote.</h2>
-    <p>Online payment is not active yet. Send a work email and the official employer job URL so we can review the role for mission fit before any placement is activated. Choose the placement you want when you submit the request. Submitting an inquiry does not publish the job or create a charge.</p>
-    <form class="hero-search" action="https://buttondown.com/api/emails/embed-subscribe/datacentercareers" method="post" aria-label="Employer placement inquiry">
+    <p>Online payment is not active yet. Enter a work email and the official employer job URL, choose a placement, and we will open a ready-to-send email to our team. We review the role for mission fit before any placement is activated.</p>
+    <form class="hero-search" id="employerPlacementForm" data-inquiry-email="info@datacentercareers.us" aria-label="Employer placement inquiry">
       <label><span>Work email</span><input type="email" name="email" autocomplete="email" required placeholder="you@company.com"></label>
       <label><span>Official job URL</span><input type="url" name="metadata__job_url" autocomplete="url" required placeholder="https://careers.company.com/..."></label>
-      <input type="hidden" name="embed" value="1">
-      <input type="hidden" name="tag" value="employer-inquiries">
-      <input type="hidden" name="metadata__interest" value="employer-promotion">
-      <input type="hidden" name="metadata__source" value="employers-page">
-      <input type="hidden" name="utm_source" value="datacentercareers.us">
-      <input type="hidden" name="utm_medium" value="website">
-      <input type="hidden" name="utm_campaign" value="employer-placement-inquiry">
       <div class="toolbar-actions" aria-label="Choose promotion tier">
         <button class="btn btn-primary" type="submit" name="metadata__tier" value="highlightedJob">Request Highlighted</button>
         <button class="btn btn-secondary" type="submit" name="metadata__tier" value="spotlightJob">Request Spotlight</button>
       </div>
     </form>
-    <p class="employer-status">This form creates an employer-placement inquiry only. Weekly job alerts require a separate subscription.</p>
+    <p class="employer-status" id="employerInquiryStatus" role="status" aria-live="polite">This request does not subscribe your address to candidate job alerts, publish the job, or create a charge. If your email app does not open, email <a href="mailto:info@datacentercareers.us">info@datacentercareers.us</a> with the job URL and requested placement.</p>
   </section>
 </main>
 

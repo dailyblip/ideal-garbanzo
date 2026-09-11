@@ -6,6 +6,8 @@ on:
     paths:
       - 'data/featured-jobs.json'
       - 'data/employer-products.json'
+      - 'employers/index.html'
+      - 'assets/employer-inquiry.js'
       - 'scripts/prune-promotions.mjs'
       - 'scripts/validate-promotions.mjs'
       - '.github/workflows/promotion-lifecycle.yml'

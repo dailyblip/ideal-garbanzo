@@ -26,6 +26,8 @@ jobs:
         run: node scripts/test-region-filter-contract.mjs
       - name: Validate promotion runtime contract
         run: node scripts/test-promotion-runtime-contract.mjs
+      - name: Validate employer promotion and inquiry contract
+        run: node scripts/validate-promotions.mjs
       - name: Validate jobs search and filter contract
         run: node scripts/validate-jobs-browser.mjs
       - name: Validate approved homepage contract

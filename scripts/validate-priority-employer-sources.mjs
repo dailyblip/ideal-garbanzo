@@ -168,6 +168,25 @@ function checkOfficialSource(company, job, context, violations) {
   }
 }
 
+function isEquinixVerifiedFallback(job) {
+  return String(job?.company || '').trim() === 'Equinix' && (
+    /^equinix-verified-/i.test(String(job?.id || '')) ||
+    job?.source === 'Equinix official careers (verified fallback)'
+  );
+}
+
+function hasStableEquinixFallbackClick(job) {
+  try {
+    const parsed = new URL(String(job?.sourceUrl || ''));
+    return parsed.protocol === 'https:' &&
+      parsed.hostname.toLowerCase() === 'careers.equinix.com' &&
+      parsed.pathname.replace(/\/$/, '') === '/jobs/search' &&
+      /^JR-\d+$/i.test(String(parsed.searchParams.get('query') || '').trim());
+  } catch {
+    return false;
+  }
+}
+
 const violations = [];
 const jobs = await readArray(JOBS_PATH, 'Public feed', violations);
 const collectorStatus = await readObject('data/collector-status.json', 'Collector status', violations);
@@ -184,7 +203,8 @@ for (const job of jobs) {
 const equinixEarlyExpected = Number(collectorStatus?.priorityEmployerExpansion?.EquinixEarlyCareer?.qualifyingRoles || 0);
 const equinixEarlyPublic = jobs.filter(job => String(job?.company || '').trim() === 'Equinix' && (
   /^equinix-early-/i.test(String(job?.id || '')) ||
-  job?.source === 'Equinix official early-career program'
+  job?.source === 'Equinix official early-career program' ||
+  isEquinixVerifiedFallback(job)
 )).length;
 if (equinixEarlyExpected >= 3) {
   const minimumRetained = Math.ceil(equinixEarlyExpected * 0.80);
@@ -198,10 +218,13 @@ const equinixFallbackExpected = Number(equinixFallbackStatus?.retainedManaged ||
 const equinixFallbackLiveChecks = Number(equinixFallbackStatus?.liveChecksPassed || 0);
 const equinixFallbackExpired = equinixFallbackStatus?.expired === true;
 const equinixFallbackExpiresAt = Date.parse(String(equinixFallbackStatus?.expiresAt || ''));
-const equinixFallbackPublic = jobs.filter(job => String(job?.company || '').trim() === 'Equinix' && (
-  /^equinix-verified-/i.test(String(job?.id || '')) ||
-  job?.source === 'Equinix official careers (verified fallback)'
-)).length;
+const equinixFallbackJobs = jobs.filter(isEquinixVerifiedFallback);
+const equinixFallbackPublic = equinixFallbackJobs.length;
+for (const job of equinixFallbackJobs) {
+  if (!hasStableEquinixFallbackClick(job)) {
+    violations.push(`Equinix verified fallback ${job?.id || '(missing id)'} must publish a requisition-targeted official search link`);
+  }
+}
 if (!equinixFallbackExpired && Number.isFinite(equinixFallbackExpiresAt) && Date.now() >= equinixFallbackExpiresAt) {
   violations.push(`Equinix verified fallback is still marked active after its ${equinixFallbackStatus.expiresAt} expiry`);
 }

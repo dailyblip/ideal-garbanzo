@@ -16,6 +16,34 @@ const regions = [
   { key: 'west', slug: 'west' }
 ];
 
+// Keep regional validation aligned with generate-region-seo.mjs. Regional pages
+// intentionally include nationwide, explicit multi-region and safely inferred
+// multi-location roles, not only records whose primary `region` equals the page.
+const regionTerms = {
+  'mid-atlantic':['district of columbia','delaware','maryland','virginia','west virginia',', dc',', de',', md',', va',', wv','ashburn','manassas'],
+  texas:['texas',', tx','dallas','austin','fort worth','san antonio','houston'],
+  southwest:['arizona','new mexico','nevada','oklahoma',', az',', nm',', nv',', ok','phoenix','mesa'],
+  midwest:['illinois','indiana','iowa','kansas','michigan','minnesota','missouri','nebraska','north dakota','ohio','south dakota','wisconsin',', il',', in',', ia',', ks',', mi',', mn',', mo',', ne',', nd',', oh',', sd',', wi'],
+  southeast:['alabama','arkansas','florida','georgia','kentucky','louisiana','mississippi','north carolina','south carolina','tennessee',', al',', ar',', fl',', ga',', ky',', la',', ms',', nc',', sc',', tn'],
+  northeast:['connecticut','maine','massachusetts','new hampshire','new jersey','new york','pennsylvania','rhode island','vermont',', ct',', me',', ma',', nh',', nj',', ny',', pa',', ri',', vt'],
+  west:['alaska','california','colorado','hawaii','idaho','montana','oregon','utah','washington','wyoming',', ak',', ca',', co',', hi',', id',', mt',', or',', ut',', wa',', wy']
+};
+
+function locationMatchesRegion(location, region) {
+  const value = clean(location).toLowerCase();
+  if (/^(?:united states|usa|us)$/.test(value)) return true;
+  if (value.includes('washington, dc') || value.includes('washington, d.c.')) return region === 'mid-atlantic';
+  return (regionTerms[region] || []).some(term => value.includes(term));
+}
+function jobMatchesRegion(job, region) {
+  if (job?.region === 'nationwide') return true;
+  if (Array.isArray(job?.regions) && job.regions.includes(region)) return true;
+  if (job?.region === region) return true;
+  const location = clean(job?.location);
+  if (!job?.region || location.includes(';')) return locationMatchesRegion(location, region);
+  return false;
+}
+
 const domain = clean(await readFile('CNAME', 'utf8')).replace(/^https?:\/\//, '').replace(/\/$/, '');
 const baseUrl = `https://${domain}`;
 const robots = await readFile('robots.txt', 'utf8');
@@ -94,7 +122,7 @@ if (hubLastmod) requireOk(sitemapEntries.get(`${baseUrl}/locations/`) === hubLas
 
 let regionPageCount = 0;
 for (const region of regions) {
-  const list = jobs.filter(job => job.region === region.key);
+  const list = jobs.filter(job => jobMatchesRegion(job, region.key));
   const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   const expectedLastmod = maxLastmod(list);
   for (let page = 1; page <= pages; page += 1) {

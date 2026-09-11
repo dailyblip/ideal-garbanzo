@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { isValidIsoDate } from './career-event-evidence.mjs';
 
 const events = JSON.parse(await readFile('data/career-events.json', 'utf8'));
 if (!Array.isArray(events)) throw new Error('career-events.json must contain an array');
@@ -17,7 +18,8 @@ const allowedAudiences = new Set([
 
 for (const event of events) {
   if (!event?.id) throw new Error('Career event missing id');
-  if (String(event.date || '') < todayIso) throw new Error(`Expired career event must be pruned: ${event.id}`);
+  if (!isValidIsoDate(event.date)) throw new Error(`Career event has invalid date: ${event.id}`);
+  if (String(event.date) < todayIso) throw new Error(`Expired career event must be pruned: ${event.id}`);
   if (event.source !== 'Organizer page') throw new Error(`Career event must use organizer-page verification: ${event.id}`);
   if (event.country !== 'US') throw new Error(`Career event must be U.S.-based: ${event.id}`);
   if (!String(event.url || '').startsWith('https://')) throw new Error(`Career event must use an HTTPS organizer URL: ${event.id}`);
@@ -30,8 +32,8 @@ for (const event of events) {
     throw new Error(`Career event has unsupported audience tags (${invalidAudiences.join(', ')}): ${event.id}`);
   }
 
+  if (!isValidIsoDate(event.verifiedAt)) throw new Error(`Career event has invalid verifiedAt: ${event.id}`);
   const verifiedAt = new Date(`${event.verifiedAt}T00:00:00Z`);
-  if (!Number.isFinite(verifiedAt.getTime())) throw new Error(`Career event has invalid verifiedAt: ${event.id}`);
   if (verifiedAt.getTime() > today.getTime()) throw new Error(`Career event verifiedAt cannot be in the future: ${event.id}`);
   if (today.getTime() - verifiedAt.getTime() > maxVerificationAgeMs) {
     throw new Error(`Career event verification is older than 30 days: ${event.id}`);

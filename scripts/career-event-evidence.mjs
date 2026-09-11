@@ -16,6 +16,13 @@ const normalize = value => clean(value)
   .replace(/\s+/g, ' ')
   .trim();
 
+export function isValidIsoDate(value) {
+  const candidate = clean(value);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(candidate)) return false;
+  const parsed = new Date(`${candidate}T00:00:00Z`);
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === candidate;
+}
+
 export function pageTextFromBody(body) {
   return clean(String(body ?? '')
     .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
@@ -28,12 +35,12 @@ export function pageTextFromBody(body) {
 }
 
 export function eventDateVariants(date) {
-  const match = String(date || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!match) return [];
+  const candidate = clean(date);
+  if (!isValidIsoDate(candidate)) return [];
+  const match = candidate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   const [, year, monthRaw, dayRaw] = match;
   const month = Number(monthRaw);
   const day = Number(dayRaw);
-  if (!Number.isInteger(month) || month < 1 || month > 12 || !Number.isInteger(day) || day < 1 || day > 31) return [];
   const [longMonth, shortMonth] = monthNames[month - 1];
   return [
     `${year}-${monthRaw}-${dayRaw}`,

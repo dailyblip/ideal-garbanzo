@@ -1,33 +1,26 @@
 {
-  "updatedAt": "2026-09-11T07:29:10.497Z",
-  "jobs": 639,
-  "sourcesAttempted": 41,
+  "updatedAt": "2026-09-11T07:53:21.101Z",
+  "jobs": 708,
+  "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
-    "greenhouse": 4,
-    "ashby": 5,
-    "icims": 1,
-    "workday": 6,
-    "googleCareers": 8,
-    "metaCareers": 3,
-    "oracleRecruitingCloud": 4
+    "greenhouse": 5,
+    "ashby": 5
   },
   "countsByType": {
-    "entry-level": 603,
+    "entry-level": 672,
     "trainee": 9,
-    "apprenticeship": 12,
-    "internship": 15
+    "internship": 15,
+    "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 342,
-    "no-experience": 52,
-    "2-5-years": 245
+    "0-2-years": 377,
+    "2-5-years": 278,
+    "no-experience": 53
   },
-  "errors": [
-    "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
-  ],
+  "errors": [],
   "sourceFailurePreservation": {
-    "checkedAt": "2026-09-08T13:50:34.584Z",
+    "checkedAt": "2026-09-11T07:53:21.111Z",
     "failedSources": [],
     "preservedJobs": 0,
     "preservedByCompany": {},
@@ -2217,437 +2210,409 @@
     ],
     "sources": {
       "Serverfarm": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "LightEdge Solutions": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "ECL": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "Hive": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "CAI": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "xAI": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "Element Critical": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "Lambda": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "Crusoe": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "Fluidstack": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "Gimlet Labs": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       },
       "TensorWave": {
-        "lastHealthyAt": null,
-        "latestScanAt": null,
-        "sourceHealthyAtLatestScan": false,
+        "lastHealthyAt": "2026-09-11T07:53:21.101Z",
+        "latestScanAt": "2026-09-11T07:53:21.101Z",
+        "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
-        "expired": true,
+        "expired": false,
         "error": "",
-        "reason": "no-verification-anchor"
+        "reason": "latest-source-fetch-healthy"
       }
     },
-    "policy": "Shared ATS roles without a dedicated employer-specific freshness guard may remain published for at most 96 hours after the last healthy generic employer-direct verification. A stale generic collector status does not refresh the verification clock.",
-    "lastRemoval": {
-      "at": "2026-09-11T07:47:44.508Z",
-      "roles": [
-        {
-          "id": "gh-xai-5225280007",
-          "company": "xAI",
-          "title": "Controls Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5225280007"
-        },
-        {
-          "id": "gh-xai-5127519007",
-          "company": "xAI",
-          "title": "Mechanical Commissioning Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5127519007"
-        },
-        {
-          "id": "lever-lightedge-0765f29e-ee42-4aa3-bd86-80adfa1a3bf5",
-          "company": "LightEdge Solutions",
-          "title": "Data Center Operations Tier 1 Technician (Night Shift)",
-          "sourceUrl": "https://jobs.lever.co/lightedge/0765f29e-ee42-4aa3-bd86-80adfa1a3bf5"
-        },
-        {
-          "id": "gh-xai-5205550007",
-          "company": "xAI",
-          "title": "Operations Engineer, Facility Operations - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5205550007"
-        },
-        {
-          "id": "gh-xai-5212286007",
-          "company": "xAI",
-          "title": "Facilities Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5212286007"
-        },
-        {
-          "id": "gh-xai-5182374007",
-          "company": "xAI",
-          "title": "Facilities Infrastructure Engineer, Data Center Infrastructure - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5182374007"
-        },
-        {
-          "id": "gh-xai-5168434007",
-          "company": "xAI",
-          "title": "Associate Data Center Operations Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5168434007"
-        },
-        {
-          "id": "gh-xai-5214280007",
-          "company": "xAI",
-          "title": "Protection & Controls Engineer - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5214280007"
-        },
-        {
-          "id": "gh-xai-5215585007",
-          "company": "xAI",
-          "title": "Data Center Operations Technician, MMR/MDF & Fiber Infrastructure - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5215585007"
-        },
-        {
-          "id": "gh-xai-5201130007",
-          "company": "xAI",
-          "title": "Facilities Maintenance Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5201130007"
-        },
-        {
-          "id": "gh-xai-5182357007",
-          "company": "xAI",
-          "title": "Electrical Engineer, Data Center Infrastructure - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5182357007"
-        },
-        {
-          "id": "gh-xai-5189148007",
-          "company": "xAI",
-          "title": "Electrical Reliability Engineer, Data Center Infrastructure - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5189148007"
-        },
-        {
-          "id": "gh-xai-5189147007",
-          "company": "xAI",
-          "title": "Power Systems Engineer, Data Center Infrastructure - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5189147007"
-        },
-        {
-          "id": "gh-xai-5134220007",
-          "company": "xAI",
-          "title": "Electrical Commissioning Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5134220007"
-        },
-        {
-          "id": "gh-xai-4741579007",
-          "company": "xAI",
-          "title": "Data Center Operations Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/4741579007"
-        },
-        {
-          "id": "gh-xai-5215038007",
-          "company": "xAI",
-          "title": "Electrician, Construction (Colossus) - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5215038007"
-        },
-        {
-          "id": "gh-xai-5229550007",
-          "company": "xAI",
-          "title": "Controls Engineer, Supercomputer Infrastructure - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5229550007"
-        },
-        {
-          "id": "gh-xai-5225839007",
-          "company": "xAI",
-          "title": "Mechanical Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5225839007"
-        },
-        {
-          "id": "gh-xai-4939298007",
-          "company": "xAI",
-          "title": "Facilities Maintenance Assistant - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/4939298007"
-        },
-        {
-          "id": "gh-xai-5142979007",
-          "company": "xAI",
-          "title": "Electrician (Construction) - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5142979007"
-        },
-        {
-          "id": "gh-xai-5219540007",
-          "company": "xAI",
-          "title": "High Voltage Electrician (Construction) - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5219540007"
-        },
-        {
-          "id": "gh-xai-5219541007",
-          "company": "xAI",
-          "title": "Medium Voltage Electrician (Construction) - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5219541007"
-        },
-        {
-          "id": "gh-xai-5226371007",
-          "company": "xAI",
-          "title": "Mechanical Commissioning Engineer - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5226371007"
-        },
-        {
-          "id": "gh-xai-5169674007",
-          "company": "xAI",
-          "title": "Fiber Technician III - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5169674007"
-        },
-        {
-          "id": "gh-xai-5148882007",
-          "company": "xAI",
-          "title": "Fiber Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5148882007"
-        },
-        {
-          "id": "gh-xai-5225844007",
-          "company": "xAI",
-          "title": "Journeyman Electrician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5225844007"
-        },
-        {
-          "id": "gh-xai-5227684007",
-          "company": "xAI",
-          "title": "Chiller Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5227684007"
-        },
-        {
-          "id": "gh-xai-5064636007",
-          "company": "xAI",
-          "title": "Critical Facilities Engineer - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5064636007"
-        },
-        {
-          "id": "gh-xai-5227699007",
-          "company": "xAI",
-          "title": "Electrical Technician (Medium Voltage) - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5227699007"
-        },
-        {
-          "id": "gh-xai-4538639007",
-          "company": "xAI",
-          "title": "Facilities Operations Technician - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/4538639007"
-        },
-        {
-          "id": "gh-xai-5182046007",
-          "company": "xAI",
-          "title": "Mechanical Engineer (Data Center Infrastructure)",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5182046007"
-        },
-        {
-          "id": "gh-xai-5184586007",
-          "company": "xAI",
-          "title": "Reliability Engineer (Data Center Infrastructure)",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5184586007"
-        },
-        {
-          "id": "gh-xai-5214372007",
-          "company": "xAI",
-          "title": "Electrician, Operations - Memphis",
-          "sourceUrl": "https://job-boards.greenhouse.io/xai/jobs/5214372007"
-        },
-        {
-          "id": "gh-elementcritical-4730973005",
-          "company": "Element Critical",
-          "title": "Operations Technician I",
-          "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4730973005"
-        },
-        {
-          "id": "ashby-tensorwave-8127963682ddd7",
-          "company": "TensorWave",
-          "title": "Data Center Technician",
-          "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/c3bda642-1ee6-428d-8cc0-60d2d8965a49"
-        },
-        {
-          "id": "ashby-tensorwave-e1ccc2383f8d82",
-          "company": "TensorWave",
-          "title": "Data Center Technician",
-          "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/6d7ec2ad-36ff-42c1-8252-58e8c0208fd5"
-        },
-        {
-          "id": "ashby-crusoe-890bc8b226f70b",
-          "company": "Crusoe",
-          "title": "Mechanical Quality Inspector",
-          "sourceUrl": "https://jobs.ashbyhq.com/crusoe/f5004216-9d8f-4265-be25-59c72bb2f949"
-        },
-        {
-          "id": "gh-elementcritical-4721207005",
-          "company": "Element Critical",
-          "title": "Operations Technician",
-          "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4721207005"
-        },
-        {
-          "id": "ashby-fluidstack-e31441e51b83fb",
-          "company": "Fluidstack",
-          "title": "Facility Operator",
-          "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/308cb919-77e4-402d-a561-15edf25933fe"
-        },
-        {
-          "id": "lever-lightedge-572330d1-551e-4d19-a251-6878821d498a",
-          "company": "LightEdge Solutions",
-          "title": "Data Center Operations Tier 1 Technician",
-          "sourceUrl": "https://jobs.lever.co/lightedge/572330d1-551e-4d19-a251-6878821d498a"
-        },
-        {
-          "id": "ashby-tensorwave-3731c4ccf4b096",
-          "company": "TensorWave",
-          "title": "Data Center Technician",
-          "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/6700a3bc-b357-4545-81b7-52697474a07e"
-        },
-        {
-          "id": "ashby-lambda-0bdbbcbdc49122",
-          "company": "Lambda",
-          "title": "Data Center Asset Management Specialist",
-          "sourceUrl": "https://jobs.ashbyhq.com/lambda/4f11316f-81fe-4871-86ff-e65b167741d3"
-        },
-        {
-          "id": "ashby-crusoe-70ba1809ab44f2",
-          "company": "Crusoe",
-          "title": "Commissioning Engineer II",
-          "sourceUrl": "https://jobs.ashbyhq.com/crusoe/e1dc74de-20ae-43f3-bb72-e545bab59db4"
-        },
-        {
-          "id": "ashby-crusoe-45bdc4bbccd2c3",
-          "company": "Crusoe",
-          "title": "Operations and Maintenance Technician I",
-          "sourceUrl": "https://jobs.ashbyhq.com/crusoe/9da8f664-92fd-45da-b904-dbda76f76e72"
-        },
-        {
-          "id": "ashby-fluidstack-f53d7ea4422bc5",
-          "company": "Fluidstack",
-          "title": "Cx, QA, & Field Engineer, Electrical",
-          "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/985e25a6-5089-451a-ae68-3ebfcd0de52b"
-        },
-        {
-          "id": "ashby-fluidstack-8e4777452b9d02",
-          "company": "Fluidstack",
-          "title": "Cx, QA, & Field Engineer, Mechanical",
-          "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/921caae6-e07f-4a0b-bfe5-ffc0088f3d11"
-        },
-        {
-          "id": "ashby-lambda-637eb59fd23a0f",
-          "company": "Lambda",
-          "title": "Data Center Operations Systems Engineer (Seattle)",
-          "sourceUrl": "https://jobs.ashbyhq.com/lambda/4621b314-965a-4626-a516-1b8ef42da21d"
-        },
-        {
-          "id": "ashby-lambda-623bc02be173a8",
-          "company": "Lambda",
-          "title": "Data Center Operations Systems Engineer III (Los Angeles)",
-          "sourceUrl": "https://jobs.ashbyhq.com/lambda/250d4eab-8ebf-4a56-b7f2-b3044bbbda48"
-        },
-        {
-          "id": "ashby-fluidstack-57cc9ea1de20c0",
-          "company": "Fluidstack",
-          "title": "IT Engineer, Data Center",
-          "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/ac7b19a6-abbe-4f60-8421-7658cb3cb6ef"
-        },
-        {
-          "id": "gh-elementcritical-4684121005",
-          "company": "Element Critical",
-          "title": "Data Center Facilities Engineer II",
-          "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4684121005"
-        },
-        {
-          "id": "gh-elementcritical-4691807005",
-          "company": "Element Critical",
-          "title": "Data Center Controls Engineer",
-          "sourceUrl": "https://job-boards.greenhouse.io/elementcritical/jobs/4691807005"
-        },
-        {
-          "id": "ashby-fluidstack-fbad3fdfca1cdd",
-          "company": "Fluidstack",
-          "title": "Controls Engineer, Capacity Delivery",
-          "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/0a433051-5d42-408c-b3d5-2c608b64c253"
-        },
-        {
-          "id": "lever-serverfarm-fccd5935-a558-4975-99c2-94906266f182",
-          "company": "Serverfarm",
-          "title": "Junior Critical Facilities Technician - CTX1",
-          "sourceUrl": "https://jobs.lever.co/serverfarm/fccd5935-a558-4975-99c2-94906266f182"
-        }
-      ]
+    "policy": "Shared ATS roles without a dedicated employer-specific freshness guard may remain published for at most 96 hours after the last healthy generic employer-direct verification. A stale generic collector status does not refresh the verification clock."
+  },
+  "sourceDiagnostics": [
+    {
+      "company": "Serverfarm",
+      "provider": "lever",
+      "sourceHealthy": true,
+      "qualifyingRoles": 3,
+      "error": ""
+    },
+    {
+      "company": "LightEdge Solutions",
+      "provider": "lever",
+      "sourceHealthy": true,
+      "qualifyingRoles": 2,
+      "error": ""
+    },
+    {
+      "company": "Cologix",
+      "provider": "lever",
+      "sourceHealthy": true,
+      "qualifyingRoles": 2,
+      "error": ""
+    },
+    {
+      "company": "ECL",
+      "provider": "lever",
+      "sourceHealthy": true,
+      "qualifyingRoles": 0,
+      "error": ""
+    },
+    {
+      "company": "Hive",
+      "provider": "lever",
+      "sourceHealthy": true,
+      "qualifyingRoles": 0,
+      "error": ""
+    },
+    {
+      "company": "CAI",
+      "provider": "lever",
+      "sourceHealthy": true,
+      "qualifyingRoles": 0,
+      "error": ""
+    },
+    {
+      "company": "T5 Data Centers",
+      "provider": "lever",
+      "sourceHealthy": true,
+      "qualifyingRoles": 11,
+      "error": ""
+    },
+    {
+      "company": "xAI",
+      "provider": "greenhouse",
+      "sourceHealthy": true,
+      "qualifyingRoles": 34,
+      "error": ""
+    },
+    {
+      "company": "Element Critical",
+      "provider": "greenhouse",
+      "sourceHealthy": true,
+      "qualifyingRoles": 4,
+      "error": ""
+    },
+    {
+      "company": "CoreWeave",
+      "provider": "greenhouse",
+      "sourceHealthy": true,
+      "qualifyingRoles": 14,
+      "error": ""
+    },
+    {
+      "company": "Flexential",
+      "provider": "greenhouse",
+      "sourceHealthy": true,
+      "qualifyingRoles": 3,
+      "error": ""
+    },
+    {
+      "company": "EdgeConneX",
+      "provider": "greenhouse",
+      "sourceHealthy": true,
+      "qualifyingRoles": 0,
+      "error": ""
+    },
+    {
+      "company": "Lambda",
+      "provider": "ashby",
+      "sourceHealthy": true,
+      "qualifyingRoles": 4,
+      "error": ""
+    },
+    {
+      "company": "Crusoe",
+      "provider": "ashby",
+      "sourceHealthy": true,
+      "qualifyingRoles": 12,
+      "error": ""
+    },
+    {
+      "company": "Fluidstack",
+      "provider": "ashby",
+      "sourceHealthy": true,
+      "qualifyingRoles": 7,
+      "error": ""
+    },
+    {
+      "company": "Gimlet Labs",
+      "provider": "ashby",
+      "sourceHealthy": true,
+      "qualifyingRoles": 0,
+      "error": ""
+    },
+    {
+      "company": "TensorWave",
+      "provider": "ashby",
+      "sourceHealthy": true,
+      "qualifyingRoles": 3,
+      "error": ""
     }
+  ],
+  "genericDirectSources": {
+    "updatedAt": "2026-09-11T07:53:21.101Z",
+    "jobs": 99,
+    "sourcesAttempted": 17,
+    "providers": {
+      "lever": 7,
+      "greenhouse": 5,
+      "ashby": 5
+    },
+    "countsByType": {
+      "entry-level": 97,
+      "apprenticeship": 2
+    },
+    "countsByExperience": {
+      "2-5-years": 46,
+      "0-2-years": 50,
+      "no-experience": 3
+    },
+    "sourceDiagnostics": [
+      {
+        "company": "Serverfarm",
+        "provider": "lever",
+        "sourceHealthy": true,
+        "qualifyingRoles": 3,
+        "error": ""
+      },
+      {
+        "company": "LightEdge Solutions",
+        "provider": "lever",
+        "sourceHealthy": true,
+        "qualifyingRoles": 2,
+        "error": ""
+      },
+      {
+        "company": "Cologix",
+        "provider": "lever",
+        "sourceHealthy": true,
+        "qualifyingRoles": 2,
+        "error": ""
+      },
+      {
+        "company": "ECL",
+        "provider": "lever",
+        "sourceHealthy": true,
+        "qualifyingRoles": 0,
+        "error": ""
+      },
+      {
+        "company": "Hive",
+        "provider": "lever",
+        "sourceHealthy": true,
+        "qualifyingRoles": 0,
+        "error": ""
+      },
+      {
+        "company": "CAI",
+        "provider": "lever",
+        "sourceHealthy": true,
+        "qualifyingRoles": 0,
+        "error": ""
+      },
+      {
+        "company": "T5 Data Centers",
+        "provider": "lever",
+        "sourceHealthy": true,
+        "qualifyingRoles": 11,
+        "error": ""
+      },
+      {
+        "company": "xAI",
+        "provider": "greenhouse",
+        "sourceHealthy": true,
+        "qualifyingRoles": 34,
+        "error": ""
+      },
+      {
+        "company": "Element Critical",
+        "provider": "greenhouse",
+        "sourceHealthy": true,
+        "qualifyingRoles": 4,
+        "error": ""
+      },
+      {
+        "company": "CoreWeave",
+        "provider": "greenhouse",
+        "sourceHealthy": true,
+        "qualifyingRoles": 14,
+        "error": ""
+      },
+      {
+        "company": "Flexential",
+        "provider": "greenhouse",
+        "sourceHealthy": true,
+        "qualifyingRoles": 3,
+        "error": ""
+      },
+      {
+        "company": "EdgeConneX",
+        "provider": "greenhouse",
+        "sourceHealthy": true,
+        "qualifyingRoles": 0,
+        "error": ""
+      },
+      {
+        "company": "Lambda",
+        "provider": "ashby",
+        "sourceHealthy": true,
+        "qualifyingRoles": 4,
+        "error": ""
+      },
+      {
+        "company": "Crusoe",
+        "provider": "ashby",
+        "sourceHealthy": true,
+        "qualifyingRoles": 12,
+        "error": ""
+      },
+      {
+        "company": "Fluidstack",
+        "provider": "ashby",
+        "sourceHealthy": true,
+        "qualifyingRoles": 7,
+        "error": ""
+      },
+      {
+        "company": "Gimlet Labs",
+        "provider": "ashby",
+        "sourceHealthy": true,
+        "qualifyingRoles": 0,
+        "error": ""
+      },
+      {
+        "company": "TensorWave",
+        "provider": "ashby",
+        "sourceHealthy": true,
+        "qualifyingRoles": 3,
+        "error": ""
+      }
+    ],
+    "errors": []
+  },
+  "authoritativeSnapshotOverlay": {
+    "checkedAt": "2026-09-11T07:53:21.112Z",
+    "restoredByCompany": {
+      "Cologix": 10,
+      "EdgeConneX": 2
+    },
+    "policy": "Dedicated employer-direct snapshots replace overlapping generic ATS results before later publication gates."
+  },
+  "genericDedicatedOverlapProtection": {
+    "checkedAt": "2026-09-11T07:53:21.183Z",
+    "companies": [
+      "Cologix",
+      "T5 Data Centers",
+      "CoreWeave",
+      "Flexential",
+      "EdgeConneX"
+    ],
+    "restoredByCompany": {
+      "Cologix": 10,
+      "T5 Data Centers": 22,
+      "CoreWeave": 9,
+      "Flexential": 2,
+      "EdgeConneX": 2
+    },
+    "genericResultsSuppressedByCompany": {
+      "Cologix": 10,
+      "T5 Data Centers": 11,
+      "CoreWeave": 14,
+      "Flexential": 3,
+      "EdgeConneX": 2
+    },
+    "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   }
 }

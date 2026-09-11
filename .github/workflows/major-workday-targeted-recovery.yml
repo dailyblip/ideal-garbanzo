@@ -45,8 +45,10 @@ jobs:
         id: recovery
         run: |
           node scripts/recover-major-workday-targeted.mjs
-          node scripts/prune-closed-major-workday.mjs
+          # Drop corporate/program noise before the per-role liveness pass so
+          # official detail checks and roleEvidence only cover publishable roles.
           node scripts/scrub-major-targeted-noise.mjs
+          node scripts/prune-closed-major-workday.mjs
           node scripts/reconcile-major-jobs.mjs --preserve-existing
 
           roles_changed=false
@@ -100,8 +102,8 @@ jobs:
               git reset --hard origin/main
 
               node scripts/recover-major-workday-targeted.mjs
-              node scripts/prune-closed-major-workday.mjs
               node scripts/scrub-major-targeted-noise.mjs
+              node scripts/prune-closed-major-workday.mjs
               node scripts/reconcile-major-jobs.mjs --preserve-existing
               node scripts/filter-mission-fit.mjs
               node scripts/normalize-job-locations.mjs

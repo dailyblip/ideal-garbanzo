@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-11T17:56:52.559Z",
+  "updatedAt": "2026-09-11T19:49:14.474Z",
   "jobs": 664,
   "sourcesAttempted": 19,
   "providers": {
@@ -3551,9 +3551,9 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 36,
-      "detailAttempted": 36,
-      "detailSucceeded": 36,
+      "candidateLinks": 35,
+      "detailAttempted": 35,
+      "detailSucceeded": 35,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
@@ -3561,7 +3561,7 @@
       "qualifyingRoles": 0,
       "drops": {
         "non-us": 8,
-        "unknown-experience": 9,
+        "unknown-experience": 8,
         "context": 1,
         "title": 18
       },
@@ -3581,8 +3581,8 @@
         {
           "title": "Practicante Critical Facilities",
           "listingLabel": "Practicante Critical Facilities",
-          "pageTitle": "",
-          "heading": "",
+          "pageTitle": "Practicante Critical Facilities - Nuevo León, Mexico",
+          "heading": "Electrical or Mechanical Technician, Data Center Infrastructure",
           "url": "https://careers.equinix.com/jobs/practicante-critical-facilities-nuevo-leon-mexico"
         },
         {
@@ -3645,12 +3645,12 @@
     "liveChecksPassed": 7,
     "listingFallbacksUsed": 0,
     "verifiedWindowFallbacksUsed": 0,
-    "searchClickFallbacksUsed": 0,
+    "searchClickFallbacksUsed": 7,
     "removedManaged": 0,
     "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
-    "added": 4,
-    "retainedManaged": 4,
+    "added": 7,
+    "retainedManaged": 7,
     "checks": [
       {
         "requisition": "JR-159872",
@@ -3660,8 +3660,8 @@
         "detailStatus": 202,
         "listingStatus": null,
         "verifiedUntil": null,
-        "sourceUrl": "https://careers.equinix.com/jobs/data-center-development-intern-roles-dallas-texas-united-states-ashburn-virginia-elk-grove-village-illinois-san-jose-california",
-        "clickFallbackUsed": false
+        "sourceUrl": "https://careers.equinix.com/jobs/search?query=JR-159872",
+        "clickFallbackUsed": true
       },
       {
         "requisition": "JR-163301",
@@ -3671,8 +3671,8 @@
         "detailStatus": 202,
         "listingStatus": null,
         "verifiedUntil": null,
-        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali",
-        "clickFallbackUsed": false
+        "sourceUrl": "https://careers.equinix.com/jobs/search?query=JR-163301",
+        "clickFallbackUsed": true
       },
       {
         "requisition": "JR-161457",
@@ -3682,8 +3682,8 @@
         "detailStatus": 202,
         "listingStatus": null,
         "verifiedUntil": null,
-        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-boca-raton-florida-chicago-illinois-englewood-colorado-san-jose-california",
-        "clickFallbackUsed": false
+        "sourceUrl": "https://careers.equinix.com/jobs/search?query=JR-161457",
+        "clickFallbackUsed": true
       },
       {
         "requisition": "JR-161458",
@@ -3693,8 +3693,8 @@
         "detailStatus": 202,
         "listingStatus": null,
         "verifiedUntil": null,
-        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-chicago-illinois-denver-colorado-miami-florida-san-jose-calif",
-        "clickFallbackUsed": false
+        "sourceUrl": "https://careers.equinix.com/jobs/search?query=JR-161458",
+        "clickFallbackUsed": true
       },
       {
         "requisition": "JR-163300",
@@ -3704,8 +3704,8 @@
         "detailStatus": 202,
         "listingStatus": null,
         "verifiedUntil": null,
-        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california",
-        "clickFallbackUsed": false
+        "sourceUrl": "https://careers.equinix.com/jobs/search?query=JR-163300",
+        "clickFallbackUsed": true
       },
       {
         "requisition": "JR-158170",
@@ -3715,8 +3715,8 @@
         "detailStatus": 202,
         "listingStatus": null,
         "verifiedUntil": null,
-        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states",
-        "clickFallbackUsed": false
+        "sourceUrl": "https://careers.equinix.com/jobs/search?query=JR-158170",
+        "clickFallbackUsed": true
       },
       {
         "requisition": "JR-811161",
@@ -3726,8 +3726,8 @@
         "detailStatus": 202,
         "listingStatus": null,
         "verifiedUntil": null,
-        "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states",
-        "clickFallbackUsed": false
+        "sourceUrl": "https://careers.equinix.com/jobs/search?query=JR-811161",
+        "clickFallbackUsed": true
       }
     ]
   },
@@ -3740,7 +3740,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-11T17:56:52.750Z",
+    "updatedAt": "2026-09-11T19:49:14.643Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 664,
@@ -3749,9 +3749,9 @@
     "missingSamples": [],
     "countsByRegion": {
       "west": 96,
+      "texas": 106,
       "midwest": 135,
       "mid-atlantic": 118,
-      "texas": 106,
       "southwest": 82,
       "southeast": 106,
       "northeast": 20,
@@ -3759,7 +3759,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-11T17:56:52.821Z",
+    "checkedAt": "2026-09-11T19:49:14.722Z",
     "before": 664,
     "after": 664,
     "removed": 0,
@@ -3778,14 +3778,14 @@
     "trackedJobs": 1011,
     "currentJobs": 664,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
+    "changedJobsThisRun": 7,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-11T17:56:52.884Z"
+    "updatedAt": "2026-09-11T19:49:14.788Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

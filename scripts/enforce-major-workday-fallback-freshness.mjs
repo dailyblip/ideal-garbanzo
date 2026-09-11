@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 const JOBS_PATH = 'data/jobs.json';
 const SNAPSHOT_PATH = 'data/major-jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
+const STATE_PATH = 'data/major-workday-freshness.json';
 const MAX_FALLBACK_AGE_HOURS = 96;
 const HEALTHY_STAMP_INTERVAL_HOURS = 20;
 
@@ -205,12 +206,14 @@ async function validateState() {
   const jobs = await readJson(JOBS_PATH, []);
   const snapshot = await readJson(SNAPSHOT_PATH, []);
   const status = await readJson(STATUS_PATH, {});
+  const durable = await readJson(STATE_PATH, {});
   const violations = [];
   const diagnostics = status?.majorSources?.employerDiagnostics || {};
+  const durableEmployers = durable?.employers && typeof durable.employers === 'object' ? durable.employers : {};
   const nowMs = Date.now();
 
   for (const board of boards) {
-    const watch = diagnostics?.[board.company]?.fallbackFreshness;
+    const watch = durableEmployers[board.company] || diagnostics?.[board.company]?.fallbackFreshness;
     if (!watch || typeof watch !== 'object') {
       violations.push(`${board.company}: missing fallback-freshness state`);
       continue;
@@ -248,6 +251,7 @@ if (process.argv.includes('--validate')) {
 const originalJobs = await readJson(JOBS_PATH, []);
 const originalSnapshot = await readJson(SNAPSHOT_PATH, []);
 const originalStatus = await readJson(STATUS_PATH, {});
+const originalDurable = await readJson(STATE_PATH, {});
 if (!Array.isArray(originalJobs)) throw new Error(`${JOBS_PATH} must contain an array.`);
 if (!Array.isArray(originalSnapshot)) throw new Error(`${SNAPSHOT_PATH} must contain an array.`);
 if (!originalStatus || typeof originalStatus !== 'object' || Array.isArray(originalStatus)) throw new Error(`${STATUS_PATH} must contain an object.`);
@@ -255,6 +259,10 @@ if (!originalStatus || typeof originalStatus !== 'object' || Array.isArray(origi
 let jobs = [...originalJobs];
 let snapshot = [...originalSnapshot];
 const status = structuredClone(originalStatus);
+const durable = originalDurable && typeof originalDurable === 'object' && !Array.isArray(originalDurable) ? structuredClone(originalDurable) : {};
+durable.version = 1;
+durable.maxFallbackAgeHours = MAX_FALLBACK_AGE_HOURS;
+durable.employers = durable.employers && typeof durable.employers === 'object' && !Array.isArray(durable.employers) ? durable.employers : {};
 status.majorSources = status.majorSources && typeof status.majorSources === 'object' ? status.majorSources : {};
 status.majorSources.employerDiagnostics = status.majorSources.employerDiagnostics && typeof status.majorSources.employerDiagnostics === 'object'
   ? status.majorSources.employerDiagnostics
@@ -264,13 +272,18 @@ const nowMs = Date.now();
 const nowIso = new Date(nowMs).toISOString();
 let rolesChanged = false;
 let statusChanged = false;
+let durableChanged = false;
 const summaries = [];
 
 for (const board of boards) {
   const diagnostics = status.majorSources.employerDiagnostics[board.company] || {};
-  const priorWatch = diagnostics.fallbackFreshness && typeof diagnostics.fallbackFreshness === 'object'
+  const statusWatch = diagnostics.fallbackFreshness && typeof diagnostics.fallbackFreshness === 'object'
     ? diagnostics.fallbackFreshness
     : null;
+  const durableWatch = durable.employers[board.company] && typeof durable.employers[board.company] === 'object'
+    ? durable.employers[board.company]
+    : null;
+  const priorWatch = durableWatch || statusWatch;
   const currentRoleCount = jobs.filter(job => isCompany(job, board.company)).length;
   let probe = null;
   let probeError = '';
@@ -292,22 +305,26 @@ for (const board of boards) {
   if (probe.healthy) {
     const priorHealthyMs = Date.parse(String(priorWatch?.lastHealthyAt || ''));
     const stampAgeHours = Number.isFinite(priorHealthyMs) ? Math.max(0, (nowMs - priorHealthyMs) / 36e5) : Infinity;
-    const shouldPersist = !priorWatch || priorWatch.sourceHealthy !== true || priorWatch.active === true || priorWatch.expired === true || stampAgeHours >= HEALTHY_STAMP_INTERVAL_HOURS;
+    const shouldPersist = !durableWatch || !statusWatch || !priorWatch || priorWatch.sourceHealthy !== true || priorWatch.active === true || priorWatch.expired === true || stampAgeHours >= HEALTHY_STAMP_INTERVAL_HOURS;
     if (shouldPersist) {
       const nextWatch = watchRecord({ healthy: true, nowIso, baseline: nowIso, probe, roles: currentRoleCount });
       status.majorSources.employerDiagnostics[board.company] = { ...diagnostics, fallbackFreshness: nextWatch };
+      durable.employers[board.company] = nextWatch;
       statusChanged = true;
+      durableChanged = true;
     }
     summaries.push({ company: board.company, state: 'healthy', roles: currentRoleCount, reportedRows: probe.reportedRows });
     continue;
   }
 
-  const baseline = clean(priorWatch?.lastHealthyAt) || legacyHealthyBaseline(status, diagnostics, nowMs);
+  const baseline = clean(durableWatch?.lastHealthyAt) || clean(statusWatch?.lastHealthyAt) || legacyHealthyBaseline(status, diagnostics, nowMs);
   const decision = freshnessDecision(baseline, nowMs);
   if (!decision.expired) {
     const nextWatch = watchRecord({ healthy: false, nowIso, baseline, probe, roles: currentRoleCount, reason: probeError || probe.incompleteReason });
     status.majorSources.employerDiagnostics[board.company] = { ...diagnostics, fallbackFreshness: nextWatch };
+    durable.employers[board.company] = nextWatch;
     statusChanged = true;
+    durableChanged = true;
     summaries.push({ company: board.company, state: 'fallback', roles: currentRoleCount, expiresAt: nextWatch.expiresAt });
     continue;
   }
@@ -326,7 +343,9 @@ for (const board of boards) {
     ? `Employer-direct verification exceeded ${MAX_FALLBACK_AGE_HOURS} hours, so retained ${board.company} roles were removed until the source recovers. Last check: ${probeError || probe.incompleteReason || 'unverified listing'}`
     : `No trustworthy employer-direct verification timestamp was available, so retained ${board.company} roles were removed until the source can be verified.`;
   status.majorSources.employerDiagnostics[board.company] = { ...diagnostics, fallbackFreshness: nextWatch };
+  durable.employers[board.company] = nextWatch;
   statusChanged = true;
+  durableChanged = true;
   summaries.push({ company: board.company, state: 'expired', rolesRemoved: removed });
 }
 
@@ -370,6 +389,9 @@ if (JSON.stringify(snapshot) !== JSON.stringify(originalSnapshot)) {
 }
 if (JSON.stringify(status) !== JSON.stringify(originalStatus)) {
   await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
+}
+if (durableChanged || JSON.stringify(durable) !== JSON.stringify(originalDurable)) {
+  await writeFile(STATE_PATH, JSON.stringify(durable, null, 2) + '\n');
 }
 
 const healthyCount = summaries.filter(item => item.state === 'healthy').length;

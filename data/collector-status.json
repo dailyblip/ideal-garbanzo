@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-09-11T04:57:04.884Z",
+  "updatedAt": "2026-09-11T05:18:02.388Z",
   "jobs": 694,
-  "sourcesAttempted": 40,
+  "sourcesAttempted": 41,
   "providers": {
     "lever": 7,
     "greenhouse": 4,
     "ashby": 5,
     "icims": 1,
     "workday": 6,
-    "googleCareers": 7,
+    "googleCareers": 8,
     "metaCareers": 3,
     "oracleRecruitingCloud": 4
   },
@@ -19,9 +19,9 @@
     "internship": 15
   },
   "countsByExperience": {
-    "0-2-years": 369,
+    "0-2-years": 370,
     "no-experience": 54,
-    "2-5-years": 271
+    "2-5-years": 270
   },
   "errors": [
     "CoreSite Careers: listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
@@ -1234,14 +1234,14 @@
     "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 47,
-    "qualifyingRoles": 45,
+    "candidateRows": 46,
+    "qualifyingRoles": 44,
     "diagnostics": {
-      "canonicalLinks": 69,
-      "missionFitLinks": 47,
-      "uniqueCandidates": 47,
-      "detailAttempted": 47,
-      "detailVerified": 46,
+      "canonicalLinks": 68,
+      "missionFitLinks": 46,
+      "uniqueCandidates": 46,
+      "detailAttempted": 46,
+      "detailVerified": 45,
       "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
@@ -1251,8 +1251,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-10T16:46:04.268Z",
-    "freshnessCheckedAt": "2026-09-10T16:46:04.268Z",
+    "lastHealthyAt": "2026-09-11T05:18:02.392Z",
+    "freshnessCheckedAt": "2026-09-11T05:18:02.392Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -1936,7 +1936,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-11T05:14:51.996Z",
+    "checkedAt": "2026-09-11T05:18:02.472Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1944,7 +1944,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-11T05:14:52.067Z",
+    "updatedAt": "2026-09-11T05:18:02.531Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 694,
@@ -1962,9 +1962,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-11T05:14:52.134Z",
-    "before": 695,
-    "after": 695,
+    "checkedAt": "2026-09-11T05:18:02.571Z",
+    "before": 694,
+    "after": 694,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1987,8 +1987,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-11T05:15:10.315Z"
+    "firstSeenRecencyFallbackJobs": 111,
+    "updatedAt": "2026-09-11T05:18:02.609Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

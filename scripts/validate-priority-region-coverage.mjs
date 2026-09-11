@@ -8,14 +8,22 @@ const MAJOR_PATH = 'data/major-jobs.json';
 // role-family coverage so a refresh cannot silently erase an entire market
 // while leaving one same-titled role elsewhere.
 const protectedSnapshots = [
+  { company: 'Amazon Web Services', path: 'data/amazon-jobs.json' },
   { company: 'Google', path: 'data/google-jobs.json' },
+  { company: 'Microsoft', path: 'data/microsoft-jobs.json' },
+  { company: 'Meta', path: 'data/meta-jobs.json' },
+  { company: 'Oracle', path: 'data/oracle-jobs.json' },
+  { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' },
   { company: 'Iron Mountain', path: 'data/iron-mountain-jobs.json' },
   { company: 'Cologix', path: 'data/cologix-jobs.json' },
   { company: 'Flexential', path: 'data/flexential-jobs.json' },
   { company: 'T5 Data Centers', path: 'data/t5-data-centers-jobs.json' },
   { company: 'Stream Data Centers', path: 'data/stream-data-centers-jobs.json' },
   { company: 'Switch', path: 'data/switch-jobs.json' },
-  { company: 'DataBank', path: 'data/databank-jobs.json' }
+  { company: 'DataBank', path: 'data/databank-jobs.json' },
+  { company: 'TierPoint', path: 'data/tierpoint-jobs.json' },
+  { company: 'Sabey Data Centers', path: 'data/sabey-jobs.json' },
+  { company: 'Novva Data Centers', path: 'data/novva-jobs.json' }
 ];
 
 const majorWorkdayCompanies = [

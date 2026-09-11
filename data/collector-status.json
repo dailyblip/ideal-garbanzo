@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-11T05:38:53.494Z",
+  "updatedAt": "2026-09-11T06:22:38.595Z",
   "jobs": 694,
   "sourcesAttempted": 41,
   "providers": {
@@ -1931,7 +1931,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-11T05:38:53.574Z",
+    "checkedAt": "2026-09-11T06:22:38.683Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1939,7 +1939,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-11T05:38:53.650Z",
+    "updatedAt": "2026-09-11T06:22:38.762Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 694,
@@ -1957,17 +1957,17 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-11T05:38:53.725Z",
-    "before": 695,
-    "after": 695,
+    "checkedAt": "2026-09-11T06:22:38.830Z",
+    "before": 694,
+    "after": 694,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-11T05:39:13.926Z",
+    "checkedAt": "2026-09-11T06:23:06.809Z",
     "publishedJobs": 694,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
   },
@@ -1975,15 +1975,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 986,
     "currentJobs": 694,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-11T05:39:14.124Z"
+    "updatedAt": "2026-09-11T06:23:06.935Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2063,18 +2063,18 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-10T17:03:42.686Z",
+    "checkedAt": "2026-09-11T06:22:38.595Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",
     "officialLeverBoard": "https://jobs.lever.co/cologix",
     "api": "https://api.lever.co/v0/postings/cologix?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 29,
-    "usJobs": 23,
+    "listedJobs": 28,
+    "usJobs": 22,
     "candidateRoles": 12,
     "qualifyingRoles": 10,
-    "rejectedOutOfScopeTitle": 11,
+    "rejectedOutOfScopeTitle": 10,
     "rejectedSeniorTitle": 0,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0

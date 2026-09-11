@@ -16,8 +16,8 @@
   },
   "countsByExperience": {
     "0-2-years": 365,
-    "no-experience": 53,
-    "2-5-years": 271
+    "2-5-years": 271,
+    "no-experience": 53
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1947,7 +1947,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-11T16:15:39.680Z",
+    "checkedAt": "2026-09-11T16:28:05.595Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1955,7 +1955,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-11T16:15:39.738Z",
+    "updatedAt": "2026-09-11T16:28:05.658Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 689,
@@ -1966,23 +1966,32 @@
       "southwest": 84,
       "southeast": 106,
       "mid-atlantic": 124,
-      "west": 101,
       "midwest": 137,
       "texas": 116,
       "northeast": 20,
+      "west": 101,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-11T16:15:39.792Z",
-    "before": 689,
+    "checkedAt": "2026-09-11T16:28:05.714Z",
+    "before": 690,
     "after": 689,
-    "removed": 0,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "coreweave-4696011006",
+        "keptId": "coreweave-4709264006",
+        "company": "CoreWeave",
+        "title": "Data Center Technician - Sandusky, OH",
+        "location": "Sandusky, OH"
+      }
+    ]
   },
   "postQa": {
-    "checkedAt": "2026-09-11T16:15:58.411Z",
+    "checkedAt": "2026-09-11T16:28:30.293Z",
     "publishedJobs": 689,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -1998,9 +2007,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 9,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-11T16:15:58.798Z"
+    "updatedAt": "2026-09-11T16:28:30.453Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

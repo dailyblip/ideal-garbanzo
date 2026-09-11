@@ -1,0 +1,77 @@
+name: Generic ATS stale fallback watchdog
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/enforce-generic-fallback-freshness.mjs'
+      - 'scripts/collect-jobs.mjs'
+      - '.github/workflows/generic-ats-stale-fallback-watch.yml'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: generic-ats-stale-fallback-watch
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test generic ATS freshness policy
+        run: node scripts/enforce-generic-fallback-freshness.mjs --test
+      - name: Enforce generic ATS fallback freshness
+        run: node scripts/enforce-generic-fallback-freshness.mjs
+      - name: Validate generic ATS freshness state
+        run: node scripts/enforce-generic-fallback-freshness.mjs --validate
+      - name: Validate publication contracts
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Detect public feed change
+        id: feed
+        run: |
+          if git diff --quiet -- data/jobs.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Commit freshness state when changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain --untracked-files=no -- data/jobs.json data/collector-status.json)" ]; then
+            echo "Generic ATS freshness state is unchanged."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u -- data/jobs.json data/collector-status.json
+          git commit -m "Enforce generic ATS fallback freshness"
+          git fetch origin main
+          if ! git rebase origin/main; then
+            git rebase --abort || true
+            echo "::error::Could not rebase generic ATS freshness state onto latest main."
+            exit 1
+          fi
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Deploy stale-role removal
+        if: steps.commit.outputs.changed == 'true' && steps.feed.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

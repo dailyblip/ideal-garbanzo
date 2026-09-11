@@ -1,20 +1,11 @@
 {
-  "checkedAt": "2026-09-11T17:26:28.600Z",
-  "jobsBefore": 669,
+  "checkedAt": "2026-09-11T17:56:31.188Z",
+  "jobsBefore": 668,
   "jobsAfter": 668,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
+  "duplicatesRemoved": [],
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
@@ -168,15 +159,6 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/17818219-skillbridge-data-center-operations-technician-internship"
-    },
-    {
-      "id": "coresite-17818220",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/17818220-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17818220-skillbridge-data-center-operations-technician-internship"
     },
     {
       "id": "coresite-17818221",

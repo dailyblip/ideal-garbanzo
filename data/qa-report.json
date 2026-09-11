@@ -1,20 +1,56 @@
 {
-  "checkedAt": "2026-09-10T17:54:12.082Z",
-  "jobsBefore": 698,
-  "jobsAfter": 697,
+  "checkedAt": "2026-09-11T03:20:17.174Z",
+  "jobsBefore": 699,
+  "jobsAfter": 694,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [],
+  "duplicatesRemoved": [
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-qtsdatacenters-R2026-0768",
+      "keptId": "workday-qtsdatacenters-R2026-0881",
+      "company": "QTS Data Centers",
+      "title": "Regional Data Center Controls Quality Engineer",
+      "location": "Suwanee, GA"
+    }
+  ],
   "deadJobLinksRemoved": [
     {
-      "id": "amazon-10500743",
+      "id": "amazon-10534761",
       "company": "Amazon Web Services",
-      "title": "Controls Engineer, Data Center Capacity Delivery",
-      "url": "https://www.amazon.jobs/en/jobs/10500743/controls-engineer-data-center-capacity-delivery",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10534761/data-center-technician",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10500743/controls-engineer-data-center-capacity-delivery"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10534761/data-center-technician"
+    },
+    {
+      "id": "amazon-10531636",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10531636/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10531636/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10510180",
+      "company": "Amazon Web Services",
+      "title": "Data Center Controls Engineer, Controls Deployment Service",
+      "url": "https://www.amazon.jobs/en/jobs/10510180/data-center-controls-engineer-controls-deployment-service",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10510180/data-center-controls-engineer-controls-deployment-service"
+    },
+    {
+      "id": "lever-t5-f5e3adcc-e7e0-4257-92f1-998e7a3d4940",
+      "company": "T5 Data Centers",
+      "title": "General Maintenance Technician",
+      "url": "https://jobs.lever.co/t5datacenters/f5e3adcc-e7e0-4257-92f1-998e7a3d4940",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/f5e3adcc-e7e0-4257-92f1-998e7a3d4940"
     }
   ],
   "providerVerifiedJobLinksRetained": [
@@ -53,6 +89,69 @@
     }
   ],
   "blockedJobLinks": [
+    {
+      "id": "coresite-17818222",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship"
+    },
+    {
+      "id": "coresite-18085845",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship"
+    },
+    {
+      "id": "coresite-17818219",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/17818219-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17818219-skillbridge-data-center-operations-technician-internship"
+    },
+    {
+      "id": "coresite-17818220",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/17818220-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17818220-skillbridge-data-center-operations-technician-internship"
+    },
+    {
+      "id": "coresite-17818221",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/17818221-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17818221-skillbridge-data-center-operations-technician-internship"
+    },
+    {
+      "id": "coresite-18083157",
+      "company": "CoreSite",
+      "title": "Data Center Operations Technician II (Night) (SV9)",
+      "url": "https://jobs.coresite.com/jobs/18083157-data-center-operations-technician-ii-night-sv9",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18083157-data-center-operations-technician-ii-night-sv9"
+    },
+    {
+      "id": "coresite-18065800",
+      "company": "CoreSite",
+      "title": "Data Center Operations Technician II (Swing) (SV8)",
+      "url": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
+    },
     {
       "id": "coresite-18130151",
       "company": "CoreSite",
@@ -99,24 +198,6 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18174188-critical-operations-engineer-ii-sv7-day"
     },
     {
-      "id": "coresite-17818222",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship"
-    },
-    {
-      "id": "coresite-18085845",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship"
-    },
-    {
       "id": "coresite-17781601",
       "company": "CoreSite",
       "title": "Critical Operations Engineer II (Swing) (NY2)",
@@ -160,51 +241,6 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/17900857-critical-operations-engineer-i-swing-mi2"
-    },
-    {
-      "id": "coresite-17818219",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/17818219-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17818219-skillbridge-data-center-operations-technician-internship"
-    },
-    {
-      "id": "coresite-17818220",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/17818220-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17818220-skillbridge-data-center-operations-technician-internship"
-    },
-    {
-      "id": "coresite-17818221",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/17818221-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/17818221-skillbridge-data-center-operations-technician-internship"
-    },
-    {
-      "id": "coresite-18083157",
-      "company": "CoreSite",
-      "title": "Data Center Operations Technician II (Night) (SV9)",
-      "url": "https://jobs.coresite.com/jobs/18083157-data-center-operations-technician-ii-night-sv9",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18083157-data-center-operations-technician-ii-night-sv9"
-    },
-    {
-      "id": "coresite-18065800",
-      "company": "CoreSite",
-      "title": "Data Center Operations Technician II (Swing) (SV8)",
-      "url": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
   "transientJobLinks": [],
@@ -222,24 +258,6 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://www.datacenterdynamics.com/en/dcdconnect-live/virginia/2026/agenda/"
-    },
-    {
-      "id": "vantage-project-lighthouse-info-2026-12-14",
-      "name": "Project Lighthouse Entry-Level Construction Skills Training Info Session",
-      "date": "2026-12-14",
-      "url": "https://wrtp.org/event/project-lighthouse-entry-level-construction-skills-training-elcs-2027/",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://wrtp.org/event/project-lighthouse-entry-level-construction-skills-training-elcs-2027/"
-    },
-    {
-      "id": "vantage-project-lighthouse-info-2026-12-21",
-      "name": "Project Lighthouse Entry-Level Construction Skills Training Info Session",
-      "date": "2026-12-21",
-      "url": "https://wrtp.org/event/project-lighthouse-entry-level-construction-skills-training-elcs-2027/",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://wrtp.org/event/project-lighthouse-entry-level-construction-skills-training-elcs-2027/"
     }
   ],
   "transientCareerEventLinks": [],

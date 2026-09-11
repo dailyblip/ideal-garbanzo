@@ -23,6 +23,16 @@ if (config.cadence !== 'weekly') fail('Mailing list cadence must remain weekly.'
 if (config.sendDay !== 'Monday') fail('Weekly alert must send on Monday.');
 if (config.sendTimeUtc !== '16:00') fail('Weekly alert send time must remain 16:00 UTC.');
 
+const scheduleMatch = workflow.match(/cron:\s*'(\d{1,2})\s+(\d{1,2})\s+\*\s+\*\s+1'/);
+if (!scheduleMatch) fail('Weekly alert workflow must have a Monday UTC cron schedule.');
+const workflowMinute = Number(scheduleMatch[1]);
+const workflowHour = Number(scheduleMatch[2]);
+const [sendHour, sendMinute] = String(config.sendTimeUtc).split(':').map(Number);
+const scheduleLeadMinutes = sendHour * 60 + sendMinute - (workflowHour * 60 + workflowMinute);
+if (scheduleLeadMinutes < 30 || scheduleLeadMinutes > 180) {
+  fail(`Weekly alert scheduler must run 30–180 minutes before ${config.sendTimeUtc} UTC so the digest uses fresh jobs without risking a missed send.`);
+}
+
 const expectedAction = `https://buttondown.com/api/emails/embed-subscribe/${config.username}`;
 for (const marker of [
   'id="weeklyAlertForm"',
@@ -68,7 +78,7 @@ for (const marker of [
 if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script must not disable the static fallback when config fetch fails.');
 
 for (const marker of [
-  "cron: '5 5 * * 1'",
+  "cron: '5 14 * * 1'",
   "run: node scripts/validate-mailing-list.mjs",
   "run: node scripts/send-weekly-job-alert.mjs --dry-run",
   'BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}',

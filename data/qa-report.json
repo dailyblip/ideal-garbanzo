@@ -1,9 +1,22 @@
 {
-  "checkedAt": "2026-09-11T16:28:30.293Z",
-  "jobsBefore": 689,
+  "checkedAt": "2026-09-11T16:35:50.040Z",
+  "jobsBefore": 691,
   "jobsAfter": 689,
   "demoJobsRemoved": [],
-  "nonUsJobsRemoved": [],
+  "nonUsJobsRemoved": [
+    {
+      "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
+      "company": "Serverfarm",
+      "title": "Junior Data Center Shift Engineer",
+      "location": "AMS1"
+    },
+    {
+      "id": "ashby-lambda-8308606de297f6",
+      "company": "Lambda",
+      "title": "Data Center Operations System Engineer III (Querétaro, Mexico)",
+      "location": "Querétaro, Mexico - Data Center"
+    }
+  ],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [],
@@ -198,6 +211,15 @@
     }
   ],
   "transientJobLinks": [
+    {
+      "id": "gh-xai-5215038007",
+      "company": "xAI",
+      "title": "Electrician, Construction (Colossus) - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5215038007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
     {
       "id": "gh-xai-5226371007",
       "company": "xAI",

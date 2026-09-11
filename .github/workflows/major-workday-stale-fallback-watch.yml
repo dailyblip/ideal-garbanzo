@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/enforce-major-workday-fallback-freshness.mjs'
+      - 'scripts/prune-closed-major-workday.mjs'
       - '.github/workflows/major-workday-stale-fallback-watch.yml'
   schedule:
     - cron: '29 */6 * * *'
@@ -30,12 +31,13 @@ jobs:
         with:
           node-version: 22
 
-      - name: Test stale-fallback policy
+      - name: Test priority Workday freshness policy
         run: |
           node --check scripts/enforce-major-workday-fallback-freshness.mjs
+          node --check scripts/prune-closed-major-workday.mjs
           node scripts/enforce-major-workday-fallback-freshness.mjs --test
 
-      - name: Verify sources and enforce expiry
+      - name: Verify sources, prune closed roles, and enforce expiry
         id: enforce
         shell: bash
         run: |
@@ -48,6 +50,7 @@ jobs:
             git reset --hard origin/main
 
             node scripts/enforce-major-workday-fallback-freshness.mjs
+            node scripts/prune-closed-major-workday.mjs
 
             roles_changed=false
             status_changed=false
@@ -76,7 +79,7 @@ jobs:
             if [ "$roles_changed" = false ] && [ "$status_changed" = false ] && [ "$state_changed" = false ]; then
               echo 'changed=false' >> "$GITHUB_OUTPUT"
               echo 'roles_changed=false' >> "$GITHUB_OUTPUT"
-              echo 'All six priority Workday sources are inside policy; no repository change required.'
+              echo 'All six priority Workday sources and role URLs are inside policy; no repository change required.'
               exit 0
             fi
 
@@ -87,7 +90,7 @@ jobs:
               exit 0
             fi
 
-            git commit -m 'Record major Workday fallback freshness'
+            git commit -m 'Record major Workday freshness and liveness'
             if git push origin HEAD:main; then
               echo 'changed=true' >> "$GITHUB_OUTPUT"
               echo "roles_changed=${roles_changed}" >> "$GITHUB_OUTPUT"

@@ -2,10 +2,11 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
 const MAJOR_PATH = 'data/major-jobs.json';
+const STATUS_PATH = 'data/collector-status.json';
 
 // Targeted recovery can find roles that the broad Workday listing temporarily
-// misses. Re-check the official Workday detail endpoint on every targeted pass
-// so those recovered records cannot linger after the employer closes them.
+// misses. Re-check the official Workday detail endpoint every six hours so
+// recovered records cannot linger after an employer definitively closes them.
 const boards = new Map([
   ['Vantage Data Centers', { origin: 'https://vantagedc.wd1.myworkdayjobs.com', tenant: 'vantagedc', site: 'Vantage', locale: 'en-US' }],
   ['QTS Data Centers', { origin: 'https://qtsdatacenters.wd5.myworkdayjobs.com', tenant: 'qtsdatacenters', site: 'QTS', locale: 'en-US' }],
@@ -21,6 +22,20 @@ async function readArray(path) {
   const value = JSON.parse(await readFile(path, 'utf8'));
   if (!Array.isArray(value)) throw new Error(`${path} must contain an array`);
   return value;
+}
+
+async function readObject(path) {
+  const value = JSON.parse(await readFile(path, 'utf8'));
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${path} must contain an object`);
+  return value;
+}
+
+function summarize(records, field) {
+  return records.reduce((acc, job) => {
+    const value = clean(job?.[field]) || 'unknown';
+    acc[value] = (acc[value] || 0) + 1;
+    return acc;
+  }, {});
 }
 
 function detailEndpoint(job) {
@@ -58,7 +73,7 @@ async function liveState(job) {
       headers: {
         accept: 'application/json',
         referer: endpoint.sourceUrl,
-        'user-agent': 'DataCenterCareersBot/1.4 (+https://datacentercareers.us/)'
+        'user-agent': 'DataCenterCareersBot/1.5 (+https://datacentercareers.us/)'
       }
     });
     if (response.ok) return { state: 'live', status: response.status };
@@ -85,6 +100,7 @@ for (const job of [...jobs, ...major]) {
 }
 
 const closedUrls = new Set();
+const closedByCompany = {};
 const transient = [];
 let checked = 0;
 
@@ -96,6 +112,8 @@ for (let index = 0; index < rows.length; index += 8) {
     checked += 1;
     if (result.state === 'closed') {
       closedUrls.add(url);
+      const company = clean(job.company) || 'Unknown';
+      closedByCompany[company] = (closedByCompany[company] || 0) + 1;
       console.log(`Closed Workday role: ${job.company} — ${job.title} (${result.status})`);
     } else if (result.state === 'transient') {
       transient.push({ company: job.company, title: job.title, status: result.status || null, error: result.error || null });
@@ -110,8 +128,37 @@ if (!closedUrls.size) {
 
 const nextJobs = jobs.filter(job => !closedUrls.has(key(job)));
 const nextMajor = major.filter(job => !closedUrls.has(key(job)));
+const status = await readObject(STATUS_PATH);
+const nowIso = new Date().toISOString();
+
+status.updatedAt = nowIso;
+status.jobs = nextJobs.length;
+status.countsByType = summarize(nextJobs, 'type');
+status.countsByExperience = summarize(nextJobs, 'experience');
+status.majorSources = status.majorSources && typeof status.majorSources === 'object' && !Array.isArray(status.majorSources)
+  ? status.majorSources
+  : {};
+status.majorSources.jobs = nextMajor.length;
+status.majorSources.reconciliation = {
+  ...(status.majorSources.reconciliation || {}),
+  checkedAt: nowIso,
+  rawJobs: nextMajor.length,
+  publishedUsJobs: nextMajor.length,
+  closedRolePruneAt: nowIso,
+  closedRolesRemoved: closedUrls.size
+};
+status.majorSources.closedRolePrune = {
+  checkedAt: nowIso,
+  officialRoleUrlsChecked: checked,
+  removed: closedUrls.size,
+  removedByCompany: closedByCompany,
+  transientKept: transient.length,
+  policy: 'Remove only priority Workday roles whose official detail endpoint returns HTTP 404 or 410; retain transient failures.'
+};
+
 await writeFile(JOBS_PATH, JSON.stringify(nextJobs, null, 2) + '\n');
 await writeFile(MAJOR_PATH, JSON.stringify(nextMajor, null, 2) + '\n');
+await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
 console.log(`Pruned ${closedUrls.size} definitively closed priority Workday role URL(s): public feed ${jobs.length}→${nextJobs.length}, major snapshot ${major.length}→${nextMajor.length}.`);
 if (transient.length) console.log(`Kept ${transient.length} role(s) whose liveness checks were transient or blocked.`);

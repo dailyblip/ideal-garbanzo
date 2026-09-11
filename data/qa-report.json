@@ -1,11 +1,20 @@
 {
-  "checkedAt": "2026-09-11T16:55:41.506Z",
-  "jobsBefore": 691,
+  "checkedAt": "2026-09-11T17:04:52.809Z",
+  "jobsBefore": 692,
   "jobsAfter": 691,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [],
+  "duplicatesRemoved": [
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-qtsdatacenters-R2026-0768",
+      "keptId": "workday-qtsdatacenters-R2026-0881",
+      "company": "QTS Data Centers",
+      "title": "Regional Data Center Controls Quality Engineer",
+      "location": "Suwanee, GA"
+    }
+  ],
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [
     {
@@ -199,10 +208,19 @@
   ],
   "transientJobLinks": [
     {
-      "id": "gh-xai-5064636007",
+      "id": "gh-xai-5182357007",
       "company": "xAI",
-      "title": "Critical Facilities Engineer - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5064636007",
+      "title": "Electrical Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5182357007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5205550007",
+      "company": "xAI",
+      "title": "Operations Engineer, Facility Operations - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5205550007",
       "state": "transient",
       "status": null,
       "error": "timeout"

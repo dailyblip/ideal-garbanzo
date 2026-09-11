@@ -6,6 +6,8 @@ on:
     paths:
       - scripts/collect-flexential.mjs
       - scripts/validate-flexential.mjs
+      - scripts/enforce-flexential-fallback-freshness.mjs
+      - scripts/validate-flexential-freshness.mjs
   workflow_dispatch:
   schedule:
     - cron: '2 */12 * * *'
@@ -33,7 +35,10 @@ jobs:
         run: |
           node --check scripts/collect-flexential.mjs
           node --check scripts/validate-flexential.mjs
+          node --check scripts/enforce-flexential-fallback-freshness.mjs
+          node --check scripts/validate-flexential-freshness.mjs
           node scripts/collect-flexential.mjs --test-classifier
+          node scripts/enforce-flexential-fallback-freshness.mjs --test
       - name: Collect official Flexential Greenhouse roles
         run: node scripts/collect-flexential.mjs
       - name: Enforce mission-fit role families
@@ -47,7 +52,9 @@ jobs:
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate Flexential employer-direct snapshot
-        run: node scripts/validate-flexential.mjs
+        run: |
+          node scripts/validate-flexential.mjs
+          node scripts/validate-flexential-freshness.mjs
       - name: Track first-seen dates
         run: node scripts/stamp-job-history.mjs
       - name: Validate updated feed

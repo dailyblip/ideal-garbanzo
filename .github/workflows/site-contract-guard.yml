@@ -22,6 +22,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate early-career ingestion classifiers
+        run: |
+          node scripts/collect-jobs-core.mjs --test-experience-parser
+          node scripts/collect-flexential.mjs --test-classifier
+          node scripts/collect-major-jobs.mjs --test-experience-parser
+          node scripts/collect-major-jobs.mjs --test-workday-location
       - name: Validate regional filtering contract
         run: node scripts/test-region-filter-contract.mjs
       - name: Validate promotion runtime contract

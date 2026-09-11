@@ -39,4 +39,39 @@ const escapedMarkup = verifyEventContent(
 );
 assert.equal(escapedMarkup.matched, true, 'HTML entities and abbreviated dates should verify');
 
+const cancelled = verifyEventContent(
+  event,
+  '<main><h1>Data Center Career Day, Fall 2026</h1><p>October 9, 2026 · Mesa, Arizona</p><strong>Status: Cancelled</strong></main>'
+);
+assert.equal(cancelled.matched, false, 'a cancelled event must not verify even when its original date remains on the page');
+assert.equal(cancelled.statusConflict, true, 'cancelled event should expose status conflict evidence');
+assert.equal(cancelled.reason, 'event-cancelled-postponed-or-rescheduled');
+
+assert.equal(
+  verifyEventContent(
+    event,
+    '<main><h1>Data Center Career Day, Fall 2026</h1><p>October 9, 2026 · Mesa, Arizona</p><p>This event has been postponed. A new date will be announced.</p></main>'
+  ).matched,
+  false,
+  'a postponed event must not verify under its old date'
+);
+
+assert.equal(
+  verifyEventContent(
+    event,
+    '<main><h1>Data Center Career Day, Fall 2026</h1><p>October 9, 2026 · Mesa, Arizona</p><p>This event has been rescheduled to October 20, 2026.</p></main>'
+  ).matched,
+  false,
+  'a rescheduled event must not verify under its old date'
+);
+
+assert.equal(
+  verifyEventContent(
+    event,
+    '<main><h1>Data Center Career Day, Fall 2026</h1><p>October 9, 2026 · Mesa, Arizona</p><footer>Cancellation policy: registrations may be transferred up to 48 hours before the event.</footer></main>'
+  ).matched,
+  true,
+  'generic cancellation-policy copy must not be treated as an event cancellation'
+);
+
 console.log('Career-event content-evidence tests passed.');

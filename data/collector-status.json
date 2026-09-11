@@ -1,28 +1,26 @@
 {
-  "updatedAt": "2026-09-11T19:49:14.474Z",
-  "jobs": 664,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-11T20:59:16.931Z",
+  "jobs": 680,
+  "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
-    "ashby": 5,
-    "googleCareers": 1,
-    "icims": 1
+    "ashby": 5
   },
   "countsByType": {
-    "internship": 11,
+    "entry-level": 647,
+    "internship": 12,
     "trainee": 9,
-    "apprenticeship": 12,
-    "entry-level": 632
+    "apprenticeship": 12
   },
   "countsByExperience": {
-    "no-experience": 53,
-    "0-2-years": 337,
-    "2-5-years": 274
+    "0-2-years": 346,
+    "2-5-years": 281,
+    "no-experience": 53
   },
   "errors": [],
   "sourceFailurePreservation": {
-    "checkedAt": "2026-09-11T16:30:47.917Z",
+    "checkedAt": "2026-09-11T20:59:16.943Z",
     "failedSources": [],
     "preservedJobs": 0,
     "preservedByCompany": {},
@@ -4025,8 +4023,8 @@
     ],
     "sources": {
       "Serverfarm": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4034,8 +4032,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "LightEdge Solutions": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4043,8 +4041,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "ECL": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4052,8 +4050,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Hive": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4061,8 +4059,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "CAI": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4070,8 +4068,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "xAI": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4079,8 +4077,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Element Critical": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4088,8 +4086,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Lambda": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4097,8 +4095,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Crusoe": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4106,8 +4104,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Fluidstack": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4115,8 +4113,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Gimlet Labs": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4124,8 +4122,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "TensorWave": {
-        "lastHealthyAt": "2026-09-11T16:30:47.905Z",
-        "latestScanAt": "2026-09-11T16:30:47.905Z",
+        "lastHealthyAt": "2026-09-11T20:59:16.931Z",
+        "latestScanAt": "2026-09-11T20:59:16.931Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4203,7 +4201,7 @@
       "company": "CoreWeave",
       "provider": "greenhouse",
       "sourceHealthy": true,
-      "qualifyingRoles": 14,
+      "qualifyingRoles": 15,
       "error": ""
     },
     {
@@ -4245,7 +4243,7 @@
       "company": "Gimlet Labs",
       "provider": "ashby",
       "sourceHealthy": true,
-      "qualifyingRoles": 0,
+      "qualifyingRoles": 1,
       "error": ""
     },
     {
@@ -4257,8 +4255,8 @@
     }
   ],
   "genericDirectSources": {
-    "updatedAt": "2026-09-11T16:30:47.905Z",
-    "jobs": 99,
+    "updatedAt": "2026-09-11T20:59:16.931Z",
+    "jobs": 101,
     "sourcesAttempted": 17,
     "providers": {
       "lever": 7,
@@ -4266,12 +4264,13 @@
       "ashby": 5
     },
     "countsByType": {
-      "entry-level": 97,
+      "entry-level": 98,
+      "internship": 1,
       "apprenticeship": 2
     },
     "countsByExperience": {
+      "0-2-years": 52,
       "2-5-years": 46,
-      "0-2-years": 50,
       "no-experience": 3
     },
     "sourceDiagnostics": [
@@ -4342,7 +4341,7 @@
         "company": "CoreWeave",
         "provider": "greenhouse",
         "sourceHealthy": true,
-        "qualifyingRoles": 14,
+        "qualifyingRoles": 15,
         "error": ""
       },
       {
@@ -4384,7 +4383,7 @@
         "company": "Gimlet Labs",
         "provider": "ashby",
         "sourceHealthy": true,
-        "qualifyingRoles": 0,
+        "qualifyingRoles": 1,
         "error": ""
       },
       {
@@ -4398,7 +4397,7 @@
     "errors": []
   },
   "authoritativeSnapshotOverlay": {
-    "checkedAt": "2026-09-11T16:30:47.917Z",
+    "checkedAt": "2026-09-11T20:59:16.943Z",
     "restoredByCompany": {
       "Cologix": 10,
       "EdgeConneX": 2
@@ -4406,7 +4405,7 @@
     "policy": "Dedicated employer-direct snapshots replace overlapping generic ATS results before later publication gates."
   },
   "genericDedicatedOverlapProtection": {
-    "checkedAt": "2026-09-11T16:30:48.001Z",
+    "checkedAt": "2026-09-11T20:59:17.021Z",
     "companies": [
       "Cologix",
       "T5 Data Centers",
@@ -4424,7 +4423,7 @@
     "genericResultsSuppressedByCompany": {
       "Cologix": 10,
       "T5 Data Centers": 11,
-      "CoreWeave": 14,
+      "CoreWeave": 15,
       "Flexential": 3,
       "EdgeConneX": 2
     },

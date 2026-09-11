@@ -92,6 +92,9 @@ for (const marker of [
   'function jobDetailUrl(job)',
   'function nextMonday1600Utc(now = new Date())',
   'function findExistingDigest(digestKey)',
+  'publish_date__start',
+  'publish_date__end',
+  "ordering: '-creation_date'",
   'dcc_digest_key',
   "status: 'scheduled'",
   'publish_date: sendAt.toISOString()',
@@ -99,6 +102,9 @@ for (const marker of [
   'Digest body bypasses the site'
 ]) {
   if (!alertScript.includes(marker)) fail(`Weekly alert sender is missing: ${marker}`);
+}
+if (alertScript.includes("metadata['dcc_digest_key']")) {
+  fail('Weekly alert duplicate detection must not use unsupported metadata filtering on the Buttondown /emails endpoint.');
 }
 
 for (const marker of [

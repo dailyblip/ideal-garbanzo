@@ -1,0 +1,104 @@
+name: Major Workday stale fallback watch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/enforce-major-workday-fallback-freshness.mjs'
+      - '.github/workflows/major-workday-stale-fallback-watch.yml'
+  schedule:
+    - cron: '29 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: major-workday-stale-fallback-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test stale-fallback policy
+        run: |
+          node --check scripts/enforce-major-workday-fallback-freshness.mjs
+          node scripts/enforce-major-workday-fallback-freshness.mjs --test
+
+      - name: Verify sources and enforce expiry
+        id: enforce
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+
+            node scripts/enforce-major-workday-fallback-freshness.mjs
+
+            roles_changed=false
+            status_changed=false
+            if ! git diff --quiet -- data/jobs.json data/major-jobs.json; then
+              roles_changed=true
+            fi
+            if ! git diff --quiet -- data/collector-status.json; then
+              status_changed=true
+            fi
+
+            if [ "$roles_changed" = true ]; then
+              node scripts/refresh-region-status.mjs
+            fi
+
+            node scripts/enforce-major-workday-fallback-freshness.mjs --validate
+            if [ "$roles_changed" = true ]; then
+              node scripts/validate.mjs
+              node scripts/validate-priority-employer-sources.mjs
+              node scripts/validate-major-workday-parity.mjs
+            fi
+
+            if [ "$roles_changed" = false ] && [ "$status_changed" = false ]; then
+              echo 'changed=false' >> "$GITHUB_OUTPUT"
+              echo 'roles_changed=false' >> "$GITHUB_OUTPUT"
+              echo 'All six priority Workday sources are inside policy; no repository change required.'
+              exit 0
+            fi
+
+            git add data/jobs.json data/major-jobs.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo 'changed=false' >> "$GITHUB_OUTPUT"
+              echo 'roles_changed=false' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m 'Record major Workday fallback freshness'
+            if git push origin HEAD:main; then
+              echo 'changed=true' >> "$GITHUB_OUTPUT"
+              echo "roles_changed=${roles_changed}" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved before Workday freshness state could be published; retrying from latest main (attempt ${attempt})."
+            sleep $((attempt * 2))
+          done
+
+          echo '::error::Could not publish major Workday freshness state after three fresh verification attempts.'
+          exit 1
+
+      - name: Deploy stale-role removal
+        if: steps.enforce.outputs.roles_changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

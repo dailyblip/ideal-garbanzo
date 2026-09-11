@@ -194,21 +194,84 @@ function countsBy(records, field) {
   }, {});
 }
 
+function restoreSnapshotCompany(records = [], snapshotJobs = [], company = '') {
+  const currentCompanyJobs = records.filter(job => String(job?.company || '').trim() === company);
+  const currentById = new Map(currentCompanyJobs
+    .map(job => [String(job?.id || '').trim(), job])
+    .filter(([id]) => id));
+  const currentByUrl = new Map(currentCompanyJobs
+    .map(job => [String(job?.sourceUrl || '').trim(), job])
+    .filter(([url]) => url));
+
+  const restored = snapshotJobs.map(snapshotJob => {
+    const id = String(snapshotJob?.id || '').trim();
+    const sourceUrl = String(snapshotJob?.sourceUrl || '').trim();
+    const current = (id && currentById.get(id)) || (sourceUrl && currentByUrl.get(sourceUrl));
+    if (!current) return snapshotJob;
+
+    // Snapshot files are authoritative for role content, but postedHours is a
+    // derived recency value. A scheduled publication guard may run hours after a
+    // dedicated collector wrote its snapshot. Replacing the live role wholesale
+    // would therefore make an unchanged posting look younger on every guard run.
+    // Preserve the current recency only when both records refer to the same
+    // posting-date evidence. A genuine employer repost with a new postedAt value
+    // is allowed to reset naturally on the next history pass.
+    const snapshotPostedAt = clean(snapshotJob?.postedAt);
+    const currentPostedAt = clean(current?.postedAt);
+    const currentPostedHours = Number(current?.postedHours);
+    if (snapshotPostedAt && snapshotPostedAt === currentPostedAt && Number.isFinite(currentPostedHours) && currentPostedHours >= 0) {
+      return { ...snapshotJob, postedHours: currentPostedHours };
+    }
+    return snapshotJob;
+  });
+
+  return [
+    ...records.filter(job => String(job?.company || '').trim() !== company),
+    ...restored
+  ];
+}
+
+const snapshotRecencyRegressionCases = [
+  {
+    name: 'unchanged snapshot cannot move recency backward',
+    current: [{ id: 'role-1', company: 'Example', postedAt: '2026-08-04T00:00:00.000Z', postedHours: 925, sourceUrl: 'https://example.com/1' }],
+    snapshot: [{ id: 'role-1', company: 'Example', postedAt: '2026-08-04T00:00:00.000Z', postedHours: 917, sourceUrl: 'https://example.com/1' }],
+    expected: 925
+  },
+  {
+    name: 'new employer posting evidence may reset recency',
+    current: [{ id: 'role-1', company: 'Example', postedAt: '2026-08-04T00:00:00.000Z', postedHours: 925, sourceUrl: 'https://example.com/1' }],
+    snapshot: [{ id: 'role-1', company: 'Example', postedAt: '2026-09-10T00:00:00.000Z', postedHours: 24, sourceUrl: 'https://example.com/1' }],
+    expected: 24
+  },
+  {
+    name: 'new snapshot role keeps source recency',
+    current: [],
+    snapshot: [{ id: 'role-2', company: 'Example', postedAt: '2026-09-10T00:00:00.000Z', postedHours: 24, sourceUrl: 'https://example.com/2' }],
+    expected: 24
+  }
+];
+for (const testCase of snapshotRecencyRegressionCases) {
+  const restored = restoreSnapshotCompany(testCase.current, testCase.snapshot, 'Example');
+  const actual = Number(restored[0]?.postedHours);
+  if (actual !== testCase.expected) {
+    throw new Error(`Snapshot recency regression (${testCase.name}): expected ${testCase.expected}, got ${actual}`);
+  }
+}
+
 let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
 // Dedicated employer collectors write verified snapshots. Generic ATS passes run
 // earlier and can rebuild jobs.json, so restore those snapshots before the global
 // mission-fit and dedupe gates. This prevents transient source outages from
-// erasing openings that were already verified directly with the employer.
+// erasing openings that were already verified directly with the employer while
+// keeping derived recency monotonic for an unchanged posting.
 for (const { path, company } of SNAPSHOT_SOURCES) {
   try {
     const snapshotJobs = JSON.parse(await readFile(path, 'utf8'));
     if (Array.isArray(snapshotJobs) && snapshotJobs.length) {
-      jobs = [
-        ...jobs.filter(job => String(job?.company || '').trim() !== company),
-        ...snapshotJobs
-      ];
+      jobs = restoreSnapshotCompany(jobs, snapshotJobs, company);
     }
   } catch {}
 }

@@ -1,4 +1,4 @@
-import { readFile, writeFile, access } from 'node:fs/promises';
+import { readFile, writeFile, access, mkdir } from 'node:fs/promises';
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -119,7 +119,8 @@ function sitemapLastmods() {
     ['apprenticeships', job => job.type === 'apprenticeship' || job.type === 'trainee'],
     ['internships', job => job.type === 'internship'],
     ['entry-level', job => job.experience === 'no-experience' || job.experience === '0-2-years'],
-    ['no-experience', job => job.experience === 'no-experience']
+    ['no-experience', job => job.experience === 'no-experience'],
+    ['trainee-jobs', job => job.type === 'trainee']
   ];
 
   for (const [root, filter] of listings) {
@@ -221,6 +222,91 @@ async function enhanceJobsListing() {
   await writeFile(path, html);
 }
 
+function isEarlyCareerTechnician(job) {
+  const title = clean(job.title);
+  return ['no-experience','0-2-years'].includes(job.experience)
+    && /\btechnician\b|\btech\s*(?:i|1)\b/i.test(title);
+}
+
+function topTechnicianEmployers(list, limit = 6) {
+  const counts = new Map();
+  for (const job of list) {
+    const company = clean(job.company);
+    if (!company) continue;
+    counts.set(company, (counts.get(company) || 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, limit)
+    .map(([company]) => company);
+}
+
+function technicianCard(job) {
+  const url = `${baseUrl}/jobs/${jobSlug(job)}/`;
+  const experience = job.experience === 'no-experience' ? 'No experience required' : '0–2 years';
+  return `<article class="seo-job-card"><div class="seo-job-main"><span class="seo-kicker">ENTRY-LEVEL TECHNICIAN ROLE</span><h2><a href="${url}">${esc(job.title)}</a></h2><p class="seo-meta"><strong>${esc(job.company)}</strong> · ${esc(job.location)}</p><div class="seo-tags"><span>${experience}</span></div></div><div class="seo-job-side"><a href="${url}">Job details →</a></div></article>`;
+}
+
+async function generateTechnicianPages() {
+  const list = [...jobs]
+    .filter(isEarlyCareerTechnician)
+    .sort((a,b) => earlyRank(a)-earlyRank(b) || (a.postedHours ?? 9999)-(b.postedHours ?? 9999));
+  const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+  const generated = [];
+  const noExperienceCount = list.filter(job => job.experience === 'no-experience').length;
+  const employers = topTechnicianEmployers(list);
+  const employerText = employers.length ? ` Current openings include roles from ${readableList(employers)}.` : '';
+
+  for (let page = 1; page <= pages; page += 1) {
+    const start = (page - 1) * PAGE_SIZE;
+    const subset = list.slice(start, start + PAGE_SIZE);
+    const canonical = pagePath('data-center-technician-jobs', page);
+    const title = page === 1
+      ? 'Data Center Technician Jobs | Entry Level & No Experience'
+      : `Data Center Technician Jobs - Page ${page} | Data Center Careers`;
+    const description = 'Browse current employer-direct data center technician jobs for entry-level candidates, including roles classified for no prior experience or 0–2 years.';
+    const prev = page > 1 ? pagePath('data-center-technician-jobs', page - 1) : '';
+    const next = page < pages ? pagePath('data-center-technician-jobs', page + 1) : '';
+    const schema = {
+      '@context':'https://schema.org',
+      '@type':'ItemList',
+      name:'Entry-level data center technician jobs',
+      numberOfItems:subset.length,
+      itemListElement:subset.map((job,index) => ({
+        '@type':'ListItem',
+        position:start + index + 1,
+        url:`${baseUrl}/jobs/${jobSlug(job)}/`,
+        name:job.title
+      }))
+    };
+    const pagination = pages > 1
+      ? `<nav class="seo-pagination" aria-label="Pagination">${page > 1 ? `<a href="${prev}">← Previous</a>` : '<span></span>'}<span>Page ${page} of ${pages}</span>${page < pages ? `<a href="${next}">Next →</a>` : '<span></span>'}</nav>`
+      : '';
+    const context = page === 1
+      ? `<section class="guide-section" aria-labelledby="technician-no-experience-heading"><span class="seo-kicker">BEGINNER TECHNICIAN PATH</span><h2 id="technician-no-experience-heading">Can you get a data center technician job with no experience?</h2><p>Some technician openings are designed for first-time data center applicants, while others ask for up to two years of related electrical, mechanical, hardware, networking, facilities or military technical experience. We only include technician roles on this page when the published experience level is no experience or 0–2 years.${esc(employerText)}</p><p>“No experience required” refers to prior data center experience. Employers may still require a diploma, shift availability, basic technical skills, safety awareness, a license or another stated qualification. Always check the original employer posting before applying.</p><div class="guide-stats"><div><strong>${list.length}</strong><span>entry-level technician openings</span></div><div><strong>${noExperienceCount}</strong><span>classified no experience</span></div></div></section><aside class="seo-related"><h2>Related beginner routes</h2><a href="${baseUrl}/no-experience/">Data center jobs with no experience</a><a href="${baseUrl}/entry-level/">Entry-level data center jobs</a><a href="${baseUrl}/trainee-jobs/">Data center trainee jobs</a><a href="${baseUrl}/apprenticeships/">Data center apprenticeships</a><a href="${baseUrl}/internships/">Data center internships</a></aside>`
+      : '';
+    const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>${esc(title)}</title><meta name="description" content="${esc(description)}"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><link rel="canonical" href="${canonical}">${prev ? `<link rel="prev" href="${prev}">` : ''}${next ? `<link rel="next" href="${next}">` : ''}<meta property="og:type" content="website"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${canonical}"><link rel="stylesheet" href="${baseUrl}/assets/seo.css"><script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script></head><body><header class="seo-header"><div class="seo-header-inner"><a class="seo-brand" href="${baseUrl}/"><small>LAUNCH YOUR</small><strong>DATA CENTER CAREER</strong></a><nav class="seo-nav" aria-label="Primary"><a href="${baseUrl}/">Home</a><a href="${baseUrl}/jobs/">All jobs</a><a href="${baseUrl}/apprenticeships/">Apprenticeships</a><a href="${baseUrl}/internships/">Internships</a><a href="${baseUrl}/entry-level/">Entry-level</a><a href="${baseUrl}/career-events/">Career events</a></nav></div></header><main class="seo-shell"><nav class="breadcrumbs"><a href="${baseUrl}/">Home</a> / <span>Data center technician jobs</span></nav><header class="seo-page-head"><span class="seo-kicker">EMPLOYER-DIRECT OPPORTUNITIES</span><h1>Entry-level data center technician jobs</h1><p>Current data center technician jobs for entry-level candidates, including openings classified for no prior data center experience or 0–2 years.</p><strong>${list.length} current opportunities</strong></header><section class="seo-list" aria-label="Entry-level data center technician jobs">${subset.map(technicianCard).join('') || '<p>No matching technician openings are currently in the verified feed. Check the related beginner routes below while new roles open.</p>'}</section>${pagination}${context}</main><footer class="seo-footer"><div><strong>Launch Your Data Center Career</strong><span>Employer-direct data center jobs, internships and apprenticeships.</span></div><a href="${baseUrl}/">Back to home</a></footer></body></html>`;
+    const out = page === 1 ? 'data-center-technician-jobs/index.html' : `data-center-technician-jobs/page/${page}/index.html`;
+    await mkdir(out.replace(/\/[^/]+$/, ''), { recursive: true });
+    await writeFile(out, html);
+    generated.push({ url: canonical, lastmod: maxLastmod(subset) });
+  }
+  return generated;
+}
+
+async function addTechnicianCrossLink(path) {
+  let html = await readFile(path, 'utf8');
+  if (html.includes('/data-center-technician-jobs/')) return;
+  const markers = [
+    '<aside class="seo-related"><h2>Keep exploring</h2>',
+    '<aside class="seo-related"><h2>Explore more opportunities</h2>'
+  ];
+  const marker = markers.find(candidate => html.includes(candidate));
+  if (!marker) return;
+  html = html.replace(marker, `${marker}<a href="${baseUrl}/data-center-technician-jobs/">Entry-level data center technician jobs</a>`);
+  await writeFile(path, html);
+}
+
 let enhancedLocations = 0;
 let enrichedJobPages = 0;
 for (const job of jobs) {
@@ -256,6 +342,11 @@ for (const job of jobs) {
     html = `${html.slice(0, markerIndex)}${overviewHtml(job, overview)}\n      ${html.slice(markerIndex)}`;
   }
 
+  if (!html.includes('/data-center-technician-jobs/')) {
+    const relatedMarker = '<aside class="seo-related"><h2>Explore more opportunities</h2>';
+    html = html.replace(relatedMarker, `${relatedMarker}<a href="${baseUrl}/data-center-technician-jobs/">Entry-level data center technician jobs</a>`);
+  }
+
   if (!html.includes(esc(overview))) throw new Error(`Job page ${path} did not receive the plain-language role overview.`);
   enrichedJobPages += 1;
   await writeFile(path, html);
@@ -266,8 +357,17 @@ if (enrichedJobPages !== jobs.length) {
 }
 
 await enhanceJobsListing();
+const technicianPages = await generateTechnicianPages();
+await addTechnicianCrossLink('entry-level/index.html');
+await addTechnicianCrossLink('no-experience/index.html');
+await addTechnicianCrossLink('trainee-jobs/index.html');
 
 let sitemap = await readFile('sitemap.xml', 'utf8');
+for (const page of technicianPages) {
+  if (sitemap.includes(`<loc>${page.url}</loc>`)) continue;
+  const lastmod = page.lastmod ? `<lastmod>${page.lastmod}</lastmod>` : '';
+  sitemap = sitemap.replace('</urlset>', `  <url><loc>${page.url}</loc>${lastmod}</url>\n</urlset>`);
+}
 const lastmods = sitemapLastmods();
 let correctedLastmods = 0;
 for (const [url, lastmod] of lastmods) {
@@ -284,4 +384,4 @@ if (!sitemap.includes(`<loc>${employerUrl}</loc>`)) {
 await writeFile('sitemap.xml', sitemap);
 await writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}/sitemap.xml\n`);
 
-console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context; ${enhancedLocations}/${jobs.length} received structured location data; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap; jobs search/filter/sort controls enabled.`);
+console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context; ${enhancedLocations}/${jobs.length} received structured location data; ${technicianPages.length} technician search pages generated; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap; jobs search/filter/sort controls enabled.`);

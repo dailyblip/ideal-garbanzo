@@ -137,8 +137,11 @@ function classify(title, description='', employmentType='') {
 
   if (!years.length && !earlySignal && !midSignal) return null;
 
+  // "Entry level" is an eligibility signal, not proof that zero prior
+  // experience is acceptable. Reserve the no-experience label for explicit
+  // employer evidence so applicants are not told a 1–2 year role needs none.
   let experience = '0-2-years';
-  if (explicitNoExperience || hasAny(experienceText, ['no experience','entry level','entry-level']) || /\b0\s*(?:-|–|to)\s*\d{1,2}\s+years?(?:\s+of)?\s+experience\b/i.test(experienceText)) experience = 'no-experience';
+  if (explicitNoExperience || /\b0\s*(?:-|–|to)\s*\d{1,2}\s+years?(?:\s+of)?\s+experience\b/i.test(experienceText)) experience = 'no-experience';
   else if (midSignal) experience = '2-5-years';
 
   return { type, experience };
@@ -169,6 +172,18 @@ if (process.argv.includes('--test-experience-parser')) {
       title: 'Data Center Technician',
       description: 'Minimum of 2 years of relevant experience in data center operations.',
       expectedType: 'entry-level', expectedExperience: '0-2-years'
+    },
+    {
+      name: 'entry-level wording does not erase a two-year requirement',
+      title: 'Entry Level Data Center Technician',
+      description: 'Minimum of 2 years of relevant experience in data center operations.',
+      expectedType: 'entry-level', expectedExperience: '0-2-years'
+    },
+    {
+      name: 'explicit no-experience entry-level role keeps no-experience label',
+      title: 'Entry Level Data Center Technician',
+      description: 'No prior experience required. Training is provided for data center operations and critical facilities work.',
+      expectedType: 'entry-level', expectedExperience: 'no-experience'
     },
     {
       name: 'level-two technician remains eligible mid-level',

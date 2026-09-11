@@ -37,6 +37,20 @@ function canonicalPostedAt(job, nowMs) {
   return `${postedAt.slice(0, 10)}T00:00:00.000Z`;
 }
 
+// Workday eventually collapses older listings to labels such as "30+ days ago".
+// Recomputing that relative label on every refresh would move datePosted forward
+// one day at a time even though the requisition never changed. Preserve the
+// earliest posting-date evidence already recorded for the same Workday job. If a
+// later scan provides an older date, keep that better evidence instead.
+function stablePostedAt(job, previousPostedAt, nowMs) {
+  const current = canonicalPostedAt(job, nowMs);
+  if (!isWorkdayJob(job)) return current;
+  const previous = validIso(previousPostedAt, nowMs);
+  if (!current) return previous;
+  if (!previous) return current;
+  return Date.parse(previous) <= Date.parse(current) ? previous : current;
+}
+
 const postingDateRegressionCases = [
   {
     job: {
@@ -67,6 +81,55 @@ for (const testCase of postingDateRegressionCases) {
   const actual = canonicalPostedAt(testCase.job, Date.parse('2026-09-10T12:00:00.000Z'));
   if (actual !== testCase.expected) {
     throw new Error(`Workday posting-date regression: expected ${testCase.expected}, got ${actual}`);
+  }
+}
+
+const stablePostingDateRegressionCases = [
+  {
+    name: 'older Workday evidence is not moved forward by a relative-label refresh',
+    job: {
+      id: 'workday-qtsdatacenters-R2026-2018',
+      sourceUrl: 'https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/example',
+      postedAt: '2026-09-10T08:00:00.000Z'
+    },
+    previousPostedAt: '2026-08-11T00:00:00.000Z',
+    expected: '2026-08-11T00:00:00.000Z'
+  },
+  {
+    name: 'newly discovered older Workday evidence can move the date backward',
+    job: {
+      id: 'workday-qtsdatacenters-R2026-2018',
+      sourceUrl: 'https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/example',
+      postedAt: '2026-08-09T17:45:00.000Z'
+    },
+    previousPostedAt: '2026-08-11T00:00:00.000Z',
+    expected: '2026-08-09T00:00:00.000Z'
+  },
+  {
+    name: 'known Workday date survives a refresh with no posting label',
+    job: {
+      id: 'workday-qtsdatacenters-R2026-2018',
+      sourceUrl: 'https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/example',
+      postedAt: null
+    },
+    previousPostedAt: '2026-08-11T00:00:00.000Z',
+    expected: '2026-08-11T00:00:00.000Z'
+  },
+  {
+    name: 'non-Workday sources continue to use current employer evidence',
+    job: {
+      id: 'generic-123',
+      sourceUrl: 'https://example.com/jobs/123',
+      postedAt: '2026-09-09T16:58:38.378Z'
+    },
+    previousPostedAt: '2026-08-11T00:00:00.000Z',
+    expected: '2026-09-09T16:58:38.378Z'
+  }
+];
+for (const testCase of stablePostingDateRegressionCases) {
+  const actual = stablePostedAt(testCase.job, testCase.previousPostedAt, Date.parse('2026-09-10T12:00:00.000Z'));
+  if (actual !== testCase.expected) {
+    throw new Error(`Workday stable posting-date regression (${testCase.name}): expected ${testCase.expected}, got ${actual}`);
   }
 }
 
@@ -126,13 +189,13 @@ for (const job of jobs) {
   const id = String(job?.id || '').trim();
   if (!id) throw new Error('Cannot stamp job history: published job is missing id.');
 
-  const normalizedPostedAt = canonicalPostedAt(job, nowMs);
+  const existingEntry = historyEntries[id] && typeof historyEntries[id] === 'object' ? historyEntries[id] : {};
+  const normalizedPostedAt = stablePostedAt(job, existingEntry.postedAt, nowMs);
   if (normalizedPostedAt && normalizedPostedAt !== job.postedAt) {
     job.postedAt = normalizedPostedAt;
     normalizedWorkdayPostingDates += 1;
   }
 
-  const existingEntry = historyEntries[id] && typeof historyEntries[id] === 'object' ? historyEntries[id] : {};
   const existingFirstSeen = validIso(existingEntry.firstSeenAt, nowMs);
   let firstSeenAt = existingFirstSeen;
 
@@ -165,7 +228,12 @@ for (const job of jobs) {
     repaired += 1;
   }
 
-  historyEntries[id] = { firstSeenAt, lastChangedAt, fingerprint };
+  historyEntries[id] = {
+    firstSeenAt,
+    lastChangedAt,
+    fingerprint,
+    ...(isWorkdayJob(job) && normalizedPostedAt ? { postedAt: normalizedPostedAt } : {})
+  };
   job.firstSeenAt = firstSeenAt;
   job.lastChangedAt = lastChangedAt;
 

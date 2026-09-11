@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-11T08:52:05.197Z",
-  "jobs": 695,
+  "updatedAt": "2026-09-11T09:24:21.983Z",
+  "jobs": 693,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,13 +9,13 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 659,
+    "entry-level": 657,
     "trainee": 9,
     "internship": 15,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 371,
+    "0-2-years": 369,
     "2-5-years": 271,
     "no-experience": 53
   },
@@ -1731,9 +1731,7 @@
       "roles": 17,
       "classificationCorrections": 0,
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
-      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
-      "maxAgeHours": 96,
-      "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
+      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages."
     }
   },
   "priorityEmployerExpansion": {
@@ -1933,39 +1931,26 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-11T08:52:05.347Z",
+    "updatedAt": "2026-09-11T09:24:22.055Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 693,
-    "regionMissing": 2,
-    "coveragePct": 99.7,
-    "missingSamples": [
-      {
-        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
-      },
-      {
-        "id": "ashby-lambda-8308606de297f6",
-        "company": "Lambda",
-        "location": "Querétaro, Mexico - Data Center",
-        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
-      }
-    ],
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
       "southwest": 85,
       "mid-atlantic": 125,
       "southeast": 108,
       "west": 101,
-      "northeast": 20,
       "midwest": 137,
       "texas": 116,
+      "northeast": 20,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-11T08:52:05.420Z",
+    "checkedAt": "2026-09-11T09:24:22.109Z",
     "before": 695,
     "after": 695,
     "removed": 0,
@@ -1973,16 +1958,16 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-11T07:29:33.943Z",
-    "publishedJobs": 692,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-11T09:24:43.381Z",
+    "publishedJobs": 693,
+    "removedJobs": 2,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 991,
-    "currentJobs": 695,
+    "currentJobs": 693,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1991,7 +1976,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-11T08:52:05.487Z"
+    "updatedAt": "2026-09-11T09:24:43.520Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

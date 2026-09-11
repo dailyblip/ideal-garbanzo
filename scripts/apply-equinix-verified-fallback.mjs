@@ -235,6 +235,20 @@ function fallbackTags(role, type) {
   return [...new Set(tags)].slice(0, 5);
 }
 
+function hasStableManagedClick(job) {
+  if (!isManagedFallback(job)) return true;
+  try {
+    const parsed = new URL(clean(job.sourceUrl));
+    const requisition = clean(parsed.searchParams.get('query'));
+    return parsed.protocol === 'https:' &&
+      parsed.hostname.toLowerCase() === 'careers.equinix.com' &&
+      parsed.pathname.replace(/\/$/, '') === '/jobs/search' &&
+      /^JR-\d+$/i.test(requisition);
+  } catch {
+    return false;
+  }
+}
+
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 let status = {};
 try { status = JSON.parse(await readFile('data/collector-status.json', 'utf8')); } catch {}
@@ -260,8 +274,12 @@ const checks = [];
 if (!expired) {
   for (const role of verifiedRoles) {
     const live = await checkCurrent(role);
-    const useSearchFallback = live.ok && (live.detailStatus === 404 || live.detailStatus === 410);
-    const sourceUrl = useSearchFallback ? officialSearchUrl(role) : role.url;
+    // Direct Equinix detail routes intermittently return false 404s after a
+    // successful source check. Managed fallback jobs therefore publish the
+    // official requisition-targeted search route as the click target while the
+    // direct detail route remains the verification source above.
+    const sourceUrl = officialSearchUrl(role);
+    const useSearchFallback = live.ok;
     checks.push({
       requisition: role.requisition,
       status: live.status,
@@ -274,7 +292,7 @@ if (!expired) {
       clickFallbackUsed: useSearchFallback
     });
     if (!live.ok || existingUrls.has(sourceUrl)) continue;
-    if (useSearchFallback && !sourceUrl.includes(encodeURIComponent(role.requisition))) {
+    if (!sourceUrl.includes(encodeURIComponent(role.requisition))) {
       throw new Error(`Equinix search fallback lost requisition targeting for ${role.requisition}.`);
     }
     const type = fallbackType(role);
@@ -304,6 +322,10 @@ const merged = dedupe([...additions, ...baseJobs]);
 const unsafe = merged.filter(job => isBroadEarlyProgram(job) || isKnownOverExperience(job));
 if (unsafe.length) {
   throw new Error(`Equinix fallback mission-fit guard failed: ${unsafe.length} unverified or over-experience early-program role(s) remain.`);
+}
+const unstableManagedClicks = merged.filter(job => isManagedFallback(job) && !hasStableManagedClick(job));
+if (unstableManagedClicks.length) {
+  throw new Error(`Equinix fallback click guard failed: ${unstableManagedClicks.length} managed role(s) lack requisition-targeted official search links.`);
 }
 
 const retainedManaged = merged.filter(job => isManagedFallback(job)).length;

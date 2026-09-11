@@ -96,18 +96,22 @@
     return new Intl.DateTimeFormat('en-US', { month:'short', day:'numeric', timeZone:'UTC' }).format(date).toUpperCase();
   };
 
-  function activePromotions(records) {
-    const now = Date.now();
+  function activePromotions(records, time = Date.now()) {
     const active = new Map();
     for (const record of Array.isArray(records) ? records : []) {
-      if (!record?.jobId) continue;
-      const starts = record.startsAt ? Date.parse(record.startsAt) : null;
-      const expires = record.expiresAt ? Date.parse(record.expiresAt) : null;
-      if (starts && Number.isFinite(starts) && starts > now) continue;
-      if (expires && Number.isFinite(expires) && expires <= now) continue;
-      const tier = PROMOTION_RANK[record.tier] ? record.tier : 'spotlightJob';
-      const prior = active.get(String(record.jobId));
-      if (!prior || PROMOTION_RANK[tier] > PROMOTION_RANK[prior.tier]) active.set(String(record.jobId), { ...record, tier });
+      const jobId = String(record?.jobId || '').trim();
+      const tier = record?.tier;
+      if (!jobId || !PROMOTION_RANK[tier]) continue;
+
+      const starts = Date.parse(record?.startsAt || '');
+      const expires = Date.parse(record?.expiresAt || '');
+      if (!Number.isFinite(starts) || !Number.isFinite(expires)) continue;
+      if (expires <= starts || starts > time || expires <= time) continue;
+
+      const prior = active.get(jobId);
+      if (!prior || PROMOTION_RANK[tier] > PROMOTION_RANK[prior.tier]) {
+        active.set(jobId, { ...record, jobId, tier });
+      }
     }
     return active;
   }

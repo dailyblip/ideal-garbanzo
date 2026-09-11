@@ -1,10 +1,16 @@
 import assert from 'node:assert/strict';
-import { eventDateVariants, verifyEventContent } from './career-event-evidence.mjs';
+import { eventDateVariants, isValidIsoDate, verifyEventContent } from './career-event-evidence.mjs';
 
 const event = {
   date: '2026-10-09',
   name: 'Data Center Career Day, Fall 2026'
 };
+
+assert.equal(isValidIsoDate('2026-10-09'), true);
+assert.equal(isValidIsoDate('2028-02-29'), true, 'real leap days should be accepted');
+assert.equal(isValidIsoDate('2027-02-29'), false, 'non-leap February 29 must be rejected');
+assert.equal(isValidIsoDate('2026-02-31'), false, 'impossible calendar dates must be rejected');
+assert.deepEqual(eventDateVariants('2026-02-31'), [], 'invalid dates must not produce verification variants');
 
 assert(eventDateVariants(event.date).includes('October 9, 2026'));
 assert.equal(

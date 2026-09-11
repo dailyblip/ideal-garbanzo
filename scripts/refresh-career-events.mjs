@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { verifyEventContent } from './career-event-evidence.mjs';
+import { isValidIsoDate, verifyEventContent } from './career-event-evidence.mjs';
 
 const EVENTS_PATH = 'data/career-events.json';
 const TIMEOUT_MS = 15000;
@@ -35,10 +35,10 @@ function validateEventShape(event, index) {
   }
   if (event.source !== 'Organizer page') throw new Error(`Career event must use organizer-page verification: ${label}`);
   if (event.country !== 'US') throw new Error(`Career event must be U.S.-based: ${label}`);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(clean(event.date)) || !Number.isFinite(Date.parse(`${event.date}T00:00:00Z`))) {
+  if (!isValidIsoDate(event.date)) {
     throw new Error(`Career event has invalid date: ${label}`);
   }
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(clean(event.verifiedAt)) || !Number.isFinite(Date.parse(`${event.verifiedAt}T00:00:00Z`))) {
+  if (!isValidIsoDate(event.verifiedAt)) {
     throw new Error(`Career event has invalid verifiedAt: ${label}`);
   }
   if (!clean(event.url).startsWith('https://')) throw new Error(`Career event must use an HTTPS organizer URL: ${label}`);

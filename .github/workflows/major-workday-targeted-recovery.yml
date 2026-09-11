@@ -37,6 +37,7 @@ jobs:
       - name: Guard targeted classifier and current snapshot traceability
         run: |
           node scripts/recover-major-workday-targeted.mjs --test
+          node scripts/prune-closed-major-workday.mjs --test
           node scripts/scrub-major-targeted-noise.mjs --test
           node scripts/validate-major-workday-parity.mjs
 

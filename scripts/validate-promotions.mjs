@@ -5,6 +5,7 @@ const activations = JSON.parse(await readFile('data/featured-jobs.json', 'utf8')
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 const homepage = await readFile('index.html', 'utf8');
 const employerPage = await readFile('employers/index.html', 'utf8');
+const inquiryScript = await readFile('assets/employer-inquiry.js', 'utf8');
 
 const tiers = {
   highlightedJob: { priceUsd: 99, durationDays: 30, label: 'Highlighted Job' },
@@ -37,15 +38,21 @@ if (checkout) {
 
 const inquiry = products?.inquiry;
 if (!inquiry || inquiry.enabled !== true) throw new Error('Employer placement inquiry must be enabled while checkout is unavailable');
-if (inquiry.provider !== 'buttondown') throw new Error('Employer inquiry provider must be Buttondown');
-if (!/^https:\/\//i.test(String(inquiry.endpoint || ''))) throw new Error('Employer inquiry endpoint must use HTTPS');
-if (inquiry.tag !== 'employer-inquiries') throw new Error('Employer inquiry must use the employer-inquiries tag');
-if (!employerPage.includes(`action="${inquiry.endpoint}"`)) throw new Error('Employer page inquiry form is not wired to the configured endpoint');
-if (!employerPage.includes(`name="tag" value="${inquiry.tag}"`)) throw new Error('Employer page inquiry form is missing the configured tag');
+if (inquiry.provider !== 'email') throw new Error('Employer inquiry must use a direct email handoff, not a newsletter subscription form');
+const inquiryEmail = String(inquiry.email || '').trim();
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiryEmail)) throw new Error('Employer inquiry requires a valid contact email');
+if (!employerPage.includes('id="employerPlacementForm"')) throw new Error('Employer placement form is missing its runtime hook');
+if (!employerPage.includes(`data-inquiry-email="${inquiryEmail}"`)) throw new Error('Employer page is not wired to the configured inquiry email');
+if (!employerPage.includes(`href="mailto:${inquiryEmail}"`)) throw new Error('Employer page is missing a direct-email fallback link');
+if (!employerPage.includes('src="../assets/employer-inquiry.js"')) throw new Error('Employer page is missing the inquiry email handoff script');
+if (!inquiryScript.includes('event.submitter') || !inquiryScript.includes('window.location.href') || !inquiryScript.includes('mailto:')) {
+  throw new Error('Employer inquiry script must preserve the selected tier and open a mailto handoff');
+}
+if (/buttondown\.com\/api\/emails\/embed-subscribe/i.test(employerPage)) throw new Error('Employer inquiries must not use the candidate newsletter subscription endpoint');
+if (/name="tag"/i.test(employerPage)) throw new Error('Employer inquiry form must not silently attach newsletter subscriber tags');
+if (!employerPage.includes('does not subscribe your address to candidate job alerts')) throw new Error('Employer inquiry must clearly state that it does not subscribe advertisers to candidate alerts');
 if (!/type="email"[^>]*name="email"|name="email"[^>]*type="email"/i.test(employerPage)) throw new Error('Employer inquiry must require an email address');
 if (!/type="url"[^>]*name="metadata__job_url"|name="metadata__job_url"[^>]*type="url"/i.test(employerPage)) throw new Error('Employer inquiry must collect an official job URL');
-if (!employerPage.includes('name="metadata__interest" value="employer-promotion"')) throw new Error('Employer inquiry is missing promotion-interest metadata');
-if (employerPage.includes('value="weekly-job-alerts"')) throw new Error('Employer inquiry must not opt advertisers into candidate job alerts');
 if (!employerPage.includes('id="request-placement"')) throw new Error('Employer placement CTAs must have a request-placement destination');
 if ((employerPage.match(/href="#request-placement"/g) || []).length < 2) throw new Error('Both employer promotion tiers must point to the placement inquiry');
 for (const key of Object.keys(tiers)) {
@@ -108,4 +115,4 @@ for (const label of ['Highlighted Job', 'Spotlight Position']) {
 if (lifecycleStale) {
   console.warn(`Promotion lifecycle warning: ${lifecycleStale} expired/orphaned record(s) await cleanup.`);
 }
-console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers, employer inquiry captures selected tier, ${seen.size} live/scheduled promotion records, ${lifecycleStale} lifecycle-stale records.`);
+console.log(`Promotion validation passed: ${checkoutOptions.length} checkout tiers, direct-email employer inquiry, ${seen.size} live/scheduled promotion records, ${lifecycleStale} lifecycle-stale records.`);

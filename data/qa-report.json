@@ -1,22 +1,9 @@
 {
-  "checkedAt": "2026-09-11T16:35:50.040Z",
-  "jobsBefore": 691,
+  "checkedAt": "2026-09-11T16:40:35.640Z",
+  "jobsBefore": 689,
   "jobsAfter": 689,
   "demoJobsRemoved": [],
-  "nonUsJobsRemoved": [
-    {
-      "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-      "company": "Serverfarm",
-      "title": "Junior Data Center Shift Engineer",
-      "location": "AMS1"
-    },
-    {
-      "id": "ashby-lambda-8308606de297f6",
-      "company": "Lambda",
-      "title": "Data Center Operations System Engineer III (Querétaro, Mexico)",
-      "location": "Querétaro, Mexico - Data Center"
-    }
-  ],
+  "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [],
@@ -111,15 +98,6 @@
       "finalUrl": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship"
     },
     {
-      "id": "coresite-18085845",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship"
-    },
-    {
       "id": "coresite-17781601",
       "company": "CoreSite",
       "title": "Critical Operations Engineer II (Swing) (NY2)",
@@ -210,26 +188,7 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [
-    {
-      "id": "gh-xai-5215038007",
-      "company": "xAI",
-      "title": "Electrician, Construction (Colossus) - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5215038007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    },
-    {
-      "id": "gh-xai-5226371007",
-      "company": "xAI",
-      "title": "Mechanical Commissioning Engineer - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5226371007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 5,
   "careerEventsAfter": 5,

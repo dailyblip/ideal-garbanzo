@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-11T16:30:47.905Z",
+  "updatedAt": "2026-09-11T16:40:03.357Z",
   "jobs": 689,
   "sourcesAttempted": 17,
   "providers": {
@@ -10,13 +10,13 @@
   "countsByType": {
     "entry-level": 657,
     "trainee": 9,
-    "internship": 11,
-    "apprenticeship": 12
+    "apprenticeship": 12,
+    "internship": 11
   },
   "countsByExperience": {
     "0-2-years": 365,
-    "2-5-years": 271,
-    "no-experience": 53
+    "no-experience": 53,
+    "2-5-years": 271
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1946,148 +1946,44 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-11T16:35:15.847Z",
-    "removedCount": 12,
-    "removedByReason": {
-      "senior/executive title": 3,
-      "non-US location": 2,
-      "non-mission role family": 7
-    },
-    "removed": [
-      {
-        "id": "ashby-fluidstack-f2990eac8950ce",
-        "company": "Fluidstack",
-        "title": "Staff Electrical Operator",
-        "location": "Abernathy, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "gh-xai-5169675007",
-        "company": "xAI",
-        "title": "Network Operations Technician (SpaceXAI / Starlink)",
-        "location": "Dublin, Ireland",
-        "reason": "non-US location"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "location": "Southaven, MS; Memphis, TN",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-55e8ca08729b80",
-        "company": "Crusoe",
-        "title": "Quality Technician - Electrical Inspector",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-316d2a228cba07",
-        "company": "Crusoe",
-        "title": "Material Planner (Electrical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-129b9fd8c0d03e",
-        "company": "Crusoe",
-        "title": "Material Planner (Mechanical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
-        "company": "Serverfarm",
-        "title": "Data Center Technician",
-        "location": "Toronto, ON",
-        "reason": "non-US location"
-      },
-      {
-        "id": "ashby-crusoe-70b01f17d09a8b",
-        "company": "Crusoe",
-        "title": "CNC Operator",
-        "location": "Tulsa, OK - US (1)",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-ab810e7251cc10",
-        "company": "Crusoe",
-        "title": "Assembly Technician",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-8d30086e281f80",
-        "company": "Crusoe",
-        "title": "Project Controls Analyst",
-        "location": "Denver, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-fluidstack-229040aff58cbe",
-        "company": "Fluidstack",
-        "title": "Mechanical Engineer, R&D Team Lead",
-        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-crusoe-b314faa56cd161",
-        "company": "Crusoe",
-        "title": "Staff Data Center Operations Engineer",
-        "location": "Denver, CO - US",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-11T16:40:03.453Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-11T16:35:15.925Z",
-    "changed": 1,
-    "samples": [
-      {
-        "id": "ashby-lambda-0bdbbcbdc49122",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
-      }
-    ],
+    "updatedAt": "2026-09-11T16:40:03.528Z",
+    "changed": 0,
+    "samples": [],
     "regionAssigned": 689,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southwest": 84,
-      "mid-atlantic": 124,
       "southeast": 106,
+      "mid-atlantic": 124,
       "west": 101,
-      "northeast": 20,
       "midwest": 137,
       "texas": 116,
+      "northeast": 20,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-11T16:35:15.998Z",
-    "before": 692,
-    "after": 691,
-    "removed": 1,
+    "checkedAt": "2026-09-11T16:40:03.598Z",
+    "before": 689,
+    "after": 689,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-5127519007",
-        "keptId": "gh-xai-5219754007",
-        "company": "xAI",
-        "title": "Mechanical Commissioning Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-11T16:35:50.040Z",
+    "checkedAt": "2026-09-11T16:40:35.640Z",
     "publishedJobs": 689,
-    "removedJobs": 2,
+    "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 3
   },
@@ -2103,7 +1999,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-11T16:35:50.229Z"
+    "updatedAt": "2026-09-11T16:40:35.845Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2237,7 +2133,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-11T04:57:04.884Z",
+    "checkedAt": "2026-09-11T16:40:03.357Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

@@ -288,3 +288,5 @@ for (const fallback of preservedFallbackAges) {
 for (const fallback of genericFallbackAges) {
   console.warn(`Generic ATS fallback freshness: ${fallback.company} preserving ${fallback.count} role(s), last verified ${fallback.ageHours.toFixed(1)}h ago (limit ${MAX_GENERIC_FALLBACK_AGE_HOURS}h; history ${fallback.sha.slice(0, 8)}).`);
 }
+
+await import('./validate-flexential-freshness.mjs');

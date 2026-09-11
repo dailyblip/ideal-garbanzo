@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/enforce-generic-fallback-freshness.mjs'
+      - 'scripts/restore-generic-dedicated-overlap.mjs'
       - 'scripts/collect-jobs.mjs'
       - '.github/workflows/generic-ats-stale-fallback-watch.yml'
 
@@ -31,16 +32,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Test generic ATS freshness policy
-        run: node scripts/enforce-generic-fallback-freshness.mjs --test
+      - name: Test generic ATS freshness and source isolation
+        run: |
+          node scripts/enforce-generic-fallback-freshness.mjs --test
+          node scripts/restore-generic-dedicated-overlap.mjs --test
+      - name: Snapshot published feed before generic ATS refresh
+        run: cp data/jobs.json /tmp/jobs-before-generic.json
       - name: Refresh shared employer-direct ATS sources
         run: node scripts/collect-jobs.mjs
+      - name: Restore stronger dedicated-source results
+        run: node scripts/restore-generic-dedicated-overlap.mjs /tmp/jobs-before-generic.json
       - name: Enforce generic ATS fallback freshness
         run: node scripts/enforce-generic-fallback-freshness.mjs
       - name: Validate generic ATS freshness state
         run: node scripts/enforce-generic-fallback-freshness.mjs --validate
       - name: Validate publication contracts
         run: |
+          node scripts/validate-t5-data-centers.mjs
+          node scripts/validate-flexential.mjs
+          node scripts/validate-coreweave.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
       - name: Detect public feed change

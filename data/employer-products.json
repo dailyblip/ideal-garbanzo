@@ -27,9 +27,8 @@
   },
   "inquiry": {
     "enabled": true,
-    "provider": "buttondown",
-    "endpoint": "https://buttondown.com/api/emails/embed-subscribe/datacentercareers",
-    "tag": "employer-inquiries"
+    "provider": "email",
+    "email": "info@datacentercareers.us"
   },
   "checkoutOptions": [
     "highlightedJob",

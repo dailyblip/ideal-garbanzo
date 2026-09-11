@@ -1936,7 +1936,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-11T04:07:25.920Z",
+    "checkedAt": "2026-09-11T04:39:22.468Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1944,7 +1944,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-11T04:07:25.994Z",
+    "updatedAt": "2026-09-11T04:39:22.540Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 694,
@@ -1955,22 +1955,31 @@
       "southwest": 86,
       "southeast": 108,
       "mid-atlantic": 125,
-      "west": 102,
       "northeast": 20,
+      "west": 102,
       "midwest": 137,
       "texas": 116
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-11T04:07:26.067Z",
-    "before": 695,
+    "checkedAt": "2026-09-11T04:39:22.606Z",
+    "before": 696,
     "after": 695,
-    "removed": 0,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "coreweave-4696011006",
+        "keptId": "coreweave-4709264006",
+        "company": "CoreWeave",
+        "title": "Data Center Technician - Sandusky, OH",
+        "location": "Sandusky, OH"
+      }
+    ]
   },
   "postQa": {
-    "checkedAt": "2026-09-11T04:07:45.224Z",
+    "checkedAt": "2026-09-11T04:39:43.479Z",
     "publishedJobs": 694,
     "removedJobs": 1,
     "activeCareerEvents": 5,
@@ -1981,14 +1990,14 @@
     "trackedJobs": 985,
     "currentJobs": 694,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
+    "changedJobsThisRun": 1,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 9,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-11T04:07:45.417Z"
+    "updatedAt": "2026-09-11T04:39:43.667Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2181,11 +2190,11 @@
     "careersUrl": "https://www.coreweave.com/careers",
     "sourceHealthy": true,
     "boardToken": "coreweave",
-    "sourceRoles": 291,
+    "sourceRoles": 293,
     "qualifyingRoles": 10,
     "preservedPrevious": 0,
     "drops": {
-      "title": 279,
+      "title": 281,
       "experience": 0,
       "location": 2
     },

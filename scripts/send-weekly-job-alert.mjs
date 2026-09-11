@@ -202,11 +202,28 @@ async function buttondownRequest(path, options = {}) {
 }
 
 async function findExistingDigest(digestKey) {
-  const params = new URLSearchParams({ page_size: '20' });
-  params.set("metadata['dcc_digest_key']", digestKey);
-  const payload = await buttondownRequest(`/emails?${params.toString()}`);
-  const emails = Array.isArray(payload) ? payload : Array.isArray(payload?.results) ? payload.results : [];
-  return emails.find(email => email?.metadata?.dcc_digest_key === digestKey) || null;
+  // Buttondown supports metadata filtering on subscribers, not on /emails.
+  // Narrow the email list to the target publish date using supported filters,
+  // then compare our idempotency key client-side so a retry cannot double-send.
+  const publishDate = digestKey.match(/\d{4}-\d{2}-\d{2}$/)?.[0];
+  if (!publishDate) throw new Error(`Invalid weekly digest key: ${digestKey}`);
+  const params = new URLSearchParams({
+    publish_date__start: publishDate,
+    publish_date__end: publishDate,
+    ordering: '-creation_date'
+  });
+  let seen = 0;
+  for (let page = 1; page <= 25; page += 1) {
+    params.set('page', String(page));
+    const payload = await buttondownRequest(`/emails?${params.toString()}`);
+    const emails = Array.isArray(payload) ? payload : Array.isArray(payload?.results) ? payload.results : [];
+    const existing = emails.find(email => email?.metadata?.dcc_digest_key === digestKey);
+    if (existing) return existing;
+    seen += emails.length;
+    const total = Number(payload?.count);
+    if (!emails.length || (Number.isFinite(total) && seen >= total)) return null;
+  }
+  throw new Error(`Buttondown email lookup exceeded 25 pages for ${publishDate}; refusing to risk a duplicate weekly alert.`);
 }
 
 async function main() {

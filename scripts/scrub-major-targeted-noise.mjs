@@ -4,7 +4,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 // by an employer's default listing. Keep a final, source-specific publication
 // gate here so broad internship/operations searches cannot reintroduce
 // enterprise IT, analytics, finance, legal, accounting or other corporate roles
-// that the main Workday collector already rejects.
+// that the main Workday collector already rejects. Program roles also need a
+// clear infrastructure/operations signal in the title before publication.
 const TARGETED_EMPLOYERS = new Set([
   'Vantage Data Centers',
   'QTS Data Centers',
@@ -19,6 +20,8 @@ const CORPORATE_TITLE_TERMS = [
   'enterprise it support',
   'process analytics',
   'business analyst',
+  'business operations',
+  'corporate operations',
   'financial operations',
   'financial analyst',
   'finance analyst',
@@ -41,13 +44,74 @@ const CORPORATE_TITLE_TERMS = [
   'data scientist',
   'talent acquisition',
   'human resources',
-  'marketing specialist'
+  'people operations',
+  'marketing',
+  'communications',
+  'public relations',
+  'sales',
+  'customer success',
+  'corporate development',
+  'strategy',
+  'real estate',
+  'leasing',
+  'tax',
+  'treasury',
+  'audit',
+  'compliance',
+  'program manager'
+];
+
+const PROGRAM_TITLE_TERMS = [
+  'intern',
+  'internship',
+  'apprentice',
+  'apprenticeship',
+  'trainee'
+];
+
+const MISSION_TITLE_TERMS = [
+  'data center',
+  'data centre',
+  'critical facilities',
+  'critical facility',
+  'critical environment',
+  'critical operations',
+  'facility operations',
+  'facilities operations',
+  'electrical',
+  'electrician',
+  'mechanical',
+  'hvac',
+  'technician',
+  'operator',
+  'operations',
+  'commissioning',
+  'controls',
+  'bms',
+  'epms',
+  'dcim',
+  'power',
+  'generator',
+  'chiller',
+  'cooling',
+  'network',
+  'fiber',
+  'cabling',
+  'hardware'
 ];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const lower = value => clean(value).toLowerCase();
-const hasCorporateTitle = title => CORPORATE_TITLE_TERMS.some(term => lower(title).includes(term));
-const shouldRemove = job => TARGETED_EMPLOYERS.has(clean(job?.company)) && hasCorporateTitle(job?.title);
+const hasAny = (value, terms) => terms.some(term => lower(value).includes(term));
+const hasCorporateTitle = title => hasAny(title, CORPORATE_TITLE_TERMS);
+const isProgramTitle = title => hasAny(title, PROGRAM_TITLE_TERMS);
+const hasMissionTitle = title => hasAny(title, MISSION_TITLE_TERMS);
+const shouldRemove = job => {
+  if (!TARGETED_EMPLOYERS.has(clean(job?.company))) return false;
+  const title = job?.title;
+  if (hasCorporateTitle(title)) return true;
+  return isProgramTitle(title) && !hasMissionTitle(title);
+};
 
 function scrub(records) {
   const removed = [];
@@ -82,8 +146,48 @@ if (process.argv.includes('--test')) {
       remove: true
     },
     {
+      title: 'Summer Internship: Communications',
+      company: 'QTS Data Centers',
+      remove: true
+    },
+    {
+      title: 'Summer Internship: Business Operations',
+      company: 'QTS Data Centers',
+      remove: true
+    },
+    {
+      title: 'Summer Intern',
+      company: 'CyrusOne',
+      remove: true
+    },
+    {
+      title: 'HR Apprentice',
+      company: 'STACK Infrastructure',
+      remove: true
+    },
+    {
       title: 'Summer Internship: Data Center Infrastructure Projects',
       company: 'QTS Data Centers',
+      remove: false
+    },
+    {
+      title: 'Electrical Engineering Intern',
+      company: 'QTS Data Centers',
+      remove: false
+    },
+    {
+      title: 'Data Center Operations Intern',
+      company: 'CyrusOne',
+      remove: false
+    },
+    {
+      title: 'Apprentice Electrician',
+      company: 'Aligned Data Centers',
+      remove: false
+    },
+    {
+      title: 'Facilities Operations Trainee',
+      company: 'NTT Global Data Centers',
       remove: false
     },
     {
@@ -145,13 +249,13 @@ if (status?.majorTargetedRecovery && typeof status.majorTargetedRecovery === 'ob
       location: clean(job.location),
       sourceUrl: clean(job.sourceUrl)
     })),
-    policy: 'Reject corporate title families from targeted major-employer recovery before publication.'
+    policy: 'Reject corporate title families and generic program roles without a clear infrastructure/operations title signal before publication.'
   };
   await writeFile('data/collector-status.json', JSON.stringify(status, null, 2) + '\n');
 }
 
 if (removed.length) {
-  console.log(`Targeted publication scrub removed ${removed.length} corporate-noise role(s): ${removed.map(job => `${job.company} — ${job.title}`).join('; ')}`);
+  console.log(`Targeted publication scrub removed ${removed.length} non-mission role(s): ${removed.map(job => `${job.company} — ${job.title}`).join('; ')}`);
 } else {
-  console.log('Targeted publication scrub found no corporate-noise roles to remove.');
+  console.log('Targeted publication scrub found no non-mission roles to remove.');
 }

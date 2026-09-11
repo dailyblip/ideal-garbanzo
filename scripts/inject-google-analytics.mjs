@@ -20,6 +20,11 @@ const tag = `<!-- Google tag (gtag.js) -->
 // them before analytics injection so every deployable page receives tracking.
 await import('./generate-region-seo.mjs');
 
+// Employer landing pages are generated from the same verified feed and link
+// each job detail page back to a crawlable company page. Run them after regions
+// so the jobs hub can expose both browse paths before analytics is injected.
+await import('./generate-company-seo.mjs');
+
 // Paid campaigns fail closed. Invalid dates, destinations, placements, or
 // missing political/issue disclosure fields stop the build before publication.
 await import('./validate-sponsorships.mjs');

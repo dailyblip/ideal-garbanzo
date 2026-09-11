@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-11T17:55:55.707Z",
-  "jobs": 668,
+  "updatedAt": "2026-09-11T17:56:52.559Z",
+  "jobs": 664,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -10,14 +10,14 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 636,
+    "internship": 11,
     "trainee": 9,
     "apprenticeship": 12,
-    "internship": 11
+    "entry-level": 632
   },
   "countsByExperience": {
-    "0-2-years": 341,
     "no-experience": 53,
+    "0-2-years": 337,
     "2-5-years": 274
   },
   "errors": [],
@@ -3551,21 +3551,25 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 34,
-      "detailAttempted": 34,
-      "detailSucceeded": 34,
+      "candidateLinks": 36,
+      "detailAttempted": 36,
+      "detailSucceeded": 36,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 8,
       "qualifyingRoles": 0,
       "drops": {
-        "non-us": 7,
+        "non-us": 8,
         "unknown-experience": 9,
         "context": 1,
-        "title": 17
+        "title": 18
       },
       "dropSamples": [
+        {
+          "title": "2026년 에퀴닉스 코리아 데이터센터 엔지니어 하반기 인턴／Equinix Korea Data Center Engineering Internship Program (Fall 2026)",
+          "url": "https://careers.equinix.com/jobs/2026-equinix-korea-data-center-engineering-internship-program-fall-2026-seoul-korea-republic-of"
+        },
         {
           "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
@@ -3599,10 +3603,6 @@
         {
           "title": "SkillBridge Critical Facilities Engineer - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
-        },
-        {
-          "title": "Data Center Customer Operations Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
         }
       ],
       "errors": []
@@ -3740,28 +3740,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-11T17:55:55.858Z",
+    "updatedAt": "2026-09-11T17:56:52.750Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 668,
+    "regionAssigned": 664,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southwest": 82,
-      "northeast": 20,
-      "mid-atlantic": 121,
       "west": 96,
-      "southeast": 107,
       "midwest": 135,
+      "mid-atlantic": 118,
       "texas": 106,
+      "southwest": 82,
+      "southeast": 106,
+      "northeast": 20,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-11T17:55:55.930Z",
-    "before": 668,
-    "after": 668,
+    "checkedAt": "2026-09-11T17:56:52.821Z",
+    "before": 664,
+    "after": 664,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3776,7 +3776,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1011,
-    "currentJobs": 668,
+    "currentJobs": 664,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3785,7 +3785,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-11T17:56:31.320Z"
+    "updatedAt": "2026-09-11T17:56:52.884Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

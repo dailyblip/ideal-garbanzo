@@ -51,11 +51,15 @@ jobs:
 
             roles_changed=false
             status_changed=false
+            state_changed=false
             if ! git diff --quiet -- data/jobs.json data/major-jobs.json; then
               roles_changed=true
             fi
             if ! git diff --quiet -- data/collector-status.json; then
               status_changed=true
+            fi
+            if [ -n "$(git status --porcelain -- data/major-workday-freshness.json)" ]; then
+              state_changed=true
             fi
 
             if [ "$roles_changed" = true ]; then
@@ -69,14 +73,14 @@ jobs:
               node scripts/validate-major-workday-parity.mjs
             fi
 
-            if [ "$roles_changed" = false ] && [ "$status_changed" = false ]; then
+            if [ "$roles_changed" = false ] && [ "$status_changed" = false ] && [ "$state_changed" = false ]; then
               echo 'changed=false' >> "$GITHUB_OUTPUT"
               echo 'roles_changed=false' >> "$GITHUB_OUTPUT"
               echo 'All six priority Workday sources are inside policy; no repository change required.'
               exit 0
             fi
 
-            git add data/jobs.json data/major-jobs.json data/collector-status.json
+            git add data/jobs.json data/major-jobs.json data/collector-status.json data/major-workday-freshness.json
             if git diff --cached --quiet; then
               echo 'changed=false' >> "$GITHUB_OUTPUT"
               echo 'roles_changed=false' >> "$GITHUB_OUTPUT"

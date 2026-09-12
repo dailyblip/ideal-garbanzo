@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: careers-source-writers
+  group: compass-bootstrap
   cancel-in-progress: false
 
 jobs:

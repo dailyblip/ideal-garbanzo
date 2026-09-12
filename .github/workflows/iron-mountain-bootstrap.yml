@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: iron-mountain-bootstrap
+  group: careers-source-writers
   cancel-in-progress: false
 
 jobs:

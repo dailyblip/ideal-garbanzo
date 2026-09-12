@@ -10,6 +10,8 @@ on:
       - 'data/career-events.json'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/prune-unresolved-geography.mjs'
+      - 'scripts/sync-publication-counts.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/refresh-career-events.mjs'
@@ -47,6 +49,8 @@ jobs:
         run: |
           node --check scripts/filter-mission-fit.mjs
           node --check scripts/normalize-job-locations.mjs
+          node --check scripts/prune-unresolved-geography.mjs
+          node --check scripts/sync-publication-counts.mjs
           node --check scripts/dedupe-normalized-jobs.mjs
           node --check scripts/stamp-job-history.mjs
           node --check scripts/refresh-career-events.mjs
@@ -70,6 +74,11 @@ jobs:
 
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
+            # The public product is U.S.-only. If normalization cannot resolve a
+            # role to a supported U.S. region, fail closed instead of publishing
+            # an unfilterable or clearly foreign location.
+            node scripts/prune-unresolved-geography.mjs
+            node scripts/sync-publication-counts.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/stamp-job-history.mjs --repair-only
             # Midnight must not leave yesterday's event in a feed that otherwise
@@ -82,17 +91,17 @@ jobs:
 
             # The transforms above update diagnostic timestamps in collector-status
             # on every run, and those clock-only changes should not create commits.
-            # Restore the committed diagnostics, then persist only a proven repair
-            # when a mission-fit prune made the major Workday snapshot smaller than
-            # its last exact reconciliation marker. The repair script refuses to
-            # lower that marker unless public/snapshot source and title parity match.
+            # Restore the committed diagnostics, then re-sync only publication counts
+            # that changed because of a proven prune/dedupe repair. The major-status
+            # repair script separately protects exact Workday reconciliation parity.
             git checkout -- data/collector-status.json
+            node scripts/sync-publication-counts.mjs
             node scripts/sync-major-reconciliation-status.mjs
             node scripts/validate-major-workday-parity.mjs
 
-            # Guard only publishable feed/history state plus a reconciliation repair
-            # when one was actually needed. With collector-status restored above,
-            # staging it here cannot create a timestamp-only commit.
+            # Guard only publishable feed/history state plus count/reconciliation
+            # repairs when they were actually needed. With collector-status restored
+            # before deterministic synchronization, clock-only diagnostics stay out.
             git add -- data/jobs.json data/major-jobs.json data/job-history.json data/career-events.json data/collector-status.json
             if git diff --cached --quiet; then
               echo "Committed feed already satisfies mission-fit publication rules."

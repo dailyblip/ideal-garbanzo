@@ -35,6 +35,7 @@ jobs:
       - name: Validate weekly alert plumbing and employer diversity
         run: |
           node scripts/validate-mailing-list.mjs
+          node scripts/validate-alert-signup-parity.mjs
           node scripts/send-weekly-job-alert.mjs --test-selection
       - name: Validate verified career-event contract
         run: |

@@ -6,6 +6,10 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp
 const slugify = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'job';
 const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0, 32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g, '').slice(-10)}`;
 const json = value => JSON.stringify(value).replace(/</g, '\\u003c');
+const displayPay = value => {
+  const pay = clean(value);
+  return !pay || /^pay not listed$/i.test(pay) ? '' : pay;
+};
 
 const domain = clean(await readFile('CNAME', 'utf8')).replace(/^https?:\/\//, '').replace(/\/$/, '');
 if (!domain) throw new Error('CNAME is required for regional SEO generation.');
@@ -129,7 +133,8 @@ function footer() {
 }
 function jobCard(job) {
   const internal = `${baseUrl}/jobs/${jobSlug(job)}/`;
-  return `<article class="seo-job-card"><div class="seo-job-main"><span class="seo-kicker">${esc(typeLabel(job.type))}</span><h2><a href="${internal}">${esc(job.title)}</a></h2><p class="seo-meta"><strong>${esc(job.company)}</strong> · ${esc(job.location)}</p><div class="seo-tags"><span>${esc(experienceLabel(job.experience))}</span>${(job.tags || []).map(tag => `<span>${esc(tag)}</span>`).join('')}</div><p class="seo-pay">${esc(job.pay || 'Pay not listed')}</p></div><div class="seo-job-side"><span>${esc(postedLabel(job.postedHours))}</span><a href="${internal}">Job details →</a></div></article>`;
+  const pay = displayPay(job.pay);
+  return `<article class="seo-job-card"><div class="seo-job-main"><span class="seo-kicker">${esc(typeLabel(job.type))}</span><h2><a href="${internal}">${esc(job.title)}</a></h2><p class="seo-meta"><strong>${esc(job.company)}</strong> · ${esc(job.location)}</p><div class="seo-tags"><span>${esc(experienceLabel(job.experience))}</span>${(job.tags || []).map(tag => `<span>${esc(tag)}</span>`).join('')}</div>${pay ? `<p class="seo-pay">${esc(pay)}</p>` : ''}</div><div class="seo-job-side"><span>${esc(postedLabel(job.postedHours))}</span><a href="${internal}">Job details →</a></div></article>`;
 }
 async function writeHtml(path, html) {
   await mkdir(path.replace(/\/[^/]+$/, ''), { recursive: true });

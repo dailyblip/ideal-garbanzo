@@ -33,22 +33,21 @@ const sharedPipelinePaths = [
   'scripts/validate-priority-employer-sources.mjs'
 ];
 
+// These staggered source workflows intentionally share a queue. Other writers
+// use dedicated concurrency groups plus fresh-main publication safeguards so a
+// burst of independent source runs cannot replace older pending GitHub runs.
 const sharedWriterQueue = new Set([
   '.github/workflows/cologix-bootstrap.yml',
-  '.github/workflows/compass-bootstrap.yml',
   '.github/workflows/coreweave-bootstrap.yml',
   '.github/workflows/databank-bootstrap.yml',
   '.github/workflows/edgeconnex-bootstrap.yml',
   '.github/workflows/equinix-bootstrap.yml',
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/google-bootstrap.yml',
-  '.github/workflows/iron-mountain-bootstrap.yml',
   '.github/workflows/novva-bootstrap.yml',
-  '.github/workflows/sabey-bootstrap.yml',
   '.github/workflows/stream-data-centers-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml',
-  '.github/workflows/t5-data-centers-bootstrap.yml',
-  '.github/workflows/tierpoint-bootstrap.yml'
+  '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
 const violations = [];
@@ -68,7 +67,7 @@ for (const path of sourceWorkflows) {
   }
 
   if (sharedWriterQueue.has(path) && !/group:\s*careers-source-writers\b/.test(text)) {
-    violations.push(`${path}: shared-feed writer must use careers-source-writers concurrency`);
+    violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
   }
 
   if (!/cancel-in-progress:\s*false\b/.test(text)) {

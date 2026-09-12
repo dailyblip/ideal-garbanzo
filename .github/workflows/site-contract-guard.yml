@@ -60,11 +60,16 @@ jobs:
         run: node scripts/validate-coresite-source-failover.mjs
       - name: Validate plain-language site copy
         run: node scripts/validate-site-copy.mjs
-      - name: Generate search landing pages for contract validation
-        run: node scripts/generate-seo.mjs
+      - name: Generate search and discovery landing pages for contract validation
+        run: |
+          node scripts/generate-seo.mjs
+          node scripts/generate-region-seo.mjs
+          node scripts/generate-company-seo.mjs
       - name: Build apprenticeship page in homepage visual system
         run: node scripts/enhance-apprenticeship-page.mjs
       - name: Validate search landing contract
         run: node scripts/validate-search-landings.mjs
+      - name: Validate region and employer discovery landings
+        run: node scripts/validate-discovery-landings.mjs
       - name: Validate apprenticeship visual and functional contract
         run: node scripts/validate-apprenticeship-landing.mjs

@@ -1,47 +1,63 @@
 {
-  "checkedAt": "2026-09-11T17:56:31.188Z",
-  "jobsBefore": 668,
-  "jobsAfter": 668,
+  "checkedAt": "2026-09-12T00:48:43.592Z",
+  "jobsBefore": 669,
+  "jobsAfter": 663,
   "demoJobsRemoved": [],
-  "nonUsJobsRemoved": [],
-  "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
-  "providerVerifiedJobLinksRetained": [
+  "nonUsJobsRemoved": [
     {
-      "id": "equinix-verified-849adefbfb2246",
-      "company": "Equinix",
-      "title": "Data Center Development Intern Roles",
-      "url": "https://careers.equinix.com/jobs/data-center-development-intern-roles-dallas-texas-united-states-ashburn-virginia-elk-grove-village-illinois-san-jose-california",
-      "state": "verified-retained",
-      "status": 404,
-      "finalUrl": "https://careers.equinix.com/jobs/data-center-development-intern-roles-dallas-texas-united-states-ashburn-virginia-elk-grove-village-illinois-san-jose-california",
-      "rawState": "dead",
-      "reason": "active-provider-verification"
+      "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
+      "company": "Serverfarm",
+      "title": "Junior Data Center Shift Engineer",
+      "location": "AMS1"
     },
     {
-      "id": "equinix-verified-b63a4f5f115c72",
-      "company": "Equinix",
-      "title": "SkillBridge - Data Center Technician - Hiring our Heroes Cohort Q3' 2026",
-      "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-boca-raton-florida-chicago-illinois-englewood-colorado-san-jose-california",
-      "state": "verified-retained",
-      "status": 404,
-      "finalUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-boca-raton-florida-chicago-illinois-englewood-colorado-san-jose-california",
-      "rawState": "dead",
-      "reason": "active-provider-verification"
-    },
-    {
-      "id": "equinix-verified-9ad4e32d1e5093",
-      "company": "Equinix",
-      "title": "SkillBridge Critical Facilities Engineer, Data Center - Hiring our Heroes Cohort Q3' 2026",
-      "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-chicago-illinois-denver-colorado-miami-florida-san-jose-calif",
-      "state": "verified-retained",
-      "status": 404,
-      "finalUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-chicago-illinois-denver-colorado-miami-florida-san-jose-calif",
-      "rawState": "dead",
-      "reason": "active-provider-verification"
+      "id": "ashby-lambda-8308606de297f6",
+      "company": "Lambda",
+      "title": "Data Center Operations System Engineer III (Querétaro, Mexico)",
+      "location": "Querétaro, Mexico - Data Center"
     }
   ],
+  "unresolvedLocationJobsRemoved": [],
+  "duplicatesRemoved": [
+    {
+      "reason": "same-company-title-location",
+      "removedId": "workday-qtsdatacenters-R2026-0768",
+      "keptId": "workday-qtsdatacenters-R2026-0881",
+      "company": "QTS Data Centers",
+      "title": "Regional Data Center Controls Quality Engineer",
+      "location": "Suwanee, GA"
+    }
+  ],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10531627",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10531627/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10531627/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10525799",
+      "company": "Amazon Web Services",
+      "title": "Work Based Learning Program Data Center Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10525799/work-based-learning-program-data-center-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10525799/work-based-learning-program-data-center-operations-technician"
+    },
+    {
+      "id": "amazon-10521943",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician, Data Center Engineer Operations (DCEO)",
+      "url": "https://www.amazon.jobs/en/jobs/10521943/engineering-operation-technician-data-center-engineer-operations-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10521943/engineering-operation-technician-data-center-engineer-operations-dceo"
+    }
+  ],
+  "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [
     {
       "id": "coresite-18130151",
@@ -159,6 +175,15 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/17818219-skillbridge-data-center-operations-technician-internship"
+    },
+    {
+      "id": "coresite-17818220",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/17818220-skillbridge-data-center-operations-technician-internship",
+      "state": "blocked",
+      "status": 403,
+      "finalUrl": "https://jobs.coresite.com/jobs/17818220-skillbridge-data-center-operations-technician-internship"
     },
     {
       "id": "coresite-17818221",

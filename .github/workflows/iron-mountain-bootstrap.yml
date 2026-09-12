@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: iron-mountain-bootstrap
@@ -52,6 +53,7 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
       - name: Commit verified Iron Mountain roles
+        id: commit
         shell: bash
         run: |
           set -euo pipefail
@@ -86,11 +88,13 @@ jobs:
             git add data/jobs.json data/iron-mountain-jobs.json data/job-history.json data/collector-status.json data/qa-report.json
             if git diff --cached --quiet; then
               echo "No verified Iron Mountain data changes."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
               exit 0
             fi
 
             git commit -m "Refresh verified Iron Mountain data center roles"
             if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
 
@@ -101,3 +105,8 @@ jobs:
 
           echo "::error::Could not publish verified Iron Mountain data after three attempts."
           exit 1
+      - name: Deploy committed Iron Mountain data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

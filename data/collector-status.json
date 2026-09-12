@@ -1,17 +1,18 @@
 {
-  "updatedAt": "2026-09-12T10:49:57.685Z",
+  "updatedAt": "2026-09-12T12:50:02.184Z",
   "jobs": 663,
-  "sourcesAttempted": 17,
+  "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
-    "ashby": 5
+    "ashby": 5,
+    "icims": 1
   },
   "countsByType": {
     "entry-level": 632,
     "trainee": 8,
-    "apprenticeship": 12,
-    "internship": 11
+    "internship": 11,
+    "apprenticeship": 12
   },
   "countsByExperience": {
     "0-2-years": 346,
@@ -49,13 +50,13 @@
         "reason": "classification"
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
         "location": ""
       },
       {
@@ -3639,7 +3640,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T12:47:44.856Z",
+    "checkedAt": "2026-09-12T12:50:02.247Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3647,7 +3648,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T12:47:44.929Z",
+    "updatedAt": "2026-09-12T12:50:02.309Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 663,
@@ -3655,18 +3656,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 134,
       "northeast": 21,
+      "midwest": 134,
       "texas": 106,
-      "southwest": 80,
       "mid-atlantic": 119,
+      "southwest": 80,
       "west": 96,
       "southeast": 106,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T12:47:45.004Z",
+    "checkedAt": "2026-09-12T12:50:02.364Z",
     "before": 663,
     "after": 663,
     "removed": 0,
@@ -3692,7 +3693,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T12:47:45.070Z"
+    "updatedAt": "2026-09-12T12:50:02.429Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

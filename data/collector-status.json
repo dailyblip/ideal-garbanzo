@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-12T10:49:57.685Z",
-  "jobs": 679,
+  "jobs": 666,
   "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
@@ -8,14 +8,14 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 647,
-    "internship": 12,
+    "entry-level": 635,
     "trainee": 8,
-    "apprenticeship": 12
+    "apprenticeship": 12,
+    "internship": 11
   },
   "countsByExperience": {
-    "2-5-years": 282,
-    "0-2-years": 355,
+    "0-2-years": 349,
+    "2-5-years": 275,
     "no-experience": 42
   },
   "errors": [],
@@ -358,7 +358,7 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-12T05:07:39.033Z",
+      "checkedAt": "2026-09-12T11:17:57.734Z",
       "rawJobs": 186,
       "publishedUsJobs": 186,
       "nonUsRemoved": 0,
@@ -2089,7 +2089,7 @@
       }
     },
     "closedRolePrune": {
-      "checkedAt": "2026-09-12T05:07:27.731Z",
+      "checkedAt": "2026-09-12T11:17:49.388Z",
       "officialRoleUrlsChecked": 186,
       "liveVerified": 172,
       "removed": 0,
@@ -2105,7 +2105,7 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-12T05:07:27.585Z",
+    "checkedAt": "2026-09-12T11:17:49.263Z",
     "officialOnly": true,
     "additiveOnly": true,
     "searchPaginationPolicy": "paginate-to-reported-total",
@@ -2520,7 +2520,7 @@
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
         "queriesIncomplete": 0,
-        "candidates": 54,
+        "candidates": 55,
         "qualifyingRoles": 3,
         "additions": 0,
         "queryStats": [
@@ -2537,8 +2537,8 @@
             "searchText": "critical facilities",
             "healthy": true,
             "complete": true,
-            "rows": 126,
-            "reportedTotal": 126,
+            "rows": 127,
+            "reportedTotal": 127,
             "pagesAttempted": 7,
             "pagesSucceeded": 7
           },
@@ -2546,8 +2546,8 @@
             "searchText": "critical environment",
             "healthy": true,
             "complete": true,
-            "rows": 144,
-            "reportedTotal": 144,
+            "rows": 145,
+            "reportedTotal": 145,
             "pagesAttempted": 8,
             "pagesSucceeded": 8
           },
@@ -2555,8 +2555,8 @@
             "searchText": "critical operations",
             "healthy": true,
             "complete": true,
-            "rows": 138,
-            "reportedTotal": 138,
+            "rows": 139,
+            "reportedTotal": 139,
             "pagesAttempted": 7,
             "pagesSucceeded": 7
           },
@@ -2564,8 +2564,8 @@
             "searchText": "mechanical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 67,
-            "reportedTotal": 67,
+            "rows": 68,
+            "reportedTotal": 68,
             "pagesAttempted": 4,
             "pagesSucceeded": 4
           },
@@ -2573,8 +2573,8 @@
             "searchText": "electrical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 76,
-            "reportedTotal": 76,
+            "rows": 77,
+            "reportedTotal": 77,
             "pagesAttempted": 4,
             "pagesSucceeded": 4
           },
@@ -2591,8 +2591,8 @@
             "searchText": "intern",
             "healthy": true,
             "complete": true,
-            "rows": 153,
-            "reportedTotal": 153,
+            "rows": 152,
+            "reportedTotal": 152,
             "pagesAttempted": 8,
             "pagesSucceeded": 8
           },
@@ -2720,7 +2720,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-12T05:07:27.662Z",
+      "checkedAt": "2026-09-12T11:17:49.340Z",
       "removed": 10,
       "removedRoles": [
         {
@@ -3650,39 +3650,350 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T07:21:10.473Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-12T11:17:57.849Z",
+    "removedCount": 13,
+    "removedByReason": {
+      "non-mission role family": 8,
+      "senior/executive title": 3,
+      "non-US location": 2
+    },
+    "removed": [
+      {
+        "id": "ashby-gimlet-eb9a94c8bab714",
+        "company": "Gimlet Labs",
+        "title": "Legal Intern",
+        "location": "San Francisco, CA",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-fluidstack-f2990eac8950ce",
+        "company": "Fluidstack",
+        "title": "Staff Electrical Operator",
+        "location": "Abernathy, TX",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "gh-xai-5169675007",
+        "company": "xAI",
+        "title": "Network Operations Technician (SpaceXAI / Starlink)",
+        "location": "Dublin, Ireland",
+        "reason": "non-US location"
+      },
+      {
+        "id": "gh-xai-5211587007",
+        "company": "xAI",
+        "title": "Site Reliability Engineer, Data Center - Memphis",
+        "location": "Southaven, MS; Memphis, TN",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-55e8ca08729b80",
+        "company": "Crusoe",
+        "title": "Quality Technician - Electrical Inspector",
+        "location": "Brighton, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-316d2a228cba07",
+        "company": "Crusoe",
+        "title": "Material Planner (Electrical)",
+        "location": "Arvada, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-129b9fd8c0d03e",
+        "company": "Crusoe",
+        "title": "Material Planner (Mechanical)",
+        "location": "Arvada, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
+        "company": "Serverfarm",
+        "title": "Data Center Technician",
+        "location": "Toronto, ON",
+        "reason": "non-US location"
+      },
+      {
+        "id": "ashby-crusoe-70b01f17d09a8b",
+        "company": "Crusoe",
+        "title": "CNC Operator",
+        "location": "Tulsa, OK - US (1)",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-ab810e7251cc10",
+        "company": "Crusoe",
+        "title": "Assembly Technician",
+        "location": "Brighton, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-8d30086e281f80",
+        "company": "Crusoe",
+        "title": "Project Controls Analyst",
+        "location": "Denver, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-fluidstack-229040aff58cbe",
+        "company": "Fluidstack",
+        "title": "Mechanical Engineer, R&D Team Lead",
+        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "ashby-crusoe-b314faa56cd161",
+        "company": "Crusoe",
+        "title": "Staff Data Center Operations Engineer",
+        "location": "Denver, CO - US",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T09:04:06.965Z",
-    "changed": 0,
-    "samples": [],
-    "regionAssigned": 663,
-    "regionMissing": 0,
-    "coveragePct": 100,
-    "missingSamples": [],
+    "updatedAt": "2026-09-12T11:17:57.913Z",
+    "changed": 12,
+    "samples": [
+      {
+        "id": "workday-aligneddc-JR101086",
+        "before": "IAD-02",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-aligneddc-JR100970",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-aligneddc-JR100971",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "ashby-lambda-0bdbbcbdc49122",
+        "before": "San Jose Office (Zanker)",
+        "after": "San Jose, CA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0881",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1093",
+        "before": "US VA Manassas 1 DC1",
+        "after": "Manassas, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
+      }
+    ],
+    "regionAssigned": 664,
+    "regionMissing": 2,
+    "coveragePct": 99.7,
+    "missingSamples": [
+      {
+        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
+        "company": "Serverfarm",
+        "location": "AMS1",
+        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
+      },
+      {
+        "id": "ashby-lambda-8308606de297f6",
+        "company": "Lambda",
+        "location": "Querétaro, Mexico - Data Center",
+        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
+      }
+    ],
     "countsByRegion": {
-      "northeast": 21,
       "midwest": 134,
+      "northeast": 21,
       "texas": 106,
       "southwest": 80,
       "mid-atlantic": 119,
       "west": 96,
-      "southeast": 106,
+      "southeast": 107,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T09:04:07.019Z",
-    "before": 663,
-    "after": 663,
-    "removed": 0,
+    "checkedAt": "2026-09-12T11:17:57.969Z",
+    "before": 692,
+    "after": 666,
+    "removed": 26,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "gh-xai-5127519007",
+        "keptId": "gh-xai-5219754007",
+        "company": "xAI",
+        "title": "Mechanical Commissioning Technician",
+        "location": "Southaven, MS; Memphis, TN"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101968",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101903",
+        "keptId": "workday-nttglobaldatacenters-JR101981",
+        "company": "NTT Global Data Centers",
+        "title": "1046 - Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101861",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0982",
+        "keptId": "workday-qtsdatacenters-R2026-0893",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007618",
+        "keptId": "workday-cyrusone-R0007529",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Carrollton, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007617",
+        "keptId": "workday-cyrusone-R0007763",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Houston, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007527",
+        "keptId": "workday-cyrusone-R0007615",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Chandler, AZ"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007526",
+        "keptId": "workday-cyrusone-R0007614",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Sterling, VA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007668",
+        "keptId": "workday-cyrusone-R0007613",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Council Bluffs, IA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007628",
+        "keptId": "workday-cyrusone-R0007611",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Durham, NC"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007762",
+        "keptId": "workday-cyrusone-R0007610",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Austin, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007608",
+        "keptId": "workday-cyrusone-R0007528",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Cincinnati, OH"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101573",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101799",
+        "keptId": "workday-nttglobaldatacenters-JR101533",
+        "company": "NTT Global Data Centers",
+        "title": "5155 - Data Center IT Infrastructure Technician",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101847",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101681",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101746",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101821",
+        "keptId": "workday-nttglobaldatacenters-JR101755",
+        "company": "NTT Global Data Centers",
+        "title": "1162 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101610",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-12T09:04:27.735Z",
@@ -3694,16 +4005,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1015,
-    "currentJobs": 663,
+    "currentJobs": 666,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 161,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T09:04:27.872Z"
+    "updatedAt": "2026-09-12T11:17:58.064Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

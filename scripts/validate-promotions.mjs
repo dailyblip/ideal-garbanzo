@@ -112,6 +112,11 @@ for (const label of ['Highlighted Job', 'Spotlight Position']) {
   if (!homepage.includes(label)) throw new Error(`Homepage employer card missing promotion option: ${label}`);
 }
 
+// Every deployment path already invokes promotion validation. Chain the free
+// standard-listing contract here so deploy-only and bot-driven main builds cannot
+// bypass the same employer-submission rules that PR CI enforces.
+await import('./validate-employer-submissions.mjs');
+
 if (lifecycleStale) {
   console.warn(`Promotion lifecycle warning: ${lifecycleStale} expired/orphaned record(s) await cleanup.`);
 }

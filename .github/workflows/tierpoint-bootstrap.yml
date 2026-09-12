@@ -8,8 +8,6 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-tierpoint-v3.mjs'
-      - 'scripts/stamp-job-history.mjs'
-      - 'scripts/validate-job-history.mjs'
       - '.github/workflows/tierpoint-bootstrap.yml'
 
 permissions:

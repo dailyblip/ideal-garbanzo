@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Feature a Data Center Job | Data Center Careers</title>
-  <meta name="description" content="Promote a qualifying data center job with a $99 Highlighted Job placement or $149 Spotlight Position placement for 30 days.">
+  <title>Submit or Feature a Data Center Job | Data Center Careers</title>
+  <meta name="description" content="Submit a qualifying employer-direct data center job for standard review at no charge, or choose an optional paid Highlighted Job or Spotlight Position placement.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://datacentercareers.us/employers/">
   <meta name="theme-color" content="#17324d">
@@ -26,22 +26,30 @@
 
 <main class="employer-page-main">
   <section class="employer-sales-hero">
-    <span class="utility-kicker">FEATURE A JOB</span>
+    <span class="utility-kicker">POST OR FEATURE A JOB</span>
     <h1>Put the right opening in front of the right data center candidates.</h1>
-    <p>Data Center Careers is built for interns, apprentices, first-time applicants and early-to-mid-career infrastructure workers. Promoted roles stay focused on the facilities, critical-environment, electrical, mechanical and operations jobs this audience came here to find.</p>
-    <div class="sales-proof" aria-label="Promotion standards">
-      <span>30-day placements</span>
-      <span>Clear promotion labels</span>
+    <p>Data Center Careers is built for interns, apprentices, first-time applicants and early-to-mid-career infrastructure workers. Employers can submit a qualifying employer-direct role for standard review at no charge. Optional paid placements add visibility, but they never change whether a role is eligible for the job board.</p>
+    <div class="sales-proof" aria-label="Listing standards">
+      <span>Free standard submissions</span>
+      <span>Official employer links</span>
       <span>Early-career focused</span>
-      <span>Employer-direct fit</span>
+      <span>Optional paid visibility</span>
     </div>
+  </section>
+
+  <section class="placement-rules" aria-labelledby="standard-listing-title">
+    <div>
+      <span class="utility-kicker">STANDARD LISTING</span>
+      <h2 id="standard-listing-title">Submit a qualifying role at no charge.</h2>
+    </div>
+    <p>Send the official employer career-page URL and we will review it for the same mission-fit standards used across the site. Approved standard listings appear with regular job-board placement and an employer-direct apply link. No payment is required, and submission does not guarantee publication.</p>
   </section>
 
   <section class="promotion-plans" aria-labelledby="promotion-plans-title">
     <div class="sales-section-heading">
-      <span class="utility-kicker">PROMOTION OPTIONS</span>
-      <h2 id="promotion-plans-title">Choose how much visibility you need.</h2>
-      <p>Pricing lives here, away from the candidate-facing job board.</p>
+      <span class="utility-kicker">OPTIONAL PAID VISIBILITY</span>
+      <h2 id="promotion-plans-title">Choose a boost only when you need one.</h2>
+      <p>Standard review is free. These paid options are for employers who want additional visibility after a role meets the same editorial requirements as every other listing. Online payment is not active yet; paid placements begin as direct requests for review.</p>
     </div>
     <div class="plan-grid">
       <article class="plan-card highlighted-plan">
@@ -74,7 +82,7 @@
   <section class="promotion-examples" aria-labelledby="promotion-examples-title">
     <div class="sales-section-heading">
       <span class="utility-kicker">LIVE PLACEMENT EXAMPLES</span>
-      <h2 id="promotion-examples-title">See how placements look.</h2>
+      <h2 id="promotion-examples-title">See how paid placements look.</h2>
       <p>These are real openings currently used as launch examples so prospective sponsors can see the treatment before purchasing. No employer has been charged for these example placements.</p>
     </div>
 
@@ -109,24 +117,25 @@
   <section class="placement-rules" aria-labelledby="placement-rules-title">
     <div>
       <span class="utility-kicker">EDITORIAL FIT</span>
-      <h2 id="placement-rules-title">Promotion never overrides relevance.</h2>
+      <h2 id="placement-rules-title">Payment never overrides relevance.</h2>
     </div>
-    <p>We accept data-center/facilities/electrical/critical-environment/operations roles, internships, apprenticeships, trainee/no-experience opportunities and appropriate 0–5 year infrastructure positions. Unrelated software roles, senior/executive-heavy openings and jobs outside the site's mission are not eligible for paid placement.</p>
+    <p>We accept data-center/facilities/electrical/critical-environment/operations roles, internships, apprenticeships, trainee/no-experience opportunities and appropriate 0–5 year infrastructure positions. Unrelated software roles, senior/executive-heavy openings and jobs outside the site's mission are not eligible for standard or paid placement.</p>
   </section>
 
   <section class="checkout-panel" id="request-placement" aria-labelledby="request-placement-title">
-    <span class="utility-kicker">REQUEST PLACEMENT</span>
-    <h2 id="request-placement-title">Send us the job you want to promote.</h2>
-    <p>Online payment is not active yet. Enter a work email and the official employer job URL, choose a placement, and we will open a ready-to-send email to our team. We review the role for mission fit before any placement is activated.</p>
-    <form class="hero-search" id="employerPlacementForm" data-inquiry-email="info@datacentercareers.us" aria-label="Employer placement inquiry">
+    <span class="utility-kicker">SUBMIT A ROLE</span>
+    <h2 id="request-placement-title">Send us the official job you want reviewed.</h2>
+    <p>Enter a work email and the official employer job URL. Choose Standard for regular review at no charge, or request a paid visibility option. Every submission receives the same mission-fit review before it can appear on the site.</p>
+    <form class="hero-search" id="employerPlacementForm" data-inquiry-email="info@datacentercareers.us" aria-label="Employer job submission">
       <label><span>Work email</span><input type="email" name="email" autocomplete="email" required placeholder="you@company.com"></label>
       <label><span>Official job URL</span><input type="url" name="metadata__job_url" autocomplete="url" required placeholder="https://careers.company.com/..."></label>
-      <div class="toolbar-actions" aria-label="Choose promotion tier">
-        <button class="btn btn-primary" type="submit" name="metadata__tier" value="highlightedJob">Request Highlighted</button>
+      <div class="toolbar-actions" aria-label="Choose listing option">
+        <button class="btn btn-primary" type="submit" name="metadata__tier" value="standardJob">Submit Standard Listing</button>
+        <button class="btn btn-secondary" type="submit" name="metadata__tier" value="highlightedJob">Request Highlighted</button>
         <button class="btn btn-secondary" type="submit" name="metadata__tier" value="spotlightJob">Request Spotlight</button>
       </div>
     </form>
-    <p class="employer-status" id="employerInquiryStatus" role="status" aria-live="polite">This request does not subscribe your address to candidate job alerts, publish the job, or create a charge. If your email app does not open, email <a href="mailto:info@datacentercareers.us">info@datacentercareers.us</a> with the job URL and requested placement.</p>
+    <p class="employer-status" id="employerInquiryStatus" role="status" aria-live="polite">Submitting a role does not subscribe your address to candidate job alerts, automatically publish the job, or create a charge. Paid promotion is optional. If your email app does not open, email <a href="mailto:info@datacentercareers.us">info@datacentercareers.us</a> with the official job URL and requested listing option.</p>
   </section>
 </main>
 

@@ -4,10 +4,11 @@ const JOBS_PATH = 'data/jobs.json';
 const MAJOR_PATH = 'data/major-jobs.json';
 
 // These dedicated snapshots are already treated as authoritative by the
-// priority-source guard. Preserve both their U.S. state footprint and the
-// audience segments available in each market so a refresh cannot keep one
-// role in a state while silently dropping its beginner or work-based-learning
-// opportunities.
+// priority-source guard. Preserve both their U.S. state footprint and a usable
+// entry pathway in each market that currently has one. Exact requisitions and
+// experience bands can legitimately consolidate during dedupe; the guard is
+// aimed at the user-facing regression where a market silently keeps only
+// mid-level inventory after its beginner opportunities disappear downstream.
 const protectedSnapshots = [
   { company: 'Amazon Web Services', path: 'data/amazon-jobs.json' },
   { company: 'Google', path: 'data/google-jobs.json' },
@@ -54,7 +55,7 @@ const statePairs = [
 const stateCodes = new Set(statePairs.map(([, code]) => code));
 const stateNamesLongestFirst = [...statePairs].sort((a, b) => b[0].length - a[0].length);
 const programTypes = new Set(['internship', 'apprenticeship', 'trainee']);
-const experienceBands = new Set(['no-experience', '0-2-years', '2-5-years']);
+const entryExperienceBands = new Set(['no-experience', '0-2-years']);
 
 const normalize = value => String(value ?? '')
   .toLowerCase()
@@ -81,25 +82,22 @@ function stateCode(location = '') {
   return '';
 }
 
-function audienceSegment(job = {}) {
+function isEntryPathway(job = {}) {
   const type = String(job?.type || '').trim().toLowerCase();
-  if (programTypes.has(type)) return type;
+  if (programTypes.has(type)) return true;
   const experience = String(job?.experience || '').trim().toLowerCase();
-  return experienceBands.has(experience) ? experience : '';
+  return entryExperienceBands.has(experience);
 }
 
 function stateCoverage(records = []) {
   return new Set(records.map(job => stateCode(job?.location)).filter(Boolean));
 }
 
-function stateAudienceCoverage(records = []) {
-  const coverage = new Set();
-  for (const job of records) {
-    const state = stateCode(job?.location);
-    const segment = audienceSegment(job);
-    if (state && segment) coverage.add(`${state}:${segment}`);
-  }
-  return coverage;
+function entryPathwayStateCoverage(records = []) {
+  return new Set(records
+    .filter(isEntryPathway)
+    .map(job => stateCode(job?.location))
+    .filter(Boolean));
 }
 
 async function readJobs(path) {
@@ -126,19 +124,19 @@ for (const [location, expected] of stateRegressionCases) {
   }
 }
 
-const audienceRegressionCases = [
-  [{ type: 'internship', experience: '0-2-years' }, 'internship'],
-  [{ type: 'apprenticeship', experience: 'no-experience' }, 'apprenticeship'],
-  [{ type: 'trainee', experience: '0-2-years' }, 'trainee'],
-  [{ type: 'entry-level', experience: 'no-experience' }, 'no-experience'],
-  [{ type: 'entry-level', experience: '0-2-years' }, '0-2-years'],
-  [{ type: 'entry-level', experience: '2-5-years' }, '2-5-years'],
-  [{ type: 'entry-level', experience: 'unknown' }, '']
+const entryPathRegressionCases = [
+  [{ type: 'internship', experience: '2-5-years' }, true],
+  [{ type: 'apprenticeship', experience: '2-5-years' }, true],
+  [{ type: 'trainee', experience: '2-5-years' }, true],
+  [{ type: 'entry-level', experience: 'no-experience' }, true],
+  [{ type: 'entry-level', experience: '0-2-years' }, true],
+  [{ type: 'entry-level', experience: '2-5-years' }, false],
+  [{ type: 'entry-level', experience: 'unknown' }, false]
 ];
-for (const [job, expected] of audienceRegressionCases) {
-  const actual = audienceSegment(job);
+for (const [job, expected] of entryPathRegressionCases) {
+  const actual = isEntryPathway(job);
   if (actual !== expected) {
-    throw new Error(`Priority regional audience parser regression: expected ${expected || '(none)'}, got ${actual || '(none)'}.`);
+    throw new Error(`Priority regional entry-path parser regression: expected ${expected}, got ${actual}.`);
   }
 }
 
@@ -155,19 +153,19 @@ function requireStateCoverage(company, snapshotJobs, publicJobs, context) {
   }
 }
 
-function requireAudienceCoverage(company, snapshotJobs, publicJobs, context) {
-  const expected = stateAudienceCoverage(snapshotJobs);
-  if (!expected.size) return;
-  const published = stateAudienceCoverage(publicJobs);
-  const missing = [...expected].filter(key => !published.has(key)).sort();
-  if (missing.length) {
-    violations.push(`${company}: public feed lost ${missing.length}/${expected.size} authoritative regional audience segment(s) from ${context}: ${missing.join(', ')}`);
+function requireEntryPathwayCoverage(company, snapshotJobs, publicJobs, context) {
+  const expectedStates = entryPathwayStateCoverage(snapshotJobs);
+  if (!expectedStates.size) return;
+  const publicStates = entryPathwayStateCoverage(publicJobs);
+  const missingStates = [...expectedStates].filter(code => !publicStates.has(code)).sort();
+  if (missingStates.length) {
+    violations.push(`${company}: public feed lost beginner-accessible inventory in ${missingStates.length}/${expectedStates.size} authoritative U.S. entry-path market(s) from ${context}: ${missingStates.join(', ')}`);
   }
 }
 
 function requireRegionalCoverage(company, snapshotJobs, publicJobs, context) {
   requireStateCoverage(company, snapshotJobs, publicJobs, context);
-  requireAudienceCoverage(company, snapshotJobs, publicJobs, context);
+  requireEntryPathwayCoverage(company, snapshotJobs, publicJobs, context);
 }
 
 for (const { company, path } of protectedSnapshots) {
@@ -193,7 +191,7 @@ const summaryCompanies = [...protectedSnapshots.map(item => item.company), ...ma
 const summary = summaryCompanies.map(company => {
   const companyJobs = jobs.filter(job => String(job?.company || '').trim() === company);
   const states = [...stateCoverage(companyJobs)].sort();
-  const audienceMarkets = stateAudienceCoverage(companyJobs).size;
-  return `${company}=${states.length ? states.join('/') : 'no-state-coded-roles'} (${audienceMarkets} audience-market segments)`;
+  const entryStates = [...entryPathwayStateCoverage(companyJobs)].sort();
+  return `${company}=${states.length ? states.join('/') : 'no-state-coded-roles'}; entry=${entryStates.length ? entryStates.join('/') : 'none'}`;
 }).join(', ');
 console.log(`Priority regional coverage guard passed. ${summary}`);

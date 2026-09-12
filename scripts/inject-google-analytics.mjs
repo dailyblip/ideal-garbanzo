@@ -34,6 +34,12 @@ await import('./validate-sponsorships.mjs');
 // before analytics and sponsorship delivery are injected across HTML pages.
 await import('./generate-advertising-page.mjs');
 
+// The apprenticeship page uses current feed evidence to build its proof bar,
+// fresh-opening module, accessible filters, conversion-focused cards and
+// BreadcrumbList data. Generate that final page before analytics scans HTML.
+await import('./enhance-apprenticeship-page.mjs');
+await import('./finalize-apprenticeship-meta.mjs');
+
 async function htmlFiles(dir = '.') {
   const entries = await readdir(dir, { withFileTypes: true });
   const files = [];

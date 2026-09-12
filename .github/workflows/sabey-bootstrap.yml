@@ -3,6 +3,7 @@ name: Refresh Sabey employer-direct feed
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'scripts/collect-sabey-careers.mjs'
       - 'scripts/persist-sabey-snapshot.mjs'
@@ -12,8 +13,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: sabey-refresh
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   refresh:

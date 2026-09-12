@@ -166,6 +166,29 @@ function apprenticeshipProofHtml(list) {
   return `<section class="guide-section" aria-labelledby="apprenticeship-proof-heading"><span class="seo-kicker">CURRENT VERIFIED INVENTORY</span><h2 id="apprenticeship-proof-heading">Current apprenticeships from employer career sites</h2><p>See the size and shape of the verified apprenticeship inventory before you browse. Experience labels come from published minimum qualifications, and each job page links back to the employer source.</p><div class="guide-stats"><div><strong>${list.length}</strong><span>current apprenticeships</span></div><div><strong>${employerCount}</strong><span>employers represented</span></div><div><strong>${noExperienceCount}</strong><span>no-experience openings</span></div><div><strong>Direct</strong><span>employer career sources</span></div></div><div class="guide-actions"><a class="seo-apply" href="#apprenticeships-list">View current apprenticeships ↓</a></div></section>`;
 }
 
+const stateNames = {
+  AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming',DC:'District of Columbia'
+};
+const stateCodes = Object.keys(stateNames);
+const stateNameToCode = new Map(Object.entries(stateNames).map(([code,name]) => [name.toLowerCase(),code]));
+
+function statesForListing(job) {
+  const location = clean(job?.location);
+  const found = new Set();
+  for (const match of location.matchAll(new RegExp(`\\b(${stateCodes.join('|')})\\b`,'g'))) found.add(match[1]);
+  const lower = location.toLowerCase();
+  for (const [name,code] of stateNameToCode) {
+    if (new RegExp(`\\b${name.replace(/ /g,'\\s+')}\\b`,'i').test(lower)) found.add(code);
+  }
+  return [...found];
+}
+
+function internshipProofHtml(list) {
+  const employerCount = new Set(list.map(job => clean(job.company)).filter(Boolean)).size;
+  const stateCount = new Set(list.flatMap(statesForListing)).size;
+  return `<section class="guide-section" aria-labelledby="internship-proof-heading"><span class="seo-kicker">CURRENT VERIFIED INVENTORY</span><h2 id="internship-proof-heading">Current internships from employer career sites</h2><p>See the verified internship inventory before you browse. We publish infrastructure, facilities, electrical, mechanical and operations internships that link back to the employer source.</p><div class="guide-stats"><div><strong>${list.length}</strong><span>current internships</span></div><div><strong>${employerCount}</strong><span>employers represented</span></div><div><strong>${stateCount}</strong><span>states represented</span></div><div><strong>Direct</strong><span>employer career sources</span></div></div><div class="guide-actions"><a class="seo-apply" href="#internships-list">View current internships ↓</a></div></section>`;
+}
+
 async function generateListing({root,title,h1,description,intro,filter,listId='',beforeListHtml=null,contextHtml=null,relatedLinks=[]}) {
   const list = orderedJobs.filter(filter);
   const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
@@ -301,11 +324,20 @@ urls.push(...await generateListing({
 }));
 urls.push(...await generateListing({
   root:'internships',
-  title:'Data Center Internships | Current Infrastructure Intern Roles',
+  title:'Data Center Internships | Verified Employer Openings',
   h1:'Data center internships',
-  description:'Find current data center internships in operations, infrastructure, engineering, facilities and related roles from employer career sites.',
-  intro:'Current internships that can help students and early-career applicants enter the data-center industry through real employer programs.',
-  filter:job=>job.type==='internship'
+  description:'Browse current data center internships in infrastructure, facilities, electrical, mechanical and operations. See locations and apply through verified employer listings.',
+  intro:'Verified internships for students and early-career applicants building experience in data center infrastructure, facilities, engineering and operations.',
+  filter:job=>job.type==='internship',
+  listId:'internships-list',
+  beforeListHtml:list=>internshipProofHtml(list),
+  contextHtml:list=>`<section class="guide-section" aria-labelledby="internship-search-heading"><span class="seo-kicker">INTERNSHIP PATHS</span><h2 id="internship-search-heading">What counts as a data center internship here?</h2><p>This page is limited to employer-listed internships tied to data center infrastructure, facilities, electrical, mechanical, critical-environment or operations work. General software, sales and unrelated corporate internships are excluded.${employerContext(list)}</p><div class="guide-actions"><a class="guide-secondary" href="${baseUrl}/how-to-get-a-data-center-internship/">How to get a data center internship →</a><a class="guide-secondary" href="${baseUrl}/apprenticeships/">See apprenticeships →</a></div></section>`,
+  relatedLinks:[
+    ['How to get a data center internship', `${baseUrl}/how-to-get-a-data-center-internship/`],
+    ['Data center apprenticeships', `${baseUrl}/apprenticeships/`],
+    ['Entry-level data center jobs', `${baseUrl}/entry-level/`],
+    ['Data center hiring events', `${baseUrl}/career-events/`]
+  ]
 }));
 urls.push(...await generateListing({
   root:'entry-level',

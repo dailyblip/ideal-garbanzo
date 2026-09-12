@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12T15:06:33.899Z",
+  "updatedAt": "2026-09-12T15:22:12.642Z",
   "jobs": 662,
   "sourcesAttempted": 18,
   "providers": {
@@ -11,8 +11,8 @@
   "countsByType": {
     "entry-level": 631,
     "trainee": 8,
-    "internship": 11,
-    "apprenticeship": 12
+    "apprenticeship": 12,
+    "internship": 11
   },
   "countsByExperience": {
     "0-2-years": 346,
@@ -3640,7 +3640,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T15:06:33.978Z",
+    "checkedAt": "2026-09-12T15:22:12.789Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3648,7 +3648,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T15:06:34.061Z",
+    "updatedAt": "2026-09-12T15:22:12.988Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 662,
@@ -3659,15 +3659,15 @@
       "northeast": 21,
       "midwest": 134,
       "texas": 106,
-      "mid-atlantic": 118,
       "southwest": 80,
+      "mid-atlantic": 118,
       "west": 96,
       "southeast": 106,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T15:06:34.134Z",
+    "checkedAt": "2026-09-12T15:22:13.089Z",
     "before": 662,
     "after": 662,
     "removed": 0,
@@ -3675,7 +3675,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T15:07:02.414Z",
+    "checkedAt": "2026-09-12T15:22:30.070Z",
     "publishedJobs": 662,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -3693,7 +3693,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T15:07:02.631Z"
+    "updatedAt": "2026-09-12T15:22:30.288Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3813,7 +3813,7 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-12T04:08:01.200Z",
+    "checkedAt": "2026-09-12T15:22:12.642Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",

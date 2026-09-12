@@ -21,6 +21,25 @@ requireOk(!/dailyblip\.github\.io/i.test(sitemap), 'Search sitemap must not cont
 const apprenticeshipJobs = jobs.filter(job => job.type === 'apprenticeship');
 const apprenticeshipEmployerCount = new Set(apprenticeshipJobs.map(job => clean(job.company)).filter(Boolean)).size;
 const apprenticeshipNoExperienceCount = apprenticeshipJobs.filter(job => job.experience === 'no-experience').length;
+const internshipJobs = jobs.filter(job => job.type === 'internship');
+const internshipEmployerCount = new Set(internshipJobs.map(job => clean(job.company)).filter(Boolean)).size;
+
+const stateNames = {
+  AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming',DC:'District of Columbia'
+};
+const stateCodes = Object.keys(stateNames);
+const stateNameToCode = new Map(Object.entries(stateNames).map(([code,name]) => [name.toLowerCase(),code]));
+function statesFor(job) {
+  const location = clean(job?.location);
+  const found = new Set();
+  for (const match of location.matchAll(new RegExp(`\\b(${stateCodes.join('|')})\\b`,'g'))) found.add(match[1]);
+  const lower = location.toLowerCase();
+  for (const [name,code] of stateNameToCode) {
+    if (new RegExp(`\\b${name.replace(/ /g,'\\s+')}\\b`,'i').test(lower)) found.add(code);
+  }
+  return [...found];
+}
+const internshipStateCount = new Set(internshipJobs.flatMap(statesFor)).size;
 
 const listingContracts = [
   {
@@ -46,9 +65,9 @@ const listingContracts = [
     url: `${baseUrl}/internships/`,
     h1: 'Data center internships',
     title: 'Data Center Internships',
-    count: jobs.filter(job => job.type === 'internship').length,
+    count: internshipJobs.length,
     countLabel: 'current opportunities',
-    links: []
+    links: ['/how-to-get-a-data-center-internship/', '/apprenticeships/', '/entry-level/', '/career-events/']
   },
   {
     path: 'entry-level/index.html',
@@ -133,6 +152,18 @@ for (const contract of listingContracts) {
     requireOk(html.includes('id="apprenticeships-list"'), 'Apprenticeship opening list is missing the jump-target anchor.');
   }
 
+  if (contract.path === 'internships/index.html') {
+    requireOk(pageTitle(html).includes('Verified Employer Openings'), 'Internship title must preserve the employer-verification click-through signal.');
+    requireOk(description.includes('verified employer listings'), 'Internship meta description must preserve direct verified-employer apply language.');
+    requireOk(html.includes('id="internship-proof-heading"'), 'Internship page is missing the current verified inventory proof section.');
+    requireOk(html.includes(`<strong>${internshipJobs.length}</strong><span>current internships</span>`), 'Internship proof count does not match the verified internship feed.');
+    requireOk(html.includes(`<strong>${internshipEmployerCount}</strong><span>employers represented</span>`), 'Internship employer proof count does not match the current feed.');
+    requireOk(html.includes(`<strong>${internshipStateCount}</strong><span>states represented</span>`), 'Internship state proof count does not match the current feed.');
+    requireOk(html.includes('href="#internships-list"'), 'Internship page is missing its jump-to-openings CTA.');
+    requireOk(html.includes('id="internships-list"'), 'Internship opening list is missing the jump-target anchor.');
+    requireOk(html.includes('General software, sales and unrelated corporate internships are excluded.'), 'Internship page is missing its mission-fit scope explanation.');
+  }
+
   const schemaMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i);
   requireOk(Boolean(schemaMatch), `${contract.path} is missing ItemList JSON-LD.`);
   if (schemaMatch) {
@@ -184,4 +215,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Search landing validation passed: ${jobs.length} jobs, ${apprenticeshipJobs.length} apprenticeship roles from ${apprenticeshipEmployerCount} employers (${apprenticeshipNoExperienceCount} no-experience), ${jobs.filter(job => job.type === 'internship').length} internships, ${jobs.filter(job => job.type === 'trainee').length} trainee roles, ${jobs.filter(job => job.experience === 'no-experience').length} no-experience roles, and ${activeEvents.length} upcoming verified events.`);
+console.log(`Search landing validation passed: ${jobs.length} jobs, ${apprenticeshipJobs.length} apprenticeship roles from ${apprenticeshipEmployerCount} employers (${apprenticeshipNoExperienceCount} no-experience), ${internshipJobs.length} internships from ${internshipEmployerCount} employers across ${internshipStateCount} states, ${jobs.filter(job => job.type === 'trainee').length} trainee roles, ${jobs.filter(job => job.experience === 'no-experience').length} no-experience roles, and ${activeEvents.length} upcoming verified events.`);

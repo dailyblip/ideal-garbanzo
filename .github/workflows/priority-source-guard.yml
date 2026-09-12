@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
+      - 'data/collector-status.json'
       - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
@@ -14,6 +15,7 @@ on:
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
+      - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
@@ -30,6 +32,7 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
+      - 'data/collector-status.json'
       - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
@@ -39,6 +42,7 @@ on:
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
+      - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
@@ -64,6 +68,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Verify strategic collectors report source health
+        run: node scripts/validate-priority-source-diagnostics.mjs
       - name: Verify priority jobs and snapshots stay employer-direct
         run: node scripts/validate-priority-employer-sources.mjs
       - name: Verify priority employers retain authoritative U.S. market coverage

@@ -45,6 +45,59 @@ async function get(path, { html = false, cacheBust = true, exactUrl = false } = 
   return { response, text, requestUrl };
 }
 
+async function getBytes(path) {
+  const canonicalUrl = `${base}${path}`;
+  const separator = path.includes('?') ? '&' : '?';
+  const requestUrl = `${canonicalUrl}${separator}deploy=${encodeURIComponent(cache)}`;
+  let response;
+  try {
+    response = await fetch(requestUrl, {
+      redirect: 'follow',
+      headers: {
+        'cache-control': 'no-cache',
+        'user-agent': 'DataCenterCareersHeroGuard/1.0'
+      },
+      signal: AbortSignal.timeout(30000)
+    });
+  } catch (error) {
+    fail(`${path} could not be fetched: ${error.message}`);
+    return { response:null, bytes:new Uint8Array(), requestUrl };
+  }
+
+  if (!response.ok) fail(`${path} returned HTTP ${response.status}.`);
+  if (!response.url.startsWith(`${base}/`)) fail(`${path} redirected away from the canonical domain to ${response.url}.`);
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  return { response, bytes, requestUrl };
+}
+
+function jpegDimensions(bytes) {
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return null;
+  const sofMarkers = new Set([0xc0,0xc1,0xc2,0xc3,0xc5,0xc6,0xc7,0xc9,0xca,0xcb,0xcd,0xce,0xcf]);
+  let offset = 2;
+  while (offset + 8 < bytes.length) {
+    if (bytes[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+    while (offset < bytes.length && bytes[offset] === 0xff) offset += 1;
+    if (offset >= bytes.length) break;
+    const marker = bytes[offset];
+    offset += 1;
+    if (marker === 0xd8 || marker === 0xd9 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) continue;
+    if (offset + 1 >= bytes.length) break;
+    const length = (bytes[offset] << 8) | bytes[offset + 1];
+    if (length < 2 || offset + length > bytes.length) break;
+    if (sofMarkers.has(marker) && length >= 7) {
+      return {
+        height: (bytes[offset + 3] << 8) | bytes[offset + 4],
+        width: (bytes[offset + 5] << 8) | bytes[offset + 6]
+      };
+    }
+    offset += length;
+  }
+  return null;
+}
+
 function requireCanonical(path, html) {
   const expected = canonicalFor(path);
   const escaped = expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -113,12 +166,32 @@ const htmlChecks = [
   ['/locations/', 'locations hub'],
   ['/how-to-get-a-data-center-job/', 'career guide']
 ];
+let homepageHtml = '';
 
 for (const [path, label] of htmlChecks) {
   const result = await get(path, { html:true });
   if (!result.text) continue;
+  if (path === '/') homepageHtml = result.text;
   requireCanonical(path, result.text);
   if (!/<h1\b/i.test(result.text)) fail(`${label} is missing an h1.`);
+}
+
+const heroSrc = homepageHtml.match(/<figure\b[^>]*class=["'][^"']*hero-media[^"']*["'][^>]*>[\s\S]*?<img\b[^>]*src=["']([^"']+)["']/i)?.[1] || '';
+if (!/^\/hero\.jpg\?v=[0-9a-f]{12}$/i.test(heroSrc)) {
+  fail(`Homepage hero source is missing or not cache-busted correctly: ${heroSrc || '(none)'}.`);
+} else {
+  const heroResult = await getBytes(heroSrc);
+  const contentType = heroResult.response?.headers.get('content-type') || '';
+  if (!/^image\/jpeg\b/i.test(contentType)) fail(`Homepage hero returned unexpected content type: ${contentType || '(none)'}.`);
+  if (heroResult.bytes.length < 100000) fail(`Homepage hero returned only ${heroResult.bytes.length} bytes.`);
+  if (!(heroResult.bytes[0] === 0xff && heroResult.bytes[1] === 0xd8
+      && heroResult.bytes[heroResult.bytes.length - 2] === 0xff && heroResult.bytes[heroResult.bytes.length - 1] === 0xd9)) {
+    fail('Homepage hero response is not an intact JPEG.');
+  }
+  const dimensions = jpegDimensions(heroResult.bytes);
+  if (!dimensions || dimensions.width !== 1536 || dimensions.height !== 1024) {
+    fail(`Homepage hero dimensions are ${dimensions ? `${dimensions.width}x${dimensions.height}` : 'unreadable'}; expected 1536x1024.`);
+  }
 }
 
 if (!jobLocs.length) {
@@ -139,4 +212,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Live indexability validation passed: exact robots.txt and sitemap.xml fetches clean, ${sitemapLocs.length} sitemap URLs, ${jobLocs.length} live job detail URLs, canonicals/noindex checks clean.`);
+console.log(`Live indexability validation passed: exact robots.txt and sitemap.xml fetches clean, homepage hero JPEG is live at 1536x1024, ${sitemapLocs.length} sitemap URLs, ${jobLocs.length} live job detail URLs, canonicals/noindex checks clean.`);

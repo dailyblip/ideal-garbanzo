@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-12T04:50:01.990Z",
+  "checkedAt": "2026-09-12T05:01:37.922Z",
   "jobsBefore": 663,
   "jobsAfter": 663,
   "demoJobsRemoved": [],
@@ -62,15 +62,6 @@
       "state": "blocked",
       "status": 403,
       "finalUrl": "https://jobs.coresite.com/jobs/17818222-skillbridge-data-center-operations-technician-internship"
-    },
-    {
-      "id": "coresite-18085845",
-      "company": "CoreSite",
-      "title": "SkillBridge Data Center Operations Technician Internship",
-      "url": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship",
-      "state": "blocked",
-      "status": 403,
-      "finalUrl": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship"
     },
     {
       "id": "coresite-17781601",
@@ -163,7 +154,80 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18065800-data-center-operations-technician-ii-swing-sv8"
     }
   ],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "workday-nttglobaldatacenters-JR101543",
+      "company": "NTT Global Data Centers",
+      "title": "DoW SkillBridge Data Center Technician Apprentice",
+      "url": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101543",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "lever-cologix-b4eabb77-fd33-4ccc-9555-586befae1e83",
+      "company": "Cologix",
+      "title": "Data Center Technician- 3rd shift (Sunday- Wednesday)",
+      "url": "https://jobs.lever.co/cologix/b4eabb77-fd33-4ccc-9555-586befae1e83",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "talentreef-databank-11119357",
+      "company": "DataBank",
+      "title": "Data Center Technician 1",
+      "url": "https://www.databankcareers.com/clients/14459/posting/11119357",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "google-121090489616081606",
+      "company": "Google",
+      "title": "Data Center Technician III, 3PDC",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/121090489616081606-data-center-technician-iii-3pdc",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "google-89075940830651078",
+      "company": "Google",
+      "title": "Data Center Facilities Technician, Mechanical",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/89075940830651078-data-center-facilities-technician-mechanical",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "coresite-18085845",
+      "company": "CoreSite",
+      "title": "SkillBridge Data Center Operations Technician Internship",
+      "url": "https://jobs.coresite.com/jobs/18085845-skillbridge-data-center-operations-technician-internship",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "workable-stream-dc-5B9BD8650E",
+      "company": "Stream Data Centers",
+      "title": "Critical Engineering Technician, Night Shift",
+      "url": "https://apply.workable.com/stream-dc/j/5B9BD8650E/",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    },
+    {
+      "id": "lever-t5-74d8cf0c-08b9-4640-afc0-56fa034d64b1",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/74d8cf0c-08b9-4640-afc0-56fa034d64b1",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 5,
   "careerEventsAfter": 5,

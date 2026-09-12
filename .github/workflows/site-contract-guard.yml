@@ -48,7 +48,9 @@ jobs:
       - name: Generate search landing pages for contract validation
         run: node scripts/generate-seo.mjs
       - name: Build apprenticeship click and filter experience
-        run: node scripts/enhance-apprenticeship-page.mjs
+        run: |
+          node scripts/enhance-apprenticeship-page.mjs
+          node scripts/finalize-apprenticeship-meta.mjs
       - name: Validate search landing contract
         run: node scripts/validate-search-landings.mjs
       - name: Validate apprenticeship landing contract

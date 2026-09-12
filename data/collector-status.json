@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-12T12:50:02.184Z",
-  "jobs": 663,
+  "jobs": 662,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,7 +9,7 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 632,
+    "entry-level": 631,
     "trainee": 8,
     "internship": 11,
     "apprenticeship": 12
@@ -17,7 +17,7 @@
   "countsByExperience": {
     "0-2-years": 346,
     "2-5-years": 275,
-    "no-experience": 42
+    "no-experience": 41
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -124,15 +124,15 @@
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
     "sourceHealthy": true,
-    "listingPagesAttempted": 18,
-    "listingPagesSucceeded": 18,
+    "listingPagesAttempted": 19,
+    "listingPagesSucceeded": 19,
     "listingComplete": true,
-    "listedTotal": 359,
-    "candidateRows": 11,
-    "detailAttempted": 11,
-    "detailSucceeded": 11,
-    "qualifyingRoles": 9,
-    "snapshotRoles": 9,
+    "listedTotal": 363,
+    "candidateRows": 10,
+    "detailAttempted": 10,
+    "detailSucceeded": 10,
+    "qualifyingRoles": 8,
+    "snapshotRoles": 8,
     "preservedPrevious": 0,
     "drops": {
       "titleOrContext": 0,
@@ -3640,7 +3640,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T12:54:00.997Z",
+    "checkedAt": "2026-09-12T12:54:49.485Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3648,10 +3648,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T12:54:01.047Z",
+    "updatedAt": "2026-09-12T12:54:49.533Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 663,
+    "regionAssigned": 662,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3659,7 +3659,7 @@
       "northeast": 21,
       "midwest": 134,
       "texas": 106,
-      "mid-atlantic": 119,
+      "mid-atlantic": 118,
       "southwest": 80,
       "west": 96,
       "southeast": 106,
@@ -3667,16 +3667,16 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T12:54:01.095Z",
-    "before": 663,
-    "after": 663,
+    "checkedAt": "2026-09-12T12:54:49.574Z",
+    "before": 662,
+    "after": 662,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T12:54:12.895Z",
-    "publishedJobs": 663,
+    "checkedAt": "2026-09-12T12:54:59.709Z",
+    "publishedJobs": 662,
     "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 0
@@ -3684,16 +3684,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1015,
-    "currentJobs": 663,
+    "currentJobs": 662,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 8,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T12:54:13.032Z"
+    "updatedAt": "2026-09-12T12:54:59.832Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

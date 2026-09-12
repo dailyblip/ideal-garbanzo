@@ -18,6 +18,10 @@ requireOk(Array.isArray(jobs), 'data/jobs.json must contain an array.');
 requireOk(Array.isArray(careerEvents), 'data/career-events.json must contain an array.');
 requireOk(!/dailyblip\.github\.io/i.test(sitemap), 'Search sitemap must not contain the old GitHub Pages domain.');
 
+const apprenticeshipJobs = jobs.filter(job => job.type === 'apprenticeship');
+const apprenticeshipEmployerCount = new Set(apprenticeshipJobs.map(job => clean(job.company)).filter(Boolean)).size;
+const apprenticeshipNoExperienceCount = apprenticeshipJobs.filter(job => job.experience === 'no-experience').length;
+
 const listingContracts = [
   {
     path: 'jobs/index.html',
@@ -33,7 +37,7 @@ const listingContracts = [
     url: `${baseUrl}/apprenticeships/`,
     h1: 'Data center apprenticeships',
     title: 'Data Center Apprenticeships',
-    count: jobs.filter(job => job.type === 'apprenticeship').length,
+    count: apprenticeshipJobs.length,
     countLabel: 'current opportunities',
     links: ['/how-to-get-a-data-center-apprenticeship/', '/trainee-jobs/', '/no-experience/', '/entry-level/']
   },
@@ -118,6 +122,17 @@ for (const contract of listingContracts) {
     requireOk(html.includes(`href="${baseUrl}${href}"`), `${contract.path} is missing the internal search-intent link ${href}.`);
   }
 
+  if (contract.path === 'apprenticeships/index.html') {
+    requireOk(pageTitle(html).includes('Verified Employer Openings'), 'Apprenticeship title must preserve the employer-verification click-through signal.');
+    requireOk(description.includes('experience requirements') && description.includes('employer sites'), 'Apprenticeship meta description must preserve practical apply/qualification language.');
+    requireOk(html.includes('id="apprenticeship-proof-heading"'), 'Apprenticeship page is missing the current verified inventory proof section.');
+    requireOk(html.includes(`<strong>${apprenticeshipJobs.length}</strong><span>current apprenticeships</span>`), 'Apprenticeship proof bar count does not match the verified apprenticeship feed.');
+    requireOk(html.includes(`<strong>${apprenticeshipEmployerCount}</strong><span>employers represented</span>`), 'Apprenticeship employer proof count does not match the current feed.');
+    requireOk(html.includes(`<strong>${apprenticeshipNoExperienceCount}</strong><span>no-experience openings</span>`), 'Apprenticeship no-experience proof count does not match the current feed.');
+    requireOk(html.includes('href="#apprenticeships-list"'), 'Apprenticeship page is missing its mobile-friendly jump-to-openings CTA.');
+    requireOk(html.includes('id="apprenticeships-list"'), 'Apprenticeship opening list is missing the jump-target anchor.');
+  }
+
   const schemaMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i);
   requireOk(Boolean(schemaMatch), `${contract.path} is missing ItemList JSON-LD.`);
   if (schemaMatch) {
@@ -169,4 +184,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Search landing validation passed: ${jobs.length} jobs, ${jobs.filter(job => job.type === 'apprenticeship').length} apprenticeship roles, ${jobs.filter(job => job.type === 'internship').length} internships, ${jobs.filter(job => job.type === 'trainee').length} trainee roles, ${jobs.filter(job => job.experience === 'no-experience').length} no-experience roles, and ${activeEvents.length} upcoming verified events.`);
+console.log(`Search landing validation passed: ${jobs.length} jobs, ${apprenticeshipJobs.length} apprenticeship roles from ${apprenticeshipEmployerCount} employers (${apprenticeshipNoExperienceCount} no-experience), ${jobs.filter(job => job.type === 'internship').length} internships, ${jobs.filter(job => job.type === 'trainee').length} trainee roles, ${jobs.filter(job => job.experience === 'no-experience').length} no-experience roles, and ${activeEvents.length} upcoming verified events.`);

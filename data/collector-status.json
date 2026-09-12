@@ -14,8 +14,8 @@
     "internship": 11
   },
   "countsByExperience": {
-    "0-2-years": 345,
     "2-5-years": 275,
+    "0-2-years": 345,
     "no-experience": 43
   },
   "errors": [],
@@ -3650,7 +3650,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T04:08:01.278Z",
+    "checkedAt": "2026-09-12T04:33:31.041Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3658,7 +3658,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T04:08:01.355Z",
+    "updatedAt": "2026-09-12T04:33:31.104Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 663,
@@ -3666,10 +3666,10 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "northeast": 21,
       "midwest": 134,
       "texas": 106,
       "southwest": 80,
+      "northeast": 21,
       "mid-atlantic": 119,
       "west": 96,
       "southeast": 106,
@@ -3677,7 +3677,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T04:08:01.429Z",
+    "checkedAt": "2026-09-12T04:33:31.163Z",
     "before": 663,
     "after": 663,
     "removed": 0,
@@ -3685,7 +3685,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T04:08:18.778Z",
+    "checkedAt": "2026-09-12T04:33:50.010Z",
     "publishedJobs": 663,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -3695,15 +3695,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1015,
     "currentJobs": 663,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 10,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T04:08:19.026Z"
+    "updatedAt": "2026-09-12T04:33:50.186Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

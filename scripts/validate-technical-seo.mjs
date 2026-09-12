@@ -158,6 +158,7 @@ const detailDirs = jobDirs.filter(entry => entry.isDirectory() && entry.name !==
 requireOk(detailDirs.length === jobs.length, `Generated job-page count ${detailDirs.length} does not match feed count ${jobs.length}.`);
 
 let jobPostingCount = 0;
+let structuredDateCount = 0;
 let structuredLocationCount = 0;
 let enrichedDescriptionCount = 0;
 for (const entry of detailDirs) {
@@ -181,6 +182,10 @@ for (const entry of detailDirs) {
     requireOk(Boolean(schema.hiringOrganization?.name), `Job page ${entry.name} schema is missing hiringOrganization.`);
     requireOk(String(schema.url || '').startsWith(`${baseUrl}/jobs/`), `Job page ${entry.name} schema URL is not canonical.`);
     requireOk(Boolean(schema.identifier?.value), `Job page ${entry.name} schema is missing a stable identifier.`);
+    const datePostedMs = Date.parse(String(schema.datePosted || ''));
+    const validDatePosted = Number.isFinite(datePostedMs) && datePostedMs <= Date.now() + 6 * 60 * 60 * 1000;
+    requireOk(validDatePosted, `Job page ${entry.name} schema is missing a valid datePosted.`);
+    if (validDatePosted) structuredDateCount += 1;
     const description = clean(schema.description);
     requireOk(description.length >= 220, `Job page ${entry.name} schema description is too thin (${description.length} characters).`);
     requireOk(/complete duties, qualifications, schedule, and application details/i.test(description), `Job page ${entry.name} schema description must direct users to the complete employer listing.`);
@@ -192,6 +197,7 @@ for (const entry of detailDirs) {
 }
 
 requireOk(jobPostingCount === jobs.length, `Only ${jobPostingCount}/${jobs.length} job pages contain valid JobPosting structured data.`);
+requireOk(structuredDateCount === jobs.length, `Only ${structuredDateCount}/${jobs.length} JobPosting pages contain valid datePosted values.`);
 requireOk(enrichedDescriptionCount === jobs.length, `Only ${enrichedDescriptionCount}/${jobs.length} job pages contain enriched JobPosting descriptions.`);
 if (jobs.length) {
   const coverage = structuredLocationCount / jobs.length;
@@ -206,4 +212,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Technical SEO validation passed: ${locs.length} sitemap URLs, ${jobPostingCount} JobPosting pages with enriched descriptions, ${regionPageCount} regional pages, ${structuredLocationCount}/${jobs.length} with structured locations, meaningful lastmod dates verified.`);
+console.log(`Technical SEO validation passed: ${locs.length} sitemap URLs, ${jobPostingCount} JobPosting pages, ${structuredDateCount}/${jobs.length} with valid datePosted, ${enrichedDescriptionCount}/${jobs.length} with enriched descriptions, ${regionPageCount} regional pages, ${structuredLocationCount}/${jobs.length} with structured locations, meaningful lastmod dates verified.`);

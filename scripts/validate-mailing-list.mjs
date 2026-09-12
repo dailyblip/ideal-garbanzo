@@ -80,6 +80,7 @@ if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script 
 for (const marker of [
   "cron: '5 14 * * 1'",
   "run: node scripts/validate-mailing-list.mjs",
+  "run: node scripts/send-weekly-job-alert.mjs --test-selection",
   "run: node scripts/send-weekly-job-alert.mjs --dry-run",
   'BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}',
   'run: node scripts/send-weekly-job-alert.mjs --schedule',
@@ -95,11 +96,16 @@ for (const marker of [
   "const SITE_BASE = 'https://datacentercareers.us';",
   "const EARLY_TYPES = new Set(['internship', 'apprenticeship', 'trainee']);",
   "const EARLY_EXPERIENCE = new Set(['no-experience', '0-2-years']);",
+  "const testSelection = args.has('--test-selection');",
   'subscriber.metadata.region',
   'subscriber.metadata.focus',
   'utm_source',
   'weekly-email',
   'function jobDetailUrl(job)',
+  'function diversifyJobs(jobs, limit)',
+  'const allUs = diversifyJobs(newJobs, MAX_ALL_US);',
+  'const regional = diversifyJobs(regionalCandidates, MAX_PER_REGION);',
+  'Weekly alert employer-diverse selection passed 4 regression cases.',
   'function nextMonday1600Utc(now = new Date())',
   'function findExistingDigest(digestKey)',
   'publish_date__start',
@@ -131,4 +137,4 @@ for (const marker of [
 await assertMissing('.github/workflows/weekly-digest.yml');
 await assertMissing('scripts/send-weekly-digest.mjs');
 
-console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline scheduled for ${config.sendTimeUtc} UTC with tracked Data Center Careers job links.`);
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline scheduled for ${config.sendTimeUtc} UTC with tracked Data Center Careers job links and employer-diverse selection.`);

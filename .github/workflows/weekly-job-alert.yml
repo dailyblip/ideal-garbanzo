@@ -6,8 +6,10 @@ on:
     paths:
       - 'index.html'
       - 'assets/mailing-list.js'
+      - 'assets/jobs-listing.js'
       - 'scripts/send-weekly-job-alert.mjs'
       - 'scripts/validate-mailing-list.mjs'
+      - 'scripts/validate-alert-signup-parity.mjs'
       - 'scripts/validate-job-history.mjs'
       - 'data/jobs.json'
       - 'data/mailing-list.json'
@@ -41,6 +43,8 @@ jobs:
           node-version: 22
       - name: Validate weekly mailing configuration
         run: node scripts/validate-mailing-list.mjs
+      - name: Validate alert signup surface parity
+        run: node scripts/validate-alert-signup-parity.mjs
       - name: Validate persisted first-seen job history
         run: node scripts/validate-job-history.mjs --allow-aging
       - name: Validate employer-diverse weekly alert selection

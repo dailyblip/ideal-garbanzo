@@ -56,6 +56,15 @@ const statePairs = [
 ];
 const stateCodes = new Set(statePairs.map(([, code]) => code));
 const stateNamesLongestFirst = [...statePairs].sort((a, b) => b[0].length - a[0].length);
+const stateToRegion = new Map([
+  ...['DC','DE','MD','VA','WV'].map(code => [code, 'mid-atlantic']),
+  ['TX', 'texas'],
+  ...['AZ','NM','NV','OK'].map(code => [code, 'southwest']),
+  ...['IL','IN','IA','KS','MI','MN','MO','NE','ND','OH','SD','WI'].map(code => [code, 'midwest']),
+  ...['AL','AR','FL','GA','KY','LA','MS','NC','SC','TN'].map(code => [code, 'southeast']),
+  ...['CT','ME','MA','NH','NJ','NY','PA','RI','VT'].map(code => [code, 'northeast']),
+  ...['AK','CA','CO','HI','ID','MT','OR','UT','WA','WY'].map(code => [code, 'west'])
+]);
 const programTypes = new Set(['internship', 'apprenticeship', 'trainee']);
 const entryExperienceBands = new Set(['no-experience', '0-2-years']);
 
@@ -126,6 +135,28 @@ for (const [location, expected] of stateRegressionCases) {
   }
 }
 
+// Match the region taxonomy used by normalize-job-locations.mjs. State coverage
+// alone is not enough: a correctly retained job with the wrong region tag is
+// effectively invisible when a candidate filters for their part of the country.
+const regionRegressionCases = [
+  ['VA', 'mid-atlantic'],
+  ['TX', 'texas'],
+  ['AZ', 'southwest'],
+  ['OH', 'midwest'],
+  ['GA', 'southeast'],
+  ['PA', 'northeast'],
+  ['CA', 'west']
+];
+for (const [code, expected] of regionRegressionCases) {
+  const actual = stateToRegion.get(code) || '';
+  if (actual !== expected) {
+    throw new Error(`Priority regional coverage taxonomy regression for ${code}: expected ${expected}, got ${actual || '(none)'}.`);
+  }
+}
+if (stateToRegion.size !== statePairs.length) {
+  throw new Error(`Priority regional coverage taxonomy maps ${stateToRegion.size}/${statePairs.length} U.S. state/DC codes.`);
+}
+
 const entryPathRegressionCases = [
   [{ type: 'internship', experience: '2-5-years' }, true],
   [{ type: 'apprenticeship', experience: '2-5-years' }, true],
@@ -165,9 +196,27 @@ function requireEntryPathwayCoverage(company, snapshotJobs, publicJobs, context)
   }
 }
 
+function requireCorrectRegionAssignments(company, publicJobs, context) {
+  const mismatches = [];
+  for (const job of publicJobs) {
+    const code = stateCode(job?.location);
+    if (!code) continue;
+    const expected = stateToRegion.get(code) || '';
+    const actual = String(job?.region || '').trim().toLowerCase();
+    if (expected && actual !== expected) {
+      mismatches.push(`${code}:${actual || '(missing)'}→${expected}`);
+    }
+  }
+  const unique = [...new Set(mismatches)].sort();
+  if (unique.length) {
+    violations.push(`${company}: ${unique.length} state/region assignment mismatch(es) in public feed from ${context}: ${unique.slice(0, 8).join(', ')}${unique.length > 8 ? ', …' : ''}`);
+  }
+}
+
 function requireRegionalCoverage(company, snapshotJobs, publicJobs, context) {
   requireStateCoverage(company, snapshotJobs, publicJobs, context);
   requireEntryPathwayCoverage(company, snapshotJobs, publicJobs, context);
+  requireCorrectRegionAssignments(company, publicJobs, context);
 }
 
 for (const { company, path } of protectedSnapshots) {

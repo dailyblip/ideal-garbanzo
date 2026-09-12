@@ -1,28 +1,26 @@
 {
-  "updatedAt": "2026-09-12T17:27:33.049Z",
-  "jobs": 707,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-12T20:34:51.698Z",
+  "jobs": 723,
+  "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
-    "ashby": 5,
-    "googleCareers": 1,
-    "icims": 1
+    "ashby": 5
   },
   "countsByType": {
-    "internship": 12,
+    "entry-level": 690,
+    "internship": 13,
     "trainee": 8,
-    "apprenticeship": 12,
-    "entry-level": 675
+    "apprenticeship": 12
   },
   "countsByExperience": {
-    "no-experience": 42,
-    "0-2-years": 390,
-    "2-5-years": 275
+    "2-5-years": 282,
+    "0-2-years": 399,
+    "no-experience": 42
   },
   "errors": [],
   "sourceFailurePreservation": {
-    "checkedAt": "2026-09-12T15:33:52.137Z",
+    "checkedAt": "2026-09-12T20:34:51.706Z",
     "failedSources": [],
     "preservedJobs": 0,
     "preservedByCompany": {},
@@ -3917,8 +3915,8 @@
     ],
     "sources": {
       "Serverfarm": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3926,8 +3924,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "LightEdge Solutions": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3935,8 +3933,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "ECL": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3944,8 +3942,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Hive": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3953,8 +3951,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "CAI": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3962,8 +3960,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "xAI": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3971,8 +3969,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Element Critical": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3980,8 +3978,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Lambda": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3989,8 +3987,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Crusoe": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3998,8 +3996,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Fluidstack": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4007,8 +4005,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Gimlet Labs": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4016,8 +4014,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "TensorWave": {
-        "lastHealthyAt": "2026-09-12T15:33:52.127Z",
-        "latestScanAt": "2026-09-12T15:33:52.127Z",
+        "lastHealthyAt": "2026-09-12T20:34:51.698Z",
+        "latestScanAt": "2026-09-12T20:34:51.698Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4149,7 +4147,7 @@
     }
   ],
   "genericDirectSources": {
-    "updatedAt": "2026-09-12T15:33:52.127Z",
+    "updatedAt": "2026-09-12T20:34:51.698Z",
     "jobs": 101,
     "sourcesAttempted": 17,
     "providers": {
@@ -4163,8 +4161,8 @@
       "apprenticeship": 2
     },
     "countsByExperience": {
-      "0-2-years": 53,
       "2-5-years": 46,
+      "0-2-years": 53,
       "no-experience": 2
     },
     "sourceDiagnostics": [
@@ -4291,7 +4289,7 @@
     "errors": []
   },
   "authoritativeSnapshotOverlay": {
-    "checkedAt": "2026-09-12T15:33:52.137Z",
+    "checkedAt": "2026-09-12T20:34:51.706Z",
     "restoredByCompany": {
       "Cologix": 10,
       "EdgeConneX": 2
@@ -4299,7 +4297,7 @@
     "policy": "Dedicated employer-direct snapshots replace overlapping generic ATS results before later publication gates."
   },
   "genericDedicatedOverlapProtection": {
-    "checkedAt": "2026-09-12T15:33:52.214Z",
+    "checkedAt": "2026-09-12T20:34:51.766Z",
     "companies": [
       "Cologix",
       "T5 Data Centers",

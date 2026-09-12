@@ -21,7 +21,7 @@ const lower = value => clean(value).toLowerCase();
 
 const missionTitle = /\b(?:data center technician|critical facilit(?:y|ies) technician|critical operations technician|data center operator|data center operations technician|command center systems engineer|facilities technician|electrical technician)\b/i;
 const excludedTitle = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|head|supervisor|security|sales|accounting|finance|marketing|procurement)\b/i;
-const infrastructureContext = /\b(?:data center|server|rack|hardware|network|fiber|cabling|electrical|mechanical|power|ups|generator|hvac|critical infrastructure|critical facilit)\b/i;
+const infrastructureContext = /\b(?:data center|server|rack|hardware|network|fiber|cabling|electrical|mechanical|power|ups|generator|hvac|critical infrastructure|critical facilit(?:y|ies))\b/i;
 const explicitNoExperience = /\b(?:no\s+(?:prior|previous)?\s*experience\s+(?:is\s+)?(?:required|necessary|needed)|(?:prior|previous)?\s*experience\s+(?:is\s+)?not\s+required|0\s*(?:-|–|to)\s*\d{1,2}\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+|professional\s+|hands-on\s+)?experience)\b/i;
 const earlyCareerSignal = /\b(?:entry[- ]level|junior|high school diploma|ged|associate(?:'s)? degree|equivalent experience|0\s*[-–]\s*2 years?)\b/i;
 
@@ -106,7 +106,7 @@ if (process.argv.includes('--test-experience-parser')) {
 function tagsFor(title, text, experience) {
   const value = lower(`${title} ${text}`);
   const tags = [experience === 'no-experience' ? 'No Experience Needed' : experience === '2-5-years' ? '2–5 Years' : '0–2 Years'];
-  if (/\b(?:electrical|mechanical|power|ups|generator|hvac|critical facilit|critical infrastructure)\b/.test(value)) tags.push('Critical Facilities');
+  if (/\b(?:electrical|mechanical|power|ups|generator|hvac|critical facilit(?:y|ies)|critical infrastructure)\b/.test(value)) tags.push('Critical Facilities');
   if (/\b(?:rack|server|hardware|network|fiber|cabling)\b/.test(value)) tags.push('Data Center Operations');
   if (/\b(?:training|mentor|learn|development)\b/.test(value)) tags.push('Training / Mentorship');
   return [...new Set(tags)].slice(0, 5);

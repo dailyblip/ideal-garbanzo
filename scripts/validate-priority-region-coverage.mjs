@@ -4,9 +4,11 @@ const JOBS_PATH = 'data/jobs.json';
 const MAJOR_PATH = 'data/major-jobs.json';
 
 // These dedicated snapshots are already treated as authoritative by the
-// priority-source guard. Preserve their U.S. state footprint as well as their
-// role-family coverage so a refresh cannot silently erase an entire market
-// while leaving one same-titled role elsewhere.
+// priority-source guard. Preserve both their U.S. state footprint and a usable
+// entry pathway in each market that currently has one. Exact requisitions and
+// experience bands can legitimately consolidate during dedupe; the guard is
+// aimed at the user-facing regression where a market silently keeps only
+// mid-level inventory after its beginner opportunities disappear downstream.
 const protectedSnapshots = [
   { company: 'Amazon Web Services', path: 'data/amazon-jobs.json' },
   { company: 'Google', path: 'data/google-jobs.json' },
@@ -52,6 +54,8 @@ const statePairs = [
 ];
 const stateCodes = new Set(statePairs.map(([, code]) => code));
 const stateNamesLongestFirst = [...statePairs].sort((a, b) => b[0].length - a[0].length);
+const programTypes = new Set(['internship', 'apprenticeship', 'trainee']);
+const entryExperienceBands = new Set(['no-experience', '0-2-years']);
 
 const normalize = value => String(value ?? '')
   .toLowerCase()
@@ -78,8 +82,22 @@ function stateCode(location = '') {
   return '';
 }
 
+function isEntryPathway(job = {}) {
+  const type = String(job?.type || '').trim().toLowerCase();
+  if (programTypes.has(type)) return true;
+  const experience = String(job?.experience || '').trim().toLowerCase();
+  return entryExperienceBands.has(experience);
+}
+
 function stateCoverage(records = []) {
   return new Set(records.map(job => stateCode(job?.location)).filter(Boolean));
+}
+
+function entryPathwayStateCoverage(records = []) {
+  return new Set(records
+    .filter(isEntryPathway)
+    .map(job => stateCode(job?.location))
+    .filter(Boolean));
 }
 
 async function readJobs(path) {
@@ -106,6 +124,22 @@ for (const [location, expected] of stateRegressionCases) {
   }
 }
 
+const entryPathRegressionCases = [
+  [{ type: 'internship', experience: '2-5-years' }, true],
+  [{ type: 'apprenticeship', experience: '2-5-years' }, true],
+  [{ type: 'trainee', experience: '2-5-years' }, true],
+  [{ type: 'entry-level', experience: 'no-experience' }, true],
+  [{ type: 'entry-level', experience: '0-2-years' }, true],
+  [{ type: 'entry-level', experience: '2-5-years' }, false],
+  [{ type: 'entry-level', experience: 'unknown' }, false]
+];
+for (const [job, expected] of entryPathRegressionCases) {
+  const actual = isEntryPathway(job);
+  if (actual !== expected) {
+    throw new Error(`Priority regional entry-path parser regression: expected ${expected}, got ${actual}.`);
+  }
+}
+
 const jobs = await readJobs(JOBS_PATH);
 const violations = [];
 
@@ -119,18 +153,33 @@ function requireStateCoverage(company, snapshotJobs, publicJobs, context) {
   }
 }
 
+function requireEntryPathwayCoverage(company, snapshotJobs, publicJobs, context) {
+  const expectedStates = entryPathwayStateCoverage(snapshotJobs);
+  if (!expectedStates.size) return;
+  const publicStates = entryPathwayStateCoverage(publicJobs);
+  const missingStates = [...expectedStates].filter(code => !publicStates.has(code)).sort();
+  if (missingStates.length) {
+    violations.push(`${company}: public feed lost beginner-accessible inventory in ${missingStates.length}/${expectedStates.size} authoritative U.S. entry-path market(s) from ${context}: ${missingStates.join(', ')}`);
+  }
+}
+
+function requireRegionalCoverage(company, snapshotJobs, publicJobs, context) {
+  requireStateCoverage(company, snapshotJobs, publicJobs, context);
+  requireEntryPathwayCoverage(company, snapshotJobs, publicJobs, context);
+}
+
 for (const { company, path } of protectedSnapshots) {
   const snapshotJobs = await readJobs(path);
   const ownedSnapshotJobs = snapshotJobs.filter(job => String(job?.company || '').trim() === company);
   const publicJobs = jobs.filter(job => String(job?.company || '').trim() === company);
-  requireStateCoverage(company, ownedSnapshotJobs, publicJobs, 'dedicated snapshot');
+  requireRegionalCoverage(company, ownedSnapshotJobs, publicJobs, 'dedicated snapshot');
 }
 
 const majorJobs = await readJobs(MAJOR_PATH);
 for (const company of majorWorkdayCompanies) {
   const snapshotJobs = majorJobs.filter(job => String(job?.company || '').trim() === company);
   const publicJobs = jobs.filter(job => String(job?.company || '').trim() === company);
-  requireStateCoverage(company, snapshotJobs, publicJobs, 'major Workday snapshot');
+  requireRegionalCoverage(company, snapshotJobs, publicJobs, 'major Workday snapshot');
 }
 
 if (violations.length) {
@@ -140,7 +189,9 @@ if (violations.length) {
 
 const summaryCompanies = [...protectedSnapshots.map(item => item.company), ...majorWorkdayCompanies];
 const summary = summaryCompanies.map(company => {
-  const states = [...stateCoverage(jobs.filter(job => String(job?.company || '').trim() === company))].sort();
-  return `${company}=${states.length ? states.join('/') : 'no-state-coded-roles'}`;
+  const companyJobs = jobs.filter(job => String(job?.company || '').trim() === company);
+  const states = [...stateCoverage(companyJobs)].sort();
+  const entryStates = [...entryPathwayStateCoverage(companyJobs)].sort();
+  return `${company}=${states.length ? states.join('/') : 'no-state-coded-roles'}; entry=${entryStates.length ? entryStates.join('/') : 'none'}`;
 }).join(', ');
 console.log(`Priority regional coverage guard passed. ${summary}`);

@@ -22,6 +22,8 @@ const lower = value => clean(value).toLowerCase();
 const missionTitle = /\b(?:data center technician|critical facilit(?:y|ies) technician|critical operations technician|data center operator|data center operations technician|command center systems engineer|facilities technician|electrical technician)\b/i;
 const excludedTitle = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|head|supervisor|security|sales|accounting|finance|marketing|procurement)\b/i;
 const infrastructureContext = /\b(?:data center|server|rack|hardware|network|fiber|cabling|electrical|mechanical|power|ups|generator|hvac|critical infrastructure|critical facilit)\b/i;
+const explicitNoExperience = /\b(?:no\s+(?:prior|previous)?\s*experience\s+(?:is\s+)?(?:required|necessary|needed)|(?:prior|previous)?\s*experience\s+(?:is\s+)?not\s+required|0\s*(?:-|–|to)\s*\d{1,2}\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+|professional\s+|hands-on\s+)?experience)\b/i;
+const earlyCareerSignal = /\b(?:entry[- ]level|junior|high school diploma|ged|associate(?:'s)? degree|equivalent experience|0\s*[-–]\s*2 years?)\b/i;
 
 function requiredExperienceYears(text = '') {
   const values = [];
@@ -47,10 +49,58 @@ function classify(title, text) {
   if (years.some(year => year >= 6)) return null;
   if (years.some(year => year >= 3)) return { type: 'entry-level', experience: '2-5-years' };
   if (years.some(year => year >= 1)) return { type: 'entry-level', experience: '0-2-years' };
-  if (/\b(?:entry[- ]level|junior|high school diploma|ged|associate(?:'s)? degree|equivalent experience|0\s*[-–]\s*2 years?)\b/i.test(normalized)) {
-    return { type: 'entry-level', experience: 'no-experience' };
-  }
+  if (explicitNoExperience.test(normalized)) return { type: 'entry-level', experience: 'no-experience' };
+  if (earlyCareerSignal.test(normalized)) return { type: 'entry-level', experience: '0-2-years' };
   return null;
+}
+
+function runClassifierSelfTest() {
+  const cases = [
+    {
+      name: 'entry-level wording does not erase a two-year requirement',
+      title: 'Data Center Technician',
+      text: 'Entry-level data center role. Minimum of 2 years of relevant experience required.',
+      expected: '0-2-years'
+    },
+    {
+      name: 'education and training signals do not claim zero experience',
+      title: 'Data Center Technician',
+      text: 'High school diploma or GED. Training and mentorship provided for data center operations.',
+      expected: '0-2-years'
+    },
+    {
+      name: 'explicit no-experience evidence is preserved',
+      title: 'Data Center Technician',
+      text: 'No prior experience required. Training is provided for data center operations and critical facilities work.',
+      expected: 'no-experience'
+    },
+    {
+      name: 'four-year requirement stays in appropriate mid-level bucket',
+      title: 'Critical Facilities Technician',
+      text: 'Minimum of 4 years of relevant critical facilities experience required.',
+      expected: '2-5-years'
+    },
+    {
+      name: 'six-year requirement is rejected',
+      title: 'Critical Facilities Technician',
+      text: 'Minimum of 6 years of relevant critical facilities experience required.',
+      expected: null
+    }
+  ];
+
+  for (const testCase of cases) {
+    const result = classify(testCase.title, testCase.text);
+    const actual = result?.experience ?? null;
+    if (actual !== testCase.expected) {
+      throw new Error(`${testCase.name}: expected ${testCase.expected}, got ${actual}`);
+    }
+  }
+  console.log('CoreWeave experience-classifier regression tests passed.');
+}
+
+if (process.argv.includes('--test-experience-parser')) {
+  runClassifierSelfTest();
+  process.exit(0);
 }
 
 function tagsFor(title, text, experience) {

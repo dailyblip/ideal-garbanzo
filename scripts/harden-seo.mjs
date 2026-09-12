@@ -85,6 +85,26 @@ function dateOnly(value) {
   return Number.isFinite(parsed) ? new Date(parsed).toISOString().slice(0, 10) : null;
 }
 
+const FUTURE_DATE_GRACE_MS = 6 * 60 * 60 * 1000;
+
+function validSchemaDate(value) {
+  const parsed = Date.parse(String(value || ''));
+  if (!Number.isFinite(parsed) || parsed > Date.now() + FUTURE_DATE_GRACE_MS) return null;
+  return new Date(parsed).toISOString();
+}
+
+function jobDatePosted(job) {
+  const employerDate = validSchemaDate(job?.postedAt);
+  if (employerDate) return employerDate;
+
+  // When an employer source omits its original posting date, use the persistent
+  // first-seen timestamp as the publication date of our own verified job page.
+  const firstSeenDate = validSchemaDate(job?.firstSeenAt);
+  if (firstSeenDate) return firstSeenDate;
+
+  throw new Error(`Job ${job?.id || 'unknown'} is missing valid postedAt and firstSeenAt evidence for JobPosting datePosted.`);
+}
+
 function jobLastmod(job) {
   return dateOnly(job.lastChangedAt) || dateOnly(job.firstSeenAt) || dateOnly(job.postedAt);
 }
@@ -309,6 +329,7 @@ async function addTechnicianCrossLink(path) {
 
 let enhancedLocations = 0;
 let enrichedJobPages = 0;
+let structuredDateCount = 0;
 for (const job of jobs) {
   const path = `jobs/${jobSlug(job)}/index.html`;
   try { await access(path); } catch { continue; }
@@ -321,6 +342,8 @@ for (const job of jobs) {
 
   schema.identifier = { '@type': 'PropertyValue', name: job.company, value: String(job.id) };
   schema.industry = 'Data center infrastructure';
+  schema.datePosted = jobDatePosted(job);
+  structuredDateCount += 1;
   if (job.type === 'internship') schema.employmentType = 'INTERN';
 
   const overview = roleOverview(job);
@@ -355,6 +378,9 @@ for (const job of jobs) {
 if (enrichedJobPages !== jobs.length) {
   throw new Error(`Only ${enrichedJobPages}/${jobs.length} generated job pages received SEO enrichment.`);
 }
+if (structuredDateCount !== jobs.length) {
+  throw new Error(`Only ${structuredDateCount}/${jobs.length} generated JobPosting pages received datePosted evidence.`);
+}
 
 await enhanceJobsListing();
 const technicianPages = await generateTechnicianPages();
@@ -384,4 +410,4 @@ if (!sitemap.includes(`<loc>${employerUrl}</loc>`)) {
 await writeFile('sitemap.xml', sitemap);
 await writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}/sitemap.xml\n`);
 
-console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context; ${enhancedLocations}/${jobs.length} received structured location data; ${technicianPages.length} technician search pages generated; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap; jobs search/filter/sort controls enabled.`);
+console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context; ${structuredDateCount}/${jobs.length} JobPosting pages received datePosted evidence; ${enhancedLocations}/${jobs.length} received structured location data; ${technicianPages.length} technician search pages generated; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap; jobs search/filter/sort controls enabled.`);

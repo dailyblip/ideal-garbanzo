@@ -38,6 +38,7 @@ await import('./generate-advertising-page.mjs');
 // fresh-opening module, accessible filters, conversion-focused cards and
 // BreadcrumbList data. Generate that final page before analytics scans HTML.
 await import('./enhance-apprenticeship-page.mjs');
+await import('./finalize-apprenticeship-meta.mjs');
 
 async function htmlFiles(dir = '.') {
   const entries = await readdir(dir, { withFileTypes: true });

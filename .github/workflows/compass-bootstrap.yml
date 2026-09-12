@@ -24,6 +24,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -55,15 +56,53 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
       - name: Commit verified Compass Datacenters roles
+        shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/job-history.json data/collector-status.json data/compass-status.json data/qa-report.json)" ]; then
-            echo "No verified Compass Datacenters data changes."
-            exit 0
-          fi
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.json data/job-history.json data/collector-status.json data/compass-status.json data/qa-report.json
-          git commit -m "Refresh verified Compass Datacenters roles"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/collect-compass-datacenters.mjs
+            node scripts/persist-compass-status.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/validate-compass-datacenters.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+          }
+
+          # Shared feed data can move while this source is being verified. Always
+          # rebuild from the newest main snapshot instead of rebasing two generated
+          # jobs.json versions, which can conflict or discard another source update.
           git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Compass refresh; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/job-history.json data/collector-status.json data/compass-status.json data/qa-report.json
+            if git diff --cached --quiet; then
+              echo "No verified Compass Datacenters data changes."
+              exit 0
+            fi
+
+            git commit -m "Refresh verified Compass Datacenters roles"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Main moved during Compass publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified Compass Datacenters data after three attempts."
+          exit 1

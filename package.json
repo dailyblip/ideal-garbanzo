@@ -4,6 +4,6 @@
   "type": "module",
   "scripts": {
     "collect": "node scripts/collect-jobs.mjs",
-    "validate": "node scripts/validate.mjs && node scripts/validate-priority-source-diagnostics.mjs && node scripts/validate-promotions.mjs && node scripts/validate-employer-submissions.mjs"
+    "validate": "node scripts/validate.mjs && node scripts/validate-priority-source-diagnostics.mjs && node scripts/validate-direct-role-links.mjs && node scripts/validate-promotions.mjs && node scripts/validate-employer-submissions.mjs"
   }
 }

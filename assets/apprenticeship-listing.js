@@ -1,4 +1,19 @@
 (() => {
+  const header = document.querySelector('.site-header');
+  const menu = document.querySelector('.menu-button');
+
+  menu?.addEventListener('click', () => {
+    const open = header?.classList.toggle('menu-open');
+    menu.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.querySelectorAll('.nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      header?.classList.remove('menu-open');
+      menu?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
   const browser = document.querySelector('[data-apprenticeship-browser]');
   if (!browser) return;
 
@@ -12,7 +27,7 @@
 
   if (!state || !focus || !noExperience || !reset || !summary || !empty) return;
 
-  const values = element => String(element.dataset.states || element.dataset.focus || '').split(/\s+/).filter(Boolean);
+  const tokens = value => String(value || '').split(/\s+/).filter(Boolean);
 
   function applyFilters({ track = true } = {}) {
     const selectedState = state.value;
@@ -21,8 +36,8 @@
     let visible = 0;
 
     for (const card of cards) {
-      const stateMatch = !selectedState || values({ dataset: { states: card.dataset.states } }).includes(selectedState);
-      const focusMatch = !selectedFocus || values({ dataset: { focus: card.dataset.focus } }).includes(selectedFocus);
+      const stateMatch = !selectedState || tokens(card.dataset.states).includes(selectedState);
+      const focusMatch = !selectedFocus || tokens(card.dataset.focus).includes(selectedFocus);
       const experienceMatch = !onlyNoExperience || card.dataset.experience === 'no-experience';
       const show = stateMatch && focusMatch && experienceMatch;
       card.hidden = !show;

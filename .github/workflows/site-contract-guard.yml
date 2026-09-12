@@ -32,6 +32,10 @@ jobs:
         run: node scripts/validate-switch-careers.mjs
       - name: Validate regional filtering contract
         run: node scripts/test-region-filter-contract.mjs
+      - name: Validate weekly alert plumbing and employer diversity
+        run: |
+          node scripts/validate-mailing-list.mjs
+          node scripts/send-weekly-job-alert.mjs --test-selection
       - name: Validate promotion runtime contract
         run: node scripts/test-promotion-runtime-contract.mjs
       - name: Validate employer promotion and inquiry contract

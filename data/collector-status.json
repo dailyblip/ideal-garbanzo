@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12T16:39:11.617Z",
+  "updatedAt": "2026-09-12T17:26:41.981Z",
   "jobs": 712,
   "sourcesAttempted": 19,
   "providers": {
@@ -10,15 +10,15 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 8,
-    "internship": 12,
     "entry-level": 680,
+    "internship": 12,
+    "trainee": 8,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "no-experience": 42,
     "0-2-years": 395,
-    "2-5-years": 275
+    "2-5-years": 275,
+    "no-experience": 42
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3641,54 +3641,15 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T16:39:11.783Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-12T17:26:42.057Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T16:39:11.843Z",
+    "updatedAt": "2026-09-12T17:26:42.131Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 712,
@@ -3697,17 +3658,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "northeast": 23,
-      "mid-atlantic": 134,
-      "southwest": 84,
       "midwest": 136,
-      "west": 104,
-      "southeast": 113,
       "texas": 117,
+      "mid-atlantic": 134,
+      "southeast": 113,
+      "southwest": 84,
+      "west": 104,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T16:39:11.898Z",
+    "checkedAt": "2026-09-12T17:26:42.200Z",
     "before": 712,
     "after": 712,
     "removed": 0,
@@ -3715,7 +3676,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T16:39:23.797Z",
+    "checkedAt": "2026-09-12T17:27:03.241Z",
     "publishedJobs": 712,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -3725,15 +3686,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1025,
     "currentJobs": 712,
-    "newJobsThisRun": 10,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 10,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-12T16:39:23.921Z"
+    "updatedAt": "2026-09-12T17:27:03.378Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3873,7 +3834,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-12T07:21:10.412Z",
+    "checkedAt": "2026-09-12T17:26:41.981Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

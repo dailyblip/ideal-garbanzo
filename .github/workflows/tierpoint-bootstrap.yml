@@ -15,7 +15,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: careers-source-writers
+  group: tierpoint-refresh
   cancel-in-progress: false
 
 jobs:

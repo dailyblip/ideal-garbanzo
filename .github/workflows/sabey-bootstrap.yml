@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: careers-source-writers
+  group: sabey-refresh
   cancel-in-progress: false
 
 jobs:

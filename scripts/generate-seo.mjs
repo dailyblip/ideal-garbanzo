@@ -160,7 +160,13 @@ function relatedLinksHtml(links) {
   return `<aside class="seo-related"><h2>Keep exploring</h2>${links.map(([label,url]) => `<a href="${url}">${esc(label)}</a>`).join('')}</aside>`;
 }
 
-async function generateListing({root,title,h1,description,intro,filter,contextHtml=null,relatedLinks=[]}) {
+function apprenticeshipProofHtml(list) {
+  const employerCount = new Set(list.map(job => clean(job.company)).filter(Boolean)).size;
+  const noExperienceCount = list.filter(job => job.experience === 'no-experience').length;
+  return `<section class="guide-section" aria-labelledby="apprenticeship-proof-heading"><span class="seo-kicker">CURRENT VERIFIED INVENTORY</span><h2 id="apprenticeship-proof-heading">Current apprenticeships from employer career sites</h2><p>See the size and shape of the verified apprenticeship inventory before you browse. Experience labels come from published minimum qualifications, and each job page links back to the employer source.</p><div class="guide-stats"><div><strong>${list.length}</strong><span>current apprenticeships</span></div><div><strong>${employerCount}</strong><span>employers represented</span></div><div><strong>${noExperienceCount}</strong><span>no-experience openings</span></div><div><strong>Direct</strong><span>employer career sources</span></div></div><div class="guide-actions"><a class="seo-apply" href="#apprenticeships-list">View current apprenticeships ↓</a></div></section>`;
+}
+
+async function generateListing({root,title,h1,description,intro,filter,beforeListHtml=null,contextHtml=null,relatedLinks=[]}) {
   const list = orderedJobs.filter(filter);
   const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   const urls = [];
@@ -179,12 +185,13 @@ async function generateListing({root,title,h1,description,intro,filter,contextHt
     const prev = page > 1 ? pagePath(root,page-1) : '';
     const next = page < pages ? pagePath(root,page+1) : '';
     const pagination = pages > 1 ? `<nav class="seo-pagination" aria-label="Pagination">${page>1?`<a href="${prev}">← Previous</a>`:'<span></span>'}<span>Page ${page} of ${pages}</span>${page<pages?`<a href="${next}">Next →</a>`:'<span></span>'}</nav>` : '';
+    const beforeList = page === 1 && typeof beforeListHtml === 'function' ? beforeListHtml(list) : '';
     const intentContext = page === 1 && typeof contextHtml === 'function' ? contextHtml(list) : '';
     const related = page === 1 ? relatedLinksHtml(relatedLinks) : '';
     const html = `${head({title:pageTitle,description,canonical,schema:json(itemList),prev,next})}<body>${siteHeader()}<main class="seo-shell">
       <nav class="breadcrumbs"><a href="${baseUrl}/">Home</a> / <span>${esc(h1)}</span></nav>
       <header class="seo-page-head"><span class="seo-kicker">EMPLOYER-DIRECT OPPORTUNITIES</span><h1>${esc(h1)}</h1><p>${esc(intro)}</p><strong>${list.length} current opportunities</strong></header>
-      <section class="seo-list" aria-label="${esc(h1)}">${subset.map(card).join('')}</section>${pagination}${intentContext}${related}
+      ${beforeList}<section id="${root}-list" class="seo-list" aria-label="${esc(h1)}">${subset.map(card).join('')}</section>${pagination}${intentContext}${related}
     </main>${footer()}</body></html>`;
     const out = page === 1 ? `${root}/index.html` : `${root}/page/${page}/index.html`;
     await writeHtml(out,html);
@@ -276,11 +283,12 @@ urls.push(...await generateListing({
 }));
 urls.push(...await generateListing({
   root:'apprenticeships',
-  title:'Data Center Apprenticeships | Current Employer-Direct Openings',
+  title:'Data Center Apprenticeships | Verified Employer Openings',
   h1:'Data center apprenticeships',
-  description:'Find current employer-direct data center apprenticeships in electrical, mechanical, critical-facilities, operations and infrastructure work.',
+  description:'Browse current data center apprenticeships in electrical, mechanical, critical facilities and operations. See experience requirements and apply on employer sites.',
   intro:'Current apprenticeship openings for people building hands-on experience in electrical, mechanical, critical-facilities, operations and data center infrastructure work.',
   filter:job=>job.type==='apprenticeship',
+  beforeListHtml:list=>apprenticeshipProofHtml(list),
   contextHtml:list=>`<section class="guide-section" aria-labelledby="apprenticeship-search-heading"><span class="seo-kicker">APPRENTICESHIP PATHS</span><h2 id="apprenticeship-search-heading">What counts as a data center apprenticeship here?</h2><p>This page is reserved for roles employers explicitly label as apprenticeships or apprentice positions. Trainee programs and other paid training routes live on the separate trainee-jobs page, so you can compare true apprenticeships without mixing different program types.${employerContext(list)}</p><div class="guide-actions"><a class="guide-secondary" href="${baseUrl}/how-to-get-a-data-center-apprenticeship/">How to get a data center apprenticeship →</a><a class="guide-secondary" href="${baseUrl}/trainee-jobs/">See trainee jobs →</a></div></section>`,
   relatedLinks:[
     ['How to get a data center apprenticeship', `${baseUrl}/how-to-get-a-data-center-apprenticeship/`],

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12T12:50:02.184Z",
+  "updatedAt": "2026-09-12T15:06:33.899Z",
   "jobs": 662,
   "sourcesAttempted": 18,
   "providers": {
@@ -3640,7 +3640,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T12:58:36.836Z",
+    "checkedAt": "2026-09-12T15:06:33.978Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3648,7 +3648,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T12:58:36.895Z",
+    "updatedAt": "2026-09-12T15:06:34.061Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 662,
@@ -3667,7 +3667,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T12:58:36.950Z",
+    "checkedAt": "2026-09-12T15:06:34.134Z",
     "before": 662,
     "after": 662,
     "removed": 0,
@@ -3675,7 +3675,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T12:58:46.219Z",
+    "checkedAt": "2026-09-12T15:07:02.414Z",
     "publishedJobs": 662,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -3691,9 +3691,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 8,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T12:58:46.367Z"
+    "updatedAt": "2026-09-12T15:07:02.631Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3796,7 +3796,7 @@
     "rejectedUnknownExperience": 0
   },
   "flexential": {
-    "checkedAt": "2026-09-12T03:25:17.766Z",
+    "checkedAt": "2026-09-12T15:06:33.900Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",

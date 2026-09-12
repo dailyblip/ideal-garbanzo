@@ -136,7 +136,7 @@ function sitemapLastmods() {
 
   const listings = [
     ['jobs', () => true],
-    ['apprenticeships', job => job.type === 'apprenticeship' || job.type === 'trainee'],
+    ['apprenticeships', job => job.type === 'apprenticeship'],
     ['internships', job => job.type === 'internship'],
     ['entry-level', job => job.experience === 'no-experience' || job.experience === '0-2-years'],
     ['no-experience', job => job.experience === 'no-experience'],

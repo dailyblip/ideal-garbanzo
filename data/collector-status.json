@@ -79,36 +79,27 @@
     "listingMethod": "official-recruiter-board",
     "usedRecruiterBoardFallback": true,
     "recruiterBoardComplete": true,
-    "candidateLinks": 3,
-    "detailSucceeded": 3,
+    "candidateLinks": 2,
+    "detailSucceeded": 2,
     "qualifyingRoles": 2,
     "preservedPrevious": 0,
     "drops": {
       "stale": 0,
-      "titleOrExperience": 1,
+      "titleOrExperience": 0,
       "location": 0,
       "nonSabey": 0,
       "fetch": 0
     },
-    "rejectSamples": [
-      {
-        "id": "102521",
-        "title": "Job Posting Title Data Center Project Engineer",
-        "reason": "title-or-experience",
-        "years": [],
-        "textLength": 11139,
-        "hasExperienceMarker": true
-      }
-    ],
+    "rejectSamples": [],
     "errors": [
       "official listing: 403 https://sabey.com/about/careers"
     ],
     "snapshotRoles": 2,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-09T05:05:18.921Z",
+    "snapshotVerifiedAt": "2026-09-12T12:47:44.780Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 168,
-    "snapshotAgeHours": 0.1,
+    "snapshotAgeHours": 79.7,
     "normalizedTitles": 2,
     "removedExpiredFallback": 0
   },
@@ -3648,7 +3639,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T12:47:11.755Z",
+    "checkedAt": "2026-09-12T12:47:44.856Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3656,7 +3647,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T12:47:11.828Z",
+    "updatedAt": "2026-09-12T12:47:44.929Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 663,
@@ -3675,9 +3666,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T12:47:11.894Z",
-    "before": 666,
-    "after": 666,
+    "checkedAt": "2026-09-12T12:47:45.004Z",
+    "before": 663,
+    "after": 663,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3701,7 +3692,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T12:47:30.973Z"
+    "updatedAt": "2026-09-12T12:47:45.070Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

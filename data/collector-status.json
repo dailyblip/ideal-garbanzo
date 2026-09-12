@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-11T20:59:16.931Z",
-  "jobs": 663,
+  "updatedAt": "2026-09-12T03:25:17.766Z",
+  "jobs": 664,
   "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
@@ -8,14 +8,14 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 632,
+    "entry-level": 633,
     "trainee": 8,
     "apprenticeship": 12,
     "internship": 11
   },
   "countsByExperience": {
     "0-2-years": 346,
-    "2-5-years": 274,
+    "2-5-years": 275,
     "no-experience": 43
   },
   "errors": [],
@@ -3650,7 +3650,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T00:48:20.647Z",
+    "checkedAt": "2026-09-12T03:25:17.844Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3658,10 +3658,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T00:48:20.708Z",
+    "updatedAt": "2026-09-12T03:25:17.913Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 663,
+    "regionAssigned": 664,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3670,40 +3670,40 @@
       "texas": 106,
       "southwest": 82,
       "northeast": 21,
-      "mid-atlantic": 118,
+      "mid-atlantic": 119,
       "west": 96,
       "southeast": 105,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T00:48:20.772Z",
-    "before": 669,
-    "after": 669,
+    "checkedAt": "2026-09-12T03:25:17.980Z",
+    "before": 664,
+    "after": 664,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T00:48:43.592Z",
-    "publishedJobs": 663,
-    "removedJobs": 6,
+    "checkedAt": "2026-09-12T03:25:38.310Z",
+    "publishedJobs": 664,
+    "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1013,
-    "currentJobs": 663,
+    "trackedJobs": 1014,
+    "currentJobs": 664,
     "newJobsThisRun": 1,
-    "changedJobsThisRun": 9,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 10,
-    "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-12T00:48:43.746Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 112,
+    "updatedAt": "2026-09-12T03:25:38.533Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3806,17 +3806,17 @@
     "rejectedUnknownExperience": 0
   },
   "flexential": {
-    "checkedAt": "2026-09-11T15:58:50.252Z",
+    "checkedAt": "2026-09-12T03:25:17.766Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",
     "officialGreenhouseBoard": "https://job-boards.greenhouse.io/flexentialcorp",
     "api": "https://boards-api.greenhouse.io/v1/boards/flexentialcorp/jobs?content=true",
     "authoritativeSnapshot": true,
-    "listedJobs": 23,
-    "missionCandidates": 2,
-    "qualifyingRoles": 2,
-    "rejectedOutOfScopeTitle": 20,
+    "listedJobs": 26,
+    "missionCandidates": 3,
+    "qualifyingRoles": 3,
+    "rejectedOutOfScopeTitle": 22,
     "rejectedExcludedTitle": 1,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0,

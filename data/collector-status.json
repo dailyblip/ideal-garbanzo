@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-12T04:38:21.895Z",
-  "jobs": 679,
+  "jobs": 663,
   "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
@@ -8,14 +8,14 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 647,
-    "internship": 12,
+    "entry-level": 632,
     "trainee": 8,
+    "internship": 11,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "2-5-years": 282,
-    "0-2-years": 355,
+    "0-2-years": 346,
+    "2-5-years": 275,
     "no-experience": 42
   },
   "errors": [],
@@ -3650,7 +3650,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T04:33:31.041Z",
+    "checkedAt": "2026-09-12T04:43:08.006Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3658,7 +3658,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T04:33:31.104Z",
+    "updatedAt": "2026-09-12T04:43:08.073Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 663,
@@ -3666,28 +3666,28 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "northeast": 21,
       "midwest": 134,
       "texas": 106,
-      "southwest": 80,
-      "northeast": 21,
       "mid-atlantic": 119,
+      "southwest": 80,
       "west": 96,
       "southeast": 106,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T04:33:31.163Z",
-    "before": 663,
-    "after": 663,
+    "checkedAt": "2026-09-12T04:43:08.138Z",
+    "before": 665,
+    "after": 665,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T04:33:50.010Z",
+    "checkedAt": "2026-09-12T04:43:32.472Z",
     "publishedJobs": 663,
-    "removedJobs": 0,
+    "removedJobs": 2,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 0
   },
@@ -3701,9 +3701,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 10,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T04:33:50.186Z"
+    "updatedAt": "2026-09-12T04:43:32.640Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -5,6 +5,7 @@ on:
   schedule:
     - cron: '55 12 * * *'
   push:
+    branches: [main]
     paths:
       - 'scripts/collect-tierpoint-v3.mjs'
       - 'scripts/stamp-job-history.mjs'
@@ -16,8 +17,8 @@ permissions:
   actions: write
 
 concurrency:
-  group: tierpoint-refresh
-  cancel-in-progress: true
+  group: careers-source-writers
+  cancel-in-progress: false
 
 jobs:
   refresh:

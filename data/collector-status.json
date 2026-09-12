@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12T05:26:00.869Z",
+  "updatedAt": "2026-09-12T06:09:01.414Z",
   "jobs": 663,
   "sourcesAttempted": 17,
   "providers": {
@@ -3650,7 +3650,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T05:26:00.968Z",
+    "checkedAt": "2026-09-12T06:09:01.493Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3658,7 +3658,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T05:26:01.042Z",
+    "updatedAt": "2026-09-12T06:09:01.564Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 663,
@@ -3677,17 +3677,17 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T05:26:01.111Z",
-    "before": 664,
-    "after": 664,
+    "checkedAt": "2026-09-12T06:09:01.628Z",
+    "before": 663,
+    "after": 663,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T05:26:29.674Z",
+    "checkedAt": "2026-09-12T06:09:18.785Z",
     "publishedJobs": 663,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 0
   },
@@ -3703,7 +3703,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T05:26:29.867Z"
+    "updatedAt": "2026-09-12T06:09:19.189Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3789,7 +3789,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-11T17:04:24.774Z",
+    "checkedAt": "2026-09-12T06:09:01.414Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

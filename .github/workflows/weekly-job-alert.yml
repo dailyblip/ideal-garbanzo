@@ -43,6 +43,8 @@ jobs:
         run: node scripts/validate-mailing-list.mjs
       - name: Validate persisted first-seen job history
         run: node scripts/validate-job-history.mjs --allow-aging
+      - name: Validate employer-diverse weekly alert selection
+        run: node scripts/send-weekly-job-alert.mjs --test-selection
       - name: Validate personalized weekly alert
         run: node scripts/send-weekly-job-alert.mjs --dry-run
 

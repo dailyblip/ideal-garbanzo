@@ -137,4 +137,9 @@ for (const marker of [
 await assertMissing('.github/workflows/weekly-digest.yml');
 await assertMissing('scripts/send-weekly-digest.mjs');
 
+// Every deployment path already invokes mailing-list validation. Chain the
+// cross-surface parity contract here so deploy-only and bot-driven main builds
+// cannot ship a homepage/jobs alert preference mismatch.
+await import('./validate-alert-signup-parity.mjs');
+
 console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline scheduled for ${config.sendTimeUtc} UTC with tracked Data Center Careers job links and employer-diverse selection.`);

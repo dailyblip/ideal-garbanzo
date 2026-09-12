@@ -1,5 +1,17 @@
 {
   "landingPage": "employers/",
+  "standardSubmission": {
+    "name": "Standard listing",
+    "priceUsd": 0,
+    "priorityPlacement": false,
+    "requiresOfficialEmployerUrl": true,
+    "reviewRequired": true,
+    "benefits": [
+      "Mission-fit review for regular job-board inclusion",
+      "Employer-direct apply link",
+      "No payment required"
+    ]
+  },
   "highlightedJob": {
     "name": "Highlighted job",
     "priceUsd": 99,

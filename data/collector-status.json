@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12T04:38:21.895Z",
+  "updatedAt": "2026-09-12T04:49:43.782Z",
   "jobs": 663,
   "sourcesAttempted": 17,
   "providers": {
@@ -10,8 +10,8 @@
   "countsByType": {
     "entry-level": 632,
     "trainee": 8,
-    "internship": 11,
-    "apprenticeship": 12
+    "apprenticeship": 12,
+    "internship": 11
   },
   "countsByExperience": {
     "0-2-years": 346,
@@ -3650,7 +3650,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-12T04:43:08.006Z",
+    "checkedAt": "2026-09-12T04:49:43.880Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3658,7 +3658,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-12T04:43:08.073Z",
+    "updatedAt": "2026-09-12T04:49:43.945Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 663,
@@ -3669,25 +3669,25 @@
       "northeast": 21,
       "midwest": 134,
       "texas": 106,
-      "mid-atlantic": 119,
       "southwest": 80,
+      "mid-atlantic": 119,
       "west": 96,
       "southeast": 106,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-12T04:43:08.138Z",
-    "before": 665,
-    "after": 665,
+    "checkedAt": "2026-09-12T04:49:44.003Z",
+    "before": 663,
+    "after": 663,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-12T04:43:32.472Z",
+    "checkedAt": "2026-09-12T04:50:01.990Z",
     "publishedJobs": 663,
-    "removedJobs": 2,
+    "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 0
   },
@@ -3703,7 +3703,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-12T04:43:32.640Z"
+    "updatedAt": "2026-09-12T04:50:02.162Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3843,7 +3843,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-11T16:40:03.357Z",
+    "checkedAt": "2026-09-12T04:49:43.782Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

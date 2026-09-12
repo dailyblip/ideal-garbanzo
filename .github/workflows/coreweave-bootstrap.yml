@@ -34,6 +34,7 @@ jobs:
       - name: Validate CoreWeave collector and source guard
         run: |
           node --check scripts/collect-coreweave-careers.mjs
+          node scripts/collect-coreweave-careers.mjs --test-experience-parser
           node --check scripts/validate-coreweave.mjs
       - name: Collect official CoreWeave careers roles
         run: node scripts/collect-coreweave-careers.mjs

@@ -23,7 +23,10 @@ const REGION_LABELS = new Map([
 const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
 const schedule = args.has('--schedule');
-if (dryRun && schedule) throw new Error('Choose either --dry-run or --schedule.');
+const testSelection = args.has('--test-selection');
+if ([dryRun, schedule, testSelection].filter(Boolean).length > 1) {
+  throw new Error('Choose only one of --dry-run, --schedule or --test-selection.');
+}
 
 const asTime = value => {
   const time = Date.parse(String(value || ''));
@@ -107,6 +110,76 @@ function selectNewJobs(jobs, nowMs) {
     .sort(rankJobs);
 }
 
+// Keep the digest useful when one large employer posts many roles at once.
+// The input is already relevance-ranked, so preserve that ordering inside
+// each employer bucket and round-robin across employers until the slot limit
+// is filled. If only one employer has inventory, every available slot can
+// still be used.
+function diversifyJobs(jobs, limit) {
+  const max = Math.max(0, Number(limit) || 0);
+  if (!max || !jobs.length) return [];
+
+  const buckets = new Map();
+  for (const job of jobs) {
+    const employer = clean(job?.company).toLowerCase() || 'unknown employer';
+    if (!buckets.has(employer)) buckets.set(employer, []);
+    buckets.get(employer).push(job);
+  }
+
+  const queues = [...buckets.values()];
+  const selected = [];
+  let round = 0;
+  while (selected.length < max) {
+    let added = 0;
+    for (const queue of queues) {
+      const job = queue[round];
+      if (!job) continue;
+      selected.push(job);
+      added += 1;
+      if (selected.length >= max) break;
+    }
+    if (!added) break;
+    round += 1;
+  }
+  return selected;
+}
+
+function runSelectionTests() {
+  const fixture = [
+    { id:'aws-1', company:'AWS' },
+    { id:'aws-2', company:'AWS' },
+    { id:'aws-3', company:'AWS' },
+    { id:'core-1', company:'CoreSite' },
+    { id:'core-2', company:'CoreSite' },
+    { id:'meta-1', company:'Meta' }
+  ];
+  const diversified = diversifyJobs(fixture, 5).map(job => job.id);
+  const expected = ['aws-1', 'core-1', 'meta-1', 'aws-2', 'core-2'];
+  if (JSON.stringify(diversified) !== JSON.stringify(expected)) {
+    throw new Error(`Employer-diverse selection regression: expected ${expected.join(', ')}, got ${diversified.join(', ')}`);
+  }
+
+  const singleEmployer = diversifyJobs(fixture.slice(0, 3), 2).map(job => job.id);
+  if (singleEmployer.join(',') !== 'aws-1,aws-2') {
+    throw new Error(`Single-employer fallback regression: got ${singleEmployer.join(', ')}`);
+  }
+
+  const normalizedEmployer = diversifyJobs([
+    { id:'a', company:'AWS' },
+    { id:'b', company:'aws' },
+    { id:'c', company:'Meta' }
+  ], 3).map(job => job.id);
+  if (normalizedEmployer.join(',') !== 'a,c,b') {
+    throw new Error(`Employer normalization regression: got ${normalizedEmployer.join(', ')}`);
+  }
+
+  if (diversifyJobs(fixture, 0).length !== 0) {
+    throw new Error('Zero-slot employer-diverse selection must return no jobs.');
+  }
+
+  console.log('Weekly alert employer-diverse selection passed 4 regression cases.');
+}
+
 function formatJob(job) {
   const title = escapeMd(job.title);
   const company = escapeMd(job.company);
@@ -135,16 +208,18 @@ function focusBlock(allJobs, earlyJobs, label) {
 }
 
 function buildBody(newJobs) {
-  const allUs = newJobs.slice(0, MAX_ALL_US);
-  const allUsEarly = newJobs.filter(isEarlyCareer).slice(0, MAX_ALL_US);
+  const allUs = diversifyJobs(newJobs, MAX_ALL_US);
+  const allUsEarly = diversifyJobs(newJobs.filter(isEarlyCareer), MAX_ALL_US);
   const blocks = [];
 
   blocks.push('{% if not subscriber.metadata.region or subscriber.metadata.region == \'all\' %}');
   blocks.push(focusBlock(allUs, allUsEarly, 'New openings across the U.S.'));
 
   for (const [region, label] of REGION_LABELS) {
-    const regional = newJobs.filter(job => alertJobMatchesRegion(job, region)).slice(0, MAX_PER_REGION);
-    const regionalEarly = newJobs.filter(job => alertJobMatchesRegion(job, region) && isEarlyCareer(job)).slice(0, MAX_PER_REGION);
+    const regionalCandidates = newJobs.filter(job => alertJobMatchesRegion(job, region));
+    const regionalEarlyCandidates = regionalCandidates.filter(isEarlyCareer);
+    const regional = diversifyJobs(regionalCandidates, MAX_PER_REGION);
+    const regionalEarly = diversifyJobs(regionalEarlyCandidates, MAX_PER_REGION);
     blocks.push(`{% elif subscriber.metadata.region == '${region}' %}`);
     blocks.push(focusBlock(regional, regionalEarly, `New openings: ${label}`));
   }
@@ -295,4 +370,5 @@ async function main() {
   console.log(`Scheduled weekly job alert ${payload.id} for ${sendAt.toISOString()} with ${newJobs.length} new jobs.`);
 }
 
-await main();
+if (testSelection) runSelectionTests();
+else await main();

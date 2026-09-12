@@ -33,9 +33,18 @@ const listingContracts = [
     url: `${baseUrl}/apprenticeships/`,
     h1: 'Data center apprenticeships',
     title: 'Data Center Apprenticeships',
-    count: jobs.filter(job => job.type === 'apprenticeship' || job.type === 'trainee').length,
+    count: jobs.filter(job => job.type === 'apprenticeship').length,
     countLabel: 'current opportunities',
     links: ['/how-to-get-a-data-center-apprenticeship/', '/trainee-jobs/', '/no-experience/', '/entry-level/']
+  },
+  {
+    path: 'internships/index.html',
+    url: `${baseUrl}/internships/`,
+    h1: 'Data center internships',
+    title: 'Data Center Internships',
+    count: jobs.filter(job => job.type === 'internship').length,
+    countLabel: 'current opportunities',
+    links: []
   },
   {
     path: 'entry-level/index.html',
@@ -160,4 +169,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Search landing validation passed: ${jobs.length} jobs, ${jobs.filter(job => job.type === 'trainee').length} trainee roles, ${jobs.filter(job => job.experience === 'no-experience').length} no-experience roles, and ${activeEvents.length} upcoming verified events.`);
+console.log(`Search landing validation passed: ${jobs.length} jobs, ${jobs.filter(job => job.type === 'apprenticeship').length} apprenticeship roles, ${jobs.filter(job => job.type === 'internship').length} internships, ${jobs.filter(job => job.type === 'trainee').length} trainee roles, ${jobs.filter(job => job.experience === 'no-experience').length} no-experience roles, and ${activeEvents.length} upcoming verified events.`);

@@ -276,12 +276,12 @@ urls.push(...await generateListing({
 }));
 urls.push(...await generateListing({
   root:'apprenticeships',
-  title:'Data Center Apprenticeships | Current Paid Training Openings',
+  title:'Data Center Apprenticeships | Current Employer-Direct Openings',
   h1:'Data center apprenticeships',
-  description:'Find current employer-direct data center apprenticeships and closely related paid trainee programs in facilities, electrical, operations and infrastructure.',
-  intro:'Current apprenticeship and structured training routes into electrical, critical-facilities, operations, cabling and data center infrastructure work.',
-  filter:job=>job.type==='apprenticeship' || job.type==='trainee',
-  contextHtml:list=>`<section class="guide-section" aria-labelledby="apprenticeship-search-heading"><span class="seo-kicker">BEGINNER PATHWAYS</span><h2 id="apprenticeship-search-heading">Apprenticeships are not always labeled “apprentice.”</h2><p>Employers also use titles such as trainee, technician I and structured development program. This page keeps those closely related beginner routes together so you do not miss a paid training opportunity.${employerContext(list)}</p><div class="guide-actions"><a class="guide-secondary" href="${baseUrl}/how-to-get-a-data-center-apprenticeship/">How to get a data center apprenticeship →</a><a class="guide-secondary" href="${baseUrl}/trainee-jobs/">See trainee jobs →</a></div></section>`,
+  description:'Find current employer-direct data center apprenticeships in electrical, mechanical, critical-facilities, operations and infrastructure work.',
+  intro:'Current apprenticeship openings for people building hands-on experience in electrical, mechanical, critical-facilities, operations and data center infrastructure work.',
+  filter:job=>job.type==='apprenticeship',
+  contextHtml:list=>`<section class="guide-section" aria-labelledby="apprenticeship-search-heading"><span class="seo-kicker">APPRENTICESHIP PATHS</span><h2 id="apprenticeship-search-heading">What counts as a data center apprenticeship here?</h2><p>This page is reserved for roles employers explicitly label as apprenticeships or apprentice positions. Trainee programs and other paid training routes live on the separate trainee-jobs page, so you can compare true apprenticeships without mixing different program types.${employerContext(list)}</p><div class="guide-actions"><a class="guide-secondary" href="${baseUrl}/how-to-get-a-data-center-apprenticeship/">How to get a data center apprenticeship →</a><a class="guide-secondary" href="${baseUrl}/trainee-jobs/">See trainee jobs →</a></div></section>`,
   relatedLinks:[
     ['How to get a data center apprenticeship', `${baseUrl}/how-to-get-a-data-center-apprenticeship/`],
     ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],

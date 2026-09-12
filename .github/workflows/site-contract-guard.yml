@@ -27,6 +27,9 @@ jobs:
           node scripts/collect-jobs-core.mjs --test-experience-parser
           node scripts/collect-flexential.mjs --test-classifier
           node scripts/collect-major-jobs.mjs --test-experience-parser
+          node scripts/collect-switch-careers.mjs --test-classifier
+      - name: Validate Switch employer-direct source contract
+        run: node scripts/validate-switch-careers.mjs
       - name: Validate regional filtering contract
         run: node scripts/test-region-filter-contract.mjs
       - name: Validate promotion runtime contract

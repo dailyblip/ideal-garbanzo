@@ -1,9 +1,22 @@
 {
-  "checkedAt": "2026-09-12T15:31:27.071Z",
-  "jobsBefore": 662,
+  "checkedAt": "2026-09-12T15:37:20.977Z",
+  "jobsBefore": 664,
   "jobsAfter": 662,
   "demoJobsRemoved": [],
-  "nonUsJobsRemoved": [],
+  "nonUsJobsRemoved": [
+    {
+      "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
+      "company": "Serverfarm",
+      "title": "Junior Data Center Shift Engineer",
+      "location": "AMS1"
+    },
+    {
+      "id": "ashby-lambda-8308606de297f6",
+      "company": "Lambda",
+      "title": "Data Center Operations System Engineer III (Querétaro, Mexico)",
+      "location": "Querétaro, Mexico - Data Center"
+    }
+  ],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [],

@@ -16,6 +16,8 @@ const protectedSnapshots = [
   { company: 'Meta', path: 'data/meta-jobs.json' },
   { company: 'Oracle', path: 'data/oracle-jobs.json' },
   { company: 'Digital Realty', path: 'data/digital-realty-jobs.json' },
+  { company: 'CoreWeave', path: 'data/coreweave-jobs.json' },
+  { company: 'EdgeConneX', path: 'data/edgeconnex-jobs.json' },
   { company: 'Iron Mountain', path: 'data/iron-mountain-jobs.json' },
   { company: 'Cologix', path: 'data/cologix-jobs.json' },
   { company: 'Flexential', path: 'data/flexential-jobs.json' },

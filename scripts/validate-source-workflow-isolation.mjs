@@ -53,29 +53,11 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
-// Employer-direct collectors that rebuild or reconcile the shared public feed
-// must never rebase generated JSON from a stale checkout. If another writer moves
-// main while collection is running, rebuild against that newest revision and
-// retry the push so unrelated employer updates cannot be silently overwritten.
-const raceSafeWriters = new Set([
-  '.github/workflows/aws-detail-recovery.yml',
-  '.github/workflows/cologix-bootstrap.yml',
-  '.github/workflows/coreweave-bootstrap.yml',
-  '.github/workflows/databank-bootstrap.yml',
-  '.github/workflows/digital-realty-stale-fallback-watch.yml',
-  '.github/workflows/edgeconnex-bootstrap.yml',
-  '.github/workflows/equinix-bootstrap.yml',
-  '.github/workflows/flexential-bootstrap.yml',
-  '.github/workflows/generic-ats-stale-fallback-watch.yml',
-  '.github/workflows/google-bootstrap.yml',
-  '.github/workflows/meta-bootstrap.yml',
-  '.github/workflows/meta-stale-fallback-watch.yml',
-  '.github/workflows/microsoft-bootstrap.yml',
-  '.github/workflows/novva-bootstrap.yml',
-  '.github/workflows/oracle-bootstrap.yml',
-  '.github/workflows/switch-bootstrap.yml',
-  '.github/workflows/t5-data-centers-bootstrap.yml'
-]);
+// Every workflow that rebuilds or reconciles the shared public feed must never
+// rebase generated JSON from a stale checkout. If another writer moves main while
+// collection is running, rebuild against that newest revision and retry the push
+// so unrelated employer updates cannot be silently overwritten.
+const raceSafeWriters = new Set(sourceWorkflows);
 
 const raceSafeMarkers = [
   'rebuild_from_latest_main()',
@@ -139,4 +121,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; ${raceSafeWriters.size} employer-direct collectors plus the full refresh enforce fresh-main rebuilds before retrying publication.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers plus the full refresh enforce fresh-main rebuilds before retrying publication.`);

@@ -58,25 +58,59 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-homepage-contract.mjs
-      - name: Commit verified Cologix roles
+      - name: Publish verified Cologix roles from current main
         id: commit
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain -- data/jobs.json data/cologix-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json)" ]; then
-            echo 'No verified Cologix data changes.'
-            echo 'changed=false' >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/jobs.json data/cologix-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
-          git commit -m 'Refresh verified Cologix roles'
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/collect-cologix.mjs --test-classifier
+            node scripts/collect-jobs.mjs --test-preservation
+            node scripts/collect-cologix.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate-cologix.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
           git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
-          echo 'changed=true' >> "$GITHUB_OUTPUT"
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo 'Main moved during Cologix refresh; rebuilding from latest main.'
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/cologix-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            if git diff --cached --quiet; then
+              echo 'No verified Cologix data changes.'
+              echo 'changed=false' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m 'Refresh verified Cologix roles'
+            if git push origin HEAD:main; then
+              echo 'changed=true' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Cologix publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo '::error::Could not publish verified Cologix data after three fresh-main rebuilds.'
+          exit 1
       - name: Deploy committed Cologix data
         if: steps.commit.outputs.changed == 'true'
         env:

@@ -50,6 +50,22 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
+// High-value scheduled collectors that rebuild a large share of the public feed
+// must never rebase generated JSON from a stale checkout. If another writer moves
+// main while collection is running, rebuild against that newest revision and retry
+// the push so unrelated employer updates cannot be silently overwritten.
+const raceSafeWriters = new Set([
+  '.github/workflows/equinix-bootstrap.yml',
+  '.github/workflows/google-bootstrap.yml'
+]);
+
+const raceSafeMarkers = [
+  'rebuild_from_latest_main()',
+  'git reset --hard origin/main',
+  'for attempt in 1 2 3',
+  'if git push origin HEAD:main; then'
+];
+
 const violations = [];
 
 for (const path of sourceWorkflows) {
@@ -73,6 +89,17 @@ for (const path of sourceWorkflows) {
   if (!/cancel-in-progress:\s*false\b/.test(text)) {
     violations.push(`${path}: source refreshes must not cancel an in-progress run`);
   }
+
+  if (raceSafeWriters.has(path)) {
+    for (const marker of raceSafeMarkers) {
+      if (!text.includes(marker)) {
+        violations.push(`${path}: race-safe source publication is missing ${marker}`);
+      }
+    }
+    if (/git\s+rebase\s+origin\/main/.test(text)) {
+      violations.push(`${path}: generated source data must rebuild from latest main instead of rebasing a stale snapshot`);
+    }
+  }
 }
 
 if (violations.length) {
@@ -80,4 +107,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; ${raceSafeWriters.size} high-value scheduled collectors enforce fresh-main rebuilds before retrying publication.`);

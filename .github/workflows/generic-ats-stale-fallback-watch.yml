@@ -53,37 +53,65 @@ jobs:
           node scripts/validate-coreweave.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
-      - name: Detect public feed change
-        id: feed
+      - name: Publish refreshed generic ATS state from current main
+        id: publish
+        shell: bash
         run: |
-          if git diff --quiet -- data/jobs.json; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Commit refreshed generic ATS state when changed
-        id: commit
-        run: |
-          if [ -z "$(git status --porcelain --untracked-files=no -- data/jobs.json data/collector-status.json)" ]; then
-            echo "Generic ATS source and freshness state is unchanged."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -u -- data/jobs.json data/collector-status.json
-          git commit -m "Refresh generic ATS jobs and enforce freshness"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            cp data/jobs.json /tmp/jobs-before-generic.json
+            node scripts/collect-jobs.mjs
+            node scripts/restore-generic-dedicated-overlap.mjs /tmp/jobs-before-generic.json
+            node scripts/enforce-generic-fallback-freshness.mjs
+            node scripts/enforce-generic-fallback-freshness.mjs --validate
+            node scripts/validate-t5-data-centers.mjs
+            node scripts/validate-flexential.mjs
+            node scripts/validate-coreweave.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
           git fetch origin main
-          if ! git rebase origin/main; then
-            git rebase --abort || true
-            echo "::error::Could not rebase generic ATS refresh state onto latest main."
-            exit 1
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during generic ATS refresh; rebuilding from latest main."
+            rebuild_from_latest_main
           fi
-          git push origin HEAD:main
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+          for attempt in 1 2 3; do
+            feed_changed=false
+            if ! git diff --quiet -- data/jobs.json; then
+              feed_changed=true
+            fi
+
+            git add -u -- data/jobs.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo "Generic ATS source and freshness state is unchanged."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              echo "feed_changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh generic ATS jobs and enforce freshness"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              echo "feed_changed=${feed_changed}" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during generic ATS publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish generic ATS refresh state after three fresh-main rebuilds."
+          exit 1
       - name: Deploy verified generic ATS feed change
-        if: steps.commit.outputs.changed == 'true' && steps.feed.outputs.changed == 'true'
+        if: steps.publish.outputs.changed == 'true' && steps.publish.outputs.feed_changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

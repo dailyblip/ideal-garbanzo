@@ -73,16 +73,6 @@ jobs:
                   raise SystemExit('Expected Ashby pay parser anchor not found')
               text = text.replace(anchor, anchor + tests, 1)
           core.write_text(text)
-
-          guard = Path('.github/workflows/generic-ats-classifier-guard.yml')
-          guard_text = guard.read_text()
-          test_line = '          node scripts/collect-jobs-core.mjs --test-pay-parser\n'
-          if test_line not in guard_text:
-              anchor_line = '          node scripts/collect-jobs.mjs --test-experience-parser\n'
-              if anchor_line not in guard_text:
-                  raise SystemExit('Expected generic ATS classifier guard command not found')
-              guard_text = guard_text.replace(anchor_line, anchor_line + test_line, 1)
-          guard.write_text(guard_text)
           PY
       - name: Validate patch
         run: |
@@ -92,12 +82,12 @@ jobs:
           git diff --check
       - name: Commit patch
         run: |
-          if git diff --quiet -- scripts/collect-jobs-core.mjs .github/workflows/generic-ats-classifier-guard.yml; then
+          if git diff --quiet -- scripts/collect-jobs-core.mjs; then
             echo 'Patch already applied.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/collect-jobs-core.mjs .github/workflows/generic-ats-classifier-guard.yml
+          git add scripts/collect-jobs-core.mjs
           git commit -m 'Keep missing generic ATS pay blank'
           git push origin HEAD:fix/generic-ats-blank-missing-pay-20260913

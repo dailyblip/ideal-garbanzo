@@ -49,6 +49,12 @@ jobs:
         run: node scripts/enforce-generic-fallback-freshness.mjs --validate
       - name: Validate publication contracts
         run: |
+          # A shared-source refresh writes data/jobs.json directly. Run the same
+          # full publication validator used by Pages before the refreshed feed is
+          # allowed onto main, so classification, mission-fit, compensation,
+          # regional, source, and duplicate regressions fail closed instead of
+          # waiting for a later cleanup/deploy pass.
+          node scripts/validate.mjs
           node scripts/validate-t5-data-centers.mjs
           node scripts/validate-flexential.mjs
           node scripts/validate-coreweave.mjs
@@ -71,6 +77,9 @@ jobs:
             node scripts/restore-generic-dedicated-overlap.mjs /tmp/jobs-before-generic.json
             node scripts/enforce-generic-fallback-freshness.mjs
             node scripts/enforce-generic-fallback-freshness.mjs --validate
+            # Re-run the complete publication validator after any fresh-main
+            # rebuild. A push race must never bypass the fail-closed gate above.
+            node scripts/validate.mjs
             node scripts/validate-t5-data-centers.mjs
             node scripts/validate-flexential.mjs
             node scripts/validate-coreweave.mjs

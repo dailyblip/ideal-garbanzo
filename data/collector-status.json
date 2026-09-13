@@ -1,70 +1,26 @@
 {
-  "updatedAt": "2026-09-13T10:02:27.229Z",
-  "jobs": 700,
-  "sourcesAttempted": 21,
+  "updatedAt": "2026-09-13T11:56:00.406Z",
+  "jobs": 717,
+  "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
-    "ashby": 5,
-    "googleCareers": 2,
-    "oracleRecruitingCloud": 1,
-    "metaCareers": 1
+    "ashby": 5
   },
   "countsByType": {
-    "entry-level": 668,
-    "internship": 12,
+    "entry-level": 684,
+    "internship": 13,
     "trainee": 8,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "2-5-years": 272,
-    "0-2-years": 386,
+    "2-5-years": 280,
+    "0-2-years": 395,
     "no-experience": 42
   },
-  "errors": [
-    "Meta Careers: detail 1944275393083944: 429 https://www.metacareers.com/profile/job_details/1944275393083944/",
-    "Meta Careers: detail 929161830270272: 429 https://www.metacareers.com/profile/job_details/929161830270272/",
-    "Meta Careers: detail 2299841610761073: 429 https://www.metacareers.com/profile/job_details/2299841610761073/",
-    "Meta Careers: detail 1466388538850943: 429 https://www.metacareers.com/profile/job_details/1466388538850943/",
-    "Meta Careers: detail 1540138954552904: 429 https://www.metacareers.com/profile/job_details/1540138954552904/",
-    "Meta Careers: detail 1620747463058317: 429 https://www.metacareers.com/profile/job_details/1620747463058317/",
-    "Meta Careers: detail 831663409504316: 429 https://www.metacareers.com/profile/job_details/831663409504316/",
-    "Meta Careers: detail 1506995541446632: 429 https://www.metacareers.com/profile/job_details/1506995541446632/",
-    "Meta Careers: detail 1330549172487324: 429 https://www.metacareers.com/profile/job_details/1330549172487324/",
-    "Meta Careers: detail 897982373175803: 429 https://www.metacareers.com/profile/job_details/897982373175803/",
-    "Meta Careers: detail 1533953038154910: 429 https://www.metacareers.com/profile/job_details/1533953038154910/",
-    "Meta Careers: detail 4639028663082379: 429 https://www.metacareers.com/profile/job_details/4639028663082379/",
-    "Meta Careers: detail 2764274517243093: 429 https://www.metacareers.com/profile/job_details/2764274517243093/",
-    "Meta Careers: detail 968590792368057: 429 https://www.metacareers.com/profile/job_details/968590792368057/",
-    "Meta Careers: detail 1453290079211931: 429 https://www.metacareers.com/profile/job_details/1453290079211931/",
-    "Meta Careers: detail 1376785920754098: 429 https://www.metacareers.com/profile/job_details/1376785920754098/",
-    "Meta Careers: detail 1788722722122798: 429 https://www.metacareers.com/profile/job_details/1788722722122798/",
-    "Meta Careers: detail 26504700389186009: 429 https://www.metacareers.com/profile/job_details/26504700389186009/",
-    "Meta Careers: detail 1573144064246233: 429 https://www.metacareers.com/profile/job_details/1573144064246233/",
-    "Meta Careers: detail 1912902793454813: 429 https://www.metacareers.com/profile/job_details/1912902793454813/",
-    "Meta Careers: detail 2139996167402007: 429 https://www.metacareers.com/profile/job_details/2139996167402007/",
-    "Meta Careers: detail 1522951836305627: 429 https://www.metacareers.com/profile/job_details/1522951836305627/",
-    "Meta Careers: detail 2091420381760990: 429 https://www.metacareers.com/profile/job_details/2091420381760990/",
-    "Meta Careers: detail 2330934470984938: 429 https://www.metacareers.com/profile/job_details/2330934470984938/",
-    "Meta Careers: detail 27034262962921676: 429 https://www.metacareers.com/profile/job_details/27034262962921676/",
-    "Meta Careers: detail 1974446943267892: 429 https://www.metacareers.com/profile/job_details/1974446943267892/",
-    "Meta Careers: detail 2186963648750076: 429 https://www.metacareers.com/profile/job_details/2186963648750076/",
-    "Meta Careers: detail 1577870447182147: 429 https://www.metacareers.com/profile/job_details/1577870447182147/",
-    "Meta Careers: detail 1339219464673163: 429 https://www.metacareers.com/profile/job_details/1339219464673163/",
-    "Meta Careers: detail 1103187105395312: 429 https://www.metacareers.com/profile/job_details/1103187105395312/",
-    "Meta Careers: detail 935985748859498: 429 https://www.metacareers.com/profile/job_details/935985748859498/",
-    "Meta Careers: detail 1455995826559478: 429 https://www.metacareers.com/profile/job_details/1455995826559478/",
-    "Meta Careers: detail 1030771533168017: 429 https://www.metacareers.com/profile/job_details/1030771533168017/",
-    "Meta Careers: detail 1616588082932284: 429 https://www.metacareers.com/profile/job_details/1616588082932284/",
-    "Meta Careers: detail 3291967294322817: 429 https://www.metacareers.com/profile/job_details/3291967294322817/",
-    "Meta Careers: detail 2617228595359261: 429 https://www.metacareers.com/profile/job_details/2617228595359261/",
-    "Meta Careers: detail 1077470204836425: 429 https://www.metacareers.com/profile/job_details/1077470204836425/",
-    "Meta Careers: detail 1094260393089204: 429 https://www.metacareers.com/profile/job_details/1094260393089204/",
-    "Meta Careers: detail 1743817316836705: 429 https://www.metacareers.com/profile/job_details/1743817316836705/",
-    "Meta Careers: detail 1740938817139250: 429 https://www.metacareers.com/profile/job_details/1740938817139250/"
-  ],
+  "errors": [],
   "sourceFailurePreservation": {
-    "checkedAt": "2026-09-13T04:51:21.149Z",
+    "checkedAt": "2026-09-13T11:56:00.415Z",
     "failedSources": [],
     "preservedJobs": 0,
     "preservedByCompany": {},
@@ -3888,8 +3844,8 @@
     ],
     "sources": {
       "Serverfarm": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3897,8 +3853,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "LightEdge Solutions": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3906,8 +3862,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "ECL": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3915,8 +3871,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Hive": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3924,8 +3880,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "CAI": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3933,8 +3889,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "xAI": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3942,8 +3898,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Element Critical": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3951,8 +3907,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Lambda": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3960,8 +3916,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Crusoe": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3969,8 +3925,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Fluidstack": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3978,8 +3934,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Gimlet Labs": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -3987,8 +3943,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "TensorWave": {
-        "lastHealthyAt": "2026-09-13T04:51:21.138Z",
-        "latestScanAt": "2026-09-13T04:51:21.138Z",
+        "lastHealthyAt": "2026-09-13T11:56:00.406Z",
+        "latestScanAt": "2026-09-13T11:56:00.406Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -4120,7 +4076,7 @@
     }
   ],
   "genericDirectSources": {
-    "updatedAt": "2026-09-13T04:51:21.138Z",
+    "updatedAt": "2026-09-13T11:56:00.406Z",
     "jobs": 101,
     "sourcesAttempted": 17,
     "providers": {
@@ -4262,7 +4218,7 @@
     "errors": []
   },
   "authoritativeSnapshotOverlay": {
-    "checkedAt": "2026-09-13T04:51:21.149Z",
+    "checkedAt": "2026-09-13T11:56:00.415Z",
     "restoredByCompany": {
       "Cologix": 10,
       "EdgeConneX": 2
@@ -4270,7 +4226,7 @@
     "policy": "Dedicated employer-direct snapshots replace overlapping generic ATS results before later publication gates."
   },
   "genericDedicatedOverlapProtection": {
-    "checkedAt": "2026-09-13T04:51:21.228Z",
+    "checkedAt": "2026-09-13T11:56:00.483Z",
     "companies": [
       "Cologix",
       "T5 Data Centers",

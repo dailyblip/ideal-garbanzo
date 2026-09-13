@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: career-events-refresh
@@ -38,17 +39,54 @@ jobs:
         run: node scripts/refresh-career-events.mjs
       - name: Validate career-event publication contract
         run: node scripts/validate-career-event-freshness.mjs
-      - name: Commit verified event changes
+      - name: Publish verified event changes
+        id: publish
+        shell: bash
         run: |
-          if git diff --quiet -- data/career-events.json; then
-            echo "Career-event feed is current."
-            exit 0
-          fi
-
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/career-events.json
-          git commit -m "Refresh verified career events"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/test-career-event-evidence.mjs
+            node scripts/refresh-career-events.mjs
+            node scripts/validate-career-event-freshness.mjs
+          }
+
+          # Other employer refreshes also write to main. If main moves while the
+          # event verifier is running, rebuild from the newest revision instead
+          # of rebasing generated career-event data and risking lost updates.
           git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during career-event verification; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/career-events.json
+            if git diff --cached --quiet; then
+              echo "Career-event feed is current."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh verified career events"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during career-event publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified career events after three attempts."
+          exit 1
+      - name: Deploy committed career-event changes
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

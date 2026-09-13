@@ -24,3 +24,4 @@ jobs:
         run: |
           node --check scripts/collect-jobs-core.mjs
           node scripts/collect-jobs.mjs --test-experience-parser
+          node scripts/collect-jobs-core.mjs --test-pay-parser

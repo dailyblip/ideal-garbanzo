@@ -227,7 +227,7 @@ if (process.argv.includes('--test-experience-parser')) {
   process.exit(0);
 }
 
-function payObject(label='Pay not listed', min=null, max=null, interval='') {
+function payObject(label='', min=null, max=null, interval='') {
   const isHourly = /hour|hourly|hr/i.test(interval);
   const salarySortMax = Number.isFinite(max) ? (isHourly ? Math.round(max * 2080) : max) : null;
   return { pay: label, salaryMin:min, salaryMax:max, salarySortMax };
@@ -254,6 +254,26 @@ function extractAshbyPay(compensation, description='') {
   const fmt = value => value == null ? '' : Number(value).toLocaleString('en-US',{maximumFractionDigits:2});
   const label = min != null && max != null ? `$${fmt(min)}–$${fmt(max)} / ${hourly ? 'hr' : 'year'}` : (compensation?.scrapeableCompensationSalarySummary || 'Pay listed on employer site');
   return payObject(label, min, max, hourly ? 'hour' : 'year');
+}
+
+if (process.argv.includes('--test-pay-parser')) {
+  const missing = extractPay('Maintain critical facilities equipment. Compensation is not listed.');
+  if (missing.pay !== '' || missing.salaryMin !== null || missing.salaryMax !== null || missing.salarySortMax !== null) {
+    throw new Error(`Generic ATS missing-pay regression: expected blank/null fields, got ${JSON.stringify(missing)}`);
+  }
+
+  const hourly = extractPay('Compensation: $25-$30 per hour.');
+  if (hourly.pay !== '$25–$30 / hr' || hourly.salaryMin !== 25 || hourly.salaryMax !== 30 || hourly.salarySortMax !== 62400) {
+    throw new Error(`Generic ATS hourly-pay regression: ${JSON.stringify(hourly)}`);
+  }
+
+  const annual = extractPay('Salary range: $60,000 to $72,000 annually.');
+  if (annual.pay !== '$60,000–$72,000 / year' || annual.salaryMin !== 60000 || annual.salaryMax !== 72000 || annual.salarySortMax !== 72000) {
+    throw new Error(`Generic ATS annual-pay regression: ${JSON.stringify(annual)}`);
+  }
+
+  console.log('Generic ATS pay parser passed missing, hourly, and annual regression cases.');
+  process.exit(0);
 }
 
 function tagsFor(title, description, experience, type) {

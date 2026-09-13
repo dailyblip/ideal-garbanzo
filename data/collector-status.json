@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-13T17:43:36.499Z",
-  "jobs": 710,
+  "updatedAt": "2026-09-13T17:51:49.866Z",
+  "jobs": 709,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -11,13 +11,13 @@
   },
   "countsByType": {
     "internship": 12,
-    "trainee": 8,
+    "trainee": 7,
     "apprenticeship": 12,
     "entry-level": 678
   },
   "countsByExperience": {
     "no-experience": 42,
-    "0-2-years": 392,
+    "0-2-years": 391,
     "2-5-years": 276
   },
   "errors": [],
@@ -3457,10 +3457,10 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 8,
-      "qualifyingRoles": 0,
+      "staleRemoved": 7,
+      "qualifyingRoles": 2,
       "drops": {
-        "non-us": 8,
+        "non-us": 6,
         "unknown-experience": 8,
         "context": 1,
         "title": 18
@@ -3469,14 +3469,6 @@
         {
           "title": "2026년 에퀴닉스 코리아 데이터센터 엔지니어 하반기 인턴／Equinix Korea Data Center Engineering Internship Program (Fall 2026)",
           "url": "https://careers.equinix.com/jobs/2026-equinix-korea-data-center-engineering-internship-program-fall-2026-seoul-korea-republic-of"
-        },
-        {
-          "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
-        },
-        {
-          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
         },
         {
           "title": "Practicante Critical Facilities",
@@ -3503,6 +3495,14 @@
         {
           "title": "SkillBridge Critical Facilities Engineer - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
+        },
+        {
+          "title": "Data Center Customer Operations Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -3514,11 +3514,11 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 5,
-      "verifiedSeeded": 2,
+      "recoveredCandidates": 3,
+      "verifiedSeeded": 4,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 5,
-      "verifiedFallbackUsed": 4,
+      "broadListingEvidenceAdded": 3,
+      "verifiedFallbackUsed": 2,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
       "detailSucceeded": 7,
@@ -3526,12 +3526,12 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 0,
-      "qualifyingRoles": 4,
+      "qualifyingRoles": 2,
       "drops": {
         "experience": 0,
-        "unknownExperience": 3,
+        "unknownExperience": 5,
         "unusable": 0,
-        "verifiedMismatch": 2
+        "verifiedMismatch": 4
       },
       "errors": []
     }
@@ -3545,9 +3545,9 @@
     "liveChecksPassed": 7,
     "listingFallbacksUsed": 0,
     "verifiedWindowFallbacksUsed": 0,
-    "searchClickFallbacksUsed": 7,
+    "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 2,
     "removedKnownOverExperience": 0,
     "added": 7,
     "retainedManaged": 7,
@@ -3629,7 +3629,8 @@
         "sourceUrl": "https://careers.equinix.com/jobs/search?query=JR-811161",
         "clickFallbackUsed": true
       }
-    ]
+    ],
+    "directDetailClicksUsed": 7
   },
   "missionFit": {
     "checkedAt": "2026-09-13T17:41:46.528Z",
@@ -3640,15 +3641,15 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-13T17:43:36.647Z",
+    "updatedAt": "2026-09-13T17:51:50.134Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 710,
+    "regionAssigned": 709,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 104,
+      "west": 103,
       "texas": 116,
       "midwest": 136,
       "mid-atlantic": 133,
@@ -3659,9 +3660,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-13T17:43:36.721Z",
-    "before": 710,
-    "after": 710,
+    "checkedAt": "2026-09-13T17:51:50.202Z",
+    "before": 709,
+    "after": 709,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3676,16 +3677,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1029,
-    "currentJobs": 710,
+    "currentJobs": 709,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
+    "changedJobsThisRun": 7,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-13T17:43:36.780Z"
+    "firstSeenRecencyFallbackJobs": 110,
+    "updatedAt": "2026-09-13T17:51:50.260Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

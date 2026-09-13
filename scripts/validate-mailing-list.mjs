@@ -86,7 +86,8 @@ for (const marker of [
   'run: node scripts/send-weekly-job-alert.mjs --schedule',
   "- 'index.html'",
   "- 'assets/mailing-list.js'",
-  "- 'scripts/validate-mailing-list.mjs'"
+  "- 'scripts/validate-mailing-list.mjs'",
+  "- 'scripts/validate-alert-job-detail-parity.mjs'"
 ]) {
   if (!workflow.includes(marker)) fail(`Weekly alert workflow is missing: ${marker}`);
 }
@@ -138,8 +139,9 @@ await assertMissing('.github/workflows/weekly-digest.yml');
 await assertMissing('scripts/send-weekly-digest.mjs');
 
 // Every deployment path already invokes mailing-list validation. Chain the
-// cross-surface parity contract here so deploy-only and bot-driven main builds
-// cannot ship a homepage/jobs alert preference mismatch.
+// job-detail URL and cross-surface preference contracts here so deploy-only
+// and bot-driven main builds cannot ship broken weekly alert links or signup drift.
+await import('./validate-alert-job-detail-parity.mjs');
 await import('./validate-alert-signup-parity.mjs');
 
 console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline scheduled for ${config.sendTimeUtc} UTC with tracked Data Center Careers job links and employer-diverse selection.`);

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T17:09:13.752Z",
+  "updatedAt": "2026-09-13T17:41:46.447Z",
   "jobs": 716,
   "sourcesAttempted": 19,
   "providers": {
@@ -10,15 +10,15 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 8,
-    "internship": 12,
     "entry-level": 684,
+    "internship": 12,
+    "trainee": 8,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "no-experience": 42,
+    "2-5-years": 276,
     "0-2-years": 398,
-    "2-5-years": 276
+    "no-experience": 42
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3632,54 +3632,15 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-13T17:09:13.936Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-13T17:41:46.528Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-13T17:09:14.003Z",
+    "updatedAt": "2026-09-13T17:41:46.609Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 716,
@@ -3687,18 +3648,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "northeast": 24,
-      "mid-atlantic": 136,
-      "southwest": 84,
-      "midwest": 136,
-      "west": 106,
       "southeast": 112,
+      "mid-atlantic": 136,
+      "northeast": 24,
+      "midwest": 136,
       "texas": 116,
+      "southwest": 84,
+      "west": 106,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-13T17:09:14.063Z",
+    "checkedAt": "2026-09-13T17:41:46.686Z",
     "before": 716,
     "after": 716,
     "removed": 0,
@@ -3706,7 +3667,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-13T17:09:30.189Z",
+    "checkedAt": "2026-09-13T17:42:07.624Z",
     "publishedJobs": 716,
     "removedJobs": 0,
     "activeCareerEvents": 5,
@@ -3724,7 +3685,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-13T17:09:30.322Z"
+    "updatedAt": "2026-09-13T17:42:07.766Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3860,7 +3821,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-13T07:44:45.247Z",
+    "checkedAt": "2026-09-13T17:41:46.447Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

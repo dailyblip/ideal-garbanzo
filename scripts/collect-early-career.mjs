@@ -318,8 +318,13 @@ function tagsFor(title, description, type, experience) {
 
 function payFromPosting(posting) {
   const salary = posting.baseSalary?.value || posting.baseSalary;
-  const min = Number(salary?.minValue ?? salary?.value?.minValue);
-  const max = Number(salary?.maxValue ?? salary?.value?.maxValue);
+  const numericSalary = value => {
+    if (value === null || value === undefined || clean(value) === '') return null;
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  };
+  const min = numericSalary(salary?.minValue ?? salary?.value?.minValue);
+  const max = numericSalary(salary?.maxValue ?? salary?.value?.maxValue);
   const unit = clean(salary?.unitText || salary?.value?.unitText || posting.baseSalary?.unitText);
   if (Number.isFinite(min) && Number.isFinite(max)) {
     const hourly = /hour/i.test(unit);
@@ -330,8 +335,32 @@ function payFromPosting(posting) {
       salarySortMax: hourly ? Math.round(max * 2080) : max
     };
   }
-  return { pay:'Pay not listed', salaryMin:null, salaryMax:null, salarySortMax:null };
+  return { pay:'', salaryMin:null, salaryMax:null, salarySortMax:null };
 }
+
+function validatePayParser() {
+  const missing = payFromPosting({});
+  if (missing.pay !== '' || missing.salaryMin !== null || missing.salaryMax !== null || missing.salarySortMax !== null) {
+    throw new Error('Early-career pay regression: missing compensation must remain blank');
+  }
+
+  const nullSalary = payFromPosting({ baseSalary:{ value:{ minValue:null, maxValue:null, unitText:'YEAR' } } });
+  if (nullSalary.pay !== '' || nullSalary.salarySortMax !== null) {
+    throw new Error('Early-career pay regression: null compensation must not become a $0 range');
+  }
+
+  const hourly = payFromPosting({ baseSalary:{ value:{ minValue:25, maxValue:30, unitText:'HOUR' } } });
+  if (hourly.pay !== '$25–$30 / hr' || hourly.salaryMin !== 25 || hourly.salaryMax !== 30 || hourly.salarySortMax !== 62400) {
+    throw new Error(`Early-career pay regression: hourly range parsed incorrectly (${hourly.pay})`);
+  }
+
+  const annual = payFromPosting({ baseSalary:{ value:{ minValue:55000, maxValue:65000, unitText:'YEAR' } } });
+  if (annual.pay !== '$55,000–$65,000 / year' || annual.salaryMin !== 55000 || annual.salaryMax !== 65000 || annual.salarySortMax !== 65000) {
+    throw new Error(`Early-career pay regression: annual range parsed incorrectly (${annual.pay})`);
+  }
+}
+
+validatePayParser();
 
 async function hydrate(source, url) {
   const html = await fetchText(url);

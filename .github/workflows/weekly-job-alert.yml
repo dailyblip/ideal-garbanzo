@@ -10,6 +10,7 @@ on:
       - 'scripts/send-weekly-job-alert.mjs'
       - 'scripts/validate-mailing-list.mjs'
       - 'scripts/validate-alert-signup-parity.mjs'
+      - 'scripts/validate-alert-job-detail-parity.mjs'
       - 'scripts/validate-job-history.mjs'
       - 'data/jobs.json'
       - 'data/mailing-list.json'

@@ -11,6 +11,7 @@ on:
       - 'scripts/collect-jobs.mjs'
       - 'scripts/collect-jobs-core.mjs'
       - 'scripts/normalize-display-copy.mjs'
+      - 'scripts/validate-direct-role-links.mjs'
 
 permissions:
   contents: write

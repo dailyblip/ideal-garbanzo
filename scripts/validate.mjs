@@ -85,7 +85,18 @@ for (const [i, job] of jobs.entries()) {
   if (urls.has(job.sourceUrl)) throw new Error(`Duplicate job URL: ${job.sourceUrl}`);
   urls.add(job.sourceUrl);
   if (job.active !== true) throw new Error(`Published real job ${job.id} is not active`);
-  if (/^pay not listed$/i.test(String(job.pay || '').trim())) throw new Error(`Missing pay must be blank, not placeholder text: ${job.id}`);
+  const payText = String(job.pay || '').trim();
+  if (/^pay not listed$/i.test(payText)) throw new Error(`Missing pay must be blank, not placeholder text: ${job.id}`);
+  if (/\$0(?:\D|$)/.test(payText)) throw new Error(`Published compensation cannot contain a zero-dollar placeholder: ${job.id}`);
+  for (const field of ['salaryMin','salaryMax','salarySortMax']) {
+    const value = job[field];
+    if (value == null) continue;
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric) || numeric <= 0) throw new Error(`Published ${field} must be null or a positive number: ${job.id}`);
+  }
+  if (job.salaryMin != null && job.salaryMax != null && Number(job.salaryMin) > Number(job.salaryMax)) {
+    throw new Error(`Published salary range is inverted: ${job.id}`);
+  }
   if (job.region) {
     if (!allowedRegions.has(job.region)) throw new Error(`Unsupported job region: ${job.region}`);
     regionalJobs += 1;

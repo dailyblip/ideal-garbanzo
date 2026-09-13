@@ -175,16 +175,29 @@ function isEquinixVerifiedFallback(job) {
   );
 }
 
-function hasStableEquinixFallbackClick(job) {
+function equinixFallbackClickKind(job) {
   try {
     const parsed = new URL(String(job?.sourceUrl || ''));
-    return parsed.protocol === 'https:' &&
-      parsed.hostname.toLowerCase() === 'careers.equinix.com' &&
-      parsed.pathname.replace(/\/$/, '') === '/jobs/search' &&
-      /^JR-\d+$/i.test(String(parsed.searchParams.get('query') || '').trim());
+    if (parsed.protocol !== 'https:' || parsed.hostname.toLowerCase() !== 'careers.equinix.com') return '';
+    const path = parsed.pathname.replace(/\/$/, '');
+    if (path === '/jobs/search' && /^JR-\d+$/i.test(String(parsed.searchParams.get('query') || '').trim())) return 'search';
+    if (/^\/jobs\/[^/]+$/i.test(path) && path.toLowerCase() !== '/jobs/search') return 'direct';
+    return '';
   } catch {
-    return false;
+    return '';
   }
+}
+
+const equinixClickRegressionCases = [
+  ['https://careers.equinix.com/jobs/search?query=JR-163301', 'search'],
+  ['https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states', 'direct'],
+  ['https://careers.equinix.com/jobs/search', ''],
+  ['https://careers.equinix.com/', ''],
+  ['https://example.com/jobs/role', '']
+];
+for (const [sourceUrl, expected] of equinixClickRegressionCases) {
+  const actual = equinixFallbackClickKind({ sourceUrl });
+  if (actual !== expected) throw new Error(`Equinix fallback click regression: ${sourceUrl} classified as ${actual || 'invalid'}, expected ${expected || 'invalid'}`);
 }
 
 const violations = [];
@@ -220,10 +233,20 @@ const equinixFallbackExpired = equinixFallbackStatus?.expired === true;
 const equinixFallbackExpiresAt = Date.parse(String(equinixFallbackStatus?.expiresAt || ''));
 const equinixFallbackJobs = jobs.filter(isEquinixVerifiedFallback);
 const equinixFallbackPublic = equinixFallbackJobs.length;
+let equinixDirectClicks = 0;
+let equinixSearchClicks = 0;
 for (const job of equinixFallbackJobs) {
-  if (!hasStableEquinixFallbackClick(job)) {
-    violations.push(`Equinix verified fallback ${job?.id || '(missing id)'} must publish a requisition-targeted official search link`);
-  }
+  const kind = equinixFallbackClickKind(job);
+  if (kind === 'direct') equinixDirectClicks += 1;
+  else if (kind === 'search') equinixSearchClicks += 1;
+  else violations.push(`Equinix verified fallback ${job?.id || '(missing id)'} must publish an exact official detail link or a requisition-targeted official search fallback`);
+}
+const directCountRecorded = Object.prototype.hasOwnProperty.call(equinixFallbackStatus, 'directDetailClicksUsed');
+if (directCountRecorded && equinixDirectClicks !== Number(equinixFallbackStatus.directDetailClicksUsed || 0)) {
+  violations.push(`Equinix direct-detail click count mismatch (${equinixFallbackStatus.directDetailClicksUsed} recorded vs ${equinixDirectClicks} public)`);
+}
+if (Object.prototype.hasOwnProperty.call(equinixFallbackStatus, 'searchClickFallbacksUsed') && equinixSearchClicks !== Number(equinixFallbackStatus.searchClickFallbacksUsed || 0)) {
+  violations.push(`Equinix search-fallback click count mismatch (${equinixFallbackStatus.searchClickFallbacksUsed} recorded vs ${equinixSearchClicks} public)`);
 }
 if (!equinixFallbackExpired && Number.isFinite(equinixFallbackExpiresAt) && Date.now() >= equinixFallbackExpiresAt) {
   violations.push(`Equinix verified fallback is still marked active after its ${equinixFallbackStatus.expiresAt} expiry`);

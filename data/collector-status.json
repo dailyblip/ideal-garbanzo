@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T06:51:34.959Z",
+  "updatedAt": "2026-09-13T07:39:48.201Z",
   "jobs": 700,
   "sourcesAttempted": 21,
   "providers": {
@@ -3612,25 +3612,15 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-13T06:48:52.763Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "microsoft-1970393556994516",
-        "company": "Microsoft",
-        "title": "Data Center Critical Environment Business Analyst",
-        "location": "Boydton, VA",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-13T07:39:48.306Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-13T06:51:35.022Z",
+    "updatedAt": "2026-09-13T07:39:48.404Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 700,
@@ -3639,17 +3629,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 110,
+      "mid-atlantic": 131,
       "northeast": 23,
       "midwest": 135,
       "texas": 113,
-      "mid-atlantic": 131,
       "southwest": 82,
       "west": 104,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-13T06:51:35.065Z",
+    "checkedAt": "2026-09-13T07:39:48.503Z",
     "before": 700,
     "after": 700,
     "removed": 0,
@@ -3657,8 +3647,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-13T06:31:27.866Z",
-    "publishedJobs": 705,
+    "checkedAt": "2026-09-13T07:40:05.618Z",
+    "publishedJobs": 700,
     "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 0
@@ -3675,7 +3665,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 103,
-    "updatedAt": "2026-09-13T06:51:35.099Z"
+    "updatedAt": "2026-09-13T07:40:05.765Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3815,7 +3805,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-12T17:26:41.981Z",
+    "checkedAt": "2026-09-13T07:39:48.201Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

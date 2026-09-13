@@ -10,6 +10,7 @@ on:
       - 'data/meta-jobs.json'
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/normalize-meta-compensation.mjs'
       - 'scripts/enforce-meta-fallback-freshness.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - '.github/workflows/meta-stale-fallback-watch.yml'
@@ -38,6 +39,10 @@ jobs:
         run: node scripts/enforce-meta-fallback-freshness.mjs --test
       - name: Verify Meta sitemap and enforce fallback freshness
         run: node scripts/enforce-meta-fallback-freshness.mjs
+      - name: Test Meta compensation normalization
+        run: node scripts/normalize-meta-compensation.mjs --test
+      - name: Normalize missing Meta compensation
+        run: node scripts/normalize-meta-compensation.mjs
       - name: Validate Meta snapshot state
         run: node scripts/validate-meta-snapshot.mjs
       - name: Publish Meta freshness state from current main
@@ -53,6 +58,8 @@ jobs:
             git reset --hard origin/main
             node scripts/enforce-meta-fallback-freshness.mjs --test
             node scripts/enforce-meta-fallback-freshness.mjs
+            node scripts/normalize-meta-compensation.mjs --test
+            node scripts/normalize-meta-compensation.mjs
             node scripts/validate-meta-snapshot.mjs
           }
 

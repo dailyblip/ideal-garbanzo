@@ -50,17 +50,22 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
-// Priority employer-direct collectors that rebuild or reconcile the shared public
-// feed must never rebase generated JSON from a stale checkout. If another writer
-// moves main while collection is running, rebuild against that newest revision and
+// Employer-direct collectors that rebuild or reconcile the shared public feed
+// must never rebase generated JSON from a stale checkout. If another writer moves
+// main while collection is running, rebuild against that newest revision and
 // retry the push so unrelated employer updates cannot be silently overwritten.
 const raceSafeWriters = new Set([
   '.github/workflows/aws-detail-recovery.yml',
+  '.github/workflows/coreweave-bootstrap.yml',
+  '.github/workflows/databank-bootstrap.yml',
+  '.github/workflows/edgeconnex-bootstrap.yml',
   '.github/workflows/equinix-bootstrap.yml',
+  '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/google-bootstrap.yml',
   '.github/workflows/meta-bootstrap.yml',
   '.github/workflows/microsoft-bootstrap.yml',
-  '.github/workflows/oracle-bootstrap.yml'
+  '.github/workflows/oracle-bootstrap.yml',
+  '.github/workflows/switch-bootstrap.yml'
 ]);
 
 const raceSafeMarkers = [
@@ -111,4 +116,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; ${raceSafeWriters.size} priority employer-direct collectors enforce fresh-main rebuilds before retrying publication.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; ${raceSafeWriters.size} employer-direct collectors enforce fresh-main rebuilds before retrying publication.`);

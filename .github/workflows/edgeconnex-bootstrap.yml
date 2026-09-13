@@ -57,29 +57,60 @@ jobs:
           node scripts/validate-job-history.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
-      - name: Commit verified EdgeConneX roles
-        id: commit
+      - name: Publish verified EdgeConneX roles from current main
+        id: publish
+        shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/edgeconnex-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json)" ]; then
-            echo "No verified EdgeConneX data changes."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.json data/edgeconnex-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
-          git commit -m "Refresh verified EdgeConneX roles"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/collect-edgeconnex-careers.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/validate-edgeconnex.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
+          }
+
           git fetch origin main
-          if ! git rebase origin/main; then
-            git rebase --abort || true
-            echo "::error::Could not rebase EdgeConneX refresh onto latest main."
-            exit 1
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during EdgeConneX collection; rebuilding from latest main."
+            rebuild_from_latest_main
           fi
-          git push origin HEAD:main
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/edgeconnex-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            if git diff --cached --quiet; then
+              echo "No verified EdgeConneX data changes."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh verified EdgeConneX roles"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during EdgeConneX publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified EdgeConneX roles after three attempts."
+          exit 1
       - name: Deploy committed EdgeConneX data
-        if: steps.commit.outputs.changed == 'true'
+        if: steps.publish.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

@@ -57,27 +57,61 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-homepage-contract.mjs
-      - name: Commit verified DataBank roles
-        id: commit
+          node scripts/validate-source-workflow-isolation.mjs
+      - name: Publish verified DataBank roles from current main
+        id: publish
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain -- data/jobs.json data/databank-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json)" ]; then
-            echo 'No verified DataBank data changes.'
-            echo 'changed=false' >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/jobs.json data/databank-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
-          git commit -m 'Refresh verified DataBank roles'
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/collect-databank.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate-databank.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
+          }
+
           git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
-          echo 'changed=true' >> "$GITHUB_OUTPUT"
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo 'Main moved during DataBank collection; rebuilding from latest main.'
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/databank-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            if git diff --cached --quiet; then
+              echo 'No verified DataBank data changes.'
+              echo 'changed=false' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m 'Refresh verified DataBank roles'
+            if git push origin HEAD:main; then
+              echo 'changed=true' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during DataBank publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo '::error::Could not publish verified DataBank roles after three attempts.'
+          exit 1
       - name: Deploy committed DataBank data
-        if: steps.commit.outputs.changed == 'true'
+        if: steps.publish.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

@@ -58,6 +58,7 @@ jobs:
       - name: Validate priority employer publication integrity
         run: |
           node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs
           node scripts/validate-major-workday-parity.mjs
       - name: Validate CoreSite official listing failover
         run: node scripts/validate-coresite-source-failover.mjs

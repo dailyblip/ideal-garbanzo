@@ -47,13 +47,20 @@ jobs:
         run: node scripts/enforce-generic-fallback-freshness.mjs
       - name: Validate generic ATS freshness state
         run: node scripts/enforce-generic-fallback-freshness.mjs --validate
+      - name: Enforce publication-safe feed
+        run: |
+          # Shared ATS boards can change titles or taxonomies between refreshes.
+          # Apply the same deterministic publication backstops used by the global
+          # guard before validation so obvious senior/non-mission drift is removed
+          # rather than either reaching main or permanently wedging this refresh.
+          node scripts/filter-mission-fit.mjs
+          node scripts/prune-unsupported-classification.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/prune-unresolved-geography.mjs
+          node scripts/sync-publication-counts.mjs
+          node scripts/dedupe-normalized-jobs.mjs
       - name: Validate publication contracts
         run: |
-          # A shared-source refresh writes data/jobs.json directly. Run the same
-          # full publication validator used by Pages before the refreshed feed is
-          # allowed onto main, so classification, mission-fit, compensation,
-          # regional, source, and duplicate regressions fail closed instead of
-          # waiting for a later cleanup/deploy pass.
           node scripts/validate.mjs
           node scripts/validate-t5-data-centers.mjs
           node scripts/validate-flexential.mjs
@@ -77,8 +84,14 @@ jobs:
             node scripts/restore-generic-dedicated-overlap.mjs /tmp/jobs-before-generic.json
             node scripts/enforce-generic-fallback-freshness.mjs
             node scripts/enforce-generic-fallback-freshness.mjs --validate
+            node scripts/filter-mission-fit.mjs
+            node scripts/prune-unsupported-classification.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/prune-unresolved-geography.mjs
+            node scripts/sync-publication-counts.mjs
+            node scripts/dedupe-normalized-jobs.mjs
             # Re-run the complete publication validator after any fresh-main
-            # rebuild. A push race must never bypass the fail-closed gate above.
+            # rebuild. A push race must never bypass the cleanup or validation.
             node scripts/validate.mjs
             node scripts/validate-t5-data-centers.mjs
             node scripts/validate-flexential.mjs
@@ -96,19 +109,19 @@ jobs:
 
           for attempt in 1 2 3; do
             feed_changed=false
-            if ! git diff --quiet -- data/jobs.json; then
+            if ! git diff --quiet -- data/jobs.json data/major-jobs.json; then
               feed_changed=true
             fi
 
-            git add -u -- data/jobs.json data/collector-status.json
+            git add -u -- data/jobs.json data/major-jobs.json data/collector-status.json
             if git diff --cached --quiet; then
-              echo "Generic ATS source and freshness state is unchanged."
+              echo "Generic ATS source and publication state is unchanged."
               echo "changed=false" >> "$GITHUB_OUTPUT"
               echo "feed_changed=false" >> "$GITHUB_OUTPUT"
               exit 0
             fi
 
-            git commit -m "Refresh generic ATS jobs and enforce freshness"
+            git commit -m "Refresh generic ATS jobs and enforce publication safety"
             if git push origin HEAD:main; then
               echo "changed=true" >> "$GITHUB_OUTPUT"
               echo "feed_changed=${feed_changed}" >> "$GITHUB_OUTPUT"

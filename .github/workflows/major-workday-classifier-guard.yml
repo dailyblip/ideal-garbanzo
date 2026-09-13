@@ -7,11 +7,13 @@ on:
       - '.github/workflows/major-workday-classifier-guard.yml'
       - 'scripts/collect-major-jobs.mjs'
       - 'scripts/recover-major-workday-targeted.mjs'
+      - 'scripts/normalize-display-copy.mjs'
   pull_request:
     paths:
       - '.github/workflows/major-workday-classifier-guard.yml'
       - 'scripts/collect-major-jobs.mjs'
       - 'scripts/recover-major-workday-targeted.mjs'
+      - 'scripts/normalize-display-copy.mjs'
 
 permissions:
   contents: read
@@ -24,9 +26,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate classifier syntax and experience cases
+      - name: Validate classifier syntax, experience and compensation cases
         run: |
           node --check scripts/collect-major-jobs.mjs
           node --check scripts/recover-major-workday-targeted.mjs
+          node --check scripts/normalize-display-copy.mjs
           node scripts/collect-major-jobs.mjs --test-experience-parser
           node scripts/recover-major-workday-targeted.mjs --test
+          node scripts/normalize-display-copy.mjs --test

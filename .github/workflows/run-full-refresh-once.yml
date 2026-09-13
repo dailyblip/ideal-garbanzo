@@ -10,6 +10,7 @@ on:
       - 'scripts/reconcile-major-jobs.mjs'
       - 'scripts/collect-jobs.mjs'
       - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/normalize-display-copy.mjs'
 
 permissions:
   contents: write

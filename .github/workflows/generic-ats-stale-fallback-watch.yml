@@ -52,6 +52,7 @@ jobs:
           node scripts/validate-flexential.mjs
           node scripts/validate-coreweave.mjs
           node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs
           node scripts/validate-homepage-contract.mjs
       - name: Publish refreshed generic ATS state from current main
         id: publish
@@ -73,6 +74,7 @@ jobs:
             node scripts/validate-flexential.mjs
             node scripts/validate-coreweave.mjs
             node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-direct-role-links.mjs
             node scripts/validate-homepage-contract.mjs
           }
 

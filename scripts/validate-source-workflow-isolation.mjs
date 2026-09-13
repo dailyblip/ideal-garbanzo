@@ -59,6 +59,7 @@ const sharedWriterQueue = new Set([
 // retry the push so unrelated employer updates cannot be silently overwritten.
 const raceSafeWriters = new Set([
   '.github/workflows/aws-detail-recovery.yml',
+  '.github/workflows/cologix-bootstrap.yml',
   '.github/workflows/coreweave-bootstrap.yml',
   '.github/workflows/databank-bootstrap.yml',
   '.github/workflows/digital-realty-stale-fallback-watch.yml',

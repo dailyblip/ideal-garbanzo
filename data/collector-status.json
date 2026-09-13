@@ -14,8 +14,8 @@
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 392,
     "2-5-years": 276,
+    "0-2-years": 392,
     "no-experience": 42
   },
   "errors": [],
@@ -347,7 +347,7 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-13T21:10:47.418Z",
+      "checkedAt": "2026-09-13T21:50:42.305Z",
       "rawJobs": 186,
       "publishedUsJobs": 186,
       "nonUsRemoved": 0,
@@ -2078,7 +2078,7 @@
       }
     },
     "closedRolePrune": {
-      "checkedAt": "2026-09-13T21:10:39.744Z",
+      "checkedAt": "2026-09-13T21:50:32.377Z",
       "officialRoleUrlsChecked": 186,
       "liveVerified": 172,
       "removed": 0,
@@ -2094,7 +2094,7 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-13T21:10:39.619Z",
+    "checkedAt": "2026-09-13T21:50:32.241Z",
     "officialOnly": true,
     "additiveOnly": true,
     "searchPaginationPolicy": "paginate-to-reported-total",
@@ -2709,7 +2709,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-13T21:10:39.696Z",
+      "checkedAt": "2026-09-13T21:50:32.324Z",
       "removed": 10,
       "removedRoles": [
         {
@@ -3631,112 +3631,16 @@
     "directDetailClicksUsed": 7
   },
   "missionFit": {
-    "checkedAt": "2026-09-13T21:10:47.537Z",
-    "removedCount": 13,
-    "removedByReason": {
-      "non-mission role family": 8,
-      "senior/executive title": 3,
-      "non-US location": 2
-    },
-    "removed": [
-      {
-        "id": "ashby-gimlet-eb9a94c8bab714",
-        "company": "Gimlet Labs",
-        "title": "Legal Intern",
-        "location": "San Francisco, CA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-fluidstack-f2990eac8950ce",
-        "company": "Fluidstack",
-        "title": "Staff Electrical Operator",
-        "location": "Abernathy, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "gh-xai-5169675007",
-        "company": "xAI",
-        "title": "Network Operations Technician (SpaceXAI / Starlink)",
-        "location": "Dublin, Ireland",
-        "reason": "non-US location"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "location": "Southaven, MS; Memphis, TN",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-55e8ca08729b80",
-        "company": "Crusoe",
-        "title": "Quality Technician - Electrical Inspector",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-316d2a228cba07",
-        "company": "Crusoe",
-        "title": "Material Planner (Electrical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-129b9fd8c0d03e",
-        "company": "Crusoe",
-        "title": "Material Planner (Mechanical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
-        "company": "Serverfarm",
-        "title": "Data Center Technician",
-        "location": "Toronto, ON",
-        "reason": "non-US location"
-      },
-      {
-        "id": "ashby-crusoe-70b01f17d09a8b",
-        "company": "Crusoe",
-        "title": "CNC Operator",
-        "location": "Tulsa, OK - US (1)",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-ab810e7251cc10",
-        "company": "Crusoe",
-        "title": "Assembly Technician",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-8d30086e281f80",
-        "company": "Crusoe",
-        "title": "Project Controls Analyst",
-        "location": "Denver, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-fluidstack-229040aff58cbe",
-        "company": "Fluidstack",
-        "title": "Mechanical Engineer, R&D Team Lead",
-        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-crusoe-b314faa56cd161",
-        "company": "Crusoe",
-        "title": "Staff Data Center Operations Engineer",
-        "location": "Denver, CO - US",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-13T21:50:42.405Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-13T21:10:47.602Z",
-    "changed": 12,
+    "updatedAt": "2026-09-13T21:50:42.471Z",
+    "changed": 11,
     "samples": [
       {
         "id": "workday-aligneddc-JR101086",
@@ -3752,11 +3656,6 @@
         "id": "workday-aligneddc-JR100971",
         "before": "NEO-01",
         "after": "Sandusky, OH"
-      },
-      {
-        "id": "ashby-lambda-0bdbbcbdc49122",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
       },
       {
         "id": "workday-qtsdatacenters-R2026-0881",
@@ -3777,25 +3676,17 @@
         "id": "workday-qtsdatacenters-R2026-0893",
         "before": "US OR Hillsboro 1 DC1",
         "after": "Hillsboro, OR"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0768",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
       }
     ],
     "regionAssigned": 710,
-    "regionMissing": 2,
-    "coveragePct": 99.7,
-    "missingSamples": [
-      {
-        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
-      },
-      {
-        "id": "ashby-lambda-8308606de297f6",
-        "company": "Lambda",
-        "location": "Querétaro, Mexico - Data Center",
-        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
-      }
-    ],
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
       "southeast": 112,
       "midwest": 136,
@@ -3808,28 +3699,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-13T21:10:47.660Z",
-    "before": 739,
-    "after": 712,
-    "removed": 27,
+    "checkedAt": "2026-09-13T21:50:42.531Z",
+    "before": 735,
+    "after": 710,
+    "removed": 25,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-5215038007",
-        "keptId": "gh-xai-5142979007",
-        "company": "xAI",
-        "title": "Electrician (Construction) - Memphis",
-        "location": "Southaven, MS; Memphis, TN"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-5127519007",
-        "keptId": "gh-xai-5219754007",
-        "company": "xAI",
-        "title": "Mechanical Commissioning Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      },
       {
         "reason": "same-company-title-location",
         "removedId": "workday-nttglobaldatacenters-JR101968",
@@ -3973,6 +3848,22 @@
         "company": "NTT Global Data Centers",
         "title": "1162 - Data Center Technician L2",
         "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101610",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101859",
+        "keptId": "workday-nttglobaldatacenters-JR101474",
+        "company": "NTT Global Data Centers",
+        "title": "5217 - Data Center Technician L1",
+        "location": "Gainesville, Virginia"
       }
     ]
   },
@@ -3986,7 +3877,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1029,
-    "currentJobs": 712,
+    "currentJobs": 710,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3995,7 +3886,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 161,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-13T21:10:47.759Z"
+    "updatedAt": "2026-09-13T21:50:42.628Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

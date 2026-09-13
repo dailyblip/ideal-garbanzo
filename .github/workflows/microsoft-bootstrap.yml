@@ -55,21 +55,64 @@ jobs:
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate.mjs
-      - name: Commit refreshed Microsoft roles, history, and deploy current main
+      - name: Publish refreshed Microsoft roles from current main
+        id: publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node --check scripts/collect-microsoft-datacenter.mjs
+            node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
+            node scripts/apply-microsoft-verified-fallback.mjs
+            node scripts/collect-microsoft-datacenter.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/persist-microsoft-snapshot.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate-microsoft-snapshot.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Microsoft refresh; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/microsoft-jobs.json data/job-history.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo "No Microsoft data or job-history changes."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh verified Microsoft jobs and history"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Microsoft publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified Microsoft roles after three attempts."
+          exit 1
+      - name: Deploy committed Microsoft data
+        if: steps.publish.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/microsoft-jobs.json data/job-history.json data/collector-status.json)" ]; then
-            echo "No Microsoft data or job-history changes."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.json data/microsoft-jobs.json data/job-history.json data/collector-status.json
-          git commit -m "Refresh verified Microsoft jobs and history"
-          git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
           # Pushes made with GITHUB_TOKEN do not start another workflow run.
           # Explicitly dispatch the deploy-only path so the verified data commit
           # reaches GitHub Pages and the custom-domain smoke test immediately.

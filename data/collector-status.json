@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T15:53:41.764Z",
+  "updatedAt": "2026-09-13T15:59:35.843Z",
   "jobs": 708,
   "sourcesAttempted": 18,
   "providers": {
@@ -15,8 +15,8 @@
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 390,
     "2-5-years": 276,
+    "0-2-years": 390,
     "no-experience": 42
   },
   "errors": [],
@@ -3631,7 +3631,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-13T15:42:54.029Z",
+    "checkedAt": "2026-09-13T15:59:35.918Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3639,7 +3639,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-13T15:53:41.895Z",
+    "updatedAt": "2026-09-13T15:59:35.993Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3650,15 +3650,15 @@
       "southeast": 111,
       "mid-atlantic": 133,
       "northeast": 23,
-      "texas": 116,
       "midwest": 136,
+      "texas": 116,
       "southwest": 83,
       "west": 104,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-13T15:53:41.946Z",
+    "checkedAt": "2026-09-13T15:59:36.062Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3666,9 +3666,9 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-13T15:43:11.560Z",
-    "publishedJobs": 700,
-    "removedJobs": 1,
+    "checkedAt": "2026-09-13T15:59:54.997Z",
+    "publishedJobs": 708,
+    "removedJobs": 0,
     "activeCareerEvents": 5,
     "providerVerifiedRetained": 0
   },
@@ -3676,15 +3676,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1029,
     "currentJobs": 708,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-13T15:53:41.994Z"
+    "updatedAt": "2026-09-13T15:59:55.188Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3787,7 +3787,7 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-13T04:32:25.678Z",
+    "checkedAt": "2026-09-13T15:59:35.843Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",

@@ -30,7 +30,7 @@ const directRolePatterns = new Map([
   ['Stream Data Centers', /^\/stream-dc\/j\/[a-z0-9]+\/?$/i],
   ['Switch', /^\/employment\/view\.php$/i],
   ['Novva Data Centers', /^\/portfolio\/[^/]+\/?$/i],
-  ['CoreWeave', /^\/careers\/?$/i],
+  ['CoreWeave', /^\/careers(?:\/job)?\/?$/i],
   ['EdgeConneX', /^\/edgeconnex\/jobs\/[0-9a-f-]{36}\/?$/i]
 ]);
 
@@ -167,7 +167,9 @@ const regressionCases = [
   ['Novva Data Centers', 'https://www.novva.com/portfolio/command-center-operator-utah/', true],
   ['Novva Data Centers', 'https://www.novva.com/careers/', false],
   ['CoreWeave', 'https://www.coreweave.com/careers?gh_jid=4711724006', true],
+  ['CoreWeave', 'https://coreweave.com/careers/job?4711724006&board=coreweave&gh_jid=4711724006', true],
   ['CoreWeave', 'https://www.coreweave.com/careers', false],
+  ['CoreWeave', 'https://coreweave.com/careers/job?board=coreweave', false],
   ['EdgeConneX', 'https://ats.rippling.com/edgeconnex/jobs/2302b6e9-fd8f-4ede-b107-eb76a1a24af5', true],
   ['EdgeConneX', 'https://ats.rippling.com/edgeconnex/jobs', false],
   ['CoreSite', 'https://example.com/jobs/18130151-critical-operations-engineer-i-swing-de3', false]

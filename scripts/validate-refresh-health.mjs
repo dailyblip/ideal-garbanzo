@@ -185,7 +185,12 @@ const dedicatedSources = [
   ['Compass Datacenters', status?.compass, previousStatus?.compass],
   ['TierPoint', status?.tierPoint, previousStatus?.tierPoint],
   ['Sabey Data Centers', status?.sabeyCareers, previousStatus?.sabeyCareers],
-  ['Novva Data Centers', status?.novvaCareers, previousStatus?.novvaCareers]
+  ['Novva Data Centers', status?.novvaCareers, previousStatus?.novvaCareers],
+  ['CoreWeave', status?.coreWeaveCareers, previousStatus?.coreWeaveCareers],
+  ['EdgeConneX', status?.edgeconnexCareers, previousStatus?.edgeconnexCareers],
+  ['DataBank', status?.databank, previousStatus?.databank],
+  ['Flexential', status?.flexential, previousStatus?.flexential],
+  ['Switch', status?.switchCareers, previousStatus?.switchCareers]
 ];
 
 for (const [label, source, previousSource] of dedicatedSources) {

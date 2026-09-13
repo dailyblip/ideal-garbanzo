@@ -9,6 +9,7 @@ on:
       - 'data/job-history.json'
       - 'data/career-events.json'
       - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/prune-unsupported-classification.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/prune-unresolved-geography.mjs'
       - 'scripts/sync-publication-counts.mjs'
@@ -48,6 +49,8 @@ jobs:
       - name: Validate publication guard scripts
         run: |
           node --check scripts/filter-mission-fit.mjs
+          node --check scripts/prune-unsupported-classification.mjs
+          node scripts/prune-unsupported-classification.mjs --test
           node --check scripts/normalize-job-locations.mjs
           node --check scripts/prune-unresolved-geography.mjs
           node --check scripts/sync-publication-counts.mjs
@@ -73,6 +76,10 @@ jobs:
             git reset --hard origin/main
 
             node scripts/filter-mission-fit.mjs
+            # Source taxonomy/schema drift must also fail closed. Keep only the
+            # supported early-career types and 0-5-year experience bands before
+            # any malformed record can reach validation or a public deployment.
+            node scripts/prune-unsupported-classification.mjs
             node scripts/normalize-job-locations.mjs
             # The public product is U.S.-only. If normalization cannot resolve a
             # role to a supported U.S. region, fail closed instead of publishing

@@ -13,6 +13,7 @@ const sourceWorkflows = [
   '.github/workflows/google-bootstrap.yml',
   '.github/workflows/iron-mountain-bootstrap.yml',
   '.github/workflows/meta-bootstrap.yml',
+  '.github/workflows/meta-stale-fallback-watch.yml',
   '.github/workflows/microsoft-bootstrap.yml',
   '.github/workflows/novva-bootstrap.yml',
   '.github/workflows/oracle-bootstrap.yml',
@@ -65,6 +66,7 @@ const raceSafeWriters = new Set([
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/google-bootstrap.yml',
   '.github/workflows/meta-bootstrap.yml',
+  '.github/workflows/meta-stale-fallback-watch.yml',
   '.github/workflows/microsoft-bootstrap.yml',
   '.github/workflows/oracle-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml'

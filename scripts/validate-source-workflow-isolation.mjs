@@ -71,7 +71,8 @@ const raceSafeWriters = new Set([
   '.github/workflows/meta-stale-fallback-watch.yml',
   '.github/workflows/microsoft-bootstrap.yml',
   '.github/workflows/oracle-bootstrap.yml',
-  '.github/workflows/switch-bootstrap.yml'
+  '.github/workflows/switch-bootstrap.yml',
+  '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
 const raceSafeMarkers = [

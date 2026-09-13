@@ -125,41 +125,120 @@ jobs:
       - name: Validate approved homepage contract
         run: node scripts/validate-homepage-contract.mjs
       - name: Commit refreshed jobs and events when changed
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Every refresh artifact under data/ is repository state. Stage all
-          # tracked data changes so newly added collectors cannot outgrow a
-          # hand-maintained filename list and leave the runner dirty.
-          git add -u -- data/
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
 
-          if git diff --cached --quiet; then
-            echo "No tracked job, career-event, snapshot, or QA data changes."
-          else
-            git commit -m "Refresh verified jobs, events, and QA report"
-          fi
+            node scripts/collect-jobs.mjs
+            node scripts/collect-tierpoint-v3.mjs
+            node scripts/collect-sabey-careers.mjs
+            node scripts/persist-sabey-snapshot.mjs
+            node scripts/collect-novva-careers.mjs
+            node scripts/collect-iron-mountain.mjs
+            node scripts/collect-compass-datacenters.mjs
+            node scripts/persist-compass-status.mjs
+            node scripts/collect-t5-data-centers.mjs
+            node scripts/collect-major-jobs.mjs
+            node scripts/reconcile-major-jobs.mjs
+            node scripts/recover-major-workday-targeted.mjs
+            node scripts/scrub-major-targeted-noise.mjs
+            node scripts/collect-early-career.mjs
+            node scripts/collect-amazon-datacenter.mjs
+            node scripts/apply-microsoft-verified-fallback.mjs
+            node scripts/collect-microsoft-datacenter.mjs
+            node scripts/persist-microsoft-snapshot.mjs
+            node scripts/collect-google-careers.mjs
+            node scripts/collect-meta-careers.mjs
+            node scripts/recover-meta-structured.mjs
+            node scripts/collect-oracle-careers.mjs
+            node scripts/collect-digital-realty.mjs
+            node scripts/collect-coresite.mjs
+            node scripts/apply-coresite-verified-fallback.mjs
+            node scripts/collect-equinix-v2.mjs
+            node scripts/collect-equinix-early.mjs
+            node scripts/apply-equinix-verified-fallback.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/enrich-workday-multilocation.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/normalize-display-copy.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/validate-refresh-health.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-promotions.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-mailing-list.mjs
+            node scripts/validate-compass-datacenters.mjs
+            node scripts/validate-t5-data-centers.mjs
+            node scripts/validate-microsoft-snapshot.mjs
+            node scripts/validate-meta-snapshot.mjs
+            node scripts/validate-digital-realty.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-major-workday-parity.mjs
+            node scripts/validate-coresite-fallback.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
 
-          # A rebase requires a clean tracked worktree. Fail here with a useful
-          # diagnostic if a refresh script unexpectedly writes outside data/.
-          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
-            echo "::error::Refresh left unexpected tracked changes outside data/."
-            git status --short --untracked-files=no
-            exit 1
-          fi
+          commit_refresh_state() {
+            # Every refresh artifact under data/ is repository state. Stage all
+            # tracked data changes so newly added collectors cannot outgrow a
+            # hand-maintained filename list and leave the runner dirty.
+            git add -u -- data/
 
-          git fetch origin main
-          if ! git rebase origin/main; then
-            git rebase --abort || true
-            echo "::error::Could not rebase refreshed data onto the latest main branch."
-            exit 1
-          fi
+            if git diff --cached --quiet; then
+              echo "No tracked job, career-event, snapshot, or QA data changes."
+            else
+              git commit -m "Refresh verified jobs, events, and QA report"
+            fi
 
-          if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ]; then
-            echo "No refresh commit to push after rebasing."
-          else
-            git push origin HEAD:main
-          fi
+            if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+              echo "::error::Refresh left unexpected tracked changes outside data/."
+              git status --short --untracked-files=no
+              exit 1
+            fi
+          }
+
+          refresh_base="$(git rev-parse HEAD)"
+          commit_refresh_state
+
+          # Employer-specific writers can move main while the daily full refresh
+          # is collecting. Never rebase generated JSON from a stale checkout:
+          # rebuild the entire verified feed from newest main and retry instead.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            latest_main="$(git rev-parse origin/main)"
+
+            if [ "$latest_main" != "$refresh_base" ]; then
+              echo "Main moved during full refresh; rebuilding from latest main (attempt ${attempt})."
+              rebuild_from_latest_main
+              refresh_base="$(git rev-parse HEAD)"
+              commit_refresh_state
+              latest_main="$(git rev-parse origin/main)"
+            fi
+
+            if [ "$(git rev-parse HEAD)" = "$latest_main" ]; then
+              echo "No refresh commit to push after rebuilding from latest main."
+              exit 0
+            fi
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Main moved before full refresh push completed; retrying from latest main."
+            sleep $((attempt * 2))
+          done
+
+          echo "::error::Could not publish full refresh after three fresh rebuilds."
+          exit 1
 
   deploy:
     needs: [refresh]

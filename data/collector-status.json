@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T17:51:49.866Z",
+  "updatedAt": "2026-09-13T19:09:48.750Z",
   "jobs": 709,
   "sourcesAttempted": 19,
   "providers": {
@@ -10,15 +10,15 @@
     "icims": 1
   },
   "countsByType": {
+    "entry-level": 678,
     "internship": 12,
     "trainee": 7,
-    "apprenticeship": 12,
-    "entry-level": 678
+    "apprenticeship": 12
   },
   "countsByExperience": {
-    "no-experience": 42,
     "0-2-years": 391,
-    "2-5-years": 276
+    "2-5-years": 276,
+    "no-experience": 42
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -166,7 +166,7 @@
     "errors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-13T16:50:40.837Z",
+    "checkedAt": "2026-09-13T19:09:48.750Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3633,7 +3633,7 @@
     "directDetailClicksUsed": 7
   },
   "missionFit": {
-    "checkedAt": "2026-09-13T17:41:46.528Z",
+    "checkedAt": "2026-09-13T19:09:48.811Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3641,7 +3641,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-13T17:51:50.134Z",
+    "updatedAt": "2026-09-13T19:09:48.864Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 709,
@@ -3649,18 +3649,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 103,
-      "texas": 116,
-      "midwest": 136,
-      "mid-atlantic": 133,
-      "southwest": 84,
       "southeast": 111,
+      "mid-atlantic": 133,
       "northeast": 24,
+      "midwest": 136,
+      "texas": 116,
+      "southwest": 84,
+      "west": 103,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-13T17:51:50.202Z",
+    "checkedAt": "2026-09-13T19:09:48.908Z",
     "before": 709,
     "after": 709,
     "removed": 0,
@@ -3668,25 +3668,25 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-13T17:42:07.624Z",
-    "publishedJobs": 716,
+    "checkedAt": "2026-09-13T19:10:10.848Z",
+    "publishedJobs": 709,
     "removedJobs": 0,
     "activeCareerEvents": 5,
-    "providerVerifiedRetained": 0
+    "providerVerifiedRetained": 3
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1029,
     "currentJobs": 709,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 7,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-13T17:51:50.260Z"
+    "updatedAt": "2026-09-13T19:10:10.976Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

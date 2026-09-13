@@ -12,6 +12,7 @@ const sourceWorkflows = [
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/generic-ats-stale-fallback-watch.yml',
   '.github/workflows/google-bootstrap.yml',
+  '.github/workflows/google-stale-fallback-watch.yml',
   '.github/workflows/iron-mountain-bootstrap.yml',
   '.github/workflows/meta-bootstrap.yml',
   '.github/workflows/meta-stale-fallback-watch.yml',

@@ -1,22 +1,23 @@
 {
-  "updatedAt": "2026-09-13T06:31:07.513Z",
-  "jobs": 705,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-13T06:46:43.697Z",
+  "jobs": 707,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
-    "googleCareers": 2
+    "googleCareers": 2,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 673,
+    "entry-level": 675,
     "internship": 12,
     "trainee": 8,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "2-5-years": 275,
-    "0-2-years": 388,
+    "2-5-years": 276,
+    "0-2-years": 389,
     "no-experience": 42
   },
   "errors": [],
@@ -3349,28 +3350,28 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2212,
-    "listingRows": 2209,
-    "pagesAttempted": 13,
-    "pagesSucceeded": 13,
-    "candidateRows": 90,
-    "detailAttempted": 90,
+    "totalOpenRoles": 2183,
+    "listingRows": 2180,
+    "pagesAttempted": 12,
+    "pagesSucceeded": 12,
+    "candidateRows": 95,
+    "detailAttempted": 95,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
-    "qualifyingRoles": 16,
+    "qualifyingRoles": 18,
     "drops": {
-      "title": 2119,
+      "title": 2085,
       "nonUs": 35,
       "context": 14,
-      "experience": 19,
+      "experience": 23,
       "missingId": 0,
       "fetch": 0
     },
     "errors": [],
     "missionFitScrub": {
-      "checkedAt": "2026-09-10T17:50:41.379Z",
-      "removedFromSnapshot": 4,
-      "removedFromPublicFeed": 4,
+      "checkedAt": "2026-09-13T06:46:43.767Z",
+      "removedFromSnapshot": 3,
+      "removedFromPublicFeed": 3,
       "removed": [
         {
           "id": "oracle-careers-343898",
@@ -3382,12 +3383,6 @@
           "id": "oracle-careers-342953",
           "title": "Data Center Business Operations Business Analyst",
           "location": "Nashville, TN, United States",
-          "reason": "non-operational role family"
-        },
-        {
-          "id": "oracle-careers-333294",
-          "title": "Data Center Development Cost Management",
-          "location": "NM, United States",
           "reason": "non-operational role family"
         },
         {
@@ -3640,7 +3635,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-13T06:31:07.592Z",
+    "checkedAt": "2026-09-13T06:46:43.837Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3648,10 +3643,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-13T06:31:07.669Z",
+    "updatedAt": "2026-09-13T06:46:43.912Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 705,
+    "regionAssigned": 707,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3660,16 +3655,16 @@
       "northeast": 23,
       "midwest": 136,
       "texas": 116,
-      "mid-atlantic": 131,
+      "mid-atlantic": 132,
       "southwest": 84,
       "west": 103,
-      "nationwide": 1
+      "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-13T06:31:07.747Z",
-    "before": 705,
-    "after": 705,
+    "checkedAt": "2026-09-13T06:46:43.981Z",
+    "before": 707,
+    "after": 707,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3683,17 +3678,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1025,
-    "currentJobs": 705,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1027,
+    "currentJobs": 707,
+    "newJobsThisRun": 2,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 18,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-13T06:31:28.014Z"
+    "updatedAt": "2026-09-13T06:46:44.040Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

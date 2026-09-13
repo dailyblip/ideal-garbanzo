@@ -111,9 +111,23 @@ for (const path of sourceWorkflows) {
   }
 }
 
+// The daily full refresh writes the same generated feed as the source-specific
+// workflows. It may keep its deployment-oriented concurrency policy, but its
+// publication path must follow the same fresh-main rebuild rule.
+const fullRefreshPath = '.github/workflows/pages.yml';
+const fullRefreshText = await readFile(fullRefreshPath, 'utf8');
+for (const marker of raceSafeMarkers) {
+  if (!fullRefreshText.includes(marker)) {
+    violations.push(`${fullRefreshPath}: race-safe full-refresh publication is missing ${marker}`);
+  }
+}
+if (/git\s+rebase\s+origin\/main/.test(fullRefreshText)) {
+  violations.push(`${fullRefreshPath}: generated full-refresh data must rebuild from latest main instead of rebasing a stale snapshot`);
+}
+
 if (violations.length) {
   for (const violation of violations) console.error(`Source workflow isolation violation: ${violation}`);
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; ${raceSafeWriters.size} employer-direct collectors enforce fresh-main rebuilds before retrying publication.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; ${raceSafeWriters.size} employer-direct collectors plus the full refresh enforce fresh-main rebuilds before retrying publication.`);

@@ -8,6 +8,7 @@ on:
       - 'scripts/collect-equinix-early.mjs'
       - 'scripts/recover-equinix-rendered-details.mjs'
       - 'scripts/apply-equinix-verified-fallback.mjs'
+      - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
   workflow_dispatch:
   schedule:
@@ -43,6 +44,10 @@ jobs:
         run: node scripts/recover-equinix-rendered-details.mjs
       - name: Restore source-verified Equinix roles when rendered requirements are unavailable
         run: node scripts/apply-equinix-verified-fallback.mjs
+      - name: Test Equinix direct-click promotion
+        run: node scripts/promote-equinix-direct-clicks.mjs --test
+      - name: Prefer verified Equinix direct job links
+        run: node scripts/promote-equinix-direct-clicks.mjs
       - name: Enforce Equinix broad-source fallback freshness
         run: |
           node scripts/enforce-equinix-fallback-freshness.mjs --test
@@ -74,6 +79,8 @@ jobs:
             node scripts/collect-equinix-early.mjs
             node scripts/recover-equinix-rendered-details.mjs
             node scripts/apply-equinix-verified-fallback.mjs
+            node scripts/promote-equinix-direct-clicks.mjs --test
+            node scripts/promote-equinix-direct-clicks.mjs
             node scripts/enforce-equinix-fallback-freshness.mjs --test
             node scripts/enforce-equinix-fallback-freshness.mjs
             node scripts/normalize-job-locations.mjs

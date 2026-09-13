@@ -1,31 +1,12 @@
 {
-  "checkedAt": "2026-09-13T03:31:46.053Z",
-  "jobsBefore": 707,
+  "checkedAt": "2026-09-13T04:32:45.666Z",
+  "jobsBefore": 705,
   "jobsAfter": 705,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
-  "duplicatesRemoved": [
-    {
-      "reason": "same-company-title-location",
-      "removedId": "workday-qtsdatacenters-R2026-0768",
-      "keptId": "workday-qtsdatacenters-R2026-0881",
-      "company": "QTS Data Centers",
-      "title": "Regional Data Center Controls Quality Engineer",
-      "location": "Suwanee, GA"
-    }
-  ],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10470319",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician, ADC InfraOps DCEO",
-      "url": "https://www.amazon.jobs/en/jobs/10470319/engineering-operations-technician-adc-infraops-dceo",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10470319/engineering-operations-technician-adc-infraops-dceo"
-    }
-  ],
+  "duplicatesRemoved": [],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [
     {

@@ -7,6 +7,7 @@ on:
       - '.github/workflows/meta-bootstrap.yml'
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/normalize-meta-compensation.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
 
 permissions:
@@ -34,6 +35,10 @@ jobs:
         run: node scripts/collect-meta-careers.mjs
       - name: Recover Meta requirements from structured data
         run: node scripts/recover-meta-structured.mjs
+      - name: Test Meta compensation normalization
+        run: node scripts/normalize-meta-compensation.mjs --test
+      - name: Normalize missing Meta compensation
+        run: node scripts/normalize-meta-compensation.mjs
       - name: Normalize locations and regions
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
@@ -59,6 +64,8 @@ jobs:
             git reset --hard origin/main
             node scripts/collect-meta-careers.mjs
             node scripts/recover-meta-structured.mjs
+            node scripts/normalize-meta-compensation.mjs --test
+            node scripts/normalize-meta-compensation.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/stamp-job-history.mjs

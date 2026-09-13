@@ -65,25 +65,76 @@ jobs:
           node scripts/validate-job-history.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
-      - name: Commit Google snapshot when changed
-        id: commit
+      - name: Publish Google snapshot from current main
+        id: publish
+        shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- data/google-jobs.json data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json)" ]; then
-            echo "No Google Careers data changes."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # filter-mission-fit.mjs may also prune the shared major Workday snapshot.
-          git add data/google-jobs.json data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
-          git commit -m "Bootstrap verified Google Careers roles"
+
+          verify_google_merge() {
+            node - <<'NODE'
+          const jobs = require('./data/jobs.json');
+          const snapshot = require('./data/google-jobs.json');
+          const status = require('./data/collector-status.json');
+          const publicGoogle = jobs.filter(job => job.company === 'Google');
+          if (publicGoogle.length !== snapshot.length) {
+            throw new Error(`Google collector merge mismatch: ${snapshot.length} snapshot vs ${publicGoogle.length} public immediately after collection`);
+          }
+          if (status.googleCareers?.fallbackExpired && (snapshot.length || publicGoogle.length)) {
+            throw new Error(`Expired Google fallback still publishes ${snapshot.length} snapshot / ${publicGoogle.length} public role(s)`);
+          }
+          console.log(`Google collector merge: ${publicGoogle.length}/${snapshot.length} roles present; fallbackExpired=${Boolean(status.googleCareers?.fallbackExpired)}.`);
+          NODE
+          }
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/collect-google-careers-fresh.mjs --self-test
+            node scripts/collect-google-careers-fresh.mjs
+            verify_google_merge
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
           git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Google collection; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            # filter-mission-fit.mjs may also prune the shared major Workday snapshot.
+            git add data/google-jobs.json data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo "No Google Careers data changes."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Bootstrap verified Google Careers roles"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Google publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified Google Careers roles after three attempts."
+          exit 1
       - name: Deploy committed Google data
-        if: steps.commit.outputs.changed == 'true'
+        if: steps.publish.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

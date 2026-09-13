@@ -63,24 +63,67 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-priority-employer-sources.mjs
-      - name: Commit verified AWS recovery
-        id: commit
+      - name: Publish verified AWS recovery from current main
+        id: publish
+        shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json data/career-events.json data/qa-report.json)" ]; then
-            echo "No AWS recovery or QA changes."
-            echo "pushed=false" >> "$GITHUB_OUTPUT"
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json data/career-events.json data/qa-report.json
-            git commit -m "Recover verified AWS roles and refresh QA"
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
             git fetch origin main
-            git rebase origin/main
-            git push origin HEAD:main
-            echo "pushed=true" >> "$GITHUB_OUTPUT"
+            git reset --hard origin/main
+            node --check scripts/collect-amazon-datacenter.mjs
+            node scripts/collect-amazon-datacenter.mjs
+            node --check scripts/recover-amazon-details.mjs
+            node scripts/recover-amazon-details.mjs
+            node scripts/enforce-amazon-fallback-freshness.mjs --test
+            node scripts/enforce-amazon-fallback-freshness.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/normalize-display-copy.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-promotions.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-mailing-list.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate-priority-employer-sources.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during AWS recovery; rebuilding from latest main."
+            rebuild_from_latest_main
           fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json data/career-events.json data/qa-report.json
+            if git diff --cached --quiet; then
+              echo "No AWS recovery or QA changes."
+              echo "pushed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Recover verified AWS roles and refresh QA"
+            if git push origin HEAD:main; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during AWS publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified AWS recovery after three attempts."
+          exit 1
       - name: Deploy recovered feed immediately
-        if: steps.commit.outputs.pushed == 'true'
+        if: steps.publish.outputs.pushed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --ref main -f deploy_only=true

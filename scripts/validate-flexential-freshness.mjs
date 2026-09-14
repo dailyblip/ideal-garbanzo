@@ -75,3 +75,8 @@ if (publishedCount === 0) {
     `last official verification ${ageHours.toFixed(1)}h ago (limit ${maxAgeHours}h).`
   );
 }
+
+// Crusoe shares the generic ATS ingestion path but is now treated as a protected
+// comparable infrastructure operator. Keep its official-source and freshness
+// checks in the same deployment freshness chain so stale or misrouted roles fail closed.
+await import('./validate-crusoe.mjs');

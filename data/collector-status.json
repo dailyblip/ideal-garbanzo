@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T18:58:23.783Z",
+  "updatedAt": "2026-09-14T19:36:41.476Z",
   "jobs": 680,
   "sourcesAttempted": 19,
   "providers": {
@@ -10,15 +10,15 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 8,
-    "internship": 7,
     "entry-level": 653,
+    "internship": 7,
+    "trainee": 8,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "no-experience": 42,
-    "0-2-years": 380,
-    "2-5-years": 258
+    "0-2-years": 378,
+    "2-5-years": 260,
+    "no-experience": 42
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3706,54 +3706,15 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T18:58:23.946Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-14T19:36:41.545Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T18:58:24.004Z",
+    "updatedAt": "2026-09-14T19:36:41.614Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 680,
@@ -3761,44 +3722,44 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "northeast": 19,
-      "mid-atlantic": 133,
-      "southwest": 79,
-      "midwest": 134,
+      "texas": 108,
       "west": 97,
       "southeast": 106,
-      "texas": 110,
+      "mid-atlantic": 133,
+      "midwest": 136,
+      "northeast": 19,
+      "southwest": 79,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T18:58:24.056Z",
-    "before": 680,
-    "after": 680,
+    "checkedAt": "2026-09-14T19:36:41.678Z",
+    "before": 682,
+    "after": 682,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-14T18:58:49.820Z",
+    "checkedAt": "2026-09-14T19:37:06.167Z",
     "publishedJobs": 680,
-    "removedJobs": 0,
+    "removedJobs": 2,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1047,
+    "trackedJobs": 1051,
     "currentJobs": 680,
-    "newJobsThisRun": 13,
+    "newJobsThisRun": 4,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 13,
+    "migratedEntriesThisRun": 4,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 90,
-    "updatedAt": "2026-09-14T18:58:49.927Z"
+    "firstSeenRecencyFallbackJobs": 92,
+    "updatedAt": "2026-09-14T19:37:06.551Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3952,7 +3913,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-14T08:07:01.832Z",
+    "checkedAt": "2026-09-14T19:36:41.476Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",
@@ -3965,8 +3926,8 @@
     "externalJobs": 47,
     "usJobs": 47,
     "candidateRoles": 35,
-    "qualifyingRoles": 15,
-    "rejectedOutOfScopeTitle": 23,
+    "qualifyingRoles": 17,
+    "rejectedOutOfScopeTitle": 21,
     "rejectedOver5Years": 2,
     "rejectedUnknownExperience": 7,
     "rejectedLocation": 0

@@ -1,12 +1,67 @@
 {
-  "checkedAt": "2026-09-14T13:08:26.851Z",
-  "jobsBefore": 694,
-  "jobsAfter": 694,
+  "checkedAt": "2026-09-14T15:52:44.239Z",
+  "jobsBefore": 693,
+  "jobsAfter": 687,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10536951",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCO",
+      "url": "https://www.amazon.jobs/en/jobs/10536951/data-center-technician-dco",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10536951/data-center-technician-dco"
+    },
+    {
+      "id": "amazon-10484163",
+      "company": "Amazon Web Services",
+      "title": "Clearable Engineering Operations Tech, AWS Cleared Jobs",
+      "url": "https://www.amazon.jobs/en/jobs/10484163/clearable-engineering-operations-tech-aws-cleared-jobs",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10484163/clearable-engineering-operations-tech-aws-cleared-jobs"
+    },
+    {
+      "id": "amazon-10461228",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician - Night Shift",
+      "url": "https://www.amazon.jobs/en/jobs/10461228/data-center-technician-night-shift",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10461228/data-center-technician-night-shift"
+    },
+    {
+      "id": "amazon-10446002",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10446002/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10446002/data-center-technician"
+    },
+    {
+      "id": "amazon-10409006",
+      "company": "Amazon Web Services",
+      "title": "Night Shift, Engineering Operations Tech, AWS Cleared Jobs",
+      "url": "https://www.amazon.jobs/en/jobs/10409006/night-shift-engineering-operations-tech-aws-cleared-jobs",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10409006/night-shift-engineering-operations-tech-aws-cleared-jobs"
+    },
+    {
+      "id": "amazon-10385555",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Tech, AWS Cleared Jobs",
+      "url": "https://www.amazon.jobs/en/jobs/10385555/engineering-operations-tech-aws-cleared-jobs",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10385555/engineering-operations-tech-aws-cleared-jobs"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

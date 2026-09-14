@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-14T15:52:05.838Z",
-  "jobs": 687,
+  "updatedAt": "2026-09-14T17:49:17.049Z",
+  "jobs": 686,
   "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
@@ -8,13 +8,13 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 660,
+    "entry-level": 659,
     "internship": 7,
     "trainee": 8,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 383,
+    "0-2-years": 382,
     "2-5-years": 262,
     "no-experience": 42
   },
@@ -3704,7 +3704,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T15:52:05.905Z",
+    "checkedAt": "2026-09-14T17:49:17.127Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3712,10 +3712,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T15:52:05.977Z",
+    "updatedAt": "2026-09-14T17:49:17.206Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 687,
+    "regionAssigned": 686,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3726,29 +3726,29 @@
       "midwest": 133,
       "northeast": 20,
       "southwest": 83,
-      "west": 95,
+      "west": 94,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T15:52:06.041Z",
-    "before": 693,
-    "after": 693,
+    "checkedAt": "2026-09-14T17:49:17.280Z",
+    "before": 687,
+    "after": 687,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-14T15:52:44.239Z",
-    "publishedJobs": 687,
-    "removedJobs": 6,
+    "checkedAt": "2026-09-14T17:49:40.658Z",
+    "publishedJobs": 686,
+    "removedJobs": 1,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1032,
-    "currentJobs": 687,
+    "currentJobs": 686,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3757,7 +3757,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 94,
-    "updatedAt": "2026-09-14T15:52:44.456Z"
+    "updatedAt": "2026-09-14T17:49:40.893Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3839,7 +3839,7 @@
     "rejectedUnknownExperience": 0
   },
   "flexential": {
-    "checkedAt": "2026-09-14T15:52:05.838Z",
+    "checkedAt": "2026-09-14T17:49:17.049Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",

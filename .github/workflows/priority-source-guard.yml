@@ -18,6 +18,7 @@ on:
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
+      - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
@@ -28,6 +29,7 @@ on:
       - 'scripts/validate-edgeconnex-snapshot.mjs'
       - 'scripts/validate-coreweave.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
+      - '.github/workflows/cloudhq-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -47,6 +49,7 @@ on:
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
+      - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
@@ -57,6 +60,7 @@ on:
       - 'scripts/validate-edgeconnex-snapshot.mjs'
       - 'scripts/validate-coreweave.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
+      - '.github/workflows/cloudhq-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -78,6 +82,8 @@ jobs:
         run: node scripts/validate-priority-employer-sources.mjs
       - name: Verify priority employers retain authoritative U.S. market coverage
         run: node scripts/validate-priority-region-coverage.mjs
+      - name: Verify CloudHQ snapshot and live-source integrity
+        run: node scripts/validate-cloudhq.mjs
       - name: Verify AWS snapshot identity and public-feed traceability
         run: node scripts/validate-amazon-snapshot.mjs
       - name: Verify major Workday snapshots match the public feed exactly

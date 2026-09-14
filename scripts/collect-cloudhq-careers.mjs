@@ -120,8 +120,11 @@ async function fetchFeed() {
   if (!payload || typeof payload !== 'object' || !Array.isArray(payload.jobs)) {
     throw new Error('CloudHQ Paylocity feed did not return a jobs array');
   }
+  // Paylocity's v2 feed can return the board GUID itself as displayName. The
+  // GUID is independently anchored to the board linked from CloudHQ's official
+  // careers page, so accept either that exact board identity or a CloudHQ label.
   const displayName = clean(payload.displayName);
-  if (displayName && !/cloudhq/i.test(displayName)) {
+  if (displayName && displayName !== BOARD_GUID && !/cloudhq/i.test(displayName)) {
     throw new Error(`CloudHQ Paylocity feed identity mismatch: ${displayName}`);
   }
   return payload.jobs;

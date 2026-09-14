@@ -347,18 +347,15 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-14T13:24:18.726Z",
-      "rawJobs": 187,
+      "checkedAt": "2026-09-14T13:54:57.826Z",
+      "rawJobs": 186,
       "publishedUsJobs": 186,
       "nonUsRemoved": 0,
       "unresolvedLocationRemoved": 0,
       "siteCodeLocationsResolved": 0,
       "siteCodeLocationSamples": [],
       "nonUsSamples": [],
-      "unresolvedLocationSamples": [],
-      "publicationGuardAdjustedAt": "2026-09-14T13:51:13.129Z",
-      "publicationGuardPreviousPublishedUsJobs": 187,
-      "publicationGuardReason": "snapshot-pruned-after-reconciliation"
+      "unresolvedLocationSamples": []
     },
     "fallbackFreshness": {
       "maxAgeHours": 96,
@@ -2078,21 +2075,12 @@
         "firstUnverifiedAt": null,
         "lastState": "live",
         "lastStatus": 200
-      },
-      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Summer-2027-Internship---Learning-Operations-Analyst_R2026-2076": {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Learning Operations Analyst",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Summer-2027-Internship---Learning-Operations-Analyst_R2026-2076",
-        "lastVerifiedAt": "2026-09-14T13:24:06.195Z",
-        "firstUnverifiedAt": null,
-        "lastState": "live",
-        "lastStatus": 200
       }
     },
     "closedRolePrune": {
-      "checkedAt": "2026-09-14T13:24:06.195Z",
-      "officialRoleUrlsChecked": 187,
-      "liveVerified": 173,
+      "checkedAt": "2026-09-14T13:54:48.481Z",
+      "officialRoleUrlsChecked": 186,
+      "liveVerified": 172,
       "removed": 0,
       "closedRemoved": 0,
       "staleEvidenceRemoved": 0,
@@ -2106,24 +2094,17 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-14T13:24:06.066Z",
+    "checkedAt": "2026-09-14T13:54:48.359Z",
     "officialOnly": true,
     "additiveOnly": true,
     "searchPaginationPolicy": "paginate-to-reported-total",
-    "recovered": 1,
-    "recoveredRoles": [
-      {
-        "company": "QTS Data Centers",
-        "title": "Summer 2027 Internship: Learning Operations Analyst",
-        "location": "Duluth, GA",
-        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Summer-2027-Internship---Learning-Operations-Analyst_R2026-2076"
-      }
-    ],
+    "recovered": 0,
+    "recoveredRoles": [],
     "diagnostics": {
       "Vantage Data Centers": {
         "queriesAttempted": 10,
-        "queriesSucceeded": 10,
-        "queriesIncomplete": 0,
+        "queriesSucceeded": 9,
+        "queriesIncomplete": 1,
         "candidates": 32,
         "qualifyingRoles": 0,
         "additions": 0,
@@ -2157,12 +2138,13 @@
           },
           {
             "searchText": "critical operations",
-            "healthy": true,
-            "complete": true,
-            "rows": 124,
-            "reportedTotal": 124,
-            "pagesAttempted": 7,
-            "pagesSucceeded": 7
+            "healthy": false,
+            "complete": false,
+            "rows": 0,
+            "reportedTotal": null,
+            "pagesAttempted": 0,
+            "pagesSucceeded": 0,
+            "incompleteReason": "502 https://vantagedc.wd1.myworkdayjobs.com/wday/cxs/vantagedc/Vantage/jobs"
           },
           {
             "searchText": "mechanical engineer",
@@ -2219,7 +2201,9 @@
             "pagesSucceeded": 9
           }
         ],
-        "errors": []
+        "errors": [
+          "critical operations: 502 https://vantagedc.wd1.myworkdayjobs.com/wday/cxs/vantagedc/Vantage/jobs"
+        ]
       },
       "QTS Data Centers": {
         "queriesAttempted": 10,
@@ -2233,8 +2217,8 @@
             "searchText": "data center",
             "healthy": true,
             "complete": true,
-            "rows": 248,
-            "reportedTotal": 248,
+            "rows": 250,
+            "reportedTotal": 250,
             "pagesAttempted": 13,
             "pagesSucceeded": 13
           },
@@ -2242,8 +2226,8 @@
             "searchText": "critical facilities",
             "healthy": true,
             "complete": true,
-            "rows": 135,
-            "reportedTotal": 135,
+            "rows": 137,
+            "reportedTotal": 137,
             "pagesAttempted": 7,
             "pagesSucceeded": 7
           },
@@ -2251,8 +2235,8 @@
             "searchText": "critical environment",
             "healthy": true,
             "complete": true,
-            "rows": 169,
-            "reportedTotal": 169,
+            "rows": 171,
+            "reportedTotal": 171,
             "pagesAttempted": 9,
             "pagesSucceeded": 9
           },
@@ -2260,8 +2244,8 @@
             "searchText": "critical operations",
             "healthy": true,
             "complete": true,
-            "rows": 191,
-            "reportedTotal": 191,
+            "rows": 193,
+            "reportedTotal": 193,
             "pagesAttempted": 10,
             "pagesSucceeded": 10
           },
@@ -2296,8 +2280,8 @@
             "searchText": "intern",
             "healthy": true,
             "complete": true,
-            "rows": 169,
-            "reportedTotal": 169,
+            "rows": 171,
+            "reportedTotal": 171,
             "pagesAttempted": 9,
             "pagesSucceeded": 9
           },
@@ -2728,9 +2712,15 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-14T13:24:06.145Z",
-      "removed": 10,
+      "checkedAt": "2026-09-14T13:54:48.435Z",
+      "removed": 11,
       "removedRoles": [
+        {
+          "company": "QTS Data Centers",
+          "title": "Summer 2027 Internship: Learning Operations Analyst",
+          "location": "Duluth, GA",
+          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Summer-2027-Internship---Learning-Operations-Analyst_R2026-2076"
+        },
         {
           "company": "QTS Data Centers",
           "title": "Summer 2027 Internship: Technology Optimization Project Management",
@@ -3714,7 +3704,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T13:24:18.847Z",
+    "checkedAt": "2026-09-14T13:54:57.921Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3722,7 +3712,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T13:24:18.907Z",
+    "updatedAt": "2026-09-14T13:54:57.982Z",
     "changed": 11,
     "samples": [
       {
@@ -3766,13 +3756,13 @@
         "after": "Suwanee, GA"
       }
     ],
-    "regionAssigned": 695,
+    "regionAssigned": 694,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 111,
       "texas": 116,
+      "southeast": 110,
       "mid-atlantic": 133,
       "midwest": 134,
       "northeast": 21,
@@ -3782,9 +3772,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T13:24:18.965Z",
-    "before": 721,
-    "after": 695,
+    "checkedAt": "2026-09-14T13:54:58.039Z",
+    "before": 720,
+    "after": 694,
     "removed": 26,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": [
@@ -3960,16 +3950,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1032,
-    "currentJobs": 695,
-    "newJobsThisRun": 1,
+    "currentJobs": 694,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 161,
+    "normalizedWorkdayPostingDatesThisRun": 160,
     "firstSeenRecencyFallbackJobs": 95,
-    "updatedAt": "2026-09-14T13:24:19.056Z"
+    "updatedAt": "2026-09-14T13:54:58.134Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

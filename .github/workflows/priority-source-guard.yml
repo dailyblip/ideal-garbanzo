@@ -35,9 +35,11 @@ on:
       - 'scripts/validate-coreweave.mjs'
       - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-iron-mountain.mjs'
+      - 'scripts/validate-novva.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-verified-evidence-watch.yml'
+      - '.github/workflows/novva-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -74,9 +76,11 @@ on:
       - 'scripts/validate-coreweave.mjs'
       - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-iron-mountain.mjs'
+      - 'scripts/validate-novva.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-verified-evidence-watch.yml'
+      - '.github/workflows/novva-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -141,3 +145,5 @@ jobs:
         run: node scripts/validate-cloudhq.mjs
       - name: Verify Iron Mountain employer-direct Workday snapshot and public-feed parity
         run: node scripts/validate-iron-mountain.mjs
+      - name: Verify Novva employer-direct snapshot and public-feed parity
+        run: node scripts/validate-novva.mjs

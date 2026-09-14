@@ -1,11 +1,12 @@
 {
-  "updatedAt": "2026-09-14T05:24:58.751Z",
+  "updatedAt": "2026-09-14T05:28:50.445Z",
   "jobs": 693,
-  "sourcesAttempted": 17,
+  "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
-    "ashby": 5
+    "ashby": 5,
+    "googleCareers": 1
   },
   "countsByType": {
     "entry-level": 666,
@@ -2954,8 +2955,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-13T16:38:40.333Z",
-    "freshnessCheckedAt": "2026-09-13T16:38:40.333Z",
+    "lastHealthyAt": "2026-09-14T05:28:50.454Z",
+    "freshnessCheckedAt": "2026-09-14T05:28:50.454Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -3637,7 +3638,7 @@
     "directDetailClicksUsed": 7
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T05:26:52.842Z",
+    "checkedAt": "2026-09-14T05:28:50.582Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3645,10 +3646,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T05:26:52.919Z",
+    "updatedAt": "2026-09-14T05:28:50.661Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 693,
+    "regionAssigned": 694,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3657,19 +3658,28 @@
       "mid-atlantic": 131,
       "northeast": 21,
       "midwest": 134,
-      "texas": 116,
+      "texas": 117,
       "southwest": 84,
       "west": 95,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T05:26:52.991Z",
-    "before": 693,
+    "checkedAt": "2026-09-14T05:28:50.732Z",
+    "before": 694,
     "after": 693,
-    "removed": 0,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "google-77675229853164230",
+        "keptId": "google-108517449598411462",
+        "company": "Google",
+        "title": "Data Center Technician, Night Shift",
+        "location": "Haskell, TX"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-14T05:27:13.687Z",
@@ -3690,7 +3700,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 94,
-    "updatedAt": "2026-09-14T05:27:13.888Z"
+    "updatedAt": "2026-09-14T05:28:50.789Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

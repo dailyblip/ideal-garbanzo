@@ -78,6 +78,7 @@ for (const marker of [
 if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script must not disable the static fallback when config fetch fails.');
 
 for (const marker of [
+  'pull_request:',
   "cron: '5 14 * * 1'",
   "run: node scripts/validate-mailing-list.mjs",
   "run: node scripts/send-weekly-job-alert.mjs --test-selection",
@@ -108,6 +109,9 @@ for (const marker of [
   'const regional = diversifyJobs(regionalCandidates, MAX_PER_REGION);',
   'Weekly alert employer-diverse selection passed 4 regression cases.',
   'function nextMonday1600Utc(now = new Date())',
+  'function resolveButtondownTagId(tagName)',
+  'buttondownRequest(`/tags?${params.toString()}`)',
+  'refusing to schedule an unfiltered weekly alert',
   'function findExistingDigest(digestKey)',
   'publish_date__start',
   'publish_date__end',
@@ -115,13 +119,17 @@ for (const marker of [
   'dcc_digest_key',
   "status: 'scheduled'",
   'publish_date: sendAt.toISOString()',
-  "filters: [{ field: 'subscriber.tags', operator: 'contains', value: ALERT_TAG }]",
+  'const alertTagId = await resolveButtondownTagId(ALERT_TAG);',
+  "filters: [{ field: 'subscriber.tags', operator: 'contains', value: alertTagId }]",
   'Digest body bypasses the site'
 ]) {
   if (!alertScript.includes(marker)) fail(`Weekly alert sender is missing: ${marker}`);
 }
 if (alertScript.includes("metadata['dcc_digest_key']")) {
   fail('Weekly alert duplicate detection must not use unsupported metadata filtering on the Buttondown /emails endpoint.');
+}
+if (alertScript.includes("filters: [{ field: 'subscriber.tags', operator: 'contains', value: ALERT_TAG }]")) {
+  fail('Weekly alert must resolve the Buttondown tag identifier instead of sending the human-readable tag name as an API filter value.');
 }
 
 for (const marker of [

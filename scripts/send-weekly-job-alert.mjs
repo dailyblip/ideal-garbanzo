@@ -276,6 +276,28 @@ async function buttondownRequest(path, options = {}) {
   return payload;
 }
 
+async function resolveButtondownTagId(tagName) {
+  const target = clean(tagName);
+  if (!target) throw new Error('Buttondown alert tag name is empty.');
+
+  const params = new URLSearchParams({ page_size: '100' });
+  let seen = 0;
+  for (let page = 1; page <= 25; page += 1) {
+    params.set('page', String(page));
+    const payload = await buttondownRequest(`/tags?${params.toString()}`);
+    const tags = Array.isArray(payload) ? payload : Array.isArray(payload?.results) ? payload.results : [];
+    const match = tags.find(tag => clean(tag?.name) === target);
+    const id = clean(match?.id);
+    if (id) return id;
+
+    seen += tags.length;
+    const total = Number(payload?.count);
+    if (!tags.length || (Number.isFinite(total) && seen >= total)) break;
+  }
+
+  throw new Error(`Buttondown tag "${target}" was not found; refusing to schedule an unfiltered weekly alert.`);
+}
+
 async function findExistingDigest(digestKey) {
   // Buttondown supports metadata filtering on subscribers, not on /emails.
   // Narrow the email list to the target publish date using supported filters,
@@ -343,6 +365,7 @@ async function main() {
     return;
   }
 
+  const alertTagId = await resolveButtondownTagId(ALERT_TAG);
   const subject = `${newJobs.length} new data center openings this week`;
   const payload = await buttondownRequest('/emails', {
     method: 'POST',
@@ -359,7 +382,7 @@ async function main() {
         dcc_early_career_count: earlyCount
       },
       filters: {
-        filters: [{ field: 'subscriber.tags', operator: 'contains', value: ALERT_TAG }],
+        filters: [{ field: 'subscriber.tags', operator: 'contains', value: alertTagId }],
         groups: [],
         predicate: 'and'
       }

@@ -1,0 +1,36 @@
+name: Normalized feed dedupe guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'data/jobs.json'
+      - '.github/workflows/normalized-dedupe-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'data/jobs.json'
+      - '.github/workflows/normalized-dedupe-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: normalized-dedupe-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dedupe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run normalized dedupe and regression fixtures
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Validate cleaned feed
+        run: node scripts/validate.mjs

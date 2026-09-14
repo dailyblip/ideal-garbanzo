@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/collector-status.json'
+      - 'data/major-workday-freshness.json'
       - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
@@ -19,6 +20,7 @@ on:
       - 'scripts/validate-priority-region-coverage.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
+      - 'scripts/validate-major-workday-freshness-state.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
@@ -33,6 +35,7 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/collector-status.json'
+      - 'data/major-workday-freshness.json'
       - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
       - 'scripts/recover-*.mjs'
@@ -46,6 +49,7 @@ on:
       - 'scripts/validate-priority-region-coverage.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
+      - 'scripts/validate-major-workday-freshness-state.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
@@ -78,6 +82,8 @@ jobs:
         run: node scripts/validate-amazon-snapshot.mjs
       - name: Verify major Workday snapshots match the public feed exactly
         run: node scripts/validate-major-workday-parity.mjs
+      - name: Verify major Workday source evidence is deployably fresh
+        run: node scripts/validate-major-workday-freshness-state.mjs
       - name: Verify CoreSite targeted-listing failover
         run: node scripts/validate-coresite-source-failover.mjs
       - name: Verify Microsoft snapshot and fallback integrity

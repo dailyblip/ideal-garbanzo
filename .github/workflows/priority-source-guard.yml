@@ -30,6 +30,7 @@ on:
       - 'scripts/validate-edgeconnex-snapshot.mjs'
       - 'scripts/validate-coreweave.mjs'
       - 'scripts/validate-cloudhq.mjs'
+      - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
@@ -62,6 +63,7 @@ on:
       - 'scripts/validate-edgeconnex-snapshot.mjs'
       - 'scripts/validate-coreweave.mjs'
       - 'scripts/validate-cloudhq.mjs'
+      - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
@@ -114,3 +116,5 @@ jobs:
         run: node scripts/validate-coreweave.mjs
       - name: Verify CloudHQ employer-direct snapshot and public-feed traceability
         run: node scripts/validate-cloudhq.mjs
+      - name: Verify Iron Mountain employer-direct Workday snapshot and public-feed parity
+        run: node scripts/validate-iron-mountain.mjs

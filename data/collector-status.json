@@ -350,7 +350,7 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-14T22:06:18.643Z",
+      "checkedAt": "2026-09-14T22:48:12.416Z",
       "rawJobs": 187,
       "publishedUsJobs": 187,
       "nonUsRemoved": 0,
@@ -1030,11 +1030,10 @@
         "company": "QTS Data Centers",
         "title": "Critical Operations Technician I",
         "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Hillsboro-OR/Critical-Operations-Technician-I_R2026-1576-1",
-        "lastVerifiedAt": "2026-09-14T13:24:06.195Z",
+        "lastVerifiedAt": "2026-09-14T22:48:01.124Z",
         "firstUnverifiedAt": null,
-        "lastState": "transient",
-        "lastStatus": null,
-        "lastError": "timeout"
+        "lastState": "live",
+        "lastStatus": 200
       },
       "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Service-Delivery-Technician--Level-1-3-_R0007923": {
         "company": "CyrusOne",
@@ -2092,15 +2091,15 @@
       }
     },
     "closedRolePrune": {
-      "checkedAt": "2026-09-14T22:05:54.939Z",
+      "checkedAt": "2026-09-14T22:48:01.124Z",
       "officialRoleUrlsChecked": 187,
-      "liveVerified": 171,
+      "liveVerified": 172,
       "removed": 0,
       "closedRemoved": 0,
       "staleEvidenceRemoved": 0,
       "removedClosedByCompany": {},
       "removedStaleEvidenceByCompany": {},
-      "transientKept": 16,
+      "transientKept": 15,
       "removedRoles": [],
       "maxPerRoleEvidenceAgeHours": 96,
       "healthyStampIntervalHours": 20,
@@ -2108,19 +2107,12 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-14T22:05:54.817Z",
+    "checkedAt": "2026-09-14T22:48:00.990Z",
     "officialOnly": true,
     "additiveOnly": true,
     "searchPaginationPolicy": "paginate-to-reported-total",
-    "recovered": 1,
-    "recoveredRoles": [
-      {
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator II",
-        "location": "Richardson, TX",
-        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Richardson-TX/Critical-Environments-Operator-II_R0008051"
-      }
-    ],
+    "recovered": 0,
+    "recoveredRoles": [],
     "diagnostics": {
       "Vantage Data Centers": {
         "queriesAttempted": 10,
@@ -2330,7 +2322,7 @@
         "queriesIncomplete": 0,
         "candidates": 65,
         "qualifyingRoles": 43,
-        "additions": 1,
+        "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
@@ -2730,7 +2722,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-14T22:05:54.891Z",
+      "checkedAt": "2026-09-14T22:48:01.045Z",
       "removed": 11,
       "removedRoles": [
         {
@@ -3722,7 +3714,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T22:31:32.332Z",
+    "checkedAt": "2026-09-14T22:48:12.520Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3730,9 +3722,50 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T22:31:32.407Z",
-    "changed": 0,
-    "samples": [],
+    "updatedAt": "2026-09-14T22:48:12.561Z",
+    "changed": 11,
+    "samples": [
+      {
+        "id": "workday-aligneddc-JR101086",
+        "before": "IAD-02",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-aligneddc-JR100970",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-aligneddc-JR100971",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0881",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1093",
+        "before": "US VA Manassas 1 DC1",
+        "after": "Manassas, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0768",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      }
+    ],
     "regionAssigned": 678,
     "regionMissing": 0,
     "coveragePct": 100,
@@ -3749,12 +3782,173 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T22:31:32.474Z",
-    "before": 678,
+    "checkedAt": "2026-09-14T22:48:12.600Z",
+    "before": 704,
     "after": 678,
-    "removed": 0,
+    "removed": 26,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101968",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101903",
+        "keptId": "workday-nttglobaldatacenters-JR101981",
+        "company": "NTT Global Data Centers",
+        "title": "1046 - Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101861",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0982",
+        "keptId": "workday-qtsdatacenters-R2026-0893",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0881",
+        "keptId": "workday-qtsdatacenters-R2026-0768",
+        "company": "QTS Data Centers",
+        "title": "Regional Data Center Controls Quality Engineer",
+        "location": "Suwanee, GA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007618",
+        "keptId": "workday-cyrusone-R0007529",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Carrollton, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007617",
+        "keptId": "workday-cyrusone-R0007763",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Houston, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007527",
+        "keptId": "workday-cyrusone-R0007615",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Chandler, AZ"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007526",
+        "keptId": "workday-cyrusone-R0007614",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Sterling, VA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007668",
+        "keptId": "workday-cyrusone-R0007613",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Council Bluffs, IA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007628",
+        "keptId": "workday-cyrusone-R0007611",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Durham, NC"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007762",
+        "keptId": "workday-cyrusone-R0007610",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "location": "Austin, TX"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-cyrusone-R0007608",
+        "keptId": "workday-cyrusone-R0007528",
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "location": "Cincinnati, OH"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101573",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101799",
+        "keptId": "workday-nttglobaldatacenters-JR101533",
+        "company": "NTT Global Data Centers",
+        "title": "5155 - Data Center IT Infrastructure Technician",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101847",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101681",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101746",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101821",
+        "keptId": "workday-nttglobaldatacenters-JR101755",
+        "company": "NTT Global Data Centers",
+        "title": "1162 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101610",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-14T22:31:55.570Z",
@@ -3773,9 +3967,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 161,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-14T22:31:55.758Z"
+    "updatedAt": "2026-09-14T22:48:12.674Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

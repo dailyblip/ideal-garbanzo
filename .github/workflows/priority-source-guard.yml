@@ -76,6 +76,10 @@ jobs:
           node-version: 22
       - name: Verify strategic collectors report source health
         run: node scripts/validate-priority-source-diagnostics.mjs
+      - name: Verify Microsoft experience classifier before publication
+        run: |
+          node --check scripts/collect-microsoft-datacenter.mjs
+          node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
       - name: Verify priority jobs and snapshots stay employer-direct
         run: node scripts/validate-priority-employer-sources.mjs
       - name: Verify priority employers retain authoritative U.S. market coverage

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T10:23:04.126Z",
+  "updatedAt": "2026-09-14T11:51:49.330Z",
   "jobs": 693,
   "sourcesAttempted": 20,
   "providers": {
@@ -10,15 +10,15 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
-    "entry-level": 666,
     "internship": 7,
     "trainee": 8,
-    "apprenticeship": 12
+    "apprenticeship": 12,
+    "entry-level": 666
   },
   "countsByExperience": {
+    "no-experience": 42,
     "0-2-years": 389,
-    "2-5-years": 262,
-    "no-experience": 42
+    "2-5-years": 262
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3458,14 +3458,14 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 35,
-      "detailAttempted": 35,
-      "detailSucceeded": 35,
+      "candidateLinks": 34,
+      "detailAttempted": 34,
+      "detailSucceeded": 34,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 6,
-      "qualifyingRoles": 1,
+      "staleRemoved": 8,
+      "qualifyingRoles": 0,
       "drops": {
         "non-us": 7,
         "unknown-experience": 8,
@@ -3474,12 +3474,12 @@
       },
       "dropSamples": [
         {
-          "title": "2026년 에퀴닉스 코리아 데이터센터 엔지니어 하반기 인턴／Equinix Korea Data Center Engineering Internship Program (Fall 2026)",
-          "url": "https://careers.equinix.com/jobs/2026-equinix-korea-data-center-engineering-internship-program-fall-2026-seoul-korea-republic-of"
-        },
-        {
           "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
+        },
+        {
+          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
         },
         {
           "title": "Practicante Critical Facilities",
@@ -3521,11 +3521,11 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 4,
-      "verifiedFallbackUsed": 3,
+      "broadListingEvidenceAdded": 5,
+      "verifiedFallbackUsed": 4,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
       "detailSucceeded": 7,
@@ -3533,12 +3533,12 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 0,
-      "qualifyingRoles": 3,
+      "qualifyingRoles": 4,
       "drops": {
         "experience": 0,
-        "unknownExperience": 4,
+        "unknownExperience": 3,
         "unusable": 0,
-        "verifiedMismatch": 3
+        "verifiedMismatch": 2
       },
       "errors": []
     }
@@ -3552,9 +3552,9 @@
     "liveChecksPassed": 7,
     "listingFallbacksUsed": 0,
     "verifiedWindowFallbacksUsed": 0,
-    "searchClickFallbacksUsed": 0,
+    "searchClickFallbacksUsed": 7,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 7,
     "retainedManaged": 7,
@@ -3637,7 +3637,58 @@
         "clickFallbackUsed": true
       }
     ],
-    "directDetailClicksUsed": 7
+    "directDetailClicksUsed": 0,
+    "directDetailProbes": [
+      {
+        "requisition": "JR-159872",
+        "status": 202,
+        "ok": false,
+        "finalUrl": "https://careers.equinix.com/jobs/data-center-development-intern-roles-dallas-texas-united-states-ashburn-virginia-elk-grove-village-illinois-san-jose-california",
+        "error": null
+      },
+      {
+        "requisition": "JR-163301",
+        "status": 202,
+        "ok": false,
+        "finalUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-cali",
+        "error": null
+      },
+      {
+        "requisition": "JR-161457",
+        "status": 202,
+        "ok": false,
+        "finalUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-boca-raton-florida-chicago-illinois-englewood-colorado-san-jose-california",
+        "error": null
+      },
+      {
+        "requisition": "JR-161458",
+        "status": 202,
+        "ok": false,
+        "finalUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-data-center-hiring-our-heroes-cohort-q3-2026-dallas-texas-united-states-ashburn-virginia-chicago-illinois-denver-colorado-miami-florida-san-jose-calif",
+        "error": null
+      },
+      {
+        "requisition": "JR-163300",
+        "status": 202,
+        "ok": false,
+        "finalUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california",
+        "error": null
+      },
+      {
+        "requisition": "JR-158170",
+        "status": 202,
+        "ok": false,
+        "finalUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states",
+        "error": null
+      },
+      {
+        "requisition": "JR-811161",
+        "status": 202,
+        "ok": false,
+        "finalUrl": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states",
+        "error": null
+      }
+    ]
   },
   "missionFit": {
     "checkedAt": "2026-09-14T08:46:14.669Z",
@@ -3648,7 +3699,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T10:23:04.202Z",
+    "updatedAt": "2026-09-14T11:51:49.779Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 693,
@@ -3656,18 +3707,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 110,
-      "mid-atlantic": 132,
-      "northeast": 21,
-      "midwest": 134,
-      "texas": 116,
-      "southwest": 83,
       "west": 95,
+      "texas": 116,
+      "midwest": 134,
+      "mid-atlantic": 132,
+      "southwest": 83,
+      "southeast": 110,
+      "northeast": 21,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T10:23:04.264Z",
+    "checkedAt": "2026-09-14T11:51:49.855Z",
     "before": 693,
     "after": 693,
     "removed": 0,
@@ -3686,14 +3737,14 @@
     "trackedJobs": 1030,
     "currentJobs": 693,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
+    "changedJobsThisRun": 7,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 94,
-    "updatedAt": "2026-09-14T10:23:27.895Z"
+    "updatedAt": "2026-09-14T11:51:49.915Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

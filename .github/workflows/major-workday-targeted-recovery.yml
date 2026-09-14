@@ -8,6 +8,7 @@ on:
       - 'scripts/scrub-major-targeted-noise.mjs'
       - 'scripts/prune-closed-major-workday.mjs'
       - 'scripts/reconcile-major-jobs.mjs'
+      - 'scripts/validate-major-workday-health.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
       - '.github/workflows/major-workday-targeted-recovery.yml'
   schedule:
@@ -39,6 +40,7 @@ jobs:
           node scripts/recover-major-workday-targeted.mjs --test
           node scripts/prune-closed-major-workday.mjs --test
           node scripts/scrub-major-targeted-noise.mjs --test
+          node scripts/validate-major-workday-health.mjs
           node scripts/validate-major-workday-parity.mjs
 
       - name: Recover missing roles and prune closed Workday records
@@ -69,6 +71,10 @@ jobs:
             echo 'No newly verified roles, definitively closed records, corporate-noise removals, source-health changes, or location corrections found.'
           fi
 
+      - name: Validate refreshed Workday source health
+        if: steps.recovery.outputs.changed == 'true'
+        run: node scripts/validate-major-workday-health.mjs
+
       - name: Normalize and validate reconciled roles
         if: steps.recovery.outputs.roles_changed == 'true'
         run: |
@@ -81,6 +87,7 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-major-workday-health.mjs
           node scripts/validate-major-workday-parity.mjs
 
       - name: Commit targeted recovery state
@@ -107,6 +114,7 @@ jobs:
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-major-workday-health.mjs
             node scripts/validate-major-workday-parity.mjs
           }
 

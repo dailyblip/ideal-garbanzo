@@ -1,0 +1,40 @@
+name: Crusoe source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/validate-crusoe.mjs'
+      - 'scripts/validate-flexential-freshness.mjs'
+      - '.github/workflows/crusoe-source-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/validate-crusoe.mjs'
+      - 'scripts/validate-flexential-freshness.mjs'
+      - '.github/workflows/crusoe-source-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify Crusoe employer-direct source integrity
+        run: |
+          node --check scripts/validate-crusoe.mjs
+          node scripts/validate-crusoe.mjs

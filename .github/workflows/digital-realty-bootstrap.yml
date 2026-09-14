@@ -10,7 +10,7 @@ on:
       - .github/workflows/digital-realty-bootstrap.yml
   workflow_dispatch:
   schedule:
-    - cron: '47 */12 * * *'
+    - cron: '17 6,18 * * *'
 
 permissions:
   contents: write

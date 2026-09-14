@@ -19,6 +19,7 @@ const CORPORATE_TITLE_TERMS = [
   'enterprise applications',
   'enterprise it support',
   'process analytics',
+  'learning operations',
   'business analyst',
   'business operations',
   'corporate operations',
@@ -132,6 +133,11 @@ if (process.argv.includes('--test')) {
     },
     {
       title: 'Summer 2027 Internship: Process Analytics - Technology Delivery Team',
+      company: 'QTS Data Centers',
+      remove: true
+    },
+    {
+      title: 'Summer 2027 Internship: Learning Operations Analyst',
       company: 'QTS Data Centers',
       remove: true
     },

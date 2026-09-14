@@ -11,6 +11,8 @@ on:
       - 'scripts/restore-generic-dedicated-overlap.mjs'
       - 'scripts/collect-jobs.mjs'
       - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - '.github/workflows/generic-ats-stale-fallback-watch.yml'
 
 permissions:
@@ -59,9 +61,14 @@ jobs:
           node scripts/prune-unresolved-geography.mjs
           node scripts/sync-publication-counts.mjs
           node scripts/dedupe-normalized-jobs.mjs
+          # Generic ATS refreshes create and remove public jobs outside the daily
+          # full build. Stamp history here too so every published role has stable
+          # first-seen/last-changed metadata before downstream email or SEO use.
+          node scripts/stamp-job-history.mjs
       - name: Validate publication contracts
         run: |
           node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
           node scripts/validate-t5-data-centers.mjs
           node scripts/validate-flexential.mjs
           node scripts/validate-coreweave.mjs
@@ -90,9 +97,11 @@ jobs:
             node scripts/prune-unresolved-geography.mjs
             node scripts/sync-publication-counts.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/stamp-job-history.mjs
             # Re-run the complete publication validator after any fresh-main
             # rebuild. A push race must never bypass the cleanup or validation.
             node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
             node scripts/validate-t5-data-centers.mjs
             node scripts/validate-flexential.mjs
             node scripts/validate-coreweave.mjs
@@ -113,7 +122,7 @@ jobs:
               feed_changed=true
             fi
 
-            git add -u -- data/jobs.json data/major-jobs.json data/collector-status.json
+            git add -u -- data/jobs.json data/major-jobs.json data/collector-status.json data/job-history.json
             if git diff --cached --quiet; then
               echo "Generic ATS source and publication state is unchanged."
               echo "changed=false" >> "$GITHUB_OUTPUT"

@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-14T21:49:29.549Z",
-  "jobsBefore": 677,
-  "jobsAfter": 677,
+  "checkedAt": "2026-09-14T22:31:55.570Z",
+  "jobsBefore": 678,
+  "jobsAfter": 678,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -9,7 +9,26 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-4939298007",
+      "company": "xAI",
+      "title": "Facilities Maintenance Assistant - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/4939298007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5201130007",
+      "company": "xAI",
+      "title": "Facilities Maintenance Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5201130007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

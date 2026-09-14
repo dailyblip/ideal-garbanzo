@@ -3,6 +3,8 @@ import { mkdir, writeFile } from 'node:fs/promises';
 
 const baseUrl = (process.env.VISUAL_QA_BASE_URL || 'https://datacentercareers.us').replace(/\/$/, '');
 const expectedSha = String(process.env.JOBS_QA_EXPECTED_SHA || '').trim();
+const repository = String(process.env.GITHUB_REPOSITORY || 'dailyblip/ideal-garbanzo').trim();
+const githubToken = String(process.env.GITHUB_TOKEN || '').trim();
 const outputDir = process.env.VISUAL_QA_OUTPUT_DIR || 'artifacts/jobs-page-visual-qa';
 const profiles = [
   { name: 'desktop-1440', width: 1440, height: 1000, mode: 'desktop' },
@@ -11,14 +13,57 @@ const profiles = [
   { name: 'iphone-430', width: 430, height: 932, mode: 'mobile' }
 ];
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function readLiveRevision() {
+  const response = await fetch(`${baseUrl}/deployment-version.json?jobsqa=${Date.now()}`, {
+    headers: { 'Cache-Control': 'no-cache' }
+  });
+  if (!response.ok) throw new Error(`Unable to verify deployed revision: HTTP ${response.status}`);
+  const revision = await response.json();
+  const sha = String(revision?.sha || '').trim();
+  if (!/^[0-9a-f]{40}$/i.test(sha)) throw new Error('Live deployment revision is missing or malformed.');
+  return sha;
+}
+
+async function compareRevision(expected, live) {
+  if (expected === live) return 'identical';
+  if (!repository.includes('/')) throw new Error(`Cannot compare live revision because GITHUB_REPOSITORY is invalid: ${repository || 'missing'}.`);
+
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'data-center-careers-jobs-visual-qa',
+    'X-GitHub-Api-Version': '2022-11-28'
+  };
+  if (githubToken) headers.Authorization = `Bearer ${githubToken}`;
+
+  const response = await fetch(`https://api.github.com/repos/${repository}/compare/${expected}...${live}`, { headers });
+  if (!response.ok) throw new Error(`Unable to compare deployed revisions: GitHub HTTP ${response.status}`);
+  const comparison = await response.json();
+  return String(comparison?.status || '').trim().toLowerCase();
+}
+
 await mkdir(outputDir, { recursive: true });
 
+let deployedSha = null;
+let deploymentRelation = expectedSha ? 'unknown' : 'unchecked';
 if (expectedSha) {
-  const revisionResponse = await fetch(`${baseUrl}/deployment-version.json?jobsqa=${Date.now()}`, { headers: { 'Cache-Control': 'no-cache' } });
-  if (!revisionResponse.ok) throw new Error(`Unable to verify deployed revision: HTTP ${revisionResponse.status}`);
-  const revision = await revisionResponse.json();
-  if (revision?.sha !== expectedSha) {
-    throw new Error(`Live revision ${revision?.sha || 'unknown'} does not match expected ${expectedSha}.`);
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    deployedSha = await readLiveRevision();
+    deploymentRelation = await compareRevision(expectedSha, deployedSha);
+
+    if (deploymentRelation === 'identical') break;
+    if (deploymentRelation === 'ahead') {
+      console.log(`Live revision ${deployedSha} is newer than triggering deployment ${expectedSha}; validating the current live jobs page.`);
+      break;
+    }
+    if (deploymentRelation === 'behind' && attempt < 4) {
+      console.log(`Live revision ${deployedSha} is still behind expected ${expectedSha}; retrying revision check (${attempt}/4).`);
+      await sleep(5000);
+      continue;
+    }
+
+    throw new Error(`Live revision ${deployedSha} is ${deploymentRelation || 'unrelated'} relative to expected ${expectedSha}; refusing to report a visual regression against the wrong deployment lineage.`);
   }
 }
 
@@ -153,7 +198,15 @@ for (const profile of profiles) {
 }
 
 await browser.close();
-await writeFile(`${outputDir}/report.json`, JSON.stringify({ checkedAt:new Date().toISOString(), baseUrl, expectedSha:expectedSha || null, passed:!failed, reports }, null, 2) + '\n');
+await writeFile(`${outputDir}/report.json`, JSON.stringify({
+  checkedAt:new Date().toISOString(),
+  baseUrl,
+  expectedSha:expectedSha || null,
+  deployedSha,
+  deploymentRelation,
+  passed:!failed,
+  reports
+}, null, 2) + '\n');
 
 for (const report of reports) {
   console.log(`${report.profile.name}: ${report.errors.length ? 'FAIL' : 'PASS'}`);

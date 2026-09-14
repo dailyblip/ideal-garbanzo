@@ -50,6 +50,8 @@ jobs:
           node scripts/validate-employer-submissions.mjs
       - name: Validate jobs search and filter contract
         run: node scripts/validate-jobs-browser.mjs
+      - name: Validate jobs visual QA harness syntax
+        run: node --check scripts/visual-jobs-page-qa.mjs
       - name: Validate approved homepage contract
         run: node scripts/validate-homepage-contract.mjs
       - name: Validate authored-page accessibility

@@ -27,6 +27,7 @@ on:
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-edgeconnex-snapshot.mjs'
       - 'scripts/validate-coreweave.mjs'
+      - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
@@ -56,6 +57,7 @@ on:
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-edgeconnex-snapshot.mjs'
       - 'scripts/validate-coreweave.mjs'
+      - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
@@ -98,3 +100,5 @@ jobs:
         run: node scripts/validate-edgeconnex-snapshot.mjs
       - name: Verify CoreWeave snapshot and public-feed opportunity parity
         run: node scripts/validate-coreweave.mjs
+      - name: Verify CloudHQ employer-direct snapshot and public-feed traceability
+        run: node scripts/validate-cloudhq.mjs

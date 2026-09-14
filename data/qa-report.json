@@ -1,34 +1,34 @@
 {
-  "checkedAt": "2026-09-14T18:58:49.820Z",
-  "jobsBefore": 680,
+  "checkedAt": "2026-09-14T19:37:06.167Z",
+  "jobsBefore": 682,
   "jobsAfter": 680,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
-  "providerVerifiedJobLinksRetained": [],
-  "blockedJobLinks": [],
-  "transientJobLinks": [
+  "deadJobLinksRemoved": [
     {
-      "id": "gh-xai-5148882007",
-      "company": "xAI",
-      "title": "Fiber Technician - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5148882007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
+      "id": "amazon-10537837",
+      "company": "Amazon Web Services",
+      "title": "Clearable Engineering Operations Tech, AWS Cleared Jobs",
+      "url": "https://www.amazon.jobs/en/jobs/10537837/clearable-engineering-operations-tech-aws-cleared-jobs",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10537837/clearable-engineering-operations-tech-aws-cleared-jobs"
     },
     {
-      "id": "gh-elementcritical-4684121005",
-      "company": "Element Critical",
-      "title": "Data Center Facilities Engineer II",
-      "url": "https://job-boards.greenhouse.io/elementcritical/jobs/4684121005",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
+      "id": "amazon-10444557",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician Nights Shift",
+      "url": "https://www.amazon.jobs/en/jobs/10444557/data-center-technician-nights-shift",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10444557/data-center-technician-nights-shift"
     }
   ],
+  "providerVerifiedJobLinksRetained": [],
+  "blockedJobLinks": [],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

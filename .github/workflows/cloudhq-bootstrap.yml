@@ -1,0 +1,116 @@
+name: Refresh CloudHQ roles
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/collect-cloudhq-careers.mjs
+      - scripts/validate-cloudhq.mjs
+      - .github/workflows/cloudhq-bootstrap.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '53 3,15 * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: careers-source-writers
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate CloudHQ collector syntax
+        run: |
+          node --check scripts/collect-cloudhq-careers.mjs
+          node --check scripts/validate-cloudhq.mjs
+      - name: Collect official CloudHQ Paylocity roles
+        run: node scripts/collect-cloudhq-careers.mjs
+      - name: Enforce mission-fit role families
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize locations and regions
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Run live QA
+        run: node scripts/qa-site.mjs
+      - name: Refresh regional coverage
+        run: node scripts/refresh-region-status.mjs
+      - name: Validate CloudHQ employer-direct snapshot
+        run: node scripts/validate-cloudhq.mjs
+      - name: Track first-seen dates
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate updated feed
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs
+      - name: Commit verified CloudHQ roles
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/collect-cloudhq-careers.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/validate-cloudhq.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during CloudHQ refresh; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/cloudhq-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            if git diff --cached --quiet; then
+              echo "No verified CloudHQ data changes."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh verified CloudHQ roles"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during CloudHQ publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified CloudHQ data after three attempts."
+          exit 1
+      - name: Deploy committed CloudHQ data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

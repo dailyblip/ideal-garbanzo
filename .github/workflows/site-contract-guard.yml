@@ -36,6 +36,7 @@ jobs:
         run: |
           node scripts/validate-mailing-list.mjs
           node scripts/validate-alert-signup-parity.mjs
+          node scripts/validate-alert-job-detail-parity.mjs
           node scripts/send-weekly-job-alert.mjs --test-selection
       - name: Validate verified career-event contract
         run: |

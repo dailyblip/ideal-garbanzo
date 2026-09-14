@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T03:41:32.627Z",
+  "updatedAt": "2026-09-14T04:26:07.005Z",
   "jobs": 710,
   "sourcesAttempted": 17,
   "providers": {
@@ -8,15 +8,15 @@
     "ashby": 5
   },
   "countsByType": {
+    "entry-level": 678,
     "internship": 12,
     "trainee": 8,
-    "apprenticeship": 12,
-    "entry-level": 678
+    "apprenticeship": 12
   },
   "countsByExperience": {
-    "no-experience": 42,
     "0-2-years": 391,
-    "2-5-years": 277
+    "2-5-years": 277,
+    "no-experience": 42
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3631,7 +3631,7 @@
     "directDetailClicksUsed": 7
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T03:41:32.702Z",
+    "checkedAt": "2026-09-14T04:26:07.086Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3639,7 +3639,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T03:41:32.785Z",
+    "updatedAt": "2026-09-14T04:26:07.164Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -3647,28 +3647,28 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 104,
-      "texas": 116,
-      "midwest": 136,
-      "mid-atlantic": 133,
-      "southwest": 84,
       "southeast": 111,
+      "mid-atlantic": 133,
       "northeast": 24,
+      "midwest": 136,
+      "texas": 116,
+      "southwest": 84,
+      "west": 104,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T03:41:32.860Z",
-    "before": 711,
-    "after": 711,
+    "checkedAt": "2026-09-14T04:26:07.236Z",
+    "before": 710,
+    "after": 710,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-14T03:42:06.541Z",
+    "checkedAt": "2026-09-14T04:26:26.458Z",
     "publishedJobs": 710,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 3
   },
@@ -3684,7 +3684,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-14T03:42:06.776Z"
+    "updatedAt": "2026-09-14T04:26:26.667Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3783,7 +3783,7 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-13T15:59:35.843Z",
+    "checkedAt": "2026-09-14T04:26:07.005Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",

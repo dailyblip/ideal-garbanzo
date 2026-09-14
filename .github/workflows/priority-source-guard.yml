@@ -15,6 +15,7 @@ on:
       - 'scripts/reconcile-major-jobs.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
@@ -24,6 +25,7 @@ on:
       - 'scripts/validate-microsoft-snapshot.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
+      - 'scripts/validate-google-freshness.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-edgeconnex-snapshot.mjs'
       - 'scripts/validate-coreweave.mjs'
@@ -45,6 +47,7 @@ on:
       - 'scripts/reconcile-major-jobs.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
@@ -54,6 +57,7 @@ on:
       - 'scripts/validate-microsoft-snapshot.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
+      - 'scripts/validate-google-freshness.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-edgeconnex-snapshot.mjs'
       - 'scripts/validate-coreweave.mjs'
@@ -98,6 +102,10 @@ jobs:
         run: node scripts/validate-meta-snapshot.mjs
       - name: Verify Oracle snapshot matches the public feed exactly
         run: node scripts/validate-oracle-snapshot.mjs
+      - name: Verify Google fallback freshness before publication
+        run: |
+          node scripts/validate-google-freshness.mjs --test
+          node scripts/validate-google-freshness.mjs
       - name: Verify Digital Realty snapshot matches the public feed exactly
         run: node scripts/validate-digital-realty.mjs
       - name: Verify EdgeConneX snapshot and public-feed parity

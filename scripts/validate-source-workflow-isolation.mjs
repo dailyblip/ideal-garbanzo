@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 const sourceWorkflows = [
   '.github/workflows/aws-detail-recovery.yml',
   '.github/workflows/aws-stale-fallback-watch.yml',
+  '.github/workflows/cloudhq-bootstrap.yml',
   '.github/workflows/cologix-bootstrap.yml',
   '.github/workflows/compass-bootstrap.yml',
   '.github/workflows/coresite-stale-fallback-watch.yml',
@@ -49,6 +50,7 @@ const sharedPipelinePaths = [
 // most one pending run per concurrency group, so exact schedule collisions can
 // otherwise replace a pending employer refresh before it starts.
 const sharedWriterQueue = new Set([
+  '.github/workflows/cloudhq-bootstrap.yml',
   '.github/workflows/cologix-bootstrap.yml',
   '.github/workflows/coreweave-bootstrap.yml',
   '.github/workflows/databank-bootstrap.yml',

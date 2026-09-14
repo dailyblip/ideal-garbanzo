@@ -8,10 +8,14 @@ on:
       - 'assets/mailing-list.js'
       - 'assets/jobs-listing.js'
       - 'scripts/send-weekly-job-alert.mjs'
+      - 'scripts/validate.mjs'
       - 'scripts/validate-mailing-list.mjs'
       - 'scripts/validate-alert-signup-parity.mjs'
       - 'scripts/validate-alert-job-detail-parity.mjs'
+      - 'scripts/validate-priority-employer-sources.mjs'
+      - 'scripts/validate-direct-role-links.mjs'
       - 'scripts/validate-job-history.mjs'
+      - 'scripts/generate-seo.mjs'
       - 'data/jobs.json'
       - 'data/mailing-list.json'
       - '.github/workflows/weekly-job-alert.yml'
@@ -42,10 +46,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate alert feed publication safety
+        run: |
+          # Weekly email is an outbound publication surface. Re-check the same
+          # mission-fit and official-source contracts here so a broken main feed
+          # can never be turned into a scheduled email simply because another
+          # workflow's check was skipped, delayed, or failed after publication.
+          node scripts/validate.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs
       - name: Validate weekly mailing configuration
         run: node scripts/validate-mailing-list.mjs
       - name: Validate alert signup surface parity
         run: node scripts/validate-alert-signup-parity.mjs
+      - name: Validate alert job-detail routing parity
+        run: node scripts/validate-alert-job-detail-parity.mjs
       - name: Validate persisted first-seen job history
         run: node scripts/validate-job-history.mjs --allow-aging
       - name: Validate employer-diverse weekly alert selection

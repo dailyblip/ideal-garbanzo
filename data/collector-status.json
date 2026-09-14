@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T05:14:26.164Z",
+  "updatedAt": "2026-09-14T05:24:58.751Z",
   "jobs": 693,
   "sourcesAttempted": 17,
   "providers": {
@@ -3440,10 +3440,10 @@
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
       "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
       "expired": true,
-      "checkedAt": "2026-09-14T04:45:33.496Z",
+      "checkedAt": "2026-09-14T05:24:58.751Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 98.1,
-      "rolesRemoved": 17,
+      "expiredAgeHours": 98.7,
+      "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
   },

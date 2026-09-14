@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-14T19:52:00.538Z",
-  "jobs": 675,
+  "updatedAt": "2026-09-14T21:48:40.682Z",
+  "jobs": 674,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -11,13 +11,13 @@
   },
   "countsByType": {
     "internship": 7,
-    "trainee": 8,
+    "trainee": 7,
     "apprenticeship": 12,
     "entry-level": 648
   },
   "countsByExperience": {
     "no-experience": 42,
-    "0-2-years": 373,
+    "0-2-years": 372,
     "2-5-years": 260
   },
   "errors": [],
@@ -3479,19 +3479,15 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 8,
-      "qualifyingRoles": 0,
+      "staleRemoved": 7,
+      "qualifyingRoles": 1,
       "drops": {
-        "non-us": 7,
+        "non-us": 6,
         "unknown-experience": 8,
         "context": 1,
         "title": 19
       },
       "dropSamples": [
-        {
-          "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
-        },
         {
           "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
@@ -3525,6 +3521,10 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -3536,11 +3536,11 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 5,
-      "verifiedSeeded": 2,
+      "recoveredCandidates": 4,
+      "verifiedSeeded": 3,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 5,
-      "verifiedFallbackUsed": 4,
+      "broadListingEvidenceAdded": 4,
+      "verifiedFallbackUsed": 3,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
       "detailSucceeded": 7,
@@ -3548,12 +3548,12 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 0,
-      "qualifyingRoles": 4,
+      "qualifyingRoles": 3,
       "drops": {
         "experience": 0,
-        "unknownExperience": 3,
+        "unknownExperience": 4,
         "unusable": 0,
-        "verifiedMismatch": 2
+        "verifiedMismatch": 3
       },
       "errors": []
     }
@@ -3569,7 +3569,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 7,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 7,
     "retainedManaged": 7,
@@ -3714,15 +3714,15 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T19:57:27.477Z",
+    "updatedAt": "2026-09-14T21:48:41.171Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 675,
+    "regionAssigned": 674,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 96,
+      "west": 95,
       "texas": 108,
       "midwest": 136,
       "mid-atlantic": 130,
@@ -3733,9 +3733,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T19:57:27.541Z",
-    "before": 675,
-    "after": 675,
+    "checkedAt": "2026-09-14T21:48:41.240Z",
+    "before": 674,
+    "after": 674,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3750,7 +3750,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1051,
-    "currentJobs": 675,
+    "currentJobs": 674,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3758,8 +3758,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 92,
-    "updatedAt": "2026-09-14T19:57:50.401Z"
+    "firstSeenRecencyFallbackJobs": 91,
+    "updatedAt": "2026-09-14T21:48:41.303Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

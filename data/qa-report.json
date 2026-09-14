@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-14T18:48:03.310Z",
-  "jobsBefore": 682,
-  "jobsAfter": 682,
+  "checkedAt": "2026-09-14T18:58:49.820Z",
+  "jobsBefore": 680,
+  "jobsAfter": 680,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -9,7 +9,26 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5148882007",
+      "company": "xAI",
+      "title": "Fiber Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5148882007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-elementcritical-4684121005",
+      "company": "Element Critical",
+      "title": "Data Center Facilities Engineer II",
+      "url": "https://job-boards.greenhouse.io/elementcritical/jobs/4684121005",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

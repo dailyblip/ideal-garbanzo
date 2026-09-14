@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T18:15:49.956Z",
+  "updatedAt": "2026-09-14T18:21:47.702Z",
   "jobs": 682,
   "sourcesAttempted": 19,
   "providers": {
@@ -166,14 +166,14 @@
     "errors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-14T05:50:35.631Z",
+    "checkedAt": "2026-09-14T18:21:47.702Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
     "officialLeverBoard": "https://jobs.lever.co/t5datacenters",
     "api": "https://api.lever.co/v0/postings/t5datacenters?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 80,
+    "listedJobs": 82,
     "usJobs": 71,
     "candidateRoles": 28,
     "qualifyingRoles": 22,
@@ -3706,7 +3706,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T18:15:50.028Z",
+    "checkedAt": "2026-09-14T18:21:47.781Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3714,7 +3714,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T18:15:50.099Z",
+    "updatedAt": "2026-09-14T18:21:47.856Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 682,
@@ -3723,8 +3723,8 @@
     "missingSamples": [],
     "countsByRegion": {
       "texas": 114,
-      "mid-atlantic": 131,
       "southeast": 106,
+      "mid-atlantic": 131,
       "northeast": 20,
       "midwest": 133,
       "southwest": 82,
@@ -3733,7 +3733,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T18:15:50.166Z",
+    "checkedAt": "2026-09-14T18:21:47.924Z",
     "before": 682,
     "after": 682,
     "removed": 0,
@@ -3741,8 +3741,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-14T18:07:51.456Z",
-    "publishedJobs": 686,
+    "checkedAt": "2026-09-14T18:22:19.973Z",
+    "publishedJobs": 682,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
@@ -3759,7 +3759,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 90,
-    "updatedAt": "2026-09-14T18:15:50.224Z"
+    "updatedAt": "2026-09-14T18:22:20.159Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

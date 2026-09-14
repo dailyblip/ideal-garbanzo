@@ -9,6 +9,10 @@ const normalizeIdentity = value => String(value ?? '')
   .trim();
 
 const hasNumericReqPrefix = title => /^\s*\d{2,5}\s*[-–—]/u.test(String(title || ''));
+// Audited employer shorthand that has appeared both with and without the
+// parenthetical on otherwise identical requisitions. Keep this list explicit
+// so meaningful discipline qualifiers such as HVAC or MEP are never collapsed.
+const NON_DISTINCT_TITLE_QUALIFIERS = new Set(['cbqe']);
 
 function canonicalTitle(job) {
   let title = String(job.title || '').trim();
@@ -24,7 +28,9 @@ function canonicalTitle(job) {
   // Some employers append a location to the public title. Treat that as display
   // metadata rather than a distinct role identity.
   title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
-  title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) =>
+    tailBelongsToLocation(tail) || NON_DISTINCT_TITLE_QUALIFIERS.has(normalizeIdentity(tail)) ? '' : full
+  );
   // Shift-only suffixes make cards look duplicated when the employer has
   // published equivalent roles at the same site. Keep one representative role
   // per normalized employer + title + location, while preserving other regions.
@@ -216,6 +222,36 @@ if (aliasRegression.kept.length !== 2 ||
     !aliasRegression.kept.some(job => job.id === 'winner-b') ||
     !aliasRegression.kept.some(job => job.id === 'legacy-a' && job.location === 'Dallas, TX')) {
   throw new Error('Post-normalization dedupe alias regression: stale loser aliases can collapse a distinct later role.');
+}
+
+// Regression from production: QTS has published the same controls-quality role
+// at the same site both with and without its internal "CBQE" shorthand. The
+// broader nightly QA correctly treated those as one opening; the publication
+// deduper must do the same before a source workflow can push the shared feed.
+const auditedQualifierRegression = dedupeRecords([
+  {
+    id: 'workday-qtsdatacenters-R2026-0768',
+    title: 'Regional Data Center Controls Quality Engineer',
+    company: 'QTS Data Centers',
+    location: 'Suwanee, GA',
+    sourceUrl: 'https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Regional-Data-Center-Controls-Quality-Engineer_R2026-0768',
+    type: 'entry-level',
+    experience: '0-2-years',
+    pay: ''
+  },
+  {
+    id: 'workday-qtsdatacenters-R2026-0881',
+    title: 'Regional Data Center Controls Quality Engineer (CBQE)',
+    company: 'QTS Data Centers',
+    location: 'Suwanee, GA',
+    sourceUrl: 'https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Regional-Data-Center-Controls-Quality-Engineer-CBQE_R2026-0881',
+    type: 'entry-level',
+    experience: '0-2-years',
+    pay: ''
+  }
+]);
+if (auditedQualifierRegression.kept.length !== 1 || auditedQualifierRegression.removed.length !== 1) {
+  throw new Error('Post-normalization dedupe qualifier regression: audited CBQE title aliases must collapse to one opening.');
 }
 
 function countBy(values, key) {

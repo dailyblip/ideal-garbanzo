@@ -2,14 +2,18 @@ import { readFile } from 'node:fs/promises';
 
 const sourceWorkflows = [
   '.github/workflows/aws-detail-recovery.yml',
+  '.github/workflows/aws-stale-fallback-watch.yml',
   '.github/workflows/cologix-bootstrap.yml',
   '.github/workflows/compass-bootstrap.yml',
+  '.github/workflows/coresite-stale-fallback-watch.yml',
   '.github/workflows/coreweave-bootstrap.yml',
   '.github/workflows/databank-bootstrap.yml',
   '.github/workflows/digital-realty-stale-fallback-watch.yml',
   '.github/workflows/edgeconnex-bootstrap.yml',
   '.github/workflows/equinix-bootstrap.yml',
+  '.github/workflows/equinix-stale-fallback-watch.yml',
   '.github/workflows/flexential-bootstrap.yml',
+  '.github/workflows/flexential-stale-fallback-watch.yml',
   '.github/workflows/generic-ats-stale-fallback-watch.yml',
   '.github/workflows/google-bootstrap.yml',
   '.github/workflows/google-stale-fallback-watch.yml',
@@ -17,8 +21,10 @@ const sourceWorkflows = [
   '.github/workflows/meta-bootstrap.yml',
   '.github/workflows/meta-stale-fallback-watch.yml',
   '.github/workflows/microsoft-bootstrap.yml',
+  '.github/workflows/microsoft-stale-fallback-watch.yml',
   '.github/workflows/novva-bootstrap.yml',
   '.github/workflows/oracle-bootstrap.yml',
+  '.github/workflows/oracle-stale-fallback-watch.yml',
   '.github/workflows/sabey-bootstrap.yml',
   '.github/workflows/stream-data-centers-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml',
@@ -122,4 +128,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers plus the full refresh enforce fresh-main rebuilds before retrying publication.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds before retrying publication.`);

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-14T19:36:41.476Z",
-  "jobs": 680,
+  "updatedAt": "2026-09-14T19:52:00.538Z",
+  "jobs": 675,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -10,15 +10,15 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 653,
     "internship": 7,
     "trainee": 8,
-    "apprenticeship": 12
+    "apprenticeship": 12,
+    "entry-level": 648
   },
   "countsByExperience": {
-    "0-2-years": 378,
-    "2-5-years": 260,
-    "no-experience": 42
+    "no-experience": 42,
+    "0-2-years": 373,
+    "2-5-years": 260
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3473,9 +3473,9 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 34,
-      "detailAttempted": 34,
-      "detailSucceeded": 34,
+      "candidateLinks": 35,
+      "detailAttempted": 35,
+      "detailSucceeded": 35,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
@@ -3485,7 +3485,7 @@
         "non-us": 7,
         "unknown-experience": 8,
         "context": 1,
-        "title": 18
+        "title": 19
       },
       "dropSamples": [
         {
@@ -3714,28 +3714,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T19:36:41.614Z",
+    "updatedAt": "2026-09-14T19:52:01.026Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 680,
+    "regionAssigned": 675,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "west": 96,
       "texas": 108,
-      "west": 97,
-      "southeast": 106,
-      "mid-atlantic": 133,
       "midwest": 136,
-      "northeast": 19,
+      "mid-atlantic": 130,
       "southwest": 79,
+      "southeast": 105,
+      "northeast": 19,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T19:36:41.678Z",
-    "before": 682,
-    "after": 682,
+    "checkedAt": "2026-09-14T19:52:01.099Z",
+    "before": 675,
+    "after": 675,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3750,16 +3750,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1051,
-    "currentJobs": 680,
-    "newJobsThisRun": 4,
+    "currentJobs": 675,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 4,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 92,
-    "updatedAt": "2026-09-14T19:37:06.551Z"
+    "updatedAt": "2026-09-14T19:52:01.162Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

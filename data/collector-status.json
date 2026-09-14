@@ -3637,7 +3637,7 @@
     "directDetailClicksUsed": 7
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T04:26:07.086Z",
+    "checkedAt": "2026-09-14T04:55:17.021Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3645,35 +3645,35 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T04:26:07.164Z",
+    "updatedAt": "2026-09-14T04:55:17.127Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 710,
+    "regionAssigned": 693,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 111,
-      "mid-atlantic": 133,
-      "northeast": 24,
-      "midwest": 136,
+      "southeast": 110,
+      "mid-atlantic": 131,
+      "midwest": 134,
       "texas": 116,
       "southwest": 84,
-      "west": 104,
+      "northeast": 21,
+      "west": 95,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T04:26:07.236Z",
-    "before": 710,
-    "after": 710,
+    "checkedAt": "2026-09-14T04:55:17.240Z",
+    "before": 693,
+    "after": 693,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-14T04:26:26.458Z",
-    "publishedJobs": 710,
+    "checkedAt": "2026-09-14T04:55:41.534Z",
+    "publishedJobs": 693,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 3
@@ -3681,16 +3681,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1029,
-    "currentJobs": 710,
+    "currentJobs": 693,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-14T04:26:26.667Z"
+    "normalizedWorkdayPostingDatesThisRun": 10,
+    "firstSeenRecencyFallbackJobs": 94,
+    "updatedAt": "2026-09-14T04:55:41.672Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -3704,7 +3704,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T17:58:45.329Z",
+    "checkedAt": "2026-09-14T18:04:50.971Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3712,7 +3712,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T17:58:45.430Z",
+    "updatedAt": "2026-09-14T18:04:51.049Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 686,
@@ -3723,15 +3723,15 @@
       "texas": 115,
       "southeast": 109,
       "mid-atlantic": 130,
-      "northeast": 20,
       "midwest": 133,
       "southwest": 83,
+      "northeast": 20,
       "west": 94,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T17:58:45.528Z",
+    "checkedAt": "2026-09-14T18:04:51.123Z",
     "before": 686,
     "after": 686,
     "removed": 0,
@@ -3739,7 +3739,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-14T17:59:04.876Z",
+    "checkedAt": "2026-09-14T18:05:19.502Z",
     "publishedJobs": 686,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3755,9 +3755,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 10,
     "firstSeenRecencyFallbackJobs": 94,
-    "updatedAt": "2026-09-14T17:59:05.087Z"
+    "updatedAt": "2026-09-14T18:05:20.515Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3935,11 +3935,11 @@
     "careersUrl": "https://www.coreweave.com/careers",
     "sourceHealthy": true,
     "boardToken": "coreweave",
-    "sourceRoles": 295,
+    "sourceRoles": 297,
     "qualifyingRoles": 10,
     "preservedPrevious": 0,
     "drops": {
-      "title": 283,
+      "title": 285,
       "experience": 0,
       "location": 2
     },

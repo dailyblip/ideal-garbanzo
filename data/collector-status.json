@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T05:42:18.660Z",
+  "updatedAt": "2026-09-14T05:50:35.631Z",
   "jobs": 693,
   "sourcesAttempted": 18,
   "providers": {
@@ -165,7 +165,7 @@
     "errors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-13T19:09:48.750Z",
+    "checkedAt": "2026-09-14T05:50:35.631Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3632,7 +3632,7 @@
     "directDetailClicksUsed": 7
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T05:32:08.757Z",
+    "checkedAt": "2026-09-14T05:50:35.713Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3640,7 +3640,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T05:42:18.733Z",
+    "updatedAt": "2026-09-14T05:50:35.791Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 693,
@@ -3649,9 +3649,9 @@
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 110,
-      "midwest": 134,
       "mid-atlantic": 131,
       "northeast": 21,
+      "midwest": 134,
       "texas": 116,
       "southwest": 84,
       "west": 95,
@@ -3659,17 +3659,17 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T05:42:18.792Z",
-    "before": 694,
-    "after": 694,
+    "checkedAt": "2026-09-14T05:50:35.864Z",
+    "before": 693,
+    "after": 693,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-14T05:42:40.310Z",
+    "checkedAt": "2026-09-14T05:50:53.605Z",
     "publishedJobs": 693,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 3
   },
@@ -3685,7 +3685,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 94,
-    "updatedAt": "2026-09-14T05:42:40.454Z"
+    "updatedAt": "2026-09-14T05:50:53.800Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

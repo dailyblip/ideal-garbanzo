@@ -11,6 +11,7 @@ on:
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
+      - '.github/workflows/equinix-bootstrap.yml'
   workflow_dispatch:
   schedule:
     - cron: '17 15 * * *'

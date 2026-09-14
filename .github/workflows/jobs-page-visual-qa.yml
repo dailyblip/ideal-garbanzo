@@ -38,6 +38,7 @@ jobs:
           VISUAL_QA_BASE_URL: https://datacentercareers.us
           VISUAL_QA_OUTPUT_DIR: artifacts/jobs-page-visual-qa
           JOBS_QA_EXPECTED_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || '' }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/visual-jobs-page-qa.mjs
       - name: Upload jobs page screenshots and report
         if: always()

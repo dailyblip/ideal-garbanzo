@@ -14,6 +14,7 @@ const VERIFIED_DIRECT_CANDIDATES = [
     title: 'Mission Critical Coordinator',
     city: 'Ashburn',
     state: 'VA',
+    experience: '0-2-years',
     sourceUrl: 'https://recruiting.paylocity.com/recruiting/jobs/Details/4007666/CloudHQ-LLC/Mission-Critical-Coordinator'
   }
 ];
@@ -148,6 +149,7 @@ async function fetchDirectCandidates() {
         publishedDate: null,
         description: text,
         requirements: text,
+        verifiedExperience: candidate.experience,
         jobLocation: { city: candidate.city, state: candidate.state },
         salaryDescription: ''
       });
@@ -225,14 +227,15 @@ for (const raw of rawJobs) {
     continue;
   }
   const postedAt = postedAtFor(raw);
+  const experience = clean(raw?.verifiedExperience) || cls.experience;
   qualifying.push({
     id: `cloudhq-${String(raw?.jobId || '').trim() || new URL(sourceUrl).pathname.split('/').filter(Boolean)[3]}`,
     title,
     company: COMPANY,
     location,
     type: cls.type,
-    experience: cls.experience,
-    tags: tagsFor(title, description, requirements, cls.experience),
+    experience,
+    tags: tagsFor(title, description, requirements, experience),
     pay: clean(raw?.salaryDescription),
     salaryMin: null,
     salaryMax: null,

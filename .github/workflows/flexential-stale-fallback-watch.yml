@@ -41,27 +41,51 @@ jobs:
         run: |
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
-      - name: Commit stale-fallback state when changed
+      - name: Publish Flexential freshness state from current main
         id: commit
+        shell: bash
         run: |
-          if [ -z "$(git status --porcelain --untracked-files=no -- data/jobs.json data/flexential-jobs.json data/collector-status.json)" ]; then
-            echo "Flexential fallback state is unchanged."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -u -- data/jobs.json data/flexential-jobs.json data/collector-status.json
-          git commit -m "Enforce Flexential fallback freshness"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/enforce-flexential-fallback-freshness.mjs --test
+            node scripts/enforce-flexential-fallback-freshness.mjs
+            node scripts/validate-flexential-freshness.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
           git fetch origin main
-          if ! git rebase origin/main; then
-            git rebase --abort || true
-            echo "::error::Could not rebase Flexential freshness state onto latest main."
-            exit 1
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Flexential freshness enforcement; rebuilding from latest main."
+            rebuild_from_latest_main
           fi
-          git push origin HEAD:main
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+          for attempt in 1 2 3; do
+            git add -u -- data/jobs.json data/flexential-jobs.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo "Flexential fallback state is unchanged."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Enforce Flexential fallback freshness"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Flexential freshness publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish Flexential freshness state after three attempts."
+          exit 1
       - name: Deploy Flexential freshness change
         if: steps.commit.outputs.changed == 'true'
         env:

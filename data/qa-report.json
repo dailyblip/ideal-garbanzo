@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-14T18:07:51.456Z",
-  "jobsBefore": 686,
-  "jobsAfter": 686,
+  "checkedAt": "2026-09-14T18:22:19.973Z",
+  "jobsBefore": 682,
+  "jobsAfter": 682,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -9,7 +9,26 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5182357007",
+      "company": "xAI",
+      "title": "Electrical Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5182357007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5214280007",
+      "company": "xAI",
+      "title": "Protection & Controls Engineer - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5214280007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

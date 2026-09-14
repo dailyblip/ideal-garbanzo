@@ -45,9 +45,9 @@ const sharedPipelinePaths = [
   'scripts/validate-priority-employer-sources.mjs'
 ];
 
-// These staggered source workflows intentionally share a queue. Other writers
-// use dedicated concurrency groups plus fresh-main publication safeguards so a
-// burst of independent source runs cannot replace older pending GitHub runs.
+// These staggered source workflows intentionally share a queue. GitHub keeps at
+// most one pending run per concurrency group, so exact schedule collisions can
+// otherwise replace a pending employer refresh before it starts.
 const sharedWriterQueue = new Set([
   '.github/workflows/cologix-bootstrap.yml',
   '.github/workflows/coreweave-bootstrap.yml',
@@ -77,6 +77,75 @@ const raceSafeMarkers = [
 ];
 
 const violations = [];
+const sharedWriterScheduleSlots = new Map();
+
+function expandCronField(field, min, max) {
+  const values = new Set();
+  for (const rawPart of field.split(',')) {
+    const part = rawPart.trim();
+    if (!part) throw new Error(`empty cron field segment in ${field}`);
+
+    let base = part;
+    let step = 1;
+    if (part.includes('/')) {
+      const pieces = part.split('/');
+      if (pieces.length !== 2 || !/^\d+$/.test(pieces[1])) {
+        throw new Error(`unsupported cron step ${part}`);
+      }
+      base = pieces[0];
+      step = Number(pieces[1]);
+      if (step < 1) throw new Error(`invalid cron step ${part}`);
+    }
+
+    let start;
+    let end;
+    if (base === '*') {
+      start = min;
+      end = max;
+    } else if (/^\d+$/.test(base)) {
+      start = Number(base);
+      end = Number(base);
+    } else {
+      const match = base.match(/^(\d+)-(\d+)$/);
+      if (!match) throw new Error(`unsupported cron field ${part}`);
+      start = Number(match[1]);
+      end = Number(match[2]);
+    }
+
+    if (start < min || end > max || start > end) {
+      throw new Error(`cron field ${part} is outside ${min}-${max}`);
+    }
+    for (let value = start; value <= end; value += step) values.add(value);
+  }
+  return [...values];
+}
+
+function addSharedSchedule(path, cron) {
+  const fields = cron.trim().split(/\s+/);
+  if (fields.length !== 5) {
+    violations.push(`${path}: shared writer cron must have five fields: ${cron}`);
+    return;
+  }
+  const [minuteField, hourField, dayOfMonth, month, dayOfWeek] = fields;
+  if (dayOfMonth !== '*' || month !== '*' || dayOfWeek !== '*') {
+    violations.push(`${path}: shared writer schedule must remain daily for collision checking: ${cron}`);
+    return;
+  }
+
+  try {
+    const minutes = expandCronField(minuteField, 0, 59);
+    const hours = expandCronField(hourField, 0, 23);
+    for (const hour of hours) {
+      for (const minute of minutes) {
+        const slot = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+        if (!sharedWriterScheduleSlots.has(slot)) sharedWriterScheduleSlots.set(slot, new Set());
+        sharedWriterScheduleSlots.get(slot).add(path);
+      }
+    }
+  } catch (error) {
+    violations.push(`${path}: cannot collision-check cron ${cron}: ${error.message}`);
+  }
+}
 
 for (const path of sourceWorkflows) {
   const text = await readFile(path, 'utf8');
@@ -92,8 +161,15 @@ for (const path of sourceWorkflows) {
     }
   }
 
-  if (sharedWriterQueue.has(path) && !/group:\s*careers-source-writers\b/.test(text)) {
-    violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
+  if (sharedWriterQueue.has(path)) {
+    if (!/group:\s*careers-source-writers\b/.test(text)) {
+      violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
+    }
+    const crons = [...onBlock.matchAll(/cron:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
+    if (!crons.length) {
+      violations.push(`${path}: shared-feed writer must have a scheduled refresh`);
+    }
+    for (const cron of crons) addSharedSchedule(path, cron);
   }
 
   if (!/cancel-in-progress:\s*false\b/.test(text)) {
@@ -109,6 +185,13 @@ for (const path of sourceWorkflows) {
     if (/git\s+rebase\s+origin\/main/.test(text)) {
       violations.push(`${path}: generated source data must rebuild from latest main instead of rebasing a stale snapshot`);
     }
+  }
+}
+
+for (const [slot, paths] of sharedWriterScheduleSlots) {
+  if (paths.size > 1) {
+    const names = [...paths].map((path) => path.split('/').pop()).sort().join(', ');
+    violations.push(`scheduled careers-source-writers collision at ${slot} UTC: ${names}`);
   }
 }
 
@@ -131,4 +214,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds before retrying publication.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds, and ${sharedWriterQueue.size} shared-queue schedules have no exact UTC collisions.`);

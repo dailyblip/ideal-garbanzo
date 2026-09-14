@@ -8,6 +8,16 @@ const FALLBACK_SOURCE = 'Equinix official careers (verified fallback)';
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 
+function canonicalUrl(value = '') {
+  try {
+    const parsed = new URL(clean(value));
+    parsed.hash = '';
+    return parsed.toString().replace(/\/$/, '');
+  } catch {
+    return clean(value).replace(/\/$/, '');
+  }
+}
+
 function verifiedRoleUrls(source) {
   const urls = new Map();
   const pattern = /requisition:\s*'([^']+)'[\s\S]*?url:\s*'([^']+)'/g;
@@ -40,6 +50,22 @@ function requisitionFromSearchUrl(sourceUrl) {
   }
 }
 
+function requisitionFromManagedUrl(sourceUrl, roleUrls) {
+  const searchRequisition = requisitionFromSearchUrl(sourceUrl);
+  if (searchRequisition) return searchRequisition;
+
+  const current = canonicalUrl(sourceUrl);
+  if (!current) return '';
+  for (const [requisition, detailUrl] of roleUrls) {
+    if (canonicalUrl(detailUrl) === current) return requisition;
+  }
+  return '';
+}
+
+function officialSearchUrl(requisition) {
+  return `https://careers.equinix.com/jobs/search?query=${encodeURIComponent(requisition)}`;
+}
+
 function healthyDetailRequisitions(status) {
   const checks = status?.equinixVerifiedFallback?.checks;
   if (!Array.isArray(checks)) return new Set();
@@ -67,25 +93,15 @@ function promoteDirectClicks(jobs, roleUrls, healthyRequisitions) {
     managed += 1;
 
     const current = clean(job.sourceUrl);
-    const requisition = requisitionFromSearchUrl(current);
-    if (requisition && healthyRequisitions.has(requisition) && roleUrls.has(requisition)) {
-      changed += 1;
-      direct += 1;
-      return { ...job, sourceUrl: roleUrls.get(requisition) };
-    }
+    const requisition = requisitionFromManagedUrl(current, roleUrls);
+    if (!requisition || !roleUrls.has(requisition)) return job;
 
-    try {
-      const parsed = new URL(current);
-      const path = parsed.pathname.replace(/\/$/, '');
-      if (parsed.hostname.toLowerCase() === 'careers.equinix.com' && /^\/jobs\/[^/]+$/i.test(path) && path.toLowerCase() !== '/jobs/search') {
-        direct += 1;
-      } else if (requisition) {
-        searchFallback += 1;
-      }
-    } catch {
-      // Existing validation will fail malformed click targets.
-    }
-    return job;
+    const useDirect = healthyRequisitions.has(requisition);
+    const desiredUrl = useDirect ? roleUrls.get(requisition) : officialSearchUrl(requisition);
+    if (canonicalUrl(current) !== canonicalUrl(desiredUrl)) changed += 1;
+    if (useDirect) direct += 1;
+    else searchFallback += 1;
+    return canonicalUrl(current) === canonicalUrl(desiredUrl) ? job : { ...job, sourceUrl: desiredUrl };
   });
 
   return { jobs: next, changed, managed, direct, searchFallback };
@@ -94,22 +110,26 @@ function promoteDirectClicks(jobs, roleUrls, healthyRequisitions) {
 function runSelfTest() {
   const source = `const verifiedRoles = [
     { requisition: 'JR-100001', title: 'Role A', url: 'https://careers.equinix.com/jobs/role-a-dallas-texas-united-states' },
-    { requisition: 'JR-100002', title: 'Role B', url: 'https://careers.equinix.com/jobs/role-b-ashburn-virginia-united-states' }
+    { requisition: 'JR-100002', title: 'Role B', url: 'https://careers.equinix.com/jobs/role-b-ashburn-virginia-united-states' },
+    { requisition: 'JR-100003', title: 'Role C', url: 'https://careers.equinix.com/jobs/role-c-chicago-illinois-united-states' }
   ];`;
   const roleUrls = verifiedRoleUrls(source);
   const status = { equinixVerifiedFallback: { checks: [
     { requisition: 'JR-100001', ok: true, verification: 'detail', detailStatus: 202 },
-    { requisition: 'JR-100002', ok: true, verification: 'official-listing', detailStatus: 404 }
+    { requisition: 'JR-100002', ok: true, verification: 'official-listing', detailStatus: 404 },
+    { requisition: 'JR-100003', ok: true, verification: 'detail', detailStatus: 200 }
   ] } };
   const input = [
     { id: 'equinix-verified-a', company: COMPANY, source: FALLBACK_SOURCE, sourceUrl: 'https://careers.equinix.com/jobs/search?query=JR-100001' },
-    { id: 'equinix-verified-b', company: COMPANY, source: FALLBACK_SOURCE, sourceUrl: 'https://careers.equinix.com/jobs/search?query=JR-100002' }
+    { id: 'equinix-verified-b', company: COMPANY, source: FALLBACK_SOURCE, sourceUrl: roleUrls.get('JR-100002') },
+    { id: 'equinix-verified-c', company: COMPANY, source: FALLBACK_SOURCE, sourceUrl: roleUrls.get('JR-100003') }
   ];
   const result = promoteDirectClicks(input, roleUrls, healthyDetailRequisitions(status));
-  if (result.changed !== 1 || result.direct !== 1 || result.searchFallback !== 1) throw new Error('Equinix direct-click promotion counts regressed.');
+  if (result.changed !== 2 || result.direct !== 2 || result.searchFallback !== 1) throw new Error('Equinix direct-click routing counts regressed.');
   if (result.jobs[0].sourceUrl !== roleUrls.get('JR-100001')) throw new Error('Healthy Equinix detail URL was not promoted.');
-  if (!result.jobs[1].sourceUrl.includes('query=JR-100002')) throw new Error('Unhealthy Equinix detail URL lost its targeted search fallback.');
-  console.log('Equinix direct-click promotion regression tests passed.');
+  if (!result.jobs[1].sourceUrl.includes('query=JR-100002')) throw new Error('Dead Equinix detail URL was not demoted to its requisition-targeted search fallback.');
+  if (result.jobs[2].sourceUrl !== roleUrls.get('JR-100003')) throw new Error('Healthy existing Equinix detail URL was unnecessarily replaced.');
+  console.log('Equinix direct-click routing regression tests passed.');
 }
 
 if (process.argv.includes('--test')) {
@@ -140,4 +160,4 @@ status.equinixVerifiedFallback = {
 };
 await writeFile(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`);
 
-console.log(`Equinix click routing: ${result.direct} verified direct detail link(s), ${result.searchFallback} requisition-targeted search fallback(s), ${result.changed} promoted this run.`);
+console.log(`Equinix click routing: ${result.direct} verified direct detail link(s), ${result.searchFallback} requisition-targeted search fallback(s), ${result.changed} route change(s) this run.`);

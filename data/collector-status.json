@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-14T04:26:07.005Z",
-  "jobs": 710,
+  "updatedAt": "2026-09-14T04:45:33.496Z",
+  "jobs": 693,
   "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
@@ -8,14 +8,14 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 678,
-    "internship": 12,
+    "entry-level": 666,
+    "internship": 7,
     "trainee": 8,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 391,
-    "2-5-years": 277,
+    "0-2-years": 389,
+    "2-5-years": 262,
     "no-experience": 42
   },
   "errors": [],
@@ -3410,7 +3410,7 @@
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
     "sourceHealthy": false,
-    "qualifyingRoles": 17,
+    "qualifyingRoles": 0,
     "diagnostics": {
       "listingPagesAttempted": 1,
       "listingPagesSucceeded": 0,
@@ -3432,13 +3432,19 @@
       "listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
     ],
     "verifiedFallback": {
-      "active": true,
+      "active": false,
       "verifiedAt": "2026-09-10T02:40:00Z",
       "expiresAt": "2026-09-14T02:40:00.000Z",
-      "roles": 17,
+      "roles": 0,
       "classificationCorrections": 0,
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
-      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages."
+      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
+      "expired": true,
+      "checkedAt": "2026-09-14T04:45:33.496Z",
+      "maxAgeHours": 96,
+      "expiredAgeHours": 98.1,
+      "rolesRemoved": 17,
+      "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
   },
   "priorityEmployerExpansion": {

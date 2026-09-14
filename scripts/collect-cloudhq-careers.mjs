@@ -8,6 +8,15 @@ const OFFICIAL_CAREERS = 'https://cloudhq.com/careers/';
 const BOARD_GUID = 'd38e9867-3cd9-4254-b3ff-46e251ca1eee';
 const BOARD_URL = `https://recruiting.paylocity.com/recruiting/jobs/All/${BOARD_GUID}/CloudHQ-LLC`;
 const FEED_URL = `https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/${BOARD_GUID}`;
+const VERIFIED_DIRECT_CANDIDATES = [
+  {
+    jobId: 4007666,
+    title: 'Mission Critical Coordinator',
+    city: 'Ashburn',
+    state: 'VA',
+    sourceUrl: 'https://recruiting.paylocity.com/recruiting/jobs/Details/4007666/CloudHQ-LLC/Mission-Critical-Coordinator'
+  }
+];
 const US_STATE_CODES = new Set([
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI',
   'MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT',
@@ -28,7 +37,7 @@ const clean = value => String(value ?? '')
   .trim();
 const lower = value => clean(value).toLowerCase();
 
-const missionTitlePattern = /\b(?:mission critical coordinator|building technician(?:\s+[i1])?|critical (?:facilities|facility|operations) technician(?:\s+[i1v]{1,3})?|data cent(?:er|re) (?:facilities |facility |operations )?technician(?:\s+[i1v]{1,3})?|facilities technician(?:\s+[i1v]{1,3})?|operations technician(?:\s+[i1v]{1,3})?|controls technician(?:\s+[i1v]{1,3})?|commissioning engineer(?:\s+[i1v]{1,3})?|project engineer(?:\s+[i1v]{1,3})?)\b/i;
+const missionTitlePattern = /\b(?:mission critical coordinator|building technician(?:\s+[i1])?|critical (?:facilities|facility|operations) technician(?:\s+[i1v]{1,3})?|data cent(?:er|re) (?:facilities |facility |operations )?technician(?:\s+[i1v]{1,3})?|facilities (?:assistant|technician)(?:\s+[i1v]{1,3})?|operations technician(?:\s+[i1v]{1,3})?|controls technician(?:\s+[i1v]{1,3})?|commissioning engineer(?:\s+[i1v]{1,3})?|project engineer(?:\s+[i1v]{1,3})?)\b/i;
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|leader|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff|supervisor|superintendent|foreman|architect|sales|account executive)\b/i;
 const missionContextPattern = /\bdata cent(?:er|re)s?\b/i;
 const infrastructureContextPattern = /\b(?:critical infrastructure|critical systems?|electrical|mechanical|power|generator|ups|switchgear|hvac|chiller|bms|epms|dcim|facilit(?:y|ies)|operations?|commissioning|controls?|maintenance|troubleshooting)\b/i;
@@ -56,7 +65,6 @@ function classify(title, description, requirements) {
   const evidence = clean(`${description} ${requirements}`);
   if (!missionTitlePattern.test(titleText) || excludedTitlePattern.test(titleText)) return null;
   if (!missionContextPattern.test(evidence) || !infrastructureContextPattern.test(evidence)) return null;
-
   const years = requiredExperienceYears(evidence);
   if (years.some(year => year >= 6)) return null;
   if (years.some(year => year >= 3)) return { type: 'entry-level', experience: '2-5-years' };
@@ -106,7 +114,54 @@ function officialDetailUrl(raw = {}) {
   }
 }
 
-async function fetchFeed() {
+async function fetchDirectCandidates() {
+  const jobs = [];
+  const inactive = [];
+  const failures = [];
+  for (const candidate of VERIFIED_DIRECT_CANDIDATES) {
+    try {
+      const response = await fetch(candidate.sourceUrl, {
+        redirect: 'follow',
+        headers: { 'user-agent': 'DataCenterCareersBot/1.5 (+https://datacentercareers.us/)' },
+        signal: AbortSignal.timeout(20000)
+      });
+      const finalUrl = response.url || candidate.sourceUrl;
+      if (!response.ok) {
+        failures.push(`${candidate.jobId}: HTTP ${response.status}`);
+        continue;
+      }
+      if (/\/jobnotfound(?:$|[/?#])/i.test(finalUrl)) {
+        inactive.push(candidate.jobId);
+        continue;
+      }
+      const html = await response.text();
+      const text = clean(html);
+      if (!text || !lower(text).includes(lower(candidate.title)) || !/\bcloudhq\b/i.test(text)) {
+        failures.push(`${candidate.jobId}: direct role identity mismatch`);
+        continue;
+      }
+      jobs.push({
+        jobId: candidate.jobId,
+        title: candidate.title,
+        displayUrl: candidate.sourceUrl,
+        applyUrl: candidate.sourceUrl.replace('/Details/', '/Apply/'),
+        publishedDate: null,
+        description: text,
+        requirements: text,
+        jobLocation: { city: candidate.city, state: candidate.state },
+        salaryDescription: ''
+      });
+    } catch (error) {
+      failures.push(`${candidate.jobId}: ${error?.message || error}`);
+    }
+  }
+  if (failures.length) {
+    throw new Error(`CloudHQ direct-role verification failed: ${failures.join('; ')}`);
+  }
+  return { jobs, inactive };
+}
+
+async function fetchSourceJobs() {
   const response = await fetch(FEED_URL, {
     redirect: 'follow',
     headers: {
@@ -120,14 +175,20 @@ async function fetchFeed() {
   if (!payload || typeof payload !== 'object' || !Array.isArray(payload.jobs)) {
     throw new Error('CloudHQ Paylocity feed did not return a jobs array');
   }
-  // Paylocity's v2 feed can return the board GUID itself as displayName. The
-  // GUID is independently anchored to the board linked from CloudHQ's official
-  // careers page, so accept either that exact board identity or a CloudHQ label.
   const displayName = clean(payload.displayName);
   if (displayName && displayName !== BOARD_GUID && !/cloudhq/i.test(displayName)) {
     throw new Error(`CloudHQ Paylocity feed identity mismatch: ${displayName}`);
   }
-  return payload.jobs;
+  if (payload.jobs.length) {
+    return { jobs: payload.jobs, mode: 'paylocity-feed', feedListedJobs: payload.jobs.length, inactiveCandidateIds: [] };
+  }
+  const fallback = await fetchDirectCandidates();
+  return {
+    jobs: fallback.jobs,
+    mode: 'verified-direct-role-fallback',
+    feedListedJobs: 0,
+    inactiveCandidateIds: fallback.inactive
+  };
 }
 
 let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
@@ -135,7 +196,8 @@ if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 let status = {};
 try { status = JSON.parse(await readFile(STATUS_PATH, 'utf8')); } catch {}
 
-const rawJobs = await fetchFeed();
+const sourceResult = await fetchSourceJobs();
+const rawJobs = sourceResult.jobs;
 const drops = { nonUs: 0, titleOrContext: 0, experience: 0, missingDirectUrl: 0 };
 const qualifying = [];
 
@@ -207,6 +269,10 @@ status.cloudHqCareers = {
   boardUrl: BOARD_URL,
   feedUrl: FEED_URL,
   sourceHealthy: true,
+  mode: sourceResult.mode,
+  feedListedJobs: sourceResult.feedListedJobs,
+  directCandidatesChecked: VERIFIED_DIRECT_CANDIDATES.length,
+  inactiveCandidateIds: sourceResult.inactiveCandidateIds,
   listedJobs: rawJobs.length,
   qualifyingRoles: unique.length,
   drops
@@ -216,4 +282,4 @@ status.jobs = jobs.length;
 await writeFile(JOBS_PATH, JSON.stringify(jobs, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
-console.log(`CloudHQ careers: ${rawJobs.length} official Paylocity jobs checked; ${unique.length} qualifying U.S. 0–5 year infrastructure role(s).`);
+console.log(`CloudHQ careers: ${rawJobs.length} official role(s) checked via ${sourceResult.mode}; ${unique.length} qualifying U.S. 0–5 year infrastructure role(s).`);

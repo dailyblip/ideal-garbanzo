@@ -19,6 +19,23 @@ on:
       - 'data/jobs.json'
       - 'data/mailing-list.json'
       - '.github/workflows/weekly-job-alert.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'assets/mailing-list.js'
+      - 'assets/jobs-listing.js'
+      - 'scripts/send-weekly-job-alert.mjs'
+      - 'scripts/validate.mjs'
+      - 'scripts/validate-mailing-list.mjs'
+      - 'scripts/validate-alert-signup-parity.mjs'
+      - 'scripts/validate-alert-job-detail-parity.mjs'
+      - 'scripts/validate-priority-employer-sources.mjs'
+      - 'scripts/validate-direct-role-links.mjs'
+      - 'scripts/validate-job-history.mjs'
+      - 'scripts/generate-seo.mjs'
+      - 'data/jobs.json'
+      - 'data/mailing-list.json'
+      - '.github/workflows/weekly-job-alert.yml'
   schedule:
     - cron: '5 14 * * 1'
   workflow_dispatch:
@@ -41,8 +58,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 22

@@ -23,6 +23,7 @@ on:
       - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
+      - 'scripts/validate-major-workday-health.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
@@ -61,6 +62,7 @@ on:
       - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
+      - 'scripts/validate-major-workday-health.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
@@ -102,6 +104,8 @@ jobs:
         run: node scripts/validate-priority-region-coverage.mjs
       - name: Verify AWS snapshot identity and public-feed traceability
         run: node scripts/validate-amazon-snapshot.mjs
+      - name: Verify major Workday source-health diagnostics
+        run: node scripts/validate-major-workday-health.mjs
       - name: Verify major Workday snapshots match the public feed exactly
         run: node scripts/validate-major-workday-parity.mjs
       - name: Verify major Workday source evidence is deployably fresh

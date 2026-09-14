@@ -11,6 +11,7 @@ on:
       - 'scripts/career-event-evidence.mjs'
       - 'scripts/test-career-event-evidence.mjs'
       - 'scripts/validate-career-event-freshness.mjs'
+      - 'scripts/validate-aws-career-event-coverage.mjs'
       - 'data/career-events.json'
       - '.github/workflows/career-events-refresh.yml'
 
@@ -35,6 +36,8 @@ jobs:
           node-version: 22
       - name: Test event-content verification rules
         run: node scripts/test-career-event-evidence.mjs
+      - name: Check AWS organizer discovery coverage
+        run: node scripts/validate-aws-career-event-coverage.mjs
       - name: Reverify organizer pages and prune stale events
         run: node scripts/refresh-career-events.mjs
       - name: Validate career-event publication contract
@@ -51,6 +54,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node scripts/test-career-event-evidence.mjs
+            node scripts/validate-aws-career-event-coverage.mjs
             node scripts/refresh-career-events.mjs
             node scripts/validate-career-event-freshness.mjs
           }

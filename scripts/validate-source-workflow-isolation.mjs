@@ -12,6 +12,7 @@ const sourceWorkflows = [
   '.github/workflows/edgeconnex-bootstrap.yml',
   '.github/workflows/equinix-bootstrap.yml',
   '.github/workflows/equinix-stale-fallback-watch.yml',
+  '.github/workflows/equinix-verified-evidence-watch.yml',
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/flexential-stale-fallback-watch.yml',
   '.github/workflows/generic-ats-stale-fallback-watch.yml',

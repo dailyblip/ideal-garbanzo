@@ -54,3 +54,9 @@ if (violations.length) {
 }
 
 console.log(`Priority source diagnostics present for all ${prioritySources.length} strategic employers. ${summary.join(', ')}`);
+
+// Deployment already invokes this strategic-source diagnostic guard. Keep the
+// six major Workday operators fail-closed here as well so a stale or malformed
+// fallback state cannot remain deployable merely because an old sourceHealthy
+// boolean is still present in collector-status.json.
+await import('./validate-major-workday-freshness-state.mjs');

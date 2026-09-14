@@ -6,6 +6,7 @@ const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const allowedTypes = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
+const allowedModes = new Set(['paylocity-feed', 'verified-direct-role-fallback']);
 const seniorPattern = /\b(?:senior|sr\.?|lead|leader|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff|supervisor|superintendent|foreman|architect)\b/i;
 const usLocationPattern = /,\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)$/;
 
@@ -40,11 +41,21 @@ for (const [index, job] of snapshot.entries()) {
 
 const sourceStatus = status?.cloudHqCareers || {};
 if (sourceStatus.sourceHealthy !== true) violations.push('collector-status.cloudHqCareers.sourceHealthy must be true after a published refresh');
+if (!allowedModes.has(sourceStatus.mode)) violations.push(`collector-status.cloudHqCareers.mode is unsupported: ${sourceStatus.mode || '(missing)'}`);
 if (Number(sourceStatus.qualifyingRoles) !== snapshot.length) {
   violations.push(`collector status says ${sourceStatus.qualifyingRoles ?? '(missing)'} qualifying roles but snapshot contains ${snapshot.length}`);
 }
 if (!Number.isFinite(Number(sourceStatus.listedJobs)) || Number(sourceStatus.listedJobs) < snapshot.length) {
   violations.push(`collector status listedJobs is inconsistent with snapshot size (${sourceStatus.listedJobs ?? '(missing)'} vs ${snapshot.length})`);
+}
+if (sourceStatus.mode === 'paylocity-feed' && Number(sourceStatus.feedListedJobs) !== Number(sourceStatus.listedJobs)) {
+  violations.push(`Paylocity-feed mode must report matching feed/listed counts (${sourceStatus.feedListedJobs} vs ${sourceStatus.listedJobs})`);
+}
+if (sourceStatus.mode === 'verified-direct-role-fallback') {
+  if (Number(sourceStatus.feedListedJobs) !== 0) violations.push('direct-role fallback may only activate when the optional Paylocity feed returns zero rows');
+  if (!Number.isFinite(Number(sourceStatus.directCandidatesChecked)) || Number(sourceStatus.directCandidatesChecked) < Number(sourceStatus.listedJobs)) {
+    violations.push(`direct-role fallback evidence is incomplete (${sourceStatus.directCandidatesChecked ?? '(missing)'} checked vs ${sourceStatus.listedJobs} live)`);
+  }
 }
 
 const publicJobs = jobs.filter(job => String(job?.company || '').trim() === COMPANY);
@@ -63,4 +74,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} CloudHQ source regression(s).`);
 }
 
-console.log(`CloudHQ validation passed: ${snapshot.length} verified snapshot role(s), ${publicJobs.length} public role(s), ${sourceStatus.listedJobs} official Paylocity posting(s) checked.`);
+console.log(`CloudHQ validation passed: ${snapshot.length} verified snapshot role(s), ${publicJobs.length} public role(s), ${sourceStatus.listedJobs} official Paylocity role(s) checked via ${sourceStatus.mode}.`);

@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-14T13:19:06.050Z",
-  "jobs": 695,
+  "jobs": 694,
   "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
@@ -8,13 +8,13 @@
     "ashby": 5
   },
   "countsByType": {
-    "internship": 8,
     "entry-level": 667,
+    "internship": 7,
     "trainee": 8,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 390,
+    "0-2-years": 389,
     "2-5-years": 262,
     "no-experience": 43
   },
@@ -349,13 +349,16 @@
     "reconciliation": {
       "checkedAt": "2026-09-14T13:24:18.726Z",
       "rawJobs": 187,
-      "publishedUsJobs": 187,
+      "publishedUsJobs": 186,
       "nonUsRemoved": 0,
       "unresolvedLocationRemoved": 0,
       "siteCodeLocationsResolved": 0,
       "siteCodeLocationSamples": [],
       "nonUsSamples": [],
-      "unresolvedLocationSamples": []
+      "unresolvedLocationSamples": [],
+      "publicationGuardAdjustedAt": "2026-09-14T13:51:13.129Z",
+      "publicationGuardPreviousPublishedUsJobs": 187,
+      "publicationGuardReason": "snapshot-pruned-after-reconciliation"
     },
     "fallbackFreshness": {
       "maxAgeHours": 96,

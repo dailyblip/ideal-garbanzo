@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T17:49:17.049Z",
+  "updatedAt": "2026-09-14T17:58:45.226Z",
   "jobs": 686,
   "sourcesAttempted": 17,
   "providers": {
@@ -3704,7 +3704,7 @@
     ]
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T17:49:17.127Z",
+    "checkedAt": "2026-09-14T17:58:45.329Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3712,7 +3712,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T17:49:17.206Z",
+    "updatedAt": "2026-09-14T17:58:45.430Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 686,
@@ -3723,25 +3723,25 @@
       "texas": 115,
       "southeast": 109,
       "mid-atlantic": 130,
-      "midwest": 133,
       "northeast": 20,
+      "midwest": 133,
       "southwest": 83,
       "west": 94,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T17:49:17.280Z",
-    "before": 687,
-    "after": 687,
+    "checkedAt": "2026-09-14T17:58:45.528Z",
+    "before": 686,
+    "after": 686,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-14T17:49:40.658Z",
+    "checkedAt": "2026-09-14T17:59:04.876Z",
     "publishedJobs": 686,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
@@ -3757,7 +3757,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 94,
-    "updatedAt": "2026-09-14T17:49:40.893Z"
+    "updatedAt": "2026-09-14T17:59:05.087Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3856,7 +3856,7 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-14T04:26:07.005Z",
+    "checkedAt": "2026-09-14T17:58:45.226Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",
@@ -3864,12 +3864,12 @@
     "officialRssFeed": "https://switchltd.hrmdirect.com/employment/rss.php?search=true&dept=-1&city=-1&state=-1",
     "authoritativeSnapshot": true,
     "listedJobs": 114,
-    "candidateRoles": 30,
+    "candidateRoles": 29,
     "qualifyingRoles": 23,
-    "rejectedOutOfScopeTitle": 84,
+    "rejectedOutOfScopeTitle": 85,
     "rejectedSeniorTitle": 0,
     "rejectedMissingDataCenterContext": 0,
-    "rejectedDetailTitleMismatch": 5,
+    "rejectedDetailTitleMismatch": 4,
     "rejectedLeadershipRequirement": 0,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 1,

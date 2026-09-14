@@ -16,6 +16,9 @@ on:
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/enforce-google-fallback-freshness.mjs'
+      - 'scripts/enforce-equinix-fallback-freshness.mjs'
+      - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
@@ -32,6 +35,8 @@ on:
       - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
+      - '.github/workflows/equinix-bootstrap.yml'
+      - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -49,6 +54,9 @@ on:
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/enforce-google-fallback-freshness.mjs'
+      - 'scripts/enforce-equinix-fallback-freshness.mjs'
+      - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
       - 'scripts/validate-priority-region-coverage.mjs'
@@ -65,6 +73,8 @@ on:
       - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
+      - '.github/workflows/equinix-bootstrap.yml'
+      - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -108,6 +118,15 @@ jobs:
         run: |
           node scripts/validate-google-freshness.mjs --test
           node scripts/validate-google-freshness.mjs
+      - name: Verify Equinix fallback evidence and click-routing policies
+        run: |
+          node --check scripts/apply-equinix-verified-fallback.mjs
+          node --check scripts/enforce-equinix-fallback-freshness.mjs
+          node --check scripts/enforce-equinix-verified-evidence.mjs
+          node --check scripts/promote-equinix-direct-clicks.mjs
+          node scripts/enforce-equinix-fallback-freshness.mjs --test
+          node scripts/enforce-equinix-verified-evidence.mjs --test
+          node scripts/promote-equinix-direct-clicks.mjs --test
       - name: Verify Digital Realty snapshot matches the public feed exactly
         run: node scripts/validate-digital-realty.mjs
       - name: Verify EdgeConneX snapshot and public-feed parity

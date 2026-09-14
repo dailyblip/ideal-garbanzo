@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-14T02:45:37.450Z",
-  "jobs": 711,
+  "updatedAt": "2026-09-14T03:41:32.627Z",
+  "jobs": 710,
   "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
@@ -11,11 +11,11 @@
     "internship": 12,
     "trainee": 8,
     "apprenticeship": 12,
-    "entry-level": 679
+    "entry-level": 678
   },
   "countsByExperience": {
     "no-experience": 42,
-    "0-2-years": 392,
+    "0-2-years": 391,
     "2-5-years": 277
   },
   "errors": [],
@@ -3631,121 +3631,18 @@
     "directDetailClicksUsed": 7
   },
   "missionFit": {
-    "checkedAt": "2026-09-14T00:48:52.264Z",
-    "removedCount": 14,
-    "removedByReason": {
-      "senior/executive title": 4,
-      "non-mission role family": 8,
-      "non-US location": 2
-    },
-    "removed": [
-      {
-        "id": "ashby-lambda-ebee6943394494",
-        "company": "Lambda",
-        "title": "Staff Electrical Engineer - Medium Voltage",
-        "location": "San Francisco Office (Fremont St)",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-gimlet-eb9a94c8bab714",
-        "company": "Gimlet Labs",
-        "title": "Legal Intern",
-        "location": "San Francisco, CA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-fluidstack-f2990eac8950ce",
-        "company": "Fluidstack",
-        "title": "Staff Electrical Operator",
-        "location": "Abernathy, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "gh-xai-5169675007",
-        "company": "xAI",
-        "title": "Network Operations Technician (SpaceXAI / Starlink)",
-        "location": "Dublin, Ireland",
-        "reason": "non-US location"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "location": "Southaven, MS; Memphis, TN",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-55e8ca08729b80",
-        "company": "Crusoe",
-        "title": "Quality Technician - Electrical Inspector",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-316d2a228cba07",
-        "company": "Crusoe",
-        "title": "Material Planner (Electrical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-129b9fd8c0d03e",
-        "company": "Crusoe",
-        "title": "Material Planner (Mechanical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
-        "company": "Serverfarm",
-        "title": "Data Center Technician",
-        "location": "Toronto, ON",
-        "reason": "non-US location"
-      },
-      {
-        "id": "ashby-crusoe-70b01f17d09a8b",
-        "company": "Crusoe",
-        "title": "CNC Operator",
-        "location": "Tulsa, OK - US (1)",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-ab810e7251cc10",
-        "company": "Crusoe",
-        "title": "Assembly Technician",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-8d30086e281f80",
-        "company": "Crusoe",
-        "title": "Project Controls Analyst",
-        "location": "Denver, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-fluidstack-229040aff58cbe",
-        "company": "Fluidstack",
-        "title": "Mechanical Engineer, R&D Team Lead",
-        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-crusoe-b314faa56cd161",
-        "company": "Crusoe",
-        "title": "Staff Data Center Operations Engineer",
-        "location": "Denver, CO - US",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-14T03:41:32.702Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-14T02:45:37.719Z",
+    "updatedAt": "2026-09-14T03:41:32.785Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 711,
+    "regionAssigned": 710,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3755,13 +3652,13 @@
       "midwest": 136,
       "mid-atlantic": 133,
       "southwest": 84,
-      "southeast": 112,
+      "southeast": 111,
       "northeast": 24,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-14T02:45:37.789Z",
+    "checkedAt": "2026-09-14T03:41:32.860Z",
     "before": 711,
     "after": 711,
     "removed": 0,
@@ -3769,16 +3666,16 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-13T20:45:59.783Z",
-    "publishedJobs": 709,
-    "removedJobs": 0,
-    "activeCareerEvents": 5,
+    "checkedAt": "2026-09-14T03:42:06.541Z",
+    "publishedJobs": 710,
+    "removedJobs": 1,
+    "activeCareerEvents": 8,
     "providerVerifiedRetained": 3
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1029,
-    "currentJobs": 711,
+    "currentJobs": 710,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3787,7 +3684,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-14T02:45:37.849Z"
+    "updatedAt": "2026-09-14T03:42:06.776Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3869,7 +3766,7 @@
     "rejectedUnknownExperience": 0
   },
   "flexential": {
-    "checkedAt": "2026-09-13T15:42:53.950Z",
+    "checkedAt": "2026-09-14T03:41:32.627Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",

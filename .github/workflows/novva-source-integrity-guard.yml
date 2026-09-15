@@ -1,0 +1,46 @@
+name: Novva source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/novva-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-novva-careers.mjs'
+      - 'scripts/validate-novva.mjs'
+      - '.github/workflows/novva-bootstrap.yml'
+      - '.github/workflows/novva-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/novva-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-novva-careers.mjs'
+      - 'scripts/validate-novva.mjs'
+      - '.github/workflows/novva-bootstrap.yml'
+      - '.github/workflows/novva-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Novva collector and validator syntax
+        run: |
+          node --check scripts/collect-novva-careers.mjs
+          node --check scripts/validate-novva.mjs
+      - name: Run Novva fail-closed freshness regressions
+        run: node scripts/collect-novva-careers.mjs --test-freshness
+      - name: Validate current Novva publication state
+        run: |
+          node scripts/validate-novva.mjs
+          node scripts/validate-priority-employer-sources.mjs

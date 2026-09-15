@@ -67,6 +67,115 @@ function currentCollectorVerified(metaStatus = {}) {
   return Number(diagnostics?.detailSucceeded || 0) > 0 && Number(diagnostics?.verified || 0) > 0;
 }
 
+function validateSnapshotPublicParity(snapshot, publicMeta) {
+  const issues = [];
+  const snapshotById = new Map(snapshot.map(job => [clean(job?.id), job]).filter(([id]) => id));
+  const publicIds = new Set();
+  const publicUrls = new Set();
+
+  for (const job of publicMeta) {
+    const id = clean(job?.id);
+    const parsedUrl = canonicalMetaUrl(job?.sourceUrl);
+    const idMatch = id.match(/^meta-(\d+)$/);
+
+    if (!idMatch) issues.push(`Public Meta role ${id || '(missing id)'} does not use the canonical meta-<job id> identity.`);
+    if (!parsedUrl) issues.push(`Public Meta role ${id || '(missing id)'} does not use a canonical employer-direct Meta Careers detail URL.`);
+    if (idMatch && parsedUrl && idMatch[1] !== parsedUrl.jobId) issues.push(`Public Meta role ${id} does not match its Meta Careers job ID ${parsedUrl.jobId}.`);
+
+    if (id) {
+      if (publicIds.has(id)) issues.push(`Meta public feed contains duplicate id ${id}.`);
+      publicIds.add(id);
+    }
+    if (parsedUrl) {
+      if (publicUrls.has(parsedUrl.url)) issues.push(`Meta public feed contains duplicate URL ${parsedUrl.url}.`);
+      publicUrls.add(parsedUrl.url);
+    }
+
+    const authoritative = snapshotById.get(id);
+    if (!authoritative) {
+      issues.push(`Public Meta role ${id || '(missing id)'} is not traceable to the authoritative snapshot.`);
+      continue;
+    }
+
+    const authoritativeUrl = canonicalMetaUrl(authoritative?.sourceUrl);
+    if (parsedUrl && authoritativeUrl && parsedUrl.url !== authoritativeUrl.url) {
+      issues.push(`Public Meta role ${id} does not preserve its authoritative Meta Careers URL.`);
+    }
+    if (canonicalTitle(job) !== canonicalTitle(authoritative)) {
+      issues.push(`Public Meta role ${id} title drifted from authoritative snapshot: ${clean(authoritative?.title)} -> ${clean(job?.title)}.`);
+    }
+    if (normalize(job?.location) !== normalize(authoritative?.location)) {
+      issues.push(`Public Meta role ${id} location drifted from authoritative snapshot: ${clean(authoritative?.location)} -> ${clean(job?.location)}.`);
+    }
+    if (clean(job?.type) !== clean(authoritative?.type)) {
+      issues.push(`Public Meta role ${id} type drifted from ${clean(authoritative?.type)} to ${clean(job?.type)}.`);
+    }
+    if (clean(job?.experience) !== clean(authoritative?.experience)) {
+      issues.push(`Public Meta role ${id} experience drifted from ${clean(authoritative?.experience)} to ${clean(job?.experience)}.`);
+    }
+    if (clean(job?.source) !== clean(authoritative?.source)) {
+      issues.push(`Public Meta role ${id} source label drifted from ${clean(authoritative?.source)} to ${clean(job?.source)}.`);
+    }
+    if (job?.active !== authoritative?.active || job?.demo !== authoritative?.demo) {
+      issues.push(`Public Meta role ${id} production state drifted from the authoritative snapshot.`);
+    }
+  }
+
+  for (const job of snapshot) {
+    const id = clean(job?.id);
+    if (id && !publicIds.has(id)) issues.push(`Meta public feed is missing authoritative requisition ${id}.`);
+  }
+
+  return issues;
+}
+
+function assertTest(condition, message) {
+  if (!condition) throw new Error(`Meta snapshot parity regression failed: ${message}`);
+}
+
+function runParityRegressionTests() {
+  const authoritative = {
+    id: 'meta-123456789',
+    title: 'Critical Facility Engineer',
+    company: COMPANY,
+    location: 'Temple, TX',
+    type: 'entry-level',
+    experience: '0-2-years',
+    source: 'Meta Careers',
+    sourceUrl: 'https://www.metacareers.com/profile/job_details/123456789/',
+    active: true,
+    demo: false
+  };
+
+  let issues = validateSnapshotPublicParity(
+    [authoritative],
+    [{ ...authoritative, pay: '$30–$40 / hr', region: 'texas', firstSeenAt: '2026-09-01T00:00:00.000Z' }]
+  );
+  assertTest(issues.length === 0, `expected downstream enrichment to preserve parity, got ${issues.join(' | ')}`);
+
+  issues = validateSnapshotPublicParity([authoritative], [{ ...authoritative, experience: '2-5-years' }]);
+  assertTest(issues.some(issue => issue.includes('experience drifted')), 'experience drift must fail closed');
+
+  issues = validateSnapshotPublicParity([authoritative], [{ ...authoritative, location: 'Henrico, VA' }]);
+  assertTest(issues.some(issue => issue.includes('location drifted')), 'location drift must fail closed');
+
+  issues = validateSnapshotPublicParity([authoritative], []);
+  assertTest(issues.some(issue => issue.includes('missing authoritative requisition')), 'missing public requisition must fail closed');
+
+  issues = validateSnapshotPublicParity([], [authoritative]);
+  assertTest(issues.some(issue => issue.includes('not traceable to the authoritative snapshot')), 'unexpected public requisition must fail closed');
+
+  issues = validateSnapshotPublicParity([authoritative], [authoritative, { ...authoritative }]);
+  assertTest(issues.some(issue => issue.includes('duplicate id')), 'duplicate public requisition id must fail closed');
+
+  console.log('Meta snapshot parity regression passed.');
+}
+
+if (process.argv.includes('--test')) {
+  runParityRegressionTests();
+  process.exit(0);
+}
+
 const violations = [];
 let snapshot = [];
 let jobs = [];
@@ -123,15 +232,7 @@ for (const job of snapshot) {
   if (parsedUrl) { if (snapshotUrls.has(parsedUrl.url)) violations.push(`Meta snapshot contains duplicate URL ${parsedUrl.url}.`); snapshotUrls.add(parsedUrl.url); }
 }
 
-for (const job of publicMeta) {
-  if (!canonicalMetaUrl(job?.sourceUrl)) violations.push(`Public Meta role ${job?.id || '(missing id)'} does not use a canonical employer-direct Meta Careers detail URL.`);
-}
-const snapshotTitles = new Set(snapshot.map(canonicalTitle).filter(Boolean));
-const publicTitles = new Set(publicMeta.map(canonicalTitle).filter(Boolean));
-const missingTitles = [...snapshotTitles].filter(title => !publicTitles.has(title));
-const unexpectedTitles = [...publicTitles].filter(title => !snapshotTitles.has(title));
-if (missingTitles.length) violations.push(`Meta public feed is missing ${missingTitles.length}/${snapshotTitles.size} authoritative unique role title(s).`);
-if (unexpectedTitles.length) violations.push(`Meta public feed contains ${unexpectedTitles.length} unique role title(s) not traceable to the authoritative snapshot.`);
+violations.push(...validateSnapshotPublicParity(snapshot, publicMeta));
 
 const reportedQualifying = Number(metaStatus?.qualifyingRoles);
 if (Number.isFinite(reportedQualifying) && reportedQualifying !== snapshot.length) violations.push(`Meta collector status reports ${reportedQualifying} qualifying roles but snapshot contains ${snapshot.length}.`);
@@ -145,9 +246,9 @@ if (fallbackExpired) {
   console.log('Meta snapshot guard passed: employer-direct fallback is expired and no Meta roles remain published pending fresh verification.');
 } else if (fallbackActive) {
   const ageLabel = fallbackAgeHours === null ? 'unknown' : `${Math.round(fallbackAgeHours * 10) / 10} hours`;
-  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative role(s) remain inside the ${maxFallbackAgeHours}-hour fallback window (${ageLabel} since last healthy verification).`);
+  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative role(s) remain inside the ${maxFallbackAgeHours}-hour fallback window (${ageLabel} since last healthy verification), with exact requisition parity in the public feed.`);
 } else if (freshness?.lastHealthyAt) {
-  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative requisitions represented by ${publicTitles.size} clean public role title(s); official sitemap liveness is durably verified.`);
+  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative requisition(s) match the public feed one-for-one; official sitemap liveness is durably verified.`);
 } else {
-  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative requisitions represented by ${publicTitles.size} clean public role title(s); official source healthy or no degraded state recorded.`);
+  console.log(`Meta snapshot guard passed: ${snapshot.length} authoritative requisition(s) match the public feed one-for-one; official source healthy or no degraded state recorded.`);
 }

@@ -25,6 +25,7 @@ on:
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
       - 'scripts/enforce-flexential-fallback-freshness.mjs'
+      - 'scripts/enforce-coresite-fallback-freshness.mjs'
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
@@ -57,6 +58,7 @@ on:
       - '.github/workflows/meta-stale-fallback-watch.yml'
       - '.github/workflows/oracle-stale-fallback-watch.yml'
       - '.github/workflows/digital-realty-stale-fallback-watch.yml'
+      - '.github/workflows/coresite-stale-fallback-watch.yml'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/novva-bootstrap.yml'
@@ -94,6 +96,7 @@ on:
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
       - 'scripts/enforce-flexential-fallback-freshness.mjs'
+      - 'scripts/enforce-coresite-fallback-freshness.mjs'
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
@@ -126,6 +129,7 @@ on:
       - '.github/workflows/meta-stale-fallback-watch.yml'
       - '.github/workflows/oracle-stale-fallback-watch.yml'
       - '.github/workflows/digital-realty-stale-fallback-watch.yml'
+      - '.github/workflows/coresite-stale-fallback-watch.yml'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/novva-bootstrap.yml'
@@ -162,12 +166,14 @@ jobs:
           node --check scripts/enforce-oracle-fallback-freshness.mjs
           node --check scripts/enforce-digital-realty-fallback-freshness.mjs
           node --check scripts/enforce-flexential-fallback-freshness.mjs
+          node --check scripts/enforce-coresite-fallback-freshness.mjs
           node scripts/enforce-amazon-fallback-freshness.mjs --test
           node scripts/enforce-microsoft-fallback-freshness.mjs --test
           node scripts/enforce-meta-fallback-freshness.mjs --test
           node scripts/enforce-oracle-fallback-freshness.mjs --test
           node scripts/enforce-digital-realty-fallback-freshness.mjs --test
           node scripts/enforce-flexential-fallback-freshness.mjs --test
+          node scripts/enforce-coresite-fallback-freshness.mjs --test
           node scripts/validate-flexential-freshness.mjs
       - name: Verify Microsoft experience classifier before publication
         run: |

@@ -82,6 +82,13 @@ function fallbackWindowActive(fallback, nowMs = Date.now()) {
   return Number.isFinite(expiresAt) && nowMs < expiresAt;
 }
 
+function fallbackWindowExpired(fallback, nowMs = Date.now()) {
+  if (!fallback || typeof fallback !== 'object') return false;
+  if (fallback.expired === true) return true;
+  const expiresAt = Date.parse(clean(fallback.expiresAt));
+  return Number.isFinite(expiresAt) && nowMs >= expiresAt;
+}
+
 function hasExactEvidence(job, fallback, roleUrls) {
   if (!fallbackWindowActive(fallback)) return false;
   if (!Array.isArray(fallback.checks)) return false;
@@ -201,10 +208,16 @@ function runSelfTest() {
   if (hasExactEvidence(searchJob, { ...valid, expiresAt: past }, roleUrls)) {
     throw new Error('Expired Equinix evidence window was incorrectly accepted.');
   }
+  if (!fallbackWindowExpired({ ...valid, expiresAt: past })) {
+    throw new Error('Expired Equinix evidence window was not recognized as expired.');
+  }
+  if (fallbackWindowExpired(valid)) {
+    throw new Error('Active Equinix evidence window was incorrectly recognized as expired.');
+  }
   if (hasExactEvidence(searchJob, { ...valid, checks: [] }, roleUrls)) {
     throw new Error('Missing Equinix role checks were incorrectly accepted.');
   }
-  console.log('Equinix verified-fallback evidence regression tests passed for search and promoted direct routes.');
+  console.log('Equinix verified-fallback evidence regression tests passed for search, promoted direct, and expiry routes.');
 }
 
 if (process.argv.includes('--test')) {
@@ -223,8 +236,33 @@ if (!status || typeof status !== 'object' || Array.isArray(status)) throw new Er
 const roleUrls = verifiedRoleUrls(fallbackSource);
 const fallback = status.equinixVerifiedFallback;
 const managed = jobs.filter(isManaged);
+const expiredByClock = fallbackWindowExpired(fallback);
+
 if (!managed.length) {
-  console.log('No managed Equinix verified-fallback roles are published.');
+  if (!expiredByClock || fallback?.expired === true) {
+    console.log('No managed Equinix verified-fallback roles are published.');
+    process.exit(0);
+  }
+
+  const checkedAt = new Date().toISOString();
+  status.updatedAt = checkedAt;
+  status.equinixVerifiedFallback = {
+    ...(fallback || {}),
+    expired: true,
+    retainedManaged: 0,
+    directDetailClicksUsed: 0,
+    searchClickFallbacksUsed: 0
+  };
+  status.equinixVerifiedEvidenceGuard = {
+    checkedAt,
+    managedBefore: 0,
+    removed: 0,
+    retained: 0,
+    policy: 'A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.',
+    removedRoles: []
+  };
+  await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
+  console.warn(`Marked the Equinix verified-fallback window expired at ${clean(fallback?.expiresAt)}; no managed roles were published.`);
   process.exit(0);
 }
 
@@ -252,6 +290,7 @@ status.countsByType = countBy('type');
 status.countsByExperience = countBy('experience');
 status.equinixVerifiedFallback = {
   ...(fallback || {}),
+  expired: expiredByClock || fallback?.expired === true,
   retainedManaged: retainedManagedJobs.length,
   directDetailClicksUsed: retainedDirect,
   searchClickFallbacksUsed: retainedSearch
@@ -271,4 +310,4 @@ status.equinixVerifiedEvidenceGuard = {
 
 await writeFile(JOBS_PATH, JSON.stringify(nextJobs, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
-console.warn(`Removed ${invalid.length} Equinix verified-fallback role(s) without exact active per-role evidence; retained ${retainedManagedJobs.length} (${retainedDirect} direct, ${retainedSearch} requisition-search fallback).`);
+console.warn(`Removed ${invalid.length} Equinix verified-fallback role(s) without exact active per-role evidence; retained ${retainedManagedJobs.length} (${retainedDirect} direct, ${retainedSearch} requisition-search fallback).${expiredByClock ? ' The fallback evidence window is now expired.' : ''}`);

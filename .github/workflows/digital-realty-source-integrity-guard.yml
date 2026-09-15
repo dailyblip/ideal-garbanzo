@@ -1,0 +1,50 @@
+name: Digital Realty source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/digital-realty-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-digital-realty.mjs'
+      - 'scripts/validate-digital-realty.mjs'
+      - 'scripts/validate-digital-realty-parity.mjs'
+      - '.github/workflows/digital-realty-bootstrap.yml'
+      - '.github/workflows/digital-realty-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/digital-realty-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-digital-realty.mjs'
+      - 'scripts/validate-digital-realty.mjs'
+      - 'scripts/validate-digital-realty-parity.mjs'
+      - '.github/workflows/digital-realty-bootstrap.yml'
+      - '.github/workflows/digital-realty-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Digital Realty collector and validator syntax
+        run: |
+          node --check scripts/collect-digital-realty.mjs
+          node --check scripts/validate-digital-realty.mjs
+          node --check scripts/validate-digital-realty-parity.mjs
+      - name: Run Digital Realty parity regressions
+        run: node scripts/validate-digital-realty-parity.mjs --test
+      - name: Validate current Digital Realty publication state
+        run: |
+          node scripts/validate-digital-realty.mjs
+          node scripts/validate-digital-realty-parity.mjs
+          node scripts/validate-priority-employer-sources.mjs

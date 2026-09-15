@@ -30,6 +30,8 @@ jobs:
           node-version: 22
       - name: Rehydrate active verified CoreSite fallback
         run: node scripts/apply-coresite-verified-fallback.mjs
+      - name: Re-assert CoreSite fallback freshness after rehydration
+        run: node scripts/enforce-coresite-fallback-freshness.mjs
       - name: Normalize rehydrated fallback jobs
         run: |
           node scripts/normalize-job-locations.mjs

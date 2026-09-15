@@ -9,6 +9,7 @@ on:
     paths:
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/validate-google-freshness.mjs'
+      - 'scripts/validate-google-snapshot.mjs'
       - '.github/workflows/google-stale-fallback-watch.yml'
 
 permissions:
@@ -35,10 +36,14 @@ jobs:
         run: node scripts/enforce-google-fallback-freshness.mjs --test
       - name: Test Google freshness validator
         run: node scripts/validate-google-freshness.mjs --test
+      - name: Test Google snapshot identity validator
+        run: node scripts/validate-google-snapshot.mjs --test
       - name: Enforce Google fallback freshness
         run: node scripts/enforce-google-fallback-freshness.mjs
       - name: Validate Google freshness state
         run: node scripts/validate-google-freshness.mjs
+      - name: Validate Google snapshot and public-feed parity
+        run: node scripts/validate-google-snapshot.mjs
       - name: Validate published feed after enforcement
         run: |
           node scripts/validate-priority-employer-sources.mjs
@@ -56,8 +61,10 @@ jobs:
             git reset --hard origin/main
             node scripts/enforce-google-fallback-freshness.mjs --test
             node scripts/validate-google-freshness.mjs --test
+            node scripts/validate-google-snapshot.mjs --test
             node scripts/enforce-google-fallback-freshness.mjs
             node scripts/validate-google-freshness.mjs
+            node scripts/validate-google-snapshot.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs
           }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-15T05:49:47.107Z",
+  "updatedAt": "2026-09-15T05:53:41.544Z",
   "jobs": 674,
   "sourcesAttempted": 23,
   "providers": {
@@ -17,8 +17,8 @@
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "2-5-years": 259,
     "0-2-years": 374,
+    "2-5-years": 259,
     "no-experience": 41
   },
   "errors": [],
@@ -167,18 +167,18 @@
     "errors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-14T18:21:47.702Z",
+    "checkedAt": "2026-09-15T05:53:41.544Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
     "officialLeverBoard": "https://jobs.lever.co/t5datacenters",
     "api": "https://api.lever.co/v0/postings/t5datacenters?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 82,
-    "usJobs": 71,
+    "listedJobs": 81,
+    "usJobs": 70,
     "candidateRoles": 28,
     "qualifyingRoles": 22,
-    "rejectedOutOfScopeTitle": 43,
+    "rejectedOutOfScopeTitle": 42,
     "rejectedSeniorTitle": 3,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 3
@@ -3588,7 +3588,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-15T05:49:47.244Z",
+    "checkedAt": "2026-09-15T05:53:41.734Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3596,16 +3596,16 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T05:49:47.318Z",
+    "updatedAt": "2026-09-15T05:53:41.793Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 675,
+    "regionAssigned": 674,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 112,
       "midwest": 137,
+      "texas": 111,
       "southeast": 105,
       "mid-atlantic": 129,
       "west": 92,
@@ -3615,25 +3615,16 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T05:49:47.393Z",
-    "before": 675,
+    "checkedAt": "2026-09-15T05:53:41.850Z",
+    "before": 674,
     "after": 674,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-108517449598411462",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "Haskell, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-15T05:07:43.332Z",
-    "publishedJobs": 675,
+    "checkedAt": "2026-09-15T05:54:01.948Z",
+    "publishedJobs": 674,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
@@ -3650,7 +3641,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T05:49:47.451Z"
+    "updatedAt": "2026-09-15T05:54:02.220Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

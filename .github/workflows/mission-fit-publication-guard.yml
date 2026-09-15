@@ -20,6 +20,25 @@ on:
       - 'scripts/validate-job-history.mjs'
       - 'scripts/sync-major-reconciliation-status.mjs'
       - '.github/workflows/mission-fit-publication-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/major-jobs.json'
+      - 'data/job-history.json'
+      - 'data/career-events.json'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/scrub-major-targeted-noise.mjs'
+      - 'scripts/prune-unsupported-classification.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/prune-unresolved-geography.mjs'
+      - 'scripts/sync-publication-counts.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/refresh-career-events.mjs'
+      - 'scripts/validate-job-history.mjs'
+      - 'scripts/sync-major-reconciliation-status.mjs'
+      - '.github/workflows/mission-fit-publication-guard.yml'
   # Commits made with the default Actions token do not recursively start new
   # push workflows. This cheap scheduled pass therefore also catches output
   # from employer-specific writers that publish between the daily full refreshes.
@@ -28,15 +47,73 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  actions: write
+  contents: read
 
 concurrency:
-  group: mission-fit-publication-guard
+  group: mission-fit-publication-guard-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
 jobs:
+  premerge:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate publication guard scripts
+        run: |
+          node --check scripts/filter-mission-fit.mjs
+          node --check scripts/scrub-major-targeted-noise.mjs
+          node scripts/scrub-major-targeted-noise.mjs --test
+          node --check scripts/prune-unsupported-classification.mjs
+          node scripts/prune-unsupported-classification.mjs --test
+          node --check scripts/normalize-job-locations.mjs
+          node --check scripts/prune-unresolved-geography.mjs
+          node --check scripts/sync-publication-counts.mjs
+          node --check scripts/dedupe-normalized-jobs.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/refresh-career-events.mjs
+          node --check scripts/validate-job-history.mjs
+          node --check scripts/sync-major-reconciliation-status.mjs
+      - name: Dry-run mission-fit publication contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/scrub-major-targeted-noise.mjs
+          node scripts/filter-mission-fit.mjs
+          node scripts/prune-unsupported-classification.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/prune-unresolved-geography.mjs
+          node scripts/sync-publication-counts.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/stamp-job-history.mjs --repair-only
+          node scripts/refresh-career-events.mjs --prune-expired-only
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-priority-employer-sources.mjs
+
+          # Ignore diagnostic clock churn, then require the proposed publication
+          # state itself to already be normalized. A PR that would need the
+          # post-merge repair bot is not safe to merge.
+          git checkout -- data/collector-status.json
+          node scripts/sync-publication-counts.mjs
+          node scripts/sync-major-reconciliation-status.mjs
+          node scripts/validate-major-workday-parity.mjs
+          git diff --exit-code -- \
+            data/jobs.json \
+            data/major-jobs.json \
+            data/job-history.json \
+            data/career-events.json \
+            data/collector-status.json
+
   enforce:
+    if: github.event_name != 'pull_request'
+    permissions:
+      contents: write
+      actions: write
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:

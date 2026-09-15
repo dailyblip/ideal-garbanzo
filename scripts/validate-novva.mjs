@@ -8,9 +8,11 @@ const MAX_FALLBACK_AGE_HOURS = 168;
 const allowedExperiences = new Set(['no-experience', '0-2-years', '2-5-years']);
 const missionTitlePattern = /\b(?:command center operator|data cent(?:er|re) (?:technician|operator|operations|facilities|facility|engineer)|critical facilit(?:y|ies) (?:technician|operator|engineer)|facilities technician|facility technician)\b/i;
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman)\b/i;
+// Compensation is intentionally excluded because the public feed may add
+// separately verified pay enrichment after the employer snapshot is collected.
 const parityFields = [
   'title', 'company', 'location', 'type', 'experience', 'source', 'sourceUrl',
-  'active', 'demo', 'pay', 'salaryMin', 'salaryMax', 'salarySortMax'
+  'active', 'demo'
 ];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();

@@ -111,6 +111,8 @@ jobs:
           node --check scripts/collect-databank.mjs
           node --check scripts/validate-databank.mjs
           node scripts/collect-databank.mjs --test-classifier
+      - name: Normalize expired Equinix fallback evidence before source validation
+        run: node scripts/enforce-equinix-verified-evidence.mjs
       - name: Verify priority jobs and snapshots stay employer-direct
         run: node scripts/validate-priority-employer-sources.mjs
       - name: Verify priority employers retain authoritative U.S. market coverage

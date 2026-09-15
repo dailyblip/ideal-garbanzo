@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
+const STATUS_PATH = 'data/collector-status.json';
 const MAX_ALLOWED_YEARS = 5;
 const USER_AGENT = 'DataCenterCareersBot/1.1 (+https://datacentercareers.us/)';
 const BOARDS = [
@@ -174,6 +175,29 @@ const reconciled = jobs.filter(job => {
 
 if (removed.length) {
   await writeFile(JOBS_PATH, JSON.stringify(reconciled, null, 2) + '\n');
+}
+
+try {
+  const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
+  const diagnostics = status?.genericDirectSources?.sourceDiagnostics;
+  if (Array.isArray(diagnostics)) {
+    const counts = new Map();
+    for (const job of reconciled) {
+      const company = clean(job?.company);
+      if (!officialByCompany.has(company)) continue;
+      counts.set(company, (counts.get(company) || 0) + 1);
+    }
+    for (const diagnostic of diagnostics) {
+      const company = clean(diagnostic?.company);
+      if (!officialByCompany.has(company)) continue;
+      diagnostic.qualifyingRoles = counts.get(company) || 0;
+    }
+    status.genericDirectSources.ashbyExperienceReconciledAt = new Date().toISOString();
+    status.genericDirectSources.ashbyExperienceRemoved = removed.length;
+    await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
+  }
+} catch (error) {
+  console.warn(`Ashby reconciliation status update skipped: ${error.message}`);
 }
 
 console.log(`Ashby experience reconciliation checked ${officialByCompany.size}/${BOARDS.length} boards; removed ${removed.length} role(s) requiring more than ${MAX_ALLOWED_YEARS} years.`);

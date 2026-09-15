@@ -22,7 +22,9 @@ const SOURCES = [
   {
     label: 'AWS Fiber Optic Fusion Splicing',
     url: 'https://aws.1110ths.org/fiber-optic-fusion-splicing/',
-    minExactUpcomingDates: 3,
+    // Session counts legitimately change as AWS adds, fills, or removes workshops.
+    // Require the section to remain parseable, then verify every exact date it exposes.
+    minExactUpcomingDates: 1,
     endMarkers: ['No sessions in your area yet?', 'Past Program Workshops and Events']
   }
 ];

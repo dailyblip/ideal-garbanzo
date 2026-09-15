@@ -1,0 +1,47 @@
+name: Meta source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/meta-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-meta-careers.mjs'
+      - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/validate-meta-snapshot.mjs'
+      - 'scripts/enforce-meta-fallback-freshness.mjs'
+      - '.github/workflows/meta-bootstrap.yml'
+      - '.github/workflows/meta-stale-fallback-watch.yml'
+      - '.github/workflows/meta-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/meta-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-meta-careers.mjs'
+      - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/validate-meta-snapshot.mjs'
+      - 'scripts/enforce-meta-fallback-freshness.mjs'
+      - '.github/workflows/meta-bootstrap.yml'
+      - '.github/workflows/meta-stale-fallback-watch.yml'
+      - '.github/workflows/meta-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify Meta exact requisition parity
+        run: |
+          node --check scripts/validate-meta-snapshot.mjs
+          node scripts/validate-meta-snapshot.mjs --test
+          node scripts/validate-meta-snapshot.mjs

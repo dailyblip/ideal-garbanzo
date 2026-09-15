@@ -23,6 +23,7 @@ on:
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/enforce-flexential-fallback-freshness.mjs'
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
@@ -42,6 +43,9 @@ on:
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-novva.mjs'
       - 'scripts/validate-databank.mjs'
+      - 'scripts/validate-flexential.mjs'
+      - 'scripts/validate-flexential-freshness.mjs'
+      - 'scripts/validate-switch-careers.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/aws-stale-fallback-watch.yml'
       - '.github/workflows/microsoft-stale-fallback-watch.yml'
@@ -52,6 +56,9 @@ on:
       - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/novva-bootstrap.yml'
       - '.github/workflows/databank-bootstrap.yml'
+      - '.github/workflows/flexential-bootstrap.yml'
+      - '.github/workflows/flexential-stale-fallback-watch.yml'
+      - '.github/workflows/switch-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -76,6 +83,7 @@ on:
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/enforce-flexential-fallback-freshness.mjs'
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-priority-source-diagnostics.mjs'
@@ -95,6 +103,9 @@ on:
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-novva.mjs'
       - 'scripts/validate-databank.mjs'
+      - 'scripts/validate-flexential.mjs'
+      - 'scripts/validate-flexential-freshness.mjs'
+      - 'scripts/validate-switch-careers.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/aws-stale-fallback-watch.yml'
       - '.github/workflows/microsoft-stale-fallback-watch.yml'
@@ -105,6 +116,9 @@ on:
       - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/novva-bootstrap.yml'
       - '.github/workflows/databank-bootstrap.yml'
+      - '.github/workflows/flexential-bootstrap.yml'
+      - '.github/workflows/flexential-stale-fallback-watch.yml'
+      - '.github/workflows/switch-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -129,11 +143,14 @@ jobs:
           node --check scripts/enforce-meta-fallback-freshness.mjs
           node --check scripts/enforce-oracle-fallback-freshness.mjs
           node --check scripts/enforce-digital-realty-fallback-freshness.mjs
+          node --check scripts/enforce-flexential-fallback-freshness.mjs
           node scripts/enforce-amazon-fallback-freshness.mjs --test
           node scripts/enforce-microsoft-fallback-freshness.mjs --test
           node scripts/enforce-meta-fallback-freshness.mjs --test
           node scripts/enforce-oracle-fallback-freshness.mjs --test
           node scripts/enforce-digital-realty-fallback-freshness.mjs --test
+          node scripts/enforce-flexential-fallback-freshness.mjs --test
+          node scripts/validate-flexential-freshness.mjs
       - name: Verify Microsoft experience classifier before publication
         run: |
           node --check scripts/collect-microsoft-datacenter.mjs
@@ -143,6 +160,12 @@ jobs:
           node --check scripts/collect-databank.mjs
           node --check scripts/validate-databank.mjs
           node scripts/collect-databank.mjs --test-classifier
+      - name: Verify comparable operator classifiers before publication
+        run: |
+          node --check scripts/collect-flexential.mjs
+          node --check scripts/collect-switch-careers.mjs
+          node scripts/collect-flexential.mjs --test-classifier
+          node scripts/collect-switch-careers.mjs --test-classifier
       - name: Normalize expired Equinix fallback evidence before source validation
         run: node scripts/enforce-equinix-verified-evidence.mjs
       - name: Verify priority jobs and snapshots stay employer-direct
@@ -190,3 +213,9 @@ jobs:
         run: node scripts/validate-iron-mountain.mjs
       - name: Verify Novva employer-direct snapshot and public-feed parity
         run: node scripts/validate-novva.mjs
+      - name: Verify Flexential employer-direct snapshot and freshness
+        run: |
+          node scripts/validate-flexential.mjs
+          node scripts/validate-flexential-freshness.mjs
+      - name: Verify Switch employer-direct snapshot and public-feed parity
+        run: node scripts/validate-switch-careers.mjs

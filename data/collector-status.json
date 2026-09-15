@@ -1,21 +1,22 @@
 {
-  "updatedAt": "2026-09-15T21:23:33.579Z",
-  "jobs": 680,
-  "sourcesAttempted": 17,
+  "updatedAt": "2026-09-15T21:43:45.301Z",
+  "jobs": 678,
+  "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
-    "ashby": 5
+    "ashby": 5,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 657,
+    "entry-level": 655,
     "internship": 6,
     "trainee": 5,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "2-5-years": 257,
-    "0-2-years": 382,
+    "2-5-years": 256,
+    "0-2-years": 381,
     "no-experience": 41
   },
   "errors": [],
@@ -3400,17 +3401,17 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2081,
-    "listingRows": 2078,
+    "totalOpenRoles": 2157,
+    "listingRows": 2154,
     "pagesAttempted": 12,
     "pagesSucceeded": 12,
-    "candidateRows": 92,
-    "detailAttempted": 92,
+    "candidateRows": 91,
+    "detailAttempted": 91,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
-    "qualifyingRoles": 17,
+    "qualifyingRoles": 15,
     "drops": {
-      "title": 1986,
+      "title": 2063,
       "nonUs": 32,
       "context": 14,
       "experience": 24,
@@ -3419,10 +3420,16 @@
     },
     "errors": [],
     "missionFitScrub": {
-      "checkedAt": "2026-09-15T02:45:28.974Z",
-      "removedFromSnapshot": 3,
-      "removedFromPublicFeed": 3,
+      "checkedAt": "2026-09-15T21:43:45.368Z",
+      "removedFromSnapshot": 4,
+      "removedFromPublicFeed": 4,
       "removed": [
+        {
+          "id": "oracle-careers-341015",
+          "title": "Talent Sourcer (Contract) – Data Center Recruiting (North America)",
+          "location": "United States",
+          "reason": "non-operational role family"
+        },
         {
           "id": "oracle-careers-343898",
           "title": "Data Center Construction Cost Estimator (Nashville, TN)",
@@ -3624,163 +3631,39 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-15T21:23:34.355Z",
-    "removedCount": 13,
-    "removedByReason": {
-      "senior/executive title": 3,
-      "non-mission role family": 8,
-      "non-US location": 2
-    },
-    "removed": [
-      {
-        "id": "ashby-fluidstack-f2990eac8950ce",
-        "company": "Fluidstack",
-        "title": "Staff Electrical Operator",
-        "location": "Abernathy, TX; River Bend, LA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-lambda-ebee6943394494",
-        "company": "Lambda",
-        "title": "Staff Electrical Engineer - Medium Voltage",
-        "location": "San Francisco Office (Fremont St)",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-gimlet-eb9a94c8bab714",
-        "company": "Gimlet Labs",
-        "title": "Legal Intern",
-        "location": "San Francisco, CA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-xai-5169675007",
-        "company": "xAI",
-        "title": "Network Operations Technician (SpaceXAI / Starlink)",
-        "location": "Dublin, Ireland",
-        "reason": "non-US location"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "location": "Southaven, MS; Memphis, TN",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-55e8ca08729b80",
-        "company": "Crusoe",
-        "title": "Quality Technician - Electrical Inspector",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-316d2a228cba07",
-        "company": "Crusoe",
-        "title": "Material Planner (Electrical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-129b9fd8c0d03e",
-        "company": "Crusoe",
-        "title": "Material Planner (Mechanical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
-        "company": "Serverfarm",
-        "title": "Data Center Technician",
-        "location": "Toronto, ON",
-        "reason": "non-US location"
-      },
-      {
-        "id": "ashby-crusoe-70b01f17d09a8b",
-        "company": "Crusoe",
-        "title": "CNC Operator",
-        "location": "Tulsa, OK - US (1)",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-ab810e7251cc10",
-        "company": "Crusoe",
-        "title": "Assembly Technician",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-8d30086e281f80",
-        "company": "Crusoe",
-        "title": "Project Controls Analyst",
-        "location": "Denver, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-fluidstack-229040aff58cbe",
-        "company": "Fluidstack",
-        "title": "Mechanical Engineer, R&D Team Lead",
-        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-15T21:43:45.437Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T21:23:34.424Z",
-    "changed": 1,
-    "samples": [
-      {
-        "id": "ashby-lambda-0bdbbcbdc49122",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
-      }
-    ],
-    "regionAssigned": 681,
-    "regionMissing": 2,
-    "coveragePct": 99.7,
-    "missingSamples": [
-      {
-        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
-      },
-      {
-        "id": "ashby-lambda-8308606de297f6",
-        "company": "Lambda",
-        "location": "Querétaro, Mexico - Data Center",
-        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
-      }
-    ],
+    "updatedAt": "2026-09-15T21:43:45.521Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 678,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
-      "southeast": 107,
-      "texas": 115,
+      "southeast": 106,
+      "texas": 114,
       "midwest": 135,
       "southwest": 80,
       "mid-atlantic": 128,
       "west": 93,
       "northeast": 21,
-      "nationwide": 2
+      "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T21:23:34.517Z",
-    "before": 681,
-    "after": 680,
-    "removed": 1,
+    "checkedAt": "2026-09-15T21:43:45.594Z",
+    "before": 678,
+    "after": 678,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-5127519007",
-        "keptId": "gh-xai-5219754007",
-        "company": "xAI",
-        "title": "Mechanical Commissioning Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-15T21:19:34.970Z",
@@ -3792,16 +3675,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1086,
-    "currentJobs": 680,
+    "currentJobs": 678,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 15,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T21:23:34.547Z"
+    "updatedAt": "2026-09-15T21:43:45.655Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

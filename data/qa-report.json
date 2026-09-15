@@ -1,53 +1,25 @@
 {
-  "checkedAt": "2026-09-15T16:25:08.763Z",
-  "jobsBefore": 672,
-  "jobsAfter": 669,
+  "checkedAt": "2026-09-15T16:43:37.073Z",
+  "jobsBefore": 669,
+  "jobsAfter": 668,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
     {
-      "id": "amazon-10539145",
+      "id": "amazon-10496373",
       "company": "Amazon Web Services",
-      "title": "Engineer Operations Technician , DCEO Operations Team",
-      "url": "https://www.amazon.jobs/en/jobs/10539145/engineer-operations-technician-dceo-operations-team",
+      "title": "Data Center Engineering Operations Technician, Data Center Ops",
+      "url": "https://www.amazon.jobs/en/jobs/10496373/data-center-engineering-operations-technician-data-center-ops",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10539145/engineer-operations-technician-dceo-operations-team"
-    },
-    {
-      "id": "amazon-10528813",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10528813/engineering-operation-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10528813/engineering-operation-technician"
-    },
-    {
-      "id": "amazon-10391159",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10391159/data-center-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10391159/data-center-technician"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10496373/data-center-engineering-operations-technician-data-center-ops"
     }
   ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "gh-xai-5205550007",
-      "company": "xAI",
-      "title": "Operations Engineer, Facility Operations - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5205550007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

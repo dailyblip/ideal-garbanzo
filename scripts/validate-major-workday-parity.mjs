@@ -62,6 +62,34 @@ for (const testCase of canonicalTitleRegressionCases) {
   }
 }
 
+function identityMismatches(publicJob, snapshotJob) {
+  const mismatches = [];
+  for (const field of ['id', 'company', 'type', 'experience']) {
+    if (clean(publicJob?.[field]) !== clean(snapshotJob?.[field])) mismatches.push(field);
+  }
+  if (canonicalTitle(publicJob) !== canonicalTitle(snapshotJob)) mismatches.push('title');
+  return mismatches;
+}
+
+const identityRegressionCases = [
+  {
+    publicJob: { id: 'workday-ntt-JR1', company: 'NTT Global Data Centers', title: 'Data Center Technician L2', type: 'entry-level', experience: '0-2-years' },
+    snapshotJob: { id: 'workday-ntt-JR1', company: 'NTT Global Data Centers', title: '914 - Data Center Technician L2', type: 'entry-level', experience: '0-2-years' },
+    expected: []
+  },
+  {
+    publicJob: { id: 'workday-qts-R1', company: 'QTS Data Centers', title: 'Critical Operations Technician I', type: 'entry-level', experience: '2-5-years' },
+    snapshotJob: { id: 'workday-qts-R1', company: 'QTS Data Centers', title: 'Critical Operations Technician I', type: 'entry-level', experience: '0-2-years' },
+    expected: ['experience']
+  }
+];
+for (const testCase of identityRegressionCases) {
+  const actual = identityMismatches(testCase.publicJob, testCase.snapshotJob);
+  if (actual.join(',') !== testCase.expected.join(',')) {
+    throw new Error(`Major Workday identity regression: expected ${testCase.expected.join(',') || 'no mismatch'}, got ${actual.join(',') || 'no mismatch'}`);
+  }
+}
+
 async function readJson(path) { return JSON.parse(await readFile(path, 'utf8')); }
 
 function validateOfficialUrl(job, context, violations) {
@@ -113,16 +141,31 @@ for (const company of officialHosts.keys()) {
   const publicJobs = publicMajor.filter(job => clean(job?.company) === company);
   const snapshotUrls = snapshotJobs.map(job => clean(job?.sourceUrl));
   const publicUrls = publicJobs.map(job => clean(job?.sourceUrl));
+  const snapshotIds = snapshotJobs.map(job => clean(job?.id));
+  const publicIds = publicJobs.map(job => clean(job?.id));
   const snapshotUrlSet = new Set(snapshotUrls.filter(Boolean));
+  const snapshotByUrl = new Map(snapshotJobs.map(job => [clean(job?.sourceUrl), job]).filter(([url]) => url));
   const duplicateSnapshotUrls = duplicateValues(snapshotUrls);
   const duplicatePublicUrls = duplicateValues(publicUrls);
+  const duplicateSnapshotIds = duplicateValues(snapshotIds);
+  const duplicatePublicIds = duplicateValues(publicIds);
   if (duplicateSnapshotUrls.length) violations.push(`${company}: major snapshot contains ${duplicateSnapshotUrls.length} duplicate source URL(s)`);
   if (duplicatePublicUrls.length) violations.push(`${company}: public feed contains ${duplicatePublicUrls.length} duplicate source URL(s)`);
+  if (duplicateSnapshotIds.length) violations.push(`${company}: major snapshot contains ${duplicateSnapshotIds.length} duplicate requisition ID(s)`);
+  if (duplicatePublicIds.length) violations.push(`${company}: public feed contains ${duplicatePublicIds.length} duplicate requisition ID(s)`);
 
-  // Every public representative card must still trace to an authoritative
-  // employer snapshot requisition.
+  // Every public representative card must still trace to one authoritative
+  // employer snapshot requisition, not merely another role in the same family.
   const unexpectedInPublic = publicJobs.filter(job => !snapshotUrlSet.has(clean(job?.sourceUrl)));
   if (unexpectedInPublic.length) violations.push(`${company}: public feed contains ${unexpectedInPublic.length} role(s) missing from the major Workday snapshot`);
+  for (const publicJob of publicJobs) {
+    const authoritativeJob = snapshotByUrl.get(clean(publicJob?.sourceUrl));
+    if (!authoritativeJob) continue;
+    const mismatches = identityMismatches(publicJob, authoritativeJob);
+    if (mismatches.length) {
+      violations.push(`${company}: public requisition ${clean(publicJob?.id) || '(missing id)'} drifted from its authoritative snapshot in ${mismatches.join(', ')}`);
+    }
+  }
 
   const snapshotTitles = uniqueTitles(snapshotJobs);
   const publicTitles = uniqueTitles(publicJobs);
@@ -149,7 +192,7 @@ if (snapshotIsReconciled) {
 if (Number.isFinite(reconciledCount) && reconciledCount > majorSnapshot.length) violations.push(`Collector status reports ${reconciledCount} reconciled U.S. roles but ${MAJOR_PATH} contains only ${majorSnapshot.length}`);
 
 if (violations.length) {
-  for (const violation of violations) console.error(`Major Workday parity violation: ${violation}`);
+  for (const violation of violations) console.error(`Major Workday parity violation: ${violation}`));
   throw new Error(`Blocked ${violations.length} major Workday snapshot/public-feed integrity violation(s).`);
 }
 const mode = snapshotIsReconciled ? 'reconciled unique-title parity' : 'raw snapshot coverage';

@@ -26,6 +26,7 @@ const prioritySources = [
   ['T5 Data Centers', value => value.t5DataCenters],
   ['Compass Datacenters', value => value.compass],
   ['Stream Data Centers', value => value.streamDataCenters],
+  ['EdgeConneX', value => value.edgeconnexCareers],
   ['Vantage Data Centers', value => value.majorSources?.employerDiagnostics?.['Vantage Data Centers']],
   ['QTS Data Centers', value => value.majorSources?.employerDiagnostics?.['QTS Data Centers']],
   ['CyrusOne', value => value.majorSources?.employerDiagnostics?.CyrusOne],
@@ -74,3 +75,5 @@ await import('./validate-major-workday-freshness-state.mjs');
 // the shared priority diagnostic guard runs.
 await import('./validate-compass-datacenters.mjs');
 await import('./validate-stream-data-centers.mjs');
+await import('./validate-edgeconnex-snapshot.mjs');
+await import('./validate-edgeconnex.mjs');

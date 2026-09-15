@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-15T17:17:59.174Z",
+  "updatedAt": "2026-09-15T17:24:03.786Z",
   "jobs": 667,
-  "sourcesAttempted": 25,
+  "sourcesAttempted": 26,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
@@ -17,8 +17,8 @@
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 367,
     "2-5-years": 259,
+    "0-2-years": 367,
     "no-experience": 41
   },
   "errors": [],
@@ -46,6 +46,11 @@
     },
     "samples": [
       {
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
+        "location": ""
+      },
+      {
         "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
         "title": "Supervisor, Data Center Operations",
         "location": "Breinigsville, PA",
@@ -54,11 +59,6 @@
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
         "title": "Cloud Engineer II",
-        "location": ""
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
         "location": ""
       },
       {
@@ -3589,7 +3589,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-15T17:17:59.307Z",
+    "checkedAt": "2026-09-15T17:24:03.863Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3597,40 +3597,31 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T17:17:59.379Z",
+    "updatedAt": "2026-09-15T17:24:03.942Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 668,
+    "regionAssigned": 667,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 134,
-      "texas": 110,
+      "southwest": 79,
+      "southeast": 105,
+      "texas": 109,
       "mid-atlantic": 128,
       "west": 91,
-      "southeast": 105,
       "northeast": 19,
-      "southwest": 79,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T17:17:59.448Z",
-    "before": 668,
+    "checkedAt": "2026-09-15T17:24:04.014Z",
+    "before": 667,
     "after": 667,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-108517449598411462",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "Haskell, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-15T17:11:08.188Z",
@@ -3643,15 +3634,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1060,
     "currentJobs": 667,
-    "newJobsThisRun": 4,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 4,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T17:17:59.507Z"
+    "updatedAt": "2026-09-15T17:24:04.076Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

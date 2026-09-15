@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-15T04:26:33.690Z",
+  "updatedAt": "2026-09-15T05:07:13.704Z",
   "jobs": 675,
   "sourcesAttempted": 21,
   "providers": {
@@ -3588,7 +3588,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-15T05:01:25.601Z",
+    "checkedAt": "2026-09-15T05:07:13.791Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3596,7 +3596,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T05:01:25.673Z",
+    "updatedAt": "2026-09-15T05:07:13.867Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 675,
@@ -3604,18 +3604,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "midwest": 137,
       "texas": 111,
       "southeast": 105,
       "mid-atlantic": 130,
-      "midwest": 137,
       "west": 92,
-      "southwest": 79,
       "northeast": 19,
+      "southwest": 79,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T05:01:25.743Z",
+    "checkedAt": "2026-09-15T05:07:13.937Z",
     "before": 675,
     "after": 675,
     "removed": 0,
@@ -3623,7 +3623,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-15T05:01:43.518Z",
+    "checkedAt": "2026-09-15T05:07:43.332Z",
     "publishedJobs": 675,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3641,7 +3641,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-15T05:01:43.706Z"
+    "updatedAt": "2026-09-15T05:07:43.510Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3778,7 +3778,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-14T18:07:28.934Z",
+    "checkedAt": "2026-09-15T05:07:13.704Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

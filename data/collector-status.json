@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-15T17:43:26.777Z",
+  "updatedAt": "2026-09-15T17:47:25.087Z",
   "jobs": 658,
-  "sourcesAttempted": 26,
+  "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
@@ -46,8 +46,8 @@
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
         "location": ""
       },
       {
@@ -57,8 +57,8 @@
         "reason": "classification"
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
         "location": ""
       },
       {
@@ -3611,7 +3611,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-15T17:43:26.848Z",
+    "checkedAt": "2026-09-15T17:47:25.162Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3619,7 +3619,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T17:43:26.918Z",
+    "updatedAt": "2026-09-15T17:47:25.236Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 658,
@@ -3627,18 +3627,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 108,
       "midwest": 133,
+      "southwest": 79,
+      "southeast": 105,
+      "texas": 108,
       "mid-atlantic": 122,
       "west": 91,
-      "southeast": 105,
       "northeast": 18,
-      "southwest": 79,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T17:43:26.984Z",
+    "checkedAt": "2026-09-15T17:47:25.304Z",
     "before": 658,
     "after": 658,
     "removed": 0,
@@ -3664,7 +3664,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T17:43:46.378Z"
+    "updatedAt": "2026-09-15T17:47:25.370Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

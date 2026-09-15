@@ -1,0 +1,62 @@
+name: Google source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/google-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-google-careers.mjs'
+      - 'scripts/collect-google-careers-fresh.mjs'
+      - 'scripts/enforce-google-fallback-freshness.mjs'
+      - 'scripts/validate-google-freshness.mjs'
+      - 'scripts/validate-google-snapshot.mjs'
+      - '.github/workflows/google-bootstrap.yml'
+      - '.github/workflows/google-stale-fallback-watch.yml'
+      - '.github/workflows/google-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/google-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-google-careers.mjs'
+      - 'scripts/collect-google-careers-fresh.mjs'
+      - 'scripts/enforce-google-fallback-freshness.mjs'
+      - 'scripts/validate-google-freshness.mjs'
+      - 'scripts/validate-google-snapshot.mjs'
+      - '.github/workflows/google-bootstrap.yml'
+      - '.github/workflows/google-stale-fallback-watch.yml'
+      - '.github/workflows/google-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Google collector and fallback scripts
+        run: |
+          node --check scripts/collect-google-careers.mjs
+          node --check scripts/collect-google-careers-fresh.mjs
+          node --check scripts/enforce-google-fallback-freshness.mjs
+          node --check scripts/validate-google-freshness.mjs
+          node --check scripts/validate-google-snapshot.mjs
+      - name: Run Google fail-closed regression tests
+        run: |
+          node scripts/collect-google-careers-fresh.mjs --self-test
+          node scripts/enforce-google-fallback-freshness.mjs --test
+          node scripts/validate-google-freshness.mjs --test
+          node scripts/validate-google-snapshot.mjs --test
+      - name: Validate current Google publication state
+        run: |
+          node scripts/validate-google-freshness.mjs
+          node scripts/validate-google-snapshot.mjs
+          node scripts/validate-priority-employer-sources.mjs

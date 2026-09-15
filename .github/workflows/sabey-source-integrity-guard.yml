@@ -1,0 +1,58 @@
+name: Sabey source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/sabey-jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-sabey-careers.mjs'
+      - 'scripts/persist-sabey-snapshot.mjs'
+      - 'scripts/enforce-sabey-fallback-freshness.mjs'
+      - 'scripts/validate-sabey-snapshot.mjs'
+      - '.github/workflows/sabey-bootstrap.yml'
+      - '.github/workflows/sabey-stale-fallback-watch.yml'
+      - '.github/workflows/sabey-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/sabey-jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-sabey-careers.mjs'
+      - 'scripts/persist-sabey-snapshot.mjs'
+      - 'scripts/enforce-sabey-fallback-freshness.mjs'
+      - 'scripts/validate-sabey-snapshot.mjs'
+      - '.github/workflows/sabey-bootstrap.yml'
+      - '.github/workflows/sabey-stale-fallback-watch.yml'
+      - '.github/workflows/sabey-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Sabey source scripts
+        run: |
+          node --check scripts/collect-sabey-careers.mjs
+          node --check scripts/persist-sabey-snapshot.mjs
+          node --check scripts/enforce-sabey-fallback-freshness.mjs
+          node --check scripts/validate-sabey-snapshot.mjs
+      - name: Guard Sabey early-career classification
+        run: node scripts/collect-sabey-careers.mjs --test-experience-parser
+      - name: Guard Sabey stale-fallback policy
+        run: node scripts/enforce-sabey-fallback-freshness.mjs --test
+      - name: Verify Sabey snapshot and public-feed parity
+        run: node scripts/validate-sabey-snapshot.mjs
+      - name: Verify employer-direct publication and homepage contract
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs

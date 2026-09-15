@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-15T16:58:53.195Z",
+  "checkedAt": "2026-09-15T17:07:09.318Z",
   "jobsBefore": 667,
   "jobsAfter": 667,
   "demoJobsRemoved": [],
@@ -9,7 +9,17 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5182357007",
+      "company": "xAI",
+      "title": "Electrical Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5182357007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

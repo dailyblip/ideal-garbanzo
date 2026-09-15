@@ -204,8 +204,11 @@ jobs:
         run: node scripts/validate-priority-employer-sources.mjs
       - name: Verify priority employers retain authoritative U.S. market coverage
         run: node scripts/validate-priority-region-coverage.mjs
-      - name: Verify AWS snapshot identity and public-feed traceability
-        run: node scripts/validate-amazon-snapshot.mjs
+      - name: Verify AWS snapshot identity, classification and public-feed parity
+        run: |
+          node --check scripts/validate-amazon-snapshot.mjs
+          node scripts/validate-amazon-snapshot.mjs --test
+          node scripts/validate-amazon-snapshot.mjs
       - name: Verify major Workday source-health diagnostics
         run: node scripts/validate-major-workday-health.mjs
       - name: Verify major Workday snapshots match the public feed exactly

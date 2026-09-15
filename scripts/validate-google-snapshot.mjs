@@ -42,8 +42,32 @@ function hasUsLocation(value) {
   return Boolean(match && usStateAbbreviations.has(match[1]));
 }
 
-function identity(job) {
+function rawIdentity(job) {
   return [job?.company, job?.title, job?.location].map(normalize).join('|');
+}
+
+// Keep this aligned with the shared publication deduper. Google may publish
+// separate shift requisitions whose public cards intentionally collapse to one
+// representative at the same site. Every public representative still has to be
+// an exact Google snapshot requisition; an unpublished source requisition is
+// allowed only when its normalized publication identity is represented.
+function canonicalPublicationTitle(job) {
+  let title = clean(job?.title);
+  const location = normalize(job?.location);
+  const locationTokens = new Set(location.split(' ').filter(token => token.length > 1));
+  const tailBelongsToLocation = tail => {
+    const tokens = normalize(tail).split(' ').filter(token => token.length > 1);
+    return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
+  };
+  title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
+  title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
+  return normalize(title);
+}
+
+function publicationIdentity(job) {
+  return [normalize(job?.company), canonicalPublicationTitle(job), normalize(job?.location)].join('|');
 }
 
 function isGoogleRole(job) {
@@ -75,6 +99,11 @@ function runSelfTest() {
     sourceUrl: 'https://www.google.com/about/careers/applications/jobs/results/123456789-data-center-technician'
   });
   if (wrongId) throw new Error('Mismatched Google job ID and detail URL were accepted.');
+
+  const base = { company: COMPANY, location: 'Haskell, TX' };
+  const genericIdentity = publicationIdentity({ ...base, title: 'Data Center Technician' });
+  const shiftIdentity = publicationIdentity({ ...base, title: 'Data Center Technician, Night Shift' });
+  if (genericIdentity !== shiftIdentity) throw new Error('Google shift-equivalent publication identity regression failed.');
 
   console.log('Google snapshot identity regression tests passed.');
 }
@@ -158,7 +187,7 @@ for (const job of snapshot) {
     if (snapshotUrls.has(parsedUrl.url)) violations.push(`Google snapshot contains duplicate URL ${parsedUrl.url}.`);
     snapshotUrls.add(parsedUrl.url);
   }
-  const key = identity(job);
+  const key = rawIdentity(job);
   if (key && key !== '||') {
     if (snapshotIdentities.has(key)) violations.push(`Google snapshot contains duplicate normalized role identity ${key}.`);
     snapshotIdentities.add(key);
@@ -166,6 +195,7 @@ for (const job of snapshot) {
 }
 
 const publicById = new Map();
+const publicPublicationIdentities = new Set();
 for (const job of publicGoogle) {
   const id = clean(job?.id);
   const parsedUrl = canonicalGoogleUrl(job?.sourceUrl);
@@ -178,17 +208,22 @@ for (const job of publicGoogle) {
     if (publicById.has(id)) violations.push(`Public feed contains duplicate Google id ${id}.`);
     publicById.set(id, job);
   }
+  publicPublicationIdentities.add(publicationIdentity(job));
 }
 
 const snapshotById = new Map(snapshot.map(job => [clean(job?.id), job]).filter(([id]) => id));
-const missingIds = [...snapshotById.keys()].filter(id => !publicById.has(id));
 const unexpectedIds = [...publicById.keys()].filter(id => !snapshotById.has(id));
-if (missingIds.length) violations.push(`Google public feed is missing ${missingIds.length}/${snapshotById.size} authoritative snapshot role(s): ${missingIds.slice(0, 5).join(', ')}${missingIds.length > 5 ? ', ...' : ''}`);
 if (unexpectedIds.length) violations.push(`Google public feed contains ${unexpectedIds.length} role(s) not traceable to the authoritative snapshot: ${unexpectedIds.slice(0, 5).join(', ')}${unexpectedIds.length > 5 ? ', ...' : ''}`);
 
+const unrepresentedSnapshotIds = [];
+let dedupedSnapshotRoles = 0;
 for (const [id, snapshotJob] of snapshotById) {
   const publicJob = publicById.get(id);
-  if (!publicJob) continue;
+  if (!publicJob) {
+    if (publicPublicationIdentities.has(publicationIdentity(snapshotJob))) dedupedSnapshotRoles += 1;
+    else unrepresentedSnapshotIds.push(id);
+    continue;
+  }
   for (const field of parityFields) {
     const snapshotValue = typeof snapshotJob?.[field] === 'string' ? clean(snapshotJob[field]) : snapshotJob?.[field];
     const publicValue = typeof publicJob?.[field] === 'string' ? clean(publicJob[field]) : publicJob?.[field];
@@ -196,6 +231,9 @@ for (const [id, snapshotJob] of snapshotById) {
       violations.push(`Google ${id} differs between snapshot and public feed for ${field}.`);
     }
   }
+}
+if (unrepresentedSnapshotIds.length) {
+  violations.push(`Google public feed leaves ${unrepresentedSnapshotIds.length}/${snapshotById.size} authoritative snapshot role(s) without an exact or normalized dedupe representative: ${unrepresentedSnapshotIds.slice(0, 5).join(', ')}${unrepresentedSnapshotIds.length > 5 ? ', ...' : ''}`);
 }
 
 const reportedQualifying = Number(googleStatus?.qualifyingRoles);
@@ -211,7 +249,7 @@ if (violations.length) {
 if (fallbackExpired) {
   console.log('Google snapshot guard passed: fallback is expired and no Google roles remain published pending fresh verification.');
 } else if (!sourceHealthy) {
-  console.log(`Google snapshot guard passed: ${snapshot.length} employer-direct role(s) remain exactly traceable while the official source is inside its verified fallback window.`);
+  console.log(`Google snapshot guard passed: ${snapshot.length} employer-direct role(s) remain source-traceable while the official source is inside its verified fallback window; ${dedupedSnapshotRoles} source role(s) collapse to normalized public representatives.`);
 } else {
-  console.log(`Google snapshot guard passed: ${snapshot.length} employer-direct role(s) exactly match the public feed with healthy official-source evidence.`);
+  console.log(`Google snapshot guard passed: ${snapshot.length} employer-direct role(s) are represented by ${publicGoogle.length} public role(s) with healthy official-source evidence; ${dedupedSnapshotRoles} source role(s) collapse through normalized dedupe.`);
 }

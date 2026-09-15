@@ -101,9 +101,10 @@ function locationFrom(schema = {}) {
 function statedExperience(description = '') {
   const text = clean(description);
   const values = [];
+  const experienceQualifier = '(?:relevant\\s+|related\\s+|professional\\s+|data\\s+cent(?:er|re)\\s+(?:operations?\\s+)?|critical\\s+facilit(?:y|ies)\\s+(?:operations?\\s+)?)?';
   const patterns = [
-    /\b(\d{1,2})\s*(?:-|–|—|to)\s*(\d{1,2})\s+years?['’]?\s*(?:of\s+)?(?:relevant\s+|related\s+|professional\s+|data\s+cent(?:er|re)\s+|critical\s+facilit(?:y|ies)\s+)?experience\b/gi,
-    /\b(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s+years?['’]?\s*(?:of\s+)?(?:relevant\s+|related\s+|professional\s+|data\s+cent(?:er|re)\s+|critical\s+facilit(?:y|ies)\s+)?experience\b/gi,
+    new RegExp(`\\b(\\d{1,2})\\s*(?:-|–|—|to)\\s*(\\d{1,2})\\s+years?['’]?\\s*(?:of\\s+)?${experienceQualifier}experience\\b`, 'gi'),
+    new RegExp(`\\b(?:minimum(?: of)?\\s+|at least\\s+)?(\\d{1,2})\\+?\\s+years?['’]?\\s*(?:of\\s+)?${experienceQualifier}experience\\b`, 'gi'),
     /\bexperience\s+(?:of\s+)?(?:at least\s+|minimum(?: of)?\s+)?(\d{1,2})\+?\s+years?\b/gi
   ];
   for (const pattern of patterns) {
@@ -125,8 +126,9 @@ function classify(title, description) {
   }
 
   const earlyProgram = /\b(?:intern(?:ship)?|apprentice(?:ship)?|trainee|work[- ]based learning)\b/i.test(t);
+  const explicitNoExperience = /\b(?:no experience|experience (?:is )?not required|entry[- ]level)\b/i.test(d);
   const years = statedExperience(d);
-  if (!years && !earlyProgram) return { cls: null, reason: 'experience-unknown' };
+  if (!years && !earlyProgram && !explicitNoExperience) return { cls: null, reason: 'experience-unknown' };
   if (years && (years.min > 5 || years.max > 5)) return { cls: null, reason: 'experience-over-5' };
 
   let type = 'entry-level';
@@ -135,10 +137,37 @@ function classify(title, description) {
   else if (/trainee|work[- ]based learning/i.test(t)) type = 'trainee';
 
   let experience = '0-2-years';
-  if (/\b(?:no experience|experience (?:is )?not required|entry[- ]level)\b/i.test(d)) experience = 'no-experience';
+  if (explicitNoExperience) experience = 'no-experience';
   else if (years && years.min >= 3) experience = '2-5-years';
 
   return { cls: { type, experience }, reason: '' };
+}
+
+function runClassifierSelfTest() {
+  const cases = [
+    ['two-year technician', 'Critical Facilities Technician', 'Minimum 2 years of critical facilities experience working with UPS and switchgear.', '0-2-years'],
+    ['three-year technician', 'Data Center Operations Technician', 'Minimum 3 years of data center operations experience.', '2-5-years'],
+    ['no-experience technician', 'Critical Facilities Technician', 'Entry-level role. No experience required. Training provided on UPS and generator systems.', 'no-experience'],
+    ['over-five rejected', 'Critical Facilities Technician', 'Minimum 6 years of critical facilities experience.', null],
+    ['unknown rejected', 'Critical Facilities Technician', 'Maintain UPS, switchgear, generators, cooling and other mission-critical systems.', null],
+    ['senior rejected', 'Senior Critical Facilities Technician', '2 years of critical facilities experience in a data center.', null],
+    ['apprentice program', 'Electrical Apprentice - Data Center', 'Apprentice program supporting data center electrical distribution and switchgear.', '0-2-years']
+  ];
+  const failures = [];
+  for (const [name, title, description, expected] of cases) {
+    const result = classify(title, description).cls?.experience ?? null;
+    if (result !== expected) failures.push(`${name}: expected ${expected}, got ${result}`);
+  }
+  if (failures.length) {
+    for (const failure of failures) console.error(`Compass classifier regression: ${failure}`);
+    process.exit(1);
+  }
+  console.log(`Compass classifier passed ${cases.length} regression cases.`);
+}
+
+if (process.argv.includes('--test-classifier')) {
+  runClassifierSelfTest();
+  process.exit(0);
 }
 
 function payFrom(schema = {}, description = '') {

@@ -6,6 +6,7 @@ const STATUS_PATH = 'data/collector-status.json';
 const SNAPSHOT_PATH = 'data/novva-jobs.json';
 const OFFICIAL_SOURCE = 'https://www.novva.com/careers/';
 const COMPANY = 'Novva Data Centers';
+const MAX_FALLBACK_AGE_HOURS = 168;
 const KNOWN_CANDIDATES = [
   'https://www.novva.com/portfolio/command-center-operator-utah/'
 ];
@@ -30,6 +31,70 @@ const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|dir
 const missionContextPattern = /\bdata cent(?:er|re)\b/i;
 const infrastructureContextPattern = /\b(?:mechanical|electrical|power|critical system|critical infrastructure|facility|facilities|operations?|monitoring|troubleshooting|ups|generator|hvac|chiller|server|network)\b/i;
 const activeApplicationPattern = /\bplease submit resumes? to\s+careers@novva\.com\b|\bapply (?:now|today)\b|\bsubmit (?:your )?(?:resume|application)\b/i;
+
+function fallbackState({ sourceHealthy, previousLastHealthyAt, nowMs = Date.now() }) {
+  if (sourceHealthy) {
+    return {
+      lastHealthyAt: new Date(nowMs).toISOString(),
+      fallbackAgeHours: 0,
+      fallbackExpired: false
+    };
+  }
+
+  const lastHealthyMs = Date.parse(String(previousLastHealthyAt || ''));
+  if (!Number.isFinite(lastHealthyMs)) {
+    return {
+      lastHealthyAt: null,
+      fallbackAgeHours: null,
+      fallbackExpired: true
+    };
+  }
+
+  const ageHours = Math.max(0, (nowMs - lastHealthyMs) / 3_600_000);
+  return {
+    lastHealthyAt: new Date(lastHealthyMs).toISOString(),
+    fallbackAgeHours: Math.round(ageHours * 10) / 10,
+    fallbackExpired: ageHours >= MAX_FALLBACK_AGE_HOURS
+  };
+}
+
+function runFreshnessSelfTest() {
+  const nowMs = Date.parse('2026-09-15T18:00:00.000Z');
+  const healthy = fallbackState({ sourceHealthy: true, previousLastHealthyAt: null, nowMs });
+  if (healthy.fallbackExpired || healthy.fallbackAgeHours !== 0 || healthy.lastHealthyAt !== '2026-09-15T18:00:00.000Z') {
+    throw new Error('Novva healthy-source freshness regression failed.');
+  }
+
+  const freshFallback = fallbackState({
+    sourceHealthy: false,
+    previousLastHealthyAt: new Date(nowMs - 167 * 3_600_000).toISOString(),
+    nowMs
+  });
+  if (freshFallback.fallbackExpired || freshFallback.fallbackAgeHours !== 167) {
+    throw new Error('Novva verified fallback should remain publishable inside 168 hours.');
+  }
+
+  const boundaryFallback = fallbackState({
+    sourceHealthy: false,
+    previousLastHealthyAt: new Date(nowMs - MAX_FALLBACK_AGE_HOURS * 3_600_000).toISOString(),
+    nowMs
+  });
+  if (!boundaryFallback.fallbackExpired) {
+    throw new Error('Novva fallback must fail closed at the 168-hour boundary.');
+  }
+
+  const missingAnchor = fallbackState({ sourceHealthy: false, previousLastHealthyAt: null, nowMs });
+  if (!missingAnchor.fallbackExpired || missingAnchor.lastHealthyAt !== null) {
+    throw new Error('Novva fallback without a verification anchor must fail closed.');
+  }
+
+  console.log('Novva fallback freshness regression tests passed.');
+}
+
+if (process.argv.includes('--test-freshness')) {
+  runFreshnessSelfTest();
+  process.exit(0);
+}
 
 function requiredExperienceYears(text = '') {
   const values = [];
@@ -131,6 +196,7 @@ let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 let status = {};
 try { status = JSON.parse(await readFile(STATUS_PATH, 'utf8')); } catch {}
+const previousSourceStatus = status?.novvaCareers || {};
 let previousSnapshot = [];
 try {
   previousSnapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
@@ -205,10 +271,17 @@ for (const url of candidates) {
 }
 
 const sourceHealthy = careersFetched && detailSucceeded > 0;
-const selected = sourceHealthy ? qualifying : previousSnapshot;
+const checkedAt = new Date().toISOString();
+const freshness = fallbackState({
+  sourceHealthy,
+  previousLastHealthyAt: previousSourceStatus?.lastHealthyAt,
+  nowMs: Date.parse(checkedAt)
+});
+const fallbackActive = !sourceHealthy && !freshness.fallbackExpired && previousSnapshot.length > 0;
+const selected = sourceHealthy ? qualifying : fallbackActive ? previousSnapshot : [];
 
-if (sourceHealthy) {
-  await writeFile(SNAPSHOT_PATH, JSON.stringify(qualifying, null, 2) + '\n');
+if (sourceHealthy || freshness.fallbackExpired) {
+  await writeFile(SNAPSHOT_PATH, JSON.stringify(selected, null, 2) + '\n');
 }
 
 jobs = jobs.filter(job => String(job?.company || '').trim() !== COMPANY);
@@ -222,10 +295,18 @@ for (const job of selected) {
 status.novvaCareers = {
   officialSource: OFFICIAL_SOURCE,
   sourceHealthy,
+  checkedAt,
+  lastHealthyAt: freshness.lastHealthyAt,
+  fallbackMaxAgeHours: MAX_FALLBACK_AGE_HOURS,
+  fallbackAgeHours: freshness.fallbackAgeHours,
+  fallbackExpired: freshness.fallbackExpired,
+  usedPreviousSnapshot: fallbackActive,
+  fallbackPolicy: `Retain the last fully verified Novva snapshot for at most ${MAX_FALLBACK_AGE_HOURS} hours after official-source failure; then remove Novva roles until fresh verification succeeds.`,
   candidateLinks: candidates.size,
   detailSucceeded,
   qualifyingRoles: qualifying.length,
-  preservedPrevious: sourceHealthy ? 0 : previousSnapshot.length,
+  preservedPrevious: fallbackActive ? previousSnapshot.length : 0,
+  removedExpiredFallback: freshness.fallbackExpired ? previousSnapshot.length : 0,
   drops,
   errors: errors.slice(0, 12)
 };
@@ -235,5 +316,9 @@ await writeFile(JOBS_PATH, JSON.stringify(jobs, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
 console.log(`Novva careers: ${candidates.size} candidate links, ${detailSucceeded} live detail pages, ${qualifying.length} qualifying 0–5 year roles.`);
-if (!sourceHealthy && previousSnapshot.length) console.warn(`Novva source incomplete; preserved ${previousSnapshot.length} previously verified role(s).`);
+if (fallbackActive) {
+  console.warn(`Novva source incomplete; preserved ${previousSnapshot.length} previously verified role(s) inside the ${MAX_FALLBACK_AGE_HOURS}-hour freshness window.`);
+} else if (freshness.fallbackExpired && previousSnapshot.length) {
+  console.warn(`Novva fallback verification expired; removed ${previousSnapshot.length} role(s) until the official source recovers.`);
+}
 if (errors.length) console.warn(`Novva source warnings: ${errors.slice(0, 6).join(' | ')}`);

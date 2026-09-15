@@ -1,0 +1,55 @@
+name: Oracle source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/oracle-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/scrub-oracle-mission-fit.mjs'
+      - 'scripts/validate-oracle-snapshot.mjs'
+      - 'scripts/validate-oracle-parity.mjs'
+      - '.github/workflows/oracle-bootstrap.yml'
+      - '.github/workflows/oracle-stale-fallback-watch.yml'
+      - '.github/workflows/oracle-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/oracle-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/scrub-oracle-mission-fit.mjs'
+      - 'scripts/validate-oracle-snapshot.mjs'
+      - 'scripts/validate-oracle-parity.mjs'
+      - '.github/workflows/oracle-bootstrap.yml'
+      - '.github/workflows/oracle-stale-fallback-watch.yml'
+      - '.github/workflows/oracle-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Oracle collector and validator syntax
+        run: |
+          node --check scripts/collect-oracle-careers.mjs
+          node --check scripts/scrub-oracle-mission-fit.mjs
+          node --check scripts/validate-oracle-snapshot.mjs
+          node --check scripts/validate-oracle-parity.mjs
+      - name: Run Oracle parity regressions
+        run: node scripts/validate-oracle-parity.mjs --test
+      - name: Validate current Oracle publication state
+        run: |
+          node scripts/validate-oracle-snapshot.mjs
+          node scripts/validate-oracle-parity.mjs
+          node scripts/validate-priority-employer-sources.mjs

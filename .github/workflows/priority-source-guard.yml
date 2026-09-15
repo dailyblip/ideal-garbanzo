@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/collector-status.json'
+      - 'data/compass-status.json'
       - 'data/major-workday-freshness.json'
       - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
@@ -42,6 +43,8 @@ on:
       - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-cologix.mjs'
       - 'scripts/validate-t5-data-centers.mjs'
+      - 'scripts/validate-compass-datacenters.mjs'
+      - 'scripts/validate-stream-data-centers.mjs'
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-novva.mjs'
       - 'scripts/validate-databank.mjs'
@@ -63,6 +66,8 @@ on:
       - '.github/workflows/switch-bootstrap.yml'
       - '.github/workflows/cologix-bootstrap.yml'
       - '.github/workflows/t5-data-centers-bootstrap.yml'
+      - '.github/workflows/compass-bootstrap.yml'
+      - '.github/workflows/stream-data-centers-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -70,6 +75,7 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/collector-status.json'
+      - 'data/compass-status.json'
       - 'data/major-workday-freshness.json'
       - 'data/*-jobs.json'
       - 'scripts/collect-*.mjs'
@@ -106,6 +112,8 @@ on:
       - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-cologix.mjs'
       - 'scripts/validate-t5-data-centers.mjs'
+      - 'scripts/validate-compass-datacenters.mjs'
+      - 'scripts/validate-stream-data-centers.mjs'
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-novva.mjs'
       - 'scripts/validate-databank.mjs'
@@ -127,6 +135,8 @@ on:
       - '.github/workflows/switch-bootstrap.yml'
       - '.github/workflows/cologix-bootstrap.yml'
       - '.github/workflows/t5-data-centers-bootstrap.yml'
+      - '.github/workflows/compass-bootstrap.yml'
+      - '.github/workflows/stream-data-centers-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -174,10 +184,14 @@ jobs:
           node --check scripts/collect-switch-careers.mjs
           node --check scripts/collect-cologix.mjs
           node --check scripts/collect-t5-data-centers.mjs
+          node --check scripts/collect-compass-datacenters.mjs
+          node --check scripts/collect-stream-data-centers.mjs
           node scripts/collect-flexential.mjs --test-classifier
           node scripts/collect-switch-careers.mjs --test-classifier
           node scripts/collect-cologix.mjs --test-classifier
           node scripts/collect-t5-data-centers.mjs --test-classifier
+          node scripts/collect-compass-datacenters.mjs --test-classifier
+          node scripts/collect-stream-data-centers.mjs --test-classifier
       - name: Normalize expired Equinix fallback evidence before source validation
         run: node scripts/enforce-equinix-verified-evidence.mjs
       - name: Verify priority jobs and snapshots stay employer-direct

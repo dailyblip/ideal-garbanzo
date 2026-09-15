@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-15T17:29:29.876Z",
+  "updatedAt": "2026-09-15T17:43:26.777Z",
   "jobs": 658,
   "sourcesAttempted": 26,
   "providers": {
@@ -3611,7 +3611,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-15T17:29:29.959Z",
+    "checkedAt": "2026-09-15T17:43:26.848Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3619,7 +3619,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T17:29:30.034Z",
+    "updatedAt": "2026-09-15T17:43:26.918Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 658,
@@ -3638,7 +3638,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T17:29:30.106Z",
+    "checkedAt": "2026-09-15T17:43:26.984Z",
     "before": 658,
     "after": 658,
     "removed": 0,
@@ -3646,7 +3646,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-15T17:30:07.214Z",
+    "checkedAt": "2026-09-15T17:43:46.250Z",
     "publishedJobs": 658,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3664,7 +3664,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T17:30:07.390Z"
+    "updatedAt": "2026-09-15T17:43:46.378Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3747,7 +3747,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-15T06:24:46.145Z",
+    "checkedAt": "2026-09-15T17:43:26.777Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-15T11:42:49.512Z",
+  "checkedAt": "2026-09-15T12:42:12.690Z",
   "jobsBefore": 673,
-  "jobsAfter": 673,
+  "jobsAfter": 672,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10487635",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician Night Shift, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10487635/data-center-technician-night-shift-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10487635/data-center-technician-night-shift-dcc-communities"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

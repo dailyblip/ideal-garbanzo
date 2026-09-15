@@ -46,6 +46,32 @@ function parityProtected(job) {
   return true;
 }
 
+function fallbackExpiredDecision({ sourceHealthy, lastHealthyAt, nowMs = Date.now(), maxAgeHours = DEFAULT_MAX_FALLBACK_AGE_HOURS }) {
+  if (sourceHealthy) return false;
+  const lastHealthyMs = Date.parse(String(lastHealthyAt || ''));
+  if (!Number.isFinite(lastHealthyMs)) return true;
+  return Math.max(0, (nowMs - lastHealthyMs) / 36e5) >= maxAgeHours;
+}
+
+const fallbackRegressionNow = Date.parse('2026-09-10T12:00:00Z');
+const fallbackRegressionCases = [
+  { sourceHealthy: true, lastHealthyAt: null, expired: false },
+  { sourceHealthy: false, lastHealthyAt: '2026-09-06T13:00:00Z', expired: false },
+  { sourceHealthy: false, lastHealthyAt: '2026-09-06T12:00:00Z', expired: true },
+  { sourceHealthy: false, lastHealthyAt: null, expired: true },
+  { sourceHealthy: false, lastHealthyAt: 'not-a-date', expired: true }
+];
+for (const testCase of fallbackRegressionCases) {
+  const actual = fallbackExpiredDecision({
+    sourceHealthy: testCase.sourceHealthy,
+    lastHealthyAt: testCase.lastHealthyAt,
+    nowMs: fallbackRegressionNow
+  });
+  if (actual !== testCase.expired) {
+    throw new Error(`Oracle fallback regression: expected expired=${testCase.expired}, got ${actual}`);
+  }
+}
+
 const parityRegressionCases = [
   { title: 'Data Center Business Operations Business Analyst', protected: false },
   { title: 'Data Center Development Cost Management', protected: false },
@@ -78,7 +104,11 @@ const lastHealthyMs = Date.parse(String(fallbackFreshness?.lastHealthyAt || ''))
 const fallbackAgeHours = Number.isFinite(lastHealthyMs)
   ? Math.max(0, (Date.now() - lastHealthyMs) / 36e5)
   : null;
-const computedExpired = !sourceHealthy && fallbackAgeHours !== null && fallbackAgeHours >= maxFallbackAgeHours;
+const computedExpired = fallbackExpiredDecision({
+  sourceHealthy,
+  lastHealthyAt: fallbackFreshness?.lastHealthyAt,
+  maxAgeHours: maxFallbackAgeHours
+});
 const fallbackExpired = !sourceHealthy && (fallbackFreshness?.expired === true || computedExpired);
 
 if (!sourceHealthy && fallbackFreshness?.lastHealthyAt && !Number.isFinite(lastHealthyMs)) {
@@ -87,13 +117,16 @@ if (!sourceHealthy && fallbackFreshness?.lastHealthyAt && !Number.isFinite(lastH
 if (!sourceHealthy && fallbackFreshness?.active === true && fallbackFreshness?.expired === true) {
   violations.push('Oracle fallback cannot be marked active and expired at the same time');
 }
+if (!sourceHealthy && !Number.isFinite(lastHealthyMs) && (snapshot.length > 0 || publicOracle.length > 0)) {
+  violations.push('Oracle source is unhealthy without valid lastHealthyAt evidence, so retained roles must fail closed');
+}
 
 if (fallbackExpired) {
   if (snapshot.length !== 0) {
-    violations.push(`Oracle fallback exceeded ${maxFallbackAgeHours} hours but ${snapshot.length} snapshot role(s) remain published`);
+    violations.push(`Oracle fallback exceeded ${maxFallbackAgeHours} hours or lacks valid healthy-source evidence but ${snapshot.length} snapshot role(s) remain published`);
   }
   if (publicOracle.length !== 0) {
-    violations.push(`Oracle fallback exceeded ${maxFallbackAgeHours} hours but ${publicOracle.length} public role(s) remain published`);
+    violations.push(`Oracle fallback exceeded ${maxFallbackAgeHours} hours or lacks valid healthy-source evidence but ${publicOracle.length} public role(s) remain published`);
   }
 } else if (snapshot.length < 3) {
   violations.push(`Oracle snapshot unexpectedly contains only ${snapshot.length} role(s)`);
@@ -165,7 +198,7 @@ if (violations.length) {
 }
 
 if (fallbackExpired) {
-  console.log(`Oracle snapshot guard passed: fallback is expired and no Oracle roles remain published pending a healthy official-source refresh.`);
+  console.log('Oracle snapshot guard passed: fallback is expired or lacks valid healthy-source evidence and no Oracle roles remain published pending a healthy official-source refresh.');
 } else if (!sourceHealthy && fallbackFreshness?.lastHealthyAt) {
   const ageLabel = fallbackAgeHours === null ? 'unknown' : `${Math.round(fallbackAgeHours * 10) / 10} hours`;
   console.log(`Oracle snapshot guard passed: ${publicOracle.length} employer-direct roles remain inside the ${maxFallbackAgeHours}-hour fallback window (${ageLabel} since last healthy check).`);

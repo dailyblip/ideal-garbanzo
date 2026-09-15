@@ -192,7 +192,7 @@ if (snapshotIsReconciled) {
 if (Number.isFinite(reconciledCount) && reconciledCount > majorSnapshot.length) violations.push(`Collector status reports ${reconciledCount} reconciled U.S. roles but ${MAJOR_PATH} contains only ${majorSnapshot.length}`);
 
 if (violations.length) {
-  for (const violation of violations) console.error(`Major Workday parity violation: ${violation}`));
+  for (const violation of violations) console.error(`Major Workday parity violation: ${violation}`);
   throw new Error(`Blocked ${violations.length} major Workday snapshot/public-feed integrity violation(s).`);
 }
 const mode = snapshotIsReconciled ? 'reconciled unique-title parity' : 'raw snapshot coverage';

@@ -82,6 +82,32 @@ function fallbackWindowActive(fallback, nowMs = Date.now()) {
   return Number.isFinite(expiresAt) && nowMs < expiresAt;
 }
 
+function fallbackWindowExpired(fallback, nowMs = Date.now()) {
+  if (!fallback || typeof fallback !== 'object') return false;
+  if (fallback.expired === true) return true;
+  const expiresAt = Date.parse(clean(fallback.expiresAt));
+  return Number.isFinite(expiresAt) && nowMs >= expiresAt;
+}
+
+function expireDependentEarlyCareerStatus(status, checkedAt) {
+  const early = status?.priorityEmployerExpansion?.EquinixEarlyCareer;
+  if (!early || typeof early !== 'object') return 0;
+
+  const fallbackUsed = Math.max(0, Number(early.verifiedFallbackUsed || 0));
+  if (!fallbackUsed) return 0;
+
+  const qualifyingRoles = Math.max(0, Number(early.qualifyingRoles || 0));
+  const retainedIndependent = Math.max(0, qualifyingRoles - fallbackUsed);
+  status.priorityEmployerExpansion.EquinixEarlyCareer = {
+    ...early,
+    qualifyingRoles: retainedIndependent,
+    verifiedFallbackUsed: 0,
+    expiredVerifiedFallbackRoles: fallbackUsed,
+    verifiedFallbackExpiredAt: checkedAt
+  };
+  return fallbackUsed;
+}
+
 function hasExactEvidence(job, fallback, roleUrls) {
   if (!fallbackWindowActive(fallback)) return false;
   if (!Array.isArray(fallback.checks)) return false;
@@ -201,10 +227,30 @@ function runSelfTest() {
   if (hasExactEvidence(searchJob, { ...valid, expiresAt: past }, roleUrls)) {
     throw new Error('Expired Equinix evidence window was incorrectly accepted.');
   }
+  if (!fallbackWindowExpired({ ...valid, expiresAt: past })) {
+    throw new Error('Expired Equinix evidence window was not recognized as expired.');
+  }
+  if (fallbackWindowExpired(valid)) {
+    throw new Error('Active Equinix evidence window was incorrectly recognized as expired.');
+  }
+
+  const earlyStatus = {
+    priorityEmployerExpansion: {
+      EquinixEarlyCareer: {
+        qualifyingRoles: 5,
+        verifiedFallbackUsed: 3
+      }
+    }
+  };
+  const expiredEarly = expireDependentEarlyCareerStatus(earlyStatus, '2026-09-15T00:00:00.000Z');
+  if (expiredEarly !== 3 || earlyStatus.priorityEmployerExpansion.EquinixEarlyCareer.qualifyingRoles !== 2 || earlyStatus.priorityEmployerExpansion.EquinixEarlyCareer.verifiedFallbackUsed !== 0) {
+    throw new Error('Expired Equinix fallback roles were not removed from early-career recovery diagnostics.');
+  }
+
   if (hasExactEvidence(searchJob, { ...valid, checks: [] }, roleUrls)) {
     throw new Error('Missing Equinix role checks were incorrectly accepted.');
   }
-  console.log('Equinix verified-fallback evidence regression tests passed for search and promoted direct routes.');
+  console.log('Equinix verified-fallback evidence regression tests passed for search, promoted direct, expiry, and early-career diagnostic routes.');
 }
 
 if (process.argv.includes('--test')) {
@@ -223,8 +269,46 @@ if (!status || typeof status !== 'object' || Array.isArray(status)) throw new Er
 const roleUrls = verifiedRoleUrls(fallbackSource);
 const fallback = status.equinixVerifiedFallback;
 const managed = jobs.filter(isManaged);
+const expiredByClock = fallbackWindowExpired(fallback);
+
 if (!managed.length) {
-  console.log('No managed Equinix verified-fallback roles are published.');
+  if (!expiredByClock) {
+    console.log('No managed Equinix verified-fallback roles are published.');
+    process.exit(0);
+  }
+
+  const earlyFallbackUsed = Math.max(0, Number(status?.priorityEmployerExpansion?.EquinixEarlyCareer?.verifiedFallbackUsed || 0));
+  const needsNormalization = fallback?.expired !== true ||
+    Number(fallback?.retainedManaged || 0) !== 0 ||
+    Number(fallback?.directDetailClicksUsed || 0) !== 0 ||
+    Number(fallback?.searchClickFallbacksUsed || 0) !== 0 ||
+    earlyFallbackUsed > 0;
+  if (!needsNormalization) {
+    console.log('No managed Equinix verified-fallback roles are published and the expired fallback state is already normalized.');
+    process.exit(0);
+  }
+
+  const checkedAt = new Date().toISOString();
+  const expiredEarlyRoles = expireDependentEarlyCareerStatus(status, checkedAt);
+  status.updatedAt = checkedAt;
+  status.equinixVerifiedFallback = {
+    ...(fallback || {}),
+    expired: true,
+    retainedManaged: 0,
+    directDetailClicksUsed: 0,
+    searchClickFallbacksUsed: 0
+  };
+  status.equinixVerifiedEvidenceGuard = {
+    checkedAt,
+    managedBefore: 0,
+    removed: 0,
+    retained: 0,
+    expiredEarlyCareerFallbackRoles: expiredEarlyRoles,
+    policy: 'A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.',
+    removedRoles: []
+  };
+  await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
+  console.warn(`Marked the Equinix verified-fallback window expired at ${clean(fallback?.expiresAt)}; no managed roles were published.${expiredEarlyRoles ? ` Cleared ${expiredEarlyRoles} fallback-dependent early-career diagnostic role(s).` : ''}`);
   process.exit(0);
 }
 
@@ -245,6 +329,7 @@ const countBy = key => nextJobs.reduce((counts, job) => {
   return counts;
 }, {});
 const checkedAt = new Date().toISOString();
+const expiredEarlyRoles = expiredByClock ? expireDependentEarlyCareerStatus(status, checkedAt) : 0;
 
 status.updatedAt = checkedAt;
 status.jobs = nextJobs.length;
@@ -252,6 +337,7 @@ status.countsByType = countBy('type');
 status.countsByExperience = countBy('experience');
 status.equinixVerifiedFallback = {
   ...(fallback || {}),
+  expired: expiredByClock || fallback?.expired === true,
   retainedManaged: retainedManagedJobs.length,
   directDetailClicksUsed: retainedDirect,
   searchClickFallbacksUsed: retainedSearch
@@ -261,6 +347,7 @@ status.equinixVerifiedEvidenceGuard = {
   managedBefore: managed.length,
   removed: invalid.length,
   retained: retainedManagedJobs.length,
+  expiredEarlyCareerFallbackRoles: expiredEarlyRoles,
   policy: 'A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.',
   removedRoles: invalid.map(job => ({
     id: clean(job.id),
@@ -271,4 +358,4 @@ status.equinixVerifiedEvidenceGuard = {
 
 await writeFile(JOBS_PATH, JSON.stringify(nextJobs, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
-console.warn(`Removed ${invalid.length} Equinix verified-fallback role(s) without exact active per-role evidence; retained ${retainedManagedJobs.length} (${retainedDirect} direct, ${retainedSearch} requisition-search fallback).`);
+console.warn(`Removed ${invalid.length} Equinix verified-fallback role(s) without exact active per-role evidence; retained ${retainedManagedJobs.length} (${retainedDirect} direct, ${retainedSearch} requisition-search fallback).${expiredByClock ? ` The fallback evidence window is now expired; cleared ${expiredEarlyRoles} fallback-dependent early-career diagnostic role(s).` : ''}`);

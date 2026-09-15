@@ -1,12 +1,13 @@
 {
-  "updatedAt": "2026-09-15T20:59:10.091Z",
+  "updatedAt": "2026-09-15T21:19:16.245Z",
   "jobs": 680,
-  "sourcesAttempted": 18,
+  "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
-    "metaCareers": 1
+    "metaCareers": 1,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
     "entry-level": 657,
@@ -15,8 +16,8 @@
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "2-5-years": 256,
-    "0-2-years": 383,
+    "2-5-years": 257,
+    "0-2-years": 382,
     "no-experience": 41
   },
   "errors": [],
@@ -3449,13 +3450,13 @@
     "officialSource": "https://www.digitalrealty.com/about/careers",
     "boardUrl": "https://hdep.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX",
     "sourceHealthy": true,
-    "candidateRows": 49,
-    "detailAttempts": 49,
+    "candidateRows": 51,
+    "detailAttempts": 51,
     "detailFailures": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 15,
-    "lastHealthyAt": "2026-09-15T11:42:23.320Z",
-    "snapshotVerifiedAt": "2026-09-15T11:42:23.320Z",
+    "qualifyingRoles": 17,
+    "lastHealthyAt": "2026-09-15T21:19:13.421Z",
+    "snapshotVerifiedAt": "2026-09-15T21:19:13.421Z",
     "snapshotMaxAgeHours": 96,
     "fallbackUsed": false,
     "fallbackFresh": false,
@@ -3625,25 +3626,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-15T20:59:10.158Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "microsoft-1970393556994516",
-        "company": "Microsoft",
-        "title": "Data Center Critical Environment Business Analyst",
-        "location": "Boydton, VA",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-15T21:19:16.316Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T20:59:10.232Z",
+    "updatedAt": "2026-09-15T21:19:16.390Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 680,
@@ -3651,44 +3642,44 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 116,
+      "texas": 115,
       "midwest": 135,
-      "southwest": 81,
+      "southwest": 80,
       "southeast": 106,
-      "mid-atlantic": 127,
+      "mid-atlantic": 128,
       "west": 93,
-      "northeast": 20,
+      "northeast": 21,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T20:59:10.307Z",
-    "before": 680,
-    "after": 680,
+    "checkedAt": "2026-09-15T21:19:16.456Z",
+    "before": 682,
+    "after": 682,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-15T18:48:36.020Z",
-    "publishedJobs": 681,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-15T21:19:34.970Z",
+    "publishedJobs": 680,
+    "removedJobs": 2,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1084,
+    "trackedJobs": 1086,
     "currentJobs": 680,
-    "newJobsThisRun": 4,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 4,
+    "newJobsThisRun": 2,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 17,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T20:59:10.419Z"
+    "updatedAt": "2026-09-15T21:19:35.155Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

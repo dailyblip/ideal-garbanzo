@@ -1,12 +1,31 @@
 {
-  "checkedAt": "2026-09-15T18:48:36.020Z",
-  "jobsBefore": 681,
-  "jobsAfter": 681,
+  "checkedAt": "2026-09-15T21:19:34.970Z",
+  "jobsBefore": 682,
+  "jobsAfter": 680,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10465156",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10465156/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10465156/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10433898",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, AWS Data Center team",
+      "url": "https://www.amazon.jobs/en/jobs/10433898/data-center-technician-aws-data-center-team",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10433898/data-center-technician-aws-data-center-team"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

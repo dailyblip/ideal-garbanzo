@@ -36,10 +36,12 @@ on:
       - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-novva.mjs'
+      - 'scripts/validate-databank.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/novva-bootstrap.yml'
+      - '.github/workflows/databank-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   pull_request:
@@ -77,10 +79,12 @@ on:
       - 'scripts/validate-cloudhq.mjs'
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/validate-novva.mjs'
+      - 'scripts/validate-databank.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/novva-bootstrap.yml'
+      - '.github/workflows/databank-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/priority-source-guard.yml'
   workflow_dispatch:
@@ -102,6 +106,13 @@ jobs:
         run: |
           node --check scripts/collect-microsoft-datacenter.mjs
           node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
+      - name: Verify DataBank early-career classifier before publication
+        run: |
+          node --check scripts/collect-databank.mjs
+          node --check scripts/validate-databank.mjs
+          node scripts/collect-databank.mjs --test-classifier
+      - name: Normalize expired Equinix fallback evidence before source validation
+        run: node scripts/enforce-equinix-verified-evidence.mjs
       - name: Verify priority jobs and snapshots stay employer-direct
         run: node scripts/validate-priority-employer-sources.mjs
       - name: Verify priority employers retain authoritative U.S. market coverage

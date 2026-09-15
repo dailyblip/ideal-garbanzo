@@ -6,6 +6,14 @@ on:
     paths:
       - 'scripts/collect-jobs.mjs'
       - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/reconcile-ashby-experience.mjs'
+      - '.github/workflows/generic-ats-classifier-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/reconcile-ashby-experience.mjs'
       - '.github/workflows/generic-ats-classifier-guard.yml'
   workflow_dispatch:
 
@@ -23,5 +31,7 @@ jobs:
       - name: Validate generic ATS classifier implementation
         run: |
           node --check scripts/collect-jobs-core.mjs
+          node --check scripts/reconcile-ashby-experience.mjs
           node scripts/collect-jobs.mjs --test-experience-parser
           node scripts/collect-jobs-core.mjs --test-pay-parser
+          node scripts/reconcile-ashby-experience.mjs --test

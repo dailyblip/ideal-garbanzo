@@ -1,0 +1,93 @@
+name: Sabey stale fallback watchdog
+
+on:
+  schedule:
+    - cron: '47 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/enforce-sabey-fallback-freshness.mjs'
+      - 'scripts/validate-sabey-snapshot.mjs'
+      - '.github/workflows/sabey-stale-fallback-watch.yml'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: sabey-stale-fallback-watch
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test Sabey fallback age policy
+        run: node scripts/enforce-sabey-fallback-freshness.mjs --test
+      - name: Enforce Sabey fallback freshness
+        run: node scripts/enforce-sabey-fallback-freshness.mjs
+      - name: Validate Sabey snapshot state
+        run: node scripts/validate-sabey-snapshot.mjs
+      - name: Validate published feed after enforcement
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Publish Sabey freshness state from current main
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/enforce-sabey-fallback-freshness.mjs --test
+            node scripts/enforce-sabey-fallback-freshness.mjs
+            node scripts/validate-sabey-snapshot.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Sabey freshness enforcement; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add -u -- data/jobs.json data/sabey-jobs.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo "Sabey fallback state is unchanged."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Enforce Sabey fallback freshness"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Sabey freshness publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish Sabey freshness state after three attempts."
+          exit 1
+      - name: Deploy Sabey freshness change
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

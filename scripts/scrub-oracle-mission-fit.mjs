@@ -10,13 +10,14 @@ const COMPANY = 'Oracle';
 // hands-on data-center, facilities, electrical, critical-environment, or
 // operations roles. Keep this narrow and title-based so valid technician,
 // facilities, electrical, mechanical, controls, and deployment roles survive.
-const CLEARLY_NON_OPERATIONAL_TITLE = /\b(?:business analyst|business operations|cost management|cost estimator|cost analyst|cost controls|procurement|purchasing|finance|financial|accounting|accountant|security operations|cybersecurity|information security|software engineer|software developer|application developer|applications developer|frontend|backend|full[ -]?stack|database engineer|database administrator|product manager|product management|ux|ui|machine learning|data scientist|legal|counsel|paralegal|recruiter|talent acquisition|marketing|sales|account executive)\b/i;
+const CLEARLY_NON_OPERATIONAL_TITLE = /\b(?:business analyst|business operations|cost management|cost estimator|cost analyst|cost controls|procurement|purchasing|finance|financial|accounting|accountant|security operations|cybersecurity|information security|software engineer|software developer|application developer|applications developer|frontend|backend|full[ -]?stack|database engineer|database administrator|product manager|product management|ux|ui|machine learning|data scientist|legal|counsel|paralegal|recruiter|recruiting|talent sourcer|talent sourcing|talent acquisition|marketing|sales|account executive)\b/i;
 
 const regressionCases = [
   ['Data Center Business Operations Business Analyst', true],
   ['Data Center Development Cost Management', true],
   ['OCI Software Engineer Intern - OVIP', true],
   ['Corporate Accounting Intern', true],
+  ['Talent Sourcer (Contract) – Data Center Recruiting (North America)', true],
   ['Data Center Technician 2', false],
   ['Critical Facilities Engineer', false],
   ['Mechanical Engineer 2', false],

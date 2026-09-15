@@ -101,9 +101,10 @@ function locationFrom(schema = {}) {
 function statedExperience(description = '') {
   const text = clean(description);
   const values = [];
+  const experienceQualifier = '(?:relevant\\s+|related\\s+|professional\\s+|data\\s+cent(?:er|re)\\s+(?:operations?\\s+)?|critical\\s+facilit(?:y|ies)\\s+(?:operations?\\s+)?)?';
   const patterns = [
-    /\b(\d{1,2})\s*(?:-|–|—|to)\s*(\d{1,2})\s+years?['’]?\s*(?:of\s+)?(?:relevant\s+|related\s+|professional\s+|data\s+cent(?:er|re)\s+|critical\s+facilit(?:y|ies)\s+)?experience\b/gi,
-    /\b(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s+years?['’]?\s*(?:of\s+)?(?:relevant\s+|related\s+|professional\s+|data\s+cent(?:er|re)\s+|critical\s+facilit(?:y|ies)\s+)?experience\b/gi,
+    new RegExp(`\\b(\\d{1,2})\\s*(?:-|–|—|to)\\s*(\\d{1,2})\\s+years?['’]?\\s*(?:of\\s+)?${experienceQualifier}experience\\b`, 'gi'),
+    new RegExp(`\\b(?:minimum(?: of)?\\s+|at least\\s+)?(\\d{1,2})\\+?\\s+years?['’]?\\s*(?:of\\s+)?${experienceQualifier}experience\\b`, 'gi'),
     /\bexperience\s+(?:of\s+)?(?:at least\s+|minimum(?: of)?\s+)?(\d{1,2})\+?\s+years?\b/gi
   ];
   for (const pattern of patterns) {

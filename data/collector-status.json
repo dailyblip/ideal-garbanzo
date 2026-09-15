@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-15T09:49:04.005Z",
+  "updatedAt": "2026-09-15T10:44:03.751Z",
   "jobs": 674,
   "sourcesAttempted": 23,
   "providers": {
@@ -3464,7 +3464,13 @@
       "roles": 0,
       "classificationCorrections": 0,
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
-      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages."
+      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
+      "expired": true,
+      "checkedAt": "2026-09-15T10:44:03.751Z",
+      "maxAgeHours": 96,
+      "expiredAgeHours": 128.1,
+      "rolesRemoved": 0,
+      "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
   },
   "priorityEmployerExpansion": {
@@ -3590,7 +3596,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T09:49:04.078Z",
+    "updatedAt": "2026-09-15T10:44:03.822Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 674,
@@ -3609,7 +3615,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T09:49:04.135Z",
+    "checkedAt": "2026-09-15T10:44:03.878Z",
     "before": 674,
     "after": 674,
     "removed": 0,
@@ -3617,7 +3623,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-15T09:49:25.372Z",
+    "checkedAt": "2026-09-15T10:44:25.753Z",
     "publishedJobs": 674,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3635,7 +3641,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T09:49:25.506Z"
+    "updatedAt": "2026-09-15T10:44:25.888Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

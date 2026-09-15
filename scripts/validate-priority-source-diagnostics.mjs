@@ -24,6 +24,8 @@ const prioritySources = [
   ['Switch', value => value.switchCareers],
   ['Cologix', value => value.cologix],
   ['T5 Data Centers', value => value.t5DataCenters],
+  ['Compass Datacenters', value => value.compass],
+  ['Stream Data Centers', value => value.streamDataCenters],
   ['Vantage Data Centers', value => value.majorSources?.employerDiagnostics?.['Vantage Data Centers']],
   ['QTS Data Centers', value => value.majorSources?.employerDiagnostics?.['QTS Data Centers']],
   ['CyrusOne', value => value.majorSources?.employerDiagnostics?.CyrusOne],
@@ -66,3 +68,9 @@ console.log(`Priority source diagnostics present for all ${prioritySources.lengt
 // fallback state cannot remain deployable merely because an old sourceHealthy
 // boolean is still present in collector-status.json.
 await import('./validate-major-workday-freshness-state.mjs');
+
+// Comparable operators are also part of the mission-critical source backbone.
+// Validate their direct-source integrity and snapshot/public-feed parity whenever
+// the shared priority diagnostic guard runs.
+await import('./validate-compass-datacenters.mjs');
+await import('./validate-stream-data-centers.mjs');

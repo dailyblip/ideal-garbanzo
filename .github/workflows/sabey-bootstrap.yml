@@ -44,6 +44,7 @@ jobs:
         run: node scripts/stamp-job-history.mjs
       - name: Validate feed and source integrity
         run: |
+          node scripts/validate-sabey-snapshot.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate.mjs
@@ -64,6 +65,7 @@ jobs:
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/stamp-job-history.mjs
+            node scripts/validate-sabey-snapshot.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate.mjs

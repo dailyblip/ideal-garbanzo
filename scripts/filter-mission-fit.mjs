@@ -213,13 +213,14 @@ function restoreSnapshotCompany(records = [], snapshotJobs = [], company = '') {
     // derived recency value. A scheduled publication guard may run hours after a
     // dedicated collector wrote its snapshot. Replacing the live role wholesale
     // would therefore make an unchanged posting look younger on every guard run.
-    // Preserve the current recency only when both records refer to the same
-    // posting-date evidence. A genuine employer repost with a new postedAt value
-    // is allowed to reset naturally on the next history pass.
+    // Preserve current recency when both records carry the same posting-date
+    // evidence, including when neither source has an exact postedAt timestamp.
+    // A genuine employer repost with new posting-date evidence can still reset
+    // naturally on the next history pass.
     const snapshotPostedAt = clean(snapshotJob?.postedAt);
     const currentPostedAt = clean(current?.postedAt);
     const currentPostedHours = Number(current?.postedHours);
-    if (snapshotPostedAt && snapshotPostedAt === currentPostedAt && Number.isFinite(currentPostedHours) && currentPostedHours >= 0) {
+    if (snapshotPostedAt === currentPostedAt && Number.isFinite(currentPostedHours) && currentPostedHours >= 0) {
       return { ...snapshotJob, postedHours: currentPostedHours };
     }
     return snapshotJob;
@@ -237,6 +238,12 @@ const snapshotRecencyRegressionCases = [
     current: [{ id: 'role-1', company: 'Example', postedAt: '2026-08-04T00:00:00.000Z', postedHours: 925, sourceUrl: 'https://example.com/1' }],
     snapshot: [{ id: 'role-1', company: 'Example', postedAt: '2026-08-04T00:00:00.000Z', postedHours: 917, sourceUrl: 'https://example.com/1' }],
     expected: 925
+  },
+  {
+    name: 'unchanged undated snapshot keeps persistent recency',
+    current: [{ id: 'role-1', company: 'Example', postedAt: null, postedHours: 249, sourceUrl: 'https://example.com/1' }],
+    snapshot: [{ id: 'role-1', company: 'Example', postedAt: null, postedHours: 9999, sourceUrl: 'https://example.com/1' }],
+    expected: 249
   },
   {
     name: 'new employer posting evidence may reset recency',

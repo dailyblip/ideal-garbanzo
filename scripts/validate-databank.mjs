@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 
 const COMPANY = 'DataBank';
 const SNAPSHOT_PATH = 'data/databank-jobs.json';
+const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const PORTAL_PREFIX = 'https://www.databankcareers.com/clients/';
 const allowedTypes = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
@@ -23,13 +24,22 @@ const hasMissionEvidence = job => {
   if (!contextualInfraTitlePattern.test(title)) return false;
   return (Array.isArray(job?.tags) ? job.tags : []).some(tag => missionEvidenceTags.has(clean(tag)));
 };
+const identity = job => [job?.company, job?.title, job?.location].map(normalize).join('|');
 
-const snapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
-const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
+async function readJson(path) {
+  return JSON.parse(await readFile(path, 'utf8'));
+}
+
+const [snapshot, jobs, status] = await Promise.all([
+  readJson(SNAPSHOT_PATH),
+  readJson(JOBS_PATH),
+  readJson(STATUS_PATH)
+]);
 const sourceStatus = status?.databank || {};
 const violations = [];
 
 if (!Array.isArray(snapshot)) violations.push('snapshot is not a JSON array');
+if (!Array.isArray(jobs)) violations.push('jobs.json is not a JSON array');
 if (sourceStatus.sourceHealthy !== true) violations.push('collector status does not mark the employer source healthy');
 if (sourceStatus.listingComplete !== true) violations.push('collector status does not mark the TalentReef listing complete');
 if (sourceStatus.authoritativeSnapshot !== true) violations.push('collector status does not mark the snapshot authoritative');
@@ -37,32 +47,74 @@ if (sourceStatus.officialCareerPage !== 'https://www.databank.com/about-databank
 if (sourceStatus.officialTalentReefPortal !== 'https://www.databankcareers.com') violations.push('official DataBank TalentReef portal drifted');
 if (!clean(sourceStatus.talentReefClientId)) violations.push('TalentReef client ID was not recorded');
 if (!Number.isFinite(Number(sourceStatus.listedJobs)) || Number(sourceStatus.listedJobs) <= 0) violations.push('TalentReef listing count is missing or zero');
-if (Number(sourceStatus.qualifyingRoles) !== snapshot.length) violations.push(`snapshot/status count mismatch: ${snapshot.length} vs ${sourceStatus.qualifyingRoles}`);
+if (Number(sourceStatus.qualifyingRoles) !== (Array.isArray(snapshot) ? snapshot.length : 0)) violations.push(`snapshot/status count mismatch: ${Array.isArray(snapshot) ? snapshot.length : 0} vs ${sourceStatus.qualifyingRoles}`);
 
-const urls = new Set();
-const identities = new Set();
+function validateRole(job, context) {
+  const prefix = `${context} ${clean(job?.id) || clean(job?.title) || '(unknown role)'}`;
+  if (clean(job?.company) !== COMPANY) violations.push(`${prefix}: wrong company`);
+  if (!clean(job?.title)) violations.push(`${prefix}: blank title`);
+  if (excludedTitlePattern.test(clean(job?.title))) violations.push(`${prefix}: senior/out-of-scope title survived: ${job?.title}`);
+  if (!hasMissionEvidence(job)) violations.push(`${prefix}: non-mission title survived without physical-infrastructure evidence: ${job?.title}`);
+  if (!allowedTypes.has(clean(job?.type))) violations.push(`${prefix}: invalid type ${job?.type}`);
+  if (!allowedExperience.has(clean(job?.experience))) violations.push(`${prefix}: invalid experience ${job?.experience}`);
+  if (!isUsLocation(job?.location)) violations.push(`${prefix}: non-US or unresolved location ${job?.location}`);
+  if (clean(job?.source) !== 'Employer career site') violations.push(`${prefix}: source must be Employer career site`);
+  if (!clean(job?.sourceUrl).startsWith(PORTAL_PREFIX)) violations.push(`${prefix}: non-employer-direct source URL ${job?.sourceUrl}`);
+  if (job?.active !== true || job?.demo === true) violations.push(`${prefix}: role must be active and non-demo`);
+}
+
+const snapshotUrls = new Set();
+const snapshotIds = new Set();
+const snapshotIdentities = new Set();
 for (const job of Array.isArray(snapshot) ? snapshot : []) {
-  if (clean(job?.company) !== COMPANY) violations.push(`wrong company: ${clean(job?.company) || '(blank)'}`);
-  if (!clean(job?.title)) violations.push(`blank title for ${job?.id || '(no id)'}`);
-  if (excludedTitlePattern.test(clean(job?.title))) violations.push(`senior/out-of-scope title survived: ${job.title}`);
-  if (!hasMissionEvidence(job)) violations.push(`non-mission title survived without physical-infrastructure evidence: ${job.title}`);
-  if (!allowedTypes.has(clean(job?.type))) violations.push(`invalid type ${job?.type} for ${job?.title}`);
-  if (!allowedExperience.has(clean(job?.experience))) violations.push(`invalid experience ${job?.experience} for ${job?.title}`);
-  if (!isUsLocation(job?.location)) violations.push(`non-US or unresolved location ${job?.location} for ${job?.title}`);
-  if (!clean(job?.sourceUrl).startsWith(PORTAL_PREFIX)) violations.push(`non-employer-direct source URL for ${job?.title}: ${job?.sourceUrl}`);
-  if (job?.active !== true || job?.demo === true) violations.push(`inactive/demo role in snapshot: ${job?.title}`);
-
+  validateRole(job, 'snapshot');
+  const id = clean(job?.id);
   const url = clean(job?.sourceUrl);
-  const identity = [job?.company, job?.title, job?.location].map(normalize).join('|');
-  if (url && urls.has(url)) violations.push(`duplicate source URL: ${url}`);
-  if (identities.has(identity)) violations.push(`duplicate role identity: ${job?.title} | ${job?.location}`);
-  if (url) urls.add(url);
-  identities.add(identity);
+  const roleIdentity = identity(job);
+  if (!id) violations.push(`snapshot ${clean(job?.title) || '(untitled role)'}: id missing`);
+  else if (snapshotIds.has(id)) violations.push(`snapshot duplicate id: ${id}`);
+  if (url && snapshotUrls.has(url)) violations.push(`snapshot duplicate source URL: ${url}`);
+  if (snapshotIdentities.has(roleIdentity)) violations.push(`snapshot duplicate role identity: ${job?.title} | ${job?.location}`);
+  if (id) snapshotIds.add(id);
+  if (url) snapshotUrls.add(url);
+  snapshotIdentities.add(roleIdentity);
+}
+
+const publicJobs = (Array.isArray(jobs) ? jobs : []).filter(job => clean(job?.company) === COMPANY);
+const publicById = new Map();
+for (const job of publicJobs) {
+  validateRole(job, 'public');
+  const id = clean(job?.id);
+  if (!id) violations.push(`public ${clean(job?.title) || '(untitled role)'}: id missing`);
+  else if (publicById.has(id)) violations.push(`public duplicate id: ${id}`);
+  else publicById.set(id, job);
+}
+
+const snapshotById = new Map((Array.isArray(snapshot) ? snapshot : []).map(job => [clean(job?.id), job]).filter(([id]) => id));
+for (const [id, sourceJob] of snapshotById) {
+  const publicJob = publicById.get(id);
+  if (!publicJob) {
+    violations.push(`authoritative snapshot role missing from jobs.json: ${id} | ${sourceJob.title} | ${sourceJob.location}`);
+    continue;
+  }
+  if (clean(publicJob.sourceUrl) !== clean(sourceJob.sourceUrl)) violations.push(`${id}: public source URL drifted from authoritative TalentReef requisition`);
+  if (normalize(publicJob.title) !== normalize(sourceJob.title)) violations.push(`${id}: public title drifted from authoritative snapshot`);
+  if (normalize(publicJob.location) !== normalize(sourceJob.location)) violations.push(`${id}: public location drifted from authoritative snapshot`);
+  if (clean(publicJob.type) !== clean(sourceJob.type)) violations.push(`${id}: public type drifted from authoritative snapshot`);
+  if (clean(publicJob.experience) !== clean(sourceJob.experience)) violations.push(`${id}: public experience drifted from authoritative snapshot`);
+}
+
+for (const [id, publicJob] of publicById) {
+  if (!snapshotById.has(id)) violations.push(`stale or unverified public DataBank role is absent from authoritative snapshot: ${id} | ${publicJob.title} | ${publicJob.location}`);
+}
+
+if (publicJobs.length !== (Array.isArray(snapshot) ? snapshot.length : 0)) {
+  violations.push(`public/snapshot count mismatch: ${publicJobs.length} vs ${Array.isArray(snapshot) ? snapshot.length : 0}`);
 }
 
 if (violations.length) {
   violations.forEach(violation => console.error(`DataBank source validation: ${violation}`));
-  throw new Error(`Blocked ${violations.length} DataBank employer-direct source regression(s).`);
+  throw new Error(`Blocked ${violations.length} DataBank employer-direct publication regression(s).`);
 }
 
-console.log(`DataBank employer-direct source passed: ${snapshot.length} qualifying role(s) from ${sourceStatus.listedJobs} public TalentReef postings.`);
+console.log(`DataBank employer-direct publication passed: ${snapshot.length} authoritative TalentReef requisition(s) exactly represented in jobs.json from ${sourceStatus.listedJobs} public postings.`);

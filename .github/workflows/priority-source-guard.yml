@@ -15,6 +15,11 @@ on:
       - 'scripts/reconcile-major-jobs.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/enforce-microsoft-fallback-freshness.mjs'
+      - 'scripts/enforce-meta-fallback-freshness.mjs'
+      - 'scripts/enforce-oracle-fallback-freshness.mjs'
+      - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
@@ -38,6 +43,11 @@ on:
       - 'scripts/validate-novva.mjs'
       - 'scripts/validate-databank.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
+      - '.github/workflows/aws-stale-fallback-watch.yml'
+      - '.github/workflows/microsoft-stale-fallback-watch.yml'
+      - '.github/workflows/meta-stale-fallback-watch.yml'
+      - '.github/workflows/oracle-stale-fallback-watch.yml'
+      - '.github/workflows/digital-realty-stale-fallback-watch.yml'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/novva-bootstrap.yml'
@@ -58,6 +68,11 @@ on:
       - 'scripts/reconcile-major-jobs.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/enforce-microsoft-fallback-freshness.mjs'
+      - 'scripts/enforce-meta-fallback-freshness.mjs'
+      - 'scripts/enforce-oracle-fallback-freshness.mjs'
+      - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
@@ -81,6 +96,11 @@ on:
       - 'scripts/validate-novva.mjs'
       - 'scripts/validate-databank.mjs'
       - 'scripts/validate-coresite-source-failover.mjs'
+      - '.github/workflows/aws-stale-fallback-watch.yml'
+      - '.github/workflows/microsoft-stale-fallback-watch.yml'
+      - '.github/workflows/meta-stale-fallback-watch.yml'
+      - '.github/workflows/oracle-stale-fallback-watch.yml'
+      - '.github/workflows/digital-realty-stale-fallback-watch.yml'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-verified-evidence-watch.yml'
       - '.github/workflows/novva-bootstrap.yml'
@@ -102,6 +122,18 @@ jobs:
           node-version: 22
       - name: Verify strategic collectors report source health
         run: node scripts/validate-priority-source-diagnostics.mjs
+      - name: Verify priority stale-fallback policies before publication
+        run: |
+          node --check scripts/enforce-amazon-fallback-freshness.mjs
+          node --check scripts/enforce-microsoft-fallback-freshness.mjs
+          node --check scripts/enforce-meta-fallback-freshness.mjs
+          node --check scripts/enforce-oracle-fallback-freshness.mjs
+          node --check scripts/enforce-digital-realty-fallback-freshness.mjs
+          node scripts/enforce-amazon-fallback-freshness.mjs --test
+          node scripts/enforce-microsoft-fallback-freshness.mjs --test
+          node scripts/enforce-meta-fallback-freshness.mjs --test
+          node scripts/enforce-oracle-fallback-freshness.mjs --test
+          node scripts/enforce-digital-realty-fallback-freshness.mjs --test
       - name: Verify Microsoft experience classifier before publication
         run: |
           node --check scripts/collect-microsoft-datacenter.mjs

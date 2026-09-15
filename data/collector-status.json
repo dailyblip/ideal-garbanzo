@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-15T17:47:25.087Z",
-  "jobs": 658,
+  "updatedAt": "2026-09-15T17:51:18.371Z",
+  "jobs": 681,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "oracleRecruitingCloud": 3
   },
   "countsByType": {
-    "entry-level": 635,
-    "internship": 6,
     "trainee": 5,
+    "entry-level": 658,
+    "internship": 6,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "2-5-years": 253,
-    "0-2-years": 364,
-    "no-experience": 41
+    "no-experience": 41,
+    "0-2-years": 387,
+    "2-5-years": 253
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -2885,11 +2885,11 @@
       },
       {
         "query": "data center technician",
-        "rows": 1350
+        "rows": 1336
       },
       {
         "query": "engineering operations technician",
-        "rows": 406
+        "rows": 401
       },
       {
         "query": "work based learning data center",
@@ -2897,20 +2897,20 @@
       },
       {
         "query": "project engineer data center",
-        "rows": 21
+        "rows": 20
       }
     ],
-    "candidateRows": 3779,
-    "uniqueCandidates": 1178,
-    "freshQualifyingRoles": 18,
+    "candidateRows": 3759,
+    "uniqueCandidates": 1169,
+    "freshQualifyingRoles": 19,
     "preservedPreviousRoles": 0,
-    "qualifyingRoles": 18,
+    "qualifyingRoles": 19,
     "drops": {
-      "nonUs": 311,
-      "title": 551,
+      "nonUs": 303,
+      "title": 546,
       "context": 0,
       "experience": 2,
-      "unknownExperience": 296,
+      "unknownExperience": 299,
       "invalidUrl": 0
     },
     "errors": []
@@ -3611,60 +3611,99 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-15T17:47:25.162Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-15T17:51:18.511Z",
+    "removedCount": 5,
+    "removedByReason": {
+      "senior/executive title": 2,
+      "non-mission role family": 3
+    },
+    "removed": [
+      {
+        "id": "amazon-10534644",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "San Antonio, TX",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10515905",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "Culpeper, VA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10513234",
+        "company": "Amazon Web Services",
+        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
+        "location": "Seattle, WA",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "amazon-10430644",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "Boardman, OR",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "amazon-10427682",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "New Carlisle, IN",
+        "reason": "non-mission role family"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T17:47:25.236Z",
+    "updatedAt": "2026-09-15T17:51:18.558Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 658,
+    "regionAssigned": 681,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 133,
-      "southwest": 79,
-      "southeast": 105,
-      "texas": 108,
-      "mid-atlantic": 122,
-      "west": 91,
-      "northeast": 18,
+      "northeast": 20,
+      "west": 95,
+      "mid-atlantic": 127,
+      "southwest": 81,
+      "midwest": 136,
+      "southeast": 106,
+      "texas": 114,
       "nationwide": 2
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T17:47:25.304Z",
-    "before": 658,
-    "after": 658,
+    "checkedAt": "2026-09-15T17:51:18.601Z",
+    "before": 681,
+    "after": 681,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-15T17:43:46.250Z",
-    "publishedJobs": 658,
+    "checkedAt": "2026-09-15T17:51:40.098Z",
+    "publishedJobs": 681,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1062,
-    "currentJobs": 658,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 1078,
+    "currentJobs": 681,
+    "newJobsThisRun": 16,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 16,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T17:47:25.370Z"
+    "updatedAt": "2026-09-15T17:51:40.192Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3678,11 +3717,11 @@
       },
       {
         "query": "data center technician",
-        "rows": 1350
+        "rows": 1336
       },
       {
         "query": "engineering operations technician",
-        "rows": 406
+        "rows": 401
       },
       {
         "query": "work based learning data center",
@@ -3690,41 +3729,29 @@
       },
       {
         "query": "project engineer data center",
-        "rows": 21
+        "rows": 20
       }
     ],
-    "rawRows": 3779,
-    "missionFitUsCandidates": 1338,
-    "uniquePublishIdentities": 305,
-    "duplicatesSkippedBeforeHydration": 1033,
-    "reusedVerified": 16,
-    "detailCandidates": 289,
-    "detailAttempted": 289,
-    "detailSucceeded": 272,
-    "detailRecovered": 218,
-    "detailFetchFailed": 17,
-    "detailUnknownExperience": 42,
-    "detailOverFiveYears": 12,
+    "rawRows": 3759,
+    "missionFitUsCandidates": 1325,
+    "uniquePublishIdentities": 310,
+    "duplicatesSkippedBeforeHydration": 1015,
+    "reusedVerified": 17,
+    "detailCandidates": 293,
+    "detailAttempted": 293,
+    "detailSucceeded": 288,
+    "detailRecovered": 228,
+    "detailFetchFailed": 5,
+    "detailUnknownExperience": 47,
+    "detailOverFiveYears": 13,
     "invalidUrls": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 234,
+    "qualifyingRoles": 245,
     "detailErrorSamples": [
-      "https://www.amazon.jobs/en/jobs/10476326/data-center-technician-south-central-region-military-veterans-encouraged: 503 https://www.amazon.jobs/en/jobs/10476326/data-center-technician-south-central-region-military-veterans-encouraged",
-      "https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10471727/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10471727/data-center-technician",
-      "https://www.amazon.jobs/en/jobs/10459011/data-center-technician-adc-infraops-dco: 503 https://www.amazon.jobs/en/jobs/10459011/data-center-technician-adc-infraops-dco",
-      "https://www.amazon.jobs/en/jobs/10467847/engineering-operations-technician-night-shift: 503 https://www.amazon.jobs/en/jobs/10467847/engineering-operations-technician-night-shift",
-      "https://www.amazon.jobs/en/jobs/10435864/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10435864/data-center-technician",
       "https://www.amazon.jobs/en/jobs/10437606/data-center-technician-adc-infraops-dco-tech: 503 https://www.amazon.jobs/en/jobs/10437606/data-center-technician-adc-infraops-dco-tech",
-      "https://www.amazon.jobs/en/jobs/10411544/cleared-engineering-operations-technician-adc-infraops-dceo-adc-infraops-dceo: 503 https://www.amazon.jobs/en/jobs/10411544/cleared-engineering-operations-technician-adc-infraops-dceo-adc-infraops-dceo",
       "https://www.amazon.jobs/en/jobs/10408378/engineering-operation-technician-maf-hiring-event: 503 https://www.amazon.jobs/en/jobs/10408378/engineering-operation-technician-maf-hiring-event",
-      "https://www.amazon.jobs/en/jobs/10386352/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10386352/data-center-technician",
-      "https://www.amazon.jobs/en/jobs/10385269/data-center-technician-aws-opportunity-for-military-community: 503 https://www.amazon.jobs/en/jobs/10385269/data-center-technician-aws-opportunity-for-military-community",
-      "https://www.amazon.jobs/en/jobs/3188272/data-center-technician-night-shift-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3188272/data-center-technician-night-shift-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/3176556/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3176556/data-center-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10382445/data-center-engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10382445/data-center-engineering-operations-technician-dcc-communities",
       "https://www.amazon.jobs/en/jobs/3174406/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3174406/engineering-operations-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo",
-      "https://www.amazon.jobs/en/jobs/3150283/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150283/engineering-operations-technician-dcc-communities",
       "https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia"
     ],
     "errors": []

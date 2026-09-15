@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/collect-google-careers.mjs'
       - 'scripts/collect-google-careers-fresh.mjs'
+      - 'scripts/validate-google-snapshot.mjs'
       - '.github/workflows/google-bootstrap.yml'
   workflow_dispatch:
   schedule:
@@ -34,6 +35,8 @@ jobs:
           node-version: 22
       - name: Test Google fallback freshness policy
         run: node scripts/collect-google-careers-fresh.mjs --self-test
+      - name: Test Google snapshot identity policy
+        run: node scripts/validate-google-snapshot.mjs --test
       - name: Collect official Google Careers roles
         run: node scripts/collect-google-careers-fresh.mjs
       - name: Confirm collector merged the Google snapshot
@@ -63,6 +66,8 @@ jobs:
         run: |
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
+          node scripts/validate-google-freshness.mjs
+          node scripts/validate-google-snapshot.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
       - name: Publish Google snapshot from current main
@@ -93,6 +98,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node scripts/collect-google-careers-fresh.mjs --self-test
+            node scripts/validate-google-snapshot.mjs --test
             node scripts/collect-google-careers-fresh.mjs
             verify_google_merge
             node scripts/filter-mission-fit.mjs
@@ -101,6 +107,8 @@ jobs:
             node scripts/stamp-job-history.mjs
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
+            node scripts/validate-google-freshness.mjs
+            node scripts/validate-google-snapshot.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs
           }

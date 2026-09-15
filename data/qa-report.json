@@ -1,25 +1,25 @@
 {
-  "checkedAt": "2026-09-15T12:42:12.690Z",
-  "jobsBefore": 673,
+  "checkedAt": "2026-09-15T12:49:35.861Z",
+  "jobsBefore": 672,
   "jobsAfter": 672,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10487635",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician Night Shift, DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10487635/data-center-technician-night-shift-dcc-communities",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10487635/data-center-technician-night-shift-dcc-communities"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5225844007",
+      "company": "xAI",
+      "title": "Journeyman Electrician (Construction)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5225844007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

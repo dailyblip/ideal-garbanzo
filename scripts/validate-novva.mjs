@@ -4,7 +4,9 @@ const COMPANY = 'Novva Data Centers';
 const PUBLIC_PATH = 'data/jobs.json';
 const SNAPSHOT_PATH = 'data/novva-jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
-const MAX_FALLBACK_AGE_HOURS = 168;
+const MAX_FALLBACK_AGE_HOURS = 96;
+const MAX_HEALTHY_EVIDENCE_AGE_HOURS = 30;
+const MAX_HEALTHY_EVIDENCE_AGE_MS = MAX_HEALTHY_EVIDENCE_AGE_HOURS * 60 * 60 * 1000;
 const allowedExperiences = new Set(['no-experience', '0-2-years', '2-5-years']);
 const missionTitlePattern = /\b(?:command center operator|data cent(?:er|re) (?:technician|operator|operations|facilities|facility|engineer)|critical facilit(?:y|ies) (?:technician|operator|engineer)|facilities technician|facility technician)\b/i;
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman)\b/i;
@@ -16,6 +18,32 @@ const parityFields = [
 ];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+
+function healthyEvidenceState(verifiedAt, nowMs = Date.now()) {
+  const verifiedMs = Date.parse(String(verifiedAt || ''));
+  if (!Number.isFinite(verifiedMs)) return { fresh: false, ageHours: null };
+  const ageMs = Math.max(0, nowMs - verifiedMs);
+  return { fresh: ageMs < MAX_HEALTHY_EVIDENCE_AGE_MS, ageHours: ageMs / 3_600_000 };
+}
+
+function runFreshnessSelfTest() {
+  const nowMs = Date.parse('2026-09-16T12:00:00.000Z');
+  const fresh = healthyEvidenceState('2026-09-15T06:00:01.000Z', nowMs);
+  if (!fresh.fresh || fresh.ageHours >= MAX_HEALTHY_EVIDENCE_AGE_HOURS) {
+    throw new Error('Novva healthy verification evidence expired before 30 hours.');
+  }
+  const boundary = healthyEvidenceState('2026-09-15T06:00:00.000Z', nowMs);
+  if (boundary.fresh) throw new Error('Novva healthy verification evidence did not expire at the 30-hour boundary.');
+  const missing = healthyEvidenceState(null, nowMs);
+  if (missing.fresh || missing.ageHours !== null) throw new Error('Novva healthy verification evidence without an anchor did not fail closed.');
+  console.log('Novva healthy evidence freshness regression tests passed.');
+}
+
+if (process.argv.includes('--test-freshness')) {
+  runFreshnessSelfTest();
+  process.exit(0);
+}
+
 const jobs = JSON.parse(await readFile(PUBLIC_PATH, 'utf8'));
 const snapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
 const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
@@ -28,21 +56,13 @@ requireOk(Array.isArray(snapshot), 'Novva snapshot must contain an array.');
 requireOk(source && typeof source === 'object', 'Novva collector status is missing.');
 
 const publicJobs = Array.isArray(jobs) ? jobs.filter(job => job?.company === COMPANY) : [];
-const freshnessFieldsPresent = Boolean(source && (
-  Object.prototype.hasOwnProperty.call(source, 'lastHealthyAt') ||
-  Object.prototype.hasOwnProperty.call(source, 'fallbackMaxAgeHours') ||
-  Object.prototype.hasOwnProperty.call(source, 'fallbackExpired') ||
-  Object.prototype.hasOwnProperty.call(source, 'usedPreviousSnapshot')
-));
 
 if (source) {
   requireOk(String(source.officialSource || '') === 'https://www.novva.com/careers/', 'Novva official careers source changed unexpectedly.');
   requireOk(Number(source.candidateLinks || 0) > 0, 'Novva collector did not retain any candidate job URLs.');
 
   const configuredMaxAge = Number(source.fallbackMaxAgeHours);
-  if (Number.isFinite(configuredMaxAge)) {
-    requireOk(configuredMaxAge > 0 && configuredMaxAge <= MAX_FALLBACK_AGE_HOURS, `Novva fallbackMaxAgeHours ${configuredMaxAge} exceeds the ${MAX_FALLBACK_AGE_HOURS}-hour publication policy.`);
-  }
+  requireOk(configuredMaxAge === MAX_FALLBACK_AGE_HOURS, `Novva fallbackMaxAgeHours must be exactly ${MAX_FALLBACK_AGE_HOURS} hours; found ${Number.isFinite(configuredMaxAge) ? configuredMaxAge : 'invalid'}.`);
 
   if (source.sourceHealthy === true) {
     requireOk(Number(source.detailSucceeded || 0) > 0, 'Novva source was marked healthy without a successful detail fetch.');
@@ -51,19 +71,14 @@ if (source) {
     requireOk(source.usedPreviousSnapshot !== true, 'Novva healthy source cannot report a preserved fallback snapshot.');
     requireOk(source.fallbackExpired !== true, 'Novva healthy source cannot be marked fallback-expired.');
 
-    // Existing healthy status predates the freshness fields. Once the hardened
-    // collector runs, the verification anchor becomes mandatory and remains so.
-    if (freshnessFieldsPresent) {
-      const lastHealthyMs = Date.parse(String(source.lastHealthyAt || ''));
-      requireOk(Number.isFinite(lastHealthyMs), 'Novva healthy source is missing a valid lastHealthyAt verification anchor.');
-      requireOk(Number(source.fallbackAgeHours || 0) === 0, 'Novva healthy source must record a zero-hour fallback age.');
-    }
+    const lastHealthyMs = Date.parse(String(source.lastHealthyAt || ''));
+    requireOk(Number.isFinite(lastHealthyMs), 'Novva healthy source is missing a valid lastHealthyAt verification anchor.');
+    requireOk(Number(source.fallbackAgeHours || 0) === 0, 'Novva healthy source must record a zero-hour fallback age.');
+    const evidence = healthyEvidenceState(source.lastHealthyAt);
+    requireOk(evidence.fresh, `Novva healthy source evidence is ${evidence.ageHours === null ? 'unverified' : `${evidence.ageHours.toFixed(1)} hours old`}; maximum is ${MAX_HEALTHY_EVIDENCE_AGE_HOURS} hours.`);
   } else {
     const fallbackExpired = source.fallbackExpired === true;
     const lastHealthyMs = Date.parse(String(source.lastHealthyAt || ''));
-    const maxAgeHours = Number.isFinite(configuredMaxAge) && configuredMaxAge > 0
-      ? Math.min(configuredMaxAge, MAX_FALLBACK_AGE_HOURS)
-      : MAX_FALLBACK_AGE_HOURS;
     const computedAgeHours = Number.isFinite(lastHealthyMs)
       ? Math.max(0, (Date.now() - lastHealthyMs) / 3_600_000)
       : Infinity;
@@ -75,7 +90,7 @@ if (source) {
       requireOk(source.usedPreviousSnapshot !== true, 'Novva expired fallback must not be marked as using the previous snapshot.');
     } else {
       requireOk(Number.isFinite(lastHealthyMs), 'Novva fallback has no valid lastHealthyAt verification anchor.');
-      requireOk(computedAgeHours < maxAgeHours, `Novva fallback is ${computedAgeHours.toFixed(1)} hours old, beyond the ${maxAgeHours}-hour publication window.`);
+      requireOk(computedAgeHours < MAX_FALLBACK_AGE_HOURS, `Novva fallback is ${computedAgeHours.toFixed(1)} hours old, beyond the ${MAX_FALLBACK_AGE_HOURS}-hour publication window.`);
       requireOk(snapshot.length > 0, 'Novva source is unhealthy and there is no verified snapshot to preserve.');
       requireOk(Number(source.preservedPrevious || 0) === snapshot.length, `Novva unhealthy-source preservation count ${source.preservedPrevious ?? 0} does not match snapshot count ${snapshot.length}.`);
       requireOk(source.usedPreviousSnapshot === true, 'Novva active fallback must explicitly report usedPreviousSnapshot=true.');

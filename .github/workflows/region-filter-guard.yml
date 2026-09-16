@@ -8,6 +8,8 @@ on:
       - 'scripts/generate-region-seo.mjs'
       - 'scripts/send-weekly-job-alert.mjs'
       - 'scripts/test-region-filter-contract.mjs'
+      - 'scripts/prune-unresolved-geography.mjs'
+      - 'scripts/refresh-region-status.mjs'
       - '.github/workflows/region-filter-guard.yml'
   pull_request:
     paths:
@@ -15,6 +17,8 @@ on:
       - 'scripts/generate-region-seo.mjs'
       - 'scripts/send-weekly-job-alert.mjs'
       - 'scripts/test-region-filter-contract.mjs'
+      - 'scripts/prune-unresolved-geography.mjs'
+      - 'scripts/refresh-region-status.mjs'
       - '.github/workflows/region-filter-guard.yml'
 
 permissions:
@@ -33,4 +37,7 @@ jobs:
           node --check assets/app.js
           node --check scripts/generate-region-seo.mjs
           node --check scripts/send-weekly-job-alert.mjs
+          node --check scripts/prune-unresolved-geography.mjs
+          node --check scripts/refresh-region-status.mjs
           node scripts/test-region-filter-contract.mjs
+          node scripts/prune-unresolved-geography.mjs --test

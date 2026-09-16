@@ -1,0 +1,53 @@
+name: AWS source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/amazon-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-amazon-datacenter.mjs'
+      - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/validate-amazon-parity.mjs'
+      - '.github/workflows/aws-detail-recovery.yml'
+      - '.github/workflows/aws-stale-fallback-watch.yml'
+      - '.github/workflows/aws-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/amazon-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-amazon-datacenter.mjs'
+      - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/validate-amazon-parity.mjs'
+      - '.github/workflows/aws-detail-recovery.yml'
+      - '.github/workflows/aws-stale-fallback-watch.yml'
+      - '.github/workflows/aws-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check AWS collector and validator syntax
+        run: |
+          node --check scripts/collect-amazon-datacenter.mjs
+          node --check scripts/enforce-amazon-fallback-freshness.mjs
+          node --check scripts/validate-amazon-parity.mjs
+      - name: Run AWS source regressions
+        run: |
+          node scripts/enforce-amazon-fallback-freshness.mjs --test
+          node scripts/validate-amazon-parity.mjs --test
+      - name: Validate current AWS publication state
+        run: |
+          node scripts/validate-amazon-parity.mjs
+          node scripts/validate-priority-employer-sources.mjs

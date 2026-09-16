@@ -45,6 +45,11 @@ jobs:
           node scripts/persist-compass-status.mjs --test-freshness
           node scripts/validate-compass-datacenters.mjs --test
           node scripts/validate-compass-datacenters.mjs
+      - name: Validate Stream Data Centers employer-direct source contract
+        run: |
+          node scripts/collect-stream-data-centers.mjs --test-classifier
+          node scripts/validate-stream-data-centers.mjs --test
+          node scripts/validate-stream-data-centers.mjs
       - name: Validate regional filtering and publication geography contracts
         run: |
           node scripts/test-region-filter-contract.mjs

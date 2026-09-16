@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T05:19:09.479Z",
+  "updatedAt": "2026-09-16T05:39:47.218Z",
   "jobs": 676,
   "sourcesAttempted": 18,
   "providers": {
@@ -173,7 +173,7 @@
     "errors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-15T17:29:29.876Z",
+    "checkedAt": "2026-09-16T05:39:47.218Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3582,7 +3582,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T05:19:09.592Z",
+    "checkedAt": "2026-09-16T05:39:47.296Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3590,44 +3590,35 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T05:19:09.654Z",
+    "updatedAt": "2026-09-16T05:39:47.373Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 677,
+    "regionAssigned": 676,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 137,
-      "texas": 117,
       "southeast": 102,
-      "mid-atlantic": 128,
+      "texas": 116,
       "southwest": 79,
+      "mid-atlantic": 128,
       "west": 92,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T05:19:09.711Z",
-    "before": 677,
+    "checkedAt": "2026-09-16T05:39:47.441Z",
+    "before": 676,
     "after": 676,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-108517449598411462",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "Haskell, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T05:02:41.700Z",
-    "publishedJobs": 677,
+    "checkedAt": "2026-09-16T05:40:11.285Z",
+    "publishedJobs": 676,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
@@ -3644,7 +3635,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-16T05:19:09.763Z"
+    "updatedAt": "2026-09-16T05:40:11.470Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -9,7 +9,7 @@ on:
       - .github/workflows/novva-bootstrap.yml
   workflow_dispatch:
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: '43 */6 * * *'
 
 permissions:
   contents: write

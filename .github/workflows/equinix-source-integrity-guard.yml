@@ -1,0 +1,76 @@
+name: Equinix source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/apply-equinix-verified-fallback.mjs'
+      - 'scripts/collect-equinix-current-skillbridge.mjs'
+      - 'scripts/collect-equinix-early.mjs'
+      - 'scripts/collect-equinix-v2.mjs'
+      - 'scripts/collect-equinix.mjs'
+      - 'scripts/enforce-equinix-fallback-freshness.mjs'
+      - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/promote-equinix-direct-clicks.mjs'
+      - 'scripts/recover-equinix-rendered-details.mjs'
+      - '.github/workflows/equinix-bootstrap.yml'
+      - '.github/workflows/equinix-current-skillbridge.yml'
+      - '.github/workflows/equinix-stale-fallback-watch.yml'
+      - '.github/workflows/equinix-verified-evidence-watch.yml'
+      - '.github/workflows/equinix-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/apply-equinix-verified-fallback.mjs'
+      - 'scripts/collect-equinix-current-skillbridge.mjs'
+      - 'scripts/collect-equinix-early.mjs'
+      - 'scripts/collect-equinix-v2.mjs'
+      - 'scripts/collect-equinix.mjs'
+      - 'scripts/enforce-equinix-fallback-freshness.mjs'
+      - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/promote-equinix-direct-clicks.mjs'
+      - 'scripts/recover-equinix-rendered-details.mjs'
+      - '.github/workflows/equinix-bootstrap.yml'
+      - '.github/workflows/equinix-current-skillbridge.yml'
+      - '.github/workflows/equinix-stale-fallback-watch.yml'
+      - '.github/workflows/equinix-verified-evidence-watch.yml'
+      - '.github/workflows/equinix-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: equinix-source-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Equinix source-integrity scripts
+        run: |
+          node --check scripts/enforce-equinix-fallback-freshness.mjs
+          node --check scripts/enforce-equinix-verified-evidence.mjs
+          node scripts/enforce-equinix-fallback-freshness.mjs --test
+          node scripts/enforce-equinix-verified-evidence.mjs --test
+      - name: Fail closed if Equinix publication needs cleanup
+        run: |
+          node scripts/enforce-equinix-fallback-freshness.mjs
+          node scripts/enforce-equinix-verified-evidence.mjs
+          git diff --exit-code -- data/jobs.json data/collector-status.json
+      - name: Validate Equinix public-role contract
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs

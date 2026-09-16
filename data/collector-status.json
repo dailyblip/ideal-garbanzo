@@ -1,12 +1,13 @@
 {
-  "updatedAt": "2026-09-16T09:44:39.102Z",
+  "updatedAt": "2026-09-16T11:29:44.584Z",
   "jobs": 674,
-  "sourcesAttempted": 18,
+  "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
     "entry-level": 651,
@@ -3424,8 +3425,8 @@
     "detailFailures": 0,
     "preservedPrevious": 0,
     "qualifyingRoles": 17,
-    "lastHealthyAt": "2026-09-15T21:19:13.421Z",
-    "snapshotVerifiedAt": "2026-09-15T21:19:13.421Z",
+    "lastHealthyAt": "2026-09-16T11:29:40.832Z",
+    "snapshotVerifiedAt": "2026-09-16T11:29:40.832Z",
     "snapshotMaxAgeHours": 96,
     "fallbackUsed": false,
     "fallbackFresh": false,
@@ -3595,7 +3596,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T09:51:41.247Z",
+    "checkedAt": "2026-09-16T11:29:44.639Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3603,7 +3604,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T09:51:41.326Z",
+    "updatedAt": "2026-09-16T11:29:44.688Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 674,
@@ -3622,7 +3623,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T09:51:41.399Z",
+    "checkedAt": "2026-09-16T11:29:44.776Z",
     "before": 674,
     "after": 674,
     "removed": 0,
@@ -3630,7 +3631,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T09:52:07.999Z",
+    "checkedAt": "2026-09-16T11:30:05.579Z",
     "publishedJobs": 674,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3646,9 +3647,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 17,
     "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-16T09:52:08.190Z"
+    "updatedAt": "2026-09-16T11:30:05.832Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T08:46:45.359Z",
+  "updatedAt": "2026-09-16T09:44:39.102Z",
   "jobs": 674,
   "sourcesAttempted": 18,
   "providers": {
@@ -3460,9 +3460,9 @@
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
       "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
       "expired": true,
-      "checkedAt": "2026-09-16T05:12:34.605Z",
+      "checkedAt": "2026-09-16T09:44:39.102Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 146.5,
+      "expiredAgeHours": 151.1,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3590,7 +3590,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T08:51:56.980Z",
+    "updatedAt": "2026-09-16T09:44:39.177Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 674,
@@ -3609,7 +3609,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T08:51:57.053Z",
+    "checkedAt": "2026-09-16T09:44:39.232Z",
     "before": 674,
     "after": 674,
     "removed": 0,
@@ -3617,7 +3617,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T08:52:16.671Z",
+    "checkedAt": "2026-09-16T09:44:58.709Z",
     "publishedJobs": 674,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3635,7 +3635,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-16T08:52:16.852Z"
+    "updatedAt": "2026-09-16T09:44:58.893Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

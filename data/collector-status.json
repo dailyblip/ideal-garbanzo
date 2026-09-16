@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T11:38:18.675Z",
+  "updatedAt": "2026-09-16T12:00:20.984Z",
   "jobs": 674,
   "sourcesAttempted": 17,
   "providers": {
@@ -3698,35 +3698,16 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T11:38:19.631Z",
-    "changed": 1,
-    "samples": [
-      {
-        "id": "ashby-lambda-0bdbbcbdc49122",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
-      }
-    ],
-    "regionAssigned": 675,
-    "regionMissing": 2,
-    "coveragePct": 99.7,
-    "missingSamples": [
-      {
-        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
-      },
-      {
-        "id": "ashby-lambda-8308606de297f6",
-        "company": "Lambda",
-        "location": "Querétaro, Mexico - Data Center",
-        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
-      }
-    ],
+    "updatedAt": "2026-09-16T12:00:21.072Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 674,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
       "midwest": 137,
-      "southeast": 103,
+      "southeast": 102,
       "texas": 115,
       "southwest": 78,
       "mid-atlantic": 128,
@@ -3736,21 +3717,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T11:38:19.778Z",
-    "before": 675,
+    "checkedAt": "2026-09-16T12:00:21.118Z",
+    "before": 674,
     "after": 674,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-5127519007",
-        "keptId": "gh-xai-5219754007",
-        "company": "xAI",
-        "title": "Mechanical Commissioning Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-16T11:30:05.579Z",
@@ -3771,7 +3743,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-16T11:38:19.824Z"
+    "updatedAt": "2026-09-16T12:00:21.157Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4434,7 +4406,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-16T00:53:54.878Z",
+    "checkedAt": "2026-09-16T12:00:20.984Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

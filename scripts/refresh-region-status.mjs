@@ -4,6 +4,11 @@ import './validate-major-workday-health.mjs';
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 
+// Regional status is the final publication checkpoint used by both the full
+// refresh and deploy-only paths. Fail closed here so an opaque campus code,
+// foreign location, or normalization miss cannot reach the public U.S. feed.
+await import('./prune-unresolved-geography.mjs');
+
 const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
 

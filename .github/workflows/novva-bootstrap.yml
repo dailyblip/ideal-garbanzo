@@ -9,7 +9,7 @@ on:
       - .github/workflows/novva-bootstrap.yml
   workflow_dispatch:
   schedule:
-    - cron: '17 7,19 * * *'
+    - cron: '17 */6 * * *'
 
 permissions:
   contents: write
@@ -35,6 +35,8 @@ jobs:
         run: |
           node --check scripts/collect-novva-careers.mjs
           node --check scripts/validate-novva.mjs
+          node scripts/collect-novva-careers.mjs --test-freshness
+          node scripts/validate-novva.mjs --test-freshness
       - name: Collect official Novva careers roles
         run: node scripts/collect-novva-careers.mjs
       - name: Enforce mission-fit role families

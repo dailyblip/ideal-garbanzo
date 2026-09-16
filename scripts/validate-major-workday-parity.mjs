@@ -32,6 +32,20 @@ const clearlyForeignTerms = [
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[-_/]+/g, ' ').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+const stateNameToCode = new Map(`alabama AL|alaska AK|arizona AZ|arkansas AR|california CA|colorado CO|connecticut CT|delaware DE|district of columbia DC|florida FL|georgia GA|hawaii HI|idaho ID|illinois IL|indiana IN|iowa IA|kansas KS|kentucky KY|louisiana LA|maine ME|maryland MD|massachusetts MA|michigan MI|minnesota MN|mississippi MS|missouri MO|montana MT|nebraska NE|nevada NV|new hampshire NH|new jersey NJ|new mexico NM|new york NY|north carolina NC|north dakota ND|ohio OH|oklahoma OK|oregon OR|pennsylvania PA|rhode island RI|south carolina SC|south dakota SD|tennessee TN|texas TX|utah UT|vermont VT|virginia VA|washington WA|west virginia WV|wisconsin WI|wyoming WY`.split('|').map(entry => {
+  const match = entry.match(/^(.*) ([A-Z]{2})$/);
+  return [match[1], match[2].toLowerCase()];
+}));
+function canonicalLocation(value) {
+  let location = normalize(value)
+    .replace(/\b(?:united states(?: of america)?|u s a|usa)\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  for (const [state, code] of stateNameToCode) {
+    location = location.replace(new RegExp(`\\b${state}\\b`, 'g'), code);
+  }
+  return location.replace(/\s+/g, ' ').trim();
+}
 function canonicalTitle(job) {
   let title = clean(job?.title);
   const location = normalize(job?.location);
@@ -73,18 +87,19 @@ for (const testCase of canonicalTitleRegressionCases) {
 
 function identityMismatches(publicJob, snapshotJob) {
   const mismatches = [];
-  for (const field of ['id', 'company', 'location', 'type', 'experience', 'source', 'active', 'demo']) {
+  for (const field of ['id', 'company', 'type', 'experience', 'source', 'active', 'demo']) {
     const publicValue = typeof publicJob?.[field] === 'string' ? clean(publicJob[field]) : publicJob?.[field];
     const snapshotValue = typeof snapshotJob?.[field] === 'string' ? clean(snapshotJob[field]) : snapshotJob?.[field];
     if (publicValue !== snapshotValue) mismatches.push(field);
   }
+  if (canonicalLocation(publicJob?.location) !== canonicalLocation(snapshotJob?.location)) mismatches.push('location');
   if (canonicalTitle(publicJob) !== canonicalTitle(snapshotJob)) mismatches.push('title');
   return mismatches;
 }
 
 const identityRegressionCases = [
   {
-    publicJob: { id: 'workday-nttglobaldatacenters-JR1', company: 'NTT Global Data Centers', title: 'Data Center Technician L2', location: 'Ashburn, Virginia', type: 'entry-level', experience: '0-2-years', source: 'Employer career site', active: true, demo: false },
+    publicJob: { id: 'workday-nttglobaldatacenters-JR1', company: 'NTT Global Data Centers', title: 'Data Center Technician L2', location: 'Ashburn, VA', type: 'entry-level', experience: '0-2-years', source: 'Employer career site', active: true, demo: false },
     snapshotJob: { id: 'workday-nttglobaldatacenters-JR1', company: 'NTT Global Data Centers', title: '914 - Data Center Technician L2', location: 'Ashburn, Virginia', type: 'entry-level', experience: '0-2-years', source: 'Employer career site', active: true, demo: false },
     expected: []
   },
@@ -96,7 +111,7 @@ const identityRegressionCases = [
   {
     publicJob: { id: 'workday-qtsdatacenters-R2', company: 'QTS Data Centers', title: 'Critical Operations Technician I', location: 'Dallas, TX', type: 'entry-level', experience: '0-2-years', source: 'Third party', active: false, demo: false },
     snapshotJob: { id: 'workday-qtsdatacenters-R2', company: 'QTS Data Centers', title: 'Critical Operations Technician I', location: 'Ashburn, VA', type: 'entry-level', experience: '0-2-years', source: 'Employer career site', active: true, demo: false },
-    expected: ['location', 'source', 'active']
+    expected: ['source', 'active', 'location']
   }
 ];
 for (const testCase of identityRegressionCases) {
@@ -270,7 +285,7 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} major Workday snapshot/public-feed integrity violation(s).`);
 }
 const mode = snapshotIsReconciled ? 'reconciled unique-title parity' : 'raw snapshot coverage';
-console.log(`Major Workday parity guard passed in ${mode} mode: ${publicMajor.length} clean public cards are employer-direct and traceable to ${majorSnapshot.length} snapshot requisitions with requisition, location, classification, source, and production-state parity.`);
+console.log(`Major Workday parity guard passed in ${mode} mode: ${publicMajor.length} clean public cards are employer-direct and traceable to ${majorSnapshot.length} snapshot requisitions with canonical location, classification, source, and production-state parity.`);
 for (const company of officialHosts.keys()) {
   const snapshotCount = uniqueTitles(majorSnapshot.filter(job => clean(job?.company) === company)).size;
   const publicCount = uniqueTitles(publicMajor.filter(job => clean(job?.company) === company)).size;

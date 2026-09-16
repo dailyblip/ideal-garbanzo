@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
     paths:
-      - data/compass-jobs.json
       - scripts/collect-compass-datacenters.mjs
       - scripts/persist-compass-status.mjs
       - scripts/validate-compass-datacenters.mjs

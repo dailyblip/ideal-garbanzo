@@ -31,9 +31,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate CloudHQ collector syntax
+      - name: Validate CloudHQ collector and fallback policy
         run: |
           node --check scripts/collect-cloudhq-careers.mjs
+          node scripts/collect-cloudhq-careers.mjs --test-freshness
           node --check scripts/validate-cloudhq.mjs
       - name: Collect official CloudHQ Paylocity roles
         run: node scripts/collect-cloudhq-careers.mjs

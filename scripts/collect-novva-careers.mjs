@@ -6,7 +6,7 @@ const STATUS_PATH = 'data/collector-status.json';
 const SNAPSHOT_PATH = 'data/novva-jobs.json';
 const OFFICIAL_SOURCE = 'https://www.novva.com/careers/';
 const COMPANY = 'Novva Data Centers';
-const MAX_FALLBACK_AGE_HOURS = 168;
+const MAX_FALLBACK_AGE_HOURS = 96;
 const KNOWN_CANDIDATES = [
   'https://www.novva.com/portfolio/command-center-operator-utah/'
 ];
@@ -67,11 +67,11 @@ function runFreshnessSelfTest() {
 
   const freshFallback = fallbackState({
     sourceHealthy: false,
-    previousLastHealthyAt: new Date(nowMs - 167 * 3_600_000).toISOString(),
+    previousLastHealthyAt: new Date(nowMs - 95 * 3_600_000).toISOString(),
     nowMs
   });
-  if (freshFallback.fallbackExpired || freshFallback.fallbackAgeHours !== 167) {
-    throw new Error('Novva verified fallback should remain publishable inside 168 hours.');
+  if (freshFallback.fallbackExpired || freshFallback.fallbackAgeHours !== 95) {
+    throw new Error('Novva verified fallback should remain publishable inside 96 hours.');
   }
 
   const boundaryFallback = fallbackState({
@@ -80,7 +80,7 @@ function runFreshnessSelfTest() {
     nowMs
   });
   if (!boundaryFallback.fallbackExpired) {
-    throw new Error('Novva fallback must fail closed at the 168-hour boundary.');
+    throw new Error('Novva fallback must fail closed at the 96-hour boundary.');
   }
 
   const missingAnchor = fallbackState({ sourceHealthy: false, previousLastHealthyAt: null, nowMs });

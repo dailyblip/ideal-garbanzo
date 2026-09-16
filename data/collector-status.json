@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T04:51:56.736Z",
+  "updatedAt": "2026-09-16T05:02:18.385Z",
   "jobs": 677,
   "sourcesAttempted": 17,
   "providers": {
@@ -3593,7 +3593,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T04:57:17.786Z",
+    "checkedAt": "2026-09-16T05:02:18.474Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3601,7 +3601,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T04:57:17.852Z",
+    "updatedAt": "2026-09-16T05:02:18.552Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 677,
@@ -3620,7 +3620,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T04:57:17.896Z",
+    "checkedAt": "2026-09-16T05:02:18.623Z",
     "before": 677,
     "after": 677,
     "removed": 0,
@@ -3628,7 +3628,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T04:57:38.409Z",
+    "checkedAt": "2026-09-16T05:02:41.700Z",
     "publishedJobs": 677,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3646,7 +3646,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-16T04:57:38.547Z"
+    "updatedAt": "2026-09-16T05:02:41.893Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3771,7 +3771,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-15T17:10:41.445Z",
+    "checkedAt": "2026-09-16T05:02:18.385Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

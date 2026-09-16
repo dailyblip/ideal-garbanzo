@@ -41,7 +41,10 @@ if (!inquiryScript.includes("optionKey === 'standardJob'")) throw new Error('Emp
 if (!inquiryScript.includes('mission fit before publication or promotion')) throw new Error('Employer inquiry handoff must preserve mission-fit review language');
 if (!inquiryScript.includes('mailto:') || !inquiryScript.includes('event.submitter')) throw new Error('Employer submission must preserve the direct-email handoff and selected option');
 if (!inquiryScript.includes('isOfficialJobUrl(jobUrl)') || !inquiryScript.includes('setCustomValidity')) {
-  throw new Error('Employer intake must fail closed on non-official job URLs before opening the email handoff');
+  throw new Error('Employer intake must fail closed on implausible or non-official job URLs before opening the email handoff');
+}
+if (!inquiryScript.includes('knownAtsHosts') || !inquiryScript.includes('hasCareerSignal') || !inquiryScript.includes('isPublicHostname')) {
+  throw new Error('Employer intake must require a public employer-career URL pattern or a recognized applicant-tracking host');
 }
 
 const policyStart = inquiryScript.indexOf('  const clean =');
@@ -56,10 +59,14 @@ if (typeof isOfficialJobUrl !== 'function') throw new Error('Employer URL policy
 const allowedOfficialUrls = [
   'https://careers.microsoft.com/v2/global/en/job/123/data-center-technician',
   'https://www.amazon.jobs/en/jobs/123/data-center-technician',
-  'https://careers.google.com/jobs/results/123/data-center-technician',
+  'https://www.google.com/about/careers/applications/jobs/results/123-data-center-technician',
+  'https://www.metacareers.com/jobs/123/data-center-technician',
+  'https://novva.com/company/careers/data-center-technician',
   'https://company.wd1.myworkdayjobs.com/en-US/careers/job/123',
   'https://boards.greenhouse.io/company/jobs/123',
-  'https://jobs.lever.co/company/123'
+  'https://jobs.lever.co/company/123',
+  'https://careers-tierpoint.icims.com/jobs/123/data-center-technician/job',
+  'https://jobs.ashbyhq.com/company/123'
 ];
 for (const url of allowedOfficialUrls) {
   if (!isOfficialJobUrl(url)) throw new Error(`Employer intake rejected a valid employer or ATS URL: ${url}`);
@@ -72,11 +79,17 @@ const rejectedUrls = [
   'https://jobs.glassdoor.com/job/123',
   'https://example.ziprecruiter.com/jobs/123',
   'https://www.monster.com/job-openings/123',
+  'https://www.facebook.com/company/posts/123',
+  'https://www.reddit.com/r/jobs/comments/123',
+  'https://bit.ly/official-job',
   'https://datacentercareers.us/jobs/example/',
+  'https://example.com/about-us',
+  'https://localhost/jobs/123',
+  'https://127.0.0.1/jobs/123',
   'not a url'
 ];
 for (const url of rejectedUrls) {
-  if (isOfficialJobUrl(url)) throw new Error(`Employer intake accepted a non-official or unsafe job URL: ${url}`);
+  if (isOfficialJobUrl(url)) throw new Error(`Employer intake accepted a non-official, non-career or unsafe job URL: ${url}`);
 }
 
 if (/buttondown\.com\/api\/emails\/embed-subscribe/i.test(employerPage)) throw new Error('Employer submissions must not use the candidate newsletter endpoint');

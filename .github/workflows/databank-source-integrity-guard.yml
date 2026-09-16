@@ -9,7 +9,12 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-databank.mjs'
       - 'scripts/validate-databank.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/normalize-display-copy.mjs'
       - '.github/workflows/databank-bootstrap.yml'
+      - '.github/workflows/pages.yml'
       - '.github/workflows/databank-source-integrity-guard.yml'
   pull_request:
     branches: [main]
@@ -19,7 +24,12 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-databank.mjs'
       - 'scripts/validate-databank.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/normalize-display-copy.mjs'
       - '.github/workflows/databank-bootstrap.yml'
+      - '.github/workflows/pages.yml'
       - '.github/workflows/databank-source-integrity-guard.yml'
   workflow_dispatch:
 
@@ -34,9 +44,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Verify DataBank classifier and publication integrity
+      - name: Verify DataBank collector and integrity regressions
         run: |
           node --check scripts/collect-databank.mjs
           node --check scripts/validate-databank.mjs
           node scripts/collect-databank.mjs --test-classifier
-          node scripts/validate-databank.mjs
+          node scripts/validate-databank.mjs --test
+      - name: Re-run publication transforms
+        run: |
+          node scripts/filter-mission-fit.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/normalize-display-copy.mjs
+      - name: Validate exact DataBank authoritative-public parity
+        run: node scripts/validate-databank.mjs

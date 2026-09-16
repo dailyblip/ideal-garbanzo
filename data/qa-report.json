@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-16T17:29:58.128Z",
+  "checkedAt": "2026-09-16T17:41:12.077Z",
   "jobsBefore": 671,
   "jobsAfter": 671,
   "demoJobsRemoved": [],
@@ -9,7 +9,26 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5169674007",
+      "company": "xAI",
+      "title": "Fiber Technician III - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5169674007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5212286007",
+      "company": "xAI",
+      "title": "Facilities Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5212286007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

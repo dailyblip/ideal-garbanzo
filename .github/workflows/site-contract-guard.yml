@@ -50,6 +50,12 @@ jobs:
           node scripts/collect-stream-data-centers.mjs --test-classifier
           node scripts/validate-stream-data-centers.mjs --test
           node scripts/validate-stream-data-centers.mjs
+      - name: Validate EdgeConneX employer-direct source contract
+        run: |
+          node scripts/enforce-edgeconnex-fallback-freshness.mjs --test
+          node scripts/validate-edgeconnex.mjs --test
+          node scripts/enforce-edgeconnex-fallback-freshness.mjs --check
+          node scripts/validate-edgeconnex.mjs
       - name: Validate regional filtering and publication geography contracts
         run: |
           node scripts/test-region-filter-contract.mjs

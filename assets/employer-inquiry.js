@@ -19,17 +19,54 @@
     'ziprecruiter.com',
     'monster.com',
     'careerbuilder.com',
-    'simplyhired.com'
+    'simplyhired.com',
+    'facebook.com',
+    'x.com',
+    'twitter.com',
+    'reddit.com',
+    'bit.ly',
+    'tinyurl.com'
+  ]);
+  const knownAtsHosts = new Set([
+    'myworkdayjobs.com',
+    'greenhouse.io',
+    'lever.co',
+    'icims.com',
+    'oraclecloud.com',
+    'breezy.hr',
+    'workable.com',
+    'hrmdirect.com',
+    'ashbyhq.com',
+    'smartrecruiters.com',
+    'jobvite.com',
+    'applytojob.com'
   ]);
   const normalizeHost = value => clean(value).toLowerCase().replace(/^www\./, '');
-  const isBlockedJobHost = hostname => {
+  const hostMatches = (hostname, candidates) => {
     const host = normalizeHost(hostname);
-    return [...blockedJobHosts].some(blocked => host === blocked || host.endsWith(`.${blocked}`));
+    return [...candidates].some(candidate => host === candidate || host.endsWith(`.${candidate}`));
+  };
+  const isBlockedJobHost = hostname => hostMatches(hostname, blockedJobHosts);
+  const isKnownAtsHost = hostname => hostMatches(hostname, knownAtsHosts);
+  const hasCareerSignal = url => {
+    const host = normalizeHost(url.hostname);
+    const firstLabel = host.split('.')[0] || '';
+    if (/^(?:career|careers|job|jobs|apply|employment)$/i.test(firstLabel)) return true;
+    if (/(?:career|careers|jobs|employment)/i.test(host)) return true;
+    return /\/(?:about\/)?(?:career|careers|job|jobs|employment|opportunities|join-us)(?:\/|\b)/i.test(url.pathname);
+  };
+  const isPublicHostname = hostname => {
+    const host = normalizeHost(hostname);
+    if (!host || host === 'localhost' || !host.includes('.')) return false;
+    if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(host)) return false;
+    if (/\.(?:local|internal|localhost)$/i.test(host)) return false;
+    return true;
   };
   const isOfficialJobUrl = value => {
     try {
       const url = new URL(clean(value));
-      return url.protocol === 'https:' && Boolean(url.hostname) && !isBlockedJobHost(url.hostname);
+      if (url.protocol !== 'https:' || !isPublicHostname(url.hostname) || isBlockedJobHost(url.hostname)) return false;
+      return isKnownAtsHost(url.hostname) || hasCareerSignal(url);
     } catch {
       return false;
     }

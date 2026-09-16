@@ -5,8 +5,11 @@ on:
     branches: [main]
     paths:
       - scripts/collect-coreweave-careers.mjs
+      - scripts/enforce-coreweave-fallback-freshness.mjs
       - scripts/validate-coreweave.mjs
+      - data/coreweave-source-evidence.json
       - .github/workflows/coreweave-bootstrap.yml
+      - .github/workflows/coreweave-source-integrity-guard.yml
   workflow_dispatch:
   schedule:
     - cron: '17 */12 * * *'
@@ -35,9 +38,14 @@ jobs:
         run: |
           node --check scripts/collect-coreweave-careers.mjs
           node scripts/collect-coreweave-careers.mjs --test-experience-parser
+          node --check scripts/enforce-coreweave-fallback-freshness.mjs
+          node scripts/enforce-coreweave-fallback-freshness.mjs --test
           node --check scripts/validate-coreweave.mjs
+          node scripts/validate-coreweave.mjs --test
       - name: Collect official CoreWeave careers roles
         run: node scripts/collect-coreweave-careers.mjs
+      - name: Enforce verified fallback freshness
+        run: node scripts/enforce-coreweave-fallback-freshness.mjs
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations and regions
@@ -49,7 +57,9 @@ jobs:
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate CoreWeave employer-direct snapshot
-        run: node scripts/validate-coreweave.mjs
+        run: |
+          node scripts/enforce-coreweave-fallback-freshness.mjs --check
+          node scripts/validate-coreweave.mjs
       - name: Track first-seen dates
         run: node scripts/stamp-job-history.mjs
       - name: Validate updated feed
@@ -70,11 +80,13 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node scripts/collect-coreweave-careers.mjs
+            node scripts/enforce-coreweave-fallback-freshness.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
+            node scripts/enforce-coreweave-fallback-freshness.mjs --check
             node scripts/validate-coreweave.mjs
             node scripts/stamp-job-history.mjs
             node scripts/validate.mjs
@@ -90,7 +102,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/coreweave-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            git add data/jobs.json data/coreweave-jobs.json data/coreweave-source-evidence.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
             if git diff --cached --quiet; then
               echo "No verified CoreWeave data changes."
               echo "changed=false" >> "$GITHUB_OUTPUT"

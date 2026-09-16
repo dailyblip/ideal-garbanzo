@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T04:22:02.522Z",
+  "updatedAt": "2026-09-16T04:43:07.998Z",
   "jobs": 676,
   "sourcesAttempted": 18,
   "providers": {
@@ -3594,7 +3594,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T04:22:02.576Z",
+    "checkedAt": "2026-09-16T04:43:08.070Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3602,7 +3602,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T04:22:02.630Z",
+    "updatedAt": "2026-09-16T04:43:08.142Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 676,
@@ -3621,7 +3621,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T04:22:02.680Z",
+    "checkedAt": "2026-09-16T04:43:08.209Z",
     "before": 676,
     "after": 676,
     "removed": 0,
@@ -3629,7 +3629,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T04:22:27.080Z",
+    "checkedAt": "2026-09-16T04:43:25.837Z",
     "publishedJobs": 676,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3647,7 +3647,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-16T04:22:27.282Z"
+    "updatedAt": "2026-09-16T04:43:26.021Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3752,7 +3752,7 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-16T04:22:02.522Z",
+    "checkedAt": "2026-09-16T04:43:07.998Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",

@@ -32,6 +32,11 @@ for (const testCase of regressionCases) {
   }
 }
 
+if (process.argv.includes('--test')) {
+  console.log('Publication geography regression tests passed.');
+  process.exit(0);
+}
+
 const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('data/jobs.json must contain an array.');
 

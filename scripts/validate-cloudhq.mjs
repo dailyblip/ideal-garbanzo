@@ -4,11 +4,24 @@ const COMPANY = 'CloudHQ';
 const SNAPSHOT_PATH = 'data/cloudhq-jobs.json';
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
+const EXPECTED_SOURCE = 'Official CloudHQ Paylocity careers';
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const allowedTypes = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
 const allowedModes = new Set(['paylocity-feed', 'verified-direct-role-fallback']);
 const seniorPattern = /\b(?:senior|sr\.?|lead|leader|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff|supervisor|superintendent|foreman|architect)\b/i;
 const usLocationPattern = /,\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)$/;
+const parityFields = ['title', 'company', 'location', 'type', 'experience', 'source', 'sourceUrl', 'active', 'demo'];
+
+function officialPaylocityJobId(value) {
+  try {
+    const parsed = new URL(String(value || ''));
+    if (parsed.protocol !== 'https:' || parsed.hostname.toLowerCase() !== 'recruiting.paylocity.com') return '';
+    const match = parsed.pathname.match(/^\/recruiting\/jobs\/(?:details|apply)\/(\d+)(?:\/|$)/i);
+    return match?.[1] || '';
+  } catch {
+    return '';
+  }
+}
 
 const snapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
 const jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
@@ -18,25 +31,30 @@ if (!Array.isArray(jobs)) throw new Error('data/jobs.json must contain an array'
 
 const violations = [];
 const urls = new Set();
+const ids = new Set();
+const snapshotById = new Map();
 for (const [index, job] of snapshot.entries()) {
   const label = job?.id || `snapshot-${index}`;
   if (job?.company !== COMPANY) violations.push(`${label}: unexpected company ${job?.company || '(missing)'}`);
   if (!job?.id || !String(job.id).startsWith('cloudhq-')) violations.push(`${label}: CloudHQ id must use cloudhq- prefix`);
+  if (ids.has(job?.id)) violations.push(`${label}: duplicate snapshot id`);
+  ids.add(job?.id);
   if (!allowedTypes.has(job?.type)) violations.push(`${label}: unsupported type ${job?.type || '(missing)'}`);
   if (!allowedExperience.has(job?.experience)) violations.push(`${label}: unsupported experience ${job?.experience || '(missing)'}`);
   if (seniorPattern.test(String(job?.title || ''))) violations.push(`${label}: senior-title role leaked into CloudHQ snapshot (${job?.title})`);
   if (!usLocationPattern.test(String(job?.location || ''))) violations.push(`${label}: unresolved or non-U.S. location ${job?.location || '(missing)'}`);
   if (job?.active !== true || job?.demo === true) violations.push(`${label}: published CloudHQ role must be active and non-demo`);
-  try {
-    const parsed = new URL(String(job?.sourceUrl || ''));
-    if (parsed.protocol !== 'https:' || parsed.hostname.toLowerCase() !== 'recruiting.paylocity.com' || !/^\/recruiting\/jobs\/(?:details|apply)\/\d+/i.test(parsed.pathname)) {
-      violations.push(`${label}: sourceUrl must be a direct official Paylocity role URL`);
-    }
-  } catch {
-    violations.push(`${label}: invalid sourceUrl`);
+  if (job?.source !== EXPECTED_SOURCE) violations.push(`${label}: source must remain ${EXPECTED_SOURCE}`);
+
+  const requisitionId = officialPaylocityJobId(job?.sourceUrl);
+  if (!requisitionId) {
+    violations.push(`${label}: sourceUrl must be a direct official Paylocity role URL`);
+  } else if (job?.id !== `cloudhq-${requisitionId}`) {
+    violations.push(`${label}: id/sourceUrl requisition mismatch (expected cloudhq-${requisitionId})`);
   }
   if (urls.has(job?.sourceUrl)) violations.push(`${label}: duplicate sourceUrl`);
   urls.add(job?.sourceUrl);
+  if (job?.id) snapshotById.set(job.id, job);
 }
 
 const sourceStatus = status?.cloudHqCareers || {};
@@ -59,14 +77,38 @@ if (sourceStatus.mode === 'verified-direct-role-fallback') {
 }
 
 const publicJobs = jobs.filter(job => String(job?.company || '').trim() === COMPANY);
-if (snapshot.length > 0 && publicJobs.length === 0) violations.push(`all ${snapshot.length} verified CloudHQ roles disappeared from the public feed`);
-if (snapshot.length >= 4 && publicJobs.length < Math.ceil(snapshot.length * 0.5)) {
-  violations.push(`public feed retained only ${publicJobs.length}/${snapshot.length} verified CloudHQ roles`);
+if (publicJobs.length !== snapshot.length) {
+  violations.push(`public CloudHQ feed must exactly match the authoritative snapshot count (${publicJobs.length}/${snapshot.length})`);
 }
-const snapshotUrls = new Set(snapshot.map(job => job.sourceUrl));
+
+const publicIds = new Set();
+const publicUrls = new Set();
 for (const job of publicJobs) {
-  if (!snapshotUrls.has(job?.sourceUrl)) violations.push(`public CloudHQ role is not backed by the current official snapshot: ${job?.id || job?.sourceUrl}`);
-  if (!job?.region) violations.push(`public CloudHQ role is missing regional classification: ${job?.id || job?.sourceUrl}`);
+  const label = job?.id || job?.sourceUrl || '(unknown public CloudHQ role)';
+  if (publicIds.has(job?.id)) violations.push(`${label}: duplicate public id`);
+  publicIds.add(job?.id);
+  if (publicUrls.has(job?.sourceUrl)) violations.push(`${label}: duplicate public sourceUrl`);
+  publicUrls.add(job?.sourceUrl);
+
+  const expected = snapshotById.get(job?.id);
+  if (!expected) {
+    violations.push(`${label}: public CloudHQ role is not backed by the current authoritative snapshot id`);
+    continue;
+  }
+  for (const field of parityFields) {
+    if (job?.[field] !== expected?.[field]) {
+      violations.push(`${label}: public ${field} drifted from authoritative snapshot (${JSON.stringify(job?.[field])} vs ${JSON.stringify(expected?.[field])})`);
+    }
+  }
+  const requisitionId = officialPaylocityJobId(job?.sourceUrl);
+  if (!requisitionId || job?.id !== `cloudhq-${requisitionId}`) {
+    violations.push(`${label}: public requisition id/sourceUrl identity is invalid`);
+  }
+  if (!job?.region) violations.push(`${label}: public CloudHQ role is missing regional classification`);
+}
+
+for (const job of snapshot) {
+  if (!publicIds.has(job?.id)) violations.push(`${job?.id || job?.sourceUrl}: authoritative CloudHQ role is missing from the public feed`);
 }
 
 if (violations.length) {
@@ -74,4 +116,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} CloudHQ source regression(s).`);
 }
 
-console.log(`CloudHQ validation passed: ${snapshot.length} verified snapshot role(s), ${publicJobs.length} public role(s), ${sourceStatus.listedJobs} official Paylocity role(s) checked via ${sourceStatus.mode}.`);
+console.log(`CloudHQ validation passed: exact authoritative-public parity for ${snapshot.length} verified role(s); ${sourceStatus.listedJobs} official Paylocity role(s) checked via ${sourceStatus.mode}.`);

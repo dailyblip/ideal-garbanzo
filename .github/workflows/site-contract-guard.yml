@@ -34,6 +34,8 @@ jobs:
         run: |
           node scripts/validate-cologix.mjs --test
           node scripts/validate-cologix.mjs
+      - name: Validate CloudHQ employer-direct source contract
+        run: node scripts/validate-cloudhq.mjs
       - name: Validate regional filtering contract
         run: node scripts/test-region-filter-contract.mjs
       - name: Validate weekly alert plumbing and employer diversity

@@ -10,6 +10,7 @@ on:
       - 'scripts/collect-digital-realty.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-digital-realty-parity.mjs'
+      - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
       - '.github/workflows/digital-realty-bootstrap.yml'
       - '.github/workflows/digital-realty-source-integrity-guard.yml'
   pull_request:
@@ -21,6 +22,7 @@ on:
       - 'scripts/collect-digital-realty.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-digital-realty-parity.mjs'
+      - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
       - '.github/workflows/digital-realty-bootstrap.yml'
       - '.github/workflows/digital-realty-source-integrity-guard.yml'
   workflow_dispatch:
@@ -41,8 +43,12 @@ jobs:
           node --check scripts/collect-digital-realty.mjs
           node --check scripts/validate-digital-realty.mjs
           node --check scripts/validate-digital-realty-parity.mjs
-      - name: Run Digital Realty parity regressions
-        run: node scripts/validate-digital-realty-parity.mjs --test
+          node --check scripts/enforce-digital-realty-fallback-freshness.mjs
+      - name: Run Digital Realty integrity and freshness regressions
+        run: |
+          node scripts/validate-digital-realty-parity.mjs --test
+          node scripts/validate-digital-realty.mjs --test-freshness
+          node scripts/enforce-digital-realty-fallback-freshness.mjs --test
       - name: Validate current Digital Realty publication state
         run: |
           node scripts/validate-digital-realty.mjs

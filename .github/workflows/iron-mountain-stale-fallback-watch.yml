@@ -1,0 +1,93 @@
+name: Iron Mountain stale fallback watchdog
+
+on:
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/enforce-iron-mountain-fallback-freshness.mjs'
+      - 'scripts/validate-iron-mountain.mjs'
+      - '.github/workflows/iron-mountain-stale-fallback-watch.yml'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: iron-mountain-stale-fallback-watch
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test Iron Mountain fallback age policy
+        run: node scripts/enforce-iron-mountain-fallback-freshness.mjs --test
+      - name: Enforce Iron Mountain fallback freshness
+        run: node scripts/enforce-iron-mountain-fallback-freshness.mjs
+      - name: Validate Iron Mountain publication state
+        run: node scripts/validate-iron-mountain.mjs
+      - name: Validate published feed after enforcement
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Publish Iron Mountain freshness state from current main
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/enforce-iron-mountain-fallback-freshness.mjs --test
+            node scripts/enforce-iron-mountain-fallback-freshness.mjs
+            node scripts/validate-iron-mountain.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Iron Mountain freshness enforcement; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add -u -- data/jobs.json data/iron-mountain-jobs.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo "Iron Mountain fallback state is unchanged."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Enforce Iron Mountain fallback freshness"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Iron Mountain freshness publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish Iron Mountain freshness state after three attempts."
+          exit 1
+      - name: Deploy Iron Mountain freshness change
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

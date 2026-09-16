@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-16T06:49:46.014Z",
-  "jobs": 675,
+  "jobs": 674,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,14 +9,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 652,
+    "entry-level": 651,
     "internship": 6,
     "trainee": 5,
     "apprenticeship": 12
   },
   "countsByExperience": {
     "0-2-years": 377,
-    "2-5-years": 257,
+    "2-5-years": 256,
     "no-experience": 41
   },
   "errors": [],
@@ -3582,7 +3582,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T06:49:46.092Z",
+    "checkedAt": "2026-09-16T07:45:35.388Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3590,17 +3590,17 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T06:49:46.169Z",
+    "updatedAt": "2026-09-16T07:45:35.444Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 675,
+    "regionAssigned": 674,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 137,
       "southeast": 102,
-      "texas": 116,
+      "texas": 115,
       "southwest": 78,
       "mid-atlantic": 128,
       "west": 92,
@@ -3609,16 +3609,16 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T06:49:46.239Z",
-    "before": 676,
-    "after": 676,
+    "checkedAt": "2026-09-16T07:45:35.494Z",
+    "before": 675,
+    "after": 675,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T06:50:05.182Z",
-    "publishedJobs": 675,
+    "checkedAt": "2026-09-16T07:45:56.156Z",
+    "publishedJobs": 674,
     "removedJobs": 1,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
@@ -3626,7 +3626,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1092,
-    "currentJobs": 675,
+    "currentJobs": 674,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3634,8 +3634,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-16T06:50:05.840Z"
+    "firstSeenRecencyFallbackJobs": 85,
+    "updatedAt": "2026-09-16T07:45:56.298Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4269,7 +4269,7 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-15T08:59:23.457Z",
+    "checkedAt": "2026-09-16T07:45:35.311Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

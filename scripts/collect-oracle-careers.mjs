@@ -201,7 +201,7 @@ function classify(title, description = '', metadata = '') {
   let type = 'entry-level';
   if (t.includes('intern')) type = 'internship';
   else if (t.includes('apprentice')) type = 'apprenticeship';
-  else if (t.includes('trainee')) type = 'trainee';
+  else if (t.includes('trainee') || t.includes('catalyst velocity')) type = 'trainee';
 
   const noExperience = hasAny(text, ['no experience required', 'no prior experience', 'entry level', 'entry-level']);
   if (noExperience || careerFit === 'no-experience') return { type, experience: 'no-experience' };

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-15T21:44:05.669Z",
+  "updatedAt": "2026-09-16T00:53:54.878Z",
   "jobs": 679,
   "sourcesAttempted": 18,
   "providers": {
@@ -3597,7 +3597,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-15T22:14:40.118Z",
+    "updatedAt": "2026-09-16T00:53:54.950Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 679,
@@ -3616,9 +3616,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-15T22:14:40.189Z",
-    "before": 681,
-    "after": 681,
+    "checkedAt": "2026-09-16T00:53:55.017Z",
+    "before": 679,
+    "after": 679,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3642,7 +3642,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-15T22:15:01.080Z"
+    "updatedAt": "2026-09-16T00:53:55.076Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4302,5 +4302,71 @@
     "expiredEarlyCareerFallbackRoles": 4,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
+  },
+  "equinixCurrentSkillbridge": {
+    "officialSource": "https://careers.equinix.com/internships",
+    "checkedAt": "2026-09-16T00:53:54.878Z",
+    "listingHealthy": true,
+    "listingStatus": 200,
+    "rolesExpected": 4,
+    "rolesListed": 4,
+    "detailChecksPassed": 4,
+    "qualifyingRoles": 4,
+    "added": 0,
+    "removedManaged": 0,
+    "removedKnownOverExperience": 0,
+    "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
+    "checks": [
+      {
+        "requisition": "JR-163301",
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [],
+        "alreadyPublishedByOtherCollector": true
+      },
+      {
+        "requisition": "JR-163300",
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          2,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
+      },
+      {
+        "requisition": "JR-158170",
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
+      },
+      {
+        "requisition": "JR-811161",
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
+      }
+    ],
+    "errors": []
   }
 }

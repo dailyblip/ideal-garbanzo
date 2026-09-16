@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-16T06:23:33.145Z",
-  "jobs": 676,
+  "updatedAt": "2026-09-16T06:49:46.014Z",
+  "jobs": 675,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,13 +9,13 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 653,
+    "entry-level": 652,
     "internship": 6,
     "trainee": 5,
     "apprenticeship": 12
   },
   "countsByExperience": {
-    "0-2-years": 378,
+    "0-2-years": 377,
     "2-5-years": 257,
     "no-experience": 41
   },
@@ -3582,7 +3582,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T06:23:33.227Z",
+    "checkedAt": "2026-09-16T06:49:46.092Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3590,10 +3590,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T06:23:33.304Z",
+    "updatedAt": "2026-09-16T06:49:46.169Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 676,
+    "regionAssigned": 675,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3601,7 +3601,7 @@
       "midwest": 137,
       "southeast": 102,
       "texas": 116,
-      "southwest": 79,
+      "southwest": 78,
       "mid-atlantic": 128,
       "west": 92,
       "northeast": 21,
@@ -3609,7 +3609,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T06:23:33.376Z",
+    "checkedAt": "2026-09-16T06:49:46.239Z",
     "before": 676,
     "after": 676,
     "removed": 0,
@@ -3617,16 +3617,16 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T06:23:51.903Z",
-    "publishedJobs": 676,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-16T06:50:05.182Z",
+    "publishedJobs": 675,
+    "removedJobs": 1,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1092,
-    "currentJobs": 676,
+    "currentJobs": 675,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3635,7 +3635,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-16T06:23:52.082Z"
+    "updatedAt": "2026-09-16T06:50:05.840Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3706,7 +3706,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-16T06:23:33.145Z",
+    "checkedAt": "2026-09-16T06:49:46.014Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

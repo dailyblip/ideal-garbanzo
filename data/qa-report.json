@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-16T19:45:04.124Z",
+  "checkedAt": "2026-09-16T20:49:28.325Z",
   "jobsBefore": 674,
-  "jobsAfter": 674,
+  "jobsAfter": 673,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-3174406",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/3174406/engineering-operations-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/3174406/engineering-operations-technician-dcc-communities"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

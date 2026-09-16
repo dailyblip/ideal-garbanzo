@@ -45,8 +45,10 @@ jobs:
           node scripts/persist-compass-status.mjs --test-freshness
           node scripts/validate-compass-datacenters.mjs --test
           node scripts/validate-compass-datacenters.mjs
-      - name: Validate regional filtering contract
-        run: node scripts/test-region-filter-contract.mjs
+      - name: Validate regional filtering and publication geography contracts
+        run: |
+          node scripts/test-region-filter-contract.mjs
+          node scripts/prune-unresolved-geography.mjs --test
       - name: Validate weekly alert plumbing and employer diversity
         run: |
           node scripts/validate-mailing-list.mjs

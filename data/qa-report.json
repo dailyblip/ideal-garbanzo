@@ -1,12 +1,31 @@
 {
-  "checkedAt": "2026-09-16T12:44:50.152Z",
-  "jobsBefore": 674,
-  "jobsAfter": 674,
+  "checkedAt": "2026-09-16T16:16:14.767Z",
+  "jobsBefore": 669,
+  "jobsAfter": 667,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10539157",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10539157/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10539157/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10506963",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10506963/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10506963/data-center-technician-dcc-communities"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

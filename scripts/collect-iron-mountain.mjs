@@ -11,6 +11,8 @@ const STATUS_PATH = 'data/collector-status.json';
 const PAGE_SIZE = 20;
 const MAX_PAGES = 100;
 const DETAIL_BATCH = 6;
+const MAX_FALLBACK_AGE_HOURS = 96;
+const MAX_FALLBACK_AGE_MS = MAX_FALLBACK_AGE_HOURS * 60 * 60 * 1000;
 
 const clean = value => String(value ?? '')
   .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
@@ -30,6 +32,7 @@ const normalizeIdentity = value => lower(value).replace(/[^a-z0-9]+/g, ' ').trim
 const allowedTitle = /\b(?:critical facilit(?:y|ies) technician|data cent(?:er|re)(?: operations)? technician|data cent(?:er|re) operations engineer|data cent(?:er|re) facilities technician)\b/i;
 const excludedTitle = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|architect)\b/i;
 const dataCenterContext = /\b(?:data cent(?:er|re)|critical facilit(?:y|ies)|colocation|mission[- ]critical|ups|switchgear|chiller|cooling|bms|generator)\b/i;
+const noExperiencePattern = /\b(?:no experience|experience (?:is )?not required|preferred,? but not required|preferred but not required)\b/i;
 
 async function readJson(path, fallback) {
   try { return JSON.parse(await readFile(path, 'utf8')); }
@@ -41,7 +44,7 @@ async function fetchJson(url, options = {}) {
     ...options,
     headers: {
       accept: 'application/json',
-      'user-agent': 'DataCenterCareersBot/1.4 (+https://datacentercareers.us/)',
+      'user-agent': 'DataCenterCareersBot/1.5 (+https://datacentercareers.us/)',
       ...(options.headers || {})
     }
   });
@@ -108,8 +111,9 @@ function classify(title, description) {
   if (!candidateTitle(t) || !dataCenterContext.test(`${t} ${d}`)) return { cls: null, reason: 'title-or-context' };
 
   const earlyProgram = /\b(?:skillbridge|intern(?:ship)?|apprentice(?:ship)?|trainee)\b/i.test(t);
+  const explicitlyNoExperience = noExperiencePattern.test(d);
   const years = statedExperience(d);
-  if (!years && !earlyProgram) return { cls: null, reason: 'experience-unknown' };
+  if (!years && !earlyProgram && !explicitlyNoExperience) return { cls: null, reason: 'experience-unknown' };
   if (years && (years.min > 5 || years.max > 5)) return { cls: null, reason: 'experience-over-5' };
 
   let type = 'entry-level';
@@ -118,7 +122,7 @@ function classify(title, description) {
   else if (/trainee/i.test(t)) type = 'trainee';
 
   let experience = '0-2-years';
-  if (/\b(?:no experience|preferred,? but not required|preferred but not required)\b/i.test(d)) experience = 'no-experience';
+  if (explicitlyNoExperience) experience = 'no-experience';
   else if (years && years.min >= 3) experience = '2-5-years';
 
   return { cls: { type, experience }, reason: '' };
@@ -168,10 +172,11 @@ function tagsFor(title, description, cls) {
 }
 
 function requisitionId(row = {}, info = {}) {
-  const bullet = Array.isArray(row.bulletFields) ? row.bulletFields.find(value => /^J\d+/i.test(clean(value))) : '';
+  const bullet = Array.isArray(row.bulletFields) ? row.bulletFields.find(value => /^J\d+$/i.test(clean(value))) : '';
   const fromInfo = clean(info.jobReqId || info.jobRequisitionId || info.requisitionId || '');
   const fromPath = String(row.externalPath || '').match(/_(J\d+)\/?$/i)?.[1] || '';
-  return clean(bullet || fromInfo || fromPath);
+  const value = clean(bullet || fromInfo || fromPath);
+  return /^J\d+$/i.test(value) ? value.toUpperCase() : '';
 }
 
 function dedupe(jobs) {
@@ -181,8 +186,8 @@ function dedupe(jobs) {
   const out = [];
   for (const job of jobs) {
     if (!job || typeof job !== 'object') continue;
-    const id = clean(job.id);
-    const url = clean(job.sourceUrl);
+    const id = clean(job.id).toLowerCase();
+    const url = clean(job.sourceUrl).toLowerCase();
     const identity = [job.company, job.title, job.location].map(normalizeIdentity).join('|');
     if ((id && ids.has(id)) || (url && urls.has(url)) || identities.has(identity)) continue;
     if (id) ids.add(id);
@@ -191,6 +196,19 @@ function dedupe(jobs) {
     out.push(job);
   }
   return out;
+}
+
+function ironMountainJob(job = {}) {
+  return clean(job.company) === COMPANY || /ironmountain\.wd5\.myworkdayjobs\.com/i.test(clean(job.sourceUrl));
+}
+
+function fallbackDecision(lastHealthyAt, nowMs, hasSnapshot) {
+  if (!hasSnapshot) return { active: false, expired: false, ageHours: 0, expiresAt: null };
+  const verifiedMs = Date.parse(String(lastHealthyAt || ''));
+  if (!Number.isFinite(verifiedMs)) return { active: false, expired: true, ageHours: null, expiresAt: null };
+  const expiresAt = verifiedMs + MAX_FALLBACK_AGE_MS;
+  const ageHours = Math.max(0, (nowMs - verifiedMs) / 36e5);
+  return { active: nowMs < expiresAt, expired: nowMs >= expiresAt, ageHours, expiresAt };
 }
 
 async function listJobs() {
@@ -209,10 +227,7 @@ async function listJobs() {
     pagesAttempted += 1;
     const payload = await fetchJson(endpoint, {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        referer: `${ORIGIN}/${LOCALE}/${SITE}`
-      },
+      headers: { 'content-type': 'application/json', referer: `${ORIGIN}/${LOCALE}/${SITE}` },
       body: JSON.stringify({ appliedFacets: {}, limit: PAGE_SIZE, offset, searchText: '' })
     });
     pagesSucceeded += 1;
@@ -248,13 +263,28 @@ async function listJobs() {
   return { rows, total, pagesAttempted, pagesSucceeded, complete, incompleteReason };
 }
 
+if (process.argv.includes('--test')) {
+  const now = Date.parse('2026-09-16T12:00:00Z');
+  const fresh = fallbackDecision('2026-09-12T12:00:01Z', now, true);
+  const boundary = fallbackDecision('2026-09-12T12:00:00Z', now, true);
+  const missing = fallbackDecision(null, now, true);
+  const empty = fallbackDecision(null, now, false);
+  if (!fresh.active || fresh.expired) throw new Error('Iron Mountain fallback expired before 96 hours.');
+  if (!boundary.expired) throw new Error('Iron Mountain fallback did not expire at 96 hours.');
+  if (!missing.expired) throw new Error('Iron Mountain fallback without verification evidence did not fail closed.');
+  if (empty.expired) throw new Error('Empty Iron Mountain snapshot incorrectly entered fallback expiry.');
+  console.log('Iron Mountain collector fallback regression tests passed.');
+  process.exit(0);
+}
+
 const currentJobs = await readJson(JOBS_PATH, []);
 const status = await readJson(STATUS_PATH, {});
 const storedSnapshot = await readJson(SNAPSHOT_PATH, []);
-const publicPrevious = currentJobs.filter(job => job.company === COMPANY || /ironmountain\.wd5\.myworkdayjobs\.com/i.test(String(job.sourceUrl || '')));
-// Migration-safe fallback: until the first dedicated snapshot has been written,
-// preserve the currently published employer-direct records during a source outage.
-const previousSnapshot = Array.isArray(storedSnapshot) && storedSnapshot.length ? storedSnapshot : publicPrevious;
+const previousSnapshot = Array.isArray(storedSnapshot) ? storedSnapshot.filter(ironMountainJob) : [];
+const previousSource = status?.ironMountain && typeof status.ironMountain === 'object' ? status.ironMountain : {};
+const previousLastHealthyAt = clean(previousSource.lastHealthyAt || previousSource.fallbackFreshness?.lastHealthyAt || '');
+const checkedAt = new Date().toISOString();
+const nowMs = Date.parse(checkedAt);
 const diagnostics = {
   listingPagesAttempted: 0,
   listingPagesSucceeded: 0,
@@ -266,10 +296,11 @@ const diagnostics = {
   qualifyingRoles: 0,
   snapshotRoles: 0,
   preservedPrevious: 0,
-  drops: { titleOrContext: 0, nonUs: 0, experienceUnknown: 0, experienceOver5: 0, fetch: 0 }
+  removedExpiredFallback: 0,
+  drops: { titleOrContext: 0, nonUs: 0, experienceUnknown: 0, experienceOver5: 0, invalidRequisition: 0, fetch: 0 }
 };
 const errors = [];
-let sourceHealthy = false;
+let transportHealthy = false;
 let verified = [];
 
 try {
@@ -278,7 +309,7 @@ try {
   diagnostics.listingPagesSucceeded = listing.pagesSucceeded;
   diagnostics.listingComplete = listing.complete;
   diagnostics.listedTotal = listing.total;
-  sourceHealthy = listing.pagesSucceeded > 0 && listing.rows.length > 0;
+  transportHealthy = listing.pagesSucceeded > 0 && listing.rows.length > 0;
   if (!listing.complete) errors.push(`incomplete Workday listing: ${listing.incompleteReason}`);
 
   const candidates = listing.rows.filter(row => candidateTitle(row.title));
@@ -289,8 +320,11 @@ try {
     const results = await Promise.all(batch.map(async row => {
       const publicUrl = sourceUrl(row);
       const apiUrl = detailUrl(row);
-      if (!publicUrl || !apiUrl) return null;
       diagnostics.detailAttempted += 1;
+      if (!publicUrl || !apiUrl) {
+        diagnostics.drops.invalidRequisition += 1;
+        return null;
+      }
       try {
         const detail = await fetchJson(apiUrl, { headers: { referer: publicUrl } });
         diagnostics.detailSucceeded += 1;
@@ -306,7 +340,10 @@ try {
           return null;
         }
         const reqId = requisitionId(row, info);
-        if (!reqId) return null;
+        if (!reqId || !publicUrl.toUpperCase().includes(`_${reqId}`)) {
+          diagnostics.drops.invalidRequisition += 1;
+          return null;
+        }
         return {
           id: `ironmountain-${reqId}`,
           title: clean(row.title),
@@ -337,14 +374,54 @@ try {
 
 verified = dedupe(verified);
 diagnostics.qualifyingRoles = verified.length;
-let nextSnapshot = verified;
-if (!sourceHealthy || !diagnostics.listingComplete) {
-  nextSnapshot = dedupe([...verified, ...previousSnapshot]);
-  diagnostics.preservedPrevious = previousSnapshot.length;
-}
-diagnostics.snapshotRoles = nextSnapshot.length;
+const authoritativeSnapshot = transportHealthy &&
+  diagnostics.listingComplete === true &&
+  diagnostics.detailAttempted === diagnostics.candidateRows &&
+  diagnostics.detailSucceeded === diagnostics.detailAttempted &&
+  diagnostics.drops.fetch === 0 &&
+  diagnostics.drops.invalidRequisition === 0;
 
-const withoutIronMountain = currentJobs.filter(job => job.company !== COMPANY && !/ironmountain\.wd5\.myworkdayjobs\.com/i.test(String(job.sourceUrl || '')));
+let nextSnapshot = [];
+let lastHealthyAt = previousLastHealthyAt || null;
+let fallbackFreshness;
+
+if (authoritativeSnapshot) {
+  nextSnapshot = verified;
+  lastHealthyAt = checkedAt;
+  fallbackFreshness = {
+    active: false,
+    expired: false,
+    lastHealthyAt,
+    checkedAt,
+    expiresAt: new Date(nowMs + MAX_FALLBACK_AGE_MS).toISOString(),
+    ageHours: 0,
+    maxAgeHours: MAX_FALLBACK_AGE_HOURS,
+    roles: nextSnapshot.length,
+    policy: 'Retain only the last fully verified Iron Mountain snapshot for at most 96 hours after official-source verification fails.'
+  };
+} else {
+  const fallback = fallbackDecision(lastHealthyAt, nowMs, previousSnapshot.length > 0);
+  if (fallback.active) {
+    nextSnapshot = previousSnapshot;
+    diagnostics.preservedPrevious = previousSnapshot.length;
+  } else {
+    diagnostics.removedExpiredFallback = previousSnapshot.length;
+  }
+  fallbackFreshness = {
+    active: fallback.active,
+    expired: fallback.expired,
+    lastHealthyAt: lastHealthyAt || null,
+    checkedAt,
+    expiresAt: fallback.expiresAt ? new Date(fallback.expiresAt).toISOString() : null,
+    ageHours: fallback.ageHours === null ? null : Math.round(fallback.ageHours * 10) / 10,
+    maxAgeHours: MAX_FALLBACK_AGE_HOURS,
+    roles: nextSnapshot.length,
+    policy: 'Retain only the last fully verified Iron Mountain snapshot for at most 96 hours after official-source verification fails.'
+  };
+}
+
+diagnostics.snapshotRoles = nextSnapshot.length;
+const withoutIronMountain = currentJobs.filter(job => !ironMountainJob(job));
 const merged = dedupe([...withoutIronMountain, ...nextSnapshot]);
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
@@ -359,11 +436,20 @@ await writeFile(STATUS_PATH, JSON.stringify({
   ironMountain: {
     officialSource: 'https://www.ironmountain.com/data-centers',
     boardUrl: `${ORIGIN}/${LOCALE}/${SITE}`,
-    sourceHealthy,
+    checkedAt,
+    lastHealthyAt,
+    transportHealthy,
+    sourceHealthy: authoritativeSnapshot,
+    authoritativeSnapshot,
+    usedPreviousSnapshot: !authoritativeSnapshot && nextSnapshot.length > 0,
     ...diagnostics,
+    fallbackFreshness,
     errors
   }
 }, null, 2) + '\n');
 
-console.log(`Iron Mountain collector found ${verified.length} qualifying U.S. data-center roles; ${nextSnapshot.length} protected snapshot roles; ${merged.length} total jobs after merge.`);
+console.log(
+  `Iron Mountain collector: ${authoritativeSnapshot ? 'authoritative' : fallbackFreshness.active ? 'verified fallback' : 'fail-closed'}; ` +
+  `${verified.length} qualifying this run, ${nextSnapshot.length} published snapshot roles, ${merged.length} total jobs.`
+);
 if (errors.length) console.warn(`Iron Mountain collector warnings: ${errors.slice(0, 5).join(' | ')}`);

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T05:39:47.218Z",
+  "updatedAt": "2026-09-16T05:48:57.151Z",
   "jobs": 676,
   "sourcesAttempted": 18,
   "providers": {
@@ -173,7 +173,7 @@
     "errors": []
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-16T05:39:47.218Z",
+    "checkedAt": "2026-09-16T05:48:57.151Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3582,7 +3582,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T05:39:47.296Z",
+    "checkedAt": "2026-09-16T05:48:57.233Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3590,7 +3590,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T05:39:47.373Z",
+    "updatedAt": "2026-09-16T05:48:57.312Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 676,
@@ -3609,7 +3609,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T05:39:47.441Z",
+    "checkedAt": "2026-09-16T05:48:57.385Z",
     "before": 676,
     "after": 676,
     "removed": 0,
@@ -3617,7 +3617,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T05:40:11.285Z",
+    "checkedAt": "2026-09-16T05:49:16.899Z",
     "publishedJobs": 676,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3635,7 +3635,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-16T05:40:11.470Z"
+    "updatedAt": "2026-09-16T05:49:17.496Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -9,7 +9,9 @@ const allowedTypes = new Set(['entry-level', 'apprenticeship', 'internship', 'tr
 const allowedExperiences = new Set(['no-experience', '0-2-years', '2-5-years']);
 const missionTitlePattern = /\b(?:critical facilit(?:y|ies) technician|data cent(?:er|re)(?: operations)? technician|data cent(?:er|re) operations engineer|data cent(?:er|re) facilities technician)\b/i;
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|architect)\b/i;
-const parityFields = ['title', 'company', 'location', 'type', 'experience', 'source', 'sourceUrl', 'active', 'demo', 'pay', 'salaryMin', 'salaryMax', 'salarySortMax'];
+// Downstream display normalization can intentionally turn "Pay not listed" into
+// an empty display value, so compensation is not a source-identity parity field.
+const parityFields = ['title', 'company', 'location', 'type', 'experience', 'source', 'sourceUrl', 'active', 'demo'];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -173,7 +175,7 @@ if (process.argv.includes('--test')) {
     active: true,
     demo: false
   };
-  const publicBase = { ...base, region: 'southeast' };
+  const publicBase = { ...base, pay: '', region: 'southeast' };
   const healthy = { ironMountain: { sourceHealthy: true, listingComplete: true, authoritativeSnapshot: true, candidateRows: 1, detailAttempted: 1, detailSucceeded: 1, qualifyingRoles: 1, snapshotRoles: 1, drops: { fetch: 0, invalidRequisition: 0 } } };
   const freshFallback = { ironMountain: { sourceHealthy: false, authoritativeSnapshot: false, usedPreviousSnapshot: true, fallbackFreshness: { active: true, expired: false, lastHealthyAt: '2026-09-13T12:00:00Z' } } };
   const expiredEmpty = { ironMountain: { sourceHealthy: false, authoritativeSnapshot: false, fallbackFreshness: { active: false, expired: true, lastHealthyAt: '2026-09-12T11:59:59Z' } } };

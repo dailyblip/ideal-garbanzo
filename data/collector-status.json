@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-16T21:51:06.106Z",
-  "jobs": 673,
+  "updatedAt": "2026-09-16T23:43:40.145Z",
+  "jobs": 674,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,14 +9,14 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 647,
+    "entry-level": 648,
     "internship": 6,
     "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 374,
-    "2-5-years": 256,
+    "2-5-years": 257,
     "no-experience": 43
   },
   "errors": [],
@@ -2930,37 +2930,37 @@
         "query": "datacenter technician",
         "healthy": true,
         "pages": 4,
-        "reportedRows": 32,
-        "rows": 32
+        "reportedRows": 33,
+        "rows": 33
       },
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 23,
-        "reportedRows": 227,
-        "rows": 227
+        "pages": 24,
+        "reportedRows": 236,
+        "rows": 236
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 27,
-        "reportedRows": 268,
-        "rows": 268
+        "pages": 28,
+        "reportedRows": 279,
+        "rows": 279
       },
       {
         "query": "inventory and asset technician",
         "healthy": true,
         "pages": 2,
-        "reportedRows": 15,
-        "rows": 15
+        "reportedRows": 16,
+        "rows": 16
       }
     ],
-    "candidateRows": 355,
-    "plausibleRows": 35,
-    "detailAttempts": 35,
-    "detailVerified": 35,
-    "currentQualifyingRoles": 35,
-    "qualifyingRoles": 35,
+    "candidateRows": 368,
+    "plausibleRows": 36,
+    "detailAttempts": 36,
+    "detailVerified": 36,
+    "currentQualifyingRoles": 36,
+    "qualifyingRoles": 36,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -2972,9 +2972,9 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-16T15:50:44.463Z",
-      "expiresAt": "2026-09-20T15:50:44.463Z",
-      "roles": 34,
+      "verifiedAt": "2026-09-16T23:43:40.410Z",
+      "expiresAt": "2026-09-20T23:43:40.410Z",
+      "roles": 35,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
   },
@@ -3630,18 +3630,28 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T22:51:52.680Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-16T23:43:40.212Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "non-mission role family": 1
+    },
+    "removed": [
+      {
+        "id": "microsoft-1970393556994516",
+        "company": "Microsoft",
+        "title": "Data Center Critical Environment Business Analyst",
+        "location": "Boydton, VA",
+        "reason": "non-mission role family"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T22:51:52.753Z",
+    "updatedAt": "2026-09-16T23:43:40.286Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 673,
+    "regionAssigned": 674,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3650,16 +3660,16 @@
       "mid-atlantic": 126,
       "southwest": 83,
       "southeast": 100,
-      "west": 92,
+      "west": 93,
       "texas": 116,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T22:51:52.823Z",
-    "before": 673,
-    "after": 673,
+    "checkedAt": "2026-09-16T23:43:40.354Z",
+    "before": 674,
+    "after": 674,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3673,17 +3683,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1113,
-    "currentJobs": 673,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 1114,
+    "currentJobs": 674,
+    "newJobsThisRun": 1,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-16T22:52:22.790Z"
+    "updatedAt": "2026-09-16T23:43:40.467Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

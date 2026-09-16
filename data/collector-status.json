@@ -1,13 +1,14 @@
 {
-  "updatedAt": "2026-09-16T18:55:52.096Z",
+  "updatedAt": "2026-09-16T21:16:47.422Z",
   "jobs": 673,
-  "sourcesAttempted": 19,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
     "googleCareers": 1,
-    "icims": 1
+    "icims": 1,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
     "apprenticeship": 11,
@@ -3443,8 +3444,8 @@
     "detailFailures": 0,
     "preservedPrevious": 0,
     "qualifyingRoles": 17,
-    "lastHealthyAt": "2026-09-16T11:29:40.832Z",
-    "snapshotVerifiedAt": "2026-09-16T11:29:40.832Z",
+    "lastHealthyAt": "2026-09-16T21:16:43.538Z",
+    "snapshotVerifiedAt": "2026-09-16T21:16:43.538Z",
     "snapshotMaxAgeHours": 96,
     "fallbackUsed": false,
     "fallbackFresh": false,
@@ -3614,7 +3615,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T20:49:00.726Z",
+    "checkedAt": "2026-09-16T21:16:47.494Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3622,7 +3623,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T20:49:00.797Z",
+    "updatedAt": "2026-09-16T21:16:47.571Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 673,
@@ -3641,17 +3642,17 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T20:49:00.874Z",
-    "before": 674,
-    "after": 674,
+    "checkedAt": "2026-09-16T21:16:47.642Z",
+    "before": 673,
+    "after": 673,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T20:49:28.325Z",
+    "checkedAt": "2026-09-16T21:17:13.161Z",
     "publishedJobs": 673,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
@@ -3665,9 +3666,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 17,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-16T20:49:28.499Z"
+    "updatedAt": "2026-09-16T21:17:13.354Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

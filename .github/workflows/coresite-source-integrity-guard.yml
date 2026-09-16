@@ -1,0 +1,68 @@
+name: CoreSite source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-coresite.mjs'
+      - 'scripts/apply-coresite-verified-fallback.mjs'
+      - 'scripts/enforce-coresite-fallback-freshness.mjs'
+      - 'scripts/validate-coresite-fallback.mjs'
+      - 'scripts/validate-coresite-source-failover.mjs'
+      - 'scripts/validate-coresite-source-integrity.mjs'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'data/coresite-verified-fallback.json'
+      - '.github/workflows/coresite-source-integrity-guard.yml'
+      - '.github/workflows/pages.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/collect-coresite.mjs'
+      - 'scripts/apply-coresite-verified-fallback.mjs'
+      - 'scripts/enforce-coresite-fallback-freshness.mjs'
+      - 'scripts/validate-coresite-fallback.mjs'
+      - 'scripts/validate-coresite-source-failover.mjs'
+      - 'scripts/validate-coresite-source-integrity.mjs'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'data/coresite-verified-fallback.json'
+      - '.github/workflows/coresite-source-integrity-guard.yml'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coresite-source-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate CoreSite scripts parse
+        run: |
+          node --check scripts/collect-coresite.mjs
+          node --check scripts/apply-coresite-verified-fallback.mjs
+          node --check scripts/enforce-coresite-fallback-freshness.mjs
+          node --check scripts/validate-coresite-source-integrity.mjs
+      - name: Validate CoreSite failover regression
+        run: node scripts/validate-coresite-source-failover.mjs
+      - name: Validate CoreSite freshness regression
+        run: node scripts/enforce-coresite-fallback-freshness.mjs --test
+      - name: Validate CoreSite source-integrity regressions
+        run: node scripts/validate-coresite-source-integrity.mjs --test
+      - name: Validate current CoreSite publication state
+        run: |
+          node scripts/validate-coresite-source-integrity.mjs
+          node scripts/validate-coresite-fallback.mjs
+          node scripts/validate-priority-employer-sources.mjs
+      - name: Preserve approved homepage contract
+        run: node scripts/validate-homepage-contract.mjs

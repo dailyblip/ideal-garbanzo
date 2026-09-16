@@ -107,13 +107,13 @@
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
     "sourceHealthy": true,
-    "checkedAt": "2026-09-16T22:12:21.754Z",
-    "lastHealthyAt": "2026-09-16T22:12:21.754Z",
-    "fallbackMaxAgeHours": 168,
+    "checkedAt": "2026-09-16T22:51:52.605Z",
+    "lastHealthyAt": "2026-09-16T22:51:52.605Z",
+    "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
-    "fallbackPolicy": "Retain the last fully verified Novva snapshot for at most 168 hours after official-source failure; then remove Novva roles until fresh verification succeeds.",
+    "fallbackPolicy": "Retain the last fully verified Novva snapshot for at most 96 hours after official-source failure; then remove Novva roles until fresh verification succeeds.",
     "candidateLinks": 1,
     "detailSucceeded": 1,
     "qualifyingRoles": 1,
@@ -3630,7 +3630,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T22:12:21.828Z",
+    "checkedAt": "2026-09-16T22:51:52.680Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3638,7 +3638,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T22:12:21.901Z",
+    "updatedAt": "2026-09-16T22:51:52.753Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 673,
@@ -3657,7 +3657,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T22:12:21.969Z",
+    "checkedAt": "2026-09-16T22:51:52.823Z",
     "before": 673,
     "after": 673,
     "removed": 0,
@@ -3665,7 +3665,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T22:12:57.518Z",
+    "checkedAt": "2026-09-16T22:52:22.606Z",
     "publishedJobs": 673,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3683,7 +3683,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-16T22:12:57.699Z"
+    "updatedAt": "2026-09-16T22:52:22.790Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

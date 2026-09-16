@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/collect-iron-mountain.mjs
       - scripts/validate-iron-mountain.mjs
+      - scripts/enforce-iron-mountain-fallback-freshness.mjs
       - .github/workflows/iron-mountain-bootstrap.yml
   workflow_dispatch:
 
@@ -28,12 +29,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate collector syntax
+      - name: Validate Iron Mountain source scripts
         run: |
           node --check scripts/collect-iron-mountain.mjs
           node --check scripts/validate-iron-mountain.mjs
+          node --check scripts/enforce-iron-mountain-fallback-freshness.mjs
+          node scripts/collect-iron-mountain.mjs --test
+          node scripts/validate-iron-mountain.mjs --test
+          node scripts/enforce-iron-mountain-fallback-freshness.mjs --test
       - name: Collect official Iron Mountain data center roles
         run: node scripts/collect-iron-mountain.mjs
+      - name: Enforce Iron Mountain fallback freshness
+        run: node scripts/enforce-iron-mountain-fallback-freshness.mjs
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize job locations
@@ -44,7 +51,7 @@ jobs:
         run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
-      - name: Validate Iron Mountain source health
+      - name: Validate Iron Mountain source health and parity
         run: node scripts/validate-iron-mountain.mjs
       - name: Track first-seen dates
         run: node scripts/stamp-job-history.mjs
@@ -52,6 +59,8 @@ jobs:
         run: |
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
       - name: Commit verified Iron Mountain roles
         id: commit
         shell: bash
@@ -64,6 +73,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node scripts/collect-iron-mountain.mjs
+            node scripts/enforce-iron-mountain-fallback-freshness.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
@@ -73,6 +83,8 @@ jobs:
             node scripts/stamp-job-history.mjs
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-homepage-contract.mjs
           }
 
           # Shared feed data can move while this source is being verified. Always

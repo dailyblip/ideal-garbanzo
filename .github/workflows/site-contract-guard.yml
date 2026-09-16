@@ -80,8 +80,11 @@ jobs:
         run: node scripts/validate-accessibility.mjs
       - name: Validate source workflow isolation
         run: node scripts/validate-source-workflow-isolation.mjs
-      - name: Normalize time-bounded employer fallback state
-        run: node scripts/enforce-equinix-verified-evidence.mjs
+      - name: Validate time-bounded Equinix fallback state
+        run: |
+          node scripts/enforce-equinix-verified-evidence.mjs --test
+          node scripts/enforce-equinix-verified-evidence.mjs
+          git diff --exit-code -- data/jobs.json data/collector-status.json
       - name: Validate priority employer publication integrity
         run: |
           node scripts/validate-priority-employer-sources.mjs

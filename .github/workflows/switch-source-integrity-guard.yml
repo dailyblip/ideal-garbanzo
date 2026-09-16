@@ -1,0 +1,47 @@
+name: Switch source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/switch-jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-switch-careers.mjs'
+      - 'scripts/validate-switch-careers.mjs'
+      - '.github/workflows/switch-bootstrap.yml'
+      - '.github/workflows/switch-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/switch-jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-switch-careers.mjs'
+      - 'scripts/validate-switch-careers.mjs'
+      - '.github/workflows/switch-bootstrap.yml'
+      - '.github/workflows/switch-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Switch source scripts
+        run: |
+          node --check scripts/collect-switch-careers.mjs
+          node --check scripts/validate-switch-careers.mjs
+          node scripts/collect-switch-careers.mjs --test-classifier
+      - name: Verify Switch authoritative snapshot and public-feed parity
+        run: node scripts/validate-switch-careers.mjs
+      - name: Verify employer-direct publication and homepage contract
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs

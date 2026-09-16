@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T03:38:57.697Z",
+  "updatedAt": "2026-09-16T04:22:02.522Z",
   "jobs": 676,
   "sourcesAttempted": 18,
   "providers": {
@@ -3594,7 +3594,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T03:38:57.773Z",
+    "checkedAt": "2026-09-16T04:22:02.576Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3602,7 +3602,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T03:38:57.856Z",
+    "updatedAt": "2026-09-16T04:22:02.630Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 676,
@@ -3611,27 +3611,27 @@
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 137,
-      "mid-atlantic": 128,
-      "texas": 116,
       "southeast": 102,
+      "texas": 116,
       "southwest": 79,
+      "mid-atlantic": 128,
       "west": 92,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T03:38:57.931Z",
-    "before": 681,
-    "after": 681,
+    "checkedAt": "2026-09-16T04:22:02.680Z",
+    "before": 676,
+    "after": 676,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T03:39:36.732Z",
+    "checkedAt": "2026-09-16T04:22:27.080Z",
     "publishedJobs": 676,
-    "removedJobs": 5,
+    "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
@@ -3647,7 +3647,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-16T03:39:36.963Z"
+    "updatedAt": "2026-09-16T04:22:27.282Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3752,17 +3752,17 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-15T16:43:04.307Z",
+    "checkedAt": "2026-09-16T04:22:02.522Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",
     "officialJobBoard": "https://switchltd.hrmdirect.com/employment/job-openings.php?jbsrc=1014&search=true&sort=pa",
     "officialRssFeed": "https://switchltd.hrmdirect.com/employment/rss.php?search=true&dept=-1&city=-1&state=-1",
     "authoritativeSnapshot": true,
-    "listedJobs": 112,
+    "listedJobs": 111,
     "candidateRoles": 29,
     "qualifyingRoles": 23,
-    "rejectedOutOfScopeTitle": 83,
+    "rejectedOutOfScopeTitle": 82,
     "rejectedSeniorTitle": 0,
     "rejectedMissingDataCenterContext": 0,
     "rejectedDetailTitleMismatch": 4,

@@ -38,7 +38,7 @@ jobs:
           node --check scripts/validate-digital-realty.mjs
           node --check scripts/enforce-digital-realty-fallback-freshness.mjs
           node scripts/enforce-digital-realty-fallback-freshness.mjs --test
-          node scripts/validate-digital-realty.mjs --test
+          node scripts/validate-digital-realty.mjs --test-freshness
       - name: Collect official Digital Realty Oracle Recruiting Cloud roles
         run: node scripts/collect-digital-realty.mjs
       - name: Enforce mission-fit role families
@@ -79,7 +79,7 @@ jobs:
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
-            node scripts/validate-digital-realty.mjs --test
+            node scripts/validate-digital-realty.mjs --test-freshness
             node scripts/validate-digital-realty.mjs
             node scripts/stamp-job-history.mjs
             node scripts/validate.mjs

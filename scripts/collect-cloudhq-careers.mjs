@@ -8,6 +8,7 @@ const OFFICIAL_CAREERS = 'https://cloudhq.com/careers/';
 const BOARD_GUID = 'd38e9867-3cd9-4254-b3ff-46e251ca1eee';
 const BOARD_URL = `https://recruiting.paylocity.com/recruiting/jobs/All/${BOARD_GUID}/CloudHQ-LLC`;
 const FEED_URL = `https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/${BOARD_GUID}`;
+const MAX_FALLBACK_AGE_HOURS = 96;
 const VERIFIED_DIRECT_CANDIDATES = [
   {
     jobId: 4007666,
@@ -42,6 +43,70 @@ const excludedTitlePattern = /\b(?:senior|sr\.?|lead|leader|principal|chief|mana
 const missionContextPattern = /\bdata cent(?:er|re)s?\b/i;
 const infrastructureContextPattern = /\b(?:critical infrastructure|critical systems?|electrical|mechanical|power|generator|ups|switchgear|hvac|chiller|bms|epms|dcim|facilit(?:y|ies)|operations?|commissioning|controls?|maintenance|troubleshooting)\b/i;
 const explicitEntryPattern = /\b(?:entry[- ]level|early[- ]career|no (?:prior )?experience|required experience\s*:\s*none|great learning opportunity for an entry level candidate|high school diploma|ged)\b/i;
+
+function fallbackState({ sourceHealthy, previousLastHealthyAt, nowMs = Date.now() }) {
+  if (sourceHealthy) {
+    return {
+      lastHealthyAt: new Date(nowMs).toISOString(),
+      fallbackAgeHours: 0,
+      fallbackExpired: false
+    };
+  }
+
+  const lastHealthyMs = Date.parse(String(previousLastHealthyAt || ''));
+  if (!Number.isFinite(lastHealthyMs)) {
+    return {
+      lastHealthyAt: null,
+      fallbackAgeHours: null,
+      fallbackExpired: true
+    };
+  }
+
+  const ageHours = Math.max(0, (nowMs - lastHealthyMs) / 3_600_000);
+  return {
+    lastHealthyAt: new Date(lastHealthyMs).toISOString(),
+    fallbackAgeHours: Math.round(ageHours * 100) / 100,
+    fallbackExpired: ageHours >= MAX_FALLBACK_AGE_HOURS
+  };
+}
+
+function runFreshnessSelfTest() {
+  const nowMs = Date.parse('2026-09-16T12:00:00.000Z');
+  const healthy = fallbackState({ sourceHealthy: true, previousLastHealthyAt: null, nowMs });
+  if (healthy.fallbackExpired || healthy.fallbackAgeHours !== 0 || healthy.lastHealthyAt !== '2026-09-16T12:00:00.000Z') {
+    throw new Error('CloudHQ healthy-source freshness regression failed.');
+  }
+
+  const freshFallback = fallbackState({
+    sourceHealthy: false,
+    previousLastHealthyAt: new Date(nowMs - 95 * 3_600_000).toISOString(),
+    nowMs
+  });
+  if (freshFallback.fallbackExpired || freshFallback.fallbackAgeHours !== 95) {
+    throw new Error('CloudHQ verified fallback should remain publishable inside 96 hours.');
+  }
+
+  const boundaryFallback = fallbackState({
+    sourceHealthy: false,
+    previousLastHealthyAt: new Date(nowMs - MAX_FALLBACK_AGE_HOURS * 3_600_000).toISOString(),
+    nowMs
+  });
+  if (!boundaryFallback.fallbackExpired) {
+    throw new Error('CloudHQ fallback must fail closed at the 96-hour boundary.');
+  }
+
+  const missingAnchor = fallbackState({ sourceHealthy: false, previousLastHealthyAt: null, nowMs });
+  if (!missingAnchor.fallbackExpired || missingAnchor.lastHealthyAt !== null) {
+    throw new Error('CloudHQ fallback without a verification anchor must fail closed.');
+  }
+
+  console.log('CloudHQ fallback freshness regression tests passed.');
+}
+
+if (process.argv.includes('--test-freshness')) {
+  runFreshnessSelfTest();
+  process.exit(0);
+}
 
 function requiredExperienceYears(text = '') {
   const normalized = lower(text);
@@ -195,9 +260,30 @@ let jobs = JSON.parse(await readFile(JOBS_PATH, 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 let status = {};
 try { status = JSON.parse(await readFile(STATUS_PATH, 'utf8')); } catch {}
+const previousSourceStatus = status?.cloudHqCareers || {};
+let previousSnapshot = [];
+try {
+  previousSnapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
+  if (!Array.isArray(previousSnapshot)) previousSnapshot = [];
+} catch {}
 
-const sourceResult = await fetchSourceJobs();
-const rawJobs = sourceResult.jobs;
+const checkedAt = new Date().toISOString();
+let sourceResult = null;
+let sourceError = '';
+try {
+  sourceResult = await fetchSourceJobs();
+} catch (error) {
+  sourceError = error?.message || String(error);
+}
+const sourceHealthy = Boolean(sourceResult);
+const previousAnchor = previousSourceStatus?.lastHealthyAt
+  || (previousSourceStatus?.sourceHealthy === true ? previousSourceStatus?.checkedAt : null);
+const freshness = fallbackState({
+  sourceHealthy,
+  previousLastHealthyAt: previousAnchor,
+  nowMs: Date.parse(checkedAt)
+});
+const rawJobs = sourceHealthy ? sourceResult.jobs : [];
 const drops = { nonUs: 0, titleOrContext: 0, experience: 0, missingDirectUrl: 0 };
 const qualifying = [];
 
@@ -254,32 +340,53 @@ for (const job of qualifying) {
   unique.push(job);
 }
 
-await writeFile(SNAPSHOT_PATH, JSON.stringify(unique, null, 2) + '\n');
+const fallbackActive = !sourceHealthy && !freshness.fallbackExpired && previousSnapshot.length > 0;
+const selected = sourceHealthy ? unique : fallbackActive ? previousSnapshot : [];
+if (sourceHealthy || freshness.fallbackExpired) {
+  await writeFile(SNAPSHOT_PATH, JSON.stringify(selected, null, 2) + '\n');
+}
+
 jobs = jobs.filter(job => String(job?.company || '').trim() !== COMPANY);
 const existingUrls = new Set(jobs.map(job => String(job?.sourceUrl || '')).filter(Boolean));
-for (const job of unique) {
+for (const job of selected) {
   if (existingUrls.has(job.sourceUrl)) continue;
   jobs.push(job);
   existingUrls.add(job.sourceUrl);
 }
 
 status.cloudHqCareers = {
-  checkedAt: new Date().toISOString(),
+  checkedAt,
+  lastHealthyAt: freshness.lastHealthyAt,
   officialCareers: OFFICIAL_CAREERS,
   boardUrl: BOARD_URL,
   feedUrl: FEED_URL,
-  sourceHealthy: true,
-  mode: sourceResult.mode,
-  feedListedJobs: sourceResult.feedListedJobs,
-  directCandidatesChecked: VERIFIED_DIRECT_CANDIDATES.length,
-  inactiveCandidateIds: sourceResult.inactiveCandidateIds,
+  sourceHealthy,
+  mode: sourceHealthy ? sourceResult.mode : fallbackActive ? 'verified-snapshot-fallback' : 'fail-closed',
+  feedListedJobs: sourceHealthy ? sourceResult.feedListedJobs : 0,
+  directCandidatesChecked: sourceHealthy ? VERIFIED_DIRECT_CANDIDATES.length : 0,
+  inactiveCandidateIds: sourceHealthy ? sourceResult.inactiveCandidateIds : [],
   listedJobs: rawJobs.length,
-  qualifyingRoles: unique.length,
-  drops
+  qualifyingRoles: sourceHealthy ? unique.length : 0,
+  publishedRoles: selected.length,
+  fallbackMaxAgeHours: MAX_FALLBACK_AGE_HOURS,
+  fallbackAgeHours: freshness.fallbackAgeHours,
+  fallbackExpired: !sourceHealthy && freshness.fallbackExpired,
+  usedPreviousSnapshot: fallbackActive,
+  preservedPrevious: fallbackActive ? previousSnapshot.length : 0,
+  removedExpiredFallback: !sourceHealthy && freshness.fallbackExpired ? previousSnapshot.length : 0,
+  fallbackPolicy: `Retain the last fully verified CloudHQ snapshot for at most ${MAX_FALLBACK_AGE_HOURS} hours after official-source failure; then remove CloudHQ roles until fresh verification succeeds.`,
+  drops,
+  errors: sourceError ? [sourceError] : []
 };
 status.jobs = jobs.length;
 
 await writeFile(JOBS_PATH, JSON.stringify(jobs, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
-console.log(`CloudHQ careers: ${rawJobs.length} official role(s) checked via ${sourceResult.mode}; ${unique.length} qualifying U.S. 0–5 year infrastructure role(s).`);
+if (sourceHealthy) {
+  console.log(`CloudHQ careers: ${rawJobs.length} official role(s) checked via ${sourceResult.mode}; ${unique.length} qualifying U.S. 0–5 year infrastructure role(s).`);
+} else if (fallbackActive) {
+  console.warn(`CloudHQ source unavailable (${sourceError}); preserved ${selected.length} verified role(s) inside the ${MAX_FALLBACK_AGE_HOURS}-hour fallback window.`);
+} else {
+  console.warn(`CloudHQ source unavailable (${sourceError}); fallback expired or unavailable, publishing 0 CloudHQ roles.`);
+}

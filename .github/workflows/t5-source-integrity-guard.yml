@@ -1,0 +1,62 @@
+name: T5 source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/t5-data-centers-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-t5-data-centers.mjs'
+      - 'scripts/validate-t5-data-centers.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/normalize-display-copy.mjs'
+      - '.github/workflows/t5-data-centers-bootstrap.yml'
+      - '.github/workflows/pages.yml'
+      - '.github/workflows/t5-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/t5-data-centers-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-t5-data-centers.mjs'
+      - 'scripts/validate-t5-data-centers.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/normalize-display-copy.mjs'
+      - '.github/workflows/t5-data-centers-bootstrap.yml'
+      - '.github/workflows/pages.yml'
+      - '.github/workflows/t5-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check T5 collector and integrity validator
+        run: |
+          node --check scripts/collect-t5-data-centers.mjs
+          node --check scripts/validate-t5-data-centers.mjs
+      - name: Run T5 fail-closed regression tests
+        run: |
+          node scripts/collect-t5-data-centers.mjs --test-classifier
+          node scripts/validate-t5-data-centers.mjs --test
+      - name: Re-run publication transforms
+        run: |
+          node scripts/filter-mission-fit.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/normalize-display-copy.mjs
+      - name: Validate exact T5 authoritative-public parity
+        run: node scripts/validate-t5-data-centers.mjs

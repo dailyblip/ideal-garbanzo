@@ -1,0 +1,62 @@
+name: Cologix source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/cologix-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-cologix.mjs'
+      - 'scripts/validate-cologix.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/normalize-display-copy.mjs'
+      - '.github/workflows/cologix-bootstrap.yml'
+      - '.github/workflows/pages.yml'
+      - '.github/workflows/cologix-source-integrity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/cologix-jobs.json'
+      - 'data/jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-cologix.mjs'
+      - 'scripts/validate-cologix.mjs'
+      - 'scripts/filter-mission-fit.mjs'
+      - 'scripts/normalize-job-locations.mjs'
+      - 'scripts/dedupe-normalized-jobs.mjs'
+      - 'scripts/normalize-display-copy.mjs'
+      - '.github/workflows/cologix-bootstrap.yml'
+      - '.github/workflows/pages.yml'
+      - '.github/workflows/cologix-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Cologix collector and integrity validator
+        run: |
+          node --check scripts/collect-cologix.mjs
+          node --check scripts/validate-cologix.mjs
+      - name: Run Cologix fail-closed regression tests
+        run: |
+          node scripts/collect-cologix.mjs --test-classifier
+          node scripts/validate-cologix.mjs --test
+      - name: Re-run publication transforms
+        run: |
+          node scripts/filter-mission-fit.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/normalize-display-copy.mjs
+      - name: Validate exact Cologix authoritative-public parity
+        run: node scripts/validate-cologix.mjs

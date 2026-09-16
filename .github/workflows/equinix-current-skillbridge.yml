@@ -1,0 +1,106 @@
+name: Refresh Equinix Current SkillBridge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-equinix-current-skillbridge.mjs'
+      - '.github/workflows/equinix-current-skillbridge.yml'
+  pull_request:
+    paths:
+      - 'scripts/collect-equinix-current-skillbridge.mjs'
+      - '.github/workflows/equinix-current-skillbridge.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '37 */6 * * *'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: careers-source-writers
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Equinix SkillBridge classifier
+        run: node scripts/collect-equinix-current-skillbridge.mjs --test
+      - name: Verify current official Equinix SkillBridge roles
+        run: node scripts/collect-equinix-current-skillbridge.mjs
+      - name: Normalize locations and regions
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Persist first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate refreshed feed and employer-direct source
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Publish verified Equinix SkillBridge data
+        if: github.event_name != 'pull_request'
+        id: publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/collect-equinix-current-skillbridge.mjs --test
+            node scripts/collect-equinix-current-skillbridge.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Equinix SkillBridge verification; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/job-history.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo "No Equinix SkillBridge data changes."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh verified Equinix SkillBridge roles"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Equinix SkillBridge publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified Equinix SkillBridge roles after three attempts."
+          exit 1
+      - name: Deploy committed Equinix SkillBridge data
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

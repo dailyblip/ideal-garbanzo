@@ -6,7 +6,9 @@ const OFFICIAL_HOST = 'hdep.fa.us2.oraclecloud.com';
 const OFFICIAL_PATH_PREFIX = '/hcmUI/CandidateExperience/en/sites/CX/job/';
 const SNAPSHOT_PATH = 'data/digital-realty-jobs.json';
 const MAX_FALLBACK_AGE_HOURS = 96;
+const MAX_HEALTHY_EVIDENCE_AGE_HOURS = 30;
 const MAX_FALLBACK_AGE_MS = MAX_FALLBACK_AGE_HOURS * 60 * 60 * 1000;
+const MAX_HEALTHY_EVIDENCE_AGE_MS = MAX_HEALTHY_EVIDENCE_AGE_HOURS * 60 * 60 * 1000;
 const VALID_EXPERIENCE = new Set(['no-experience', '0-2-years', '2-5-years']);
 const VALID_TYPES = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
 const EXECUTIVE_PATTERN = /\b(?:senior|sr\.?|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman)\b/i;
@@ -20,6 +22,29 @@ function gitLastChangedAt(path) {
   } catch {
     return null;
   }
+}
+
+function healthyEvidenceState(verifiedAt, nowMs = Date.now()) {
+  const verifiedMs = Date.parse(String(verifiedAt || ''));
+  if (!Number.isFinite(verifiedMs)) return { fresh: false, ageHours: null };
+  const ageMs = Math.max(0, nowMs - verifiedMs);
+  return { fresh: ageMs < MAX_HEALTHY_EVIDENCE_AGE_MS, ageHours: ageMs / 36e5 };
+}
+
+function runHealthyEvidenceTests() {
+  const now = Date.parse('2026-09-16T12:00:00Z');
+  const fresh = healthyEvidenceState('2026-09-15T06:00:01Z', now);
+  if (!fresh.fresh || fresh.ageHours >= MAX_HEALTHY_EVIDENCE_AGE_HOURS) throw new Error('Digital Realty healthy evidence expired before 30 hours.');
+  const boundary = healthyEvidenceState('2026-09-15T06:00:00Z', now);
+  if (boundary.fresh) throw new Error('Digital Realty healthy evidence did not expire at the 30-hour boundary.');
+  const missing = healthyEvidenceState(null, now);
+  if (missing.fresh || missing.ageHours !== null) throw new Error('Digital Realty healthy evidence without a verification anchor did not fail closed.');
+  console.log('Digital Realty healthy evidence freshness regression tests passed.');
+}
+
+if (process.argv.includes('--test-freshness')) {
+  runHealthyEvidenceTests();
+  process.exit(0);
 }
 
 function canonicalTitle(job) {
@@ -87,6 +112,9 @@ if (source) {
     requireOk(Number(source.candidateRows || 0) > 0, 'Digital Realty source reported healthy but returned no candidate rows.');
     requireOk(Number(source.detailAttempts || 0) >= snapshotJobs.length, `Digital Realty healthy source attempted only ${Number(source.detailAttempts || 0)} detail page(s) for ${snapshotJobs.length} published snapshot role(s).`);
     requireOk(Number(source.candidateRows || 0) >= snapshotJobs.length, `Digital Realty healthy source has fewer candidates (${Number(source.candidateRows || 0)}) than qualifying snapshot roles (${snapshotJobs.length}).`);
+    const verifiedAt = source.lastHealthyAt || source.snapshotVerifiedAt || gitLastChangedAt(SNAPSHOT_PATH);
+    const evidence = healthyEvidenceState(verifiedAt);
+    requireOk(evidence.fresh, `Digital Realty healthy source evidence is ${evidence.ageHours === null ? 'unverified' : `${evidence.ageHours.toFixed(1)} hours old`}; maximum is ${MAX_HEALTHY_EVIDENCE_AGE_HOURS} hours.`);
     if (source.fallbackUsed !== undefined) requireOk(source.fallbackUsed === false, 'Digital Realty healthy source must not report fallback usage.');
     if (source.fallbackExpired !== undefined) requireOk(source.fallbackExpired === false, 'Digital Realty healthy source must not report an expired fallback.');
   } else {
@@ -98,7 +126,7 @@ if (source) {
       const fallbackAgeMs = Number.isFinite(verifiedMs) ? Date.now() - verifiedMs : Infinity;
       const fallbackAgeHours = fallbackAgeMs / (60 * 60 * 1000);
       requireOk(Number.isFinite(verifiedMs), 'Digital Realty preserved snapshot has no trustworthy verification timestamp.');
-      requireOk(fallbackAgeMs <= MAX_FALLBACK_AGE_MS, `Digital Realty preserved snapshot is ${Number.isFinite(fallbackAgeHours) ? fallbackAgeHours.toFixed(1) : 'unknown'} hours old; maximum is ${MAX_FALLBACK_AGE_HOURS} hours.`);
+      requireOk(fallbackAgeMs < MAX_FALLBACK_AGE_MS, `Digital Realty preserved snapshot is ${Number.isFinite(fallbackAgeHours) ? fallbackAgeHours.toFixed(1) : 'unknown'} hours old; maximum is ${MAX_FALLBACK_AGE_HOURS} hours.`);
       if (source.fallbackUsed !== undefined) requireOk(source.fallbackUsed === true, 'Digital Realty source is unhealthy with published snapshot roles but fallbackUsed is false.');
       if (source.fallbackFresh !== undefined) requireOk(source.fallbackFresh === true, 'Digital Realty source is unhealthy with published snapshot roles but fallbackFresh is false.');
       if (source.fallbackExpired !== undefined) requireOk(source.fallbackExpired === false, 'Digital Realty source is unhealthy with published snapshot roles but fallbackExpired is true.');

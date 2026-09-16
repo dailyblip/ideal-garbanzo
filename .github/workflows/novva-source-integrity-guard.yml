@@ -39,7 +39,9 @@ jobs:
           node --check scripts/collect-novva-careers.mjs
           node --check scripts/validate-novva.mjs
       - name: Run Novva fail-closed freshness regressions
-        run: node scripts/collect-novva-careers.mjs --test-freshness
+        run: |
+          node scripts/collect-novva-careers.mjs --test-freshness
+          node scripts/validate-novva.mjs --test-freshness
       - name: Validate current Novva publication state
         run: |
           node scripts/validate-novva.mjs

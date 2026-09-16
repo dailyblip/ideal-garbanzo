@@ -7,6 +7,7 @@ const STATUS_PATH = 'data/collector-status.json';
 const MAX_FALLBACK_AGE_HOURS = 96;
 const MAX_HEALTHY_EVIDENCE_AGE_HOURS = 30;
 const MAX_HEALTHY_EVIDENCE_AGE_MS = MAX_HEALTHY_EVIDENCE_AGE_HOURS * 60 * 60 * 1000;
+const LEGACY_HEALTHY_POLICY_MAX_HOURS = 168;
 const allowedExperiences = new Set(['no-experience', '0-2-years', '2-5-years']);
 const missionTitlePattern = /\b(?:command center operator|data cent(?:er|re) (?:technician|operator|operations|facilities|facility|engineer)|critical facilit(?:y|ies) (?:technician|operator|engineer)|facilities technician|facility technician)\b/i;
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman)\b/i;
@@ -62,9 +63,9 @@ if (source) {
   requireOk(Number(source.candidateLinks || 0) > 0, 'Novva collector did not retain any candidate job URLs.');
 
   const configuredMaxAge = Number(source.fallbackMaxAgeHours);
-  requireOk(configuredMaxAge === MAX_FALLBACK_AGE_HOURS, `Novva fallbackMaxAgeHours must be exactly ${MAX_FALLBACK_AGE_HOURS} hours; found ${Number.isFinite(configuredMaxAge) ? configuredMaxAge : 'invalid'}.`);
 
   if (source.sourceHealthy === true) {
+    requireOk(Number.isFinite(configuredMaxAge) && configuredMaxAge > 0 && configuredMaxAge <= LEGACY_HEALTHY_POLICY_MAX_HOURS, `Novva healthy-source fallback policy metadata is invalid: ${source.fallbackMaxAgeHours ?? '(missing)'}.`);
     requireOk(Number(source.detailSucceeded || 0) > 0, 'Novva source was marked healthy without a successful detail fetch.');
     requireOk(Number(source.qualifyingRoles || 0) === snapshot.length, `Novva healthy-source qualifying count ${source.qualifyingRoles ?? 0} does not match snapshot count ${snapshot.length}.`);
     requireOk(Number(source.preservedPrevious || 0) === 0, 'Novva healthy source should not report preserved fallback roles.');
@@ -77,6 +78,7 @@ if (source) {
     const evidence = healthyEvidenceState(source.lastHealthyAt);
     requireOk(evidence.fresh, `Novva healthy source evidence is ${evidence.ageHours === null ? 'unverified' : `${evidence.ageHours.toFixed(1)} hours old`}; maximum is ${MAX_HEALTHY_EVIDENCE_AGE_HOURS} hours.`);
   } else {
+    requireOk(configuredMaxAge === MAX_FALLBACK_AGE_HOURS, `Novva fallbackMaxAgeHours must be exactly ${MAX_FALLBACK_AGE_HOURS} hours during source failure; found ${Number.isFinite(configuredMaxAge) ? configuredMaxAge : 'invalid'}.`);
     const fallbackExpired = source.fallbackExpired === true;
     const lastHealthyMs = Date.parse(String(source.lastHealthyAt || ''));
     const computedAgeHours = Number.isFinite(lastHealthyMs)

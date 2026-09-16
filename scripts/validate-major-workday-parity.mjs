@@ -13,6 +13,15 @@ const officialHosts = new Map([
   ['Aligned Data Centers', 'aligneddc.wd12.myworkdayjobs.com']
 ]);
 
+const workdayIdPrefixes = new Map([
+  ['Vantage Data Centers', 'workday-vantagedc-'],
+  ['QTS Data Centers', 'workday-qtsdatacenters-'],
+  ['CyrusOne', 'workday-cyrusone-'],
+  ['STACK Infrastructure', 'workday-stackinfra-'],
+  ['NTT Global Data Centers', 'workday-nttglobaldatacenters-'],
+  ['Aligned Data Centers', 'workday-aligneddc-']
+]);
+
 const clearlyForeignTerms = [
   'malaysia','india','indonesia','japan','taiwan','thailand','germany','england','united kingdom','wales',
   'netherlands','switzerland','ireland','canada','hong kong','china','singapore','australia','france','spain',
@@ -64,8 +73,10 @@ for (const testCase of canonicalTitleRegressionCases) {
 
 function identityMismatches(publicJob, snapshotJob) {
   const mismatches = [];
-  for (const field of ['id', 'company', 'type', 'experience']) {
-    if (clean(publicJob?.[field]) !== clean(snapshotJob?.[field])) mismatches.push(field);
+  for (const field of ['id', 'company', 'location', 'type', 'experience', 'source', 'active', 'demo']) {
+    const publicValue = typeof publicJob?.[field] === 'string' ? clean(publicJob[field]) : publicJob?.[field];
+    const snapshotValue = typeof snapshotJob?.[field] === 'string' ? clean(snapshotJob[field]) : snapshotJob?.[field];
+    if (publicValue !== snapshotValue) mismatches.push(field);
   }
   if (canonicalTitle(publicJob) !== canonicalTitle(snapshotJob)) mismatches.push('title');
   return mismatches;
@@ -73,14 +84,19 @@ function identityMismatches(publicJob, snapshotJob) {
 
 const identityRegressionCases = [
   {
-    publicJob: { id: 'workday-ntt-JR1', company: 'NTT Global Data Centers', title: 'Data Center Technician L2', type: 'entry-level', experience: '0-2-years' },
-    snapshotJob: { id: 'workday-ntt-JR1', company: 'NTT Global Data Centers', title: '914 - Data Center Technician L2', type: 'entry-level', experience: '0-2-years' },
+    publicJob: { id: 'workday-nttglobaldatacenters-JR1', company: 'NTT Global Data Centers', title: 'Data Center Technician L2', location: 'Ashburn, Virginia', type: 'entry-level', experience: '0-2-years', source: 'Employer career site', active: true, demo: false },
+    snapshotJob: { id: 'workday-nttglobaldatacenters-JR1', company: 'NTT Global Data Centers', title: '914 - Data Center Technician L2', location: 'Ashburn, Virginia', type: 'entry-level', experience: '0-2-years', source: 'Employer career site', active: true, demo: false },
     expected: []
   },
   {
-    publicJob: { id: 'workday-qts-R1', company: 'QTS Data Centers', title: 'Critical Operations Technician I', type: 'entry-level', experience: '2-5-years' },
-    snapshotJob: { id: 'workday-qts-R1', company: 'QTS Data Centers', title: 'Critical Operations Technician I', type: 'entry-level', experience: '0-2-years' },
+    publicJob: { id: 'workday-qtsdatacenters-R1', company: 'QTS Data Centers', title: 'Critical Operations Technician I', location: 'Ashburn, VA', type: 'entry-level', experience: '2-5-years', source: 'Employer career site', active: true, demo: false },
+    snapshotJob: { id: 'workday-qtsdatacenters-R1', company: 'QTS Data Centers', title: 'Critical Operations Technician I', location: 'Ashburn, VA', type: 'entry-level', experience: '0-2-years', source: 'Employer career site', active: true, demo: false },
     expected: ['experience']
+  },
+  {
+    publicJob: { id: 'workday-qtsdatacenters-R2', company: 'QTS Data Centers', title: 'Critical Operations Technician I', location: 'Dallas, TX', type: 'entry-level', experience: '0-2-years', source: 'Third party', active: false, demo: false },
+    snapshotJob: { id: 'workday-qtsdatacenters-R2', company: 'QTS Data Centers', title: 'Critical Operations Technician I', location: 'Ashburn, VA', type: 'entry-level', experience: '0-2-years', source: 'Employer career site', active: true, demo: false },
+    expected: ['location', 'source', 'active']
   }
 ];
 for (const testCase of identityRegressionCases) {
@@ -95,11 +111,69 @@ async function readJson(path) { return JSON.parse(await readFile(path, 'utf8'));
 function validateOfficialUrl(job, context, violations) {
   const company = clean(job?.company);
   const expectedHost = officialHosts.get(company);
-  if (!expectedHost) { violations.push(`${context}: unexpected company ${company || '(missing company)'}`); return ''; }
+  const expectedIdPrefix = workdayIdPrefixes.get(company);
+  if (!expectedHost || !expectedIdPrefix) {
+    violations.push(`${context}: unexpected company ${company || '(missing company)'}`);
+    return '';
+  }
+
   let parsed;
-  try { parsed = new URL(clean(job?.sourceUrl)); } catch { violations.push(`${context}: ${clean(job?.id) || '(missing id)'} has an invalid source URL`); return ''; }
-  if (parsed.protocol !== 'https:' || parsed.hostname.toLowerCase() !== expectedHost) violations.push(`${context}: ${clean(job?.id) || '(missing id)'} points to ${parsed.hostname || '(missing host)'} instead of ${expectedHost}`);
+  try {
+    parsed = new URL(clean(job?.sourceUrl));
+  } catch {
+    violations.push(`${context}: ${clean(job?.id) || '(missing id)'} has an invalid source URL`);
+    return '';
+  }
+
+  if (parsed.protocol !== 'https:' || parsed.hostname.toLowerCase() !== expectedHost) {
+    violations.push(`${context}: ${clean(job?.id) || '(missing id)'} points to ${parsed.hostname || '(missing host)'} instead of ${expectedHost}`);
+  }
+
+  const id = clean(job?.id);
+  if (!id.startsWith(expectedIdPrefix) || id.length <= expectedIdPrefix.length) {
+    violations.push(`${context}: ${id || '(missing id)'} does not use the canonical ${expectedIdPrefix}<requisition> identity`);
+  } else {
+    const requisition = id.slice(expectedIdPrefix.length);
+    let tail = '';
+    try { tail = decodeURIComponent(parsed.pathname.split('/').filter(Boolean).at(-1) || ''); } catch { tail = parsed.pathname.split('/').filter(Boolean).at(-1) || ''; }
+    const urlMatch = tail.match(/_([A-Za-z][A-Za-z0-9-]+)$/);
+    if (!urlMatch) {
+      violations.push(`${context}: ${id} does not expose a Workday requisition token in its official detail URL`);
+    } else {
+      const urlRequisition = urlMatch[1];
+      const baseUrlRequisition = urlRequisition.replace(/-\d+$/, '');
+      if (urlRequisition !== requisition && baseUrlRequisition !== requisition) {
+        violations.push(`${context}: ${id} does not match Workday URL requisition ${urlRequisition}`);
+      }
+    }
+  }
+
+  if (clean(job?.source) !== 'Employer career site') {
+    violations.push(`${context}: ${id || '(missing id)'} has unexpected source label ${clean(job?.source) || '(missing)'}`);
+  }
+  if (job?.active !== true || job?.demo === true) {
+    violations.push(`${context}: ${id || '(missing id)'} is not an active production role`);
+  }
+
   return parsed.href;
+}
+
+const urlIdentityRegressionCases = [
+  {
+    job: { id: 'workday-cyrusone-R0007750', company: 'CyrusOne', source: 'Employer career site', sourceUrl: 'https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator-III_R0007750-1', active: true, demo: false },
+    expectedViolations: 0
+  },
+  {
+    job: { id: 'workday-qtsdatacenters-R2026-9999', company: 'QTS Data Centers', source: 'Employer career site', sourceUrl: 'https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Ashburn-VA/Critical-Operations-Technician-I_R2026-1841', active: true, demo: false },
+    expectedViolations: 1
+  }
+];
+for (const testCase of urlIdentityRegressionCases) {
+  const testViolations = [];
+  validateOfficialUrl(testCase.job, 'regression', testViolations);
+  if (testViolations.length !== testCase.expectedViolations) {
+    throw new Error(`Major Workday URL identity regression: expected ${testCase.expectedViolations} violation(s), got ${testViolations.length}: ${testViolations.join('; ')}`);
+  }
 }
 
 function clearlyForeign(job) {
@@ -196,7 +270,7 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} major Workday snapshot/public-feed integrity violation(s).`);
 }
 const mode = snapshotIsReconciled ? 'reconciled unique-title parity' : 'raw snapshot coverage';
-console.log(`Major Workday parity guard passed in ${mode} mode: ${publicMajor.length} clean public cards are employer-direct and traceable to ${majorSnapshot.length} snapshot requisitions.`);
+console.log(`Major Workday parity guard passed in ${mode} mode: ${publicMajor.length} clean public cards are employer-direct and traceable to ${majorSnapshot.length} snapshot requisitions with requisition, location, classification, source, and production-state parity.`);
 for (const company of officialHosts.keys()) {
   const snapshotCount = uniqueTitles(majorSnapshot.filter(job => clean(job?.company) === company)).size;
   const publicCount = uniqueTitles(publicMajor.filter(job => clean(job?.company) === company)).size;

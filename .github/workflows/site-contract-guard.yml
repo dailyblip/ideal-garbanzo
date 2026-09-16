@@ -82,6 +82,11 @@ jobs:
           node scripts/validate-major-workday-parity.mjs
       - name: Validate CoreSite official listing failover
         run: node scripts/validate-coresite-source-failover.mjs
+      - name: Validate CoreSite source integrity
+        run: |
+          node scripts/validate-coresite-source-integrity.mjs --test
+          node scripts/validate-coresite-source-integrity.mjs
+          node scripts/validate-coresite-fallback.mjs
       - name: Validate plain-language site copy
         run: node scripts/validate-site-copy.mjs
       - name: Generate search and discovery landing pages for contract validation

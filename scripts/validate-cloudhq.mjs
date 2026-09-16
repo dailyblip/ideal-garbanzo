@@ -5,9 +5,12 @@ const SNAPSHOT_PATH = 'data/cloudhq-jobs.json';
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const EXPECTED_SOURCE = 'Official CloudHQ Paylocity careers';
+const MAX_FALLBACK_AGE_HOURS = 96;
+const MAX_HEALTHY_EVIDENCE_AGE_HOURS = 30;
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const allowedTypes = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
-const allowedModes = new Set(['paylocity-feed', 'verified-direct-role-fallback']);
+const healthyModes = new Set(['paylocity-feed', 'verified-direct-role-fallback']);
+const allowedModes = new Set([...healthyModes, 'verified-snapshot-fallback', 'fail-closed']);
 const seniorPattern = /\b(?:senior|sr\.?|lead|leader|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff|supervisor|superintendent|foreman|architect)\b/i;
 const usLocationPattern = /,\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)$/;
 const parityFields = ['title', 'company', 'location', 'type', 'experience', 'source', 'sourceUrl', 'active', 'demo'];
@@ -57,28 +60,68 @@ for (const [index, job] of snapshot.entries()) {
   if (job?.id) snapshotById.set(job.id, job);
 }
 
-const sourceStatus = status?.cloudHqCareers || {};
-if (sourceStatus.sourceHealthy !== true) violations.push('collector-status.cloudHqCareers.sourceHealthy must be true after a published refresh');
-if (!allowedModes.has(sourceStatus.mode)) violations.push(`collector-status.cloudHqCareers.mode is unsupported: ${sourceStatus.mode || '(missing)'}`);
-if (Number(sourceStatus.qualifyingRoles) !== snapshot.length) {
-  violations.push(`collector status says ${sourceStatus.qualifyingRoles ?? '(missing)'} qualifying roles but snapshot contains ${snapshot.length}`);
-}
-if (!Number.isFinite(Number(sourceStatus.listedJobs)) || Number(sourceStatus.listedJobs) < snapshot.length) {
-  violations.push(`collector status listedJobs is inconsistent with snapshot size (${sourceStatus.listedJobs ?? '(missing)'} vs ${snapshot.length})`);
-}
-if (sourceStatus.mode === 'paylocity-feed' && Number(sourceStatus.feedListedJobs) !== Number(sourceStatus.listedJobs)) {
-  violations.push(`Paylocity-feed mode must report matching feed/listed counts (${sourceStatus.feedListedJobs} vs ${sourceStatus.listedJobs})`);
-}
-if (sourceStatus.mode === 'verified-direct-role-fallback') {
-  if (Number(sourceStatus.feedListedJobs) !== 0) violations.push('direct-role fallback may only activate when the optional Paylocity feed returns zero rows');
-  if (!Number.isFinite(Number(sourceStatus.directCandidatesChecked)) || Number(sourceStatus.directCandidatesChecked) < Number(sourceStatus.listedJobs)) {
-    violations.push(`direct-role fallback evidence is incomplete (${sourceStatus.directCandidatesChecked ?? '(missing)'} checked vs ${sourceStatus.listedJobs} live)`);
-  }
-}
-
 const publicJobs = jobs.filter(job => String(job?.company || '').trim() === COMPANY);
 if (publicJobs.length !== snapshot.length) {
   violations.push(`public CloudHQ feed must exactly match the authoritative snapshot count (${publicJobs.length}/${snapshot.length})`);
+}
+
+const sourceStatus = status?.cloudHqCareers || {};
+if (!allowedModes.has(sourceStatus.mode)) violations.push(`collector-status.cloudHqCareers.mode is unsupported: ${sourceStatus.mode || '(missing)'}`);
+const legacyHealthyAnchor = sourceStatus.sourceHealthy === true ? sourceStatus.checkedAt : null;
+const lastHealthyAt = sourceStatus.lastHealthyAt || legacyHealthyAnchor;
+const lastHealthyMs = Date.parse(String(lastHealthyAt || ''));
+const evidenceAgeHours = Number.isFinite(lastHealthyMs) ? Math.max(0, (Date.now() - lastHealthyMs) / 3_600_000) : null;
+
+if ((snapshot.length || publicJobs.length) && !Number.isFinite(lastHealthyMs)) {
+  violations.push('published CloudHQ roles have no valid lastHealthyAt verification anchor');
+}
+
+if (sourceStatus.sourceHealthy === true) {
+  if (!healthyModes.has(sourceStatus.mode)) violations.push(`healthy CloudHQ source cannot use mode ${sourceStatus.mode || '(missing)'}`);
+  if (snapshot.length > 0 && evidenceAgeHours > MAX_HEALTHY_EVIDENCE_AGE_HOURS) {
+    violations.push(`healthy CloudHQ source evidence is ${evidenceAgeHours.toFixed(1)} hours old (limit ${MAX_HEALTHY_EVIDENCE_AGE_HOURS})`);
+  }
+  if (sourceStatus.usedPreviousSnapshot === true) violations.push('healthy CloudHQ source cannot report usedPreviousSnapshot=true');
+  if (sourceStatus.fallbackExpired === true) violations.push('healthy CloudHQ source cannot report fallbackExpired=true');
+  if (Number(sourceStatus.qualifyingRoles) !== snapshot.length) {
+    violations.push(`collector status says ${sourceStatus.qualifyingRoles ?? '(missing)'} qualifying roles but snapshot contains ${snapshot.length}`);
+  }
+  if (!Number.isFinite(Number(sourceStatus.listedJobs)) || Number(sourceStatus.listedJobs) < snapshot.length) {
+    violations.push(`collector status listedJobs is inconsistent with snapshot size (${sourceStatus.listedJobs ?? '(missing)'} vs ${snapshot.length})`);
+  }
+  if (sourceStatus.mode === 'paylocity-feed' && Number(sourceStatus.feedListedJobs) !== Number(sourceStatus.listedJobs)) {
+    violations.push(`Paylocity-feed mode must report matching feed/listed counts (${sourceStatus.feedListedJobs} vs ${sourceStatus.listedJobs})`);
+  }
+  if (sourceStatus.mode === 'verified-direct-role-fallback') {
+    if (Number(sourceStatus.feedListedJobs) !== 0) violations.push('direct-role fallback may only activate when the optional Paylocity feed returns zero rows');
+    if (!Number.isFinite(Number(sourceStatus.directCandidatesChecked)) || Number(sourceStatus.directCandidatesChecked) < Number(sourceStatus.listedJobs)) {
+      violations.push(`direct-role fallback evidence is incomplete (${sourceStatus.directCandidatesChecked ?? '(missing)'} checked vs ${sourceStatus.listedJobs} live)`);
+    }
+  }
+} else if (sourceStatus.mode === 'verified-snapshot-fallback') {
+  if (!snapshot.length) violations.push('verified snapshot fallback cannot be active with an empty CloudHQ snapshot');
+  if (!Number.isFinite(lastHealthyMs)) violations.push('verified snapshot fallback requires a lastHealthyAt verification anchor');
+  if (evidenceAgeHours != null && evidenceAgeHours >= MAX_FALLBACK_AGE_HOURS) {
+    violations.push(`CloudHQ fallback is ${evidenceAgeHours.toFixed(1)} hours old and must fail closed at ${MAX_FALLBACK_AGE_HOURS} hours`);
+  }
+  if (sourceStatus.fallbackExpired === true) violations.push('verified snapshot fallback cannot report fallbackExpired=true');
+  if (sourceStatus.usedPreviousSnapshot !== true) violations.push('verified snapshot fallback must report usedPreviousSnapshot=true');
+  if (Number(sourceStatus.preservedPrevious) !== snapshot.length) {
+    violations.push(`verified snapshot fallback preservation count is inconsistent (${sourceStatus.preservedPrevious ?? '(missing)'} vs ${snapshot.length})`);
+  }
+  if (sourceStatus.publishedRoles != null && Number(sourceStatus.publishedRoles) !== snapshot.length) {
+    violations.push(`verified snapshot fallback publishedRoles is inconsistent (${sourceStatus.publishedRoles} vs ${snapshot.length})`);
+  }
+} else if (sourceStatus.mode === 'fail-closed') {
+  if (snapshot.length || publicJobs.length) violations.push('fail-closed CloudHQ state must publish zero roles and retain no snapshot roles');
+  if (sourceStatus.fallbackExpired !== true) violations.push('fail-closed CloudHQ state must report fallbackExpired=true');
+  if (sourceStatus.usedPreviousSnapshot === true) violations.push('fail-closed CloudHQ state cannot report usedPreviousSnapshot=true');
+} else if (sourceStatus.sourceHealthy !== true) {
+  violations.push(`unhealthy CloudHQ source must use verified-snapshot-fallback or fail-closed mode, not ${sourceStatus.mode || '(missing)'}`);
+}
+
+if (sourceStatus.fallbackMaxAgeHours != null && Number(sourceStatus.fallbackMaxAgeHours) !== MAX_FALLBACK_AGE_HOURS) {
+  violations.push(`CloudHQ fallbackMaxAgeHours must remain ${MAX_FALLBACK_AGE_HOURS}`);
 }
 
 const publicIds = new Set();
@@ -116,4 +159,9 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} CloudHQ source regression(s).`);
 }
 
-console.log(`CloudHQ validation passed: exact authoritative-public parity for ${snapshot.length} verified role(s); ${sourceStatus.listedJobs} official Paylocity role(s) checked via ${sourceStatus.mode}.`);
+const modeSummary = sourceStatus.sourceHealthy === true
+  ? `${sourceStatus.listedJobs} official Paylocity role(s) checked via ${sourceStatus.mode}`
+  : sourceStatus.mode === 'verified-snapshot-fallback'
+    ? `verified snapshot fallback active at ${evidenceAgeHours?.toFixed(1) ?? 'unknown'} hours`
+    : 'empty fail-closed state';
+console.log(`CloudHQ validation passed: exact authoritative-public parity for ${snapshot.length} verified role(s); ${modeSummary}.`);

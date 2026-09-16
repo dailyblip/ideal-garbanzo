@@ -9,6 +9,7 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-cloudhq-careers.mjs'
       - 'scripts/validate-cloudhq.mjs'
+      - 'scripts/validate.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
@@ -24,6 +25,7 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-cloudhq-careers.mjs'
       - 'scripts/validate-cloudhq.mjs'
+      - 'scripts/validate.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
@@ -44,9 +46,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Check CloudHQ collector and integrity validator
+      - name: Check CloudHQ collector and fallback policy
         run: |
           node --check scripts/collect-cloudhq-careers.mjs
+          node scripts/collect-cloudhq-careers.mjs --test-freshness
           node --check scripts/validate-cloudhq.mjs
       - name: Re-run publication transforms
         run: |
@@ -54,5 +57,7 @@ jobs:
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
-      - name: Validate exact CloudHQ authoritative-public parity
+      - name: Validate exact CloudHQ authoritative-public parity and freshness
         run: node scripts/validate-cloudhq.mjs
+      - name: Validate site contract includes CloudHQ freshness gate
+        run: node scripts/validate.mjs

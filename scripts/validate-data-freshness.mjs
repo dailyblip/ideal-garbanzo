@@ -290,3 +290,4 @@ for (const fallback of genericFallbackAges) {
 }
 
 await import('./validate-flexential-freshness.mjs');
+await import('./validate-novva.mjs');

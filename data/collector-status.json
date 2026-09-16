@@ -1,12 +1,13 @@
 {
-  "updatedAt": "2026-09-16T17:17:45.106Z",
+  "updatedAt": "2026-09-16T17:22:54.186Z",
   "jobs": 671,
-  "sourcesAttempted": 18,
+  "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "icims": 1
   },
   "countsByType": {
     "entry-level": 645,
@@ -60,15 +61,15 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Raleigh, NC",
-        "reason": "classification"
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
         "title": "Operations Specialist",
         "location": "Hawthorne, NY",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Raleigh, NC",
         "reason": "classification"
       }
     ]
@@ -3613,7 +3614,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T17:17:45.210Z",
+    "checkedAt": "2026-09-16T17:22:54.240Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3621,18 +3622,18 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T17:17:45.270Z",
+    "updatedAt": "2026-09-16T17:22:54.292Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 672,
+    "regionAssigned": 671,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "southwest": 80,
+      "texas": 115,
       "midwest": 134,
       "southeast": 101,
-      "southwest": 80,
-      "texas": 116,
       "mid-atlantic": 126,
       "west": 92,
       "northeast": 22,
@@ -3640,21 +3641,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T17:17:45.327Z",
-    "before": 672,
+    "checkedAt": "2026-09-16T17:22:54.342Z",
+    "before": 671,
     "after": 671,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-108517449598411462",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "Haskell, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-16T17:11:39.929Z",
@@ -3667,15 +3659,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1098,
     "currentJobs": 671,
-    "newJobsThisRun": 4,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 4,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 89,
-    "updatedAt": "2026-09-16T17:17:45.374Z"
+    "updatedAt": "2026-09-16T17:22:54.387Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

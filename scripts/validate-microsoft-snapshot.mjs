@@ -5,7 +5,6 @@ const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const COMPANY = 'Microsoft';
 const OFFICIAL_HOST = 'apply.careers.microsoft.com';
-const MIN_PUBLIC_RETENTION = 0.80;
 const MAX_FALLBACK_AGE_HOURS = 96;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
@@ -24,7 +23,21 @@ function canonicalTitle(job) {
   title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
   return normalize(title);
 }
-const uniqueTitles = records => new Set((records || []).map(canonicalTitle).filter(Boolean));
+
+function publicationGroupKey(job) {
+  return [canonicalTitle(job), normalize(job?.location)].join('|');
+}
+
+function publicationGroups(records) {
+  const groups = new Map();
+  for (const job of records || []) {
+    const key = publicationGroupKey(job);
+    if (!key || key === '|') continue;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(job);
+  }
+  return groups;
+}
 
 function canonicalMicrosoftUrl(value) {
   let parsed;
@@ -100,6 +113,31 @@ function validatePublicSnapshotTraceability(snapshot, publicMicrosoft) {
   return issues;
 }
 
+function validatePublicationGroupCoverage(snapshot, publicMicrosoft) {
+  const issues = [];
+  const snapshotGroups = publicationGroups(snapshot);
+  const publicGroups = publicationGroups(publicMicrosoft);
+
+  for (const [key, authoritativeJobs] of snapshotGroups) {
+    const publishedJobs = publicGroups.get(key) || [];
+    const representative = authoritativeJobs[0] || {};
+    const label = `${clean(representative.title) || '(missing title)'} @ ${clean(representative.location) || '(missing location)'}`;
+    if (publishedJobs.length === 0) {
+      issues.push(`Microsoft public feed is missing authoritative site-role group ${label}.`);
+    } else if (publishedJobs.length > 1) {
+      issues.push(`Microsoft public feed contains ${publishedJobs.length} cards for one authoritative site-role group ${label}; expected one representative after normalized dedupe.`);
+    }
+  }
+
+  for (const [key, publishedJobs] of publicGroups) {
+    if (snapshotGroups.has(key)) continue;
+    const representative = publishedJobs[0] || {};
+    issues.push(`Microsoft public feed contains unexpected site-role group ${clean(representative.title) || '(missing title)'} @ ${clean(representative.location) || '(missing location)'}.`);
+  }
+
+  return issues;
+}
+
 function assertTest(condition, message) {
   if (!condition) throw new Error(`Microsoft requisition parity regression failed: ${message}`);
 }
@@ -107,7 +145,7 @@ function assertTest(condition, message) {
 function runParityRegressionTests() {
   const authoritative = {
     id: 'microsoft-123456789',
-    title: 'Data Center Technician (Nightshift)',
+    title: 'Data Center Technician - Night Shift',
     company: COMPANY,
     location: 'Ashburn, VA',
     type: 'entry-level',
@@ -116,6 +154,18 @@ function runParityRegressionTests() {
     sourceUrl: 'https://apply.careers.microsoft.com/careers/job/123456789',
     active: true,
     demo: false
+  };
+  const sameSiteShift = {
+    ...authoritative,
+    id: 'microsoft-223456789',
+    title: 'Data Center Technician - Day Shift',
+    sourceUrl: 'https://apply.careers.microsoft.com/careers/job/223456789'
+  };
+  const otherSite = {
+    ...authoritative,
+    id: 'microsoft-323456789',
+    location: 'Boydton, VA',
+    sourceUrl: 'https://apply.careers.microsoft.com/careers/job/323456789'
   };
 
   let issues = validatePublicSnapshotTraceability(
@@ -139,7 +189,16 @@ function runParityRegressionTests() {
   issues = validatePublicSnapshotTraceability([authoritative], [authoritative, { ...authoritative }]);
   assertTest(issues.some(issue => issue.includes('duplicate id')), 'duplicate public requisition id must fail closed');
 
-  console.log('Microsoft requisition parity regression passed.');
+  issues = validatePublicationGroupCoverage([authoritative, sameSiteShift], [authoritative]);
+  assertTest(issues.length === 0, `same-site shift variants may collapse to one public representative, got ${issues.join(' | ')}`);
+
+  issues = validatePublicationGroupCoverage([authoritative, otherSite], [authoritative]);
+  assertTest(issues.some(issue => issue.includes('missing authoritative site-role group')), 'same title at a distinct site must remain represented');
+
+  issues = validatePublicationGroupCoverage([authoritative, sameSiteShift], [authoritative, sameSiteShift]);
+  assertTest(issues.some(issue => issue.includes('expected one representative')), 'duplicate public cards in one normalized site-role group must fail closed');
+
+  console.log('Microsoft requisition and site-role parity regression passed.');
 }
 
 if (process.argv.includes('--test')) {
@@ -209,6 +268,9 @@ const microsoftStatus = status?.microsoftDatacenter || {};
 const sourceHealthy = microsoftStatus.sourceHealthy === true && microsoftStatus.sourceMode !== 'retained-previous';
 const fallback = microsoftStatus.snapshotFallback || {};
 const publicMicrosoft = jobs.filter(job => clean(job?.company) === COMPANY);
+const snapshotGroups = publicationGroups(snapshot.jobs);
+const publicGroups = publicationGroups(publicMicrosoft);
+const shouldEnforceRetention = sourceHealthy || policyFresh || fallback.active === true;
 
 const traceabilityIssues = validatePublicSnapshotTraceability(snapshot.jobs, publicMicrosoft);
 if (traceabilityIssues.length) {
@@ -216,26 +278,16 @@ if (traceabilityIssues.length) {
   throw new Error(`Blocked ${traceabilityIssues.length} Microsoft requisition traceability violation(s).`);
 }
 
-if (!sourceHealthy && !policyFresh && publicMicrosoft.length) {
-  throw new Error(`Microsoft public feed still contains ${publicMicrosoft.length} role(s) more than ${MAX_FALLBACK_AGE_HOURS} hours after the last verified employer-direct snapshot.`);
-}
-
-const snapshotTitles = uniqueTitles(snapshot.jobs);
-const publicTitles = uniqueTitles(publicMicrosoft);
-const missingTitles = [...snapshotTitles].filter(title => !publicTitles.has(title));
-const shouldEnforceRetention = sourceHealthy || policyFresh || fallback.active === true;
-
-// The public feed intentionally collapses same-employer/same-title postings
-// across locations and shifts. Protect unique role coverage while separately
-// requiring every published Microsoft card to trace to one exact requisition.
-if (shouldEnforceRetention && snapshotTitles.size >= 8) {
-  const minimumRetained = Math.ceil(snapshotTitles.size * MIN_PUBLIC_RETENTION);
-  if (publicTitles.size < minimumRetained) {
-    throw new Error(`Microsoft public feed retained only ${publicTitles.size}/${snapshotTitles.size} unique verified role titles; expected at least ${minimumRetained}.`);
+if (shouldEnforceRetention) {
+  const coverageIssues = validatePublicationGroupCoverage(snapshot.jobs, publicMicrosoft);
+  if (coverageIssues.length) {
+    for (const issue of coverageIssues) console.error(`Microsoft publication-parity violation: ${issue}`);
+    throw new Error(`Blocked ${coverageIssues.length} Microsoft site-role publication parity violation(s).`);
   }
 }
-if (shouldEnforceRetention && missingTitles.length > Math.floor(snapshotTitles.size * (1 - MIN_PUBLIC_RETENTION))) {
-  throw new Error(`Microsoft public feed is missing ${missingTitles.length}/${snapshotTitles.size} unique verified role title(s).`);
+
+if (!sourceHealthy && !policyFresh && publicMicrosoft.length) {
+  throw new Error(`Microsoft public feed still contains ${publicMicrosoft.length} role(s) more than ${MAX_FALLBACK_AGE_HOURS} hours after the last verified employer-direct snapshot.`);
 }
 
 if (fallback.active === true) {
@@ -253,16 +305,13 @@ if (fallback.active === true) {
   if (fallbackRoles !== snapshot.jobs.length) {
     throw new Error(`Microsoft fallback metadata expects ${fallbackRoles} role(s), but the verified snapshot contains ${snapshot.jobs.length}.`);
   }
-  if (missingTitles.length) {
-    throw new Error(`Microsoft active fallback lost ${missingTitles.length}/${snapshotTitles.size} unique verified role title(s) before deployment.`);
-  }
 }
 
 if (!policyFresh) {
   console.warn(`Microsoft snapshot exceeded the ${MAX_FALLBACK_AGE_HOURS}-hour publication window at ${new Date(policyExpiresAt).toISOString()}; fallback restoration is disabled until a fresh direct-source refresh.`);
 } else {
-  console.log(`Microsoft snapshot validation passed: ${snapshot.jobs.length} employer-direct requisitions represented by ${publicMicrosoft.length} exact-traceable public card(s) across ${publicTitles.size} role title(s), recoverable through ${new Date(policyExpiresAt).toISOString()}.`);
+  console.log(`Microsoft snapshot validation passed: ${snapshot.jobs.length} employer-direct requisitions represented by ${publicMicrosoft.length} exact-traceable public card(s) across ${publicGroups.size}/${snapshotGroups.size} authoritative site-role group(s), recoverable through ${new Date(policyExpiresAt).toISOString()}.`);
 }
 if (fallback.active === true) {
-  console.log(`Microsoft zero-collapse fallback integrity passed: ${publicTitles.size}/${snapshotTitles.size} unique verified role titles remain public.`);
+  console.log(`Microsoft zero-collapse fallback integrity passed: ${publicGroups.size}/${snapshotGroups.size} authoritative site-role group(s) remain public.`);
 }

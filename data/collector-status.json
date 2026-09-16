@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T05:48:57.151Z",
+  "updatedAt": "2026-09-16T06:23:33.145Z",
   "jobs": 676,
   "sourcesAttempted": 18,
   "providers": {
@@ -3582,7 +3582,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T05:48:57.233Z",
+    "checkedAt": "2026-09-16T06:23:33.227Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3590,7 +3590,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T05:48:57.312Z",
+    "updatedAt": "2026-09-16T06:23:33.304Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 676,
@@ -3609,7 +3609,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T05:48:57.385Z",
+    "checkedAt": "2026-09-16T06:23:33.376Z",
     "before": 676,
     "after": 676,
     "removed": 0,
@@ -3617,7 +3617,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T05:49:16.899Z",
+    "checkedAt": "2026-09-16T06:23:51.903Z",
     "publishedJobs": 676,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3635,7 +3635,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-16T05:49:17.496Z"
+    "updatedAt": "2026-09-16T06:23:52.082Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3706,18 +3706,18 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-15T17:43:26.777Z",
+    "checkedAt": "2026-09-16T06:23:33.145Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",
     "officialLeverBoard": "https://jobs.lever.co/cologix",
     "api": "https://api.lever.co/v0/postings/cologix?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 26,
-    "usJobs": 20,
+    "listedJobs": 27,
+    "usJobs": 21,
     "candidateRoles": 12,
     "qualifyingRoles": 10,
-    "rejectedOutOfScopeTitle": 8,
+    "rejectedOutOfScopeTitle": 9,
     "rejectedSeniorTitle": 0,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0

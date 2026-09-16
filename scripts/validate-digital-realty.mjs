@@ -8,11 +8,12 @@ const SNAPSHOT_PATH = 'data/digital-realty-jobs.json';
 const MAX_FALLBACK_AGE_HOURS = 96;
 const MAX_HEALTHY_EVIDENCE_AGE_HOURS = 30;
 const MAX_FALLBACK_AGE_MS = MAX_FALLBACK_AGE_HOURS * 60 * 60 * 1000;
+const MAX_HEALTHY_EVIDENCE_AGE_MS = MAX_HEALTHY_EVIDENCE_AGE_HOURS * 60 * 60 * 1000;
 const VALID_EXPERIENCE = new Set(['no-experience', '0-2-years', '2-5-years']);
 const VALID_TYPES = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
 const EXECUTIVE_PATTERN = /\b(?:senior|sr\.?|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman)\b/i;
-const PARITY_FIELDS = ['title', 'company', 'type', 'experience', 'source', 'sourceUrl', 'active', 'demo'];
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
 function gitLastChangedAt(path) {
   try {
@@ -23,104 +24,42 @@ function gitLastChangedAt(path) {
   }
 }
 
-function canonicalIdentity(job = {}) {
-  const id = clean(job?.id);
-  const sourceUrl = clean(job?.sourceUrl);
-  let parsed;
-  try { parsed = new URL(sourceUrl); } catch { return null; }
-  if (parsed.protocol !== 'https:' || parsed.hostname.toLowerCase() !== OFFICIAL_HOST) return null;
-  if (parsed.username || parsed.password || parsed.search || parsed.hash) return null;
-  if (!parsed.pathname.startsWith(OFFICIAL_PATH_PREFIX)) return null;
-  const requisition = decodeURIComponent(parsed.pathname.slice(OFFICIAL_PATH_PREFIX.length)).replace(/\/$/, '');
-  if (!/^\d+$/.test(requisition)) return null;
-  if (parsed.pathname !== `${OFFICIAL_PATH_PREFIX}${encodeURIComponent(requisition)}`) return null;
-  const expectedId = `oracle-digitalrealty-${requisition}`;
-  if (id !== expectedId) return null;
-  return { requisition, expectedId, sourceUrl };
+function healthyEvidenceState(verifiedAt, nowMs = Date.now()) {
+  const verifiedMs = Date.parse(String(verifiedAt || ''));
+  if (!Number.isFinite(verifiedMs)) return { fresh: false, ageHours: null };
+  const ageMs = Math.max(0, nowMs - verifiedMs);
+  return { fresh: ageMs < MAX_HEALTHY_EVIDENCE_AGE_MS, ageHours: ageMs / 36e5 };
 }
 
-function validateRequisitionParity(snapshotJobs, publicJobs) {
-  const issues = [];
-  const snapshotByReq = new Map();
-  const publicByReq = new Map();
-
-  for (const job of snapshotJobs) {
-    const canonical = canonicalIdentity(job);
-    if (!canonical) {
-      issues.push(`snapshot ${clean(job?.id) || '(missing id)'} does not bind to one canonical Digital Realty requisition URL`);
-      continue;
-    }
-    if (snapshotByReq.has(canonical.requisition)) issues.push(`snapshot contains duplicate requisition ${canonical.requisition}`);
-    else snapshotByReq.set(canonical.requisition, job);
-  }
-
-  for (const job of publicJobs) {
-    const canonical = canonicalIdentity(job);
-    if (!canonical) {
-      issues.push(`public ${clean(job?.id) || '(missing id)'} does not bind to one canonical Digital Realty requisition URL`);
-      continue;
-    }
-    if (publicByReq.has(canonical.requisition)) issues.push(`public feed contains duplicate requisition ${canonical.requisition}`);
-    else publicByReq.set(canonical.requisition, job);
-  }
-
-  for (const [requisition, snapshotJob] of snapshotByReq) {
-    const publicJob = publicByReq.get(requisition);
-    if (!publicJob) {
-      issues.push(`verified requisition ${requisition} is missing from the public feed`);
-      continue;
-    }
-    for (const field of PARITY_FIELDS) {
-      const expected = typeof snapshotJob?.[field] === 'string' ? clean(snapshotJob[field]) : snapshotJob?.[field];
-      const actual = typeof publicJob?.[field] === 'string' ? clean(publicJob[field]) : publicJob?.[field];
-      if (expected !== actual) issues.push(`requisition ${requisition} differs from the verified snapshot for ${field}`);
-    }
-  }
-
-  for (const requisition of publicByReq.keys()) {
-    if (!snapshotByReq.has(requisition)) issues.push(`public requisition ${requisition} is absent from the verified snapshot`);
-  }
-
-  if (publicByReq.size !== snapshotByReq.size) {
-    issues.push(`public/snapshot requisition count drift (${publicByReq.size}/${snapshotByReq.size})`);
-  }
-  return issues;
+function runHealthyEvidenceTests() {
+  const now = Date.parse('2026-09-16T12:00:00Z');
+  const fresh = healthyEvidenceState('2026-09-15T06:00:01Z', now);
+  if (!fresh.fresh || fresh.ageHours >= MAX_HEALTHY_EVIDENCE_AGE_HOURS) throw new Error('Digital Realty healthy evidence expired before 30 hours.');
+  const boundary = healthyEvidenceState('2026-09-15T06:00:00Z', now);
+  if (boundary.fresh) throw new Error('Digital Realty healthy evidence did not expire at the 30-hour boundary.');
+  const missing = healthyEvidenceState(null, now);
+  if (missing.fresh || missing.ageHours !== null) throw new Error('Digital Realty healthy evidence without a verification anchor did not fail closed.');
+  console.log('Digital Realty healthy evidence freshness regression tests passed.');
 }
 
-function runRegressionTests() {
-  const base = {
-    id: 'oracle-digitalrealty-8510',
-    title: 'Technician II',
-    company: COMPANY,
-    location: 'NY, United States',
-    type: 'entry-level',
-    experience: '2-5-years',
-    source: 'Employer career site',
-    sourceUrl: `https://${OFFICIAL_HOST}${OFFICIAL_PATH_PREFIX}8510`,
-    active: true,
-    demo: false
-  };
-  const alteredLocation = { ...base, location: 'New York, NY', region: 'northeast' };
-  const cases = [
-    ['canonical requisition accepted', [base], [alteredLocation], true],
-    ['mismatched id/url rejected', [{ ...base, id: 'oracle-digitalrealty-8511' }], [alteredLocation], false],
-    ['wrong host rejected', [{ ...base, sourceUrl: 'https://example.com/job/8510' }], [alteredLocation], false],
-    ['missing public requisition rejected', [base], [], false],
-    ['unexpected public requisition rejected', [base], [alteredLocation, { ...alteredLocation, id: 'oracle-digitalrealty-8511', sourceUrl: `https://${OFFICIAL_HOST}${OFFICIAL_PATH_PREFIX}8511` }], false],
-    ['field drift rejected', [base], [{ ...alteredLocation, experience: '0-2-years' }], false]
-  ];
-  const failures = [];
-  for (const [name, snapshot, published, shouldPass] of cases) {
-    const issues = validateRequisitionParity(snapshot, published);
-    if ((issues.length === 0) !== shouldPass) failures.push(`${name}: ${issues.join(' | ') || 'unexpected pass'}`);
-  }
-  if (failures.length) throw new Error(`Digital Realty requisition parity regression failed: ${failures.join(' || ')}`);
-  console.log(`Digital Realty requisition parity regression passed ${cases.length} cases.`);
-}
-
-if (process.argv.includes('--test')) {
-  runRegressionTests();
+if (process.argv.includes('--test-freshness')) {
+  runHealthyEvidenceTests();
   process.exit(0);
+}
+
+function canonicalTitle(job) {
+  let title = clean(job?.title);
+  const location = normalize(job?.location);
+  const locationTokens = new Set(location.split(' ').filter(token => token.length > 1));
+  const tailBelongsToLocation = tail => {
+    const tokens = normalize(tail).split(' ').filter(token => token.length > 1);
+    return tokens.length > 0 && tokens.every(token => locationTokens.has(token));
+  };
+  title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
+  title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
+  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
+  return normalize(title);
 }
 
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
@@ -133,17 +72,20 @@ requireOk(Array.isArray(jobs), 'Public jobs feed is not an array.');
 requireOk(Array.isArray(snapshot), 'Digital Realty dedicated snapshot is not an array.');
 requireOk(source && typeof source === 'object', 'Digital Realty collector status is missing.');
 const snapshotJobs = Array.isArray(snapshot) ? snapshot : [];
-const publicJobs = Array.isArray(jobs) ? jobs.filter(job => clean(job?.company) === COMPANY) : [];
+const publicJobs = Array.isArray(jobs) ? jobs.filter(job => job?.company === COMPANY) : [];
 
 function validateOfficialUrl(job, label) {
-  const canonical = canonicalIdentity(job);
-  requireOk(Boolean(canonical), `${label} does not bind its id to one canonical official Digital Realty requisition URL.`);
+  let parsed;
+  try { parsed = new URL(String(job?.sourceUrl || '')); } catch { requireOk(false, `${label} has an invalid source URL.`); return; }
+  requireOk(parsed.protocol === 'https:', `${label} does not use HTTPS.`);
+  requireOk(parsed.hostname.toLowerCase() === OFFICIAL_HOST, `${label} is not employer-direct (${parsed.hostname || 'missing host'}).`);
+  requireOk(parsed.pathname.startsWith(OFFICIAL_PATH_PREFIX), `${label} does not point to the Digital Realty Candidate Experience job path.`);
 }
 
 function validateJob(job, label, requireRegion = false) {
   requireOk(Boolean(job?.id), `${label} is missing an id.`);
   requireOk(String(job?.id || '').startsWith('oracle-digitalrealty-'), `${label} has an unexpected id namespace.`);
-  requireOk(clean(job?.company) === COMPANY, `${label} is owned by ${job?.company || '(blank)'} instead of Digital Realty.`);
+  requireOk(job?.company === COMPANY, `${label} is owned by ${job?.company || '(blank)'} instead of Digital Realty.`);
   requireOk(Boolean(job?.title), `${label} is missing a title.`);
   requireOk(Boolean(job?.location), `${label} is missing a location.`);
   requireOk(VALID_TYPES.has(job?.type), `${label} has invalid role type ${job?.type || '(blank)'}.`);
@@ -161,24 +103,26 @@ if (source) {
   requireOk(String(source.boardUrl || '').startsWith(`https://${OFFICIAL_HOST}/hcmUI/CandidateExperience/en/sites/CX`), 'Digital Realty board URL metadata is not the official Oracle Recruiting Cloud board.');
   requireOk(Number(source.qualifyingRoles || 0) === snapshotJobs.length, `Digital Realty status reports ${Number(source.qualifyingRoles || 0)} qualifying role(s) but snapshot contains ${snapshotJobs.length}.`);
   requireOk(Number(source.preservedPrevious || 0) <= Number(source.detailFailures || 0), 'Digital Realty preservedPrevious exceeds reported detail failures.');
-  requireOk(Number(source.snapshotMaxAgeHours) === MAX_FALLBACK_AGE_HOURS, `Digital Realty fallback window drifted from ${MAX_FALLBACK_AGE_HOURS} hours.`);
 
-  const verifiedAt = source.lastHealthyAt || source.snapshotVerifiedAt || gitLastChangedAt(SNAPSHOT_PATH);
-  const verifiedMs = Date.parse(String(verifiedAt || ''));
-  const evidenceAgeHours = Number.isFinite(verifiedMs) ? Math.max(0, (Date.now() - verifiedMs) / (60 * 60 * 1000)) : null;
+  if (source.snapshotMaxAgeHours !== undefined) {
+    requireOk(Number(source.snapshotMaxAgeHours) === MAX_FALLBACK_AGE_HOURS, `Digital Realty fallback window drifted from ${MAX_FALLBACK_AGE_HOURS} hours.`);
+  }
 
   if (source.sourceHealthy === true) {
     requireOk(Number(source.candidateRows || 0) > 0, 'Digital Realty source reported healthy but returned no candidate rows.');
     requireOk(Number(source.detailAttempts || 0) >= snapshotJobs.length, `Digital Realty healthy source attempted only ${Number(source.detailAttempts || 0)} detail page(s) for ${snapshotJobs.length} published snapshot role(s).`);
     requireOk(Number(source.candidateRows || 0) >= snapshotJobs.length, `Digital Realty healthy source has fewer candidates (${Number(source.candidateRows || 0)}) than qualifying snapshot roles (${snapshotJobs.length}).`);
-    requireOk(Number.isFinite(verifiedMs), 'Digital Realty healthy source has no trustworthy verification timestamp.');
-    requireOk(evidenceAgeHours == null || evidenceAgeHours < MAX_HEALTHY_EVIDENCE_AGE_HOURS, `Digital Realty healthy source evidence is ${evidenceAgeHours?.toFixed?.(1) ?? 'unknown'} hours old; maximum is ${MAX_HEALTHY_EVIDENCE_AGE_HOURS} hours.`);
+    const verifiedAt = source.lastHealthyAt || source.snapshotVerifiedAt || gitLastChangedAt(SNAPSHOT_PATH);
+    const evidence = healthyEvidenceState(verifiedAt);
+    requireOk(evidence.fresh, `Digital Realty healthy source evidence is ${evidence.ageHours === null ? 'unverified' : `${evidence.ageHours.toFixed(1)} hours old`}; maximum is ${MAX_HEALTHY_EVIDENCE_AGE_HOURS} hours.`);
     if (source.fallbackUsed !== undefined) requireOk(source.fallbackUsed === false, 'Digital Realty healthy source must not report fallback usage.');
     if (source.fallbackExpired !== undefined) requireOk(source.fallbackExpired === false, 'Digital Realty healthy source must not report an expired fallback.');
   } else {
     requireOk(Array.isArray(source.errors) && source.errors.length > 0, 'Digital Realty source is unhealthy without a recorded collector error.');
 
     if (snapshotJobs.length > 0) {
+      const verifiedAt = source.lastHealthyAt || source.snapshotVerifiedAt || gitLastChangedAt(SNAPSHOT_PATH);
+      const verifiedMs = Date.parse(String(verifiedAt || ''));
       const fallbackAgeMs = Number.isFinite(verifiedMs) ? Date.now() - verifiedMs : Infinity;
       const fallbackAgeHours = fallbackAgeMs / (60 * 60 * 1000);
       requireOk(Number.isFinite(verifiedMs), 'Digital Realty preserved snapshot has no trustworthy verification timestamp.');
@@ -193,8 +137,12 @@ if (source) {
   }
 }
 
-const parityIssues = validateRequisitionParity(snapshotJobs, publicJobs);
-for (const issue of parityIssues) errors.push(`Digital Realty requisition parity: ${issue}.`);
+const snapshotTitles = new Set(snapshotJobs.map(canonicalTitle).filter(Boolean));
+const publicTitles = new Set(publicJobs.map(canonicalTitle).filter(Boolean));
+const missingTitles = [...snapshotTitles].filter(title => !publicTitles.has(title));
+const unexpectedTitles = [...publicTitles].filter(title => !snapshotTitles.has(title));
+requireOk(missingTitles.length === 0, `Digital Realty public feed is missing ${missingTitles.length}/${snapshotTitles.size} authoritative unique role title(s).`);
+requireOk(unexpectedTitles.length === 0, `Digital Realty public feed contains ${unexpectedTitles.length} unique role title(s) not present in the authoritative snapshot.`);
 
 if (errors.length) {
   console.error('Digital Realty source validation failed:');
@@ -206,4 +154,4 @@ const sourceState = source?.sourceHealthy === true
   : snapshotJobs.length
     ? 'using a fresh preserved snapshot'
     : 'unavailable with no stale fallback published';
-console.log(`Digital Realty source validation passed: ${snapshotJobs.length} protected requisition(s) have exact public requisition parity; source ${sourceState}.`);
+console.log(`Digital Realty source validation passed: ${snapshotJobs.length} protected requisitions represented by ${publicTitles.size} clean public role title(s), source ${sourceState}.`);

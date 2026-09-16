@@ -1,0 +1,52 @@
+name: EdgeConneX source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/collect-edgeconnex-careers.mjs
+      - scripts/enforce-edgeconnex-fallback-freshness.mjs
+      - scripts/validate-edgeconnex.mjs
+      - data/edgeconnex-jobs.json
+      - data/edgeconnex-source-evidence.json
+      - data/jobs.json
+      - data/collector-status.json
+      - .github/workflows/edgeconnex-source-integrity-guard.yml
+      - .github/workflows/edgeconnex-bootstrap.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/collect-edgeconnex-careers.mjs
+      - scripts/enforce-edgeconnex-fallback-freshness.mjs
+      - scripts/validate-edgeconnex.mjs
+      - data/edgeconnex-jobs.json
+      - data/edgeconnex-source-evidence.json
+      - data/jobs.json
+      - data/collector-status.json
+      - .github/workflows/edgeconnex-source-integrity-guard.yml
+      - .github/workflows/edgeconnex-bootstrap.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate fallback policy regressions
+        run: node scripts/enforce-edgeconnex-fallback-freshness.mjs --test
+      - name: Validate requisition identity regressions
+        run: node scripts/validate-edgeconnex.mjs --test
+      - name: Validate committed fallback freshness
+        run: node scripts/enforce-edgeconnex-fallback-freshness.mjs --check
+      - name: Validate verified snapshot and public-feed parity
+        run: node scripts/validate-edgeconnex.mjs
+      - name: Validate shared employer-direct contracts
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs

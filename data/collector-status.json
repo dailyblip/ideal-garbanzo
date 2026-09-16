@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T16:59:37.070Z",
+  "updatedAt": "2026-09-16T17:11:17.536Z",
   "jobs": 667,
   "sourcesAttempted": 17,
   "providers": {
@@ -3612,7 +3612,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T17:06:58.843Z",
+    "checkedAt": "2026-09-16T17:11:17.659Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3620,7 +3620,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T17:06:58.918Z",
+    "updatedAt": "2026-09-16T17:11:17.734Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 667,
@@ -3630,8 +3630,8 @@
     "countsByRegion": {
       "midwest": 134,
       "southeast": 101,
-      "texas": 114,
       "southwest": 77,
+      "texas": 114,
       "mid-atlantic": 126,
       "west": 92,
       "northeast": 22,
@@ -3639,7 +3639,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T17:06:58.987Z",
+    "checkedAt": "2026-09-16T17:11:17.804Z",
     "before": 667,
     "after": 667,
     "removed": 0,
@@ -3647,7 +3647,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T17:07:25.438Z",
+    "checkedAt": "2026-09-16T17:11:39.929Z",
     "publishedJobs": 667,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3665,7 +3665,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-16T17:07:25.770Z"
+    "updatedAt": "2026-09-16T17:11:40.217Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3790,18 +3790,18 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-16T12:44:27.574Z",
+    "checkedAt": "2026-09-16T17:11:17.536Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",
     "officialWorkableBoard": "https://apply.workable.com/stream-dc/",
     "api": "https://www.workable.com/api/accounts/stream-dc?details=true",
     "authoritativeSnapshot": true,
-    "listedJobs": 7,
-    "usJobs": 7,
+    "listedJobs": 9,
+    "usJobs": 9,
     "candidateRoles": 6,
     "qualifyingRoles": 5,
-    "rejectedOutOfScopeTitle": 1,
+    "rejectedOutOfScopeTitle": 3,
     "rejectedSeniorTitle": 1,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0

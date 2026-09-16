@@ -36,6 +36,7 @@ jobs:
           node --check scripts/collect-cologix.mjs
           node --check scripts/validate-cologix.mjs
           node scripts/collect-cologix.mjs --test-classifier
+          node scripts/validate-cologix.mjs --test
           node scripts/collect-jobs.mjs --test-preservation
       - name: Collect official Cologix Lever roles
         run: node scripts/collect-cologix.mjs
@@ -70,6 +71,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node scripts/collect-cologix.mjs --test-classifier
+            node scripts/validate-cologix.mjs --test
             node scripts/collect-jobs.mjs --test-preservation
             node scripts/collect-cologix.mjs
             node scripts/filter-mission-fit.mjs

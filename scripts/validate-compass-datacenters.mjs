@@ -1,43 +1,222 @@
 import { readFile } from 'node:fs/promises';
 
-const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
-const compass = JSON.parse(await readFile('data/compass-status.json', 'utf8'));
-const violations = [];
-
-if (!compass || typeof compass !== 'object') violations.push('compass-status.json is missing source diagnostics');
-else {
-  if (compass.boardUrl !== 'https://compass-datacenters.breezy.hr/') violations.push(`unexpected Compass board URL: ${compass.boardUrl || '(missing)'}`);
-  if (compass.sourceHealthy !== true) violations.push('Compass source is not healthy');
-  if (!Number.isInteger(compass.listedPositions) || compass.listedPositions < 1) violations.push('Compass board returned no public positions');
-  if (!Number.isInteger(compass.detailFetched) || compass.detailFetched < 1) violations.push('Compass detail fetch coverage is empty');
-  if (!Number.isInteger(compass.structuredDetails) || compass.structuredDetails < Math.ceil((compass.detailFetched || 0) * 0.5)) {
-    violations.push(`Compass structured-data coverage is too low: ${compass.structuredDetails || 0}/${compass.detailFetched || 0}`);
-  }
-}
-
-const compassJobs = Array.isArray(jobs) ? jobs.filter(job => String(job?.company || '').trim() === 'Compass Datacenters') : [];
+const COMPANY = 'Compass Datacenters';
+const BOARD_URL = 'https://compass-datacenters.breezy.hr/';
+const BOARD_HOST = 'compass-datacenters.breezy.hr';
+const SNAPSHOT_PATH = 'data/compass-jobs.json';
+const JOBS_PATH = 'data/jobs.json';
+const STATUS_PATH = 'data/compass-status.json';
+const EXPECTED_SOURCE = 'Official Compass Datacenters Careers';
+const MAX_FALLBACK_AGE_HOURS = 168;
 const allowedTypes = new Set(['internship', 'apprenticeship', 'trainee', 'entry-level']);
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const bannedSenior = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|architect)\b/i;
+const parityFields = ['type', 'experience', 'source', 'sourceUrl', 'active', 'demo'];
 
-for (const job of compassJobs) {
-  let url;
-  try { url = new URL(String(job.sourceUrl || '')); }
-  catch {
-    violations.push(`${job.id || '(missing id)'} has an invalid source URL`);
-    continue;
-  }
-  if (url.protocol !== 'https:' || url.hostname !== 'compass-datacenters.breezy.hr') {
-    violations.push(`${job.id || '(missing id)'} does not use the official Compass Breezy host`);
-  }
-  if (!allowedTypes.has(job.type)) violations.push(`${job.id || '(missing id)'} has invalid type ${job.type}`);
-  if (!allowedExperience.has(job.experience)) violations.push(`${job.id || '(missing id)'} has invalid experience ${job.experience}`);
-  if (bannedSenior.test(String(job.title || ''))) violations.push(`${job.id || '(missing id)'} leaked a senior/leadership title: ${job.title}`);
+const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+function stableIdFromUrl(sourceUrl = '') {
+  const prefixMatch = String(sourceUrl).match(/\/p\/([a-z0-9]+)-/i);
+  return prefixMatch?.[1] || String(sourceUrl).replace(/[^a-z0-9]/gi, '').slice(-16);
 }
 
+function canonicalBreezyIdentity(job = {}) {
+  const sourceUrl = clean(job?.sourceUrl);
+  let url;
+  try { url = new URL(sourceUrl); } catch { return null; }
+  if (url.protocol !== 'https:' || url.hostname.toLowerCase() !== BOARD_HOST) return null;
+  if (url.username || url.password || url.search || url.hash) return null;
+  const match = url.pathname.match(/^\/p\/([a-z0-9-]+)$/i);
+  if (!match) return null;
+  const canonicalUrl = `https://${BOARD_HOST}${url.pathname}`;
+  if (sourceUrl !== canonicalUrl) return null;
+  const requisitionKey = stableIdFromUrl(canonicalUrl);
+  if (!requisitionKey || clean(job?.id) !== `compass-${requisitionKey}`) return null;
+  return { requisitionKey, canonicalUrl };
+}
+
+function isCompassJob(job = {}) {
+  if (clean(job?.company) === COMPANY) return true;
+  try { return new URL(clean(job?.sourceUrl)).hostname.toLowerCase() === BOARD_HOST; }
+  catch { return false; }
+}
+
+function validateRole(job, context, violations) {
+  const id = clean(job?.id) || '(missing id)';
+  const prefix = `${context} ${id}`;
+  if (clean(job?.company) !== COMPANY) violations.push(`${prefix}: wrong company`);
+  if (!clean(job?.title)) violations.push(`${prefix}: blank title`);
+  if (!clean(job?.location)) violations.push(`${prefix}: blank location`);
+  if (!allowedTypes.has(clean(job?.type))) violations.push(`${prefix}: invalid type ${job?.type}`);
+  if (!allowedExperience.has(clean(job?.experience))) violations.push(`${prefix}: invalid experience ${job?.experience}`);
+  if (bannedSenior.test(clean(job?.title))) violations.push(`${prefix}: senior/leadership title leaked: ${job?.title}`);
+  if (clean(job?.source) !== EXPECTED_SOURCE) violations.push(`${prefix}: source must be ${EXPECTED_SOURCE}`);
+  if (!canonicalBreezyIdentity(job)) violations.push(`${prefix}: id/sourceUrl are not the same canonical Compass Breezy requisition`);
+  if (job?.active !== true || job?.demo === true) violations.push(`${prefix}: role must be active and non-demo`);
+}
+
+function validateState(snapshot, jobs, compass) {
+  const violations = [];
+  const sourceHealthy = compass?.sourceHealthy === true;
+  const fallbackExpired = compass?.fallbackExpired === true;
+
+  if (!compass || typeof compass !== 'object') violations.push('compass-status.json is missing source diagnostics');
+  if (!Array.isArray(snapshot)) violations.push('compass-jobs.json is not a JSON array');
+  if (!Array.isArray(jobs)) violations.push('jobs.json is not a JSON array');
+
+  if (compass && typeof compass === 'object') {
+    if (compass.boardUrl !== BOARD_URL) violations.push(`unexpected Compass board URL: ${compass.boardUrl || '(missing)'}`);
+    if (!Number.isInteger(compass.listedPositions) || compass.listedPositions < 1) violations.push('Compass board returned no public positions');
+    if (!Number.isInteger(compass.detailFetched) || compass.detailFetched < 1) violations.push('Compass detail fetch coverage is empty');
+
+    if (sourceHealthy) {
+      if (compass.boardFetched !== true) violations.push('healthy Compass source is missing board fetch evidence');
+      if (Number(compass.detailAttempted) !== Number(compass.listedPositions)) violations.push('healthy Compass source did not attempt every listed position');
+      if (Number(compass.detailFetched) !== Number(compass.listedPositions)) violations.push('healthy Compass source did not fetch every listed position');
+      if (Number(compass.structuredDetails) !== Number(compass.detailFetched)) violations.push('healthy Compass source did not parse structured data for every fetched position');
+      if (compass.listingComplete === false) violations.push('healthy Compass source is marked listing-incomplete');
+      if (compass.authoritativeSnapshot === false) violations.push('healthy Compass source is marked non-authoritative');
+    } else {
+      const lastHealthyMs = Date.parse(String(compass.lastHealthyAt || ''));
+      const fallbackActive = compass.usedPreviousSnapshot === true;
+      if (fallbackActive && (!Number.isFinite(lastHealthyMs) || fallbackExpired)) {
+        violations.push('Compass fallback is marked active without fresh verified evidence');
+      }
+      if (fallbackActive && Number(compass.fallbackAgeHours) >= MAX_FALLBACK_AGE_HOURS) {
+        violations.push('Compass fallback exceeds the 168-hour freshness limit');
+      }
+    }
+  }
+
+  const sourceJobs = Array.isArray(snapshot) ? snapshot : [];
+  const publicJobs = Array.isArray(jobs) ? jobs.filter(isCompassJob) : [];
+
+  if (fallbackExpired && (sourceJobs.length || publicJobs.length)) {
+    violations.push('expired Compass fallback must publish zero snapshot/public roles');
+  }
+  if (Number.isFinite(Number(compass?.publishedRoles)) && Number(compass.publishedRoles) !== sourceJobs.length) {
+    violations.push(`Compass status publishedRoles mismatch: ${compass.publishedRoles} vs ${sourceJobs.length}`);
+  }
+
+  const authoritative = new Map();
+  const snapshotUrls = new Set();
+  for (const job of sourceJobs) {
+    validateRole(job, 'snapshot', violations);
+    const id = clean(job?.id);
+    const sourceUrl = clean(job?.sourceUrl);
+    if (!id) continue;
+    if (authoritative.has(id)) violations.push(`snapshot duplicate id: ${id}`);
+    else authoritative.set(id, job);
+    if (sourceUrl && snapshotUrls.has(sourceUrl)) violations.push(`snapshot duplicate source URL: ${sourceUrl}`);
+    else if (sourceUrl) snapshotUrls.add(sourceUrl);
+  }
+
+  const publicById = new Map();
+  const publicUrls = new Set();
+  for (const job of publicJobs) {
+    validateRole(job, 'public', violations);
+    const id = clean(job?.id);
+    const sourceUrl = clean(job?.sourceUrl);
+    if (!id) continue;
+    if (publicById.has(id)) violations.push(`public duplicate id: ${id}`);
+    else publicById.set(id, job);
+    if (sourceUrl && publicUrls.has(sourceUrl)) violations.push(`public duplicate source URL: ${sourceUrl}`);
+    else if (sourceUrl) publicUrls.add(sourceUrl);
+  }
+
+  for (const [id, sourceJob] of authoritative) {
+    const publicJob = publicById.get(id);
+    if (!publicJob) {
+      violations.push(`authoritative Compass role missing from public feed: ${id} | ${sourceJob.title} | ${sourceJob.location}`);
+      continue;
+    }
+    if (normalize(publicJob.title) !== normalize(sourceJob.title)) violations.push(`${id}: public title drifted from authoritative snapshot`);
+    if (normalize(publicJob.location) !== normalize(sourceJob.location)) violations.push(`${id}: public location drifted from authoritative snapshot`);
+    for (const field of parityFields) {
+      if (publicJob?.[field] !== sourceJob?.[field]) violations.push(`${id}: public ${field} drifted from authoritative snapshot`);
+    }
+  }
+
+  for (const [id, publicJob] of publicById) {
+    if (!authoritative.has(id)) violations.push(`unexpected public Compass requisition: ${id} | ${publicJob.title} | ${publicJob.location}`);
+  }
+
+  return violations;
+}
+
+function runSelfTest() {
+  const role = {
+    id: 'compass-abc123',
+    title: 'Critical Facilities Technician',
+    company: COMPANY,
+    location: 'Dallas, TX',
+    type: 'entry-level',
+    experience: '0-2-years',
+    source: EXPECTED_SOURCE,
+    sourceUrl: 'https://compass-datacenters.breezy.hr/p/abc123-critical-facilities-technician',
+    active: true,
+    demo: false
+  };
+  const healthyStatus = {
+    boardUrl: BOARD_URL,
+    sourceHealthy: true,
+    boardFetched: true,
+    listedPositions: 1,
+    detailAttempted: 1,
+    detailFetched: 1,
+    structuredDetails: 1,
+    listingComplete: true,
+    authoritativeSnapshot: true,
+    publishedRoles: 1,
+    fallbackExpired: false
+  };
+
+  const baseline = validateState([role], [role], healthyStatus);
+  if (baseline.length) throw new Error(`Compass parity baseline failed: ${baseline.join(' | ')}`);
+
+  const drift = validateState([role], [{ ...role, title: 'Critical Facilities Engineer' }], healthyStatus);
+  if (!drift.some(value => value.includes('title drifted'))) throw new Error('Compass title-drift regression was not detected.');
+
+  const duplicate = validateState([role], [role, { ...role }], healthyStatus);
+  if (!duplicate.some(value => value.includes('public duplicate id'))) throw new Error('Compass duplicate-requisition regression was not detected.');
+
+  const badIdentity = validateState([{ ...role, id: 'compass-wrong' }], [{ ...role, id: 'compass-wrong' }], healthyStatus);
+  if (!badIdentity.some(value => value.includes('canonical Compass Breezy requisition'))) throw new Error('Compass canonical ID/URL regression was not detected.');
+
+  const unexpected = validateState([], [role], { ...healthyStatus, publishedRoles: 0 });
+  if (!unexpected.some(value => value.includes('unexpected public Compass requisition'))) throw new Error('Compass unexpected-public-role regression was not detected.');
+
+  const expired = validateState([role], [role], {
+    ...healthyStatus,
+    sourceHealthy: false,
+    usedPreviousSnapshot: false,
+    fallbackExpired: true,
+    fallbackAgeHours: 168,
+    lastHealthyAt: '2026-09-09T09:30:00.000Z'
+  });
+  if (!expired.some(value => value.includes('expired Compass fallback'))) throw new Error('Compass expired-fallback regression was not detected.');
+
+  console.log('Compass source-integrity regression tests passed.');
+}
+
+if (process.argv.includes('--test')) {
+  runSelfTest();
+  process.exit(0);
+}
+
+const [snapshot, jobs, compass] = await Promise.all([
+  readFile(SNAPSHOT_PATH, 'utf8').then(JSON.parse),
+  readFile(JOBS_PATH, 'utf8').then(JSON.parse),
+  readFile(STATUS_PATH, 'utf8').then(JSON.parse)
+]);
+
+const violations = validateState(snapshot, jobs, compass);
 if (violations.length) {
   for (const violation of violations) console.error(`Compass validation: ${violation}`);
   throw new Error(`Compass source validation failed with ${violations.length} violation(s).`);
 }
 
-console.log(`Compass source validation passed: ${compass.listedPositions} public positions scanned, ${compass.structuredDetails}/${compass.detailFetched} structured details parsed, ${compassJobs.length} mission-fit roles published.`);
+const publicCount = Array.isArray(jobs) ? jobs.filter(isCompassJob).length : 0;
+const mode = compass.sourceHealthy === true ? 'fresh authoritative source' : compass.usedPreviousSnapshot === true ? 'bounded verified fallback' : 'fail-closed empty state';
+console.log(`Compass source validation passed: ${compass.listedPositions} public positions scanned, ${publicCount} mission-fit roles published (${mode}).`);

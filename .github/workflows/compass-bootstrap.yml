@@ -8,6 +8,7 @@ on:
       - scripts/persist-compass-status.mjs
       - scripts/validate-compass-datacenters.mjs
       - .github/workflows/compass-bootstrap.yml
+      - .github/workflows/compass-source-integrity-guard.yml
   workflow_dispatch:
 
 permissions:
@@ -29,14 +30,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate collector syntax
+      - name: Validate Compass collector and integrity regressions
         run: |
           node --check scripts/collect-compass-datacenters.mjs
           node --check scripts/persist-compass-status.mjs
           node --check scripts/validate-compass-datacenters.mjs
+          node scripts/collect-compass-datacenters.mjs --test-classifier
+          node scripts/persist-compass-status.mjs --test-freshness
+          node scripts/validate-compass-datacenters.mjs --test
       - name: Collect official Compass Datacenters roles
         run: node scripts/collect-compass-datacenters.mjs
-      - name: Persist Compass source health
+      - name: Persist bounded Compass source evidence
         run: node scripts/persist-compass-status.mjs
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs
@@ -48,7 +52,7 @@ jobs:
         run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
-      - name: Validate Compass source health
+      - name: Validate Compass source health and snapshot parity
         run: node scripts/validate-compass-datacenters.mjs
       - name: Track first-seen dates
         run: node scripts/stamp-job-history.mjs
@@ -90,7 +94,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/job-history.json data/collector-status.json data/compass-status.json data/qa-report.json
+            git add data/jobs.json data/job-history.json data/collector-status.json data/compass-status.json data/compass-jobs.json data/qa-report.json
             if git diff --cached --quiet; then
               echo "No verified Compass Datacenters data changes."
               echo "changed=false" >> "$GITHUB_OUTPUT"

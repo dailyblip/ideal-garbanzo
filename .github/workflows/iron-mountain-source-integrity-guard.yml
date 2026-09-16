@@ -1,0 +1,54 @@
+name: Iron Mountain source integrity guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/iron-mountain-jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-iron-mountain.mjs'
+      - 'scripts/validate-iron-mountain.mjs'
+      - 'scripts/enforce-iron-mountain-fallback-freshness.mjs'
+      - '.github/workflows/iron-mountain-bootstrap.yml'
+      - '.github/workflows/iron-mountain-source-integrity-guard.yml'
+      - '.github/workflows/iron-mountain-stale-fallback-watch.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/iron-mountain-jobs.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-iron-mountain.mjs'
+      - 'scripts/validate-iron-mountain.mjs'
+      - 'scripts/enforce-iron-mountain-fallback-freshness.mjs'
+      - '.github/workflows/iron-mountain-bootstrap.yml'
+      - '.github/workflows/iron-mountain-source-integrity-guard.yml'
+      - '.github/workflows/iron-mountain-stale-fallback-watch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Iron Mountain source scripts
+        run: |
+          node --check scripts/collect-iron-mountain.mjs
+          node --check scripts/validate-iron-mountain.mjs
+          node --check scripts/enforce-iron-mountain-fallback-freshness.mjs
+          node scripts/collect-iron-mountain.mjs --test
+          node scripts/validate-iron-mountain.mjs --test
+          node scripts/enforce-iron-mountain-fallback-freshness.mjs --test
+      - name: Verify Iron Mountain protected snapshot and public-feed parity
+        run: node scripts/validate-iron-mountain.mjs
+      - name: Verify employer-direct publication and homepage contract
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs

@@ -3614,7 +3614,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T19:07:46.645Z",
+    "checkedAt": "2026-09-16T19:44:30.077Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3622,7 +3622,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T19:07:46.694Z",
+    "updatedAt": "2026-09-16T19:44:30.152Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 674,
@@ -3641,17 +3641,17 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T19:07:46.763Z",
-    "before": 675,
-    "after": 675,
+    "checkedAt": "2026-09-16T19:44:30.223Z",
+    "before": 674,
+    "after": 674,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T19:08:20.343Z",
+    "checkedAt": "2026-09-16T19:45:04.124Z",
     "publishedJobs": 674,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
@@ -3665,9 +3665,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 10,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-16T19:08:20.469Z"
+    "updatedAt": "2026-09-16T19:45:04.353Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3860,15 +3860,25 @@
     "careersUrl": "https://www.coreweave.com/careers",
     "sourceHealthy": true,
     "boardToken": "coreweave",
-    "sourceRoles": 299,
+    "sourceRoles": 297,
     "qualifyingRoles": 10,
     "preservedPrevious": 0,
     "drops": {
-      "title": 287,
+      "title": 285,
       "experience": 0,
       "location": 2
     },
-    "errors": []
+    "errors": [],
+    "checkedAt": "2026-09-16T19:44:29.991Z",
+    "lastHealthyAt": "2026-09-16T19:44:29.991Z",
+    "fallbackMaxAgeHours": 96,
+    "fallbackAgeHours": 0,
+    "fallbackExpiresAt": "2026-09-20T19:44:29.991Z",
+    "fallbackExpired": false,
+    "usedPreviousSnapshot": false,
+    "publishedRoles": 10,
+    "removedExpiredFallback": 0,
+    "fallbackPolicy": "Retain the last fully verified CoreWeave snapshot for at most 96 hours after official-source failure; then remove CoreWeave roles until fresh verification succeeds."
   },
   "metaFallbackFreshness": {
     "active": false,

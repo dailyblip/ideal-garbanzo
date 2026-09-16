@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-16T18:27:12.918Z",
-  "jobs": 681,
+  "jobs": 680,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -10,14 +10,14 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 655,
+    "entry-level": 654,
     "internship": 6,
     "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 257,
-    "0-2-years": 381,
+    "0-2-years": 380,
     "no-experience": 43
   },
   "errors": [],
@@ -3614,7 +3614,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T18:27:12.977Z",
+    "checkedAt": "2026-09-16T18:50:36.375Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3622,15 +3622,15 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T18:27:13.036Z",
+    "updatedAt": "2026-09-16T18:50:36.462Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 681,
+    "regionAssigned": 680,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 94,
+      "west": 93,
       "texas": 117,
       "mid-atlantic": 129,
       "southwest": 83,
@@ -3641,7 +3641,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T18:27:13.091Z",
+    "checkedAt": "2026-09-16T18:50:36.533Z",
     "before": 681,
     "after": 681,
     "removed": 0,
@@ -3649,16 +3649,16 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T18:27:49.874Z",
-    "publishedJobs": 681,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-16T18:50:54.431Z",
+    "publishedJobs": 680,
+    "removedJobs": 1,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1112,
-    "currentJobs": 681,
+    "currentJobs": 680,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3667,7 +3667,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-16T18:27:49.971Z"
+    "updatedAt": "2026-09-16T18:50:54.728Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3844,7 +3844,17 @@
       "experience": 0,
       "fetch": 0
     },
-    "errors": []
+    "errors": [],
+    "checkedAt": "2026-09-16T18:50:36.283Z",
+    "lastHealthyAt": "2026-09-16T18:50:36.283Z",
+    "fallbackMaxAgeHours": 96,
+    "fallbackAgeHours": 0,
+    "fallbackExpiresAt": "2026-09-20T18:50:36.283Z",
+    "fallbackExpired": false,
+    "usedPreviousSnapshot": false,
+    "publishedRoles": 2,
+    "removedExpiredFallback": 0,
+    "fallbackPolicy": "Retain the last fully verified EdgeConneX snapshot for at most 96 hours after official-source failure; then remove EdgeConneX roles until fresh verification succeeds."
   },
   "coreWeaveCareers": {
     "careersUrl": "https://www.coreweave.com/careers",

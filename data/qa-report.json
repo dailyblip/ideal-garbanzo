@@ -1,25 +1,25 @@
 {
-  "checkedAt": "2026-09-16T18:27:49.874Z",
+  "checkedAt": "2026-09-16T18:50:54.431Z",
   "jobsBefore": 681,
-  "jobsAfter": 681,
+  "jobsAfter": 680,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
-  "providerVerifiedJobLinksRetained": [],
-  "blockedJobLinks": [],
-  "transientJobLinks": [
+  "deadJobLinksRemoved": [
     {
-      "id": "greenhouse-flexential-4377149009",
-      "company": "Flexential",
-      "title": "Data Center Technician I",
-      "url": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4377149009",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
+      "id": "amazon-10444672",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10444672/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10444672/data-center-technician-dcc-communities"
     }
   ],
+  "providerVerifiedJobLinksRetained": [],
+  "blockedJobLinks": [],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

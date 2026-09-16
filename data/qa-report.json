@@ -1,61 +1,25 @@
 {
-  "checkedAt": "2026-09-16T03:39:36.732Z",
-  "jobsBefore": 681,
+  "checkedAt": "2026-09-16T04:22:27.080Z",
+  "jobsBefore": 676,
   "jobsAfter": 676,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10539093",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10539093/engineering-operation-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10539093/engineering-operation-technician"
-    },
-    {
-      "id": "amazon-10537886",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10537886/engineering-operations-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10537886/engineering-operations-technician"
-    },
-    {
-      "id": "amazon-10531533",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10531533/engineering-operation-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10531533/engineering-operation-technician"
-    },
-    {
-      "id": "amazon-10524172",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician-Night Shift, Data Center",
-      "url": "https://www.amazon.jobs/en/jobs/10524172/engineering-operations-technician-night-shift-data-center",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10524172/engineering-operations-technician-night-shift-data-center"
-    },
-    {
-      "id": "amazon-10509775",
-      "company": "Amazon Web Services",
-      "title": "Engineering Op. Tech NIGHTS, Data Center",
-      "url": "https://www.amazon.jobs/en/jobs/10509775/engineering-op-tech-nights-data-center",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10509775/engineering-op-tech-nights-data-center"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5225844007",
+      "company": "xAI",
+      "title": "Journeyman Electrician (Construction)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5225844007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

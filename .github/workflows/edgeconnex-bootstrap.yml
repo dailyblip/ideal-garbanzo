@@ -5,7 +5,9 @@ on:
     branches: [main]
     paths:
       - scripts/collect-edgeconnex-careers.mjs
+      - scripts/enforce-edgeconnex-fallback-freshness.mjs
       - scripts/validate-edgeconnex.mjs
+      - data/edgeconnex-source-evidence.json
       - .github/workflows/edgeconnex-bootstrap.yml
   workflow_dispatch:
   schedule:
@@ -34,9 +36,14 @@ jobs:
       - name: Validate EdgeConneX collector syntax
         run: |
           node --check scripts/collect-edgeconnex-careers.mjs
+          node --check scripts/enforce-edgeconnex-fallback-freshness.mjs
           node --check scripts/validate-edgeconnex.mjs
       - name: Collect official EdgeConneX Rippling roles
         run: node scripts/collect-edgeconnex-careers.mjs
+      - name: Enforce time-bounded verified fallback
+        run: |
+          node scripts/enforce-edgeconnex-fallback-freshness.mjs --test
+          node scripts/enforce-edgeconnex-fallback-freshness.mjs
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations and regions
@@ -48,7 +55,10 @@ jobs:
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate EdgeConneX employer-direct snapshot
-        run: node scripts/validate-edgeconnex.mjs
+        run: |
+          node scripts/enforce-edgeconnex-fallback-freshness.mjs --check
+          node scripts/validate-edgeconnex.mjs --test
+          node scripts/validate-edgeconnex.mjs
       - name: Track first-seen dates
         run: node scripts/stamp-job-history.mjs
       - name: Validate updated feed
@@ -69,11 +79,15 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node scripts/collect-edgeconnex-careers.mjs
+            node scripts/enforce-edgeconnex-fallback-freshness.mjs --test
+            node scripts/enforce-edgeconnex-fallback-freshness.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
+            node scripts/enforce-edgeconnex-fallback-freshness.mjs --check
+            node scripts/validate-edgeconnex.mjs --test
             node scripts/validate-edgeconnex.mjs
             node scripts/stamp-job-history.mjs
             node scripts/validate.mjs
@@ -89,7 +103,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/edgeconnex-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            git add data/jobs.json data/edgeconnex-jobs.json data/edgeconnex-source-evidence.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
             if git diff --cached --quiet; then
               echo "No verified EdgeConneX data changes."
               echo "changed=false" >> "$GITHUB_OUTPUT"

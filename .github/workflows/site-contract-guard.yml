@@ -40,6 +40,11 @@ jobs:
         run: |
           node scripts/validate-databank.mjs --test
           node scripts/validate-databank.mjs
+      - name: Validate Compass employer-direct source contract
+        run: |
+          node scripts/persist-compass-status.mjs --test-freshness
+          node scripts/validate-compass-datacenters.mjs --test
+          node scripts/validate-compass-datacenters.mjs
       - name: Validate regional filtering contract
         run: node scripts/test-region-filter-contract.mjs
       - name: Validate weekly alert plumbing and employer diversity

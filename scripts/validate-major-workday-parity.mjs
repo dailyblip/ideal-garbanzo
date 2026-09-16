@@ -211,3 +211,8 @@ await import('./validate-major-workday-requisition-integrity.mjs');
 // source-health guard here so incomplete/failed Workday listings cannot silently
 // bypass deployment protection once per-employer collector diagnostics exist.
 await import('./validate-major-workday-health.mjs');
+
+// Deployment must also refuse stale source evidence or an expired verified
+// fallback. Chaining freshness here closes the gap between the six-hour stale
+// fallback watcher and any push-triggered Pages deployment.
+await import('./validate-major-workday-freshness-state.mjs');

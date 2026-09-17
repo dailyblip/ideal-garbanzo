@@ -37,7 +37,11 @@ on:
       - 'data/mailing-list.json'
       - '.github/workflows/weekly-job-alert.yml'
   schedule:
-    - cron: '5 14 * * 1'
+    # Avoid GitHub's busiest top-of-hour window and keep a second chance before
+    # the 16:00 UTC Buttondown publish time. The sender is idempotent, so the
+    # backup exits cleanly when the primary already scheduled that Monday.
+    - cron: '37 14 * * 1'
+    - cron: '23 15 * * 1'
   workflow_dispatch:
     inputs:
       schedule_alert:

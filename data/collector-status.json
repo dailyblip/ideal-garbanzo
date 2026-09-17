@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-17T16:42:14.895Z",
-  "jobs": 670,
+  "updatedAt": "2026-09-17T16:53:54.268Z",
+  "jobs": 676,
   "sourcesAttempted": 32,
   "providers": {
     "lever": 7,
@@ -11,14 +11,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 645,
+    "entry-level": 651,
     "internship": 6,
     "trainee": 8,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 367,
-    "2-5-years": 259,
+    "2-5-years": 265,
     "no-experience": 44
   },
   "errors": [],
@@ -2077,60 +2077,70 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T16:42:14.955Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-17T16:53:54.338Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "senior/executive title": 1
+    },
+    "removed": [
+      {
+        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
+        "company": "Prime Data Centers",
+        "title": "Data Center Business Systems Architect",
+        "location": "Dallas, TX; Denver, CO",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T16:42:15.012Z",
+    "updatedAt": "2026-09-17T16:53:54.409Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 670,
+    "regionAssigned": 676,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 98,
-      "west": 96,
-      "texas": 114,
-      "midwest": 133,
+      "west": 99,
+      "texas": 115,
+      "midwest": 134,
       "mid-atlantic": 123,
-      "southwest": 83,
+      "southwest": 84,
       "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T16:42:15.067Z",
-    "before": 671,
-    "after": 671,
+    "checkedAt": "2026-09-17T16:53:54.475Z",
+    "before": 676,
+    "after": 676,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T16:42:47.804Z",
-    "publishedJobs": 670,
-    "removedJobs": 1,
+    "checkedAt": "2026-09-17T16:54:13.757Z",
+    "publishedJobs": 676,
+    "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1142,
-    "currentJobs": 670,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1148,
+    "currentJobs": 676,
+    "newJobsThisRun": 6,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 6,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-17T16:42:47.957Z"
+    "updatedAt": "2026-09-17T16:54:13.941Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2885,5 +2895,35 @@
     "failures": 0,
     "failureSamples": [],
     "samples": []
+  },
+  "primeDataCenters": {
+    "checkedAt": "2026-09-17T16:53:54.268Z",
+    "lastSuccessfulAt": "2026-09-17T16:53:54.268Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "officialCareerPage": "https://primedatacenters.com/careers/",
+    "officialRipplingBoard": "https://ats.rippling.com/prime-data-centers/jobs",
+    "api": "https://api.rippling.com/platform/api/ats/v1/board/prime-data-centers/jobs",
+    "authoritativeSnapshot": true,
+    "listedRows": 64,
+    "uniqueJobs": 45,
+    "candidateRoles": 31,
+    "detailVerified": 31,
+    "usCandidateRoles": 7,
+    "qualifyingRoles": 6,
+    "rejectedOutOfScopeTitle": 14,
+    "rejectedOutOfScopeContext": 0,
+    "rejectedSeniorTitle": 16,
+    "rejectedEvergreen": 0,
+    "rejectedOver5Years": 1,
+    "rejectedUnknownExperience": 7,
+    "rejectedNonUs": 0,
+    "detailFailures": 0,
+    "qualifyingRolesBeforePublicationGate": 7,
+    "publicationFilteredRoles": 1,
+    "publicationFilteredTitles": [
+      "Data Center Business Systems Architect"
+    ],
+    "publicationGate": "Shared mission-fit backstop is authoritative for the public Prime snapshot."
   }
 }

@@ -9,6 +9,8 @@ on:
       - scripts/validate-compass-datacenters.mjs
       - .github/workflows/compass-bootstrap.yml
       - .github/workflows/compass-source-integrity-guard.yml
+  schedule:
+    - cron: '47 */6 * * *'
   workflow_dispatch:
 
 permissions:

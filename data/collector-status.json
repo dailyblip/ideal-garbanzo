@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-17T13:48:05.254Z",
-  "jobs": 675,
+  "updatedAt": "2026-09-17T13:48:32.957Z",
+  "jobs": 674,
   "sourcesAttempted": 25,
   "providers": {
     "lever": 7,
@@ -11,13 +11,13 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 649,
+    "entry-level": 648,
     "internship": 6,
     "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 371,
+    "0-2-years": 370,
     "2-5-years": 260,
     "no-experience": 44
   },
@@ -3667,7 +3667,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T13:48:05.396Z",
+    "checkedAt": "2026-09-17T13:48:33.029Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3675,61 +3675,52 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T13:48:05.475Z",
+    "updatedAt": "2026-09-17T13:48:33.104Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 676,
+    "regionAssigned": 674,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 99,
       "west": 97,
-      "texas": 116,
+      "texas": 115,
       "midwest": 133,
-      "mid-atlantic": 125,
+      "mid-atlantic": 124,
       "southwest": 83,
       "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T13:48:05.551Z",
-    "before": 676,
+    "checkedAt": "2026-09-17T13:48:33.174Z",
+    "before": 675,
     "after": 675,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-108517449598411462",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "Haskell, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T12:40:25.894Z",
-    "publishedJobs": 673,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-17T13:48:53.421Z",
+    "publishedJobs": 674,
+    "removedJobs": 1,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1142,
-    "currentJobs": 675,
-    "newJobsThisRun": 3,
+    "currentJobs": 674,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 3,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-17T13:48:05.613Z"
+    "updatedAt": "2026-09-17T13:48:53.634Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3870,7 +3861,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-17T08:45:15.231Z",
+    "checkedAt": "2026-09-17T13:48:32.957Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

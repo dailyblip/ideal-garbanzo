@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-17T12:40:25.894Z",
-  "jobsBefore": 673,
-  "jobsAfter": 673,
+  "checkedAt": "2026-09-17T13:48:53.421Z",
+  "jobsBefore": 675,
+  "jobsAfter": 674,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-3146880",
+      "company": "Amazon Web Services",
+      "title": "Data Center Engineering Operations Technician - Northern Virginia",
+      "url": "https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

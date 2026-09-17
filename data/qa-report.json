@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-17T16:58:45.845Z",
+  "checkedAt": "2026-09-17T16:59:29.297Z",
   "jobsBefore": 676,
   "jobsAfter": 676,
   "demoJobsRemoved": [],
@@ -9,7 +9,17 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5226371007",
+      "company": "xAI",
+      "title": "Mechanical Commissioning Engineer - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5226371007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

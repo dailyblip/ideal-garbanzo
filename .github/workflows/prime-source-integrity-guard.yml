@@ -21,7 +21,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,6 +33,13 @@ jobs:
           node --check scripts/validate-prime-data-centers.mjs
           node scripts/collect-prime-data-centers.mjs --test-classifier
           node scripts/collect-prime-data-centers.mjs --test-next-data
+      - name: Probe official Prime careers source
+        run: |
+          node scripts/collect-prime-data-centers.mjs
+          node scripts/filter-mission-fit.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/validate-prime-data-centers.mjs
       - name: Guard six-hour source refresh and race-safe publication
         shell: bash
         run: |
@@ -47,5 +54,7 @@ jobs:
           grep -Fq 'if git push origin HEAD:main; then' "$workflow"
       - name: Preserve site and source-workflow contracts
         run: |
+          git checkout -- data/jobs.json data/collector-status.json || true
+          rm -f data/prime-data-centers-jobs.json
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs

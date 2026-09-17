@@ -1,6 +1,9 @@
 name: Bootstrap Oracle Careers
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: '31 */6 * * *'
   push:
     branches: [main]
     paths:

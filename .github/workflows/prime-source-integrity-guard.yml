@@ -5,18 +5,22 @@ on:
     paths:
       - scripts/collect-prime-data-centers.mjs
       - scripts/reconcile-prime-data-centers.mjs
+      - scripts/enforce-prime-fallback-freshness.mjs
       - scripts/validate-prime-data-centers.mjs
       - scripts/validate-source-workflow-isolation.mjs
       - .github/workflows/prime-data-centers-bootstrap.yml
+      - .github/workflows/prime-stale-fallback-watch.yml
       - .github/workflows/prime-source-integrity-guard.yml
   push:
     branches: [main]
     paths:
       - scripts/collect-prime-data-centers.mjs
       - scripts/reconcile-prime-data-centers.mjs
+      - scripts/enforce-prime-fallback-freshness.mjs
       - scripts/validate-prime-data-centers.mjs
       - scripts/validate-source-workflow-isolation.mjs
       - .github/workflows/prime-data-centers-bootstrap.yml
+      - .github/workflows/prime-stale-fallback-watch.yml
       - .github/workflows/prime-source-integrity-guard.yml
 
 permissions:
@@ -35,9 +39,11 @@ jobs:
         run: |
           node --check scripts/collect-prime-data-centers.mjs
           node --check scripts/reconcile-prime-data-centers.mjs
+          node --check scripts/enforce-prime-fallback-freshness.mjs
           node --check scripts/validate-prime-data-centers.mjs
           node scripts/collect-prime-data-centers.mjs --test-classifier
           node scripts/collect-prime-data-centers.mjs --test-next-data
+          node scripts/enforce-prime-fallback-freshness.mjs --test
       - name: Probe official Prime careers source
         run: |
           node scripts/collect-prime-data-centers.mjs
@@ -45,19 +51,31 @@ jobs:
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/reconcile-prime-data-centers.mjs
+          node scripts/enforce-prime-fallback-freshness.mjs
           node scripts/validate-prime-data-centers.mjs
-      - name: Guard six-hour source refresh and race-safe publication
+      - name: Guard source refresh, fallback expiry, and race-safe publication
         shell: bash
         run: |
           set -euo pipefail
-          workflow=.github/workflows/prime-data-centers-bootstrap.yml
-          grep -Fq "cron: '59 */6 * * *'" "$workflow"
-          grep -Fq 'group: careers-source-writers' "$workflow"
-          grep -Fq 'cancel-in-progress: false' "$workflow"
-          grep -Fq 'rebuild_from_latest_main()' "$workflow"
-          grep -Fq 'git reset --hard origin/main' "$workflow"
-          grep -Fq 'for attempt in 1 2 3' "$workflow"
-          grep -Fq 'if git push origin HEAD:main; then' "$workflow"
+          bootstrap=.github/workflows/prime-data-centers-bootstrap.yml
+          watchdog=.github/workflows/prime-stale-fallback-watch.yml
+          freshness=scripts/enforce-prime-fallback-freshness.mjs
+          grep -Fq "cron: '59 */6 * * *'" "$bootstrap"
+          grep -Fq 'group: careers-source-writers' "$bootstrap"
+          grep -Fq 'cancel-in-progress: false' "$bootstrap"
+          grep -Fq 'rebuild_from_latest_main()' "$bootstrap"
+          grep -Fq 'git reset --hard origin/main' "$bootstrap"
+          grep -Fq 'for attempt in 1 2 3' "$bootstrap"
+          grep -Fq 'if git push origin HEAD:main; then' "$bootstrap"
+          grep -Fq 'const MAX_FALLBACK_AGE_HOURS = 96;' "$freshness"
+          grep -Fq "cron: '47 */6 * * *'" "$watchdog"
+          grep -Fq 'group: prime-stale-fallback-watch' "$watchdog"
+          grep -Fq 'cancel-in-progress: false' "$watchdog"
+          grep -Fq 'rebuild_from_latest_main()' "$watchdog"
+          grep -Fq 'git reset --hard origin/main' "$watchdog"
+          grep -Fq 'for attempt in 1 2 3' "$watchdog"
+          grep -Fq 'if git push origin HEAD:main; then' "$watchdog"
+          grep -Fq ".github/workflows/prime-stale-fallback-watch.yml" scripts/validate-source-workflow-isolation.mjs
       - name: Preserve site and source-workflow contracts
         run: |
           git checkout -- data/jobs.json data/collector-status.json || true

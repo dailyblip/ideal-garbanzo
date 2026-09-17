@@ -107,8 +107,8 @@
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
     "sourceHealthy": true,
-    "checkedAt": "2026-09-17T17:15:27.444Z",
-    "lastHealthyAt": "2026-09-17T17:15:27.444Z",
+    "checkedAt": "2026-09-17T21:44:14.410Z",
+    "lastHealthyAt": "2026-09-17T21:44:14.410Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -1763,7 +1763,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T21:31:58.611Z",
+    "checkedAt": "2026-09-17T21:44:14.491Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1771,7 +1771,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T21:43:40.627Z",
+    "updatedAt": "2026-09-17T21:44:14.572Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 664,
@@ -1790,7 +1790,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T21:43:40.695Z",
+    "checkedAt": "2026-09-17T21:44:14.644Z",
     "before": 664,
     "after": 664,
     "removed": 0,
@@ -1798,9 +1798,9 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T21:26:33.077Z",
-    "publishedJobs": 669,
-    "removedJobs": 1,
+    "checkedAt": "2026-09-17T21:44:39.544Z",
+    "publishedJobs": 664,
+    "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
@@ -1808,15 +1808,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1163,
     "currentJobs": 664,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T21:43:40.752Z"
+    "updatedAt": "2026-09-17T21:44:39.750Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

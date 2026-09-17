@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - scripts/collect-prime-data-centers.mjs
+      - scripts/reconcile-prime-data-centers.mjs
       - scripts/validate-prime-data-centers.mjs
       - .github/workflows/prime-data-centers-bootstrap.yml
       - .github/workflows/prime-source-integrity-guard.yml
@@ -11,6 +12,7 @@ on:
     branches: [main]
     paths:
       - scripts/collect-prime-data-centers.mjs
+      - scripts/reconcile-prime-data-centers.mjs
       - scripts/validate-prime-data-centers.mjs
       - .github/workflows/prime-data-centers-bootstrap.yml
       - .github/workflows/prime-source-integrity-guard.yml
@@ -30,6 +32,7 @@ jobs:
       - name: Validate Prime collector contracts
         run: |
           node --check scripts/collect-prime-data-centers.mjs
+          node --check scripts/reconcile-prime-data-centers.mjs
           node --check scripts/validate-prime-data-centers.mjs
           node scripts/collect-prime-data-centers.mjs --test-classifier
           node scripts/collect-prime-data-centers.mjs --test-next-data
@@ -39,6 +42,7 @@ jobs:
           node scripts/filter-mission-fit.mjs
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
+          node scripts/reconcile-prime-data-centers.mjs
           node scripts/validate-prime-data-centers.mjs
       - name: Guard six-hour source refresh and race-safe publication
         shell: bash

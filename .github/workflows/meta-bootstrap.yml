@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/meta-bootstrap.yml'
       - 'scripts/collect-meta-careers.mjs'
+      - 'scripts/meta-fetch-policy.mjs'
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/normalize-meta-compensation.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
@@ -26,7 +27,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -35,8 +36,18 @@ jobs:
         with:
           node-version: 22
       - name: Collect official Meta Careers roles
+        env:
+          NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
+          META_DETAIL_INTERVAL_MS: '650'
+          META_DETAIL_ATTEMPTS: '3'
+          META_MAX_RETRY_AFTER_MS: '12000'
         run: node scripts/collect-meta-careers.mjs
       - name: Recover Meta requirements from structured data
+        env:
+          NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
+          META_DETAIL_INTERVAL_MS: '650'
+          META_DETAIL_ATTEMPTS: '3'
+          META_MAX_RETRY_AFTER_MS: '12000'
         run: node scripts/recover-meta-structured.mjs
       - name: Test Meta compensation normalization
         run: node scripts/normalize-meta-compensation.mjs --test
@@ -57,6 +68,11 @@ jobs:
       - name: Publish Meta snapshot from current main
         id: publish
         shell: bash
+        env:
+          NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
+          META_DETAIL_INTERVAL_MS: '650'
+          META_DETAIL_ATTEMPTS: '3'
+          META_MAX_RETRY_AFTER_MS: '12000'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"

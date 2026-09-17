@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-17T21:02:51.093Z",
+  "checkedAt": "2026-09-17T21:26:33.077Z",
   "jobsBefore": 670,
   "jobsAfter": 669,
   "demoJobsRemoved": [],
@@ -8,28 +8,18 @@
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
     {
-      "id": "amazon-10539099",
+      "id": "amazon-10543212",
       "company": "Amazon Web Services",
-      "title": "Data Center Engineering Operations Technician , DCEO Tech 3, CMH 93",
-      "url": "https://www.amazon.jobs/en/jobs/10539099/data-center-engineering-operations-technician-dceo-tech-3-cmh-93",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10543212/engineering-operations-technician",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10539099/data-center-engineering-operations-technician-dceo-tech-3-cmh-93"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10543212/engineering-operations-technician"
     }
   ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "gh-xai-5225844007",
-      "company": "xAI",
-      "title": "Journeyman Electrician (Construction)",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5225844007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

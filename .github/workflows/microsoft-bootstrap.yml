@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-microsoft-datacenter.mjs'
+      - 'scripts/run-microsoft-datacenter.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
@@ -33,14 +34,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate Microsoft experience classifier
+      - name: Validate Microsoft experience classifier and request pacing
         run: |
           node --check scripts/collect-microsoft-datacenter.mjs
+          node --check scripts/run-microsoft-datacenter.mjs
           node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
+          node scripts/run-microsoft-datacenter.mjs --test-rate-limit-policy
       - name: Restore fresh Microsoft snapshot before direct refresh
         run: node scripts/apply-microsoft-verified-fallback.mjs
-      - name: Collect official Microsoft data center roles
-        run: node scripts/collect-microsoft-datacenter.mjs
+      - name: Collect official Microsoft data center roles with adaptive pacing
+        run: node scripts/run-microsoft-datacenter.mjs
       - name: Enforce mission-fit roles
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations
@@ -69,9 +72,11 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node --check scripts/collect-microsoft-datacenter.mjs
+            node --check scripts/run-microsoft-datacenter.mjs
             node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
+            node scripts/run-microsoft-datacenter.mjs --test-rate-limit-policy
             node scripts/apply-microsoft-verified-fallback.mjs
-            node scripts/collect-microsoft-datacenter.mjs
+            node scripts/run-microsoft-datacenter.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs

@@ -18,11 +18,12 @@ permissions:
   actions: write
   contents: write
 
-# Keep duplicate Meta runs from overlapping. Shared pipeline edits are validated
-# by the main build instead of fanning out multiple feed-writing source jobs.
+# A newer Meta source run supersedes an older one. Collection writes only after
+# validation, so cancelling stale in-flight collection avoids needless rate-limit
+# waits without risking a partially published snapshot.
 concurrency:
   group: meta-bootstrap
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   collect:
@@ -41,6 +42,8 @@ jobs:
           META_DETAIL_INTERVAL_MS: '1200'
           META_DETAIL_ATTEMPTS: '3'
           META_MAX_RETRY_AFTER_MS: '12000'
+          META_RATE_LIMIT_STREAK_LIMIT: '3'
+          META_PERSISTENT_COOLDOWN_MS: '3500'
         run: node scripts/collect-meta-careers.mjs
       - name: Recover Meta requirements from structured data
         env:
@@ -48,6 +51,8 @@ jobs:
           META_DETAIL_INTERVAL_MS: '1200'
           META_DETAIL_ATTEMPTS: '3'
           META_MAX_RETRY_AFTER_MS: '12000'
+          META_RATE_LIMIT_STREAK_LIMIT: '3'
+          META_PERSISTENT_COOLDOWN_MS: '3500'
         run: node scripts/recover-meta-structured.mjs
       - name: Test Meta compensation normalization
         run: node scripts/normalize-meta-compensation.mjs --test
@@ -73,6 +78,8 @@ jobs:
           META_DETAIL_INTERVAL_MS: '1200'
           META_DETAIL_ATTEMPTS: '3'
           META_MAX_RETRY_AFTER_MS: '12000'
+          META_RATE_LIMIT_STREAK_LIMIT: '3'
+          META_PERSISTENT_COOLDOWN_MS: '3500'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"

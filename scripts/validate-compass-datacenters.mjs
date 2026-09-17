@@ -7,7 +7,8 @@ const SNAPSHOT_PATH = 'data/compass-jobs.json';
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/compass-status.json';
 const EXPECTED_SOURCE = 'Official Compass Datacenters Careers';
-const MAX_FALLBACK_AGE_HOURS = 168;
+const MAX_FALLBACK_AGE_HOURS = 96;
+const MAX_HEALTHY_EVIDENCE_AGE_HOURS = 30;
 const allowedTypes = new Set(['internship', 'apprenticeship', 'trainee', 'entry-level']);
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const bannedSenior = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|architect)\b/i;
@@ -73,7 +74,7 @@ function validateRole(job, context, violations) {
   if (job?.active !== true || job?.demo === true) violations.push(`${prefix}: role must be active and non-demo`);
 }
 
-function validateState(snapshot, jobs, compass) {
+function validateState(snapshot, jobs, compass, { nowMs = Date.now() } = {}) {
   const violations = [];
   const sourceHealthy = compass?.sourceHealthy === true;
   const fallbackExpired = compass?.fallbackExpired === true;
@@ -88,6 +89,15 @@ function validateState(snapshot, jobs, compass) {
     if (!Number.isInteger(compass.detailFetched) || compass.detailFetched < 1) violations.push('Compass detail fetch coverage is empty');
 
     if (sourceHealthy) {
+      const checkedAtMs = Date.parse(String(compass.checkedAt || ''));
+      if (!Number.isFinite(checkedAtMs)) {
+        violations.push('healthy Compass source is missing checkedAt verification evidence');
+      } else {
+        const evidenceAgeHours = Math.max(0, (nowMs - checkedAtMs) / 3_600_000);
+        if (evidenceAgeHours >= MAX_HEALTHY_EVIDENCE_AGE_HOURS) {
+          violations.push(`healthy Compass verification evidence is ${Math.round(evidenceAgeHours * 10) / 10} hours old; must be under ${MAX_HEALTHY_EVIDENCE_AGE_HOURS} hours`);
+        }
+      }
       if (compass.boardFetched !== true) violations.push('healthy Compass source is missing board fetch evidence');
       if (Number(compass.detailAttempted) !== Number(compass.listedPositions)) violations.push('healthy Compass source did not attempt every listed position');
       if (Number(compass.detailFetched) !== Number(compass.listedPositions)) violations.push('healthy Compass source did not fetch every listed position');
@@ -116,7 +126,7 @@ function validateState(snapshot, jobs, compass) {
         violations.push('Compass fallback is marked active without fresh verified evidence');
       }
       if (fallbackActive && Number(compass.fallbackAgeHours) >= MAX_FALLBACK_AGE_HOURS) {
-        violations.push('Compass fallback exceeds the 168-hour freshness limit');
+        violations.push('Compass fallback exceeds the 96-hour freshness limit');
       }
     }
   }
@@ -178,6 +188,7 @@ function validateState(snapshot, jobs, compass) {
 }
 
 function runSelfTest() {
+  const nowMs = Date.parse('2026-09-17T02:00:00.000Z');
   const role = {
     id: 'compass-abc123',
     title: 'Critical Facilities Technician',
@@ -201,22 +212,31 @@ function runSelfTest() {
     listingComplete: true,
     authoritativeSnapshot: true,
     publishedRoles: 1,
-    fallbackExpired: false
+    fallbackExpired: false,
+    checkedAt: new Date(nowMs - 29 * 3_600_000).toISOString()
   };
 
-  const baseline = validateState([role], [role], healthyStatus);
+  const baseline = validateState([role], [role], healthyStatus, { nowMs });
   if (baseline.length) throw new Error(`Compass parity baseline failed: ${baseline.join(' | ')}`);
 
-  const drift = validateState([role], [{ ...role, title: 'Critical Facilities Engineer' }], healthyStatus);
+  const staleHealthy = validateState([role], [role], {
+    ...healthyStatus,
+    checkedAt: new Date(nowMs - MAX_HEALTHY_EVIDENCE_AGE_HOURS * 3_600_000).toISOString()
+  }, { nowMs });
+  if (!staleHealthy.some(value => value.includes('verification evidence'))) {
+    throw new Error('Compass stale healthy-source evidence regression was not detected.');
+  }
+
+  const drift = validateState([role], [{ ...role, title: 'Critical Facilities Engineer' }], healthyStatus, { nowMs });
   if (!drift.some(value => value.includes('title drifted'))) throw new Error('Compass title-drift regression was not detected.');
 
-  const duplicate = validateState([role], [role, { ...role }], healthyStatus);
+  const duplicate = validateState([role], [role, { ...role }], healthyStatus, { nowMs });
   if (!duplicate.some(value => value.includes('public duplicate id'))) throw new Error('Compass duplicate-requisition regression was not detected.');
 
-  const badIdentity = validateState([{ ...role, id: 'compass-wrong' }], [{ ...role, id: 'compass-wrong' }], healthyStatus);
+  const badIdentity = validateState([{ ...role, id: 'compass-wrong' }], [{ ...role, id: 'compass-wrong' }], healthyStatus, { nowMs });
   if (!badIdentity.some(value => value.includes('canonical Compass Breezy requisition'))) throw new Error('Compass canonical ID/URL regression was not detected.');
 
-  const unexpected = validateState([], [role], { ...healthyStatus, publishedRoles: 0 });
+  const unexpected = validateState([], [role], { ...healthyStatus, publishedRoles: 0 }, { nowMs });
   if (!unexpected.some(value => value.includes('unexpected public Compass requisition'))) throw new Error('Compass unexpected-public-role regression was not detected.');
 
   const directorUrl = 'https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director';
@@ -230,7 +250,7 @@ function runSelfTest() {
     errors: [`structured data missing: ${directorUrl}`],
     ignoredUnstructuredOutOfScope: 1,
     ignoredUnstructuredOutOfScopeUrls: [directorUrl]
-  });
+  }, { nowMs });
   if (safeUnstructured.length) throw new Error(`Compass clearly out-of-scope unstructured exclusion failed: ${safeUnstructured.join(' | ')}`);
 
   const relevantUrl = 'https://compass-datacenters.breezy.hr/p/abc999-critical-facilities-technician';
@@ -244,7 +264,7 @@ function runSelfTest() {
     errors: [`structured data missing: ${relevantUrl}`],
     ignoredUnstructuredOutOfScope: 0,
     ignoredUnstructuredOutOfScopeUrls: []
-  });
+  }, { nowMs });
   if (!unsafeUnstructured.some(value => value.includes('unverified structured-data drops'))) {
     throw new Error('Compass relevant-role structured-data gap was not rejected.');
   }
@@ -254,9 +274,9 @@ function runSelfTest() {
     sourceHealthy: false,
     usedPreviousSnapshot: false,
     fallbackExpired: true,
-    fallbackAgeHours: 168,
-    lastHealthyAt: '2026-09-09T09:30:00.000Z'
-  });
+    fallbackAgeHours: 96,
+    lastHealthyAt: '2026-09-13T02:00:00.000Z'
+  }, { nowMs });
   if (!expired.some(value => value.includes('expired Compass fallback'))) throw new Error('Compass expired-fallback regression was not detected.');
 
   console.log('Compass source-integrity regression tests passed.');

@@ -6,6 +6,7 @@ on:
       - scripts/collect-prime-data-centers.mjs
       - scripts/reconcile-prime-data-centers.mjs
       - scripts/validate-prime-data-centers.mjs
+      - scripts/validate-source-workflow-isolation.mjs
       - .github/workflows/prime-data-centers-bootstrap.yml
       - .github/workflows/prime-source-integrity-guard.yml
   push:
@@ -14,6 +15,7 @@ on:
       - scripts/collect-prime-data-centers.mjs
       - scripts/reconcile-prime-data-centers.mjs
       - scripts/validate-prime-data-centers.mjs
+      - scripts/validate-source-workflow-isolation.mjs
       - .github/workflows/prime-data-centers-bootstrap.yml
       - .github/workflows/prime-source-integrity-guard.yml
 
@@ -49,7 +51,7 @@ jobs:
         run: |
           set -euo pipefail
           workflow=.github/workflows/prime-data-centers-bootstrap.yml
-          grep -Fq "cron: '53 */6 * * *'" "$workflow"
+          grep -Fq "cron: '59 */6 * * *'" "$workflow"
           grep -Fq 'group: careers-source-writers' "$workflow"
           grep -Fq 'cancel-in-progress: false' "$workflow"
           grep -Fq 'rebuild_from_latest_main()' "$workflow"

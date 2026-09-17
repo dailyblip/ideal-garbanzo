@@ -192,11 +192,11 @@
     "errors": [
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "checkedAt": "2026-09-17T00:47:54.267Z",
-    "lastHealthyAt": "2026-09-17T00:47:54.267Z",
+    "checkedAt": "2026-09-17T03:46:04.666Z",
+    "lastHealthyAt": "2026-09-17T03:46:04.666Z",
     "listingComplete": true,
     "authoritativeSnapshot": true,
-    "fallbackMaxAgeHours": 168,
+    "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
@@ -206,7 +206,7 @@
     "ignoredUnstructuredOutOfScopeUrls": [
       "https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 168 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
+    "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
     "checkedAt": "2026-09-16T17:29:31.853Z",
@@ -3635,7 +3635,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T03:43:57.828Z",
+    "checkedAt": "2026-09-17T03:46:04.746Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3643,7 +3643,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T03:43:57.906Z",
+    "updatedAt": "2026-09-17T03:46:04.819Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 674,
@@ -3662,7 +3662,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T03:43:57.977Z",
+    "checkedAt": "2026-09-17T03:46:04.888Z",
     "before": 674,
     "after": 674,
     "removed": 0,
@@ -3670,7 +3670,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T03:44:18.147Z",
+    "checkedAt": "2026-09-17T03:46:29.271Z",
     "publishedJobs": 674,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3688,7 +3688,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 87,
-    "updatedAt": "2026-09-17T03:44:18.384Z"
+    "updatedAt": "2026-09-17T03:46:30.996Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

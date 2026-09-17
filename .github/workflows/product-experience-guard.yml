@@ -1,0 +1,96 @@
+name: Candidate experience and accessibility guard
+
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'employers/**'
+      - 'subscribed/**'
+      - 'advertise/**'
+      - 'assets/styles.css'
+      - 'assets/jobs-listing.css'
+      - 'assets/jobs-listing.js'
+      - 'assets/mailing-list.js'
+      - 'data/jobs.json'
+      - 'data/mailing-list.json'
+      - 'scripts/generate-seo.mjs'
+      - 'scripts/generate-region-seo.mjs'
+      - 'scripts/generate-company-seo.mjs'
+      - 'scripts/generate-career-guide.mjs'
+      - 'scripts/generate-apprenticeship-guide.mjs'
+      - 'scripts/generate-internship-guide.mjs'
+      - 'scripts/harden-seo.mjs'
+      - 'scripts/validate-accessibility.mjs'
+      - 'scripts/validate-jobs-browser.mjs'
+      - 'scripts/validate-alert-signup-parity.mjs'
+      - 'scripts/validate-alert-job-detail-parity.mjs'
+      - 'scripts/validate-homepage-contract.mjs'
+      - '.github/workflows/weekly-job-alert.yml'
+      - '.github/workflows/product-experience-guard.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'employers/**'
+      - 'subscribed/**'
+      - 'advertise/**'
+      - 'assets/styles.css'
+      - 'assets/jobs-listing.css'
+      - 'assets/jobs-listing.js'
+      - 'assets/mailing-list.js'
+      - 'data/jobs.json'
+      - 'data/mailing-list.json'
+      - 'scripts/generate-*.mjs'
+      - 'scripts/harden-seo.mjs'
+      - 'scripts/validate-accessibility.mjs'
+      - 'scripts/validate-jobs-browser.mjs'
+      - 'scripts/validate-alert-signup-parity.mjs'
+      - 'scripts/validate-alert-job-detail-parity.mjs'
+      - 'scripts/validate-homepage-contract.mjs'
+      - '.github/workflows/weekly-job-alert.yml'
+      - '.github/workflows/product-experience-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: product-experience-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate QA scripts
+        run: |
+          node --check scripts/validate-accessibility.mjs
+          node --check scripts/validate-jobs-browser.mjs
+          node --check scripts/validate-alert-signup-parity.mjs
+          node --check scripts/validate-alert-job-detail-parity.mjs
+
+      - name: Generate candidate-facing pages
+        run: |
+          node scripts/generate-seo.mjs
+          node scripts/generate-region-seo.mjs
+          node scripts/generate-company-seo.mjs
+          node scripts/generate-career-guide.mjs
+          node scripts/generate-apprenticeship-guide.mjs
+          node scripts/generate-internship-guide.mjs
+          node scripts/harden-seo.mjs
+
+      - name: Validate candidate experience contracts
+        env:
+          ACCESSIBILITY_REQUIRE_GENERATED: '1'
+        run: |
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate-accessibility.mjs
+          node scripts/validate-jobs-browser.mjs
+          node scripts/validate-alert-signup-parity.mjs
+          node scripts/validate-alert-job-detail-parity.mjs

@@ -106,8 +106,8 @@
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
     "sourceHealthy": true,
-    "checkedAt": "2026-09-17T12:03:17.118Z",
-    "lastHealthyAt": "2026-09-17T12:03:17.118Z",
+    "checkedAt": "2026-09-17T17:15:27.444Z",
+    "lastHealthyAt": "2026-09-17T17:15:27.444Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -1762,7 +1762,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T17:11:16.301Z",
+    "checkedAt": "2026-09-17T17:15:27.519Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1770,7 +1770,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T17:15:12.124Z",
+    "updatedAt": "2026-09-17T17:15:27.590Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 669,
@@ -1789,7 +1789,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T17:15:12.179Z",
+    "checkedAt": "2026-09-17T17:15:27.658Z",
     "before": 669,
     "after": 669,
     "removed": 0,
@@ -1797,8 +1797,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T17:11:37.399Z",
-    "publishedJobs": 668,
+    "checkedAt": "2026-09-17T17:15:48.100Z",
+    "publishedJobs": 669,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
@@ -1807,15 +1807,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1149,
     "currentJobs": 669,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T17:15:12.225Z"
+    "updatedAt": "2026-09-17T17:15:48.292Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -8,6 +8,8 @@ on:
       - 'scripts/collect-sabey-careers.mjs'
       - 'scripts/persist-sabey-snapshot.mjs'
       - '.github/workflows/sabey-bootstrap.yml'
+  schedule:
+    - cron: '27 */6 * * *'
 
 permissions:
   contents: write

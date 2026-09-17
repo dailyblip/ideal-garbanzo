@@ -9,6 +9,7 @@ const SNAPSHOT_PATH = 'data/compass-jobs.json';
 const MAX_FALLBACK_AGE_HOURS = 168;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+const clearlyExcludedSlug = /(?:^|-)(?:senior|sr|lead|principal|staff|manager|director|vice-president|vp|chief|head-of|supervisor|architect|security|sales|finance|marketing)(?:-|$)/i;
 
 async function readJson(path, fallback) {
   try { return JSON.parse(await readFile(path, 'utf8')); }
@@ -104,11 +105,29 @@ function dedupe(jobs) {
   return output;
 }
 
+function outOfScopeUnstructuredEvidence(source = {}) {
+  const errors = Array.isArray(source?.errors) ? source.errors : [];
+  const urls = new Set();
+  for (const value of errors) {
+    const match = clean(value).match(/^structured data missing:\s+(https:\/\/\S+)$/i);
+    if (!match) continue;
+    try {
+      const url = new URL(match[1]);
+      if (url.hostname.toLowerCase() !== 'compass-datacenters.breezy.hr') continue;
+      const slug = url.pathname.split('/').filter(Boolean).pop() || '';
+      if (clearlyExcludedSlug.test(slug)) urls.add(url.toString());
+    } catch {}
+  }
+  return { count: urls.size, urls: [...urls].sort() };
+}
+
 function strictSourceHealth(source = {}) {
   const listed = Number(source.listedPositions);
   const attempted = Number(source.detailAttempted);
   const fetched = Number(source.detailFetched);
   const structured = Number(source.structuredDetails);
+  const structuredDrops = Number(source?.drops?.structuredData || 0);
+  const ignored = outOfScopeUnstructuredEvidence(source);
   return source.sourceHealthy === true
     && source.boardFetched === true
     && source.boardUrl === BOARD_URL
@@ -116,7 +135,10 @@ function strictSourceHealth(source = {}) {
     && listed > 0
     && attempted === listed
     && fetched === listed
-    && structured === fetched;
+    && Number.isInteger(structured)
+    && Number.isInteger(structuredDrops)
+    && ignored.count === structuredDrops
+    && structured + ignored.count === fetched;
 }
 
 const [aggregate, jobs, previousSourceStatus, previousSnapshot] = await Promise.all([
@@ -135,6 +157,7 @@ if (!source || typeof source !== 'object') {
 }
 
 const checkedAt = new Date().toISOString();
+const ignoredUnstructured = outOfScopeUnstructuredEvidence(source);
 const sourceHealthy = strictSourceHealth(source);
 const freshness = fallbackState({
   sourceHealthy,
@@ -173,6 +196,8 @@ const compass = {
   publishedRoles: selected.length,
   preservedPrevious: fallbackActive ? selected.length : 0,
   removedExpiredFallback: !sourceHealthy && freshness.fallbackExpired ? previousSnapshot.length : 0,
+  ignoredUnstructuredOutOfScope: ignoredUnstructured.count,
+  ignoredUnstructuredOutOfScopeUrls: ignoredUnstructured.urls,
   fallbackPolicy: `Retain the last fully verified Compass snapshot for at most ${MAX_FALLBACK_AGE_HOURS} hours after official-source failure; then remove Compass roles until fresh verification succeeds.`
 };
 
@@ -192,7 +217,7 @@ await Promise.all([
 ]);
 
 if (sourceHealthy) {
-  console.log(`Persisted fully verified Compass snapshot: ${source.listedPositions || 0} public positions, ${selected.length} mission-fit roles.`);
+  console.log(`Persisted fully verified Compass snapshot: ${source.listedPositions || 0} public positions, ${selected.length} mission-fit roles${ignoredUnstructured.count ? `; ${ignoredUnstructured.count} clearly out-of-scope unstructured page(s) excluded` : ''}.`);
 } else if (fallbackActive) {
   console.warn(`Compass source incomplete; preserved ${selected.length} previously verified role(s) inside the ${MAX_FALLBACK_AGE_HOURS}-hour freshness window.`);
 } else {

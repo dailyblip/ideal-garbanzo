@@ -48,6 +48,10 @@ jobs:
           node --check scripts/validate-sabey-snapshot.mjs
       - name: Guard Sabey early-career classification
         run: node scripts/collect-sabey-careers.mjs --test-experience-parser
+      - name: Reverify Sabey employer-direct source
+        run: node scripts/collect-sabey-careers.mjs
+      - name: Build current Sabey verification snapshot
+        run: node scripts/persist-sabey-snapshot.mjs
       - name: Guard Sabey stale-fallback policy
         run: node scripts/enforce-sabey-fallback-freshness.mjs --test
       - name: Verify Sabey snapshot and public-feed parity

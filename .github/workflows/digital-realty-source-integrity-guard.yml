@@ -11,6 +11,7 @@ on:
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-digital-realty-parity.mjs'
       - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/digital-realty-bootstrap.yml'
       - '.github/workflows/digital-realty-source-integrity-guard.yml'
   pull_request:
@@ -23,6 +24,7 @@ on:
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-digital-realty-parity.mjs'
       - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/digital-realty-bootstrap.yml'
       - '.github/workflows/digital-realty-source-integrity-guard.yml'
   workflow_dispatch:
@@ -44,6 +46,11 @@ jobs:
           node --check scripts/validate-digital-realty.mjs
           node --check scripts/validate-digital-realty-parity.mjs
           node --check scripts/enforce-digital-realty-fallback-freshness.mjs
+      - name: Guard Digital Realty refresh cadence and source-writer safety
+        run: |
+          grep -Fq "cron: '19 */6 * * *'" .github/workflows/digital-realty-bootstrap.yml
+          grep -Fq 'group: careers-source-writers' .github/workflows/digital-realty-bootstrap.yml
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Run Digital Realty integrity and freshness regressions
         run: |
           node scripts/validate-digital-realty-parity.mjs --test

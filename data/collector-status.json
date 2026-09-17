@@ -191,8 +191,8 @@
     "errors": [
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "checkedAt": "2026-09-17T17:16:44.736Z",
-    "lastHealthyAt": "2026-09-17T17:16:44.736Z",
+    "checkedAt": "2026-09-17T21:47:15.132Z",
+    "lastHealthyAt": "2026-09-17T21:47:15.132Z",
     "listingComplete": true,
     "authoritativeSnapshot": true,
     "fallbackMaxAgeHours": 96,
@@ -1763,7 +1763,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T21:44:14.491Z",
+    "checkedAt": "2026-09-17T21:47:15.181Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1771,7 +1771,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T21:44:14.572Z",
+    "updatedAt": "2026-09-17T21:47:15.226Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 664,
@@ -1790,7 +1790,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T21:44:14.644Z",
+    "checkedAt": "2026-09-17T21:47:15.269Z",
     "before": 664,
     "after": 664,
     "removed": 0,
@@ -1798,7 +1798,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T21:44:39.544Z",
+    "checkedAt": "2026-09-17T21:47:36.282Z",
     "publishedJobs": 664,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -1816,7 +1816,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T21:44:39.750Z"
+    "updatedAt": "2026-09-17T21:47:36.403Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

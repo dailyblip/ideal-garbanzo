@@ -23,15 +23,26 @@ if (config.cadence !== 'weekly') fail('Mailing list cadence must remain weekly.'
 if (config.sendDay !== 'Monday') fail('Weekly alert must send on Monday.');
 if (config.sendTimeUtc !== '16:00') fail('Weekly alert send time must remain 16:00 UTC.');
 
-const scheduleMatch = workflow.match(/cron:\s*'(\d{1,2})\s+(\d{1,2})\s+\*\s+\*\s+1'/);
-if (!scheduleMatch) fail('Weekly alert workflow must have a Monday UTC cron schedule.');
-const workflowMinute = Number(scheduleMatch[1]);
-const workflowHour = Number(scheduleMatch[2]);
+const scheduleMatches = [...workflow.matchAll(/cron:\s*'(\d{1,2})\s+(\d{1,2})\s+\*\s+\*\s+1'/g)];
+if (scheduleMatches.length < 2) fail('Weekly alert workflow must keep redundant Monday UTC scheduler runs.');
 const [sendHour, sendMinute] = String(config.sendTimeUtc).split(':').map(Number);
-const scheduleLeadMinutes = sendHour * 60 + sendMinute - (workflowHour * 60 + workflowMinute);
-if (scheduleLeadMinutes < 30 || scheduleLeadMinutes > 180) {
-  fail(`Weekly alert scheduler must run 30–180 minutes before ${config.sendTimeUtc} UTC so the digest uses fresh jobs without risking a missed send.`);
+const scheduleMinutes = new Set();
+for (const match of scheduleMatches) {
+  const workflowMinute = Number(match[1]);
+  const workflowHour = Number(match[2]);
+  if (workflowMinute > 59 || workflowHour > 23) fail(`Weekly alert workflow has an invalid Monday UTC cron: ${match[0]}`);
+  const minuteOfDay = workflowHour * 60 + workflowMinute;
+  if (scheduleMinutes.has(minuteOfDay)) fail('Weekly alert redundant scheduler runs must use distinct UTC times.');
+  scheduleMinutes.add(minuteOfDay);
+  const scheduleLeadMinutes = sendHour * 60 + sendMinute - minuteOfDay;
+  if (scheduleLeadMinutes < 30 || scheduleLeadMinutes > 180) {
+    fail(`Every weekly alert scheduler run must be 30–180 minutes before ${config.sendTimeUtc} UTC so the digest uses fresh jobs without risking a missed send.`);
+  }
 }
+
+const sortedSchedules = [...scheduleMinutes].sort((a, b) => a - b);
+const finalLeadMinutes = sendHour * 60 + sendMinute - sortedSchedules.at(-1);
+if (finalLeadMinutes > 60) fail('Weekly alert backup scheduler must run within 60 minutes of the configured send time.');
 
 const expectedAction = `https://buttondown.com/api/emails/embed-subscribe/${config.username}`;
 for (const marker of [
@@ -79,7 +90,8 @@ if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script 
 
 for (const marker of [
   'pull_request:',
-  "cron: '5 14 * * 1'",
+  "cron: '37 14 * * 1'",
+  "cron: '23 15 * * 1'",
   "run: node scripts/validate-mailing-list.mjs",
   "run: node scripts/send-weekly-job-alert.mjs --test-selection",
   "run: node scripts/send-weekly-job-alert.mjs --dry-run",
@@ -152,4 +164,4 @@ await assertMissing('scripts/send-weekly-digest.mjs');
 await import('./validate-alert-job-detail-parity.mjs');
 await import('./validate-alert-signup-parity.mjs');
 
-console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline scheduled for ${config.sendTimeUtc} UTC with tracked Data Center Careers job links and employer-diverse selection.`);
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline with ${scheduleMatches.length} redundant scheduler runs before the ${config.sendTimeUtc} UTC send, tracked Data Center Careers job links, and employer-diverse selection.`);

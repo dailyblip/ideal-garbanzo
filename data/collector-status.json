@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T17:22:02.114Z",
+  "updatedAt": "2026-09-17T17:27:21.641Z",
   "jobs": 670,
   "sourcesAttempted": 18,
   "providers": {
@@ -1381,26 +1381,26 @@
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 24,
-        "reportedRows": 232,
-        "rows": 232
+        "pages": 25,
+        "reportedRows": 241,
+        "rows": 241
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 28,
-        "reportedRows": 274,
-        "rows": 274
+        "reportedRows": 279,
+        "rows": 279
       },
       {
         "query": "inventory and asset technician",
         "healthy": true,
         "pages": 2,
-        "reportedRows": 16,
-        "rows": 16
+        "reportedRows": 17,
+        "rows": 17
       }
     ],
-    "candidateRows": 362,
+    "candidateRows": 372,
     "plausibleRows": 36,
     "detailAttempts": 36,
     "detailVerified": 36,
@@ -1417,8 +1417,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-17T12:19:08.414Z",
-      "expiresAt": "2026-09-21T12:19:08.414Z",
+      "verifiedAt": "2026-09-17T17:27:21.856Z",
+      "expiresAt": "2026-09-21T17:27:21.856Z",
       "roles": 35,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -1772,15 +1772,25 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T17:22:02.177Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-17T17:27:21.699Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "non-mission role family": 1
+    },
+    "removed": [
+      {
+        "id": "microsoft-1970393556994516",
+        "company": "Microsoft",
+        "title": "Data Center Critical Environment Business Analyst",
+        "location": "Boydton, VA",
+        "reason": "non-mission role family"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T17:22:02.237Z",
+    "updatedAt": "2026-09-17T17:27:21.759Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 670,
@@ -1799,7 +1809,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T17:22:02.292Z",
+    "checkedAt": "2026-09-17T17:27:21.815Z",
     "before": 670,
     "after": 670,
     "removed": 0,
@@ -1825,7 +1835,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T17:22:02.340Z"
+    "updatedAt": "2026-09-17T17:27:21.903Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

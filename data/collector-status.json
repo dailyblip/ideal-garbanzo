@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T16:53:54.268Z",
+  "updatedAt": "2026-09-17T16:58:22.723Z",
   "jobs": 676,
   "sourcesAttempted": 32,
   "providers": {
@@ -2077,7 +2077,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T16:53:54.338Z",
+    "checkedAt": "2026-09-17T16:58:22.771Z",
     "removedCount": 1,
     "removedByReason": {
       "senior/executive title": 1
@@ -2095,7 +2095,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T16:53:54.409Z",
+    "updatedAt": "2026-09-17T16:58:22.817Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 676,
@@ -2114,7 +2114,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T16:53:54.475Z",
+    "checkedAt": "2026-09-17T16:58:22.859Z",
     "before": 676,
     "after": 676,
     "removed": 0,
@@ -2122,7 +2122,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T16:54:13.757Z",
+    "checkedAt": "2026-09-17T16:58:45.845Z",
     "publishedJobs": 676,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -2132,15 +2132,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1148,
     "currentJobs": 676,
-    "newJobsThisRun": 6,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 6,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-17T16:54:13.941Z"
+    "updatedAt": "2026-09-17T16:58:45.967Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2897,8 +2897,8 @@
     "samples": []
   },
   "primeDataCenters": {
-    "checkedAt": "2026-09-17T16:53:54.268Z",
-    "lastSuccessfulAt": "2026-09-17T16:53:54.268Z",
+    "checkedAt": "2026-09-17T16:58:22.723Z",
+    "lastSuccessfulAt": "2026-09-17T16:58:22.723Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://primedatacenters.com/careers/",
@@ -2924,6 +2924,11 @@
     "publicationFilteredTitles": [
       "Data Center Business Systems Architect"
     ],
-    "publicationGate": "Shared mission-fit backstop is authoritative for the public Prime snapshot."
+    "publicationGate": "Shared mission-fit backstop is authoritative for the public Prime snapshot.",
+    "compensationSanitizedRoles": 1,
+    "compensationSanitizedTitles": [
+      "Data Center Controls Engineeer"
+    ],
+    "compensationPolicy": "Ambiguous three-digit hourly-looking ranges are suppressed instead of guessing whether source shorthand means thousands per year."
   }
 }

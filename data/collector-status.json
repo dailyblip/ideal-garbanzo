@@ -252,14 +252,14 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-16T05:00:26.478Z",
-          "lastHealthyAt": "2026-09-16T05:00:26.478Z",
-          "expiresAt": "2026-09-20T05:00:26.478Z",
+          "checkedAt": "2026-09-17T01:45:08.186Z",
+          "lastHealthyAt": "2026-09-17T01:45:08.186Z",
+          "expiresAt": "2026-09-21T01:45:08.186Z",
           "roles": 8,
           "maxAgeHours": 96,
           "listingComplete": true,
-          "reportedRows": 175,
-          "uniqueRows": 175,
+          "reportedRows": 180,
+          "uniqueRows": 180,
           "pagesAttempted": 9,
           "pagesSucceeded": 9
         }
@@ -277,14 +277,14 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-16T05:00:26.478Z",
-          "lastHealthyAt": "2026-09-16T05:00:26.478Z",
-          "expiresAt": "2026-09-20T05:00:26.478Z",
-          "roles": 39,
+          "checkedAt": "2026-09-17T01:45:08.186Z",
+          "lastHealthyAt": "2026-09-17T01:45:08.186Z",
+          "expiresAt": "2026-09-21T01:45:08.186Z",
+          "roles": 40,
           "maxAgeHours": 96,
           "listingComplete": true,
-          "reportedRows": 298,
-          "uniqueRows": 298,
+          "reportedRows": 292,
+          "uniqueRows": 292,
           "pagesAttempted": 15,
           "pagesSucceeded": 15
         }
@@ -302,14 +302,14 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-16T05:00:26.478Z",
-          "lastHealthyAt": "2026-09-16T05:00:26.478Z",
-          "expiresAt": "2026-09-20T05:00:26.478Z",
+          "checkedAt": "2026-09-17T01:45:08.186Z",
+          "lastHealthyAt": "2026-09-17T01:45:08.186Z",
+          "expiresAt": "2026-09-21T01:45:08.186Z",
           "roles": 44,
           "maxAgeHours": 96,
           "listingComplete": true,
-          "reportedRows": 114,
-          "uniqueRows": 114,
+          "reportedRows": 113,
+          "uniqueRows": 113,
           "pagesAttempted": 6,
           "pagesSucceeded": 6
         }
@@ -327,14 +327,14 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-16T05:00:26.478Z",
-          "lastHealthyAt": "2026-09-16T05:00:26.478Z",
-          "expiresAt": "2026-09-20T05:00:26.478Z",
+          "checkedAt": "2026-09-17T01:45:08.186Z",
+          "lastHealthyAt": "2026-09-17T01:45:08.186Z",
+          "expiresAt": "2026-09-21T01:45:08.186Z",
           "roles": 9,
           "maxAgeHours": 96,
           "listingComplete": true,
-          "reportedRows": 75,
-          "uniqueRows": 75,
+          "reportedRows": 73,
+          "uniqueRows": 73,
           "pagesAttempted": 4,
           "pagesSucceeded": 4
         }
@@ -352,14 +352,14 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-16T05:00:26.478Z",
-          "lastHealthyAt": "2026-09-16T05:00:26.478Z",
-          "expiresAt": "2026-09-20T05:00:26.478Z",
+          "checkedAt": "2026-09-17T01:45:08.186Z",
+          "lastHealthyAt": "2026-09-17T01:45:08.186Z",
+          "expiresAt": "2026-09-21T01:45:08.186Z",
           "roles": 23,
           "maxAgeHours": 96,
           "listingComplete": true,
-          "reportedRows": 227,
-          "uniqueRows": 227,
+          "reportedRows": 223,
+          "uniqueRows": 223,
           "pagesAttempted": 12,
           "pagesSucceeded": 12
         }
@@ -377,14 +377,14 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-16T05:00:26.478Z",
-          "lastHealthyAt": "2026-09-16T05:00:26.478Z",
-          "expiresAt": "2026-09-20T05:00:26.478Z",
+          "checkedAt": "2026-09-17T01:45:08.186Z",
+          "lastHealthyAt": "2026-09-17T01:45:08.186Z",
+          "expiresAt": "2026-09-21T01:45:08.186Z",
           "roles": 34,
           "maxAgeHours": 96,
           "listingComplete": true,
-          "reportedRows": 208,
-          "uniqueRows": 208,
+          "reportedRows": 210,
+          "uniqueRows": 210,
           "pagesAttempted": 11,
           "pagesSucceeded": 11
         }
@@ -412,37 +412,37 @@
           "company": "Vantage Data Centers",
           "state": "healthy",
           "roles": 8,
-          "reportedRows": 175
+          "reportedRows": 180
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
-          "roles": 39,
-          "reportedRows": 298
+          "roles": 40,
+          "reportedRows": 292
         },
         {
           "company": "CyrusOne",
           "state": "healthy",
           "roles": 44,
-          "reportedRows": 114
+          "reportedRows": 113
         },
         {
           "company": "STACK Infrastructure",
           "state": "healthy",
           "roles": 9,
-          "reportedRows": 75
+          "reportedRows": 73
         },
         {
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 23,
-          "reportedRows": 227
+          "reportedRows": 223
         },
         {
           "company": "Aligned Data Centers",
           "state": "healthy",
           "roles": 34,
-          "reportedRows": 208
+          "reportedRows": 210
         }
       ]
     },

@@ -37,6 +37,7 @@ if (!Number.isFinite(Date.parse(diagnostics.lastSuccessfulAt || ''))) throw new 
 if (Number(diagnostics.qualifyingRoles) !== snapshot.length) throw new Error(`Prime qualifyingRoles=${diagnostics.qualifyingRoles} does not match snapshot length=${snapshot.length}`);
 if (Number(diagnostics.candidateRoles) > 0 && Number(diagnostics.detailVerified) < Number(diagnostics.qualifyingRoles)) throw new Error('Prime detail verification count is smaller than the published qualifying role count');
 if (Number(diagnostics.detailFailures || 0) !== 0) throw new Error('Prime healthy snapshot must not contain detail verification failures');
+if (!Number.isInteger(Number(diagnostics.compensationSanitizedRoles || 0)) || Number(diagnostics.compensationSanitizedRoles || 0) < 0) throw new Error('Prime compensation sanitization count is invalid');
 
 const ids = new Set();
 const urls = new Set();
@@ -51,6 +52,13 @@ for (const job of snapshot) {
   if (!/^https:\/\/ats\.rippling\.com\/prime-data-centers\/jobs\/[A-Za-z0-9_-]+\/?(?:\?.*)?$/i.test(clean(job?.sourceUrl))) {
     throw new Error(`Prime role source is not an exact official Rippling job URL: ${clean(job?.sourceUrl)}`);
   }
+
+  const salaryMin = Number(job?.salaryMin);
+  const salaryMax = Number(job?.salaryMax);
+  if (/\/\s*hr\b/i.test(clean(job?.pay)) && Number.isFinite(salaryMin) && Number.isFinite(salaryMax) && salaryMin >= 100 && salaryMax < 1000) {
+    throw new Error(`Prime role has ambiguous three-digit hourly-looking compensation that should have failed closed: ${clean(job?.title)} (${clean(job?.pay)})`);
+  }
+
   const id = clean(job?.id);
   const url = clean(job?.sourceUrl);
   if (!id) throw new Error('Prime role is missing id');
@@ -65,4 +73,4 @@ if (feedPrime.length !== snapshot.length) throw new Error(`Public feed has ${fee
 const feedIds = new Set(feedPrime.map(job => clean(job?.id)));
 for (const id of ids) if (!feedIds.has(id)) throw new Error(`Prime snapshot role ${id} is missing from public feed`);
 
-console.log(`Prime Data Centers source validation passed: ${snapshot.length} authoritative U.S. 0–5 year role(s), ${Number(diagnostics.detailVerified || 0)} candidate detail page(s) verified.`);
+console.log(`Prime Data Centers source validation passed: ${snapshot.length} authoritative U.S. 0–5 year role(s), ${Number(diagnostics.detailVerified || 0)} candidate detail page(s) verified, ${Number(diagnostics.compensationSanitizedRoles || 0)} ambiguous compensation range(s) suppressed.`);

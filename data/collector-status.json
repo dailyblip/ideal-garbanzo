@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T12:02:14.405Z",
+  "updatedAt": "2026-09-17T12:02:18.646Z",
   "jobs": 673,
   "sourcesAttempted": 24,
   "providers": {
@@ -2075,7 +2075,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T11:56:08.685Z",
+    "updatedAt": "2026-09-17T12:02:18.710Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 673,
@@ -2094,7 +2094,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T11:56:08.758Z",
+    "checkedAt": "2026-09-17T12:02:18.764Z",
     "before": 673,
     "after": 673,
     "removed": 0,
@@ -2118,9 +2118,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 15,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 84,
-    "updatedAt": "2026-09-17T11:56:08.814Z"
+    "updatedAt": "2026-09-17T12:02:18.806Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2811,13 +2811,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-17T05:19:45.952Z",
+    "checkedAt": "2026-09-17T12:02:18.646Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "qualifyingRoles": 2,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2848,29 +2848,19 @@
         "requisition": "JR-158170",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "detailStatus": 202,
+        "published": false,
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-811161",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "detailStatus": 202,
+        "published": false,
+        "reason": "identity-drift",
+        "heading": ""
       }
     ],
     "errors": []

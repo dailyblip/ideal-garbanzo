@@ -1,22 +1,22 @@
 {
-  "updatedAt": "2026-09-16T23:43:40.145Z",
-  "jobs": 674,
-  "sourcesAttempted": 18,
+  "updatedAt": "2026-09-17T02:48:10.744Z",
+  "jobs": 675,
+  "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 2
   },
   "countsByType": {
-    "entry-level": 648,
+    "entry-level": 649,
     "internship": 6,
     "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 374,
-    "2-5-years": 257,
+    "2-5-years": 258,
     "no-experience": 43
   },
   "errors": [],
@@ -3404,17 +3404,17 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2171,
-    "listingRows": 2168,
-    "pagesAttempted": 12,
-    "pagesSucceeded": 12,
+    "totalOpenRoles": 2210,
+    "listingRows": 2207,
+    "pagesAttempted": 13,
+    "pagesSucceeded": 13,
     "candidateRows": 90,
     "detailAttempted": 90,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
-    "qualifyingRoles": 14,
+    "qualifyingRoles": 15,
     "drops": {
-      "title": 2078,
+      "title": 2117,
       "nonUs": 32,
       "context": 14,
       "experience": 24,
@@ -3423,7 +3423,7 @@
     },
     "errors": [],
     "missionFitScrub": {
-      "checkedAt": "2026-09-16T14:53:16.930Z",
+      "checkedAt": "2026-09-17T02:48:10.807Z",
       "removedFromSnapshot": 4,
       "removedFromPublicFeed": 4,
       "removed": [
@@ -3634,7 +3634,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T00:47:54.355Z",
+    "checkedAt": "2026-09-17T02:48:10.873Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3642,17 +3642,17 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T00:47:54.435Z",
+    "updatedAt": "2026-09-17T02:48:10.945Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 674,
+    "regionAssigned": 675,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 134,
       "mid-atlantic": 126,
-      "southwest": 83,
+      "southwest": 84,
       "southeast": 100,
       "west": 93,
       "texas": 116,
@@ -3661,9 +3661,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T00:47:54.515Z",
-    "before": 674,
-    "after": 674,
+    "checkedAt": "2026-09-17T02:48:11.020Z",
+    "before": 675,
+    "after": 675,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3677,17 +3677,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1114,
-    "currentJobs": 674,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1116,
+    "currentJobs": 675,
+    "newJobsThisRun": 2,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 15,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-17T00:48:32.239Z"
+    "updatedAt": "2026-09-17T02:48:11.075Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,12 +1,13 @@
 {
-  "updatedAt": "2026-09-17T09:52:17.377Z",
+  "updatedAt": "2026-09-17T11:35:53.192Z",
   "jobs": 670,
-  "sourcesAttempted": 18,
+  "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "metaCareers": 1
   },
   "countsByType": {
     "entry-level": 644,
@@ -3016,23 +3017,73 @@
       "searchPagesSucceeded": 2,
       "embeddedCandidates": 0,
       "sitemapFetched": true,
-      "sitemapJobs": 990,
-      "detailAttempted": 990,
-      "detailSucceeded": 990,
+      "sitemapJobs": 995,
+      "detailAttempted": 995,
+      "detailSucceeded": 995,
       "previousSnapshotCandidates": 8,
       "previousSnapshotReverified": 0,
       "verified": 0,
       "drops": {
-        "titleOrContext": 972,
+        "titleOrContext": 977,
         "nonUsOrUnknownLocation": 2,
         "experience": 16,
         "fetch": 0
       },
       "titleOrContextSamples": [
         {
-          "id": "2486789151677735",
-          "title": "Software Engineer, Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
+          "id": "1047150807688665",
+          "title": "Forward Deployed Engineer, Enterprise AI",
+          "url": "https://www.metacareers.com/profile/job_details/1047150807688665/"
+        },
+        {
+          "id": "1363180574984325",
+          "title": "Software Engineer - Machine Learning (Technical Leadership)",
+          "url": "https://www.metacareers.com/profile/job_details/1363180574984325/"
+        },
+        {
+          "id": "967830298136473",
+          "title": "Connectivity Engineer - Data Center Design, Engineering, & Construction",
+          "url": "https://www.metacareers.com/profile/job_details/967830298136473/"
+        },
+        {
+          "id": "612870871828801",
+          "title": "Software Engineer, Product",
+          "url": "https://www.metacareers.com/profile/job_details/612870871828801/"
+        },
+        {
+          "id": "1063946209792967",
+          "title": "Data Scientist, Product Analytics",
+          "url": "https://www.metacareers.com/profile/job_details/1063946209792967/"
+        },
+        {
+          "id": "938746892241216",
+          "title": "Network Engineer, Foundation & Support",
+          "url": "https://www.metacareers.com/profile/job_details/938746892241216/"
+        },
+        {
+          "id": "1675985624113483",
+          "title": "Capacity Planning Optimization Lead",
+          "url": "https://www.metacareers.com/profile/job_details/1675985624113483/"
+        },
+        {
+          "id": "1543033930899022",
+          "title": "Security Engineer",
+          "url": "https://www.metacareers.com/profile/job_details/1543033930899022/"
+        },
+        {
+          "id": "1763781748277128",
+          "title": "Mechanical Supplier Quality Engineer (SQE)",
+          "url": "https://www.metacareers.com/profile/job_details/1763781748277128/"
+        },
+        {
+          "id": "1819186165919536",
+          "title": "Program Manager, Compliance Assurance",
+          "url": "https://www.metacareers.com/profile/job_details/1819186165919536/"
+        },
+        {
+          "id": "1039627778682444",
+          "title": "Head of AI & Innovation Communications, APAC",
+          "url": "https://www.metacareers.com/profile/job_details/1039627778682444/"
         },
         {
           "id": "9657291271065759",
@@ -3040,24 +3091,14 @@
           "url": "https://www.metacareers.com/profile/job_details/9657291271065759/"
         },
         {
-          "id": "1074311682016184",
-          "title": "Business Development Manager, Monetization",
-          "url": "https://www.metacareers.com/profile/job_details/1074311682016184/"
+          "id": "1230344360172077",
+          "title": "I&T Director, Global Security",
+          "url": "https://www.metacareers.com/profile/job_details/1230344360172077/"
         },
         {
-          "id": "4043567932553615",
-          "title": "Software Engineer - Product (Technical Leadership)",
-          "url": "https://www.metacareers.com/profile/job_details/4043567932553615/"
-        },
-        {
-          "id": "4353897074885903",
-          "title": "Enterprise Technical Sales Specialist",
-          "url": "https://www.metacareers.com/profile/job_details/4353897074885903/"
-        },
-        {
-          "id": "704019139159184",
-          "title": "Software Engineer (Leadership) - Infrastructure",
-          "url": "https://www.metacareers.com/profile/job_details/704019139159184/"
+          "id": "1645503493182815",
+          "title": "Software Engineer, Machine Learning RecSys",
+          "url": "https://www.metacareers.com/profile/job_details/1645503493182815/"
         },
         {
           "id": "1436181490732782",
@@ -3065,44 +3106,19 @@
           "url": "https://www.metacareers.com/profile/job_details/1436181490732782/"
         },
         {
-          "id": "2076926089596128",
-          "title": "Performance & Capacity Engineer - Capacity Planning Optimization(Technical Leadership)",
-          "url": "https://www.metacareers.com/profile/job_details/2076926089596128/"
+          "id": "1085335604077521",
+          "title": "Strategic Risk Program Manager, Privacy",
+          "url": "https://www.metacareers.com/profile/job_details/1085335604077521/"
         },
         {
-          "id": "1061398653409850",
-          "title": "CapEx Sourcing Manager",
-          "url": "https://www.metacareers.com/profile/job_details/1061398653409850/"
+          "id": "4043567932553615",
+          "title": "Software Engineer - Product (Technical Leadership)",
+          "url": "https://www.metacareers.com/profile/job_details/4043567932553615/"
         },
         {
-          "id": "1807649336905495",
-          "title": "Law Enforcement Response Team Policy Associate",
-          "url": "https://www.metacareers.com/profile/job_details/1807649336905495/"
-        },
-        {
-          "id": "3713685685437806",
-          "title": "Data Engineer, Product Analytics",
-          "url": "https://www.metacareers.com/profile/job_details/3713685685437806/"
-        },
-        {
-          "id": "1203016587809246",
-          "title": "Software Engineer, iOS",
-          "url": "https://www.metacareers.com/profile/job_details/1203016587809246/"
-        },
-        {
-          "id": "1394915781774041",
-          "title": "Software Engineer, Android",
-          "url": "https://www.metacareers.com/profile/job_details/1394915781774041/"
-        },
-        {
-          "id": "1772521330732969",
-          "title": "Program Manager",
-          "url": "https://www.metacareers.com/profile/job_details/1772521330732969/"
-        },
-        {
-          "id": "1597578725297270",
-          "title": "Optical Engineer, RTP, Test Automation and Optics NPI",
-          "url": "https://www.metacareers.com/profile/job_details/1597578725297270/"
+          "id": "2486789151677735",
+          "title": "Software Engineer, Infrastructure",
+          "url": "https://www.metacareers.com/profile/job_details/2486789151677735/"
         },
         {
           "id": "1604951804690036",
@@ -3110,24 +3126,9 @@
           "url": "https://www.metacareers.com/profile/job_details/1604951804690036/"
         },
         {
-          "id": "2709819839377555",
-          "title": "AI Research Scientist - MSL FAIR Foundations",
-          "url": "https://www.metacareers.com/profile/job_details/2709819839377555/"
-        },
-        {
           "id": "998357492128826",
           "title": "Software Engineer, Machine Learning",
           "url": "https://www.metacareers.com/profile/job_details/998357492128826/"
-        },
-        {
-          "id": "2101592967909191",
-          "title": "Program Manager, Regional Regulatory Readiness - EMEA",
-          "url": "https://www.metacareers.com/profile/job_details/2101592967909191/"
-        },
-        {
-          "id": "4680697915535563",
-          "title": "Nanofabrication Engineer, Optical Systems",
-          "url": "https://www.metacareers.com/profile/job_details/4680697915535563/"
         }
       ],
       "locationSamples": [
@@ -3150,6 +3151,15 @@
       ],
       "experienceSamples": [
         {
+          "id": "1713216779808487",
+          "title": "Critical Facility Engineer",
+          "location": "Temple, TX",
+          "years": [],
+          "scoped": false,
+          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upon... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1713216779808487/"
+        },
+        {
           "id": "1685872255913876",
           "title": "Data Center Production Operations Engineer",
           "location": "Los Lunas, NM",
@@ -3159,13 +3169,13 @@
           "url": "https://www.metacareers.com/profile/job_details/1685872255913876/"
         },
         {
-          "id": "1713216779808487",
+          "id": "795179610064299",
           "title": "Critical Facility Engineer",
-          "location": "Temple, TX",
+          "location": "Rayville, LA",
           "years": [],
           "scoped": false,
           "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upon... Meta Careers",
-          "url": "https://www.metacareers.com/profile/job_details/1713216779808487/"
+          "url": "https://www.metacareers.com/profile/job_details/795179610064299/"
         },
         {
           "id": "1641406750475279",
@@ -3186,22 +3196,13 @@
           "url": "https://www.metacareers.com/profile/job_details/2787411734955554/"
         },
         {
-          "id": "1435494154152569",
-          "title": "Critical Facility Engineer",
-          "location": "El Paso, TX",
+          "id": "1070865265322507",
+          "title": "Mechanical Engineer, Data Center Operations Engineering",
+          "location": "Reston, VA",
           "years": [],
           "scoped": false,
-          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upo... Meta Careers",
-          "url": "https://www.metacareers.com/profile/job_details/1435494154152569/"
-        },
-        {
-          "id": "795179610064299",
-          "title": "Critical Facility Engineer",
-          "location": "Rayville, LA",
-          "years": [],
-          "scoped": false,
-          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upon... Meta Careers",
-          "url": "https://www.metacareers.com/profile/job_details/795179610064299/"
+          "qualifications": "Meta is seeking a Mechanical Engineer to join our Data Center Operations Engineering team. Our data centers are the foundation upon which our rapidly gr... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1070865265322507/"
         },
         {
           "id": "2781256275574469",
@@ -3213,13 +3214,13 @@
           "url": "https://www.metacareers.com/profile/job_details/2781256275574469/"
         },
         {
-          "id": "1070865265322507",
-          "title": "Mechanical Engineer, Data Center Operations Engineering",
-          "location": "Reston, VA",
+          "id": "1435494154152569",
+          "title": "Critical Facility Engineer",
+          "location": "El Paso, TX",
           "years": [],
           "scoped": false,
-          "qualifications": "Meta is seeking a Mechanical Engineer to join our Data Center Operations Engineering team. Our data centers are the foundation upon which our rapidly gr... Meta Careers",
-          "url": "https://www.metacareers.com/profile/job_details/1070865265322507/"
+          "qualifications": "Meta is seeking a data center Critical Facility Engineer to join our Data Center Facility Operations team. Our data centers serve as the foundation upo... Meta Careers",
+          "url": "https://www.metacareers.com/profile/job_details/1435494154152569/"
         },
         {
           "id": "1690022942358388",
@@ -3309,6 +3310,14 @@
       "noSupportedExperience": 4,
       "recoveredSamples": [
         {
+          "id": "meta-1713216779808487",
+          "title": "Critical Facility Engineer",
+          "location": "Temple, TX",
+          "minYears": 3,
+          "source": "jobposting-jsonld",
+          "url": "https://www.metacareers.com/profile/job_details/1713216779808487/"
+        },
+        {
           "id": "meta-1685872255913876",
           "title": "Data Center Production Operations Engineer",
           "location": "Los Lunas, NM",
@@ -3317,12 +3326,12 @@
           "url": "https://www.metacareers.com/profile/job_details/1685872255913876/"
         },
         {
-          "id": "meta-1713216779808487",
+          "id": "meta-795179610064299",
           "title": "Critical Facility Engineer",
-          "location": "Temple, TX",
-          "minYears": 3,
+          "location": "Rayville, LA",
+          "minYears": 2,
           "source": "jobposting-jsonld",
-          "url": "https://www.metacareers.com/profile/job_details/1713216779808487/"
+          "url": "https://www.metacareers.com/profile/job_details/795179610064299/"
         },
         {
           "id": "meta-1641406750475279",
@@ -3341,20 +3350,12 @@
           "url": "https://www.metacareers.com/profile/job_details/2787411734955554/"
         },
         {
-          "id": "meta-1435494154152569",
-          "title": "Critical Facility Engineer",
-          "location": "El Paso, TX",
-          "minYears": 2,
+          "id": "meta-1070865265322507",
+          "title": "Mechanical Engineer, Data Center Operations Engineering",
+          "location": "Reston, VA",
+          "minYears": 5,
           "source": "jobposting-jsonld",
-          "url": "https://www.metacareers.com/profile/job_details/1435494154152569/"
-        },
-        {
-          "id": "meta-795179610064299",
-          "title": "Critical Facility Engineer",
-          "location": "Rayville, LA",
-          "minYears": 2,
-          "source": "jobposting-jsonld",
-          "url": "https://www.metacareers.com/profile/job_details/795179610064299/"
+          "url": "https://www.metacareers.com/profile/job_details/1070865265322507/"
         },
         {
           "id": "meta-2781256275574469",
@@ -3365,12 +3366,12 @@
           "url": "https://www.metacareers.com/profile/job_details/2781256275574469/"
         },
         {
-          "id": "meta-1070865265322507",
-          "title": "Mechanical Engineer, Data Center Operations Engineering",
-          "location": "Reston, VA",
-          "minYears": 5,
+          "id": "meta-1435494154152569",
+          "title": "Critical Facility Engineer",
+          "location": "El Paso, TX",
+          "minYears": 2,
           "source": "jobposting-jsonld",
-          "url": "https://www.metacareers.com/profile/job_details/1070865265322507/"
+          "url": "https://www.metacareers.com/profile/job_details/1435494154152569/"
         },
         {
           "id": "meta-1690022942358388",
@@ -3646,7 +3647,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T09:52:17.442Z",
+    "updatedAt": "2026-09-17T11:35:53.375Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 670,
@@ -3665,7 +3666,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T09:52:17.491Z",
+    "checkedAt": "2026-09-17T11:35:53.453Z",
     "before": 670,
     "after": 670,
     "removed": 0,
@@ -3691,7 +3692,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 84,
-    "updatedAt": "2026-09-17T09:52:38.189Z"
+    "updatedAt": "2026-09-17T11:35:53.516Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

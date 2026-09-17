@@ -1,0 +1,96 @@
+name: Prime stale fallback watchdog
+
+on:
+  schedule:
+    - cron: '47 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/prime-data-centers-jobs.json'
+      - 'scripts/collect-prime-data-centers.mjs'
+      - 'scripts/enforce-prime-fallback-freshness.mjs'
+      - 'scripts/validate-prime-data-centers.mjs'
+      - '.github/workflows/prime-stale-fallback-watch.yml'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: prime-stale-fallback-watch
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test Prime stale-fallback policy
+        run: node scripts/enforce-prime-fallback-freshness.mjs --test
+      - name: Verify official Prime board and enforce fallback freshness
+        run: node scripts/enforce-prime-fallback-freshness.mjs
+      - name: Validate Prime freshness state
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-prime-data-centers.mjs
+          node scripts/validate-homepage-contract.mjs
+      - name: Publish Prime freshness state from current main
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/enforce-prime-fallback-freshness.mjs --test
+            node scripts/enforce-prime-fallback-freshness.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-prime-data-centers.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Prime freshness enforcement; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add -u -- data/jobs.json data/prime-data-centers-jobs.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo "Prime freshness state is unchanged."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Enforce Prime role freshness"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Prime freshness publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish Prime freshness state after three attempts."
+          exit 1
+      - name: Deploy Prime freshness change
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

@@ -6,10 +6,11 @@ on:
     paths:
       - 'scripts/collect-cologix.mjs'
       - 'scripts/validate-cologix.mjs'
+      - 'scripts/enforce-cologix-fallback-freshness.mjs'
       - '.github/workflows/cologix-bootstrap.yml'
   workflow_dispatch:
   schedule:
-    - cron: '27 1,13 * * *'
+    - cron: '27 1,7,13,19 * * *'
 
 permissions:
   contents: write
@@ -35,9 +36,13 @@ jobs:
         run: |
           node --check scripts/collect-cologix.mjs
           node --check scripts/validate-cologix.mjs
+          node --check scripts/enforce-cologix-fallback-freshness.mjs
           node scripts/collect-cologix.mjs --test-classifier
           node scripts/validate-cologix.mjs --test
+          node scripts/enforce-cologix-fallback-freshness.mjs --test
           node scripts/collect-jobs.mjs --test-preservation
+      - name: Enforce Cologix snapshot freshness before collection
+        run: node scripts/enforce-cologix-fallback-freshness.mjs
       - name: Collect official Cologix Lever roles
         run: node scripts/collect-cologix.mjs
       - name: Enforce mission-fit role families
@@ -72,7 +77,9 @@ jobs:
             git reset --hard origin/main
             node scripts/collect-cologix.mjs --test-classifier
             node scripts/validate-cologix.mjs --test
+            node scripts/enforce-cologix-fallback-freshness.mjs --test
             node scripts/collect-jobs.mjs --test-preservation
+            node scripts/enforce-cologix-fallback-freshness.mjs
             node scripts/collect-cologix.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs

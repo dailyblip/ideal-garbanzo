@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - scripts/collect-prime-data-centers.mjs
+      - scripts/reconcile-prime-data-centers.mjs
       - scripts/validate-prime-data-centers.mjs
   workflow_dispatch:
   schedule:
@@ -33,6 +34,7 @@ jobs:
       - name: Validate collector and parsers
         run: |
           node --check scripts/collect-prime-data-centers.mjs
+          node --check scripts/reconcile-prime-data-centers.mjs
           node --check scripts/validate-prime-data-centers.mjs
           node scripts/collect-prime-data-centers.mjs --test-classifier
           node scripts/collect-prime-data-centers.mjs --test-next-data
@@ -44,6 +46,8 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reconcile Prime authoritative snapshot
+        run: node scripts/reconcile-prime-data-centers.mjs
       - name: Run live QA
         run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
@@ -73,6 +77,7 @@ jobs:
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/reconcile-prime-data-centers.mjs
             node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/validate-prime-data-centers.mjs

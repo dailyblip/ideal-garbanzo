@@ -3,7 +3,7 @@ name: Bootstrap Meta Careers
 on:
   workflow_dispatch:
   schedule:
-    - cron: '7 */6 * * *'
+    - cron: '53 */6 * * *'
   push:
     branches: [main]
     paths:

@@ -1,0 +1,159 @@
+name: Refresh priority Workday operator roles
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-major-jobs.mjs'
+      - 'scripts/reconcile-major-jobs.mjs'
+      - 'scripts/recover-major-workday-targeted.mjs'
+      - 'scripts/scrub-major-targeted-noise.mjs'
+      - 'scripts/enforce-major-workday-fallback-freshness.mjs'
+      - 'scripts/validate-major-workday-freshness-state.mjs'
+      - 'scripts/validate-major-workday-parity.mjs'
+      - '.github/workflows/major-workday-bootstrap.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '3 0,6,12,18 * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: careers-source-writers
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate priority Workday collection contracts
+        run: |
+          node --check scripts/collect-major-jobs.mjs
+          node --check scripts/reconcile-major-jobs.mjs
+          node --check scripts/recover-major-workday-targeted.mjs
+          node --check scripts/scrub-major-targeted-noise.mjs
+          node --check scripts/enforce-major-workday-fallback-freshness.mjs
+          node --check scripts/validate-major-workday-freshness-state.mjs
+          node --check scripts/validate-major-workday-parity.mjs
+          node scripts/collect-major-jobs.mjs --test-experience-parser
+          node scripts/recover-major-workday-targeted.mjs --test
+          node scripts/enforce-major-workday-fallback-freshness.mjs --test
+
+      - name: Enforce verified fallback freshness before collection
+        run: node scripts/enforce-major-workday-fallback-freshness.mjs
+
+      - name: Refresh official priority Workday boards
+        run: |
+          node scripts/collect-major-jobs.mjs
+          node scripts/reconcile-major-jobs.mjs
+          node scripts/recover-major-workday-targeted.mjs
+          node scripts/scrub-major-targeted-noise.mjs
+
+      - name: Normalize and QA refreshed feed
+        run: |
+          node scripts/filter-mission-fit.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/enrich-workday-multilocation.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/qa-site.mjs
+          node scripts/refresh-region-status.mjs
+          node scripts/stamp-job-history.mjs
+          node scripts/enforce-major-workday-fallback-freshness.mjs
+
+      - name: Validate refreshed priority Workday publication
+        run: |
+          node scripts/validate-major-workday-freshness-state.mjs
+          node scripts/validate-major-workday-parity.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs
+
+      - name: Publish verified priority Workday roles from current main
+        id: publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node --check scripts/collect-major-jobs.mjs
+            node --check scripts/reconcile-major-jobs.mjs
+            node --check scripts/recover-major-workday-targeted.mjs
+            node --check scripts/scrub-major-targeted-noise.mjs
+            node --check scripts/enforce-major-workday-fallback-freshness.mjs
+            node --check scripts/validate-major-workday-freshness-state.mjs
+            node --check scripts/validate-major-workday-parity.mjs
+            node scripts/collect-major-jobs.mjs --test-experience-parser
+            node scripts/recover-major-workday-targeted.mjs --test
+            node scripts/enforce-major-workday-fallback-freshness.mjs --test
+            node scripts/enforce-major-workday-fallback-freshness.mjs
+            node scripts/collect-major-jobs.mjs
+            node scripts/reconcile-major-jobs.mjs
+            node scripts/recover-major-workday-targeted.mjs
+            node scripts/scrub-major-targeted-noise.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/enrich-workday-multilocation.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/enforce-major-workday-fallback-freshness.mjs
+            node scripts/validate-major-workday-freshness-state.mjs
+            node scripts/validate-major-workday-parity.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo 'Main moved during priority Workday collection; rebuilding from latest main.'
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/major-jobs.json data/major-workday-freshness.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            if git diff --cached --quiet; then
+              echo 'No verified priority Workday data changes.'
+              echo 'changed=false' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m 'Refresh verified priority Workday roles'
+            if git push origin HEAD:main; then
+              echo 'changed=true' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during priority Workday publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo '::error::Could not publish verified priority Workday roles after three attempts.'
+          exit 1
+
+      - name: Deploy committed priority Workday data
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

@@ -1,22 +1,23 @@
 {
-  "updatedAt": "2026-09-17T17:19:32.396Z",
+  "updatedAt": "2026-09-17T17:22:02.114Z",
   "jobs": 670,
-  "sourcesAttempted": 17,
+  "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
-    "ashby": 5
+    "ashby": 5,
+    "icims": 1
   },
   "countsByType": {
-    "entry-level": 644,
     "trainee": 9,
+    "entry-level": 644,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
+    "0-2-years": 367,
     "2-5-years": 259,
-    "no-experience": 44,
-    "0-2-years": 367
+    "no-experience": 44
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -43,11 +44,6 @@
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
-        "location": ""
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
         "title": "Supervisor, Data Center Operations",
         "location": "Breinigsville, PA",
@@ -59,15 +55,20 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Hawthorne, NY",
-        "reason": "classification"
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
+        "location": ""
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
         "title": "Operations Specialist",
         "location": "Raleigh, NC",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Hawthorne, NY",
         "reason": "classification"
       }
     ]
@@ -1771,54 +1772,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T17:19:32.560Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-17T17:22:02.177Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T17:19:32.616Z",
+    "updatedAt": "2026-09-17T17:22:02.237Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 670,
@@ -1827,17 +1789,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "west": 101,
-      "northeast": 22,
-      "mid-atlantic": 123,
       "southwest": 83,
-      "midwest": 130,
-      "texas": 110,
       "southeast": 100,
+      "mid-atlantic": 123,
+      "texas": 110,
+      "midwest": 130,
+      "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T17:19:32.667Z",
+    "checkedAt": "2026-09-17T17:22:02.292Z",
     "before": 670,
     "after": 670,
     "removed": 0,
@@ -1855,15 +1817,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1157,
     "currentJobs": 670,
-    "newJobsThisRun": 8,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 8,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T17:20:04.264Z"
+    "updatedAt": "2026-09-17T17:22:02.340Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

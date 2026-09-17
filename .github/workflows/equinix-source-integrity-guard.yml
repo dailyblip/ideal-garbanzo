@@ -69,7 +69,7 @@ jobs:
           node scripts/enforce-equinix-verified-evidence.mjs --test
       - name: Guard Equinix refresh cadence and source-writer safety
         run: |
-          grep -Fq "cron: '17 */6 * * *'" .github/workflows/equinix-bootstrap.yml
+          grep -Fq "cron: '31 */6 * * *'" .github/workflows/equinix-bootstrap.yml
           grep -Fq 'group: careers-source-writers' .github/workflows/equinix-bootstrap.yml
           node scripts/validate-source-workflow-isolation.mjs
       - name: Fail closed if Equinix publication needs cleanup

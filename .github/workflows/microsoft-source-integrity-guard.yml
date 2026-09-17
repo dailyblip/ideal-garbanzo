@@ -9,6 +9,7 @@ on:
       - 'data/collector-status.json'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - 'scripts/collect-microsoft-datacenter.mjs'
+      - 'scripts/run-microsoft-datacenter.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - '.github/workflows/microsoft-source-integrity-guard.yml'
@@ -20,6 +21,7 @@ on:
       - 'data/collector-status.json'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - 'scripts/collect-microsoft-datacenter.mjs'
+      - 'scripts/run-microsoft-datacenter.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - '.github/workflows/microsoft-source-integrity-guard.yml'
@@ -38,5 +40,9 @@ jobs:
           node-version: 22
       - name: Test Microsoft requisition parity
         run: node scripts/validate-microsoft-snapshot.mjs --test
+      - name: Test Microsoft request-throttle policy
+        run: |
+          node --check scripts/run-microsoft-datacenter.mjs
+          node scripts/run-microsoft-datacenter.mjs --test-rate-limit-policy
       - name: Validate Microsoft employer-direct snapshot and public feed
         run: node scripts/validate-microsoft-snapshot.mjs

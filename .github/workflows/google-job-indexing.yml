@@ -1,12 +1,13 @@
 name: Notify Google about JobPosting changes
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'data/jobs.json'
+  workflow_run:
+    workflows:
+      - Refresh jobs and deploy site
+    types:
+      - completed
   schedule:
-    # Shortly after Google's Indexing API daily quota resets at midnight Pacific.
+    # Daily backlog pass shortly after Google's Indexing API quota reset at midnight Pacific.
     - cron: '17 9 * * *'
   workflow_dispatch:
 
@@ -19,6 +20,7 @@ concurrency:
 
 jobs:
   notify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -67,6 +69,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/google-indexing-state.json
-          git commit -m "Record Google JobPosting indexing notifications"
+          git commit -m "Record Google JobPosting indexing notifications [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main

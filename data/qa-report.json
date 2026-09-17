@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-16T22:52:22.606Z",
-  "jobsBefore": 673,
-  "jobsAfter": 673,
+  "checkedAt": "2026-09-17T00:48:32.035Z",
+  "jobsBefore": 674,
+  "jobsAfter": 674,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -9,7 +9,17 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "greenhouse-flexential-4377149009",
+      "company": "Flexential",
+      "title": "Data Center Technician I",
+      "url": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4377149009",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

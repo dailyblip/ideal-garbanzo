@@ -82,9 +82,9 @@
     "listingMethod": "official-recruiter-board",
     "usedRecruiterBoardFallback": true,
     "recruiterBoardComplete": true,
-    "candidateLinks": 2,
-    "detailSucceeded": 2,
-    "qualifyingRoles": 2,
+    "candidateLinks": 1,
+    "detailSucceeded": 1,
+    "qualifyingRoles": 1,
     "preservedPrevious": 0,
     "drops": {
       "stale": 0,
@@ -97,13 +97,13 @@
     "errors": [
       "official listing: 403 https://sabey.com/about/careers"
     ],
-    "snapshotRoles": 2,
+    "snapshotRoles": 1,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-15T16:48:42.126Z",
+    "snapshotVerifiedAt": "2026-09-17T05:48:26.825Z",
     "snapshotFresh": true,
-    "snapshotMaxAgeHours": 168,
-    "snapshotAgeHours": 75.9,
-    "normalizedTitles": 2,
+    "snapshotMaxAgeHours": 96,
+    "snapshotAgeHours": 37,
+    "normalizedTitles": 1,
     "removedExpiredFallback": 0
   },
   "novvaCareers": {
@@ -3645,7 +3645,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T05:31:52.195Z",
+    "checkedAt": "2026-09-17T05:48:26.898Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3653,7 +3653,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T05:31:52.264Z",
+    "updatedAt": "2026-09-17T05:48:26.970Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 638,
@@ -3672,7 +3672,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T05:31:52.329Z",
+    "checkedAt": "2026-09-17T05:48:27.044Z",
     "before": 638,
     "after": 638,
     "removed": 0,
@@ -3691,14 +3691,14 @@
     "trackedJobs": 1117,
     "currentJobs": 638,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-17T05:31:52.439Z"
+    "updatedAt": "2026-09-17T05:48:27.106Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

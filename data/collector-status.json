@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-17T05:28:04.923Z",
-  "jobs": 672,
+  "updatedAt": "2026-09-17T05:31:52.128Z",
+  "jobs": 638,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,17 +9,19 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 646,
+    "entry-level": 612,
     "internship": 6,
     "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 371,
-    "2-5-years": 259,
+    "0-2-years": 345,
+    "2-5-years": 251,
     "no-experience": 42
   },
-  "errors": [],
+  "errors": [
+    "Microsoft Datacenter: critical environment field service engineer: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment+field+service+engineer&location=United+States&start=60&sort_by=relevance&filter_include_remote=0"
+  ],
   "sourceFailurePreservation": {
     "checkedAt": "2026-09-17T04:56:17.239Z",
     "failedSources": [],
@@ -2921,7 +2923,7 @@
   "microsoftDatacenter": {
     "officialSource": "https://apply.careers.microsoft.com/careers",
     "apiSource": "https://apply.careers.microsoft.com/api/pcsx/search",
-    "sourceMode": "eightfold-pcsx",
+    "sourceMode": "legacy-curated",
     "sourceHealthy": true,
     "queryStats": [
       {
@@ -2935,15 +2937,13 @@
         "query": "critical environment technician",
         "healthy": true,
         "pages": 24,
-        "reportedRows": 236,
-        "rows": 236
+        "reportedRows": 235,
+        "rows": 235
       },
       {
         "query": "critical environment field service engineer",
-        "healthy": true,
-        "pages": 28,
-        "reportedRows": 279,
-        "rows": 279
+        "healthy": false,
+        "error": "429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment+field+service+engineer&location=United+States&start=60&sort_by=relevance&filter_include_remote=0"
       },
       {
         "query": "inventory and asset technician",
@@ -2953,12 +2953,12 @@
         "rows": 16
       }
     ],
-    "candidateRows": 368,
+    "candidateRows": 242,
     "plausibleRows": 36,
-    "detailAttempts": 36,
-    "detailVerified": 36,
-    "currentQualifyingRoles": 36,
-    "qualifyingRoles": 36,
+    "detailAttempts": 0,
+    "detailVerified": 0,
+    "currentQualifyingRoles": 0,
+    "qualifyingRoles": 1,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -2966,13 +2966,30 @@
       "experience": 0,
       "detailFailure": 0
     },
-    "legacyFallback": null,
-    "errors": [],
+    "legacyFallback": {
+      "healthy": true,
+      "pages": [
+        {
+          "url": "https://careers.microsoft.com/v2/global/en/datacentertechnicians.html",
+          "healthy": true,
+          "candidateLinks": 3
+        },
+        {
+          "url": "https://careers.microsoft.com/v2/global/en/datacenters.html",
+          "healthy": true,
+          "candidateLinks": 3
+        }
+      ],
+      "qualifyingRoles": 1
+    },
+    "errors": [
+      "critical environment field service engineer: 429 https://apply.careers.microsoft.com/api/pcsx/search?domain=microsoft.com&query=critical+environment+field+service+engineer&location=United+States&start=60&sort_by=relevance&filter_include_remote=0"
+    ],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-16T23:43:40.410Z",
-      "expiresAt": "2026-09-20T23:43:40.410Z",
-      "roles": 35,
+      "verifiedAt": "2026-09-17T05:31:52.382Z",
+      "expiresAt": "2026-09-21T05:31:52.382Z",
+      "roles": 1,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
   },
@@ -3628,7 +3645,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T05:28:05.034Z",
+    "checkedAt": "2026-09-17T05:31:52.195Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3636,40 +3653,31 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T05:28:05.096Z",
+    "updatedAt": "2026-09-17T05:31:52.264Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 673,
+    "regionAssigned": 638,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 98,
-      "west": 94,
-      "midwest": 134,
-      "texas": 117,
-      "mid-atlantic": 125,
-      "southwest": 83,
-      "northeast": 21,
+      "southeast": 92,
+      "west": 86,
+      "midwest": 133,
+      "mid-atlantic": 115,
+      "southwest": 79,
+      "texas": 112,
+      "northeast": 20,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T05:28:05.154Z",
-    "before": 673,
-    "after": 672,
-    "removed": 1,
+    "checkedAt": "2026-09-17T05:31:52.329Z",
+    "before": 638,
+    "after": 638,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-108517449598411462",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "Haskell, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-17T05:21:04.926Z",
@@ -3681,16 +3689,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1117,
-    "currentJobs": 672,
+    "currentJobs": 638,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
+    "changedJobsThisRun": 1,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-17T05:28:05.210Z"
+    "updatedAt": "2026-09-17T05:31:52.439Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/enforce-major-workday-fallback-freshness.mjs'
+      - 'scripts/validate-major-workday-freshness-state.mjs'
       - '.github/workflows/major-workday-stale-fallback-watch.yml'
   schedule:
     - cron: '29 */6 * * *'
@@ -67,6 +68,7 @@ jobs:
             fi
 
             node scripts/enforce-major-workday-fallback-freshness.mjs --validate
+            node scripts/validate-major-workday-freshness-state.mjs
             if [ "$roles_changed" = true ]; then
               node scripts/validate.mjs
               node scripts/validate-priority-employer-sources.mjs

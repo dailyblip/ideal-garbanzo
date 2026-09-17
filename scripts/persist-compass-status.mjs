@@ -6,7 +6,7 @@ const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const SOURCE_STATUS_PATH = 'data/compass-status.json';
 const SNAPSHOT_PATH = 'data/compass-jobs.json';
-const MAX_FALLBACK_AGE_HOURS = 168;
+const MAX_FALLBACK_AGE_HOURS = 96;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const clearlyExcludedSlug = /(?:^|-)(?:senior|sr|lead|principal|staff|manager|director|vice-president|vp|chief|head-of|supervisor|architect|security|sales|finance|marketing)(?:-|$)/i;
@@ -51,11 +51,11 @@ function runFreshnessSelfTest() {
 
   const freshFallback = fallbackState({
     sourceHealthy: false,
-    previousLastHealthyAt: new Date(nowMs - 167 * 3_600_000).toISOString(),
+    previousLastHealthyAt: new Date(nowMs - 95 * 3_600_000).toISOString(),
     nowMs
   });
-  if (freshFallback.fallbackExpired || freshFallback.fallbackAgeHours !== 167) {
-    throw new Error('Compass verified fallback should remain publishable inside 168 hours.');
+  if (freshFallback.fallbackExpired || freshFallback.fallbackAgeHours !== 95) {
+    throw new Error('Compass verified fallback should remain publishable inside 96 hours.');
   }
 
   const boundaryFallback = fallbackState({
@@ -64,7 +64,7 @@ function runFreshnessSelfTest() {
     nowMs
   });
   if (!boundaryFallback.fallbackExpired) {
-    throw new Error('Compass fallback must fail closed at the 168-hour boundary.');
+    throw new Error('Compass fallback must fail closed at the 96-hour boundary.');
   }
 
   const missingAnchor = fallbackState({ sourceHealthy: false, previousLastHealthyAt: null, nowMs });

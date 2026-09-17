@@ -2,14 +2,10 @@ name: Sabey stale fallback watchdog
 
 on:
   schedule:
+    # Runs after the six-hour Sabey source refresh so fallback enforcement sees
+    # the newest committed verification state instead of racing the collector.
     - cron: '47 */6 * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/enforce-sabey-fallback-freshness.mjs'
-      - 'scripts/validate-sabey-snapshot.mjs'
-      - '.github/workflows/sabey-stale-fallback-watch.yml'
 
 permissions:
   actions: write

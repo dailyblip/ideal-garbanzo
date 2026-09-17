@@ -1772,25 +1772,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T18:49:20.861Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-17T19:19:30.341Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T18:49:20.907Z",
+    "updatedAt": "2026-09-17T19:19:30.413Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 670,
@@ -1809,7 +1799,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T18:49:20.949Z",
+    "checkedAt": "2026-09-17T19:19:30.480Z",
     "before": 670,
     "after": 670,
     "removed": 0,
@@ -1817,7 +1807,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T18:49:53.796Z",
+    "checkedAt": "2026-09-17T19:20:06.833Z",
     "publishedJobs": 670,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -1835,7 +1825,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T18:49:53.913Z"
+    "updatedAt": "2026-09-17T19:20:07.021Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2495,8 +2485,8 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-17T08:56:23.542Z",
-    "lastHealthyAt": "2026-09-17T08:56:23.542Z",
+    "checkedAt": "2026-09-17T19:19:29.690Z",
+    "lastHealthyAt": "2026-09-17T19:19:29.690Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

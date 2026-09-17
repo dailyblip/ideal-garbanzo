@@ -5,7 +5,7 @@ const SNAPSHOT_PATH = 'data/sabey-jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const COMPANY = 'Sabey Data Centers';
 const SOURCE = 'Official Sabey careers';
-const MAX_AGE_HOURS = 168;
+const MAX_AGE_HOURS = 96;
 const MAX_FUTURE_SKEW_MINUTES = 10;
 const ALLOWED_TYPES = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
 const ALLOWED_EXPERIENCE = new Set(['no-experience', '0-2-years', '2-5-years']);
@@ -83,8 +83,8 @@ const snapshotRoles = snapshot.jobs.filter(job => clean(job?.company) === COMPAN
 const source = status.sabeyCareers || {};
 const fallback = source.fallbackFreshness || {};
 const configuredMaxAge = Number(source.snapshotMaxAgeHours ?? fallback.maxAgeHours);
-if (Number.isFinite(configuredMaxAge) && configuredMaxAge > MAX_AGE_HOURS) {
-  throw new Error(`Sabey fallback policy cannot exceed ${MAX_AGE_HOURS} hours (found ${configuredMaxAge}).`);
+if (source.sourceHealthy === false && Number.isFinite(configuredMaxAge) && configuredMaxAge > MAX_AGE_HOURS) {
+  throw new Error(`Sabey fallback policy cannot exceed ${MAX_AGE_HOURS} hours while the source is unhealthy (found ${configuredMaxAge}).`);
 }
 
 if (fallback.expired === true && (publicRoles.length || snapshotRoles.length)) {

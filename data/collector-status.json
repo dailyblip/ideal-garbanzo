@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T12:19:08.171Z",
+  "updatedAt": "2026-09-17T12:40:03.742Z",
   "jobs": 673,
   "sourcesAttempted": 24,
   "providers": {
@@ -3666,25 +3666,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T12:19:08.234Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "microsoft-1970393556994516",
-        "company": "Microsoft",
-        "title": "Data Center Critical Environment Business Analyst",
-        "location": "Boydton, VA",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-17T12:40:03.806Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T12:19:08.300Z",
+    "updatedAt": "2026-09-17T12:40:03.867Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 673,
@@ -3694,16 +3684,16 @@
     "countsByRegion": {
       "southeast": 97,
       "west": 97,
+      "texas": 115,
       "midwest": 133,
       "mid-atlantic": 125,
       "southwest": 83,
-      "texas": 115,
       "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T12:19:08.360Z",
+    "checkedAt": "2026-09-17T12:40:03.925Z",
     "before": 673,
     "after": 673,
     "removed": 0,
@@ -3711,7 +3701,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T12:08:49.485Z",
+    "checkedAt": "2026-09-17T12:40:25.894Z",
     "publishedJobs": 673,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3729,7 +3719,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 84,
-    "updatedAt": "2026-09-17T12:19:08.467Z"
+    "updatedAt": "2026-09-17T12:40:26.012Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3799,7 +3789,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-17T06:50:39.287Z",
+    "checkedAt": "2026-09-17T12:40:03.742Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

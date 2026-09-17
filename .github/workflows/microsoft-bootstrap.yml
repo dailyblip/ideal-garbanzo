@@ -3,7 +3,7 @@ name: Refresh Microsoft employer-direct feed
 on:
   workflow_dispatch:
   schedule:
-    - cron: '47 */6 * * *'
+    - cron: '11 */6 * * *'
   push:
     branches: [main]
     paths:

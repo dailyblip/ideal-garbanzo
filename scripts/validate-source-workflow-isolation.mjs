@@ -68,6 +68,17 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
+// Primary employer collectors all write the same public feed. Some long-running
+// sources intentionally keep source-specific concurrency groups, but their cron
+// slots must still be unique so they do not begin from the same main revision and
+// immediately contend on generated feed publication.
+const scheduledPrimaryWriters = new Set([
+  ...sharedWriterQueue,
+  '.github/workflows/meta-bootstrap.yml',
+  '.github/workflows/microsoft-bootstrap.yml',
+  '.github/workflows/oracle-bootstrap.yml'
+]);
+
 // Every workflow that rebuilds or reconciles the shared public feed must never
 // rebase generated JSON from a stale checkout. If another writer moves main while
 // collection is running, rebuild against that newest revision and retry the push
@@ -82,7 +93,7 @@ const raceSafeMarkers = [
 ];
 
 const violations = [];
-const sharedWriterScheduleSlots = new Map();
+const primaryWriterScheduleSlots = new Map();
 
 function expandCronField(field, min, max) {
   const values = new Set();
@@ -125,15 +136,15 @@ function expandCronField(field, min, max) {
   return [...values];
 }
 
-function addSharedSchedule(path, cron) {
+function addPrimarySchedule(path, cron) {
   const fields = cron.trim().split(/\s+/);
   if (fields.length !== 5) {
-    violations.push(`${path}: shared writer cron must have five fields: ${cron}`);
+    violations.push(`${path}: primary writer cron must have five fields: ${cron}`);
     return;
   }
   const [minuteField, hourField, dayOfMonth, month, dayOfWeek] = fields;
   if (dayOfMonth !== '*' || month !== '*' || dayOfWeek !== '*') {
-    violations.push(`${path}: shared writer schedule must remain daily for collision checking: ${cron}`);
+    violations.push(`${path}: primary writer schedule must remain daily for collision checking: ${cron}`);
     return;
   }
 
@@ -143,8 +154,8 @@ function addSharedSchedule(path, cron) {
     for (const hour of hours) {
       for (const minute of minutes) {
         const slot = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-        if (!sharedWriterScheduleSlots.has(slot)) sharedWriterScheduleSlots.set(slot, new Set());
-        sharedWriterScheduleSlots.get(slot).add(path);
+        if (!primaryWriterScheduleSlots.has(slot)) primaryWriterScheduleSlots.set(slot, new Set());
+        primaryWriterScheduleSlots.get(slot).add(path);
       }
     }
   } catch (error) {
@@ -166,15 +177,16 @@ for (const path of sourceWorkflows) {
     }
   }
 
-  if (sharedWriterQueue.has(path)) {
-    if (!/group:\s*careers-source-writers\b/.test(text)) {
-      violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
-    }
+  if (sharedWriterQueue.has(path) && !/group:\s*careers-source-writers\b/.test(text)) {
+    violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
+  }
+
+  if (scheduledPrimaryWriters.has(path)) {
     const crons = [...onBlock.matchAll(/cron:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
     if (!crons.length) {
-      violations.push(`${path}: shared-feed writer must have a scheduled refresh`);
+      violations.push(`${path}: primary feed writer must have a scheduled refresh`);
     }
-    for (const cron of crons) addSharedSchedule(path, cron);
+    for (const cron of crons) addPrimarySchedule(path, cron);
   }
 
   if (!/cancel-in-progress:\s*false\b/.test(text)) {
@@ -193,10 +205,10 @@ for (const path of sourceWorkflows) {
   }
 }
 
-for (const [slot, paths] of sharedWriterScheduleSlots) {
+for (const [slot, paths] of primaryWriterScheduleSlots) {
   if (paths.size > 1) {
     const names = [...paths].map((path) => path.split('/').pop()).sort().join(', ');
-    violations.push(`scheduled careers-source-writers collision at ${slot} UTC: ${names}`);
+    violations.push(`scheduled primary source collision at ${slot} UTC: ${names}`);
   }
 }
 
@@ -219,4 +231,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds, and ${sharedWriterQueue.size} shared-queue schedules have no exact UTC collisions.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds, ${sharedWriterQueue.size} shared-queue writers use the guarded queue, and ${scheduledPrimaryWriters.size} primary source schedules have no exact UTC collisions.`);

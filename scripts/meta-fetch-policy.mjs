@@ -6,6 +6,11 @@ const DETAIL_PATH = /^\/profile\/job_details\/\d+\/?$/i;
 const BASE_DETAIL_INTERVAL_MS = Math.max(250, Number(process.env.META_DETAIL_INTERVAL_MS || 1200));
 const MAX_RETRY_AFTER_MS = Math.max(1000, Number(process.env.META_MAX_RETRY_AFTER_MS || 12000));
 const MAX_DETAIL_ATTEMPTS = Math.max(1, Number(process.env.META_DETAIL_ATTEMPTS || 3));
+const RATE_LIMIT_STREAK_LIMIT = Math.max(2, Number(process.env.META_RATE_LIMIT_STREAK_LIMIT || 3));
+const PERSISTENT_COOLDOWN_MS = Math.max(
+  BASE_DETAIL_INTERVAL_MS,
+  Number(process.env.META_PERSISTENT_COOLDOWN_MS || 3500)
+);
 
 let detailTail = Promise.resolve();
 let nextDetailAt = 0;
@@ -42,16 +47,25 @@ async function pacedDetailFetch(input, init) {
     }
 
     consecutiveRateLimits += 1;
-    if (attempt >= MAX_DETAIL_ATTEMPTS) {
-      nextDetailAt = Date.now() + Math.min(MAX_RETRY_AFTER_MS, BASE_DETAIL_INTERVAL_MS * Math.min(8, consecutiveRateLimits));
+    const serverDelay = retryAfterMs(lastResponse);
+
+    // If Meta is persistently rejecting detail traffic from the runner, stop
+    // retrying every requisition. Preserve Retry-After when present, otherwise
+    // use a modest cooldown. This keeps the six-hour source job bounded while
+    // still failing closed instead of publishing unverifiable roles.
+    if (consecutiveRateLimits >= RATE_LIMIT_STREAK_LIMIT || attempt >= MAX_DETAIL_ATTEMPTS) {
+      const cooldown = Math.max(
+        BASE_DETAIL_INTERVAL_MS,
+        serverDelay || Math.min(MAX_RETRY_AFTER_MS, PERSISTENT_COOLDOWN_MS)
+      );
+      nextDetailAt = Date.now() + cooldown;
       return lastResponse;
     }
 
     try { await lastResponse.arrayBuffer(); } catch {}
-    const serverDelay = retryAfterMs(lastResponse);
     const adaptiveDelay = Math.min(
       MAX_RETRY_AFTER_MS,
-      BASE_DETAIL_INTERVAL_MS * Math.min(12, 2 ** Math.min(4, consecutiveRateLimits))
+      BASE_DETAIL_INTERVAL_MS * Math.min(8, 2 ** Math.min(3, consecutiveRateLimits))
     );
     const cooldown = Math.max(serverDelay, adaptiveDelay) + Math.floor(Math.random() * 250);
     nextDetailAt = Date.now() + cooldown;

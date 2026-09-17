@@ -1,35 +1,15 @@
 {
-  "checkedAt": "2026-09-17T16:42:47.804Z",
-  "jobsBefore": 671,
-  "jobsAfter": 670,
+  "checkedAt": "2026-09-17T16:54:13.757Z",
+  "jobsBefore": 676,
+  "jobsAfter": 676,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10539126",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10539126/engineering-operations-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10539126/engineering-operations-technician"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "microsoft-1970393556971440",
-      "company": "Microsoft",
-      "title": "Critical Environment Support Assistant",
-      "url": "https://apply.careers.microsoft.com/careers/job/1970393556971440",
-      "state": "transient",
-      "status": null,
-      "error": "fetch failed"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

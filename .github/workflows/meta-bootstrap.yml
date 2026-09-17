@@ -10,6 +10,7 @@ on:
       - '.github/workflows/meta-bootstrap.yml'
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/meta-fetch-policy.mjs'
+      - 'scripts/guard-meta-detail-collapse.mjs'
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/normalize-meta-compensation.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
@@ -35,6 +36,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Preserve last verified Meta state
+        run: |
+          cp data/meta-jobs.json /tmp/meta-jobs-before.json
+          cp data/jobs.json /tmp/meta-jobs-public-before.json
       - name: Collect official Meta Careers roles
         env:
           NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
@@ -44,6 +49,18 @@ jobs:
           META_RATE_LIMIT_STREAK_LIMIT: '3'
           META_PERSISTENT_COOLDOWN_MS: '3500'
         run: node scripts/collect-meta-careers.mjs
+      - name: Fail closed on Meta detail verification collapse
+        env:
+          NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
+          META_DETAIL_INTERVAL_MS: '1200'
+          META_DETAIL_ATTEMPTS: '3'
+          META_MAX_RETRY_AFTER_MS: '12000'
+          META_RATE_LIMIT_STREAK_LIMIT: '3'
+          META_PERSISTENT_COOLDOWN_MS: '3500'
+        run: |
+          node scripts/guard-meta-detail-collapse.mjs --test
+          node scripts/guard-meta-detail-collapse.mjs
+          node scripts/enforce-meta-fallback-freshness.mjs
       - name: Recover Meta requirements from structured data
         env:
           NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
@@ -87,7 +104,12 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/meta-jobs.json /tmp/meta-jobs-before.json
+            cp data/jobs.json /tmp/meta-jobs-public-before.json
             node scripts/collect-meta-careers.mjs
+            node scripts/guard-meta-detail-collapse.mjs --test
+            node scripts/guard-meta-detail-collapse.mjs
+            node scripts/enforce-meta-fallback-freshness.mjs
             node scripts/recover-meta-structured.mjs
             node scripts/normalize-meta-compensation.mjs --test
             node scripts/normalize-meta-compensation.mjs

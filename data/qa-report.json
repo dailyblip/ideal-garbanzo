@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-17T17:17:04.295Z",
-  "jobsBefore": 669,
-  "jobsAfter": 669,
+  "checkedAt": "2026-09-17T17:20:04.154Z",
+  "jobsBefore": 670,
+  "jobsAfter": 670,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -9,7 +9,17 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5219540007",
+      "company": "xAI",
+      "title": "High Voltage Electrician (Construction)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5219540007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

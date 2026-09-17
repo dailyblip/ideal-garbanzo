@@ -7,12 +7,19 @@ const roots = [
   'internships',
   'entry-level',
   'no-experience',
+  'trainee-jobs',
   'career-events',
   'locations',
+  'companies',
+  'data-center-technician-jobs',
   'how-to-get-a-data-center-job',
-  'how-to-get-a-data-center-internship'
+  'how-to-get-a-data-center-apprenticeship',
+  'how-to-get-a-data-center-internship',
+  'advertise'
 ];
 const authored = ['index.html', 'employers/index.html', 'subscribed/index.html'];
+const requireGenerated = process.env.ACCESSIBILITY_REQUIRE_GENERATED === '1';
+const errors = [];
 
 async function collectHtml(root) {
   const paths = [];
@@ -34,9 +41,12 @@ async function collectHtml(root) {
 }
 
 const files = [...authored];
-for (const root of roots) files.push(...await collectHtml(root));
+for (const root of roots) {
+  const rootFiles = await collectHtml(root);
+  if (requireGenerated && rootFiles.length === 0) errors.push(`${root}: expected at least one generated HTML page`);
+  files.push(...rootFiles);
+}
 const uniqueFiles = [...new Set(files)];
-const errors = [];
 
 const attr = (tag, name) => {
   const match = tag.match(new RegExp(`\\s${name}\\s*=\\s*(["'])(.*?)\\1`, 'i'));
@@ -117,4 +127,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Accessibility validation passed across ${uniqueFiles.length} user-facing HTML pages.`);
+console.log(`Accessibility validation passed across ${uniqueFiles.length} user-facing HTML pages${requireGenerated ? ' with generated-route coverage enforced' : ''}.`);

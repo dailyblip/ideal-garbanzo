@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-17T14:48:03.122Z",
-  "jobs": 673,
+  "updatedAt": "2026-09-17T15:45:46.700Z",
+  "jobs": 672,
   "sourcesAttempted": 26,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 647,
+    "apprenticeship": 11,
     "internship": 6,
-    "trainee": 9,
-    "apprenticeship": 11
+    "trainee": 8,
+    "entry-level": 647
   },
   "countsByExperience": {
-    "0-2-years": 370,
-    "2-5-years": 259,
-    "no-experience": 44
+    "no-experience": 44,
+    "0-2-years": 369,
+    "2-5-years": 259
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3560,25 +3560,21 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 32,
-      "detailAttempted": 32,
-      "detailSucceeded": 32,
+      "candidateLinks": 29,
+      "detailAttempted": 29,
+      "detailSucceeded": 29,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 4,
-      "qualifyingRoles": 0,
+      "staleRemoved": 3,
+      "qualifyingRoles": 1,
       "drops": {
-        "non-us": 7,
-        "unknown-experience": 8,
+        "non-us": 6,
+        "unknown-experience": 7,
         "context": 1,
-        "title": 16
+        "title": 14
       },
       "dropSamples": [
-        {
-          "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
-        },
         {
           "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
@@ -3612,6 +3608,10 @@
         {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
+        },
+        {
+          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
         }
       ],
       "errors": []
@@ -3623,10 +3623,10 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 5,
-      "verifiedSeeded": 2,
+      "recoveredCandidates": 4,
+      "verifiedSeeded": 3,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 5,
+      "broadListingEvidenceAdded": 4,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -3638,13 +3638,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 3,
+        "unknownExperience": 4,
         "unusable": 0,
-        "verifiedMismatch": 2
+        "verifiedMismatch": 3
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-16T18:55:52.096Z"
+      "expiredVerifiedFallbackRoles": 3,
+      "verifiedFallbackExpiredAt": "2026-09-17T15:45:46.700Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -3658,7 +3658,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -3675,28 +3675,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T14:48:03.242Z",
+    "updatedAt": "2026-09-17T15:45:46.855Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 673,
+    "regionAssigned": 672,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 99,
-      "west": 97,
-      "texas": 114,
       "midwest": 133,
       "mid-atlantic": 124,
+      "texas": 114,
       "southwest": 83,
+      "southeast": 99,
       "northeast": 22,
+      "west": 96,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T14:48:03.299Z",
-    "before": 674,
-    "after": 674,
+    "checkedAt": "2026-09-17T15:45:46.927Z",
+    "before": 672,
+    "after": 672,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3711,16 +3711,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1142,
-    "currentJobs": 673,
+    "currentJobs": 672,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 17,
-    "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-17T14:48:25.950Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 85,
+    "updatedAt": "2026-09-17T15:45:46.992Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4401,11 +4401,11 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-16T18:55:52.096Z",
+    "checkedAt": "2026-09-17T15:45:46.700Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 4,
+    "expiredEarlyCareerFallbackRoles": 3,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },

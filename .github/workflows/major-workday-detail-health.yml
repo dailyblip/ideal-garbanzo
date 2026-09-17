@@ -1,0 +1,53 @@
+name: Verify priority Workday detail health
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/validate-major-workday-detail-health.mjs'
+      - '.github/workflows/major-workday-detail-health.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-major-jobs.mjs'
+      - 'data/major-jobs.json'
+      - 'scripts/validate-major-workday-detail-health.mjs'
+      - '.github/workflows/major-workday-detail-health.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '47 2,8,14,20 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: major-workday-detail-health
+  cancel-in-progress: false
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate detail-health guard contract
+        run: |
+          node --check scripts/validate-major-workday-detail-health.mjs
+          node scripts/validate-major-workday-detail-health.mjs --test
+
+  live-health:
+    if: github.event_name != 'pull_request'
+    needs: contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify current employer-direct Workday detail endpoints
+        run: node scripts/validate-major-workday-detail-health.mjs

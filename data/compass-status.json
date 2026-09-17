@@ -1,7 +1,7 @@
 {
   "officialSource": "https://www.compassdatacenters.com/about/contact-us/",
   "boardUrl": "https://compass-datacenters.breezy.hr/",
-  "sourceHealthy": false,
+  "sourceHealthy": true,
   "boardFetched": true,
   "listedPositions": 8,
   "detailAttempted": 8,
@@ -20,15 +20,19 @@
   "errors": [
     "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
   ],
-  "checkedAt": "2026-09-16T09:51:41.163Z",
-  "lastHealthyAt": null,
-  "listingComplete": false,
-  "authoritativeSnapshot": false,
+  "checkedAt": "2026-09-17T00:47:54.267Z",
+  "lastHealthyAt": "2026-09-17T00:47:54.267Z",
+  "listingComplete": true,
+  "authoritativeSnapshot": true,
   "fallbackMaxAgeHours": 168,
-  "fallbackAgeHours": null,
-  "fallbackExpired": true,
+  "fallbackAgeHours": 0,
+  "fallbackExpired": false,
   "usedPreviousSnapshot": false,
   "publishedRoles": 0,
   "removedExpiredFallback": 0,
+  "ignoredUnstructuredOutOfScope": 1,
+  "ignoredUnstructuredOutOfScopeUrls": [
+    "https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
+  ],
   "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 168 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
 }

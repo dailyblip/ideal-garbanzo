@@ -172,7 +172,7 @@
   "compass": {
     "officialSource": "https://www.compassdatacenters.com/about/contact-us/",
     "boardUrl": "https://compass-datacenters.breezy.hr/",
-    "sourceHealthy": false,
+    "sourceHealthy": true,
     "boardFetched": true,
     "listedPositions": 8,
     "detailAttempted": 8,
@@ -191,16 +191,20 @@
     "errors": [
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "checkedAt": "2026-09-16T09:51:41.163Z",
-    "lastHealthyAt": null,
-    "listingComplete": false,
-    "authoritativeSnapshot": false,
+    "checkedAt": "2026-09-17T00:47:54.267Z",
+    "lastHealthyAt": "2026-09-17T00:47:54.267Z",
+    "listingComplete": true,
+    "authoritativeSnapshot": true,
     "fallbackMaxAgeHours": 168,
-    "fallbackAgeHours": null,
-    "fallbackExpired": true,
+    "fallbackAgeHours": 0,
+    "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 0,
     "removedExpiredFallback": 0,
+    "ignoredUnstructuredOutOfScope": 1,
+    "ignoredUnstructuredOutOfScopeUrls": [
+      "https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
+    ],
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 168 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
@@ -3630,25 +3634,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-16T23:43:40.212Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "microsoft-1970393556994516",
-        "company": "Microsoft",
-        "title": "Data Center Critical Environment Business Analyst",
-        "location": "Boydton, VA",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-17T00:47:54.355Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-16T23:43:40.286Z",
+    "updatedAt": "2026-09-17T00:47:54.435Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 674,
@@ -3667,7 +3661,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-16T23:43:40.354Z",
+    "checkedAt": "2026-09-17T00:47:54.515Z",
     "before": 674,
     "after": 674,
     "removed": 0,
@@ -3675,8 +3669,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-16T22:52:22.606Z",
-    "publishedJobs": 673,
+    "checkedAt": "2026-09-17T00:48:32.035Z",
+    "publishedJobs": 674,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
@@ -3685,15 +3679,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1114,
     "currentJobs": 674,
-    "newJobsThisRun": 1,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 1,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-16T23:43:40.467Z"
+    "updatedAt": "2026-09-17T00:48:32.239Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

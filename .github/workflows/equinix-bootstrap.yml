@@ -14,7 +14,7 @@ on:
       - '.github/workflows/equinix-bootstrap.yml'
   workflow_dispatch:
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: '31 */6 * * *'
 
 permissions:
   actions: write

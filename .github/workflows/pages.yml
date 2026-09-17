@@ -292,6 +292,7 @@ jobs:
           node scripts/validate-digital-realty.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-major-workday-parity.mjs
+          node scripts/validate-major-workday-freshness-state.mjs
           node scripts/validate-coresite-fallback.mjs
           node scripts/validate-data-freshness.mjs
       - name: Generate crawlable SEO pages
@@ -321,6 +322,7 @@ jobs:
           node scripts/validate-digital-realty.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-major-workday-parity.mjs
+          node scripts/validate-major-workday-freshness-state.mjs
           node scripts/validate-coresite-fallback.mjs
           node scripts/validate-site-copy.mjs
           node scripts/validate-technical-seo.mjs

@@ -11,6 +11,7 @@ const MAX_FALLBACK_AGE_HOURS = 168;
 const allowedTypes = new Set(['internship', 'apprenticeship', 'trainee', 'entry-level']);
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const bannedSenior = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|architect)\b/i;
+const clearlyExcludedSlug = /(?:^|-)(?:senior|sr|lead|principal|staff|manager|director|vice-president|vp|chief|head-of|supervisor|architect|security|sales|finance|marketing)(?:-|$)/i;
 const parityFields = ['type', 'experience', 'source', 'sourceUrl', 'active', 'demo'];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
@@ -40,6 +41,22 @@ function isCompassJob(job = {}) {
   if (clean(job?.company) === COMPANY) return true;
   try { return new URL(clean(job?.sourceUrl)).hostname.toLowerCase() === BOARD_HOST; }
   catch { return false; }
+}
+
+function outOfScopeUnstructuredEvidence(compass = {}) {
+  const errors = Array.isArray(compass?.errors) ? compass.errors : [];
+  const urls = new Set();
+  for (const value of errors) {
+    const match = clean(value).match(/^structured data missing:\s+(https:\/\/\S+)$/i);
+    if (!match) continue;
+    try {
+      const url = new URL(match[1]);
+      if (url.hostname.toLowerCase() !== BOARD_HOST) continue;
+      const slug = url.pathname.split('/').filter(Boolean).pop() || '';
+      if (clearlyExcludedSlug.test(slug)) urls.add(url.toString());
+    } catch {}
+  }
+  return { count: urls.size, urls: [...urls].sort() };
 }
 
 function validateRole(job, context, violations) {
@@ -74,7 +91,22 @@ function validateState(snapshot, jobs, compass) {
       if (compass.boardFetched !== true) violations.push('healthy Compass source is missing board fetch evidence');
       if (Number(compass.detailAttempted) !== Number(compass.listedPositions)) violations.push('healthy Compass source did not attempt every listed position');
       if (Number(compass.detailFetched) !== Number(compass.listedPositions)) violations.push('healthy Compass source did not fetch every listed position');
-      if (Number(compass.structuredDetails) !== Number(compass.detailFetched)) violations.push('healthy Compass source did not parse structured data for every fetched position');
+
+      const fetched = Number(compass.detailFetched);
+      const structured = Number(compass.structuredDetails);
+      const structuredDrops = Number(compass?.drops?.structuredData || 0);
+      const declaredIgnored = Number(compass.ignoredUnstructuredOutOfScope || 0);
+      const evidence = outOfScopeUnstructuredEvidence(compass);
+      const declaredUrls = Array.isArray(compass.ignoredUnstructuredOutOfScopeUrls)
+        ? [...new Set(compass.ignoredUnstructuredOutOfScopeUrls.map(clean).filter(Boolean))].sort()
+        : [];
+
+      if (!Number.isInteger(declaredIgnored) || declaredIgnored < 0) violations.push('healthy Compass source has an invalid ignored-unstructured count');
+      if (declaredIgnored !== evidence.count) violations.push('healthy Compass source ignored-unstructured count is not backed by clearly out-of-scope Breezy URLs');
+      if (declaredUrls.join('|') !== evidence.urls.join('|')) violations.push('healthy Compass source ignored-unstructured URL evidence drifted from collector errors');
+      if (declaredIgnored !== structuredDrops) violations.push('healthy Compass source has unverified structured-data drops');
+      if (structured + declaredIgnored !== fetched) violations.push('healthy Compass source did not account for every fetched position with structured data or a clearly out-of-scope exclusion');
+
       if (compass.listingComplete === false) violations.push('healthy Compass source is marked listing-incomplete');
       if (compass.authoritativeSnapshot === false) violations.push('healthy Compass source is marked non-authoritative');
     } else {
@@ -186,6 +218,36 @@ function runSelfTest() {
 
   const unexpected = validateState([], [role], { ...healthyStatus, publishedRoles: 0 });
   if (!unexpected.some(value => value.includes('unexpected public Compass requisition'))) throw new Error('Compass unexpected-public-role regression was not detected.');
+
+  const directorUrl = 'https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director';
+  const safeUnstructured = validateState([role], [role], {
+    ...healthyStatus,
+    listedPositions: 2,
+    detailAttempted: 2,
+    detailFetched: 2,
+    structuredDetails: 1,
+    drops: { structuredData: 1 },
+    errors: [`structured data missing: ${directorUrl}`],
+    ignoredUnstructuredOutOfScope: 1,
+    ignoredUnstructuredOutOfScopeUrls: [directorUrl]
+  });
+  if (safeUnstructured.length) throw new Error(`Compass clearly out-of-scope unstructured exclusion failed: ${safeUnstructured.join(' | ')}`);
+
+  const relevantUrl = 'https://compass-datacenters.breezy.hr/p/abc999-critical-facilities-technician';
+  const unsafeUnstructured = validateState([role], [role], {
+    ...healthyStatus,
+    listedPositions: 2,
+    detailAttempted: 2,
+    detailFetched: 2,
+    structuredDetails: 1,
+    drops: { structuredData: 1 },
+    errors: [`structured data missing: ${relevantUrl}`],
+    ignoredUnstructuredOutOfScope: 0,
+    ignoredUnstructuredOutOfScopeUrls: []
+  });
+  if (!unsafeUnstructured.some(value => value.includes('unverified structured-data drops'))) {
+    throw new Error('Compass relevant-role structured-data gap was not rejected.');
+  }
 
   const expired = validateState([role], [role], {
     ...healthyStatus,

@@ -3620,7 +3620,7 @@
     "sourceUrl": "https://jobs.ashbyhq.com/crusoe/95347434-cb96-426e-b1d7-b15bb327c4fd",
     "active": true,
     "demo": false,
-    "postedHours": 213,
+    "postedHours": 214,
     "region": "nationwide",
     "firstSeenAt": "2026-09-11T08:50:39.345Z",
     "lastChangedAt": "2026-09-11T08:50:39.345Z"
@@ -4868,31 +4868,6 @@
     "lastChangedAt": "2026-09-04T20:48:24.068Z"
   },
   {
-    "id": "ashby-tensorwave-e1ccc2383f8d82",
-    "title": "Data Center Technician",
-    "company": "TensorWave",
-    "location": "Miami, Florida",
-    "type": "entry-level",
-    "experience": "0-2-years",
-    "tags": [
-      "0–2 Years",
-      "Network / Cabling"
-    ],
-    "pay": "",
-    "salaryMin": null,
-    "salaryMax": null,
-    "salarySortMax": null,
-    "postedAt": "2026-09-02T17:26:42.141Z",
-    "source": "Employer career site",
-    "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/6d7ec2ad-36ff-42c1-8252-58e8c0208fd5",
-    "active": true,
-    "demo": false,
-    "postedHours": 359,
-    "region": "southeast",
-    "firstSeenAt": "2026-09-07T06:07:26.901Z",
-    "lastChangedAt": "2026-09-07T06:07:26.901Z"
-  },
-  {
     "id": "microsoft-1970393556984939",
     "title": "Critical Environment Technician",
     "company": "Microsoft",
@@ -4918,6 +4893,31 @@
     "region": "west",
     "firstSeenAt": "2026-09-04T20:48:24.068Z",
     "lastChangedAt": "2026-09-04T20:48:24.068Z"
+  },
+  {
+    "id": "ashby-tensorwave-e1ccc2383f8d82",
+    "title": "Data Center Technician",
+    "company": "TensorWave",
+    "location": "Miami, Florida",
+    "type": "entry-level",
+    "experience": "0-2-years",
+    "tags": [
+      "0–2 Years",
+      "Network / Cabling"
+    ],
+    "pay": "",
+    "salaryMin": null,
+    "salaryMax": null,
+    "salarySortMax": null,
+    "postedAt": "2026-09-02T17:26:42.141Z",
+    "source": "Employer career site",
+    "sourceUrl": "https://jobs.ashbyhq.com/tensorwave/6d7ec2ad-36ff-42c1-8252-58e8c0208fd5",
+    "active": true,
+    "demo": false,
+    "postedHours": 360,
+    "region": "southeast",
+    "firstSeenAt": "2026-09-07T06:07:26.901Z",
+    "lastChangedAt": "2026-09-07T06:07:26.901Z"
   },
   {
     "id": "coreweave-4710090006",
@@ -12980,32 +12980,6 @@
     "lastChangedAt": "2026-09-06T18:47:22.625Z"
   },
   {
-    "id": "lever-cologix-4f3a4279-15e9-4cb8-829b-6f16fd091680",
-    "title": "Data Center Technician- 3rd shift (Wednesday- Saturday)",
-    "company": "Cologix",
-    "location": "Columbus, OH",
-    "type": "entry-level",
-    "experience": "0-2-years",
-    "tags": [
-      "0–2 Years",
-      "Network / Cabling",
-      "Training / Mentorship"
-    ],
-    "pay": "",
-    "salaryMin": null,
-    "salaryMax": null,
-    "salarySortMax": null,
-    "postedAt": "2026-04-28T20:24:44.799Z",
-    "source": "Employer career site",
-    "sourceUrl": "https://jobs.lever.co/cologix/4f3a4279-15e9-4cb8-829b-6f16fd091680",
-    "active": true,
-    "demo": false,
-    "postedHours": 3404,
-    "region": "midwest",
-    "firstSeenAt": "2026-09-09T02:49:29.560Z",
-    "lastChangedAt": "2026-09-09T02:49:29.560Z"
-  },
-  {
     "id": "lever-cologix-5465ac4b-a315-439f-b325-8a742d4f4a88",
     "title": "Data Center Electrician- 2nd shift (Sunday- Wednesday)",
     "company": "Cologix",
@@ -13027,6 +13001,32 @@
     "active": true,
     "demo": false,
     "postedHours": 3404,
+    "region": "midwest",
+    "firstSeenAt": "2026-09-09T02:49:29.560Z",
+    "lastChangedAt": "2026-09-09T02:49:29.560Z"
+  },
+  {
+    "id": "lever-cologix-4f3a4279-15e9-4cb8-829b-6f16fd091680",
+    "title": "Data Center Technician- 3rd shift (Wednesday- Saturday)",
+    "company": "Cologix",
+    "location": "Columbus, OH",
+    "type": "entry-level",
+    "experience": "0-2-years",
+    "tags": [
+      "0–2 Years",
+      "Network / Cabling",
+      "Training / Mentorship"
+    ],
+    "pay": "",
+    "salaryMin": null,
+    "salaryMax": null,
+    "salarySortMax": null,
+    "postedAt": "2026-04-28T20:24:44.799Z",
+    "source": "Employer career site",
+    "sourceUrl": "https://jobs.lever.co/cologix/4f3a4279-15e9-4cb8-829b-6f16fd091680",
+    "active": true,
+    "demo": false,
+    "postedHours": 3405,
     "region": "midwest",
     "firstSeenAt": "2026-09-09T02:49:29.560Z",
     "lastChangedAt": "2026-09-09T02:49:29.560Z"
@@ -13330,10 +13330,10 @@
       "Critical Facilities",
       "Network / Cabling"
     ],
-    "pay": "$130–$180 / hr",
-    "salaryMin": 130,
-    "salaryMax": 180,
-    "salarySortMax": 374400,
+    "pay": "",
+    "salaryMin": null,
+    "salaryMax": null,
+    "salarySortMax": null,
     "postedAt": "2026-04-13T16:03:57.547Z",
     "source": "Employer career site",
     "sourceUrl": "https://ats.rippling.com/prime-data-centers/jobs/7446293a-0242-4dbe-8644-0ceae7071334",
@@ -13342,7 +13342,7 @@
     "postedHours": 3769,
     "region": "west",
     "firstSeenAt": "2026-09-17T16:54:13.941Z",
-    "lastChangedAt": "2026-09-17T16:54:13.941Z"
+    "lastChangedAt": "2026-09-17T16:58:45.967Z"
   },
   {
     "id": "amazon-10386444",
@@ -16952,7 +16952,7 @@
     "salaryMax": 37.5,
     "salarySortMax": 78000,
     "postedAt": null,
-    "postedHours": 133,
+    "postedHours": 134,
     "source": "Employer career site",
     "sourceUrl": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4401183009",
     "active": true,
@@ -16983,7 +16983,7 @@
     "sourceUrl": "https://jobs.lever.co/t5datacenters/290bc834-72f8-4134-bfad-5ed5fb1c2ef5",
     "active": true,
     "demo": false,
-    "postedHours": 5736,
+    "postedHours": 5737,
     "region": "west",
     "firstSeenAt": "2026-09-05T23:46:50.400Z",
     "lastChangedAt": "2026-09-05T23:46:50.400Z"
@@ -17226,7 +17226,7 @@
     "sourceUrl": "https://jobs.lever.co/t5datacenters/a80ac706-6d94-4a6d-ba03-05d1213affe9",
     "active": true,
     "demo": false,
-    "postedHours": 167,
+    "postedHours": 168,
     "region": "southeast",
     "firstSeenAt": "2026-09-11T05:39:14.124Z",
     "lastChangedAt": "2026-09-11T05:39:14.124Z"

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T17:27:21.641Z",
+  "updatedAt": "2026-09-17T17:29:34.872Z",
   "jobs": 670,
   "sourcesAttempted": 18,
   "providers": {
@@ -9,9 +9,9 @@
     "icims": 1
   },
   "countsByType": {
-    "trainee": 9,
     "entry-level": 644,
     "internship": 6,
+    "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
@@ -217,14 +217,14 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-17T05:48:51.570Z",
+    "checkedAt": "2026-09-17T17:29:34.872Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
     "officialLeverBoard": "https://jobs.lever.co/t5datacenters",
     "api": "https://api.lever.co/v0/postings/t5datacenters?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 87,
+    "listedJobs": 86,
     "usJobs": 76,
     "candidateRoles": 28,
     "qualifyingRoles": 22,
@@ -1772,25 +1772,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T17:27:21.699Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "microsoft-1970393556994516",
-        "company": "Microsoft",
-        "title": "Data Center Critical Environment Business Analyst",
-        "location": "Boydton, VA",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-17T17:29:34.949Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T17:27:21.759Z",
+    "updatedAt": "2026-09-17T17:29:35.023Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 670,
@@ -1798,18 +1788,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 101,
-      "southwest": 83,
       "southeast": 100,
       "mid-atlantic": 123,
+      "southwest": 83,
       "texas": 110,
+      "west": 101,
       "midwest": 130,
       "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T17:27:21.815Z",
+    "checkedAt": "2026-09-17T17:29:35.091Z",
     "before": 670,
     "after": 670,
     "removed": 0,
@@ -1817,7 +1807,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T17:20:04.154Z",
+    "checkedAt": "2026-09-17T17:30:13.594Z",
     "publishedJobs": 670,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -1835,7 +1825,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T17:27:21.903Z"
+    "updatedAt": "2026-09-17T17:30:13.783Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

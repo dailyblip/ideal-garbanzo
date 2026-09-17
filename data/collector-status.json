@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T09:49:02.808Z",
+  "updatedAt": "2026-09-17T09:52:17.377Z",
   "jobs": 670,
   "sourcesAttempted": 18,
   "providers": {
@@ -3506,9 +3506,9 @@
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
       "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
       "expired": true,
-      "checkedAt": "2026-09-17T05:20:04.704Z",
+      "checkedAt": "2026-09-17T09:52:17.377Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 170.7,
+      "expiredAgeHours": 175.2,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3646,7 +3646,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T09:49:02.947Z",
+    "updatedAt": "2026-09-17T09:52:17.442Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 670,
@@ -3665,7 +3665,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T09:49:03.014Z",
+    "checkedAt": "2026-09-17T09:52:17.491Z",
     "before": 670,
     "after": 670,
     "removed": 0,
@@ -3673,8 +3673,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T08:56:43.611Z",
-    "publishedJobs": 636,
+    "checkedAt": "2026-09-17T09:52:38.068Z",
+    "publishedJobs": 670,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
@@ -3684,14 +3684,14 @@
     "trackedJobs": 1117,
     "currentJobs": 670,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 84,
-    "updatedAt": "2026-09-17T09:49:03.139Z"
+    "updatedAt": "2026-09-17T09:52:38.189Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

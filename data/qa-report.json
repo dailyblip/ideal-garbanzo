@@ -1,29 +1,30 @@
 {
-  "checkedAt": "2026-09-17T19:20:06.833Z",
+  "checkedAt": "2026-09-17T21:02:51.093Z",
   "jobsBefore": 670,
-  "jobsAfter": 670,
+  "jobsAfter": 669,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10539099",
+      "company": "Amazon Web Services",
+      "title": "Data Center Engineering Operations Technician , DCEO Tech 3, CMH 93",
+      "url": "https://www.amazon.jobs/en/jobs/10539099/data-center-engineering-operations-technician-dceo-tech-3-cmh-93",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10539099/data-center-engineering-operations-technician-dceo-tech-3-cmh-93"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [
     {
-      "id": "microsoft-1970393556984754",
-      "company": "Microsoft",
-      "title": "Logistics Technician",
-      "url": "https://apply.careers.microsoft.com/careers/job/1970393556984754",
-      "state": "transient",
-      "status": null,
-      "error": "fetch failed"
-    },
-    {
-      "id": "gh-elementcritical-4691807005",
-      "company": "Element Critical",
-      "title": "Data Center Controls Engineer",
-      "url": "https://job-boards.greenhouse.io/elementcritical/jobs/4691807005",
+      "id": "gh-xai-5225844007",
+      "company": "xAI",
+      "title": "Journeyman Electrician (Construction)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5225844007",
       "state": "transient",
       "status": null,
       "error": "timeout"

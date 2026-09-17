@@ -9,7 +9,7 @@ on:
       - scripts/validate-prime-data-centers.mjs
   workflow_dispatch:
   schedule:
-    - cron: '53 */6 * * *'
+    - cron: '59 */6 * * *'
 
 permissions:
   contents: write

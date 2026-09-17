@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-17T16:22:57.744Z",
-  "jobs": 671,
+  "updatedAt": "2026-09-17T16:42:14.895Z",
+  "jobs": 670,
   "sourcesAttempted": 32,
   "providers": {
     "lever": 7,
@@ -11,14 +11,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 646,
+    "entry-level": 645,
     "internship": 6,
     "trainee": 8,
     "apprenticeship": 11
   },
   "countsByExperience": {
+    "0-2-years": 367,
     "2-5-years": 259,
-    "0-2-years": 368,
     "no-experience": 44
   },
   "errors": [],
@@ -2077,7 +2077,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T16:22:57.830Z",
+    "checkedAt": "2026-09-17T16:42:14.955Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2085,26 +2085,26 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T16:22:57.916Z",
+    "updatedAt": "2026-09-17T16:42:15.012Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 671,
+    "regionAssigned": 670,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 96,
       "southeast": 98,
+      "west": 96,
       "texas": 114,
       "midwest": 133,
-      "mid-atlantic": 124,
+      "mid-atlantic": 123,
       "southwest": 83,
       "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T16:22:57.998Z",
+    "checkedAt": "2026-09-17T16:42:15.067Z",
     "before": 671,
     "after": 671,
     "removed": 0,
@@ -2112,16 +2112,16 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T16:23:23.734Z",
-    "publishedJobs": 671,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-17T16:42:47.804Z",
+    "publishedJobs": 670,
+    "removedJobs": 1,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1142,
-    "currentJobs": 671,
+    "currentJobs": 670,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2130,7 +2130,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-17T16:23:24.080Z"
+    "updatedAt": "2026-09-17T16:42:47.957Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2234,17 +2234,17 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-17T04:28:08.135Z",
+    "checkedAt": "2026-09-17T16:42:14.895Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",
     "officialJobBoard": "https://switchltd.hrmdirect.com/employment/job-openings.php?jbsrc=1014&search=true&sort=pa",
     "officialRssFeed": "https://switchltd.hrmdirect.com/employment/rss.php?search=true&dept=-1&city=-1&state=-1",
     "authoritativeSnapshot": true,
-    "listedJobs": 110,
+    "listedJobs": 108,
     "candidateRoles": 29,
     "qualifyingRoles": 21,
-    "rejectedOutOfScopeTitle": 81,
+    "rejectedOutOfScopeTitle": 79,
     "rejectedSeniorTitle": 0,
     "rejectedMissingDataCenterContext": 0,
     "rejectedDetailTitleMismatch": 4,

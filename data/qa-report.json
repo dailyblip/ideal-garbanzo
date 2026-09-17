@@ -1,32 +1,33 @@
 {
-  "checkedAt": "2026-09-17T16:23:23.734Z",
+  "checkedAt": "2026-09-17T16:42:47.804Z",
   "jobsBefore": 671,
-  "jobsAfter": 671,
+  "jobsAfter": 670,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10539126",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10539126/engineering-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10539126/engineering-operations-technician"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [
     {
-      "id": "gh-xai-5184586007",
-      "company": "xAI",
-      "title": "Reliability Engineer (Data Center Infrastructure)",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5184586007",
+      "id": "microsoft-1970393556971440",
+      "company": "Microsoft",
+      "title": "Critical Environment Support Assistant",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393556971440",
       "state": "transient",
       "status": null,
-      "error": "timeout"
-    },
-    {
-      "id": "gh-xai-5219754007",
-      "company": "xAI",
-      "title": "Mechanical Commissioning Technician",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5219754007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
+      "error": "fetch failed"
     }
   ],
   "warningJobLinks": [],

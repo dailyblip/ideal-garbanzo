@@ -99,9 +99,11 @@ status.sabeyCareers.snapshotRestored = snapshotRestored;
 status.sabeyCareers.snapshotVerifiedAt = snapshotVerifiedAt;
 status.sabeyCareers.snapshotFresh = source.sourceHealthy ? true : snapshotFresh;
 status.sabeyCareers.snapshotMaxAgeHours = MAX_SNAPSHOT_AGE_MS / (60 * 60 * 1000);
-status.sabeyCareers.snapshotAgeHours = Number.isFinite(snapshotAgeMs)
-  ? Math.round((snapshotAgeMs / (60 * 60 * 1000)) * 10) / 10
-  : null;
+status.sabeyCareers.snapshotAgeHours = source.sourceHealthy
+  ? 0
+  : Number.isFinite(snapshotAgeMs)
+    ? Math.round((snapshotAgeMs / (60 * 60 * 1000)) * 10) / 10
+    : null;
 status.sabeyCareers.normalizedTitles = normalizedTitles;
 status.sabeyCareers.removedExpiredFallback = removedExpiredFallback;
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');

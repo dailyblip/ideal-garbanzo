@@ -97,21 +97,12 @@
     ],
     "snapshotRoles": 1,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-17T17:09:33.840Z",
+    "snapshotVerifiedAt": "2026-09-17T21:31:58.556Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
-    "snapshotAgeHours": 0.1,
+    "snapshotAgeHours": 0,
     "normalizedTitles": 1,
-    "removedExpiredFallback": 0,
-    "fallbackFreshness": {
-      "active": false,
-      "expired": false,
-      "lastHealthyAt": "2026-09-17T17:09:33.840Z",
-      "checkedAt": "2026-09-17T17:17:28.187Z",
-      "expiresAt": "2026-09-21T17:09:33.840Z",
-      "maxAgeHours": 96,
-      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
-    }
+    "removedExpiredFallback": 0
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
@@ -1772,7 +1763,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T21:26:13.583Z",
+    "checkedAt": "2026-09-17T21:31:58.611Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1780,7 +1771,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T21:26:13.654Z",
+    "updatedAt": "2026-09-17T21:31:58.666Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 669,
@@ -1799,9 +1790,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T21:26:13.721Z",
-    "before": 670,
-    "after": 670,
+    "checkedAt": "2026-09-17T21:31:58.714Z",
+    "before": 669,
+    "after": 669,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1817,15 +1808,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1162,
     "currentJobs": 669,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 17,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T21:26:33.255Z"
+    "updatedAt": "2026-09-17T21:31:58.757Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

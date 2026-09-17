@@ -18,7 +18,7 @@ function requestUrl(input) {
   return input?.url || '';
 }
 
-function withMetaHeaders(init = {}) {
+function withDetailHeaders(init = {}) {
   const headers = new Headers(init.headers || {});
   headers.set('user-agent', BROWSER_UA);
   headers.set('accept-language', headers.get('accept-language') || 'en-US,en;q=0.9');
@@ -41,7 +41,7 @@ async function pacedDetailFetch(input, init) {
   let lastResponse;
   for (let attempt = 1; attempt <= MAX_DETAIL_ATTEMPTS; attempt += 1) {
     const startedAt = Date.now();
-    lastResponse = await nativeFetch(input, withMetaHeaders(init));
+    lastResponse = await nativeFetch(input, withDetailHeaders(init));
     const rateLimited = lastResponse.status === 429 || lastResponse.status === 503;
 
     if (!rateLimited) {
@@ -75,9 +75,10 @@ globalThis.fetch = async (input, init = {}) => {
   try { parsed = new URL(requestUrl(input)); } catch { return nativeFetch(input, init); }
   if (!META_HOSTS.has(parsed.hostname.toLowerCase())) return nativeFetch(input, init);
 
-  if (!DETAIL_PATH.test(parsed.pathname)) {
-    return nativeFetch(input, withMetaHeaders(init));
-  }
+  // Meta currently accepts the collector's facebookexternalhit identity for the
+  // public search/sitemap surfaces. Only detail pages need the browser identity,
+  // pacing and retry policy; changing listing transport causes HTTP 400.
+  if (!DETAIL_PATH.test(parsed.pathname)) return nativeFetch(input, init);
 
   const run = detailTail.then(() => pacedDetailFetch(input, init));
   detailTail = run.then(() => undefined, () => undefined);

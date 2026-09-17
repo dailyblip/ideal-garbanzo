@@ -4,6 +4,8 @@ const COMPANY = 'Prime Data Centers';
 const JOBS_PATH = 'data/jobs.json';
 const SNAPSHOT_PATH = 'data/prime-data-centers-jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
+const BOARD_API = 'https://api.rippling.com/platform/api/ats/v1/board/prime-data-centers/jobs';
+const MAX_FALLBACK_AGE_HOURS = 96;
 const ALLOWED_TYPES = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
 const ALLOWED_EXPERIENCE = new Set(['no-experience', '0-2-years', '2-5-years']);
 const SENIOR_TITLE = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman)\b/i;
@@ -26,8 +28,27 @@ if (!Array.isArray(snapshot)) throw new Error('Prime authoritative snapshot must
 
 const diagnostics = status?.primeDataCenters;
 if (!diagnostics || typeof diagnostics !== 'object') throw new Error('collector-status.json is missing primeDataCenters diagnostics');
-if (diagnostics.sourceHealthy !== true) throw new Error('Prime source is not marked healthy');
-if (diagnostics.listingComplete !== true) throw new Error('Prime listing is not marked complete');
+const freshness = status?.primeFallbackFreshness;
+const fallbackExpired = freshness?.expired === true;
+const fallbackActive = freshness?.active === true;
+if (fallbackExpired && fallbackActive) throw new Error('Prime fallback cannot be active and expired at the same time');
+if (freshness !== undefined) {
+  if (!freshness || typeof freshness !== 'object' || Array.isArray(freshness)) throw new Error('Prime fallback freshness state must be an object');
+  if (Number(freshness.maxAgeHours) !== MAX_FALLBACK_AGE_HOURS) throw new Error(`Prime fallback max age must remain ${MAX_FALLBACK_AGE_HOURS} hours`);
+  if (!Number.isFinite(Date.parse(freshness.checkedAt || ''))) throw new Error('Prime fallback checkedAt is missing or invalid');
+  if (clean(freshness.boardUrl) !== BOARD_API) throw new Error('Prime fallback verification is not pinned to the official Rippling board API');
+  if (fallbackActive && !Number.isFinite(Date.parse(freshness.lastHealthyAt || ''))) throw new Error('Active Prime fallback is missing last healthy source evidence');
+}
+
+if (fallbackExpired) {
+  if (diagnostics.sourceHealthy !== false) throw new Error('Expired Prime fallback must mark the source unhealthy');
+  if (diagnostics.listingComplete !== false) throw new Error('Expired Prime fallback must mark the listing incomplete');
+  if (snapshot.length !== 0) throw new Error('Expired Prime fallback must fail closed with an empty authoritative snapshot');
+  if (Number(diagnostics.qualifyingRoles) !== 0) throw new Error('Expired Prime fallback must report zero qualifying roles');
+} else {
+  if (diagnostics.sourceHealthy !== true) throw new Error('Prime source is not marked healthy');
+  if (diagnostics.listingComplete !== true) throw new Error('Prime listing is not marked complete');
+}
 if (diagnostics.authoritativeSnapshot !== true) throw new Error('Prime snapshot is not marked authoritative');
 if (!/^https:\/\/primedatacenters\.com\/careers\/?$/i.test(clean(diagnostics.officialCareerPage))) throw new Error('Prime official careers URL is not pinned to primedatacenters.com');
 if (!/^https:\/\/ats\.rippling\.com\/prime-data-centers\/jobs\/?$/i.test(clean(diagnostics.officialRipplingBoard))) throw new Error('Prime official Rippling board URL is not pinned to the employer board');
@@ -35,8 +56,8 @@ if (!/^https:\/\/api\.rippling\.com\/platform\/api\/ats\/v1\/board\/prime-data-c
 if (!Number.isFinite(Date.parse(diagnostics.checkedAt || ''))) throw new Error('Prime diagnostics checkedAt is missing or invalid');
 if (!Number.isFinite(Date.parse(diagnostics.lastSuccessfulAt || ''))) throw new Error('Prime diagnostics lastSuccessfulAt is missing or invalid');
 if (Number(diagnostics.qualifyingRoles) !== snapshot.length) throw new Error(`Prime qualifyingRoles=${diagnostics.qualifyingRoles} does not match snapshot length=${snapshot.length}`);
-if (Number(diagnostics.candidateRoles) > 0 && Number(diagnostics.detailVerified) < Number(diagnostics.qualifyingRoles)) throw new Error('Prime detail verification count is smaller than the published qualifying role count');
-if (Number(diagnostics.detailFailures || 0) !== 0) throw new Error('Prime healthy snapshot must not contain detail verification failures');
+if (!fallbackExpired && Number(diagnostics.candidateRoles) > 0 && Number(diagnostics.detailVerified) < Number(diagnostics.qualifyingRoles)) throw new Error('Prime detail verification count is smaller than the published qualifying role count');
+if (!fallbackExpired && Number(diagnostics.detailFailures || 0) !== 0) throw new Error('Prime healthy snapshot must not contain detail verification failures');
 if (!Number.isInteger(Number(diagnostics.compensationSanitizedRoles || 0)) || Number(diagnostics.compensationSanitizedRoles || 0) < 0) throw new Error('Prime compensation sanitization count is invalid');
 
 const ids = new Set();
@@ -73,4 +94,5 @@ if (feedPrime.length !== snapshot.length) throw new Error(`Public feed has ${fee
 const feedIds = new Set(feedPrime.map(job => clean(job?.id)));
 for (const id of ids) if (!feedIds.has(id)) throw new Error(`Prime snapshot role ${id} is missing from public feed`);
 
-console.log(`Prime Data Centers source validation passed: ${snapshot.length} authoritative U.S. 0–5 year role(s), ${Number(diagnostics.detailVerified || 0)} candidate detail page(s) verified, ${Number(diagnostics.compensationSanitizedRoles || 0)} ambiguous compensation range(s) suppressed.`);
+const freshnessSummary = fallbackExpired ? 'fallback expired, fail-closed' : fallbackActive ? 'verified fallback active' : 'source healthy';
+console.log(`Prime Data Centers source validation passed: ${snapshot.length} authoritative U.S. 0–5 year role(s), ${Number(diagnostics.detailVerified || 0)} candidate detail page(s) verified, ${Number(diagnostics.compensationSanitizedRoles || 0)} ambiguous compensation range(s) suppressed; ${freshnessSummary}.`);

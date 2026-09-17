@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/collect-prime-data-centers.mjs
       - scripts/reconcile-prime-data-centers.mjs
+      - scripts/enforce-prime-fallback-freshness.mjs
       - scripts/validate-prime-data-centers.mjs
   workflow_dispatch:
   schedule:
@@ -35,9 +36,11 @@ jobs:
         run: |
           node --check scripts/collect-prime-data-centers.mjs
           node --check scripts/reconcile-prime-data-centers.mjs
+          node --check scripts/enforce-prime-fallback-freshness.mjs
           node --check scripts/validate-prime-data-centers.mjs
           node scripts/collect-prime-data-centers.mjs --test-classifier
           node scripts/collect-prime-data-centers.mjs --test-next-data
+          node scripts/enforce-prime-fallback-freshness.mjs --test
       - name: Collect official Prime Rippling roles
         run: node scripts/collect-prime-data-centers.mjs
       - name: Enforce mission-fit role families
@@ -48,6 +51,8 @@ jobs:
         run: node scripts/dedupe-normalized-jobs.mjs
       - name: Reconcile Prime authoritative snapshot
         run: node scripts/reconcile-prime-data-centers.mjs
+      - name: Verify Prime source freshness
+        run: node scripts/enforce-prime-fallback-freshness.mjs
       - name: Run live QA
         run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
@@ -78,6 +83,8 @@ jobs:
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/reconcile-prime-data-centers.mjs
+            node scripts/enforce-prime-fallback-freshness.mjs --test
+            node scripts/enforce-prime-fallback-freshness.mjs
             node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/validate-prime-data-centers.mjs

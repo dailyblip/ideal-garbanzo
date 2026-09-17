@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T07:59:08.141Z",
+  "updatedAt": "2026-09-17T08:45:15.231Z",
   "jobs": 636,
   "sourcesAttempted": 18,
   "providers": {
@@ -3645,7 +3645,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T07:59:08.212Z",
+    "checkedAt": "2026-09-17T08:45:15.308Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3653,7 +3653,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T07:59:08.282Z",
+    "updatedAt": "2026-09-17T08:45:15.388Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 636,
@@ -3672,7 +3672,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T07:59:08.347Z",
+    "checkedAt": "2026-09-17T08:45:15.471Z",
     "before": 636,
     "after": 636,
     "removed": 0,
@@ -3680,7 +3680,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T07:59:24.033Z",
+    "checkedAt": "2026-09-17T08:45:46.932Z",
     "publishedJobs": 636,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3698,7 +3698,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 84,
-    "updatedAt": "2026-09-17T07:59:24.320Z"
+    "updatedAt": "2026-09-17T08:45:47.062Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3839,7 +3839,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-17T07:59:08.141Z",
+    "checkedAt": "2026-09-17T08:45:15.231Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

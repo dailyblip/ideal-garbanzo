@@ -1,0 +1,64 @@
+name: Prime source integrity guard
+
+on:
+  pull_request:
+    paths:
+      - scripts/collect-prime-data-centers.mjs
+      - scripts/reconcile-prime-data-centers.mjs
+      - scripts/validate-prime-data-centers.mjs
+      - .github/workflows/prime-data-centers-bootstrap.yml
+      - .github/workflows/prime-source-integrity-guard.yml
+  push:
+    branches: [main]
+    paths:
+      - scripts/collect-prime-data-centers.mjs
+      - scripts/reconcile-prime-data-centers.mjs
+      - scripts/validate-prime-data-centers.mjs
+      - .github/workflows/prime-data-centers-bootstrap.yml
+      - .github/workflows/prime-source-integrity-guard.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Prime collector contracts
+        run: |
+          node --check scripts/collect-prime-data-centers.mjs
+          node --check scripts/reconcile-prime-data-centers.mjs
+          node --check scripts/validate-prime-data-centers.mjs
+          node scripts/collect-prime-data-centers.mjs --test-classifier
+          node scripts/collect-prime-data-centers.mjs --test-next-data
+      - name: Probe official Prime careers source
+        run: |
+          node scripts/collect-prime-data-centers.mjs
+          node scripts/filter-mission-fit.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/reconcile-prime-data-centers.mjs
+          node scripts/validate-prime-data-centers.mjs
+      - name: Guard six-hour source refresh and race-safe publication
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow=.github/workflows/prime-data-centers-bootstrap.yml
+          grep -Fq "cron: '53 */6 * * *'" "$workflow"
+          grep -Fq 'group: careers-source-writers' "$workflow"
+          grep -Fq 'cancel-in-progress: false' "$workflow"
+          grep -Fq 'rebuild_from_latest_main()' "$workflow"
+          grep -Fq 'git reset --hard origin/main' "$workflow"
+          grep -Fq 'for attempt in 1 2 3' "$workflow"
+          grep -Fq 'if git push origin HEAD:main; then' "$workflow"
+      - name: Preserve site and source-workflow contracts
+        run: |
+          git checkout -- data/jobs.json data/collector-status.json || true
+          rm -f data/prime-data-centers-jobs.json
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs

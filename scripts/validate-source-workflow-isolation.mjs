@@ -29,6 +29,7 @@ const sourceWorkflows = [
   '.github/workflows/oracle-bootstrap.yml',
   '.github/workflows/oracle-stale-fallback-watch.yml',
   '.github/workflows/prime-data-centers-bootstrap.yml',
+  '.github/workflows/prime-stale-fallback-watch.yml',
   '.github/workflows/sabey-bootstrap.yml',
   '.github/workflows/stream-data-centers-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml',

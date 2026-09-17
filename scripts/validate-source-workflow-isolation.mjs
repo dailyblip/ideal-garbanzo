@@ -28,6 +28,7 @@ const sourceWorkflows = [
   '.github/workflows/novva-bootstrap.yml',
   '.github/workflows/oracle-bootstrap.yml',
   '.github/workflows/oracle-stale-fallback-watch.yml',
+  '.github/workflows/prime-data-centers-bootstrap.yml',
   '.github/workflows/sabey-bootstrap.yml',
   '.github/workflows/stream-data-centers-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml',
@@ -60,6 +61,7 @@ const sharedWriterQueue = new Set([
   '.github/workflows/google-bootstrap.yml',
   '.github/workflows/major-workday-bootstrap.yml',
   '.github/workflows/novva-bootstrap.yml',
+  '.github/workflows/prime-data-centers-bootstrap.yml',
   '.github/workflows/stream-data-centers-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml',
   '.github/workflows/t5-data-centers-bootstrap.yml'

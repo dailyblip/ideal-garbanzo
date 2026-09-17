@@ -1,25 +1,35 @@
 {
-  "checkedAt": "2026-09-17T14:48:25.637Z",
-  "jobsBefore": 674,
-  "jobsAfter": 673,
+  "checkedAt": "2026-09-17T16:21:31.032Z",
+  "jobsBefore": 672,
+  "jobsAfter": 671,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
     {
-      "id": "amazon-10541671",
+      "id": "amazon-10544802",
       "company": "Amazon Web Services",
-      "title": "Critical Infrastructure Mechanical Engineer, ADC Field Engineering",
-      "url": "https://www.amazon.jobs/en/jobs/10541671/critical-infrastructure-mechanical-engineer-adc-field-engineering",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10544802/engineering-operations-technician",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10541671/critical-infrastructure-mechanical-engineer-adc-field-engineering"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10544802/engineering-operations-technician"
     }
   ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5189147007",
+      "company": "xAI",
+      "title": "Power Systems Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5189147007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

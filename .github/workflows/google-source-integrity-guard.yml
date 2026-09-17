@@ -12,6 +12,7 @@ on:
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/validate-google-freshness.mjs'
       - 'scripts/validate-google-snapshot.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/google-bootstrap.yml'
       - '.github/workflows/google-stale-fallback-watch.yml'
       - '.github/workflows/google-source-integrity-guard.yml'
@@ -26,6 +27,7 @@ on:
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/validate-google-freshness.mjs'
       - 'scripts/validate-google-snapshot.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/google-bootstrap.yml'
       - '.github/workflows/google-stale-fallback-watch.yml'
       - '.github/workflows/google-source-integrity-guard.yml'
@@ -49,6 +51,11 @@ jobs:
           node --check scripts/enforce-google-fallback-freshness.mjs
           node --check scripts/validate-google-freshness.mjs
           node --check scripts/validate-google-snapshot.mjs
+      - name: Guard Google refresh cadence and source-writer safety
+        run: |
+          grep -Fq "cron: '47 */6 * * *'" .github/workflows/google-bootstrap.yml
+          grep -Fq 'group: careers-source-writers' .github/workflows/google-bootstrap.yml
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Run Google fail-closed regression tests
         run: |
           node scripts/collect-google-careers-fresh.mjs --self-test

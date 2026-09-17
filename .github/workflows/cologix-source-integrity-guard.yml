@@ -9,11 +9,14 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-cologix.mjs'
       - 'scripts/validate-cologix.mjs'
+      - 'scripts/validate-cologix-publication-state.mjs'
+      - 'scripts/enforce-cologix-fallback-freshness.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/normalize-display-copy.mjs'
       - '.github/workflows/cologix-bootstrap.yml'
+      - '.github/workflows/cologix-stale-fallback-watch.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/cologix-source-integrity-guard.yml'
   pull_request:
@@ -24,11 +27,14 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-cologix.mjs'
       - 'scripts/validate-cologix.mjs'
+      - 'scripts/validate-cologix-publication-state.mjs'
+      - 'scripts/enforce-cologix-fallback-freshness.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/normalize-display-copy.mjs'
       - '.github/workflows/cologix-bootstrap.yml'
+      - '.github/workflows/cologix-stale-fallback-watch.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/cologix-source-integrity-guard.yml'
   workflow_dispatch:
@@ -44,19 +50,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Check Cologix collector and integrity validator
+      - name: Check Cologix collector and integrity validators
         run: |
           node --check scripts/collect-cologix.mjs
           node --check scripts/validate-cologix.mjs
+          node --check scripts/validate-cologix-publication-state.mjs
+          node --check scripts/enforce-cologix-fallback-freshness.mjs
       - name: Run Cologix fail-closed regression tests
         run: |
           node scripts/collect-cologix.mjs --test-classifier
           node scripts/validate-cologix.mjs --test
+          node scripts/validate-cologix-publication-state.mjs --test
+          node scripts/enforce-cologix-fallback-freshness.mjs --test
+      - name: Enforce Cologix fallback freshness
+        run: node scripts/enforce-cologix-fallback-freshness.mjs
       - name: Re-run publication transforms
         run: |
           node scripts/filter-mission-fit.mjs
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
-      - name: Validate exact Cologix authoritative-public parity
-        run: node scripts/validate-cologix.mjs
+      - name: Validate Cologix publication state
+        run: node scripts/validate-cologix-publication-state.mjs

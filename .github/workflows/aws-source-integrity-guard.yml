@@ -10,6 +10,7 @@ on:
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/enforce-amazon-fallback-freshness.mjs'
       - 'scripts/validate-amazon-parity.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/aws-detail-recovery.yml'
       - '.github/workflows/aws-stale-fallback-watch.yml'
       - '.github/workflows/aws-source-integrity-guard.yml'
@@ -22,6 +23,7 @@ on:
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/enforce-amazon-fallback-freshness.mjs'
       - 'scripts/validate-amazon-parity.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/aws-detail-recovery.yml'
       - '.github/workflows/aws-stale-fallback-watch.yml'
       - '.github/workflows/aws-source-integrity-guard.yml'
@@ -43,6 +45,11 @@ jobs:
           node --check scripts/collect-amazon-datacenter.mjs
           node --check scripts/enforce-amazon-fallback-freshness.mjs
           node --check scripts/validate-amazon-parity.mjs
+      - name: Guard AWS refresh cadence and source-writer safety
+        run: |
+          grep -Fq "cron: '53 */6 * * *'" .github/workflows/aws-detail-recovery.yml
+          grep -Fq 'group: aws-detail-recovery' .github/workflows/aws-detail-recovery.yml
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Run AWS source regressions
         run: |
           node scripts/enforce-amazon-fallback-freshness.mjs --test

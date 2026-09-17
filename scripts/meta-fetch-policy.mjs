@@ -3,10 +3,9 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const META_HOSTS = new Set(['metacareers.com', 'www.metacareers.com']);
 const DETAIL_PATH = /^\/profile\/job_details\/\d+\/?$/i;
-const BASE_DETAIL_INTERVAL_MS = Math.max(250, Number(process.env.META_DETAIL_INTERVAL_MS || 650));
+const BASE_DETAIL_INTERVAL_MS = Math.max(250, Number(process.env.META_DETAIL_INTERVAL_MS || 1200));
 const MAX_RETRY_AFTER_MS = Math.max(1000, Number(process.env.META_MAX_RETRY_AFTER_MS || 12000));
 const MAX_DETAIL_ATTEMPTS = Math.max(1, Number(process.env.META_DETAIL_ATTEMPTS || 3));
-const BROWSER_UA = process.env.META_FETCH_USER_AGENT || 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
 
 let detailTail = Promise.resolve();
 let nextDetailAt = 0;
@@ -16,14 +15,6 @@ function requestUrl(input) {
   if (typeof input === 'string') return input;
   if (input instanceof URL) return input.href;
   return input?.url || '';
-}
-
-function withDetailHeaders(init = {}) {
-  const headers = new Headers(init.headers || {});
-  headers.set('user-agent', BROWSER_UA);
-  headers.set('accept-language', headers.get('accept-language') || 'en-US,en;q=0.9');
-  headers.set('accept', headers.get('accept') || 'text/html,application/xhtml+xml');
-  return { ...init, headers };
 }
 
 function retryAfterMs(response) {
@@ -41,7 +32,7 @@ async function pacedDetailFetch(input, init) {
   let lastResponse;
   for (let attempt = 1; attempt <= MAX_DETAIL_ATTEMPTS; attempt += 1) {
     const startedAt = Date.now();
-    lastResponse = await nativeFetch(input, withDetailHeaders(init));
+    lastResponse = await nativeFetch(input, init);
     const rateLimited = lastResponse.status === 429 || lastResponse.status === 503;
 
     if (!rateLimited) {
@@ -75,9 +66,10 @@ globalThis.fetch = async (input, init = {}) => {
   try { parsed = new URL(requestUrl(input)); } catch { return nativeFetch(input, init); }
   if (!META_HOSTS.has(parsed.hostname.toLowerCase())) return nativeFetch(input, init);
 
-  // Meta currently accepts the collector's facebookexternalhit identity for the
-  // public search/sitemap surfaces. Only detail pages need the browser identity,
-  // pacing and retry policy; changing listing transport causes HTTP 400.
+  // Preserve the collector's existing facebookexternalhit identity for every
+  // Meta request. Meta returns HTTP 400 when job-detail requests are rewritten
+  // to a browser identity. Reliability comes from serialized pacing and bounded
+  // Retry-After-aware backoff, not from changing the request identity.
   if (!DETAIL_PATH.test(parsed.pathname)) return nativeFetch(input, init);
 
   const run = detailTail.then(() => pacedDetailFetch(input, init));

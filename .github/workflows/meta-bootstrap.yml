@@ -38,14 +38,14 @@ jobs:
       - name: Collect official Meta Careers roles
         env:
           NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
-          META_DETAIL_INTERVAL_MS: '650'
+          META_DETAIL_INTERVAL_MS: '1200'
           META_DETAIL_ATTEMPTS: '3'
           META_MAX_RETRY_AFTER_MS: '12000'
         run: node scripts/collect-meta-careers.mjs
       - name: Recover Meta requirements from structured data
         env:
           NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
-          META_DETAIL_INTERVAL_MS: '650'
+          META_DETAIL_INTERVAL_MS: '1200'
           META_DETAIL_ATTEMPTS: '3'
           META_MAX_RETRY_AFTER_MS: '12000'
         run: node scripts/recover-meta-structured.mjs
@@ -70,7 +70,7 @@ jobs:
         shell: bash
         env:
           NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
-          META_DETAIL_INTERVAL_MS: '650'
+          META_DETAIL_INTERVAL_MS: '1200'
           META_DETAIL_ATTEMPTS: '3'
           META_MAX_RETRY_AFTER_MS: '12000'
         run: |

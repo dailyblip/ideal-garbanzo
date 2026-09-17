@@ -9,11 +9,14 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-databank.mjs'
       - 'scripts/validate-databank.mjs'
+      - 'scripts/validate-databank-publication-state.mjs'
+      - 'scripts/enforce-databank-fallback-freshness.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/normalize-display-copy.mjs'
       - '.github/workflows/databank-bootstrap.yml'
+      - '.github/workflows/databank-stale-fallback-watch.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/databank-source-integrity-guard.yml'
   pull_request:
@@ -24,11 +27,14 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-databank.mjs'
       - 'scripts/validate-databank.mjs'
+      - 'scripts/validate-databank-publication-state.mjs'
+      - 'scripts/enforce-databank-fallback-freshness.mjs'
       - 'scripts/filter-mission-fit.mjs'
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/normalize-display-copy.mjs'
       - '.github/workflows/databank-bootstrap.yml'
+      - '.github/workflows/databank-stale-fallback-watch.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/databank-source-integrity-guard.yml'
   workflow_dispatch:
@@ -48,13 +54,20 @@ jobs:
         run: |
           node --check scripts/collect-databank.mjs
           node --check scripts/validate-databank.mjs
+          node --check scripts/validate-databank-publication-state.mjs
+          node --check scripts/enforce-databank-fallback-freshness.mjs
           node scripts/collect-databank.mjs --test-classifier
           node scripts/validate-databank.mjs --test
+          node scripts/validate-databank-publication-state.mjs --test
+          node scripts/enforce-databank-fallback-freshness.mjs --test
+          node scripts/collect-jobs.mjs --test-preservation
+      - name: Enforce DataBank snapshot freshness
+        run: node scripts/enforce-databank-fallback-freshness.mjs
       - name: Re-run publication transforms
         run: |
           node scripts/filter-mission-fit.mjs
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
-      - name: Validate exact DataBank authoritative-public parity
-        run: node scripts/validate-databank.mjs
+      - name: Validate DataBank authoritative-public state
+        run: node scripts/validate-databank-publication-state.mjs

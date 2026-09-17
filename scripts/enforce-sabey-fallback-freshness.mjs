@@ -4,7 +4,7 @@ const JOBS_PATH = 'data/jobs.json';
 const SNAPSHOT_PATH = 'data/sabey-jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
 const COMPANY = 'Sabey Data Centers';
-const MAX_FALLBACK_AGE_HOURS = 168;
+const MAX_FALLBACK_AGE_HOURS = 96;
 const MAX_FALLBACK_AGE_MS = MAX_FALLBACK_AGE_HOURS * 60 * 60 * 1000;
 
 async function readJson(path, fallback) {
@@ -47,18 +47,18 @@ function freshnessDecision({ verifiedAt, nowMs, hasPublishedRoles }) {
 function runSelfTest() {
   const now = Date.parse('2026-09-15T12:00:00Z');
   const fresh = freshnessDecision({
-    verifiedAt: '2026-09-08T12:00:01Z',
+    verifiedAt: '2026-09-11T12:00:01Z',
     nowMs: now,
     hasPublishedRoles: true
   });
-  if (fresh.expired) throw new Error('Sabey fallback expired before 168 hours');
+  if (fresh.expired) throw new Error('Sabey fallback expired before 96 hours');
 
   const boundary = freshnessDecision({
-    verifiedAt: '2026-09-08T12:00:00Z',
+    verifiedAt: '2026-09-11T12:00:00Z',
     nowMs: now,
     hasPublishedRoles: true
   });
-  if (!boundary.expired) throw new Error('Sabey fallback did not expire at 168 hours');
+  if (!boundary.expired) throw new Error('Sabey fallback did not expire at 96 hours');
 
   const unknown = freshnessDecision({
     verifiedAt: null,
@@ -98,9 +98,30 @@ const hasPublishedRoles = publicSabey.length > 0 || snapshotSabey.length > 0;
 const verifiedAt = snapshot.verifiedAt || clean(status?.sabeyCareers?.snapshotVerifiedAt) || null;
 const nowMs = Date.now();
 const decision = freshnessDecision({ verifiedAt, nowMs, hasPublishedRoles });
+const source = status.sabeyCareers && typeof status.sabeyCareers === 'object'
+  ? status.sabeyCareers
+  : {};
 
 if (!decision.expired) {
   const roundedAgeHours = Math.round(decision.ageHours * 10) / 10;
+  const expiresAt = decision.expiresAt ? new Date(decision.expiresAt).toISOString() : null;
+  const checkedAt = new Date(nowMs).toISOString();
+  status.sabeyCareers = {
+    ...source,
+    snapshotMaxAgeHours: MAX_FALLBACK_AGE_HOURS,
+    snapshotAgeHours: hasPublishedRoles ? roundedAgeHours : source.snapshotAgeHours ?? 0,
+    fallbackFreshness: {
+      ...(source.fallbackFreshness && typeof source.fallbackFreshness === 'object' ? source.fallbackFreshness : {}),
+      active: source.sourceHealthy === false && hasPublishedRoles,
+      expired: false,
+      lastHealthyAt: verifiedAt,
+      checkedAt,
+      expiresAt,
+      maxAgeHours: MAX_FALLBACK_AGE_HOURS,
+      policy: 'Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification.'
+    }
+  };
+  await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
   if (hasPublishedRoles) {
     console.log(`Sabey snapshot is ${roundedAgeHours} hours old and inside the ${MAX_FALLBACK_AGE_HOURS}-hour maximum.`);
   } else {
@@ -115,9 +136,6 @@ const removedSnapshot = snapshotSabey.length;
 const checkedAt = new Date(nowMs).toISOString();
 const roundedAgeHours = decision.ageHours === null ? null : Math.round(decision.ageHours * 10) / 10;
 const expiresAt = decision.expiresAt ? new Date(decision.expiresAt).toISOString() : null;
-const source = status.sabeyCareers && typeof status.sabeyCareers === 'object'
-  ? status.sabeyCareers
-  : {};
 
 status.updatedAt = checkedAt;
 status.jobs = prunedJobs.length;
@@ -154,7 +172,7 @@ status.sabeyCareers = {
     maxAgeHours: MAX_FALLBACK_AGE_HOURS,
     expiredAgeHours: roundedAgeHours,
     rolesRemoved: Math.max(removedPublic, removedSnapshot),
-    policy: 'Sabey employer-direct roles may remain published for at most 168 hours after the last successful official-source verification.'
+    policy: 'Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification.'
   }
 };
 

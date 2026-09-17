@@ -17,14 +17,40 @@ function normalizePay(value) {
   return typeof normalized === 'string' && missingPayPattern.test(normalized) ? '' : normalized;
 }
 
-function normalizeJob(job) {
+function normalizePayFields(job) {
+  const pay = normalizePay(job.pay);
+  if (typeof pay !== 'string' || !pay) return { ...job, pay };
+
+  // Some employer descriptions end a compensation range with sentence
+  // punctuation before the unit (for example "$35.00-$47.00. / hr").
+  // The upstream parser can still produce the display string while losing the
+  // numeric maximum. Repair only explicit two-sided ranges so salary sorting
+  // never depends on a guess.
+  const range = pay.match(/^\$([\d,]+(?:\.\d+)?)\s*(?:-|–|to)\s*\$?([\d,]+(?:\.\d+)?)[.,]?\s*\/\s*(hr|hour|year|yr)\b/i);
+  if (!range) return { ...job, pay };
+
+  const min = Number(range[1].replace(/,/g, ''));
+  const max = Number(range[2].replace(/,/g, ''));
+  if (!Number.isFinite(min) || !Number.isFinite(max) || min < 0 || max < min) return { ...job, pay };
+
+  const annual = /year|yr/i.test(range[3]);
   return {
     ...job,
-    title: normalizeText(job.title),
-    company: normalizeText(job.company),
-    location: normalizeText(job.location),
-    pay: normalizePay(job.pay),
-    tags: Array.isArray(job.tags) ? job.tags.map(normalizeText) : job.tags
+    pay: `$${range[1]}–$${range[2]} / ${annual ? 'year' : 'hr'}`,
+    salaryMin: min,
+    salaryMax: max,
+    salarySortMax: annual ? max : Math.round(max * 2080)
+  };
+}
+
+function normalizeJob(job) {
+  const compensation = normalizePayFields(job);
+  return {
+    ...compensation,
+    title: normalizeText(compensation.title),
+    company: normalizeText(compensation.company),
+    location: normalizeText(compensation.location),
+    tags: Array.isArray(compensation.tags) ? compensation.tags.map(normalizeText) : compensation.tags
   };
 }
 
@@ -44,6 +70,16 @@ function runSelfTest() {
   const hourly = normalizeJob({ pay: '$34.00–$35.50 / hr', salaryMin: 34, salaryMax: 35.5, salarySortMax: 73840 });
   if (hourly.pay !== '$34.00–$35.50 / hr' || hourly.salaryMin !== 34 || hourly.salaryMax !== 35.5 || hourly.salarySortMax !== 73840) {
     throw new Error('Published compensation was modified during display normalization.');
+  }
+
+  const malformedHourly = normalizeJob({ pay: '$35.00–$47.00. / hr', salaryMin: 35, salaryMax: null, salarySortMax: null });
+  if (malformedHourly.pay !== '$35.00–$47.00 / hr' || malformedHourly.salaryMin !== 35 || malformedHourly.salaryMax !== 47 || malformedHourly.salarySortMax !== 97760) {
+    throw new Error('Malformed hourly compensation punctuation was not repaired safely.');
+  }
+
+  const malformedAnnual = normalizeJob({ pay: '$110,000–$115,000. / year', salaryMin: 110000, salaryMax: null, salarySortMax: null });
+  if (malformedAnnual.pay !== '$110,000–$115,000 / year' || malformedAnnual.salaryMin !== 110000 || malformedAnnual.salaryMax !== 115000 || malformedAnnual.salarySortMax !== 115000) {
+    throw new Error('Malformed annual compensation punctuation was not repaired safely.');
   }
 
   const absent = normalizeJob({ pay: '', salaryMin: null, salaryMax: null, salarySortMax: null });

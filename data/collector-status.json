@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T21:56:22.995Z",
+  "updatedAt": "2026-09-17T22:19:13.943Z",
   "jobs": 676,
   "sourcesAttempted": 19,
   "providers": {
@@ -3363,25 +3363,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T21:56:23.134Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-17T22:19:14.017Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T21:56:23.196Z",
+    "updatedAt": "2026-09-17T22:19:14.094Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 676,
@@ -3400,7 +3390,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T21:56:23.252Z",
+    "checkedAt": "2026-09-17T22:19:14.166Z",
     "before": 676,
     "after": 676,
     "removed": 0,
@@ -3408,7 +3398,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T21:56:48.236Z",
+    "checkedAt": "2026-09-17T22:19:34.893Z",
     "publishedJobs": 676,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3426,7 +3416,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 79,
-    "updatedAt": "2026-09-17T21:56:48.389Z"
+    "updatedAt": "2026-09-17T22:19:35.030Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3499,18 +3489,18 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-17T17:40:53.641Z",
+    "checkedAt": "2026-09-17T22:19:13.943Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",
     "officialLeverBoard": "https://jobs.lever.co/cologix",
     "api": "https://api.lever.co/v0/postings/cologix?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 27,
-    "usJobs": 21,
+    "listedJobs": 28,
+    "usJobs": 22,
     "candidateRoles": 12,
     "qualifyingRoles": 10,
-    "rejectedOutOfScopeTitle": 9,
+    "rejectedOutOfScopeTitle": 10,
     "rejectedSeniorTitle": 0,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0

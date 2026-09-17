@@ -18,12 +18,11 @@ permissions:
   actions: write
   contents: write
 
-# A newer Meta source run supersedes an older one. Collection writes only after
-# validation, so cancelling stale in-flight collection avoids needless rate-limit
-# waits without risking a partially published snapshot.
+# Keep duplicate Meta runs from overlapping. Shared pipeline edits are validated
+# by the main build instead of fanning out multiple feed-writing source jobs.
 concurrency:
   group: meta-bootstrap
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   collect:

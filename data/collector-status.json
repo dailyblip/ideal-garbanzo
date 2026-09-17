@@ -2077,25 +2077,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-17T16:58:22.771Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-17T16:59:01.378Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T16:58:22.817Z",
+    "updatedAt": "2026-09-17T16:59:01.429Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 676,
@@ -2114,7 +2104,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T16:58:22.859Z",
+    "checkedAt": "2026-09-17T16:59:01.478Z",
     "before": 676,
     "after": 676,
     "removed": 0,
@@ -2122,7 +2112,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-17T16:58:45.845Z",
+    "checkedAt": "2026-09-17T16:59:29.297Z",
     "publishedJobs": 676,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -2133,14 +2123,14 @@
     "trackedJobs": 1148,
     "currentJobs": 676,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 10,
     "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-17T16:58:45.967Z"
+    "updatedAt": "2026-09-17T16:59:29.463Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2342,11 +2332,11 @@
       "location": 2
     },
     "errors": [],
-    "checkedAt": "2026-09-17T04:51:50.211Z",
-    "lastHealthyAt": "2026-09-17T04:51:50.211Z",
+    "checkedAt": "2026-09-17T16:59:01.325Z",
+    "lastHealthyAt": "2026-09-17T16:59:01.325Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-21T04:51:50.211Z",
+    "fallbackExpiresAt": "2026-09-21T16:59:01.325Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 10,

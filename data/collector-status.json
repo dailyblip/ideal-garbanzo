@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-09-17T19:44:09.962Z",
+  "updatedAt": "2026-09-17T19:45:51.155Z",
   "jobs": 670,
-  "sourcesAttempted": 19,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
     "icims": 1,
-    "metaCareers": 1
+    "metaCareers": 2
   },
   "countsByType": {
     "entry-level": 644,
@@ -21,9 +21,46 @@
     "no-experience": 44
   },
   "errors": [
-    "Meta Careers: search https://www.metacareers.com/jobs?q=data%20center&location=United%20States: 400 https://www.metacareers.com/jobs?q=data%20center&location=United%20States",
-    "Meta Careers: search https://www.metacareers.com/jobsearch/?teams%5B0%5D=Data%20Center: 400 https://www.metacareers.com/jobsearch/?teams%5B0%5D=Data%20Center",
-    "Meta Careers: sitemap: 400 https://www.metacareers.com/jobsearch/sitemap.xml"
+    "Meta Careers: detail 2486789151677735: 400 https://www.metacareers.com/profile/job_details/2486789151677735/",
+    "Meta Careers: detail 998357492128826: 400 https://www.metacareers.com/profile/job_details/998357492128826/",
+    "Meta Careers: detail 1036424292475196: 400 https://www.metacareers.com/profile/job_details/1036424292475196/",
+    "Meta Careers: detail 1369229648397146: 400 https://www.metacareers.com/profile/job_details/1369229648397146/",
+    "Meta Careers: detail 1055422287330221: 400 https://www.metacareers.com/profile/job_details/1055422287330221/",
+    "Meta Careers: detail 1346637694687934: 400 https://www.metacareers.com/profile/job_details/1346637694687934/",
+    "Meta Careers: detail 9657291271065759: 400 https://www.metacareers.com/profile/job_details/9657291271065759/",
+    "Meta Careers: detail 3713685685437806: 400 https://www.metacareers.com/profile/job_details/3713685685437806/",
+    "Meta Careers: detail 1690022942358388: 400 https://www.metacareers.com/profile/job_details/1690022942358388/",
+    "Meta Careers: detail 1120530887203915: 400 https://www.metacareers.com/profile/job_details/1120530887203915/",
+    "Meta Careers: detail 1436181490732782: 400 https://www.metacareers.com/profile/job_details/1436181490732782/",
+    "Meta Careers: detail 687249053364137: 400 https://www.metacareers.com/profile/job_details/687249053364137/",
+    "Meta Careers: detail 1620341402775771: 400 https://www.metacareers.com/profile/job_details/1620341402775771/",
+    "Meta Careers: detail 1798266217835709: 400 https://www.metacareers.com/profile/job_details/1798266217835709/",
+    "Meta Careers: detail 1238249364564427: 400 https://www.metacareers.com/profile/job_details/1238249364564427/",
+    "Meta Careers: detail 2010995136240732: 400 https://www.metacareers.com/profile/job_details/2010995136240732/",
+    "Meta Careers: detail 1704822071642848: 400 https://www.metacareers.com/profile/job_details/1704822071642848/",
+    "Meta Careers: detail 1542629444012644: 400 https://www.metacareers.com/profile/job_details/1542629444012644/",
+    "Meta Careers: detail 1645503493182815: 400 https://www.metacareers.com/profile/job_details/1645503493182815/",
+    "Meta Careers: detail 1063449896341082: 400 https://www.metacareers.com/profile/job_details/1063449896341082/",
+    "Meta Careers: detail 1663125785328136: 400 https://www.metacareers.com/profile/job_details/1663125785328136/",
+    "Meta Careers: detail 1397212694826926: 400 https://www.metacareers.com/profile/job_details/1397212694826926/",
+    "Meta Careers: detail 28757046417220273: 400 https://www.metacareers.com/profile/job_details/28757046417220273/",
+    "Meta Careers: detail 1746722943203320: 400 https://www.metacareers.com/profile/job_details/1746722943203320/",
+    "Meta Careers: detail 704019139159184: 400 https://www.metacareers.com/profile/job_details/704019139159184/",
+    "Meta Careers: detail 2263777184385237: 400 https://www.metacareers.com/profile/job_details/2263777184385237/",
+    "Meta Careers: detail 1031032768371242: 400 https://www.metacareers.com/profile/job_details/1031032768371242/",
+    "Meta Careers: detail 1569760278118088: 400 https://www.metacareers.com/profile/job_details/1569760278118088/",
+    "Meta Careers: detail 1203016587809246: 400 https://www.metacareers.com/profile/job_details/1203016587809246/",
+    "Meta Careers: detail 1075389717795087: 400 https://www.metacareers.com/profile/job_details/1075389717795087/",
+    "Meta Careers: detail 2282367178830920: 400 https://www.metacareers.com/profile/job_details/2282367178830920/",
+    "Meta Careers: detail 1420853345578936: 400 https://www.metacareers.com/profile/job_details/1420853345578936/",
+    "Meta Careers: detail 27650091594619675: 400 https://www.metacareers.com/profile/job_details/27650091594619675/",
+    "Meta Careers: detail 2091420381760990: 400 https://www.metacareers.com/profile/job_details/2091420381760990/",
+    "Meta Careers: detail 1085335604077521: 400 https://www.metacareers.com/profile/job_details/1085335604077521/",
+    "Meta Careers: detail 1326784526233147: 400 https://www.metacareers.com/profile/job_details/1326784526233147/",
+    "Meta Careers: detail 1229945984832289: 400 https://www.metacareers.com/profile/job_details/1229945984832289/",
+    "Meta Careers: detail 612870871828801: 400 https://www.metacareers.com/profile/job_details/612870871828801/",
+    "Meta Careers: detail 1416729040340545: 400 https://www.metacareers.com/profile/job_details/1416729040340545/",
+    "Meta Careers: detail 1734358140739006: 400 https://www.metacareers.com/profile/job_details/1734358140739006/"
   ],
   "sourceFailurePreservation": {
     "checkedAt": "2026-09-17T17:02:01.095Z",
@@ -1461,15 +1498,15 @@
   },
   "metaCareers": {
     "officialSource": "https://www.metacareers.com/jobsearch/",
-    "sourceHealthy": false,
+    "sourceHealthy": true,
     "qualifyingRoles": 0,
     "diagnostics": {
       "searchPagesAttempted": 2,
-      "searchPagesSucceeded": 0,
+      "searchPagesSucceeded": 2,
       "embeddedCandidates": 0,
-      "sitemapFetched": false,
-      "sitemapJobs": 0,
-      "detailAttempted": 0,
+      "sitemapFetched": true,
+      "sitemapJobs": 992,
+      "detailAttempted": 40,
       "detailSucceeded": 0,
       "previousSnapshotCandidates": 0,
       "previousSnapshotReverified": 0,
@@ -1478,7 +1515,7 @@
         "titleOrContext": 0,
         "nonUsOrUnknownLocation": 0,
         "experience": 0,
-        "fetch": 0
+        "fetch": 40
       },
       "titleOrContextSamples": [],
       "locationSamples": [],
@@ -1487,9 +1524,46 @@
       "recoveredFromStructuredData": 0
     },
     "errors": [
-      "search https://www.metacareers.com/jobs?q=data%20center&location=United%20States: 400 https://www.metacareers.com/jobs?q=data%20center&location=United%20States",
-      "search https://www.metacareers.com/jobsearch/?teams%5B0%5D=Data%20Center: 400 https://www.metacareers.com/jobsearch/?teams%5B0%5D=Data%20Center",
-      "sitemap: 400 https://www.metacareers.com/jobsearch/sitemap.xml"
+      "detail 2486789151677735: 400 https://www.metacareers.com/profile/job_details/2486789151677735/",
+      "detail 998357492128826: 400 https://www.metacareers.com/profile/job_details/998357492128826/",
+      "detail 1036424292475196: 400 https://www.metacareers.com/profile/job_details/1036424292475196/",
+      "detail 1369229648397146: 400 https://www.metacareers.com/profile/job_details/1369229648397146/",
+      "detail 1055422287330221: 400 https://www.metacareers.com/profile/job_details/1055422287330221/",
+      "detail 1346637694687934: 400 https://www.metacareers.com/profile/job_details/1346637694687934/",
+      "detail 9657291271065759: 400 https://www.metacareers.com/profile/job_details/9657291271065759/",
+      "detail 3713685685437806: 400 https://www.metacareers.com/profile/job_details/3713685685437806/",
+      "detail 1690022942358388: 400 https://www.metacareers.com/profile/job_details/1690022942358388/",
+      "detail 1120530887203915: 400 https://www.metacareers.com/profile/job_details/1120530887203915/",
+      "detail 1436181490732782: 400 https://www.metacareers.com/profile/job_details/1436181490732782/",
+      "detail 687249053364137: 400 https://www.metacareers.com/profile/job_details/687249053364137/",
+      "detail 1620341402775771: 400 https://www.metacareers.com/profile/job_details/1620341402775771/",
+      "detail 1798266217835709: 400 https://www.metacareers.com/profile/job_details/1798266217835709/",
+      "detail 1238249364564427: 400 https://www.metacareers.com/profile/job_details/1238249364564427/",
+      "detail 2010995136240732: 400 https://www.metacareers.com/profile/job_details/2010995136240732/",
+      "detail 1704822071642848: 400 https://www.metacareers.com/profile/job_details/1704822071642848/",
+      "detail 1542629444012644: 400 https://www.metacareers.com/profile/job_details/1542629444012644/",
+      "detail 1645503493182815: 400 https://www.metacareers.com/profile/job_details/1645503493182815/",
+      "detail 1063449896341082: 400 https://www.metacareers.com/profile/job_details/1063449896341082/",
+      "detail 1663125785328136: 400 https://www.metacareers.com/profile/job_details/1663125785328136/",
+      "detail 1397212694826926: 400 https://www.metacareers.com/profile/job_details/1397212694826926/",
+      "detail 28757046417220273: 400 https://www.metacareers.com/profile/job_details/28757046417220273/",
+      "detail 1746722943203320: 400 https://www.metacareers.com/profile/job_details/1746722943203320/",
+      "detail 704019139159184: 400 https://www.metacareers.com/profile/job_details/704019139159184/",
+      "detail 2263777184385237: 400 https://www.metacareers.com/profile/job_details/2263777184385237/",
+      "detail 1031032768371242: 400 https://www.metacareers.com/profile/job_details/1031032768371242/",
+      "detail 1569760278118088: 400 https://www.metacareers.com/profile/job_details/1569760278118088/",
+      "detail 1203016587809246: 400 https://www.metacareers.com/profile/job_details/1203016587809246/",
+      "detail 1075389717795087: 400 https://www.metacareers.com/profile/job_details/1075389717795087/",
+      "detail 2282367178830920: 400 https://www.metacareers.com/profile/job_details/2282367178830920/",
+      "detail 1420853345578936: 400 https://www.metacareers.com/profile/job_details/1420853345578936/",
+      "detail 27650091594619675: 400 https://www.metacareers.com/profile/job_details/27650091594619675/",
+      "detail 2091420381760990: 400 https://www.metacareers.com/profile/job_details/2091420381760990/",
+      "detail 1085335604077521: 400 https://www.metacareers.com/profile/job_details/1085335604077521/",
+      "detail 1326784526233147: 400 https://www.metacareers.com/profile/job_details/1326784526233147/",
+      "detail 1229945984832289: 400 https://www.metacareers.com/profile/job_details/1229945984832289/",
+      "detail 612870871828801: 400 https://www.metacareers.com/profile/job_details/612870871828801/",
+      "detail 1416729040340545: 400 https://www.metacareers.com/profile/job_details/1416729040340545/",
+      "detail 1734358140739006: 400 https://www.metacareers.com/profile/job_details/1734358140739006/"
     ],
     "structuredRecovery": {
       "attempted": 0,
@@ -1748,7 +1822,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-17T19:44:10.126Z",
+    "updatedAt": "2026-09-17T19:45:51.315Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 670,
@@ -1767,7 +1841,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-17T19:44:10.192Z",
+    "checkedAt": "2026-09-17T19:45:51.382Z",
     "before": 670,
     "after": 670,
     "removed": 0,
@@ -1793,7 +1867,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-17T19:44:10.250Z"
+    "updatedAt": "2026-09-17T19:45:51.439Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

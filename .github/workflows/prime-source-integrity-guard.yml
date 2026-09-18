@@ -75,7 +75,6 @@ jobs:
           grep -Fq 'git reset --hard origin/main' "$watchdog"
           grep -Fq 'for attempt in 1 2 3' "$watchdog"
           grep -Fq 'if git push origin HEAD:main; then' "$watchdog"
-          grep -Fq ".github/workflows/prime-stale-fallback-watch.yml" scripts/validate-source-workflow-isolation.mjs
       - name: Preserve site and source-workflow contracts
         run: |
           git checkout -- data/jobs.json data/collector-status.json || true

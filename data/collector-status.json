@@ -2032,7 +2032,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T16:28:24.028Z",
+    "checkedAt": "2026-09-18T16:32:02.359Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2040,7 +2040,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T16:28:24.083Z",
+    "updatedAt": "2026-09-18T16:32:02.436Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 693,
@@ -2059,7 +2059,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T16:28:24.134Z",
+    "checkedAt": "2026-09-18T16:32:02.506Z",
     "before": 693,
     "after": 693,
     "removed": 0,
@@ -2067,7 +2067,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T16:28:48.212Z",
+    "checkedAt": "2026-09-18T16:32:24.164Z",
     "publishedJobs": 693,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -2077,15 +2077,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1186,
     "currentJobs": 693,
-    "newJobsThisRun": 2,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 2,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 18,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-18T16:28:48.350Z"
+    "updatedAt": "2026-09-18T16:32:24.426Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2266,11 +2266,11 @@
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-18T04:52:32.189Z",
-    "lastHealthyAt": "2026-09-18T04:52:32.189Z",
+    "checkedAt": "2026-09-18T16:32:02.275Z",
+    "lastHealthyAt": "2026-09-18T16:32:02.275Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-22T04:52:32.189Z",
+    "fallbackExpiresAt": "2026-09-22T16:32:02.275Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 2,

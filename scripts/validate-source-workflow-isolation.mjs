@@ -181,6 +181,10 @@ for (const path of sourceWorkflows) {
     violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
   }
 
+  if (sharedWriterQueue.has(path) && !/queue:\s*max\b/.test(text)) {
+    violations.push(`${path}: shared-feed writer must use queue: max so pending employer refreshes are not replaced`);
+  }
+
   if (scheduledPrimaryWriters.has(path)) {
     const crons = [...onBlock.matchAll(/cron:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
     if (!crons.length) {
@@ -231,4 +235,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds, ${sharedWriterQueue.size} shared-queue writers use the guarded queue, and ${scheduledPrimaryWriters.size} primary source schedules have no exact UTC collisions.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds, ${sharedWriterQueue.size} shared-queue writers use the guarded queue with queue: max, and ${scheduledPrimaryWriters.size} primary source schedules have no exact UTC collisions.`);

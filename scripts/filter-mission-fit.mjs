@@ -20,7 +20,7 @@ const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 // Corporate uses of "operations" are intentionally named here instead of
 // blocking the word globally, because hands-on critical/data-center operations
 // roles are a core part of the product.
-const obviousNonMissionTitlePattern = /\b(?:administrative business partner|business analyst|financial operations|financial analyst|finance analyst|finance|accounting|accountant|procurement|purchasing|cost management|cost estimator|cost analyst|cost controls|security operations|security engineer|security analyst|security specialist|security technician|security officer|security guard|physical security|global security operations center|gsoc|wireless intrusion detection|cybersecurity|information security|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel|legal assistant|legal intern|paralegal|law clerk|enterprise it support|enterprise applications|process analytics|project controls analyst|material planner|cnc operator|assembly technician|quality technician|assurance operations analyst)\b/i;
+const obviousNonMissionTitlePattern = /\b(?:administrative business partner|business analyst|financial operations|financial analyst|finance analyst|finance|accounting|accountant|procurement|purchasing|supply chain|cost management|cost estimator|cost analyst|cost controls|security operations|security engineer|security analyst|security specialist|security technician|security officer|security guard|physical security|global security operations center|gsoc|wireless intrusion detection|cybersecurity|information security|software engineer|software developer|site reliability engineer|machine learning engineer|ml engineer|data scientist|product manager|program manager|talent acquisition|human resources|recruiter|account executive|sales representative|sales manager|marketing manager|marketing specialist|legal counsel|corporate counsel|legal assistant|legal intern|paralegal|law clerk|enterprise it support|enterprise applications|process analytics|project controls analyst|material planner|cnc operator|assembly technician|quality technician|assurance operations analyst)\b/i;
 // Keep this publication-time filter aligned with validate.mjs. If these roles are
 // allowed through here, the final deployment validator rejects the same feed and
 // turns ordinary source-taxonomy drift into an avoidable site deployment failure.
@@ -64,6 +64,7 @@ const titleRegressionCases = [
   { title: 'Data Center Business Operations Business Analyst', reason: 'non-mission role family' },
   { title: 'Data Center Development Cost Management', reason: 'non-mission role family' },
   { title: 'Purchasing Operations Specialist, NA', reason: 'non-mission role family' },
+  { title: 'Supply Chain Operations Analyst', reason: 'non-mission role family' },
   { title: 'Security Operations Engineer', reason: 'non-mission role family' },
   { title: 'Data Center Security Engineer - WIDS', reason: 'non-mission role family' },
   { title: 'GSOC Operator (WIDS)', reason: 'non-mission role family' },

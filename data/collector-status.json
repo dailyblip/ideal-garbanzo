@@ -1774,7 +1774,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T04:49:06.103Z",
+    "checkedAt": "2026-09-18T04:50:26.409Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1782,7 +1782,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T04:49:06.174Z",
+    "updatedAt": "2026-09-18T04:50:26.483Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 671,
@@ -1801,7 +1801,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T04:49:06.240Z",
+    "checkedAt": "2026-09-18T04:50:26.551Z",
     "before": 671,
     "after": 671,
     "removed": 0,
@@ -1809,7 +1809,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T04:49:24.289Z",
+    "checkedAt": "2026-09-18T04:50:44.554Z",
     "publishedJobs": 671,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -1825,9 +1825,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 17,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-18T04:49:24.475Z"
+    "updatedAt": "2026-09-18T04:50:44.735Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2482,8 +2482,8 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-17T19:19:29.690Z",
-    "lastHealthyAt": "2026-09-17T19:19:29.690Z",
+    "checkedAt": "2026-09-18T04:50:25.602Z",
+    "lastHealthyAt": "2026-09-18T04:50:25.602Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

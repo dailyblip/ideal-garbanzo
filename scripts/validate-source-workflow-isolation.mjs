@@ -59,10 +59,8 @@ const knownCollisionGroups = new Set([
   'aws-stale-fallback-watch.yml|coreweave-bootstrap.yml|generic-ats-stale-fallback-watch.yml|microsoft-stale-fallback-watch.yml',
   'aws-stale-fallback-watch.yml|generic-ats-stale-fallback-watch.yml|microsoft-stale-fallback-watch.yml',
   'compass-bootstrap.yml|coresite-stale-fallback-watch.yml|google-stale-fallback-watch.yml|iron-mountain-stale-fallback-watch.yml',
-  'edgeconnex-bootstrap.yml|flexential-stale-fallback-watch.yml|meta-stale-fallback-watch.yml',
   'equinix-current-skillbridge.yml|equinix-stale-fallback-watch.yml',
   'equinix-verified-evidence-watch.yml|switch-bootstrap.yml',
-  'flexential-stale-fallback-watch.yml|meta-stale-fallback-watch.yml',
   'google-bootstrap.yml|oracle-stale-fallback-watch.yml|prime-stale-fallback-watch.yml|sabey-stale-fallback-watch.yml'
 ]);
 

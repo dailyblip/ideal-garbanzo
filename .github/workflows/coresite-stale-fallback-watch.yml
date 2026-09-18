@@ -7,6 +7,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'scripts/reverify-coresite-fallback.mjs'
       - 'scripts/enforce-coresite-fallback-freshness.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'
       - 'scripts/validate-coresite-fallback.mjs'
@@ -33,8 +34,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Test CoreSite direct-detail re-verification policy
+        run: node scripts/reverify-coresite-fallback.mjs --test
       - name: Test CoreSite fallback age policy
         run: node scripts/enforce-coresite-fallback-freshness.mjs --test
+      - name: Reverify CoreSite fallback from official detail pages
+        run: node scripts/reverify-coresite-fallback.mjs
+      - name: Apply freshly verified CoreSite fallback
+        run: node scripts/apply-coresite-verified-fallback.mjs
       - name: Enforce CoreSite fallback freshness
         run: node scripts/enforce-coresite-fallback-freshness.mjs
       - name: Validate CoreSite fallback state
@@ -54,7 +61,10 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            node scripts/reverify-coresite-fallback.mjs --test
             node scripts/enforce-coresite-fallback-freshness.mjs --test
+            node scripts/reverify-coresite-fallback.mjs
+            node scripts/apply-coresite-verified-fallback.mjs
             node scripts/enforce-coresite-fallback-freshness.mjs
             node scripts/validate-coresite-fallback.mjs
             node scripts/validate-priority-employer-sources.mjs
@@ -75,7 +85,7 @@ jobs:
               exit 0
             fi
 
-            git commit -m "Enforce CoreSite fallback freshness"
+            git commit -m "Refresh verified CoreSite fallback"
             if git push origin HEAD:main; then
               echo "changed=true" >> "$GITHUB_OUTPUT"
               exit 0

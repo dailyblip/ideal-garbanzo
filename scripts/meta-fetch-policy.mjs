@@ -4,6 +4,10 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const META_HOSTS = new Set(['metacareers.com', 'www.metacareers.com']);
 const DETAIL_PATH = /^\/profile\/job_details\/\d+\/?$/i;
 const BASE_DETAIL_INTERVAL_MS = Math.max(250, Number(process.env.META_DETAIL_INTERVAL_MS || 1200));
+const MIN_DETAIL_INTERVAL_MS = Math.min(
+  BASE_DETAIL_INTERVAL_MS,
+  Math.max(250, Number(process.env.META_MIN_DETAIL_INTERVAL_MS || 450))
+);
 const MAX_RETRY_AFTER_MS = Math.max(1000, Number(process.env.META_MAX_RETRY_AFTER_MS || 12000));
 const MAX_DETAIL_ATTEMPTS = Math.max(1, Number(process.env.META_DETAIL_ATTEMPTS || 3));
 const RATE_LIMIT_STREAK_LIMIT = Math.max(2, Number(process.env.META_RATE_LIMIT_STREAK_LIMIT || 3));
@@ -15,6 +19,8 @@ const PERSISTENT_COOLDOWN_MS = Math.max(
 let detailTail = Promise.resolve();
 let nextDetailAt = 0;
 let consecutiveRateLimits = 0;
+let consecutiveHealthyDetails = 0;
+let currentDetailIntervalMs = BASE_DETAIL_INTERVAL_MS;
 
 function requestUrl(input) {
   if (typeof input === 'string') return input;
@@ -30,6 +36,27 @@ function retryAfterMs(response) {
   return Number.isFinite(at) ? Math.min(MAX_RETRY_AFTER_MS, Math.max(0, at - Date.now())) : 0;
 }
 
+function recordHealthyDetail(response) {
+  consecutiveRateLimits = 0;
+  if (!response?.ok) {
+    consecutiveHealthyDetails = 0;
+    currentDetailIntervalMs = Math.max(currentDetailIntervalMs, BASE_DETAIL_INTERVAL_MS);
+    return;
+  }
+
+  consecutiveHealthyDetails += 1;
+  // Start conservatively, then ramp toward a bounded floor only after several
+  // consecutive successful official detail responses. This keeps a healthy
+  // ~1,000-role sitemap refresh inside the workflow budget without returning
+  // to bursty parallel traffic. Any rate limit immediately reverses the ramp.
+  if (consecutiveHealthyDetails >= 3) {
+    currentDetailIntervalMs = Math.max(
+      MIN_DETAIL_INTERVAL_MS,
+      Math.floor(currentDetailIntervalMs * 0.82)
+    );
+  }
+}
+
 async function pacedDetailFetch(input, init) {
   const waitForSlot = Math.max(0, nextDetailAt - Date.now());
   if (waitForSlot) await sleep(waitForSlot);
@@ -41,12 +68,17 @@ async function pacedDetailFetch(input, init) {
     const rateLimited = lastResponse.status === 429 || lastResponse.status === 503;
 
     if (!rateLimited) {
-      consecutiveRateLimits = 0;
-      nextDetailAt = Math.max(Date.now(), startedAt + BASE_DETAIL_INTERVAL_MS);
+      recordHealthyDetail(lastResponse);
+      nextDetailAt = Math.max(Date.now(), startedAt + currentDetailIntervalMs);
       return lastResponse;
     }
 
+    consecutiveHealthyDetails = 0;
     consecutiveRateLimits += 1;
+    currentDetailIntervalMs = Math.min(
+      MAX_RETRY_AFTER_MS,
+      Math.max(BASE_DETAIL_INTERVAL_MS, Math.ceil(currentDetailIntervalMs * 1.75))
+    );
     const serverDelay = retryAfterMs(lastResponse);
 
     // If Meta is persistently rejecting detail traffic from the runner, stop
@@ -55,7 +87,7 @@ async function pacedDetailFetch(input, init) {
     // still failing closed instead of publishing unverifiable roles.
     if (consecutiveRateLimits >= RATE_LIMIT_STREAK_LIMIT || attempt >= MAX_DETAIL_ATTEMPTS) {
       const cooldown = Math.max(
-        BASE_DETAIL_INTERVAL_MS,
+        currentDetailIntervalMs,
         serverDelay || Math.min(MAX_RETRY_AFTER_MS, PERSISTENT_COOLDOWN_MS)
       );
       nextDetailAt = Date.now() + cooldown;
@@ -65,7 +97,7 @@ async function pacedDetailFetch(input, init) {
     try { await lastResponse.arrayBuffer(); } catch {}
     const adaptiveDelay = Math.min(
       MAX_RETRY_AFTER_MS,
-      BASE_DETAIL_INTERVAL_MS * Math.min(8, 2 ** Math.min(3, consecutiveRateLimits))
+      currentDetailIntervalMs * Math.min(8, 2 ** Math.min(3, consecutiveRateLimits))
     );
     const cooldown = Math.max(serverDelay, adaptiveDelay) + Math.floor(Math.random() * 250);
     nextDetailAt = Date.now() + cooldown;

@@ -68,7 +68,7 @@ jobs:
           grep -Fq 'for attempt in 1 2 3' "$bootstrap"
           grep -Fq 'if git push origin HEAD:main; then' "$bootstrap"
           grep -Fq 'const MAX_FALLBACK_AGE_HOURS = 96;' "$freshness"
-          grep -Fq "cron: '47 */6 * * *'" "$watchdog"
+          grep -Fq "cron: '54 */6 * * *'" "$watchdog"
           grep -Fq 'group: prime-stale-fallback-watch' "$watchdog"
           grep -Fq 'cancel-in-progress: false' "$watchdog"
           grep -Fq 'rebuild_from_latest_main()' "$watchdog"

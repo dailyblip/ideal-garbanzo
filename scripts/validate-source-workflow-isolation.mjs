@@ -51,13 +51,10 @@ const raceSafeMarkers = [
   'if git push origin HEAD:main; then'
 ];
 
-// These exact collision groups pre-date automatic workflow discovery. They are
-// deliberately baselined so the new guard can merge without masking any NEW
-// collision. Each group remains visible in CI as a warning until it is staggered
-// and removed from this set in a follow-up reliability pass.
-const knownCollisionGroups = new Set([
-  'google-bootstrap.yml|oracle-stale-fallback-watch.yml|prime-stale-fallback-watch.yml|sabey-stale-fallback-watch.yml'
-]);
+// All previously baselined schedule collisions have been removed. Keep this
+// set as an explicit escape hatch only if a future migration needs to land in
+// stages; any newly introduced collision otherwise fails CI immediately.
+const knownCollisionGroups = new Set();
 
 const sourceWriterNamePattern = /(bootstrap|fallback|skillbridge|targeted-recovery|verified-evidence|detail-recovery)/i;
 const violations = [];

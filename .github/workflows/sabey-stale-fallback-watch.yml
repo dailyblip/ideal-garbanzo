@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs after the six-hour Sabey source refresh so fallback enforcement sees
     # the newest committed verification state instead of racing the collector.
-    - cron: '47 */6 * * *'
+    - cron: '55 */6 * * *'
   workflow_dispatch:
 
 permissions:

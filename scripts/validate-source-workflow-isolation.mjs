@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 const sourceWorkflows = [
   '.github/workflows/aws-detail-recovery.yml',
   '.github/workflows/aws-stale-fallback-watch.yml',
+  '.github/workflows/cloudhq-bootstrap.yml',
   '.github/workflows/cologix-bootstrap.yml',
   '.github/workflows/compass-bootstrap.yml',
   '.github/workflows/coresite-stale-fallback-watch.yml',
@@ -52,6 +53,7 @@ const sharedPipelinePaths = [
 // most one pending run per concurrency group, so exact schedule collisions can
 // otherwise replace a pending employer refresh before it starts.
 const sharedWriterQueue = new Set([
+  '.github/workflows/cloudhq-bootstrap.yml',
   '.github/workflows/cologix-bootstrap.yml',
   '.github/workflows/coreweave-bootstrap.yml',
   '.github/workflows/databank-bootstrap.yml',
@@ -69,14 +71,18 @@ const sharedWriterQueue = new Set([
 ]);
 
 // Primary employer collectors all write the same public feed. Some long-running
-// sources intentionally keep source-specific concurrency groups, but their cron
-// slots must still be unique so they do not begin from the same main revision and
-// immediately contend on generated feed publication.
+// sources intentionally keep source-specific concurrency groups, but every
+// scheduled primary writer must still have a unique cron slot so two collectors
+// do not start from the same main revision and immediately contend on publication.
 const scheduledPrimaryWriters = new Set([
   ...sharedWriterQueue,
+  '.github/workflows/aws-detail-recovery.yml',
+  '.github/workflows/compass-bootstrap.yml',
   '.github/workflows/meta-bootstrap.yml',
   '.github/workflows/microsoft-bootstrap.yml',
-  '.github/workflows/oracle-bootstrap.yml'
+  '.github/workflows/oracle-bootstrap.yml',
+  '.github/workflows/sabey-bootstrap.yml',
+  '.github/workflows/tierpoint-bootstrap.yml'
 ]);
 
 // Every workflow that rebuilds or reconciles the shared public feed must never
@@ -235,4 +241,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds, ${sharedWriterQueue.size} shared-queue writers use the guarded queue with queue: max, and ${scheduledPrimaryWriters.size} primary source schedules have no exact UTC collisions.`);
+console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds, ${sharedWriterQueue.size} shared-queue writers use the guarded queue with queue: max, and ${scheduledPrimaryWriters.size} scheduled primary source writers have no exact UTC collisions.`);

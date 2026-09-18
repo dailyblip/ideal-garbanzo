@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-coresite.mjs'
+      - 'scripts/reverify-coresite-fallback.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'
       - 'scripts/enforce-coresite-fallback-freshness.mjs'
       - 'scripts/validate-coresite-fallback.mjs'
@@ -19,6 +20,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-coresite.mjs'
+      - 'scripts/reverify-coresite-fallback.mjs'
       - 'scripts/apply-coresite-verified-fallback.mjs'
       - 'scripts/enforce-coresite-fallback-freshness.mjs'
       - 'scripts/validate-coresite-fallback.mjs'
@@ -50,11 +52,14 @@ jobs:
       - name: Validate CoreSite scripts parse
         run: |
           node --check scripts/collect-coresite.mjs
+          node --check scripts/reverify-coresite-fallback.mjs
           node --check scripts/apply-coresite-verified-fallback.mjs
           node --check scripts/enforce-coresite-fallback-freshness.mjs
           node --check scripts/validate-coresite-source-integrity.mjs
       - name: Validate CoreSite failover regression
         run: node scripts/validate-coresite-source-failover.mjs
+      - name: Validate CoreSite direct-detail re-verification regression
+        run: node scripts/reverify-coresite-fallback.mjs --test
       - name: Validate CoreSite freshness regression
         run: node scripts/enforce-coresite-fallback-freshness.mjs --test
       - name: Validate CoreSite source-integrity regressions

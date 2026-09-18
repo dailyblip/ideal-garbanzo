@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T17:07:59.936Z",
+  "updatedAt": "2026-09-18T17:53:38.174Z",
   "jobs": 692,
   "sourcesAttempted": 21,
   "providers": {
@@ -3633,7 +3633,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T17:08:00.010Z",
+    "checkedAt": "2026-09-18T17:53:38.254Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3641,7 +3641,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T17:08:00.084Z",
+    "updatedAt": "2026-09-18T17:53:38.328Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 692,
@@ -3660,7 +3660,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T17:08:00.154Z",
+    "checkedAt": "2026-09-18T17:53:38.399Z",
     "before": 692,
     "after": 692,
     "removed": 0,
@@ -3668,7 +3668,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T17:08:31.017Z",
+    "checkedAt": "2026-09-18T17:54:01.492Z",
     "publishedJobs": 692,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3686,7 +3686,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-18T17:08:31.153Z"
+    "updatedAt": "2026-09-18T17:54:01.626Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3830,7 +3830,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-18T13:09:56.745Z",
+    "checkedAt": "2026-09-18T17:53:38.174Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",
@@ -3839,14 +3839,14 @@
     "talentReefClientId": "14459",
     "talentReefBrand": null,
     "authoritativeSnapshot": true,
-    "listedJobs": 46,
-    "externalJobs": 46,
-    "usJobs": 46,
-    "candidateRoles": 31,
+    "listedJobs": 44,
+    "externalJobs": 44,
+    "usJobs": 44,
+    "candidateRoles": 30,
     "qualifyingRoles": 15,
-    "rejectedOutOfScopeTitle": 23,
+    "rejectedOutOfScopeTitle": 22,
     "rejectedOver5Years": 2,
-    "rejectedUnknownExperience": 6,
+    "rejectedUnknownExperience": 5,
     "rejectedLocation": 0
   },
   "edgeconnexCareers": {

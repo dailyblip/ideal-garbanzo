@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T02:50:13.263Z",
+  "updatedAt": "2026-09-18T02:50:56.427Z",
   "jobs": 678,
   "sourcesAttempted": 26,
   "providers": {
@@ -1774,7 +1774,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T02:50:13.320Z",
+    "checkedAt": "2026-09-18T02:50:56.501Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1782,7 +1782,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T02:50:13.379Z",
+    "updatedAt": "2026-09-18T02:50:56.574Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 678,
@@ -1791,17 +1791,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "southwest": 81,
-      "west": 98,
-      "midwest": 133,
       "mid-atlantic": 130,
       "southeast": 100,
+      "west": 98,
+      "midwest": 133,
       "texas": 112,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T02:50:13.435Z",
+    "checkedAt": "2026-09-18T02:50:56.644Z",
     "before": 678,
     "after": 678,
     "removed": 0,
@@ -1809,7 +1809,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T02:50:44.360Z",
+    "checkedAt": "2026-09-18T02:51:13.932Z",
     "publishedJobs": 678,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -1825,9 +1825,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 17,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 80,
-    "updatedAt": "2026-09-18T02:50:44.507Z"
+    "updatedAt": "2026-09-18T02:51:14.138Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1900,7 +1900,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-17T22:19:13.943Z",
+    "checkedAt": "2026-09-18T02:50:56.427Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

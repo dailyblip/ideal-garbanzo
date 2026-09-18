@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-18T05:35:49.185Z",
+  "checkedAt": "2026-09-18T06:11:44.924Z",
   "jobsBefore": 671,
-  "jobsAfter": 671,
+  "jobsAfter": 670,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10494756",
+      "company": "Amazon Web Services",
+      "title": "DCO Technician III, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10494756/dco-technician-iii-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10494756/dco-technician-iii-dcc-communities"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

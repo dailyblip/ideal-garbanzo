@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-18T20:26:38.868Z",
-  "jobs": 690,
+  "updatedAt": "2026-09-18T20:52:28.393Z",
+  "jobs": 696,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -12,15 +12,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 664,
+    "entry-level": 669,
+    "trainee": 10,
     "internship": 6,
-    "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 379,
-    "2-5-years": 288,
-    "no-experience": 23
+    "2-5-years": 289,
+    "no-experience": 24,
+    "0-2-years": 383
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1329,32 +1329,32 @@
       },
       {
         "query": "data center technician",
-        "rows": 1310
+        "rows": 1317
       },
       {
         "query": "engineering operations technician",
-        "rows": 399
+        "rows": 401
       },
       {
         "query": "work based learning data center",
-        "rows": 2
+        "rows": 3
       },
       {
         "query": "project engineer data center",
         "rows": 19
       }
     ],
-    "candidateRows": 3730,
-    "uniqueCandidates": 1152,
+    "candidateRows": 3740,
+    "uniqueCandidates": 1148,
     "freshQualifyingRoles": 21,
     "preservedPreviousRoles": 0,
     "qualifyingRoles": 21,
     "drops": {
-      "nonUs": 303,
-      "title": 539,
+      "nonUs": 299,
+      "title": 533,
       "context": 0,
       "experience": 2,
-      "unknownExperience": 287,
+      "unknownExperience": 293,
       "invalidUrl": 0
     },
     "errors": []
@@ -2026,323 +2026,99 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T20:29:50.549Z",
-    "removedCount": 4,
+    "checkedAt": "2026-09-18T20:52:28.535Z",
+    "removedCount": 5,
     "removedByReason": {
-      "non-mission role family": 1,
-      "senior/executive title": 3
+      "senior/executive title": 2,
+      "non-mission role family": 3
     },
     "removed": [
       {
-        "id": "workday-cyrusone-R0008059",
-        "company": "CyrusOne",
-        "title": "Data Center Security Technician",
-        "location": "Whitney, TX",
+        "id": "amazon-10534644",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "San Antonio, TX",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10515905",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "Culpeper, VA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10513234",
+        "company": "Amazon Web Services",
+        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
+        "location": "Seattle, WA",
         "reason": "non-mission role family"
       },
       {
-        "id": "workday-stackinfra-JR00247",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
+        "id": "amazon-10430644",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "Boardman, OR",
+        "reason": "non-mission role family"
       },
       {
-        "id": "workday-stackinfra-JR00249",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Sterling, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-aligneddc-JR101023",
-        "company": "Aligned Data Centers",
-        "title": "VP, Operations - South Region",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
+        "id": "amazon-10427682",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "New Carlisle, IN",
+        "reason": "non-mission role family"
       }
     ],
-    "majorSnapshotRemovedCount": 4,
-    "majorSnapshotRemoved": [
-      {
-        "id": "workday-cyrusone-R0008059",
-        "company": "CyrusOne",
-        "title": "Data Center Security Technician",
-        "location": "Whitney, TX",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "workday-stackinfra-JR00247",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-stackinfra-JR00249",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Sterling, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-aligneddc-JR101023",
-        "company": "Aligned Data Centers",
-        "title": "VP, Operations - South Region",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      }
-    ]
+    "majorSnapshotRemovedCount": 0,
+    "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T20:29:50.598Z",
-    "changed": 11,
-    "samples": [
-      {
-        "id": "workday-qtsdatacenters-R2026-0881",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1093",
-        "before": "US VA Manassas 1 DC1",
-        "after": "Manassas, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0917",
-        "before": "US VA Ashburn 1 DC1",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0893",
-        "before": "US OR Hillsboro 1 DC1",
-        "after": "Hillsboro, OR"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0768",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-aligneddc-JR101086",
-        "before": "IAD-02",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-aligneddc-JR100970",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      },
-      {
-        "id": "workday-aligneddc-JR100971",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      }
-    ],
-    "regionAssigned": 690,
+    "updatedAt": "2026-09-18T20:52:28.582Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 696,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 135,
-      "west": 102,
-      "mid-atlantic": 128,
-      "southeast": 102,
-      "texas": 113,
-      "southwest": 86,
-      "northeast": 23,
+      "west": 104,
+      "mid-atlantic": 134,
+      "northeast": 21,
+      "southwest": 87,
+      "midwest": 134,
+      "texas": 111,
+      "southeast": 104,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T20:29:50.685Z",
-    "before": 717,
-    "after": 692,
-    "removed": 25,
+    "checkedAt": "2026-09-18T20:52:28.627Z",
+    "before": 696,
+    "after": 696,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101677",
-        "keptId": "workday-nttglobaldatacenters-JR102055",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101981",
-        "keptId": "workday-nttglobaldatacenters-JR101999",
-        "company": "NTT Global Data Centers",
-        "title": "1139 - Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101968",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0893",
-        "keptId": "workday-qtsdatacenters-R2026-0982",
-        "company": "QTS Data Centers",
-        "title": "Critical Environment Engineer",
-        "location": "Hillsboro, OR"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0881",
-        "keptId": "workday-qtsdatacenters-R2026-0768",
-        "company": "QTS Data Centers",
-        "title": "Regional Data Center Controls Quality Engineer",
-        "location": "Suwanee, GA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007529",
-        "keptId": "workday-cyrusone-R0007618",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Carrollton, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007617",
-        "keptId": "workday-cyrusone-R0007763",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Houston, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007527",
-        "keptId": "workday-cyrusone-R0007615",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Chandler, AZ"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007526",
-        "keptId": "workday-cyrusone-R0007614",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Sterling, VA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007668",
-        "keptId": "workday-cyrusone-R0007613",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Council Bluffs, IA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007628",
-        "keptId": "workday-cyrusone-R0007611",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Durham, NC"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007762",
-        "keptId": "workday-cyrusone-R0007610",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
-        "location": "Austin, TX"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-cyrusone-R0007608",
-        "keptId": "workday-cyrusone-R0007528",
-        "company": "CyrusOne",
-        "title": "Critical Environments Operator (Level 1-4)",
-        "location": "Cincinnati, OH"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101903",
-        "keptId": "workday-nttglobaldatacenters-JR101999",
-        "company": "NTT Global Data Centers",
-        "title": "1139 - Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101861",
-        "keptId": "workday-nttglobaldatacenters-JR101912",
-        "company": "NTT Global Data Centers",
-        "title": "1127 - Data Center Technician L2",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101799",
-        "keptId": "workday-nttglobaldatacenters-JR101533",
-        "company": "NTT Global Data Centers",
-        "title": "5155 - Data Center IT Infrastructure Technician",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101847",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101681",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101746",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101821",
-        "keptId": "workday-nttglobaldatacenters-JR101755",
-        "company": "NTT Global Data Centers",
-        "title": "1162 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T20:30:13.887Z",
-    "publishedJobs": 690,
-    "removedJobs": 2,
-    "activeCareerEvents": 8,
+    "checkedAt": "2026-09-18T20:52:43.778Z",
+    "publishedJobs": 696,
+    "removedJobs": 0,
+    "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1193,
-    "currentJobs": 690,
-    "newJobsThisRun": 1,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 1,
+    "trackedJobs": 1204,
+    "currentJobs": 696,
+    "newJobsThisRun": 11,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 11,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 162,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-18T20:30:13.978Z"
+    "updatedAt": "2026-09-18T20:52:43.883Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2356,44 +2132,50 @@
       },
       {
         "query": "data center technician",
-        "rows": 1310
+        "rows": 1317
       },
       {
         "query": "engineering operations technician",
-        "rows": 399
+        "rows": 401
       },
       {
         "query": "work based learning data center",
-        "rows": 2
+        "rows": 3
       },
       {
         "query": "project engineer data center",
         "rows": 19
       }
     ],
-    "rawRows": 3730,
-    "missionFitUsCandidates": 1281,
-    "uniquePublishIdentities": 300,
-    "duplicatesSkippedBeforeHydration": 981,
+    "rawRows": 3740,
+    "missionFitUsCandidates": 1294,
+    "uniquePublishIdentities": 306,
+    "duplicatesSkippedBeforeHydration": 988,
     "reusedVerified": 20,
-    "detailCandidates": 280,
-    "detailAttempted": 280,
+    "detailCandidates": 286,
+    "detailAttempted": 286,
     "detailSucceeded": 273,
     "detailRecovered": 222,
-    "detailFetchFailed": 7,
+    "detailFetchFailed": 13,
     "detailUnknownExperience": 38,
     "detailOverFiveYears": 13,
     "invalidUrls": 0,
     "preservedPrevious": 0,
     "qualifyingRoles": 242,
     "detailErrorSamples": [
+      "https://www.amazon.jobs/en/jobs/10440372/data-center-controls-technician-data-center-capacity-delivery: 503 https://www.amazon.jobs/en/jobs/10440372/data-center-controls-technician-data-center-capacity-delivery",
+      "https://www.amazon.jobs/en/jobs/10437606/data-center-technician-adc-infraops-dco-tech: 503 https://www.amazon.jobs/en/jobs/10437606/data-center-technician-adc-infraops-dco-tech",
+      "https://www.amazon.jobs/en/jobs/10422806/data-center-engineering-operations-technician-ii-cmh58: 503 https://www.amazon.jobs/en/jobs/10422806/data-center-engineering-operations-technician-ii-cmh58",
+      "https://www.amazon.jobs/en/jobs/10408361/data-center-technician-maf-hiring-event: 503 https://www.amazon.jobs/en/jobs/10408361/data-center-technician-maf-hiring-event",
+      "https://www.amazon.jobs/en/jobs/10401649/engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/10401649/engineering-operations-technician-dceo",
+      "https://www.amazon.jobs/en/jobs/10385269/data-center-technician-aws-opportunity-for-military-community: 503 https://www.amazon.jobs/en/jobs/10385269/data-center-technician-aws-opportunity-for-military-community",
+      "https://www.amazon.jobs/en/jobs/10371930/engineering-operation-technician-aws-opportunity-for-military-community: 503 https://www.amazon.jobs/en/jobs/10371930/engineering-operation-technician-aws-opportunity-for-military-community",
+      "https://www.amazon.jobs/en/jobs/3176556/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3176556/data-center-technician-dcc-communities",
       "https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician",
-      "https://www.amazon.jobs/en/jobs/3205652/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3205652/engineering-operations-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/3150709/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150709/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities",
       "https://www.amazon.jobs/en/jobs/3150715/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150715/engineering-operations-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia",
-      "https://www.amazon.jobs/en/jobs/3167926/data-center-engineering-operations-technician-dcc-communities-amazon-web-services: 503 https://www.amazon.jobs/en/jobs/3167926/data-center-engineering-operations-technician-dcc-communities-amazon-web-services",
-      "https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia"
+      "https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo",
+      "https://www.amazon.jobs/en/jobs/3198499/engineering-operations-technician-aws-ais: 503 https://www.amazon.jobs/en/jobs/3198499/engineering-operations-technician-aws-ais"
     ],
     "errors": []
   },

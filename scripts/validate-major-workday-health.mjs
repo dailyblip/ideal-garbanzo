@@ -89,7 +89,7 @@ if (Number.isFinite(detailFailures)) {
 }
 
 if (violations.length) {
-  for (const violation of violations) console.error(`Major Workday health violation: ${violation}`));
+  for (const violation of violations) console.error(`Major Workday health violation: ${violation}`);
   throw new Error(`Blocked ${violations.length} major Workday source-health regression(s).`);
 }
 

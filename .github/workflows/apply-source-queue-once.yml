@@ -53,23 +53,16 @@ jobs:
 
           validator = Path('scripts/validate-source-workflow-isolation.mjs')
           text = validator.read_text()
-          before = r'''  if (sharedWriterQueue.has(path) && !/group:\s*careers-source-writers\b/.test(text)) {
-            violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
-          }
-
-          if (scheduledPrimaryWriters.has(path)) {'''
-          after = r'''  if (sharedWriterQueue.has(path) && !/group:\s*careers-source-writers\b/.test(text)) {
-            violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
-          }
-
-          if (sharedWriterQueue.has(path) && !/queue:\s*max\b/.test(text)) {
+          marker = "  if (scheduledPrimaryWriters.has(path)) {"
+          queue_guard = """  if (sharedWriterQueue.has(path) && !/queue:\\s*max\\b/.test(text)) {
             violations.push(`${path}: shared-feed writer must use queue: max so pending employer refreshes are not replaced`);
           }
 
-          if (scheduledPrimaryWriters.has(path)) {'''
-          if before not in text:
-              raise SystemExit('validator insertion point not found')
-          text = text.replace(before, after, 1)
+"""
+          if queue_guard.strip() not in text:
+              if marker not in text:
+                  raise SystemExit('validator insertion point not found')
+              text = text.replace(marker, queue_guard + marker, 1)
           text = text.replace(
               '${sharedWriterQueue.size} shared-queue writers use the guarded queue,',
               '${sharedWriterQueue.size} shared-queue writers use the guarded queue with queue: max,',

@@ -133,12 +133,13 @@ function classify(title, description = '', employmentType = '') {
   if (years.some(year => year > 5)) return null;
 
   const explicitProgram = type !== 'entry-level';
-  const earlySignal = explicitProgram || hasAny(experienceText, earlyTerms) || years.some(year => year <= 2);
-  const midSignal = /\b(?:technician|operator)\s+(?:ii|iii|2|3)\b/i.test(t) || t.includes('journeyman') || years.some(year => year >= 3) || hasAny(experienceText, midTerms);
+  const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required/i.test(experienceText);
+  const earlySignal = explicitProgram || explicitNoExperience || hasAny(experienceText, earlyTerms) || years.some(year => year <= 2);
+  const midSignal = /\b(?:technician|operator)\s+(?:ii|iii|2|3)\b/i.test(t) || t.includes('journeyman') || years.some(year => year >= 3) || (!years.length && hasAny(experienceText, midTerms));
   if (!years.length && !earlySignal && !midSignal) return null;
 
   let experience = '0-2-years';
-  if (hasAny(experienceText, ['no experience', 'entry level', 'entry-level'])) experience = 'no-experience';
+  if (explicitNoExperience || /\b0\s*(?:-|–|to)\s*\d{1,2}\s+years?(?:\s+of)?\s+experience\b/i.test(experienceText)) experience = 'no-experience';
   else if (midSignal) experience = '2-5-years';
 
   return { type, experience };
@@ -187,6 +188,18 @@ if (process.argv.includes('--test-experience-parser')) {
       title: 'Critical Operations Technician I',
       description: 'Maintain data center critical facilities, UPS systems and generators.',
       expectedType: 'entry-level', expectedExperience: '0-2-years'
+    },
+    {
+      name: 'entry-level wording does not erase a two-year requirement',
+      title: 'Entry Level Critical Facilities Technician',
+      description: 'Minimum of 2 years of relevant experience in data center operations.',
+      expectedType: 'entry-level', expectedExperience: '0-2-years'
+    },
+    {
+      name: 'explicit no-experience role keeps no-experience label',
+      title: 'Entry Level Critical Facilities Technician',
+      description: 'No prior experience required. Training is provided for data center operations.',
+      expectedType: 'entry-level', expectedExperience: 'no-experience'
     },
     {
       name: 'internship remains eligible without stated years',

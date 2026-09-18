@@ -45,6 +45,32 @@ const escapedMarkup = verifyEventContent(
 );
 assert.equal(escapedMarkup.matched, true, 'HTML entities and abbreviated dates should verify');
 
+const agendaMarkup = verifyEventContent(
+  { date: '2026-11-04', name: 'Student & Military Community Next-Gen Workforce Session' },
+  '<title>DCD Connect Virginia 2026 - Agenda</title><nav>3 November · 4 November</nav><main><h3>Student &amp; Military Community Next-Gen Workforce Session</h3></main>'
+);
+assert.equal(agendaMarkup.matched, true, 'agenda pages may state the year once and use a yearless day label');
+assert.equal(agendaMarkup.fullDateMatched, false, 'yearless agenda coverage should exercise the fallback path');
+assert.equal(agendaMarkup.yearlessDateMatched, true, 'yearless agenda date evidence should be reported');
+
+assert.equal(
+  verifyEventContent(
+    { date: '2026-11-04', name: 'Student & Military Community Next-Gen Workforce Session' },
+    '<title>DCD Connect Virginia 2026 - Agenda</title><main><h3>Student &amp; Military Community Next-Gen Workforce Session</h3><p>4 November 2025</p></main>'
+  ).matched,
+  false,
+  'a nearby conflicting year must block the yearless-date fallback'
+);
+
+assert.equal(
+  verifyEventContent(
+    { date: '2026-11-04', name: 'Student & Military Community Next-Gen Workforce Session' },
+    '<main><h3>Student &amp; Military Community Next-Gen Workforce Session</h3><p>4 November</p></main>'
+  ).matched,
+  false,
+  'a yearless day label without target-year evidence must not verify'
+);
+
 const cancelled = verifyEventContent(
   event,
   '<main><h1>Data Center Career Day, Fall 2026</h1><p>October 9, 2026 · Mesa, Arizona</p><strong>Status: Cancelled</strong></main>'

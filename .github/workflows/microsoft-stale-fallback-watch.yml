@@ -2,7 +2,7 @@ name: Microsoft stale fallback watchdog
 
 on:
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: '20 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]

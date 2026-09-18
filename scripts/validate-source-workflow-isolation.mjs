@@ -56,8 +56,6 @@ const raceSafeMarkers = [
 // collision. Each group remains visible in CI as a warning until it is staggered
 // and removed from this set in a follow-up reliability pass.
 const knownCollisionGroups = new Set([
-  'aws-stale-fallback-watch.yml|coreweave-bootstrap.yml|generic-ats-stale-fallback-watch.yml|microsoft-stale-fallback-watch.yml',
-  'aws-stale-fallback-watch.yml|generic-ats-stale-fallback-watch.yml|microsoft-stale-fallback-watch.yml',
   'compass-bootstrap.yml|coresite-stale-fallback-watch.yml|google-stale-fallback-watch.yml|iron-mountain-stale-fallback-watch.yml',
   'google-bootstrap.yml|oracle-stale-fallback-watch.yml|prime-stale-fallback-watch.yml|sabey-stale-fallback-watch.yml'
 ]);

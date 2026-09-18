@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T05:34:52.090Z",
+  "updatedAt": "2026-09-18T05:35:32.590Z",
   "jobs": 671,
   "sourcesAttempted": 20,
   "providers": {
@@ -3369,15 +3369,25 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T05:34:52.168Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-18T05:35:32.664Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "senior/executive title": 1
+    },
+    "removed": [
+      {
+        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
+        "company": "Prime Data Centers",
+        "title": "Data Center Business Systems Architect",
+        "location": "Dallas, TX; Denver, CO",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T05:34:52.241Z",
+    "updatedAt": "2026-09-18T05:35:32.741Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 671,
@@ -3396,7 +3406,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T05:34:52.309Z",
+    "checkedAt": "2026-09-18T05:35:32.813Z",
     "before": 671,
     "after": 671,
     "removed": 0,
@@ -3404,7 +3414,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T05:35:14.273Z",
+    "checkedAt": "2026-09-18T05:35:49.185Z",
     "publishedJobs": 671,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -3422,7 +3432,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 79,
-    "updatedAt": "2026-09-18T05:35:14.461Z"
+    "updatedAt": "2026-09-18T05:35:49.385Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4192,19 +4202,19 @@
     "samples": []
   },
   "primeDataCenters": {
-    "checkedAt": "2026-09-17T21:56:22.995Z",
-    "lastSuccessfulAt": "2026-09-17T21:56:22.995Z",
+    "checkedAt": "2026-09-18T05:35:32.590Z",
+    "lastSuccessfulAt": "2026-09-18T05:35:32.590Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://primedatacenters.com/careers/",
     "officialRipplingBoard": "https://ats.rippling.com/prime-data-centers/jobs",
     "api": "https://api.rippling.com/platform/api/ats/v1/board/prime-data-centers/jobs",
     "authoritativeSnapshot": true,
-    "listedRows": 67,
-    "uniqueJobs": 47,
-    "candidateRoles": 32,
-    "detailVerified": 32,
-    "usCandidateRoles": 7,
+    "listedRows": 66,
+    "uniqueJobs": 46,
+    "candidateRoles": 31,
+    "detailVerified": 31,
+    "usCandidateRoles": 6,
     "qualifyingRoles": 5,
     "rejectedOutOfScopeTitle": 15,
     "rejectedOutOfScopeContext": 0,
@@ -4214,7 +4224,7 @@
     "rejectedUnknownExperience": 7,
     "rejectedNonUs": 0,
     "detailFailures": 0,
-    "qualifyingRolesBeforePublicationGate": 7,
+    "qualifyingRolesBeforePublicationGate": 6,
     "publicationFilteredRoles": 1,
     "publicationFilteredTitles": [
       "Data Center Business Systems Architect"

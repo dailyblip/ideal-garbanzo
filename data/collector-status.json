@@ -1776,25 +1776,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T04:40:44.651Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "non-mission role family": 1
-    },
-    "removed": [
-      {
-        "id": "microsoft-1970393556994516",
-        "company": "Microsoft",
-        "title": "Data Center Critical Environment Business Analyst",
-        "location": "Boydton, VA",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-18T04:42:33.120Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T04:40:44.723Z",
+    "updatedAt": "2026-09-18T04:42:33.187Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 671,
@@ -1813,7 +1803,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T04:40:44.789Z",
+    "checkedAt": "2026-09-18T04:42:33.248Z",
     "before": 671,
     "after": 671,
     "removed": 0,
@@ -1821,7 +1811,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T04:12:48.357Z",
+    "checkedAt": "2026-09-18T04:42:59.174Z",
     "publishedJobs": 671,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -1837,9 +1827,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 10,
     "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-18T04:40:44.901Z"
+    "updatedAt": "2026-09-18T04:42:59.518Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2044,11 +2034,11 @@
       "location": 2
     },
     "errors": [],
-    "checkedAt": "2026-09-18T02:52:00.617Z",
-    "lastHealthyAt": "2026-09-18T02:52:00.617Z",
+    "checkedAt": "2026-09-18T04:42:33.045Z",
+    "lastHealthyAt": "2026-09-18T04:42:33.045Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-22T02:52:00.617Z",
+    "fallbackExpiresAt": "2026-09-22T04:42:33.045Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 10,

@@ -10,6 +10,7 @@ on:
       - 'scripts/collect-microsoft-datacenter.mjs'
       - 'scripts/run-microsoft-datacenter.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
+      - 'scripts/apply-microsoft-verified-publish.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - '.github/workflows/microsoft-bootstrap.yml'
@@ -38,8 +39,10 @@ jobs:
         run: |
           node --check scripts/collect-microsoft-datacenter.mjs
           node --check scripts/run-microsoft-datacenter.mjs
+          node --check scripts/apply-microsoft-verified-publish.mjs
           node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
           node scripts/run-microsoft-datacenter.mjs --test-rate-limit-policy
+          node scripts/apply-microsoft-verified-publish.mjs --test
       - name: Restore fresh Microsoft snapshot before direct refresh
         run: node scripts/apply-microsoft-verified-fallback.mjs
       - name: Collect official Microsoft data center roles with adaptive pacing
@@ -68,19 +71,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          # Preserve the already-collected and validated employer-direct result.
+          # If another source advances main while this workflow is publishing,
+          # transplant only this verified Microsoft state onto that newer main
+          # instead of repeatedly crawling Microsoft and widening the race window.
+          cp data/microsoft-jobs.json /tmp/microsoft-jobs-verified.json
+          cp data/collector-status.json /tmp/microsoft-status-verified.json
+
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
-            node --check scripts/collect-microsoft-datacenter.mjs
-            node --check scripts/run-microsoft-datacenter.mjs
-            node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
-            node scripts/run-microsoft-datacenter.mjs --test-rate-limit-policy
-            node scripts/apply-microsoft-verified-fallback.mjs
-            node scripts/run-microsoft-datacenter.mjs
+            node scripts/apply-microsoft-verified-publish.mjs /tmp/microsoft-jobs-verified.json /tmp/microsoft-status-verified.json
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/persist-microsoft-snapshot.mjs
             node scripts/stamp-job-history.mjs
             node scripts/validate-microsoft-snapshot.mjs
             node scripts/validate-priority-employer-sources.mjs
@@ -90,11 +94,11 @@ jobs:
 
           git fetch origin main
           if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
-            echo "Main moved during Microsoft refresh; rebuilding from latest main."
+            echo "Main moved during Microsoft refresh; applying the verified Microsoft snapshot onto latest main."
             rebuild_from_latest_main
           fi
 
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5; do
             git add data/jobs.json data/microsoft-jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo "No Microsoft data or job-history changes."
@@ -108,12 +112,14 @@ jobs:
               exit 0
             fi
 
-            echo "Main moved during Microsoft publish attempt ${attempt}; rebuilding before retry."
-            sleep $((attempt * 2))
-            rebuild_from_latest_main
+            if [ "$attempt" -lt 5 ]; then
+              echo "Main moved during Microsoft publish attempt ${attempt}; applying the same verified snapshot onto latest main before retry."
+              sleep $((attempt * 2))
+              rebuild_from_latest_main
+            fi
           done
 
-          echo "::error::Could not publish verified Microsoft roles after three attempts."
+          echo "::error::Could not publish verified Microsoft roles after five race-safe attempts."
           exit 1
       - name: Deploy committed Microsoft data
         if: steps.publish.outputs.changed == 'true'

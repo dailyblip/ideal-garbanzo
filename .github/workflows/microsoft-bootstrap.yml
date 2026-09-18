@@ -71,6 +71,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          # A degraded Microsoft run deliberately retains the last verified
+          # snapshot. There is no newly verified employer state to publish in
+          # that case. Skipping publication also prevents a concurrent main
+          # update from forcing the old retained snapshot through the short
+          # race-transfer freshness window used only for fresh crawls.
+          fresh_direct_refresh="$(node -e "const fs=require('fs'); const s=JSON.parse(fs.readFileSync('data/collector-status.json','utf8')).microsoftDatacenter||{}; process.stdout.write(s.sourceHealthy===true && s.sourceMode!=='retained-previous' ? 'true' : 'false')")"
+          if [ "$fresh_direct_refresh" != "true" ]; then
+            echo "Microsoft direct refresh was not freshly healthy; leaving the last verified Microsoft publication unchanged."
+            git fetch origin main
+            git reset --hard origin/main
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           # Preserve the already-collected and validated employer-direct result.
           # If another source advances main while this workflow is publishing,
           # transplant only this verified Microsoft state onto that newer main

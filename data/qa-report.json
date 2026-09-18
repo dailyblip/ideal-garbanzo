@@ -1,25 +1,25 @@
 {
-  "checkedAt": "2026-09-18T08:31:38.049Z",
+  "checkedAt": "2026-09-18T09:27:47.324Z",
   "jobsBefore": 670,
-  "jobsAfter": 670,
+  "jobsAfter": 669,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
-  "providerVerifiedJobLinksRetained": [],
-  "blockedJobLinks": [],
-  "transientJobLinks": [
+  "deadJobLinksRemoved": [
     {
-      "id": "gh-xai-5169674007",
-      "company": "xAI",
-      "title": "Fiber Technician III - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5169674007",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
+      "id": "amazon-10482505",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10482505/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10482505/engineering-operation-technician"
     }
   ],
+  "providerVerifiedJobLinksRetained": [],
+  "blockedJobLinks": [],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

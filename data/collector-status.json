@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-18T07:37:23.831Z",
-  "jobs": 670,
+  "updatedAt": "2026-09-18T09:27:25.862Z",
+  "jobs": 669,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,13 +10,13 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 644,
+    "entry-level": 643,
     "internship": 6,
     "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 370,
+    "0-2-years": 369,
     "2-5-years": 277,
     "no-experience": 23
   },
@@ -3250,9 +3250,9 @@
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
       "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
       "expired": true,
-      "checkedAt": "2026-09-18T05:09:29.582Z",
+      "checkedAt": "2026-09-18T09:27:25.862Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 194.5,
+      "expiredAgeHours": 198.8,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3377,15 +3377,15 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T08:31:19.603Z",
+    "updatedAt": "2026-09-18T09:27:25.930Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 670,
+    "regionAssigned": 669,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southwest": 81,
+      "southwest": 80,
       "mid-atlantic": 128,
       "southeast": 98,
       "west": 96,
@@ -3396,7 +3396,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T08:31:19.672Z",
+    "checkedAt": "2026-09-18T09:27:25.986Z",
     "before": 670,
     "after": 670,
     "removed": 0,
@@ -3404,16 +3404,16 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T08:31:38.049Z",
-    "publishedJobs": 670,
-    "removedJobs": 0,
+    "checkedAt": "2026-09-18T09:27:47.324Z",
+    "publishedJobs": 669,
+    "removedJobs": 1,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1171,
-    "currentJobs": 670,
+    "currentJobs": 669,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3422,7 +3422,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 79,
-    "updatedAt": "2026-09-18T08:31:38.244Z"
+    "updatedAt": "2026-09-18T09:27:47.461Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

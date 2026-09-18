@@ -2,7 +2,7 @@ name: Oracle stale fallback watchdog
 
 on:
   schedule:
-    - cron: '53 */6 * * *'
+    - cron: '56 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]

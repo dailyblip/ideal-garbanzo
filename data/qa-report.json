@@ -1,12 +1,31 @@
 {
-  "checkedAt": "2026-09-18T18:40:28.243Z",
+  "checkedAt": "2026-09-18T20:30:13.887Z",
   "jobsBefore": 692,
-  "jobsAfter": 692,
+  "jobsAfter": 690,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10482513",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10482513/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10482513/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10482568",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10482568/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10482568/engineering-operation-technician"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

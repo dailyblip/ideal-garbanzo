@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-18T20:56:51.798Z",
-  "jobs": 695,
+  "updatedAt": "2026-09-18T21:07:13.497Z",
+  "jobs": 689,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 668,
+    "apprenticeship": 11,
     "internship": 6,
-    "trainee": 10,
-    "apprenticeship": 11
+    "trainee": 9,
+    "entry-level": 663
   },
   "countsByExperience": {
-    "0-2-years": 382,
-    "2-5-years": 289,
-    "no-experience": 24
+    "0-2-years": 376,
+    "no-experience": 24,
+    "2-5-years": 289
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1925,19 +1925,15 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 4,
-      "qualifyingRoles": 0,
+      "staleRemoved": 3,
+      "qualifyingRoles": 1,
       "drops": {
-        "non-us": 7,
+        "non-us": 6,
         "context": 1,
         "title": 15,
         "unknown-experience": 6
       },
       "dropSamples": [
-        {
-          "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
-        },
         {
           "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
@@ -1968,6 +1964,13 @@
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
+        },
+        {
+          "title": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
+          "listingLabel": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-staff-security-engineer-security-platforms-automation-hybrid-dallas-texas-united-states"
         }
       ],
       "errors": []
@@ -1979,10 +1982,10 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 5,
-      "verifiedSeeded": 2,
+      "recoveredCandidates": 4,
+      "verifiedSeeded": 3,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 5,
+      "broadListingEvidenceAdded": 4,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -1994,13 +1997,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 3,
+        "unknownExperience": 4,
         "unusable": 0,
-        "verifiedMismatch": 2
+        "verifiedMismatch": 3
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-18T16:38:11.962Z"
+      "expiredVerifiedFallbackRoles": 3,
+      "verifiedFallbackExpiredAt": "2026-09-18T21:07:13.497Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2014,7 +2017,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -2031,28 +2034,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T21:01:57.703Z",
+    "updatedAt": "2026-09-18T21:07:13.641Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 695,
+    "regionAssigned": 689,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 104,
-      "southwest": 87,
       "midwest": 134,
-      "west": 103,
-      "mid-atlantic": 134,
+      "mid-atlantic": 131,
       "texas": 111,
+      "southwest": 87,
+      "southeast": 103,
       "northeast": 21,
+      "west": 101,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T21:01:57.773Z",
-    "before": 695,
-    "after": 695,
+    "checkedAt": "2026-09-18T21:07:13.706Z",
+    "before": 689,
+    "after": 689,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -2067,7 +2070,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1204,
-    "currentJobs": 695,
+    "currentJobs": 689,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2075,8 +2078,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-18T21:01:57.831Z"
+    "firstSeenRecencyFallbackJobs": 92,
+    "updatedAt": "2026-09-18T21:07:13.758Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2766,11 +2769,11 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-18T16:38:11.962Z",
+    "checkedAt": "2026-09-18T21:07:13.497Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 4,
+    "expiredEarlyCareerFallbackRoles": 3,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },

@@ -1,24 +1,25 @@
 {
-  "updatedAt": "2026-09-18T16:44:55.565Z",
+  "updatedAt": "2026-09-18T16:48:20.765Z",
   "jobs": 691,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
     "oracleRecruitingCloud": 2,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "icims": 1
   },
   "countsByType": {
-    "apprenticeship": 11,
+    "entry-level": 665,
     "internship": 6,
     "trainee": 9,
-    "entry-level": 665
+    "apprenticeship": 11
   },
   "countsByExperience": {
+    "2-5-years": 289,
     "0-2-years": 379,
-    "no-experience": 23,
-    "2-5-years": 289
+    "no-experience": 23
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -61,15 +62,15 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Raleigh, NC",
-        "reason": "classification"
-      },
-      {
         "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
         "title": "Operations Specialist",
         "location": "Hawthorne, NY",
+        "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
+        "title": "Operations Specialist",
+        "location": "Raleigh, NC",
         "reason": "classification"
       }
     ]
@@ -2024,7 +2025,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T16:45:52.091Z",
+    "checkedAt": "2026-09-18T16:48:20.841Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2032,7 +2033,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T16:45:52.152Z",
+    "updatedAt": "2026-09-18T16:48:20.913Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 691,
@@ -2040,18 +2041,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 133,
-      "mid-atlantic": 128,
-      "texas": 113,
       "southwest": 89,
       "southeast": 102,
-      "northeast": 23,
+      "midwest": 133,
       "west": 102,
+      "mid-atlantic": 128,
+      "texas": 113,
+      "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T16:45:52.205Z",
+    "checkedAt": "2026-09-18T16:48:20.982Z",
     "before": 691,
     "after": 691,
     "removed": 0,
@@ -2075,9 +2076,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 10,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-18T16:46:02.687Z"
+    "updatedAt": "2026-09-18T16:48:21.043Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

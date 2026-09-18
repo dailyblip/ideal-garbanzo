@@ -2,7 +2,7 @@ name: CoreSite stale fallback watchdog
 
 on:
   schedule:
-    - cron: '41 */6 * * *'
+    - cron: '50 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]

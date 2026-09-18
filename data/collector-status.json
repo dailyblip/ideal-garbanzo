@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T11:42:59.592Z",
+  "updatedAt": "2026-09-18T11:46:26.573Z",
   "jobs": 667,
   "sourcesAttempted": 19,
   "providers": {
@@ -1768,7 +1768,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T11:42:59.798Z",
+    "updatedAt": "2026-09-18T11:46:26.647Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 667,
@@ -1787,7 +1787,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T11:42:59.865Z",
+    "checkedAt": "2026-09-18T11:46:26.712Z",
     "before": 667,
     "after": 667,
     "removed": 0,
@@ -1811,9 +1811,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 15,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 79,
-    "updatedAt": "2026-09-18T11:42:59.923Z"
+    "updatedAt": "2026-09-18T11:46:26.768Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2512,7 +2512,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-18T05:09:03.981Z",
+    "checkedAt": "2026-09-18T11:46:26.573Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

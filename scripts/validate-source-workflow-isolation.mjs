@@ -31,6 +31,19 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
+// Retained as a compatibility contract for the stale-prune isolation validator.
+// The main source guard no longer relies on this list for discovery.
+const scheduledPrimaryWriters = new Set([
+  '.github/workflows/aws-detail-recovery.yml',
+  '.github/workflows/compass-bootstrap.yml',
+  '.github/workflows/iron-mountain-bootstrap.yml',
+  '.github/workflows/meta-bootstrap.yml',
+  '.github/workflows/microsoft-bootstrap.yml',
+  '.github/workflows/oracle-bootstrap.yml',
+  '.github/workflows/sabey-bootstrap.yml',
+  '.github/workflows/tierpoint-bootstrap.yml'
+]);
+
 const raceSafeMarkers = [
   'rebuild_from_latest_main()',
   'git reset --hard origin/main',

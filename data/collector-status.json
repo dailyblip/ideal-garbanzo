@@ -1,29 +1,26 @@
 {
-  "updatedAt": "2026-09-18T11:15:04.705Z",
+  "updatedAt": "2026-09-18T11:18:40.996Z",
   "jobs": 671,
-  "sourcesAttempted": 26,
+  "sourcesAttempted": 17,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
-    "ashby": 5,
-    "oracleRecruitingCloud": 2,
-    "googleCareers": 1,
-    "workday": 6
+    "ashby": 5
   },
   "countsByType": {
     "entry-level": 645,
-    "trainee": 9,
     "internship": 6,
+    "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 278,
-    "no-experience": 23,
-    "0-2-years": 370
+    "0-2-years": 370,
+    "no-experience": 23
   },
   "errors": [],
   "sourceFailurePreservation": {
-    "checkedAt": "2026-09-18T04:46:47.494Z",
+    "checkedAt": "2026-09-18T11:18:41.002Z",
     "failedSources": [],
     "preservedJobs": 0,
     "preservedByCompany": {},
@@ -1771,49 +1768,171 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T11:15:04.744Z",
-    "removedCount": 1,
+    "checkedAt": "2026-09-18T11:18:42.153Z",
+    "removedCount": 13,
     "removedByReason": {
-      "non-mission role family": 1
+      "senior/executive title": 3,
+      "non-mission role family": 8,
+      "non-US location": 2
     },
     "removed": [
       {
-        "id": "microsoft-1970393556994516",
-        "company": "Microsoft",
-        "title": "Data Center Critical Environment Business Analyst",
-        "location": "Boydton, VA",
+        "id": "ashby-fluidstack-f2990eac8950ce",
+        "company": "Fluidstack",
+        "title": "Staff Electrical Operator",
+        "location": "Abernathy, TX; River Bend, LA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "ashby-lambda-ebee6943394494",
+        "company": "Lambda",
+        "title": "Staff Electrical Engineer - Medium Voltage",
+        "location": "San Francisco Office (Fremont St)",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "ashby-gimlet-eb9a94c8bab714",
+        "company": "Gimlet Labs",
+        "title": "Legal Intern",
+        "location": "San Francisco, CA",
         "reason": "non-mission role family"
+      },
+      {
+        "id": "gh-xai-5169675007",
+        "company": "xAI",
+        "title": "Network Operations Technician (SpaceXAI / Starlink)",
+        "location": "Dublin, Ireland",
+        "reason": "non-US location"
+      },
+      {
+        "id": "gh-xai-5211587007",
+        "company": "xAI",
+        "title": "Site Reliability Engineer, Data Center - Memphis",
+        "location": "Southaven, MS; Memphis, TN",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-55e8ca08729b80",
+        "company": "Crusoe",
+        "title": "Quality Technician - Electrical Inspector",
+        "location": "Brighton, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-316d2a228cba07",
+        "company": "Crusoe",
+        "title": "Material Planner (Electrical)",
+        "location": "Arvada, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-129b9fd8c0d03e",
+        "company": "Crusoe",
+        "title": "Material Planner (Mechanical)",
+        "location": "Arvada, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
+        "company": "Serverfarm",
+        "title": "Data Center Technician",
+        "location": "Toronto, ON",
+        "reason": "non-US location"
+      },
+      {
+        "id": "ashby-crusoe-70b01f17d09a8b",
+        "company": "Crusoe",
+        "title": "CNC Operator",
+        "location": "Tulsa, OK - US (1)",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-ab810e7251cc10",
+        "company": "Crusoe",
+        "title": "Assembly Technician",
+        "location": "Brighton, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-8d30086e281f80",
+        "company": "Crusoe",
+        "title": "Project Controls Analyst",
+        "location": "Denver, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-fluidstack-229040aff58cbe",
+        "company": "Fluidstack",
+        "title": "Mechanical Engineer, R&D Team Lead",
+        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
+        "reason": "senior/executive title"
       }
     ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T11:15:04.783Z",
-    "changed": 0,
-    "samples": [],
-    "regionAssigned": 671,
-    "regionMissing": 0,
-    "coveragePct": 100,
-    "missingSamples": [],
+    "updatedAt": "2026-09-18T11:18:42.221Z",
+    "changed": 1,
+    "samples": [
+      {
+        "id": "ashby-lambda-0bdbbcbdc49122",
+        "before": "San Jose Office (Zanker)",
+        "after": "San Jose, CA"
+      }
+    ],
+    "regionAssigned": 673,
+    "regionMissing": 2,
+    "coveragePct": 99.7,
+    "missingSamples": [
+      {
+        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
+        "company": "Serverfarm",
+        "location": "AMS1",
+        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
+      },
+      {
+        "id": "ashby-lambda-8308606de297f6",
+        "company": "Lambda",
+        "location": "Querétaro, Mexico - Data Center",
+        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
+      }
+    ],
     "countsByRegion": {
-      "west": 98,
       "mid-atlantic": 129,
-      "northeast": 22,
       "southwest": 83,
+      "southeast": 99,
+      "west": 98,
       "midwest": 132,
       "texas": 109,
-      "southeast": 97,
+      "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T11:15:04.820Z",
-    "before": 671,
+    "checkedAt": "2026-09-18T11:18:42.310Z",
+    "before": 673,
     "after": 671,
-    "removed": 0,
+    "removed": 2,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "gh-xai-4538639007",
+        "keptId": "gh-xai-5227699007",
+        "company": "xAI",
+        "title": "Facilities Operations Technician",
+        "location": "Southaven, MS; Memphis, TN"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "gh-xai-5127519007",
+        "keptId": "gh-xai-5219754007",
+        "company": "xAI",
+        "title": "Mechanical Commissioning Technician",
+        "location": "Southaven, MS; Memphis, TN"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-18T11:09:08.333Z",
@@ -1834,7 +1953,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 79,
-    "updatedAt": "2026-09-18T11:15:04.878Z"
+    "updatedAt": "2026-09-18T11:18:42.337Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2086,8 +2205,8 @@
     ],
     "sources": {
       "Serverfarm": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2095,8 +2214,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "LightEdge Solutions": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2104,8 +2223,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "ECL": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2113,8 +2232,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Hive": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2122,8 +2241,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "CAI": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2131,8 +2250,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "xAI": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2140,8 +2259,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Element Critical": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2149,8 +2268,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Lambda": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2158,8 +2277,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Crusoe": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2167,8 +2286,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Fluidstack": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2176,8 +2295,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Gimlet Labs": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2185,8 +2304,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "TensorWave": {
-        "lastHealthyAt": "2026-09-18T04:46:47.486Z",
-        "latestScanAt": "2026-09-18T04:46:47.486Z",
+        "lastHealthyAt": "2026-09-18T11:18:40.996Z",
+        "latestScanAt": "2026-09-18T11:18:40.996Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2318,7 +2437,7 @@
     }
   ],
   "genericDirectSources": {
-    "updatedAt": "2026-09-18T04:46:47.486Z",
+    "updatedAt": "2026-09-18T11:18:40.996Z",
     "jobs": 99,
     "sourcesAttempted": 17,
     "providers": {
@@ -2457,11 +2576,11 @@
       }
     ],
     "errors": [],
-    "ashbyExperienceReconciledAt": "2026-09-18T04:46:48.067Z",
+    "ashbyExperienceReconciledAt": "2026-09-18T11:18:42.021Z",
     "ashbyExperienceRemoved": 0
   },
   "authoritativeSnapshotOverlay": {
-    "checkedAt": "2026-09-18T04:46:47.494Z",
+    "checkedAt": "2026-09-18T11:18:41.002Z",
     "restoredByCompany": {
       "Cologix": 10,
       "EdgeConneX": 2
@@ -2469,7 +2588,7 @@
     "policy": "Dedicated employer-direct snapshots replace overlapping generic ATS results before later publication gates."
   },
   "genericDedicatedOverlapProtection": {
-    "checkedAt": "2026-09-18T04:46:47.559Z",
+    "checkedAt": "2026-09-18T11:18:41.096Z",
     "companies": [
       "Cologix",
       "T5 Data Centers",

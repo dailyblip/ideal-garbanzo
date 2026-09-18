@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-18T04:57:47.151Z",
-  "jobs": 671,
+  "updatedAt": "2026-09-18T05:00:23.733Z",
+  "jobs": 672,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 646,
+    "apprenticeship": 11,
     "internship": 6,
-    "trainee": 8,
-    "apprenticeship": 11
+    "trainee": 9,
+    "entry-level": 646
   },
   "countsByExperience": {
     "0-2-years": 371,
-    "2-5-years": 277,
-    "no-experience": 23
+    "no-experience": 23,
+    "2-5-years": 278
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1665,9 +1665,9 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 3,
-      "qualifyingRoles": 1,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 6,
+        "non-us": 7,
         "context": 1,
         "title": 17,
         "unknown-experience": 7
@@ -1676,6 +1676,10 @@
         {
           "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
+        },
+        {
+          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
         },
         {
           "title": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
@@ -1703,13 +1707,6 @@
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
-        },
-        {
-          "title": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
-          "listingLabel": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-staff-security-engineer-security-platforms-automation-hybrid-dallas-texas-united-states"
         }
       ],
       "errors": []
@@ -1721,10 +1718,10 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 4,
+      "broadListingEvidenceAdded": 5,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -1736,13 +1733,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 4,
+        "unknownExperience": 3,
         "unusable": 0,
-        "verifiedMismatch": 3
+        "verifiedMismatch": 2
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 3,
-      "verifiedFallbackExpiredAt": "2026-09-18T03:00:17.767Z"
+      "expiredVerifiedFallbackRoles": 4,
+      "verifiedFallbackExpiredAt": "2026-09-18T05:00:23.733Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -1756,7 +1753,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -1773,28 +1770,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T04:57:47.334Z",
+    "updatedAt": "2026-09-18T05:00:23.845Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 671,
+    "regionAssigned": 672,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southwest": 81,
-      "mid-atlantic": 128,
-      "southeast": 98,
-      "west": 96,
       "midwest": 133,
+      "mid-atlantic": 128,
       "texas": 111,
+      "southwest": 81,
+      "southeast": 98,
       "northeast": 23,
+      "west": 97,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T04:57:47.402Z",
-    "before": 671,
-    "after": 671,
+    "checkedAt": "2026-09-18T05:00:23.891Z",
+    "before": 672,
+    "after": 672,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -1809,7 +1806,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1171,
-    "currentJobs": 671,
+    "currentJobs": 672,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1817,8 +1814,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 78,
-    "updatedAt": "2026-09-18T04:58:03.923Z"
+    "firstSeenRecencyFallbackJobs": 79,
+    "updatedAt": "2026-09-18T05:00:23.931Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2502,11 +2499,11 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-18T03:00:17.767Z",
+    "checkedAt": "2026-09-18T05:00:23.733Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 3,
+    "expiredEarlyCareerFallbackRoles": 4,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },

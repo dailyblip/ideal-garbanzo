@@ -2,7 +2,7 @@ name: Iron Mountain stale fallback watchdog
 
 on:
   schedule:
-    - cron: '41 */6 * * *'
+    - cron: '52 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]

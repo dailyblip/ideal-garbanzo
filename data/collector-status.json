@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T05:07:08.257Z",
+  "updatedAt": "2026-09-18T05:09:03.981Z",
   "jobs": 672,
   "sourcesAttempted": 19,
   "providers": {
@@ -1770,7 +1770,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T05:07:08.459Z",
+    "updatedAt": "2026-09-18T05:09:04.083Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 672,
@@ -1789,7 +1789,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T05:07:08.526Z",
+    "checkedAt": "2026-09-18T05:09:04.132Z",
     "before": 672,
     "after": 672,
     "removed": 0,
@@ -1813,9 +1813,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 15,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 79,
-    "updatedAt": "2026-09-18T05:07:08.584Z"
+    "updatedAt": "2026-09-18T05:09:04.173Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2509,14 +2509,14 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-17T21:43:40.552Z",
+    "checkedAt": "2026-09-18T05:09:03.981Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
     "qualifyingRoles": 4,
-    "added": 1,
+    "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
@@ -2554,7 +2554,7 @@
           1,
           4
         ],
-        "alreadyPublishedByOtherCollector": false
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-811161",

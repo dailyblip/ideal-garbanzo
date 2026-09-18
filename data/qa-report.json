@@ -1,15 +1,89 @@
 {
-  "checkedAt": "2026-09-18T13:10:18.313Z",
-  "jobsBefore": 669,
-  "jobsAfter": 669,
+  "checkedAt": "2026-09-18T16:03:14.664Z",
+  "jobsBefore": 677,
+  "jobsAfter": 676,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10495022",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10495022/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10495022/data-center-technician"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5229550007",
+      "company": "xAI",
+      "title": "Controls Engineer, Supercomputer Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5229550007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5182374007",
+      "company": "xAI",
+      "title": "Facilities Infrastructure Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5182374007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5212286007",
+      "company": "xAI",
+      "title": "Facilities Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5212286007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5184586007",
+      "company": "xAI",
+      "title": "Reliability Engineer (Data Center Infrastructure)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5184586007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5134220007",
+      "company": "xAI",
+      "title": "Electrical Commissioning Technician - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5134220007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-xai-5182357007",
+      "company": "xAI",
+      "title": "Electrical Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5182357007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "greenhouse-flexential-4401183009",
+      "company": "Flexential",
+      "title": "Critical Infrastructure Engineer II",
+      "url": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4401183009",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

@@ -132,16 +132,16 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-18T11:54:01.880Z",
-    "lastHealthyAt": "2026-09-18T11:54:01.880Z",
+    "checkedAt": "2026-09-18T16:45:37.286Z",
+    "lastHealthyAt": "2026-09-18T16:45:37.286Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
     "usedPreviousSnapshot": false,
-    "listingPagesAttempted": 18,
-    "listingPagesSucceeded": 18,
+    "listingPagesAttempted": 19,
+    "listingPagesSucceeded": 19,
     "listingComplete": true,
-    "listedTotal": 358,
+    "listedTotal": 364,
     "candidateRows": 13,
     "detailAttempted": 13,
     "detailSucceeded": 13,
@@ -160,9 +160,9 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-18T11:54:01.880Z",
-      "checkedAt": "2026-09-18T11:54:01.880Z",
-      "expiresAt": "2026-09-22T11:54:01.880Z",
+      "lastHealthyAt": "2026-09-18T16:45:37.286Z",
+      "checkedAt": "2026-09-18T16:45:37.286Z",
+      "expiresAt": "2026-09-22T16:45:37.286Z",
       "ageHours": 0,
       "maxAgeHours": 96,
       "roles": 10,
@@ -2024,7 +2024,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T16:44:55.694Z",
+    "checkedAt": "2026-09-18T16:45:52.091Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2032,17 +2032,17 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T16:44:55.764Z",
+    "updatedAt": "2026-09-18T16:45:52.152Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 692,
+    "regionAssigned": 691,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 133,
       "mid-atlantic": 128,
-      "texas": 114,
+      "texas": 113,
       "southwest": 89,
       "southeast": 102,
       "northeast": 23,
@@ -2051,25 +2051,16 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T16:44:55.829Z",
-    "before": 692,
+    "checkedAt": "2026-09-18T16:45:52.205Z",
+    "before": 691,
     "after": 691,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-108517449598411462",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "Haskell, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T16:43:23.651Z",
-    "publishedJobs": 689,
+    "checkedAt": "2026-09-18T16:46:02.427Z",
+    "publishedJobs": 691,
     "removedJobs": 0,
     "activeCareerEvents": 8,
     "providerVerifiedRetained": 0
@@ -2078,15 +2069,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1190,
     "currentJobs": 691,
-    "newJobsThisRun": 4,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 4,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 10,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-18T16:44:55.885Z"
+    "updatedAt": "2026-09-18T16:46:02.687Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

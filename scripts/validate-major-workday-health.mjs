@@ -73,9 +73,24 @@ if (Number.isFinite(attempted) && Number.isFinite(succeeded) && Number.isFinite(
   }
 }
 
+// A complete listing is not enough if one or more plausible hands-on roles
+// could not be hydrated from the official Workday detail endpoint. Existing
+// roles may be preserved from the previous verified snapshot, but a brand-new
+// qualifying role has no safe fallback and would otherwise disappear silently.
+// Fail closed so the last fully verified published feed stays live until the
+// next clean refresh instead of committing a known-incomplete source snapshot.
+const detailFailures = Number(major?.detailFailures);
+if (Number.isFinite(detailFailures)) {
+  if (detailFailures > 0) {
+    violations.push(`major Workday refresh had ${detailFailures} job-detail fetch failure(s); refusing to publish a snapshot that may omit new qualifying roles`);
+  }
+} else {
+  violations.push('major Workday refresh is missing a valid detailFailures count');
+}
+
 if (violations.length) {
-  for (const violation of violations) console.error(`Major Workday health violation: ${violation}`);
+  for (const violation of violations) console.error(`Major Workday health violation: ${violation}`));
   throw new Error(`Blocked ${violations.length} major Workday source-health regression(s).`);
 }
 
-console.log(`Major Workday health guard passed for ${protectedCompanies.length} priority employers with exact Workday listing parity.`);
+console.log(`Major Workday health guard passed for ${protectedCompanies.length} priority employers with exact Workday listing parity and zero detail-fetch loss.`);

@@ -12,7 +12,7 @@ on:
       - .github/workflows/coreweave-source-integrity-guard.yml
   workflow_dispatch:
   schedule:
-    - cron: '17 */12 * * *'
+    - cron: '21 */12 * * *'
 
 permissions:
   contents: write

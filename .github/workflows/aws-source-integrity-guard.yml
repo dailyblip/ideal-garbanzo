@@ -47,7 +47,7 @@ jobs:
           node --check scripts/validate-amazon-parity.mjs
       - name: Guard AWS refresh cadence and source-writer safety
         run: |
-          grep -Fq "cron: '53 */6 * * *'" .github/workflows/aws-detail-recovery.yml
+          grep -Fq "cron: '13 */6 * * *'" .github/workflows/aws-detail-recovery.yml
           grep -Fq 'group: aws-detail-recovery' .github/workflows/aws-detail-recovery.yml
           node scripts/validate-source-workflow-isolation.mjs
       - name: Run AWS source regressions

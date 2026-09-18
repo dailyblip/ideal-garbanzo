@@ -7,7 +7,7 @@ on:
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/recover-amazon-details.mjs'
   schedule:
-    - cron: '59 */6 * * *'
+    - cron: '13 */6 * * *'
   workflow_dispatch:
 
 permissions:

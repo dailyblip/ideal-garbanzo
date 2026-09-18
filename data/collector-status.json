@@ -97,21 +97,12 @@
     ],
     "snapshotRoles": 1,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-18T11:30:06.194Z",
+    "snapshotVerifiedAt": "2026-09-18T16:34:21.902Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
-    "snapshotAgeHours": 0.4,
+    "snapshotAgeHours": 0,
     "normalizedTitles": 1,
-    "removedExpiredFallback": 0,
-    "fallbackFreshness": {
-      "active": false,
-      "expired": false,
-      "lastHealthyAt": "2026-09-18T11:30:06.194Z",
-      "checkedAt": "2026-09-18T11:52:24.566Z",
-      "expiresAt": "2026-09-22T11:30:06.194Z",
-      "maxAgeHours": 96,
-      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
-    }
+    "removedExpiredFallback": 0
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
@@ -2032,7 +2023,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T16:32:02.359Z",
+    "checkedAt": "2026-09-18T16:34:21.974Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2040,7 +2031,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T16:32:02.436Z",
+    "updatedAt": "2026-09-18T16:34:22.048Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 693,
@@ -2059,7 +2050,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T16:32:02.506Z",
+    "checkedAt": "2026-09-18T16:34:22.120Z",
     "before": 693,
     "after": 693,
     "removed": 0,
@@ -2085,7 +2076,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-18T16:32:24.426Z"
+    "updatedAt": "2026-09-18T16:34:22.177Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

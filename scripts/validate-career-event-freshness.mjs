@@ -6,7 +6,7 @@ if (!Array.isArray(events)) throw new Error('career-events.json must contain an 
 
 const today = new Date();
 const todayIso = today.toISOString().slice(0, 10);
-const maxVerificationAgeMs = 30 * 24 * 60 * 60 * 1000;
+const maxVerificationAgeMs = 7 * 24 * 60 * 60 * 1000;
 const allowedAudiences = new Set([
   'students',
   'interns',
@@ -36,7 +36,7 @@ for (const event of events) {
   const verifiedAt = new Date(`${event.verifiedAt}T00:00:00Z`);
   if (verifiedAt.getTime() > today.getTime()) throw new Error(`Career event verifiedAt cannot be in the future: ${event.id}`);
   if (today.getTime() - verifiedAt.getTime() > maxVerificationAgeMs) {
-    throw new Error(`Career event verification is older than 30 days: ${event.id}`);
+    throw new Error(`Career event verification is older than 7 days: ${event.id}`);
   }
 }
 

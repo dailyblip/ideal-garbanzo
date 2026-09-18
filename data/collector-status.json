@@ -1,23 +1,24 @@
 {
-  "updatedAt": "2026-09-18T16:42:18.317Z",
-  "jobs": 689,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-18T16:44:55.565Z",
+  "jobs": 691,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
-    "oracleRecruitingCloud": 2
+    "oracleRecruitingCloud": 2,
+    "googleCareers": 1
   },
   "countsByType": {
     "apprenticeship": 11,
     "internship": 6,
     "trainee": 9,
-    "entry-level": 663
+    "entry-level": 665
   },
   "countsByExperience": {
-    "0-2-years": 380,
+    "0-2-years": 379,
     "no-experience": 23,
-    "2-5-years": 286
+    "2-5-years": 289
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1420,14 +1421,14 @@
     "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 49,
-    "qualifyingRoles": 48,
+    "candidateRows": 51,
+    "qualifyingRoles": 50,
     "diagnostics": {
-      "canonicalLinks": 70,
-      "missionFitLinks": 49,
-      "uniqueCandidates": 49,
-      "detailAttempted": 49,
-      "detailVerified": 48,
+      "canonicalLinks": 73,
+      "missionFitLinks": 51,
+      "uniqueCandidates": 51,
+      "detailAttempted": 51,
+      "detailVerified": 50,
       "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
@@ -1437,8 +1438,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-18T11:53:24.120Z",
-    "freshnessCheckedAt": "2026-09-18T11:53:24.120Z",
+    "lastHealthyAt": "2026-09-18T16:44:55.574Z",
+    "freshnessCheckedAt": "2026-09-18T16:44:55.574Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -2023,7 +2024,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T16:43:08.489Z",
+    "checkedAt": "2026-09-18T16:44:55.694Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2031,31 +2032,40 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T16:43:08.551Z",
+    "updatedAt": "2026-09-18T16:44:55.764Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 689,
+    "regionAssigned": 692,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 133,
       "mid-atlantic": 128,
-      "texas": 113,
-      "southwest": 88,
-      "southeast": 101,
+      "texas": 114,
+      "southwest": 89,
+      "southeast": 102,
       "northeast": 23,
       "west": 102,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T16:43:08.609Z",
-    "before": 689,
-    "after": 689,
-    "removed": 0,
+    "checkedAt": "2026-09-18T16:44:55.829Z",
+    "before": 692,
+    "after": 691,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "google-77675229853164230",
+        "keptId": "google-108517449598411462",
+        "company": "Google",
+        "title": "Data Center Technician, Night Shift",
+        "location": "Haskell, TX"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-18T16:43:23.651Z",
@@ -2066,17 +2076,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1186,
-    "currentJobs": 689,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1190,
+    "currentJobs": 691,
+    "newJobsThisRun": 4,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 4,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-18T16:43:23.810Z"
+    "firstSeenRecencyFallbackJobs": 93,
+    "updatedAt": "2026-09-18T16:44:55.885Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

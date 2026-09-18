@@ -177,7 +177,53 @@ function runSelectionTests() {
     throw new Error('Zero-slot employer-diverse selection must return no jobs.');
   }
 
+  const regionCases = [
+    [{ region:'texas', location:'Dallas, TX' }, 'texas', true],
+    [{ region:'texas', location:'Dallas, TX' }, 'west', false],
+    [{ regions:['west', 'southwest'], location:'Remote' }, 'southwest', true],
+    [{ region:'nationwide', location:'United States' }, 'northeast', true],
+    [{ location:'Ashburn, VA' }, 'mid-atlantic', true],
+    [{ location:'Washington, DC' }, 'mid-atlantic', true],
+    [{ location:'Washington, DC' }, 'west', false],
+    [{ region:'southeast', location:'Southaven, MS; Dallas, TX' }, 'texas', true]
+  ];
+  for (const [job, region, expectedMatch] of regionCases) {
+    const actual = alertJobMatchesRegion(job, region);
+    if (actual !== expectedMatch) {
+      throw new Error(`Regional alert regression for ${region}: ${JSON.stringify(job)} matched=${actual}, expected=${expectedMatch}`);
+    }
+  }
+
+  const earlyCases = [
+    [{ type:'entry-level', experience:'0-2-years' }, true],
+    [{ type:'internship', experience:'2-5-years' }, true],
+    [{ type:'entry-level', experience:'2-5-years' }, false]
+  ];
+  for (const [job, expectedEarly] of earlyCases) {
+    const actual = isEarlyCareer(job);
+    if (actual !== expectedEarly) {
+      throw new Error(`Early-career alert regression: ${JSON.stringify(job)} classified=${actual}, expected=${expectedEarly}`);
+    }
+  }
+
+  const nowMs = Date.parse('2026-09-18T16:00:00.000Z');
+  const common = { company:'Test', title:'Technician', location:'Dallas, TX', active:true, demo:false, sourceUrl:'https://example.com/job', type:'entry-level', experience:'2-5-years' };
+  const selected = selectNewJobs([
+    { ...common, id:'recent-first-seen', firstSeenAt:'2026-09-18T15:00:00.000Z', postedAt:'2026-08-01T00:00:00.000Z' },
+    { ...common, id:'posted-fallback', postedAt:'2026-09-17T12:00:00.000Z' },
+    { ...common, id:'future', firstSeenAt:'2026-09-18T18:00:00.000Z' },
+    { ...common, id:'stale', firstSeenAt:'2026-09-10T15:59:59.000Z' },
+    { ...common, id:'inactive', active:false, firstSeenAt:'2026-09-18T14:00:00.000Z' },
+    { ...common, id:'demo', demo:true, firstSeenAt:'2026-09-18T13:00:00.000Z' },
+    { ...common, id:'bad-url', sourceUrl:'http://example.com/job', firstSeenAt:'2026-09-18T12:00:00.000Z' }
+  ], nowMs).map(job => job.id);
+  const expectedSelected = ['recent-first-seen', 'posted-fallback'];
+  if (JSON.stringify(selected) !== JSON.stringify(expectedSelected)) {
+    throw new Error(`Seven-day alert-window regression: expected ${expectedSelected.join(', ')}, got ${selected.join(', ')}`);
+  }
+
   console.log('Weekly alert employer-diverse selection passed 4 regression cases.');
+  console.log('Weekly alert personalization selection passed regional, early-career and seven-day-window regression cases.');
 }
 
 function formatJob(job) {
@@ -366,7 +412,9 @@ async function main() {
   }
 
   const alertTagId = await resolveButtondownTagId(ALERT_TAG);
-  const subject = `${newJobs.length} new data center openings this week`;
+  // The body is personalized by region and career focus. Avoid a global job
+  // count in the subject because a subscriber may correctly receive fewer jobs.
+  const subject = 'New data center openings this week';
   const payload = await buttondownRequest('/emails', {
     method: 'POST',
     body: JSON.stringify({

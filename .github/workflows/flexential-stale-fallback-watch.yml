@@ -2,7 +2,7 @@ name: Flexential stale fallback watchdog
 
 on:
   schedule:
-    - cron: '23 */6 * * *'
+    - cron: '24 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]

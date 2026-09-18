@@ -49,11 +49,25 @@ const excludedTitleTerms = [
   'vp ', 'head of', 'staff engineer', 'supervisor', 'superintendent', 'foreman',
   'counsel', 'attorney', 'recruiter', 'sales', 'account executive', 'architect',
   'security operations', 'security engineer', 'cybersecurity', 'information security',
-  'business analyst', 'financial operations', 'procurement', 'purchasing', 'software engineer',
+  'business analyst', 'business operations', 'corporate operations', 'financial operations',
+  'financial analyst', 'finance analyst', 'accounts payable', 'accounting', 'accountant', 'finance',
+  'procurement', 'purchasing', 'supply chain', 'software engineer', 'software developer',
   'site reliability engineer', 'machine learning', 'data scientist', 'product manager',
-  'program manager', 'human resources', 'marketing',
+  'program manager', 'enterprise applications', 'enterprise it support', 'process analytics',
+  'learning operations', 'human resources', 'people operations', 'marketing', 'communications',
+  'public relations', 'legal', 'paralegal', 'law clerk', 'customer success',
+  'corporate development', 'strategy', 'real estate', 'leasing', 'tax', 'treasury', 'audit',
+  'compliance',
   'future opportunity', 'future opportunities', 'talent pool', 'general application',
   'express your interest'
+];
+const programTitleTerms = ['intern', 'internship', 'apprentice', 'apprenticeship', 'trainee'];
+const programMissionTitleTerms = [
+  'data center', 'data centre', 'critical facilities', 'critical facility',
+  'critical environment', 'critical operations', 'facility operations', 'facilities operations',
+  'electrical', 'electrician', 'mechanical', 'hvac', 'technician', 'operator',
+  'commissioning', 'controls', 'bms', 'epms', 'dcim', 'power', 'generator',
+  'chiller', 'cooling', 'network', 'fiber', 'cabling', 'hardware'
 ];
 
 const clean = value => String(value ?? '')
@@ -105,6 +119,11 @@ function relevant(title = '', description = '') {
   const t = lower(title);
   const d = lower(description);
   if (!t || hasAny(t, excludedTitleTerms)) return false;
+  // Internship/apprenticeship/trainee searches are deliberately broad. Do not
+  // let a corporate program qualify merely because its description mentions
+  // the employer's data-center business; the title itself must show a clear
+  // facilities/infrastructure/operations discipline.
+  if (hasAny(t, programTitleTerms) && !hasAny(t, programMissionTitleTerms)) return false;
   if (hasAny(t, strongTitleTerms)) return true;
   return hasAny(t, contextualTitleTerms) && hasAny(d, contextTerms);
 }
@@ -447,6 +466,36 @@ if (process.argv.includes('--test')) {
       expected: null
     },
     {
+      name: 'corporate internship does not qualify from employer context alone',
+      title: 'Summer 2027 Internship: Accounts Payable',
+      description: 'Learn how accounts payable supports a growing portfolio of data center facilities.',
+      expected: null
+    },
+    {
+      name: 'generic learning operations internship is rejected',
+      title: 'Summer 2027 Internship: Learning Operations Analyst',
+      description: 'Support learning programs for teams that operate data center facilities.',
+      expected: null
+    },
+    {
+      name: 'generic project-management internship is rejected',
+      title: 'Summer 2027 Internship: Technology Optimization Project Management',
+      description: 'Support technology projects across data center operations.',
+      expected: null
+    },
+    {
+      name: 'mission-fit data center internship remains eligible',
+      title: 'Summer Internship: Data Center Infrastructure Projects',
+      description: 'Support data center infrastructure and critical facilities projects.',
+      expected: '0-2-years'
+    },
+    {
+      name: 'electrical apprenticeship remains eligible',
+      title: 'Electrical Apprentice',
+      description: 'Train on electrical systems supporting critical data center facilities.',
+      expected: '0-2-years'
+    },
+    {
       name: 'three-year critical facilities role',
       title: 'Critical Facilities Technician',
       description: 'Three years of relevant experience maintaining data center UPS and generator systems.',
@@ -475,11 +524,14 @@ if (process.argv.includes('--test')) {
   if (selectLocation({ locationsText: '2 Locations' }, { location: 'Cedar Rapids, IA' }) !== 'Cedar Rapids, IA') {
     failures.push({ name: 'detail location preferred over ambiguous listing location' });
   }
+  if (!confidentUsLocation('Austin, TX')) {
+    failures.push({ name: 'Texas postal abbreviation remains recognized as U.S. geography' });
+  }
   if (failures.length) {
     for (const failure of failures) console.error(`Targeted recovery regression failed: ${failure.name}`);
     process.exit(1);
   }
-  console.log(`Targeted major Workday recovery passed ${cases.length + 1} regression cases.`);
+  console.log(`Targeted major Workday recovery passed ${cases.length + 2} regression cases.`);
   process.exit(0);
 }
 

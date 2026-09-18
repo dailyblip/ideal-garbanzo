@@ -54,12 +54,12 @@ jobs:
           validator = Path('scripts/validate-source-workflow-isolation.mjs')
           text = validator.read_text()
           marker = "  if (scheduledPrimaryWriters.has(path)) {"
-          queue_guard = """  if (sharedWriterQueue.has(path) && !/queue:\\s*max\\b/.test(text)) {
-            violations.push(`${path}: shared-feed writer must use queue: max so pending employer refreshes are not replaced`);
-          }
-
-"""
-          if queue_guard.strip() not in text:
+          queue_guard = (
+              "  if (sharedWriterQueue.has(path) && !/queue:\\s*max\\b/.test(text)) {\n"
+              "    violations.push(`${path}: shared-feed writer must use queue: max so pending employer refreshes are not replaced`);\n"
+              "  }\n\n"
+          )
+          if 'shared-feed writer must use queue: max' not in text:
               if marker not in text:
                   raise SystemExit('validator insertion point not found')
               text = text.replace(marker, queue_guard + marker, 1)

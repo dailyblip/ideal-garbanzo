@@ -8,6 +8,8 @@ on:
       - scripts/validate-iron-mountain.mjs
       - scripts/enforce-iron-mountain-fallback-freshness.mjs
       - .github/workflows/iron-mountain-bootstrap.yml
+  schedule:
+    - cron: '48 */6 * * *'
   workflow_dispatch:
 
 permissions:

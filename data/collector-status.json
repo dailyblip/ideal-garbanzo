@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-18T05:09:29.582Z",
-  "jobs": 672,
+  "updatedAt": "2026-09-18T05:12:35.447Z",
+  "jobs": 671,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -12,12 +12,12 @@
     "apprenticeship": 11,
     "internship": 6,
     "trainee": 9,
-    "entry-level": 646
+    "entry-level": 645
   },
   "countsByExperience": {
     "0-2-years": 371,
     "no-experience": 23,
-    "2-5-years": 278
+    "2-5-years": 277
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -2598,7 +2598,7 @@
     "candidateRoles": 32,
     "detailVerified": 32,
     "usCandidateRoles": 7,
-    "qualifyingRoles": 6,
+    "qualifyingRoles": 5,
     "rejectedOutOfScopeTitle": 15,
     "rejectedOutOfScopeContext": 0,
     "rejectedSeniorTitle": 17,
@@ -2618,5 +2618,19 @@
       "Data Center Controls Engineeer"
     ],
     "compensationPolicy": "Ambiguous three-digit hourly-looking ranges are suppressed instead of guessing whether source shorthand means thousands per year."
+  },
+  "primeFallbackFreshness": {
+    "active": false,
+    "expired": false,
+    "lastHealthyAt": "2026-09-18T05:12:35.447Z",
+    "checkedAt": "2026-09-18T05:12:35.447Z",
+    "maxAgeHours": 96,
+    "healthStampIntervalHours": 24,
+    "boardUrl": "https://api.rippling.com/platform/api/ats/v1/board/prime-data-centers/jobs",
+    "boardRows": 66,
+    "canonicalBoardJobs": 46,
+    "staleSnapshotRolesRemoved": 1,
+    "stalePublicRolesRemoved": 1,
+    "policy": "Verify Prime role liveness against the official Rippling board. If that source cannot be verified, retain the last verified employer-direct snapshot for at most 96 hours."
   }
 }

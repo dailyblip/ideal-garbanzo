@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-18T16:36:45.310Z",
-  "jobs": 693,
+  "updatedAt": "2026-09-18T16:38:11.962Z",
+  "jobs": 689,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 667,
+    "apprenticeship": 11,
     "internship": 6,
     "trainee": 9,
-    "apprenticeship": 11
+    "entry-level": 663
   },
   "countsByExperience": {
-    "2-5-years": 286,
-    "0-2-years": 384,
-    "no-experience": 23
+    "0-2-years": 380,
+    "no-experience": 23,
+    "2-5-years": 286
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1919,9 +1919,9 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 32,
-      "detailAttempted": 32,
-      "detailSucceeded": 32,
+      "candidateLinks": 29,
+      "detailAttempted": 29,
+      "detailSucceeded": 29,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
@@ -1930,8 +1930,8 @@
       "drops": {
         "non-us": 7,
         "context": 1,
-        "title": 17,
-        "unknown-experience": 7
+        "title": 15,
+        "unknown-experience": 6
       },
       "dropSamples": [
         {
@@ -2000,7 +2000,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-18T11:38:14.152Z"
+      "verifiedFallbackExpiredAt": "2026-09-18T16:38:11.962Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2031,28 +2031,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T16:36:45.483Z",
+    "updatedAt": "2026-09-18T16:38:12.082Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 693,
+    "regionAssigned": 689,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 103,
-      "mid-atlantic": 130,
-      "southeast": 102,
-      "texas": 113,
       "midwest": 133,
+      "mid-atlantic": 128,
+      "texas": 113,
       "southwest": 88,
+      "southeast": 101,
       "northeast": 23,
+      "west": 102,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T16:36:45.556Z",
-    "before": 693,
-    "after": 693,
+    "checkedAt": "2026-09-18T16:38:12.133Z",
+    "before": 689,
+    "after": 689,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -2067,7 +2067,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1186,
-    "currentJobs": 693,
+    "currentJobs": 689,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2076,7 +2076,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 91,
-    "updatedAt": "2026-09-18T16:37:11.883Z"
+    "updatedAt": "2026-09-18T16:38:12.177Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2760,7 +2760,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-18T11:38:14.152Z",
+    "checkedAt": "2026-09-18T16:38:11.962Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,

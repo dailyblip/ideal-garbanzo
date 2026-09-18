@@ -171,7 +171,7 @@ function confidentUsLocation(value = '') {
     'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','District of Columbia'
   ];
   if (states.some(state => new RegExp(`\b${state.replace(/ /g, '\\s+')}\b`, 'i').test(text))) return true;
-  const codes = new Set(['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','UT','VT','VA','WA','WV','WI','WY']);
+  const codes = new Set(['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']);
   const match = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
   return Boolean(match && codes.has(match[1]));
 }
@@ -524,11 +524,14 @@ if (process.argv.includes('--test')) {
   if (selectLocation({ locationsText: '2 Locations' }, { location: 'Cedar Rapids, IA' }) !== 'Cedar Rapids, IA') {
     failures.push({ name: 'detail location preferred over ambiguous listing location' });
   }
+  if (!confidentUsLocation('Austin, TX')) {
+    failures.push({ name: 'Texas postal abbreviation remains recognized as U.S. geography' });
+  }
   if (failures.length) {
     for (const failure of failures) console.error(`Targeted recovery regression failed: ${failure.name}`);
     process.exit(1);
   }
-  console.log(`Targeted major Workday recovery passed ${cases.length + 1} regression cases.`);
+  console.log(`Targeted major Workday recovery passed ${cases.length + 2} regression cases.`);
   process.exit(0);
 }
 

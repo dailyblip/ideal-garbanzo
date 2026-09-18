@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T02:50:56.427Z",
+  "updatedAt": "2026-09-18T02:52:44.345Z",
   "jobs": 678,
   "sourcesAttempted": 26,
   "providers": {
@@ -219,18 +219,18 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-17T17:29:34.872Z",
+    "checkedAt": "2026-09-18T02:52:44.345Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
     "officialLeverBoard": "https://jobs.lever.co/t5datacenters",
     "api": "https://api.lever.co/v0/postings/t5datacenters?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 86,
-    "usJobs": 76,
+    "listedJobs": 85,
+    "usJobs": 75,
     "candidateRoles": 28,
     "qualifyingRoles": 22,
-    "rejectedOutOfScopeTitle": 48,
+    "rejectedOutOfScopeTitle": 47,
     "rejectedSeniorTitle": 3,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 3
@@ -1774,7 +1774,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T02:52:00.699Z",
+    "checkedAt": "2026-09-18T02:52:44.408Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1782,7 +1782,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T02:52:00.771Z",
+    "updatedAt": "2026-09-18T02:52:44.466Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 678,
@@ -1801,7 +1801,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T02:52:00.843Z",
+    "checkedAt": "2026-09-18T02:52:44.521Z",
     "before": 678,
     "after": 678,
     "removed": 0,
@@ -1809,7 +1809,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T02:52:28.568Z",
+    "checkedAt": "2026-09-18T02:53:04.506Z",
     "publishedJobs": 678,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -1825,9 +1825,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 10,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 80,
-    "updatedAt": "2026-09-18T02:52:28.800Z"
+    "updatedAt": "2026-09-18T02:53:04.672Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

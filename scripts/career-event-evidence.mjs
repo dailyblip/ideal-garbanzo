@@ -55,6 +55,40 @@ export function eventDateVariants(date) {
   ];
 }
 
+function yearlessDateMatched(date, normalizedText) {
+  const candidate = clean(date);
+  if (!isValidIsoDate(candidate) || !normalizedText) return false;
+  const match = candidate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const [, year, monthRaw, dayRaw] = match;
+  const month = Number(monthRaw);
+  const day = Number(dayRaw);
+  const [longMonth, shortMonth] = monthNames[month - 1];
+  const variants = [
+    `${longMonth} ${day}`,
+    `${shortMonth} ${day}`,
+    `${day} ${longMonth}`,
+    `${day} ${shortMonth}`
+  ].map(normalize);
+
+  // Some organizer agendas show the event year once in the page title/header,
+  // then label individual days as only "4 November" or "November 4". Accept
+  // that layout only when the target year is present somewhere on the page and
+  // the local date occurrence is not explicitly paired with a different year.
+  if (!normalizedText.includes(year)) return false;
+  for (const variant of variants) {
+    let index = normalizedText.indexOf(variant);
+    while (index !== -1) {
+      const start = Math.max(0, index - 48);
+      const end = Math.min(normalizedText.length, index + variant.length + 48);
+      const context = normalizedText.slice(start, end);
+      const nearbyYears = [...context.matchAll(/\b(?:19|20)\d{2}\b/g)].map(item => item[0]);
+      if (!nearbyYears.some(nearbyYear => nearbyYear !== year)) return true;
+      index = normalizedText.indexOf(variant, index + Math.max(variant.length, 1));
+    }
+  }
+  return false;
+}
+
 function eventStatusConflict(event, text) {
   const normalizedText = normalize(text);
   if (!normalizedText) return { conflicted: false, evidence: [] };
@@ -88,19 +122,23 @@ export function verifyEventContent(event, body) {
   const normalizedText = normalize(text);
   const normalizedName = normalize(event?.name);
   const dateVariants = eventDateVariants(event?.date);
-  const dateMatched = dateVariants.some(variant => normalizedText.includes(normalize(variant)));
+  const fullDateMatched = dateVariants.some(variant => normalizedText.includes(normalize(variant)));
 
   const nameTokens = [...new Set(normalizedName.split(' ')
     .filter(token => token.length >= 4 && !stopWords.has(token)))];
   const matchedNameTokens = nameTokens.filter(token => normalizedText.includes(token));
   const exactNameMatched = normalizedName.length >= 12 && normalizedText.includes(normalizedName);
   const nameMatched = exactNameMatched || matchedNameTokens.length >= Math.min(2, Math.max(1, nameTokens.length));
+  const yearlessMatched = exactNameMatched && yearlessDateMatched(event?.date, normalizedText);
+  const dateMatched = fullDateMatched || yearlessMatched;
   const status = eventStatusConflict(event, text);
   const matched = Boolean(dateMatched && nameMatched && !status.conflicted);
 
   return {
     matched,
     dateMatched,
+    fullDateMatched,
+    yearlessDateMatched: yearlessMatched,
     nameMatched,
     exactNameMatched,
     matchedNameTokens: matchedNameTokens.slice(0, 8),

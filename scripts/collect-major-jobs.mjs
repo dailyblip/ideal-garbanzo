@@ -32,7 +32,7 @@ const excludedTitleTerms = [
   'vp ', 'head of', 'staff engineer', 'supervisor', 'superintendent', 'foreman', 'counsel',
   'attorney', 'designer', 'architect', 'recruiter', 'sales', 'account executive',
   'business analyst', 'financial operations', 'financial analyst', 'finance analyst',
-  'procurement', 'purchasing', 'security operations', 'cybersecurity', 'information security',
+  'procurement', 'purchasing', 'supply chain', 'security operations', 'cybersecurity', 'information security',
   'software engineer', 'software developer', 'site reliability engineer', 'machine learning engineer',
   'data scientist', 'talent acquisition', 'human resources', 'enterprise it support',
   'enterprise applications', 'process analytics', 'marketing specialist',
@@ -175,6 +175,12 @@ if (process.argv.includes('--test-experience-parser')) {
       name: 'purchasing operations noise is rejected at source',
       title: 'Purchasing Operations Specialist, NA',
       description: 'Support purchasing for critical data center facilities with three years of relevant experience.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'supply chain operations noise is rejected at source',
+      title: 'Supply Chain Operations Analyst',
+      description: 'Support supply chain operations for data center infrastructure with two years of relevant experience.',
       expectedType: null, expectedExperience: null
     },
     {

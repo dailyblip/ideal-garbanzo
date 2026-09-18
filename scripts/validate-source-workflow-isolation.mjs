@@ -63,8 +63,7 @@ const knownCollisionGroups = new Set([
   'equinix-current-skillbridge.yml|equinix-stale-fallback-watch.yml',
   'equinix-verified-evidence-watch.yml|switch-bootstrap.yml',
   'flexential-stale-fallback-watch.yml|meta-stale-fallback-watch.yml',
-  'google-bootstrap.yml|oracle-stale-fallback-watch.yml|prime-stale-fallback-watch.yml|sabey-stale-fallback-watch.yml',
-  'major-workday-targeted-recovery.yml|novva-bootstrap.yml'
+  'google-bootstrap.yml|oracle-stale-fallback-watch.yml|prime-stale-fallback-watch.yml|sabey-stale-fallback-watch.yml'
 ]);
 
 const sourceWriterNamePattern = /(bootstrap|fallback|skillbridge|targeted-recovery|verified-evidence|detail-recovery)/i;

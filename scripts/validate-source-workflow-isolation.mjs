@@ -51,12 +51,6 @@ const raceSafeMarkers = [
   'if git push origin HEAD:main; then'
 ];
 
-// One pre-existing watchdog still publishes by a legacy path. Keep it visible as
-// debt while ensuring a second exception cannot appear unnoticed.
-const legacyRaceSafeExceptions = new Set([
-  '.github/workflows/major-workday-stale-fallback-watch.yml'
-]);
-
 // These exact collision groups pre-date automatic workflow discovery. They are
 // deliberately baselined so the new guard can merge without masking any NEW
 // collision. Each group remains visible in CI as a warning until it is staggered
@@ -65,7 +59,6 @@ const knownCollisionGroups = new Set([
   'aws-stale-fallback-watch.yml|coreweave-bootstrap.yml|generic-ats-stale-fallback-watch.yml|microsoft-stale-fallback-watch.yml',
   'aws-stale-fallback-watch.yml|generic-ats-stale-fallback-watch.yml|microsoft-stale-fallback-watch.yml',
   'compass-bootstrap.yml|coresite-stale-fallback-watch.yml|google-stale-fallback-watch.yml|iron-mountain-stale-fallback-watch.yml',
-  'digital-realty-stale-fallback-watch.yml|major-workday-stale-fallback-watch.yml',
   'edgeconnex-bootstrap.yml|flexential-stale-fallback-watch.yml|meta-stale-fallback-watch.yml',
   'equinix-current-skillbridge.yml|equinix-stale-fallback-watch.yml',
   'equinix-verified-evidence-watch.yml|switch-bootstrap.yml',
@@ -198,11 +191,8 @@ for (const path of feedWriters) {
     violations.push(`${path}: source refreshes must not cancel an in-progress run`);
   }
 
-  const missingRaceMarkers = raceSafeMarkers.filter((marker) => !text.includes(marker));
-  if (missingRaceMarkers.length && legacyRaceSafeExceptions.has(path)) {
-    warnings.push(`${path}: legacy race-safe exception is still active (${missingRaceMarkers.join(', ')})`);
-  } else {
-    for (const marker of missingRaceMarkers) violations.push(`${path}: race-safe source publication is missing ${marker}`);
+  for (const marker of raceSafeMarkers) {
+    if (!text.includes(marker)) violations.push(`${path}: race-safe source publication is missing ${marker}`);
   }
   if (/git\s+rebase\s+origin\/main/.test(text)) {
     violations.push(`${path}: generated source data must rebuild from latest main instead of rebasing a stale snapshot`);

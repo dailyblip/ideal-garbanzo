@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-09-18T16:12:52.578Z",
-  "jobsBefore": 677,
-  "jobsAfter": 677,
+  "checkedAt": "2026-09-18T16:22:16.495Z",
+  "jobsBefore": 692,
+  "jobsAfter": 692,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
@@ -9,7 +9,17 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5189148007",
+      "company": "xAI",
+      "title": "Electrical Reliability Engineer, Data Center Infrastructure - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5189148007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 8,
   "careerEventsAfter": 8,

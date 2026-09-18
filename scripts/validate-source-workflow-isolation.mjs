@@ -78,6 +78,7 @@ const scheduledPrimaryWriters = new Set([
   ...sharedWriterQueue,
   '.github/workflows/aws-detail-recovery.yml',
   '.github/workflows/compass-bootstrap.yml',
+  '.github/workflows/iron-mountain-bootstrap.yml',
   '.github/workflows/meta-bootstrap.yml',
   '.github/workflows/microsoft-bootstrap.yml',
   '.github/workflows/oracle-bootstrap.yml',

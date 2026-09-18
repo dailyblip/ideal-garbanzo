@@ -12,7 +12,7 @@ on:
       - 'scripts/validate-major-workday-parity.mjs'
       - '.github/workflows/major-workday-targeted-recovery.yml'
   schedule:
-    - cron: '43 */6 * * *'
+    - cron: '44 */6 * * *'
   workflow_dispatch:
 
 permissions:

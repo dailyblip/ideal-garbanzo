@@ -4,7 +4,7 @@ import { isValidIsoDate, verifyEventContent } from './career-event-evidence.mjs'
 const EVENTS_PATH = 'data/career-events.json';
 const TIMEOUT_MS = 15000;
 const CONCURRENCY = 4;
-const MAX_UNVERIFIED_AGE_DAYS = 30;
+const MAX_UNVERIFIED_AGE_DAYS = 7;
 const RESTAMP_AFTER_DAYS = 7;
 const MAX_BODY_CHARS = 1_500_000;
 const pruneExpiredOnly = process.argv.includes('--prune-expired-only');

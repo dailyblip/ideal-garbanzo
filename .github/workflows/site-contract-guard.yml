@@ -85,7 +85,9 @@ jobs:
       - name: Validate authored-page accessibility
         run: node scripts/validate-accessibility.mjs
       - name: Validate source workflow isolation
-        run: node scripts/validate-source-workflow-isolation.mjs
+        run: |
+          node scripts/validate-source-workflow-isolation.mjs
+          node scripts/validate-stale-prune-isolation.mjs
       - name: Validate time-bounded Equinix fallback state
         run: |
           node scripts/enforce-equinix-verified-evidence.mjs --test

@@ -1,12 +1,13 @@
 {
-  "updatedAt": "2026-09-18T05:12:35.447Z",
+  "updatedAt": "2026-09-18T05:16:52.406Z",
   "jobs": 671,
-  "sourcesAttempted": 19,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
     "ashby": 5,
-    "oracleRecruitingCloud": 2
+    "oracleRecruitingCloud": 2,
+    "googleCareers": 1
   },
   "countsByType": {
     "apprenticeship": 11,
@@ -1439,8 +1440,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-18T03:00:33.252Z",
-    "freshnessCheckedAt": "2026-09-18T03:00:33.252Z",
+    "lastHealthyAt": "2026-09-18T05:16:52.413Z",
+    "freshnessCheckedAt": "2026-09-18T05:16:52.413Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -1762,7 +1763,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T05:10:03.084Z",
+    "checkedAt": "2026-09-18T05:16:52.536Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1770,7 +1771,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T05:10:03.158Z",
+    "updatedAt": "2026-09-18T05:16:52.607Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 672,
@@ -1789,12 +1790,21 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T05:10:03.227Z",
+    "checkedAt": "2026-09-18T05:16:52.674Z",
     "before": 672,
-    "after": 672,
-    "removed": 0,
+    "after": 671,
+    "removed": 1,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "google-77675229853164230",
+        "keptId": "google-108517449598411462",
+        "company": "Google",
+        "title": "Data Center Technician, Night Shift",
+        "location": "Haskell, TX"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-18T05:10:26.614Z",
@@ -1806,7 +1816,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1171,
-    "currentJobs": 672,
+    "currentJobs": 671,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1815,7 +1825,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 79,
-    "updatedAt": "2026-09-18T05:10:26.805Z"
+    "updatedAt": "2026-09-18T05:16:52.731Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

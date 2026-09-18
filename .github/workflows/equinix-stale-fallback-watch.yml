@@ -2,7 +2,7 @@ name: Equinix stale fallback watchdog
 
 on:
   schedule:
-    - cron: '37 */6 * * *'
+    - cron: '38 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]

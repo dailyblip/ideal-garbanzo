@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T12:18:17.375Z",
+  "updatedAt": "2026-09-18T13:09:56.745Z",
   "jobs": 669,
   "sourcesAttempted": 20,
   "providers": {
@@ -1770,7 +1770,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-18T12:49:11.483Z",
+    "checkedAt": "2026-09-18T13:09:56.816Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1778,7 +1778,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-18T12:49:11.563Z",
+    "updatedAt": "2026-09-18T13:09:56.887Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 669,
@@ -1797,7 +1797,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-18T12:49:11.636Z",
+    "checkedAt": "2026-09-18T13:09:56.954Z",
     "before": 669,
     "after": 669,
     "removed": 0,
@@ -1805,7 +1805,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-18T12:49:28.138Z",
+    "checkedAt": "2026-09-18T13:10:18.313Z",
     "publishedJobs": 669,
     "removedJobs": 0,
     "activeCareerEvents": 8,
@@ -1821,9 +1821,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 10,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 82,
-    "updatedAt": "2026-09-18T12:49:28.404Z"
+    "updatedAt": "2026-09-18T13:10:18.443Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1972,7 +1972,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-18T07:37:23.831Z",
+    "checkedAt": "2026-09-18T13:09:56.745Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",
@@ -1981,12 +1981,12 @@
     "talentReefClientId": "14459",
     "talentReefBrand": null,
     "authoritativeSnapshot": true,
-    "listedJobs": 47,
-    "externalJobs": 47,
-    "usJobs": 47,
-    "candidateRoles": 32,
+    "listedJobs": 46,
+    "externalJobs": 46,
+    "usJobs": 46,
+    "candidateRoles": 31,
     "qualifyingRoles": 15,
-    "rejectedOutOfScopeTitle": 24,
+    "rejectedOutOfScopeTitle": 23,
     "rejectedOver5Years": 2,
     "rejectedUnknownExperience": 6,
     "rejectedLocation": 0

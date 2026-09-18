@@ -1,43 +1,7 @@
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 
-const sourceWorkflows = [
-  '.github/workflows/aws-detail-recovery.yml',
-  '.github/workflows/aws-stale-fallback-watch.yml',
-  '.github/workflows/cloudhq-bootstrap.yml',
-  '.github/workflows/cologix-bootstrap.yml',
-  '.github/workflows/compass-bootstrap.yml',
-  '.github/workflows/coresite-stale-fallback-watch.yml',
-  '.github/workflows/coreweave-bootstrap.yml',
-  '.github/workflows/databank-bootstrap.yml',
-  '.github/workflows/digital-realty-bootstrap.yml',
-  '.github/workflows/digital-realty-stale-fallback-watch.yml',
-  '.github/workflows/edgeconnex-bootstrap.yml',
-  '.github/workflows/equinix-bootstrap.yml',
-  '.github/workflows/equinix-stale-fallback-watch.yml',
-  '.github/workflows/equinix-verified-evidence-watch.yml',
-  '.github/workflows/flexential-bootstrap.yml',
-  '.github/workflows/flexential-stale-fallback-watch.yml',
-  '.github/workflows/generic-ats-stale-fallback-watch.yml',
-  '.github/workflows/google-bootstrap.yml',
-  '.github/workflows/google-stale-fallback-watch.yml',
-  '.github/workflows/iron-mountain-bootstrap.yml',
-  '.github/workflows/major-workday-bootstrap.yml',
-  '.github/workflows/meta-bootstrap.yml',
-  '.github/workflows/meta-stale-fallback-watch.yml',
-  '.github/workflows/microsoft-bootstrap.yml',
-  '.github/workflows/microsoft-stale-fallback-watch.yml',
-  '.github/workflows/novva-bootstrap.yml',
-  '.github/workflows/oracle-bootstrap.yml',
-  '.github/workflows/oracle-stale-fallback-watch.yml',
-  '.github/workflows/prime-data-centers-bootstrap.yml',
-  '.github/workflows/prime-stale-fallback-watch.yml',
-  '.github/workflows/sabey-bootstrap.yml',
-  '.github/workflows/stream-data-centers-bootstrap.yml',
-  '.github/workflows/switch-bootstrap.yml',
-  '.github/workflows/t5-data-centers-bootstrap.yml',
-  '.github/workflows/tierpoint-bootstrap.yml',
-  '.github/workflows/major-workday-targeted-recovery.yml'
-];
+const workflowDir = '.github/workflows';
+const fullRefreshPath = '.github/workflows/pages.yml';
 
 const sharedPipelinePaths = [
   'data/jobs.json',
@@ -70,28 +34,6 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
-// Primary employer collectors all write the same public feed. Some long-running
-// sources intentionally keep source-specific concurrency groups, but every
-// scheduled primary writer must still have a unique cron slot so two collectors
-// do not start from the same main revision and immediately contend on publication.
-const scheduledPrimaryWriters = new Set([
-  ...sharedWriterQueue,
-  '.github/workflows/aws-detail-recovery.yml',
-  '.github/workflows/compass-bootstrap.yml',
-  '.github/workflows/iron-mountain-bootstrap.yml',
-  '.github/workflows/meta-bootstrap.yml',
-  '.github/workflows/microsoft-bootstrap.yml',
-  '.github/workflows/oracle-bootstrap.yml',
-  '.github/workflows/sabey-bootstrap.yml',
-  '.github/workflows/tierpoint-bootstrap.yml'
-]);
-
-// Every workflow that rebuilds or reconciles the shared public feed must never
-// rebase generated JSON from a stale checkout. If another writer moves main while
-// collection is running, rebuild against that newest revision and retry the push
-// so unrelated employer updates cannot be silently overwritten.
-const raceSafeWriters = new Set(sourceWorkflows);
-
 const raceSafeMarkers = [
   'rebuild_from_latest_main()',
   'git reset --hard origin/main',
@@ -100,7 +42,7 @@ const raceSafeMarkers = [
 ];
 
 const violations = [];
-const primaryWriterScheduleSlots = new Map();
+const scheduleSlots = new Map();
 
 function expandCronField(field, min, max) {
   const values = new Set();
@@ -143,15 +85,15 @@ function expandCronField(field, min, max) {
   return [...values];
 }
 
-function addPrimarySchedule(path, cron) {
+function addSchedule(path, cron) {
   const fields = cron.trim().split(/\s+/);
   if (fields.length !== 5) {
-    violations.push(`${path}: primary writer cron must have five fields: ${cron}`);
+    violations.push(`${path}: feed-writer cron must have five fields: ${cron}`);
     return;
   }
   const [minuteField, hourField, dayOfMonth, month, dayOfWeek] = fields;
   if (dayOfMonth !== '*' || month !== '*' || dayOfWeek !== '*') {
-    violations.push(`${path}: primary writer schedule must remain daily for collision checking: ${cron}`);
+    violations.push(`${path}: feed-writer schedule must remain daily for collision checking: ${cron}`);
     return;
   }
 
@@ -161,8 +103,8 @@ function addPrimarySchedule(path, cron) {
     for (const hour of hours) {
       for (const minute of minutes) {
         const slot = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-        if (!primaryWriterScheduleSlots.has(slot)) primaryWriterScheduleSlots.set(slot, new Set());
-        primaryWriterScheduleSlots.get(slot).add(path);
+        if (!scheduleSlots.has(slot)) scheduleSlots.set(slot, new Set());
+        scheduleSlots.get(slot).add(path);
       }
     }
   } catch (error) {
@@ -170,8 +112,35 @@ function addPrimarySchedule(path, cron) {
   }
 }
 
-for (const path of sourceWorkflows) {
-  const text = await readFile(path, 'utf8');
+function isRecurringPublicFeedWriter(text) {
+  return /^\s*schedule:\s*$/m.test(text)
+    && text.includes('data/jobs.json')
+    && /git\s+push\s+origin\s+HEAD:main/.test(text);
+}
+
+const workflowNames = await readdir(workflowDir);
+const workflowTexts = new Map();
+for (const name of workflowNames.filter((name) => name.endsWith('.yml')).sort()) {
+  const path = `${workflowDir}/${name}`;
+  workflowTexts.set(path, await readFile(path, 'utf8'));
+}
+
+// Discover recurring public-feed writers from what they actually do rather than
+// from a hand-maintained allowlist. This keeps new collectors, fallback watches,
+// enrichers, and maintenance jobs from silently bypassing race/collision guards.
+const feedWriters = [...workflowTexts.entries()]
+  .filter(([path, text]) => path !== fullRefreshPath && isRecurringPublicFeedWriter(text))
+  .map(([path]) => path);
+const feedWriterSet = new Set(feedWriters);
+
+for (const requiredPath of sharedWriterQueue) {
+  if (!feedWriterSet.has(requiredPath)) {
+    violations.push(`${requiredPath}: expected shared-queue writer was not discovered as a recurring public-feed writer`);
+  }
+}
+
+for (const path of feedWriters) {
+  const text = workflowTexts.get(path);
   const onBlock = text.match(/^on:\s*\n([\s\S]*?)^permissions:/m)?.[1] || '';
   if (!onBlock) {
     violations.push(`${path}: could not isolate the trigger block`);
@@ -187,47 +156,41 @@ for (const path of sourceWorkflows) {
   if (sharedWriterQueue.has(path) && !/group:\s*careers-source-writers\b/.test(text)) {
     violations.push(`${path}: staggered shared-feed writer must use careers-source-writers concurrency`);
   }
-
   if (sharedWriterQueue.has(path) && !/queue:\s*max\b/.test(text)) {
     violations.push(`${path}: shared-feed writer must use queue: max so pending employer refreshes are not replaced`);
   }
 
-  if (scheduledPrimaryWriters.has(path)) {
-    const crons = [...onBlock.matchAll(/cron:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
-    if (!crons.length) {
-      violations.push(`${path}: primary feed writer must have a scheduled refresh`);
-    }
-    for (const cron of crons) addPrimarySchedule(path, cron);
+  const crons = [...onBlock.matchAll(/cron:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
+  if (!crons.length) {
+    violations.push(`${path}: recurring public-feed writer must have a scheduled refresh`);
   }
+  for (const cron of crons) addSchedule(path, cron);
 
   if (!/cancel-in-progress:\s*false\b/.test(text)) {
     violations.push(`${path}: source refreshes must not cancel an in-progress run`);
   }
 
-  if (raceSafeWriters.has(path)) {
-    for (const marker of raceSafeMarkers) {
-      if (!text.includes(marker)) {
-        violations.push(`${path}: race-safe source publication is missing ${marker}`);
-      }
+  for (const marker of raceSafeMarkers) {
+    if (!text.includes(marker)) {
+      violations.push(`${path}: race-safe source publication is missing ${marker}`);
     }
-    if (/git\s+rebase\s+origin\/main/.test(text)) {
-      violations.push(`${path}: generated source data must rebuild from latest main instead of rebasing a stale snapshot`);
-    }
+  }
+  if (/git\s+rebase\s+origin\/main/.test(text)) {
+    violations.push(`${path}: generated source data must rebuild from latest main instead of rebasing a stale snapshot`);
   }
 }
 
-for (const [slot, paths] of primaryWriterScheduleSlots) {
+for (const [slot, paths] of scheduleSlots) {
   if (paths.size > 1) {
     const names = [...paths].map((path) => path.split('/').pop()).sort().join(', ');
-    violations.push(`scheduled primary source collision at ${slot} UTC: ${names}`);
+    violations.push(`scheduled public-feed collision at ${slot} UTC: ${names}`);
   }
 }
 
-// The daily full refresh writes the same generated feed as the source-specific
+// The full refresh writes the same generated feed as the source-specific
 // workflows. It may keep its deployment-oriented concurrency policy, but its
 // publication path must follow the same fresh-main rebuild rule.
-const fullRefreshPath = '.github/workflows/pages.yml';
-const fullRefreshText = await readFile(fullRefreshPath, 'utf8');
+const fullRefreshText = workflowTexts.get(fullRefreshPath) || await readFile(fullRefreshPath, 'utf8');
 for (const marker of raceSafeMarkers) {
   if (!fullRefreshText.includes(marker)) {
     violations.push(`${fullRefreshPath}: race-safe full-refresh publication is missing ${marker}`);
@@ -242,4 +205,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${sourceWorkflows.length} feed-writing workflows; all ${raceSafeWriters.size} employer-direct writers and fallback watchdogs plus the full refresh enforce fresh-main rebuilds, ${sharedWriterQueue.size} shared-queue writers use the guarded queue with queue: max, and ${scheduledPrimaryWriters.size} scheduled primary source writers have no exact UTC collisions.`);
+console.log(`Source workflow isolation guard passed for ${feedWriters.length} auto-discovered recurring public-feed writers; all enforce fresh-main rebuilds and have no exact UTC schedule collisions. ${sharedWriterQueue.size} shared-queue writers retain the guarded careers-source-writers queue with queue: max.`);

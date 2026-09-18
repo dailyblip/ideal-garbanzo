@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import crypto from 'node:crypto';
+import './meta-fetch-policy.mjs';
 
 const COMPANY = 'Meta';
 const SNAPSHOT_PATH = 'data/meta-jobs.json';
@@ -30,7 +31,7 @@ const lower = value => clean(value).toLowerCase();
 const normalizeIdentity = value => lower(value).replace(/[^a-z0-9]+/g, ' ').trim();
 const hash = value => crypto.createHash('sha1').update(String(value)).digest('hex').slice(0, 14);
 
-const relevantTitlePattern = /(?:data cent(?:er|re)|critical facilit(?:y|ies)|critical environment|facility operations).*(?:technician|engineer|operations|building)|(?:technician|engineer|operations|building).*(?:data cent(?:er|re)|critical facilit(?:y|ies)|critical environment)/i;
+const relevantTitlePattern = /(?:data cent(?:er|re)|critical facilit(?:y|ies)|critical environment|facility operations).*(?:technician|engineer|operations|building|associate)|(?:technician|engineer|operations|building|associate).*(?:data cent(?:er|re)|critical facilit(?:y|ies)|critical environment)/i;
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|architect|program manager|project manager|product manager|capacity manager|partnerships?|strategy|counsel|attorney|recruiter|sales)\b/i;
 const physicalContextPattern = /\b(?:server hardware|rack(?:s|ing)?|break[ /-]?fix|critical systems?|critical facilit(?:y|ies)|electrical|mechanical|ups|generator|switchgear|hvac|cooling|chiller|maintenance|facility operations|data center operations|production operations|work orders?|preventive maintenance|controls systems?)\b/i;
 const experiencePattern = /\b(\d{1,2})\s*\+?\s*years?\s+(?:of\s+)?(?:[A-Za-z0-9/&+(),.'’\-]+\s+){0,10}experience\b/gi;
@@ -215,7 +216,7 @@ function parseMinimumQualifications(detailText) {
   return { text: minimumText, years: experienceYears(minimumText), scoped: true };
 }
 
-function classify(title, minimum) {
+function classify(title, minimum, detailText = '') {
   const t = lower(title);
   let type = 'entry-level';
   if (/intern(?:ship)?\b/.test(t)) type = 'internship';
@@ -226,7 +227,13 @@ function classify(title, minimum) {
   if (type !== 'entry-level' && !years.length) {
     return { type, experience: /apprentice|trainee|developmental program|skillbridge/.test(t) ? 'no-experience' : '0-2-years', minYears: null, maxYears: null };
   }
-  if (!years.length) return null;
+  if (!years.length) {
+    const earlyEvidence = lower(detailText).slice(0, 16000);
+    const explicitEarlyCareer = /\bic2\b[^.]{0,180}\bentry[- ]level position\b|\bentry[- ]level position\b[^.]{0,260}\b(?:designed for individuals beginning their careers|beginning their careers in technology|beginning their careers in data center operations)\b|\bthis role is designed for individuals beginning their careers\b/i.test(earlyEvidence);
+    return explicitEarlyCareer
+      ? { type, experience: '0-2-years', minYears: null, maxYears: null }
+      : null;
+  }
 
   const minYears = Math.min(...years);
   const maxYears = Math.max(...years);
@@ -305,7 +312,7 @@ function extractDetail(html, seed, diagnostics) {
   }
 
   const minimum = parseMinimumQualifications(detailText);
-  const cls = classify(title, minimum);
+  const cls = classify(title, minimum, detailText);
   if (!cls) {
     diagnostics.drops.experience += 1;
     addSample(diagnostics.experienceSamples, {
@@ -365,6 +372,35 @@ function dedupe(jobs) {
   }
   return out;
 }
+
+function runClassifierRegressionTests() {
+  const explicitEntry = classify(
+    'Data Center Technician',
+    { text: 'Minimum Qualifications High school diploma or GED Basic hands-on experience with computer hardware.', years: [], scoped: true },
+    'The IC2 Data Center Technician is an entry-level position. This role is designed for individuals beginning their careers in technology or data center operations.'
+  );
+  if (explicitEntry?.experience !== '0-2-years') throw new Error('Meta classifier must retain explicitly entry-level IC2 roles without numeric-year requirements.');
+
+  const vagueNoYears = classify(
+    'Data Center Technician',
+    { text: 'Minimum Qualifications Experience with computer hardware.', years: [], scoped: true },
+    'Support data center operations and follow standard procedures.'
+  );
+  if (vagueNoYears !== null) throw new Error('Meta classifier must fail closed when a standard role has no numeric or explicit early-career evidence.');
+
+  const seniorRequirement = classify(
+    'Critical Facility Engineer',
+    { text: 'Minimum Qualifications 7 years of critical facilities experience.', years: [7], scoped: true },
+    'Critical facilities operations.'
+  );
+  if (seniorRequirement !== null) throw new Error('Meta classifier must continue rejecting roles above the 0–5 year mission range.');
+
+  if (!missionFit('Critical Facility Associate', 'Data center operations with preventive maintenance and electrical systems.')) {
+    throw new Error('Meta mission-fit classifier must include early-career Critical Facility Associate roles.');
+  }
+}
+
+runClassifierRegressionTests();
 
 const currentJobs = await readJson(JOBS_PATH, []);
 const previousSnapshot = await readJson(SNAPSHOT_PATH, []);

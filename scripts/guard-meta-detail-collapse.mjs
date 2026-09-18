@@ -8,6 +8,8 @@ const PREVIOUS_SNAPSHOT_PATH = process.env.META_PREVIOUS_SNAPSHOT_PATH || '/tmp/
 const PREVIOUS_JOBS_PATH = process.env.META_PREVIOUS_JOBS_PATH || '/tmp/meta-jobs-public-before.json';
 const MIN_DETAIL_ATTEMPTS = 10;
 const MIN_HEALTHY_SITEMAP_JOBS = 50;
+const MIN_SEMANTIC_BASELINE_ROLES = 3;
+const MIN_SEMANTIC_SUCCESS_RATE = 0.8;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 
@@ -32,7 +34,7 @@ function canonicalId(job) {
   }
 }
 
-function healthState(metaStatus = {}) {
+function healthState(metaStatus = {}, currentSnapshotCount = 0, previousSnapshotCount = 0) {
   const diagnostics = metaStatus?.diagnostics || {};
   const attempts = Number(diagnostics.detailAttempted || 0);
   const succeeded = Number(diagnostics.detailSucceeded || 0);
@@ -40,8 +42,27 @@ function healthState(metaStatus = {}) {
   const discoveryHealthy = Number(diagnostics.searchPagesSucceeded || 0) > 0 ||
     (diagnostics.sitemapFetched === true && Number(diagnostics.sitemapJobs || 0) >= MIN_HEALTHY_SITEMAP_JOBS);
   const detailVerificationHealthy = attempts > 0 ? succeeded > 0 : null;
-  const collapsed = discoveryHealthy && attempts >= MIN_DETAIL_ATTEMPTS && succeeded === 0 && fetchDrops >= attempts;
-  return { attempts, succeeded, fetchDrops, discoveryHealthy, detailVerificationHealthy, collapsed };
+  const successRate = attempts > 0 ? succeeded / attempts : 0;
+  const fetchCollapsed = discoveryHealthy && attempts >= MIN_DETAIL_ATTEMPTS && succeeded === 0 && fetchDrops >= attempts;
+  const semanticCollapsed = discoveryHealthy &&
+    attempts >= MIN_DETAIL_ATTEMPTS &&
+    succeeded >= MIN_DETAIL_ATTEMPTS &&
+    successRate >= MIN_SEMANTIC_SUCCESS_RATE &&
+    previousSnapshotCount >= MIN_SEMANTIC_BASELINE_ROLES &&
+    currentSnapshotCount === 0;
+  const collapseKind = fetchCollapsed ? 'fetch' : semanticCollapsed ? 'semantic' : null;
+  return {
+    attempts,
+    succeeded,
+    fetchDrops,
+    successRate,
+    discoveryHealthy,
+    detailVerificationHealthy,
+    fetchCollapsed,
+    semanticCollapsed,
+    collapseKind,
+    collapsed: Boolean(collapseKind)
+  };
 }
 
 function restoreMetaState(currentJobs, previousJobs, previousSnapshot) {
@@ -81,9 +102,32 @@ function runSelfTest() {
     detailAttempted: 40,
     detailSucceeded: 0,
     drops: { fetch: 40 }
-  }});
-  if (!collapsed.collapsed || collapsed.detailVerificationHealthy !== false) {
+  }}, 0, 8);
+  if (!collapsed.collapsed || !collapsed.fetchCollapsed || collapsed.collapseKind !== 'fetch' || collapsed.detailVerificationHealthy !== false) {
     throw new Error('Meta detail-collapse detector did not fail closed on total detail failure.');
+  }
+
+  const semantic = healthState({ diagnostics: {
+    searchPagesSucceeded: 2,
+    sitemapFetched: true,
+    sitemapJobs: 992,
+    detailAttempted: 992,
+    detailSucceeded: 992,
+    drops: { fetch: 0, titleOrContext: 972, nonUsOrUnknownLocation: 2, experience: 18 }
+  }}, 0, 8);
+  if (!semantic.collapsed || !semantic.semanticCollapsed || semantic.collapseKind !== 'semantic' || semantic.detailVerificationHealthy !== true) {
+    throw new Error('Meta semantic-collapse detector did not fail closed when healthy detail fetches erased a previously verified snapshot.');
+  }
+
+  const legitimateEmptyBaseline = healthState({ diagnostics: {
+    sitemapFetched: true,
+    sitemapJobs: 992,
+    detailAttempted: 992,
+    detailSucceeded: 992,
+    drops: { fetch: 0 }
+  }}, 0, 0);
+  if (legitimateEmptyBaseline.collapsed) {
+    throw new Error('Meta semantic-collapse detector must not block an empty result when there is no verified baseline to protect.');
   }
 
   const partial = healthState({ diagnostics: {
@@ -92,7 +136,7 @@ function runSelfTest() {
     detailAttempted: 40,
     detailSucceeded: 3,
     drops: { fetch: 37 }
-  }});
+  }}, 2, 8);
   if (partial.collapsed || partial.detailVerificationHealthy !== true) {
     throw new Error('Meta detail-collapse detector rejected a partially verified refresh.');
   }
@@ -124,7 +168,7 @@ if (!Array.isArray(currentJobs) || !Array.isArray(currentSnapshot) || !Array.isA
 }
 
 const metaStatus = status.metaCareers || {};
-const health = healthState(metaStatus);
+const health = healthState(metaStatus, currentSnapshot.length, previousSnapshot.length);
 status.metaCareers = {
   ...metaStatus,
   discoveryHealthy: health.discoveryHealthy,
@@ -133,24 +177,33 @@ status.metaCareers = {
 
 if (!health.collapsed) {
   status.metaCareers.detailVerificationCollapse = false;
+  status.metaCareers.detailVerificationCollapseKind = null;
   await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
   console.log(`Meta detail verification did not collapse (${health.succeeded}/${health.attempts} detail requests succeeded).`);
   process.exit(0);
 }
 
 const restoredJobs = restoreMetaState(currentJobs, previousJobs, previousSnapshot);
+const semanticCollapse = health.collapseKind === 'semantic';
+const degradedReason = semanticCollapse
+  ? `Official Meta discovery and ${health.succeeded}/${health.attempts} detail requests succeeded, but qualifying roles collapsed from ${previousSnapshot.length} to 0. Prior verified roles were retained pending a fresh successful classification pass and liveness pruning.`
+  : `Official Meta discovery remained reachable, but all ${health.attempts} attempted detail verifications failed. Prior verified roles were retained pending detail recovery and liveness pruning.`;
+
 status.metaCareers = {
   ...status.metaCareers,
   sourceHealthy: false,
   qualifyingRoles: previousSnapshot.length,
   usedPreviousSnapshot: previousSnapshot.length > 0,
   detailVerificationCollapse: true,
-  degradedReason: `Official Meta discovery remained reachable, but all ${health.attempts} attempted detail verifications failed. Prior verified roles were retained pending detail recovery and liveness pruning.`
+  detailVerificationCollapseKind: health.collapseKind,
+  degradedReason
 };
 
-const collapseMessage = `Meta Careers: detail verification collapsed (${health.succeeded}/${health.attempts} succeeded); publication is using only the prior verified Meta snapshot until detail verification recovers.`;
+const collapseMessage = semanticCollapse
+  ? `Meta Careers: semantic verification collapsed (0 qualifying roles after ${health.succeeded}/${health.attempts} successful detail fetches, down from ${previousSnapshot.length}); publication is using only the prior verified Meta snapshot until classification verification recovers.`
+  : `Meta Careers: detail verification collapsed (${health.succeeded}/${health.attempts} succeeded); publication is using only the prior verified Meta snapshot until detail verification recovers.`;
 status.errors = [
-  ...(Array.isArray(status.errors) ? status.errors : []).filter(error => !String(error).startsWith('Meta Careers: detail verification collapsed')),
+  ...(Array.isArray(status.errors) ? status.errors : []).filter(error => !String(error).startsWith('Meta Careers: detail verification collapsed') && !String(error).startsWith('Meta Careers: semantic verification collapsed')),
   collapseMessage
 ];
 recalcCounts(status, restoredJobs);
@@ -159,4 +212,4 @@ await writeFile(SNAPSHOT_PATH, JSON.stringify(previousSnapshot, null, 2) + '\n')
 await writeFile(JOBS_PATH, JSON.stringify(restoredJobs, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
-console.warn(`Meta detail verification collapsed after ${health.attempts} attempts; restored ${previousSnapshot.length} previously verified Meta role(s) and marked the source degraded.`);
+console.warn(`${semanticCollapse ? 'Meta semantic verification' : 'Meta detail verification'} collapsed; restored ${previousSnapshot.length} previously verified Meta role(s) and marked the source degraded.`);

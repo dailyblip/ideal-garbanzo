@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T20:54:38.499Z",
+  "updatedAt": "2026-09-19T20:58:24.242Z",
   "jobs": 721,
   "sourcesAttempted": 20,
   "providers": {
@@ -2055,7 +2055,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T20:54:38.647Z",
+    "updatedAt": "2026-09-19T20:58:24.296Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 721,
@@ -2074,7 +2074,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T20:54:38.713Z",
+    "checkedAt": "2026-09-19T20:58:24.343Z",
     "before": 721,
     "after": 721,
     "removed": 0,
@@ -2100,7 +2100,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T20:54:38.776Z"
+    "updatedAt": "2026-09-19T20:58:24.384Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2814,13 +2814,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-19T16:02:40.921Z",
+    "checkedAt": "2026-09-19T20:58:24.242Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
-    "qualifyingRoles": 2,
+    "qualifyingRoles": 4,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2839,10 +2839,13 @@
         "requisition": "JR-163300",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          2,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-158170",
@@ -2862,10 +2865,15 @@
         "requisition": "JR-811161",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       }
     ],
     "errors": []

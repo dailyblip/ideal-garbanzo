@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T16:16:26.199Z",
+  "updatedAt": "2026-09-19T16:37:51.920Z",
   "jobs": 692,
   "sourcesAttempted": 22,
   "providers": {
@@ -3543,25 +3543,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T16:16:26.275Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-19T16:37:52.003Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T16:16:26.350Z",
+    "updatedAt": "2026-09-19T16:37:52.082Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 692,
@@ -3580,7 +3570,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T16:16:26.423Z",
+    "checkedAt": "2026-09-19T16:37:52.155Z",
     "before": 692,
     "after": 692,
     "removed": 0,
@@ -3588,7 +3578,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T16:16:44.522Z",
+    "checkedAt": "2026-09-19T16:38:11.402Z",
     "publishedJobs": 692,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3606,7 +3596,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T16:16:44.961Z"
+    "updatedAt": "2026-09-19T16:38:11.617Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3692,7 +3682,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-19T11:59:08.471Z",
+    "checkedAt": "2026-09-19T16:37:51.920Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

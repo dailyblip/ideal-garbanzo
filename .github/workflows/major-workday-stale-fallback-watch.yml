@@ -106,8 +106,8 @@ jobs:
           echo '::error::Could not publish major Workday freshness state after three fresh verification attempts.'
           exit 1
 
-      - name: Deploy stale-role removal
-        if: steps.enforce.outputs.roles_changed == 'true'
+      - name: Deploy updated Workday freshness state
+        if: steps.enforce.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

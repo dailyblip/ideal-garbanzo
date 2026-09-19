@@ -6,6 +6,9 @@ const STATUS_PATH = 'data/collector-status.json';
 const STATE_PATH = 'data/major-workday-freshness.json';
 const MAX_FALLBACK_AGE_HOURS = 96;
 const HEALTHY_STAMP_INTERVAL_HOURS = 20;
+const DETAIL_SAMPLE_SIZE = 3;
+const REQUEST_TIMEOUT_MS = 10000;
+const RETRIES = 2;
 
 const boards = [
   { company: 'Vantage Data Centers', origin: 'https://vantagedc.wd1.myworkdayjobs.com', tenant: 'vantagedc', site: 'Vantage', locale: 'en-US' },
@@ -18,6 +21,7 @@ const boards = [
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const isCompany = (job, company) => clean(job?.company) === company;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function readJson(path, fallback) {
   try { return JSON.parse(await readFile(path, 'utf8')); }
@@ -25,21 +29,65 @@ async function readJson(path, fallback) {
 }
 
 async function fetchJson(url, options = {}) {
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      accept: 'application/json',
-      'user-agent': 'DataCenterCareersBot/1.5 (+https://datacentercareers.us/)',
-      ...(options.headers || {})
+  let lastError = null;
+  for (let attempt = 1; attempt <= RETRIES; attempt += 1) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+        headers: {
+          accept: 'application/json',
+          'user-agent': 'DataCenterCareersBot/1.7 (+https://datacentercareers.us/)',
+          ...(options.headers || {})
+        }
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const contentType = clean(response.headers.get('content-type')).toLowerCase();
+      if (contentType && !contentType.includes('json')) {
+        throw new Error(`expected JSON but received ${contentType}`);
+      }
+      const payload = await response.json();
+      clearTimeout(timeout);
+      return payload;
+    } catch (error) {
+      clearTimeout(timeout);
+      lastError = error;
+      if (attempt < RETRIES) await sleep(350 * attempt);
     }
-  });
-  if (!response.ok) throw new Error(`${response.status} ${url}`);
-  return response.json();
+  }
+  throw lastError || new Error('request failed');
 }
 
-async function probeBoard(board) {
+function detailPathFromSourceUrl(board, sourceUrl) {
+  let parsed;
+  try {
+    parsed = new URL(clean(sourceUrl));
+  } catch {
+    return '';
+  }
+  if (parsed.protocol !== 'https:' || parsed.origin !== board.origin) return '';
+  const prefix = `/${board.locale}/${board.site}`;
+  if (!parsed.pathname.startsWith(`${prefix}/`)) return '';
+  const externalPath = parsed.pathname.slice(prefix.length);
+  return externalPath.startsWith('/job/') ? externalPath : '';
+}
+
+function hasUsableDetail(payload) {
+  const info = payload?.jobPostingInfo || payload?.jobInfo;
+  if (!info || typeof info !== 'object') return false;
+  return Boolean(clean(info.title || info.jobTitle || info.jobDescription || info.description));
+}
+
+function detailTransportHealthy(attempted, succeeded) {
+  return attempted > 0 && succeeded === attempted;
+}
+
+async function probeBoard(board, companySnapshot = []) {
   const endpoint = `${board.origin}/wday/cxs/${board.tenant}/${board.site}/jobs`;
   const seen = new Set();
+  const listingPaths = [];
   let offset = 0;
   let total = null;
   let pagesAttempted = 0;
@@ -75,9 +123,11 @@ async function probeBoard(board) {
 
     let fresh = 0;
     for (const row of rows) {
-      const key = clean(row?.externalPath || row?.bulletFields?.[0] || `${row?.title || ''}|${row?.locationsText || ''}`);
+      const externalPath = clean(row?.externalPath);
+      const key = clean(externalPath || row?.bulletFields?.[0] || `${row?.title || ''}|${row?.locationsText || ''}`);
       if (!key || seen.has(key)) continue;
       seen.add(key);
+      if (externalPath.startsWith('/job/')) listingPaths.push(externalPath);
       fresh += 1;
     }
 
@@ -104,10 +154,72 @@ async function probeBoard(board) {
     incompleteReason = `listing returned ${seen.size} unique postings for a reported total of ${total}`;
   }
 
-  const healthy = !incompleteReason && Number.isFinite(total) && total > 0 && seen.size === total;
+  const listingComplete = !incompleteReason && Number.isFinite(total) && total > 0 && seen.size === total;
+  if (!listingComplete) {
+    return {
+      healthy: false,
+      listingComplete: false,
+      detailHealthy: false,
+      detailAttempted: 0,
+      detailSucceeded: 0,
+      detailErrors: [],
+      reportedRows: Number.isFinite(total) ? total : null,
+      uniqueRows: seen.size,
+      pagesAttempted,
+      pagesSucceeded,
+      ...(incompleteReason ? { incompleteReason } : {})
+    };
+  }
+
+  const listingPathSet = new Set(listingPaths);
+  const samplePaths = [];
+  const sampled = new Set();
+  for (const job of companySnapshot) {
+    const path = detailPathFromSourceUrl(board, job?.sourceUrl);
+    if (!path || !listingPathSet.has(path) || sampled.has(path)) continue;
+    sampled.add(path);
+    samplePaths.push(path);
+    if (samplePaths.length >= DETAIL_SAMPLE_SIZE) break;
+  }
+  if (samplePaths.length < DETAIL_SAMPLE_SIZE) {
+    for (const path of listingPaths) {
+      if (sampled.has(path)) continue;
+      sampled.add(path);
+      samplePaths.push(path);
+      if (samplePaths.length >= DETAIL_SAMPLE_SIZE) break;
+    }
+  }
+
+  let detailSucceeded = 0;
+  const detailErrors = [];
+  for (const externalPath of samplePaths) {
+    const sourceUrl = `${board.origin}/${board.locale}/${board.site}${externalPath}`;
+    const detailUrl = `${board.origin}/wday/cxs/${board.tenant}/${board.site}${externalPath}`;
+    try {
+      const payload = await fetchJson(detailUrl, { headers: { referer: sourceUrl } });
+      if (!hasUsableDetail(payload)) throw new Error('detail response lacked job posting content');
+      detailSucceeded += 1;
+    } catch (error) {
+      detailErrors.push(`${externalPath}: ${clean(error?.message || error)}`);
+    }
+  }
+
+  const detailAttempted = samplePaths.length;
+  const detailHealthy = detailTransportHealthy(detailAttempted, detailSucceeded);
+  const healthy = listingComplete && detailHealthy;
+  if (!detailHealthy) {
+    incompleteReason = detailAttempted
+      ? `Workday listing is complete, but only ${detailSucceeded}/${detailAttempted} sampled current detail endpoint(s) returned usable JSON`
+      : 'Workday listing is complete, but no current detail endpoint could be sampled';
+  }
+
   return {
     healthy,
-    listingComplete: healthy,
+    listingComplete,
+    detailHealthy,
+    detailAttempted,
+    detailSucceeded,
+    detailErrors,
     reportedRows: Number.isFinite(total) ? total : null,
     uniqueRows: seen.size,
     pagesAttempted,
@@ -141,21 +253,29 @@ function legacyHealthyBaseline(status, diagnostics, nowMs) {
 }
 
 function watchRecord({ healthy, nowIso, baseline, probe, roles, reason = '' }) {
+  const common = {
+    checkedAt: nowIso,
+    roles,
+    maxAgeHours: MAX_FALLBACK_AGE_HOURS,
+    listingComplete: probe?.listingComplete === true,
+    detailHealthy: probe?.detailHealthy === true,
+    detailAttempted: Number(probe?.detailAttempted || 0),
+    detailSucceeded: Number(probe?.detailSucceeded || 0),
+    reportedRows: probe?.reportedRows ?? null,
+    uniqueRows: probe?.uniqueRows ?? 0,
+    pagesAttempted: probe?.pagesAttempted ?? 0,
+    pagesSucceeded: probe?.pagesSucceeded ?? 0,
+    ...(Array.isArray(probe?.detailErrors) && probe.detailErrors.length ? { detailErrors: probe.detailErrors.slice(0, DETAIL_SAMPLE_SIZE) } : {})
+  };
+
   if (healthy) {
     return {
       sourceHealthy: true,
       active: false,
       expired: false,
-      checkedAt: nowIso,
+      ...common,
       lastHealthyAt: nowIso,
-      expiresAt: new Date(Date.parse(nowIso) + MAX_FALLBACK_AGE_HOURS * 36e5).toISOString(),
-      roles,
-      maxAgeHours: MAX_FALLBACK_AGE_HOURS,
-      listingComplete: true,
-      reportedRows: probe.reportedRows,
-      uniqueRows: probe.uniqueRows,
-      pagesAttempted: probe.pagesAttempted,
-      pagesSucceeded: probe.pagesSucceeded
+      expiresAt: new Date(Date.parse(nowIso) + MAX_FALLBACK_AGE_HOURS * 36e5).toISOString()
     };
   }
 
@@ -164,18 +284,11 @@ function watchRecord({ healthy, nowIso, baseline, probe, roles, reason = '' }) {
     sourceHealthy: false,
     active: decision.active,
     expired: decision.expired,
-    checkedAt: nowIso,
+    ...common,
     lastHealthyAt: baseline || null,
     expiresAt: decision.expiresAt ? new Date(decision.expiresAt).toISOString() : null,
     ageHours: decision.ageHours === null ? null : Math.round(decision.ageHours * 10) / 10,
-    roles,
-    maxAgeHours: MAX_FALLBACK_AGE_HOURS,
-    listingComplete: false,
-    reportedRows: probe?.reportedRows ?? null,
-    uniqueRows: probe?.uniqueRows ?? 0,
-    pagesAttempted: probe?.pagesAttempted ?? 0,
-    pagesSucceeded: probe?.pagesSucceeded ?? 0,
-    reason: reason || probe?.incompleteReason || 'Employer Workday listing could not be verified.'
+    reason: reason || probe?.incompleteReason || 'Employer Workday listing/detail verification could not be completed.'
   };
 }
 
@@ -187,6 +300,30 @@ function runSelfTest() {
   if (!boundary.expired || boundary.active) throw new Error('major Workday fallback did not expire at 96 hours');
   const unknown = freshnessDecision(null, now);
   if (!unknown.expired || unknown.active) throw new Error('major Workday fallback without verification evidence did not fail closed');
+
+  if (!detailTransportHealthy(3, 3)) throw new Error('fully healthy sampled detail transport was rejected');
+  if (detailTransportHealthy(3, 2)) throw new Error('partial sampled detail transport incorrectly refreshed source freshness');
+  if (detailTransportHealthy(3, 0)) throw new Error('collapsed sampled detail transport incorrectly refreshed source freshness');
+  if (detailTransportHealthy(0, 0)) throw new Error('missing detail sample incorrectly refreshed source freshness');
+
+  const board = boards[0];
+  const parsed = detailPathFromSourceUrl(
+    board,
+    'https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Ashburn-Virginia/Critical-Facilities-Engineer_R12345'
+  );
+  if (parsed !== '/job/Ashburn-Virginia/Critical-Facilities-Engineer_R12345') {
+    throw new Error(`detail-path parsing regression: ${parsed || '(empty)'}`);
+  }
+  if (detailPathFromSourceUrl(board, 'https://example.com/en-US/Vantage/job/Test_R1')) {
+    throw new Error('detail-path parser accepted a non-official host');
+  }
+  if (!hasUsableDetail({ jobPostingInfo: { jobDescription: '<p>Role</p>' } })) {
+    throw new Error('usable Workday detail payload was rejected');
+  }
+  if (hasUsableDetail({ jobPostingInfo: {} }) || hasUsableDetail({})) {
+    throw new Error('empty Workday detail payload was accepted');
+  }
+
   const legacy = legacyHealthyBaseline(
     { updatedAt: '2026-09-10T10:00:00Z', majorSources: { reconciliation: { checkedAt: '2026-09-10T11:00:00Z' } } },
     { sourceHealthy: true, listingComplete: true, usedPreviousSnapshot: false },
@@ -199,7 +336,8 @@ function runSelfTest() {
     now
   );
   if (rejectedLegacy !== null) throw new Error('unhealthy legacy diagnostics were incorrectly accepted as verification evidence');
-  console.log('Major Workday fallback freshness regression tests passed.');
+
+  console.log('Major Workday listing/detail fallback freshness regression tests passed.');
 }
 
 async function validateState() {
@@ -229,6 +367,15 @@ async function validateState() {
     }
     if (watch.sourceHealthy === true && (watch.active === true || watch.expired === true)) {
       violations.push(`${board.company}: healthy source is also marked fallback-active/expired`);
+    }
+    if (watch.sourceHealthy === true && watch.listingComplete !== true) {
+      violations.push(`${board.company}: healthy source lacks complete listing verification`);
+    }
+    if (watch.sourceHealthy === true && watch.detailHealthy !== true) {
+      violations.push(`${board.company}: healthy source lacks sampled detail verification`);
+    }
+    if (watch.sourceHealthy === true && (!Number.isFinite(Number(watch.detailAttempted)) || Number(watch.detailAttempted) < 1)) {
+      violations.push(`${board.company}: healthy source has no sampled detail evidence`);
     }
   }
 
@@ -260,8 +407,9 @@ let jobs = [...originalJobs];
 let snapshot = [...originalSnapshot];
 const status = structuredClone(originalStatus);
 const durable = originalDurable && typeof originalDurable === 'object' && !Array.isArray(originalDurable) ? structuredClone(originalDurable) : {};
-durable.version = 1;
+durable.version = 2;
 durable.maxFallbackAgeHours = MAX_FALLBACK_AGE_HOURS;
+durable.verificationPolicy = 'complete Workday listing plus sampled current job-detail JSON';
 durable.employers = durable.employers && typeof durable.employers === 'object' && !Array.isArray(durable.employers) ? durable.employers : {};
 status.majorSources = status.majorSources && typeof status.majorSources === 'object' ? status.majorSources : {};
 status.majorSources.employerDiagnostics = status.majorSources.employerDiagnostics && typeof status.majorSources.employerDiagnostics === 'object'
@@ -285,15 +433,20 @@ for (const board of boards) {
     : null;
   const priorWatch = durableWatch || statusWatch;
   const currentRoleCount = jobs.filter(job => isCompany(job, board.company)).length;
+  const companySnapshot = snapshot.filter(job => isCompany(job, board.company));
   let probe = null;
   let probeError = '';
   try {
-    probe = await probeBoard(board);
+    probe = await probeBoard(board, companySnapshot);
   } catch (error) {
     probeError = clean(error?.message || error);
     probe = {
       healthy: false,
       listingComplete: false,
+      detailHealthy: false,
+      detailAttempted: 0,
+      detailSucceeded: 0,
+      detailErrors: [],
       reportedRows: null,
       uniqueRows: 0,
       pagesAttempted: 0,
@@ -305,7 +458,10 @@ for (const board of boards) {
   if (probe.healthy) {
     const priorHealthyMs = Date.parse(String(priorWatch?.lastHealthyAt || ''));
     const stampAgeHours = Number.isFinite(priorHealthyMs) ? Math.max(0, (nowMs - priorHealthyMs) / 36e5) : Infinity;
-    const shouldPersist = !durableWatch || !statusWatch || !priorWatch || priorWatch.sourceHealthy !== true || priorWatch.active === true || priorWatch.expired === true || stampAgeHours >= HEALTHY_STAMP_INTERVAL_HOURS;
+    const previousPolicyWasDetailAware = priorWatch?.detailHealthy === true && Number(priorWatch?.detailAttempted) > 0;
+    const shouldPersist = !durableWatch || !statusWatch || !priorWatch || !previousPolicyWasDetailAware ||
+      priorWatch.sourceHealthy !== true || priorWatch.active === true || priorWatch.expired === true ||
+      stampAgeHours >= HEALTHY_STAMP_INTERVAL_HOURS;
     if (shouldPersist) {
       const nextWatch = watchRecord({ healthy: true, nowIso, baseline: nowIso, probe, roles: currentRoleCount });
       status.majorSources.employerDiagnostics[board.company] = { ...diagnostics, fallbackFreshness: nextWatch };
@@ -313,19 +469,33 @@ for (const board of boards) {
       statusChanged = true;
       durableChanged = true;
     }
-    summaries.push({ company: board.company, state: 'healthy', roles: currentRoleCount, reportedRows: probe.reportedRows });
+    summaries.push({
+      company: board.company,
+      state: 'healthy',
+      roles: currentRoleCount,
+      reportedRows: probe.reportedRows,
+      detailVerified: `${probe.detailSucceeded}/${probe.detailAttempted}`
+    });
     continue;
   }
 
   const baseline = clean(durableWatch?.lastHealthyAt) || clean(statusWatch?.lastHealthyAt) || legacyHealthyBaseline(status, diagnostics, nowMs);
   const decision = freshnessDecision(baseline, nowMs);
+  const reason = probeError || probe.incompleteReason;
   if (!decision.expired) {
-    const nextWatch = watchRecord({ healthy: false, nowIso, baseline, probe, roles: currentRoleCount, reason: probeError || probe.incompleteReason });
+    const nextWatch = watchRecord({ healthy: false, nowIso, baseline, probe, roles: currentRoleCount, reason });
     status.majorSources.employerDiagnostics[board.company] = { ...diagnostics, fallbackFreshness: nextWatch };
     durable.employers[board.company] = nextWatch;
     statusChanged = true;
     durableChanged = true;
-    summaries.push({ company: board.company, state: 'fallback', roles: currentRoleCount, expiresAt: nextWatch.expiresAt });
+    summaries.push({
+      company: board.company,
+      state: 'fallback',
+      roles: currentRoleCount,
+      expiresAt: nextWatch.expiresAt,
+      listingComplete: probe.listingComplete === true,
+      detailVerified: `${probe.detailSucceeded || 0}/${probe.detailAttempted || 0}`
+    });
     continue;
   }
 
@@ -336,11 +506,11 @@ for (const board of boards) {
   const removed = publicBefore + snapshotBefore;
   rolesChanged = rolesChanged || removed > 0;
 
-  const nextWatch = watchRecord({ healthy: false, nowIso, baseline, probe, roles: 0, reason: probeError || probe.incompleteReason });
+  const nextWatch = watchRecord({ healthy: false, nowIso, baseline, probe, roles: 0, reason });
   nextWatch.rolesRemovedFromPublic = publicBefore;
   nextWatch.rolesRemovedFromSnapshot = snapshotBefore;
   nextWatch.reason = baseline
-    ? `Employer-direct verification exceeded ${MAX_FALLBACK_AGE_HOURS} hours, so retained ${board.company} roles were removed until the source recovers. Last check: ${probeError || probe.incompleteReason || 'unverified listing'}`
+    ? `Employer-direct listing/detail verification exceeded ${MAX_FALLBACK_AGE_HOURS} hours, so retained ${board.company} roles were removed until the source recovers. Last check: ${reason || 'unverified Workday source'}`
     : `No trustworthy employer-direct verification timestamp was available, so retained ${board.company} roles were removed until the source can be verified.`;
   status.majorSources.employerDiagnostics[board.company] = { ...diagnostics, fallbackFreshness: nextWatch };
   durable.employers[board.company] = nextWatch;
@@ -376,7 +546,8 @@ if (statusChanged) {
   status.majorSources.fallbackFreshness = {
     maxAgeHours: MAX_FALLBACK_AGE_HOURS,
     healthyStampIntervalHours: HEALTHY_STAMP_INTERVAL_HOURS,
-    policy: `Retain a priority Workday employer snapshot for at most ${MAX_FALLBACK_AGE_HOURS} hours after the last complete official listing verification; then remove that employer until recovery.`,
+    detailSampleSize: DETAIL_SAMPLE_SIZE,
+    policy: `Retain a priority Workday employer snapshot for at most ${MAX_FALLBACK_AGE_HOURS} hours after the last complete official listing plus sampled current job-detail verification; then remove that employer until recovery.`,
     summaries
   };
 }
@@ -397,4 +568,4 @@ if (durableChanged || JSON.stringify(durable) !== JSON.stringify(originalDurable
 const healthyCount = summaries.filter(item => item.state === 'healthy').length;
 const fallbackCount = summaries.filter(item => item.state === 'fallback').length;
 const expiredCount = summaries.filter(item => item.state === 'expired').length;
-console.log(`Major Workday freshness check: ${healthyCount} healthy, ${fallbackCount} inside fallback window, ${expiredCount} expired; ${rolesChanged ? 'stale roles pruned' : 'no role pruning required'}.`);
+console.log(`Major Workday listing/detail freshness check: ${healthyCount} healthy, ${fallbackCount} inside fallback window, ${expiredCount} expired; ${rolesChanged ? 'stale roles pruned' : 'no role pruning required'}.`);

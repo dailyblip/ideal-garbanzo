@@ -44,6 +44,7 @@ const diagnostics = status?.majorSources?.employerDiagnostics || {};
 const durableEmployers = durable?.employers && typeof durable.employers === 'object' && !Array.isArray(durable.employers)
   ? durable.employers
   : {};
+const detailAwareState = Number(durable?.version) >= 2;
 const nowMs = Date.now();
 const futureToleranceMs = CLOCK_SKEW_MINUTES * 60e3;
 const maxVerificationAgeMs = MAX_VERIFICATION_AGE_HOURS * 36e5;
@@ -84,6 +85,18 @@ for (const company of companies) {
   if (watch.sourceHealthy === true) {
     if (watch.listingComplete !== true) {
       violations.push(`${company}: healthy source is missing complete-listing evidence`);
+    }
+    if (detailAwareState) {
+      const attempted = Number(watch.detailAttempted);
+      const succeeded = Number(watch.detailSucceeded);
+      if (watch.detailHealthy !== true) {
+        violations.push(`${company}: healthy source is missing sampled job-detail verification`);
+      }
+      if (!Number.isFinite(attempted) || attempted < 1) {
+        violations.push(`${company}: healthy source has no sampled job-detail evidence`);
+      } else if (!Number.isFinite(succeeded) || succeeded !== attempted) {
+        violations.push(`${company}: healthy source verified only ${Number.isFinite(succeeded) ? succeeded : 'an invalid count'}/${attempted} sampled job-detail endpoint(s)`);
+      }
     }
     if (watch.active !== false || watch.expired !== false) {
       violations.push(`${company}: healthy source is incorrectly marked fallback-active or expired`);
@@ -130,4 +143,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} priority Workday freshness regression(s).`);
 }
 
-console.log(`Priority Workday deployment freshness guard passed for ${companies.length} employers; verification evidence is under ${MAX_VERIFICATION_AGE_HOURS} hours old.`);
+console.log(`Priority Workday deployment freshness guard passed for ${companies.length} employers; verification evidence is under ${MAX_VERIFICATION_AGE_HOURS} hours old${detailAwareState ? ' and healthy sources include sampled job-detail verification' : ''}.`);

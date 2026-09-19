@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T05:47:16.156Z",
+  "updatedAt": "2026-09-19T05:55:18.821Z",
   "jobs": 689,
   "sourcesAttempted": 18,
   "providers": {
@@ -3413,9 +3413,9 @@
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
       "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
       "expired": true,
-      "checkedAt": "2026-09-19T05:10:37.427Z",
+      "checkedAt": "2026-09-19T05:55:18.821Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 218.5,
+      "expiredAgeHours": 219.3,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3635,36 +3635,17 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T05:47:17.098Z",
-    "changed": 1,
-    "samples": [
-      {
-        "id": "ashby-lambda-0bdbbcbdc49122",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
-      }
-    ],
-    "regionAssigned": 691,
-    "regionMissing": 2,
-    "coveragePct": 99.7,
-    "missingSamples": [
-      {
-        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
-      },
-      {
-        "id": "ashby-lambda-8308606de297f6",
-        "company": "Lambda",
-        "location": "Querétaro, Mexico - Data Center",
-        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
-      }
-    ],
+    "updatedAt": "2026-09-19T05:55:18.878Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 689,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
       "texas": 112,
       "west": 106,
-      "southeast": 103,
+      "southeast": 101,
       "southwest": 86,
       "midwest": 136,
       "mid-atlantic": 126,
@@ -3673,32 +3654,15 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T05:47:17.216Z",
-    "before": 691,
+    "checkedAt": "2026-09-19T05:55:18.923Z",
+    "before": 689,
     "after": 689,
-    "removed": 2,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-4538639007",
-        "keptId": "gh-xai-5227699007",
-        "company": "xAI",
-        "title": "Facilities Operations Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-5127519007",
-        "keptId": "gh-xai-5219754007",
-        "company": "xAI",
-        "title": "Mechanical Commissioning Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T05:32:07.887Z",
+    "checkedAt": "2026-09-19T05:55:39.014Z",
     "publishedJobs": 689,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3716,7 +3680,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-19T05:47:17.253Z"
+    "updatedAt": "2026-09-19T05:55:39.226Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

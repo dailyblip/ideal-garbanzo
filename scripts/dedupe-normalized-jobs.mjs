@@ -31,10 +31,9 @@ function canonicalTitle(job) {
   title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) =>
     tailBelongsToLocation(tail) || NON_DISTINCT_TITLE_QUALIFIERS.has(normalizeIdentity(tail)) ? '' : full
   );
-  // Shift-only suffixes make cards look duplicated when the employer has
-  // published equivalent roles at the same site. Keep one representative role
-  // per normalized employer + title + location, while preserving other regions.
-  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
+  // Shift qualifiers are applicant-significant schedule differences. Keep day,
+  // night, overnight, and weekend shift labels in the semantic identity so a
+  // same-site opening on another shift is never discarded as a duplicate.
   return normalizeIdentity(title);
 }
 
@@ -254,6 +253,47 @@ if (auditedQualifierRegression.kept.length !== 1 || auditedQualifierRegression.r
   throw new Error('Post-normalization dedupe qualifier regression: audited CBQE title aliases must collapse to one opening.');
 }
 
+// Regression: different shifts at the same facility are distinct opportunities
+// for applicants and must survive semantic dedupe. A true duplicate on the same
+// shift should still collapse normally.
+const shiftRegression = dedupeRecords([
+  {
+    id: 'day-opening',
+    title: 'Critical Engineering Technician, Day Shift',
+    company: 'Example Data Centers',
+    location: 'San Antonio, TX',
+    sourceUrl: 'https://jobs.example.com/jobs/444444',
+    type: 'entry-level',
+    experience: '0-2-years',
+    pay: ''
+  },
+  {
+    id: 'night-opening',
+    title: 'Critical Engineering Technician, Night Shift',
+    company: 'Example Data Centers',
+    location: 'San Antonio, TX',
+    sourceUrl: 'https://jobs.example.com/jobs/555555',
+    type: 'entry-level',
+    experience: '0-2-years',
+    pay: ''
+  },
+  {
+    id: 'night-duplicate',
+    title: 'Critical Engineering Technician, Night Shift',
+    company: 'Example Data Centers',
+    location: 'San Antonio, TX',
+    sourceUrl: 'https://jobs.example.com/jobs/666666',
+    type: 'entry-level',
+    experience: '0-2-years',
+    pay: ''
+  }
+]);
+if (shiftRegression.kept.length !== 2 || shiftRegression.removed.length !== 1 ||
+    !shiftRegression.kept.some(job => job.id === 'day-opening') ||
+    !shiftRegression.kept.some(job => job.id === 'night-opening')) {
+  throw new Error('Post-normalization dedupe shift regression: distinct day/night openings must not collapse together.');
+}
+
 function countBy(values, key) {
   return values.reduce((counts, item) => {
     const value = String(item?.[key] || '').trim();
@@ -278,7 +318,7 @@ try {
     before: jobs.length,
     after: kept.length,
     removed: removed.length,
-    policy: 'one representative posting per normalized employer + title + location',
+    policy: 'one representative posting per normalized employer + shift-aware title + location',
     examples: removed.slice(0, 20)
   };
   await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-19T10:53:12.961Z",
-  "jobs": 709,
+  "updatedAt": "2026-09-19T10:57:25.505Z",
+  "jobs": 708,
   "sourcesAttempted": 30,
   "providers": {
     "lever": 7,
@@ -10,14 +10,14 @@
   },
   "countsByType": {
     "trainee": 10,
-    "entry-level": 677,
+    "entry-level": 676,
     "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "no-experience": 24,
     "2-5-years": 299,
-    "0-2-years": 386
+    "0-2-years": 385
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1414,22 +1414,22 @@
         "query": "datacenter technician",
         "healthy": true,
         "pages": 4,
-        "reportedRows": 32,
-        "rows": 32
+        "reportedRows": 31,
+        "rows": 31
       },
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 25,
-        "reportedRows": 243,
-        "rows": 243
+        "pages": 24,
+        "reportedRows": 237,
+        "rows": 237
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 29,
-        "reportedRows": 284,
-        "rows": 284
+        "reportedRows": 281,
+        "rows": 281
       },
       {
         "query": "inventory and asset technician",
@@ -1439,12 +1439,12 @@
         "rows": 19
       }
     ],
-    "candidateRows": 372,
-    "plausibleRows": 36,
-    "detailAttempts": 36,
-    "detailVerified": 36,
-    "currentQualifyingRoles": 36,
-    "qualifyingRoles": 36,
+    "candidateRows": 366,
+    "plausibleRows": 35,
+    "detailAttempts": 35,
+    "detailVerified": 35,
+    "currentQualifyingRoles": 35,
+    "qualifyingRoles": 35,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -1456,9 +1456,9 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-19T04:37:02.732Z",
-      "expiresAt": "2026-09-23T04:37:02.732Z",
-      "roles": 36,
+      "verifiedAt": "2026-09-19T10:57:24.395Z",
+      "expiresAt": "2026-09-23T10:57:24.395Z",
+      "roles": 35,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
   },
@@ -2064,63 +2064,24 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T10:53:13.458Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-19T10:57:25.576Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T10:53:13.518Z",
+    "updatedAt": "2026-09-19T10:57:25.641Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 709,
+    "regionAssigned": 708,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "northeast": 23,
-      "west": 114,
+      "west": 113,
       "mid-atlantic": 130,
       "southwest": 88,
       "midwest": 138,
@@ -2130,9 +2091,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T10:53:13.571Z",
-    "before": 709,
-    "after": 709,
+    "checkedAt": "2026-09-19T10:57:25.707Z",
+    "before": 708,
+    "after": 708,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -2147,7 +2108,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1214,
-    "currentJobs": 709,
+    "currentJobs": 708,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2156,7 +2117,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 107,
-    "updatedAt": "2026-09-19T10:53:30.063Z"
+    "updatedAt": "2026-09-19T10:57:25.755Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

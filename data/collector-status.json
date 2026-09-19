@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T16:15:14.007Z",
+  "updatedAt": "2026-09-19T16:16:26.199Z",
   "jobs": 692,
   "sourcesAttempted": 22,
   "providers": {
@@ -3543,15 +3543,25 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T16:15:14.090Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-19T16:16:26.275Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "senior/executive title": 1
+    },
+    "removed": [
+      {
+        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
+        "company": "Prime Data Centers",
+        "title": "Data Center Business Systems Architect",
+        "location": "Dallas, TX; Denver, CO",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T16:15:14.165Z",
+    "updatedAt": "2026-09-19T16:16:26.350Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 692,
@@ -3570,7 +3580,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T16:15:14.235Z",
+    "checkedAt": "2026-09-19T16:16:26.423Z",
     "before": 692,
     "after": 692,
     "removed": 0,
@@ -3578,7 +3588,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T16:15:32.310Z",
+    "checkedAt": "2026-09-19T16:16:44.522Z",
     "publishedJobs": 692,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3596,7 +3606,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T16:15:32.512Z"
+    "updatedAt": "2026-09-19T16:16:44.961Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4395,8 +4405,8 @@
     "samples": []
   },
   "primeDataCenters": {
-    "checkedAt": "2026-09-19T11:48:34.288Z",
-    "lastSuccessfulAt": "2026-09-19T11:48:34.288Z",
+    "checkedAt": "2026-09-19T16:16:26.199Z",
+    "lastSuccessfulAt": "2026-09-19T16:16:26.199Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://primedatacenters.com/careers/",

@@ -131,8 +131,8 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-19T11:47:21.055Z",
-    "lastHealthyAt": "2026-09-19T11:47:21.055Z",
+    "checkedAt": "2026-09-19T16:07:14.261Z",
+    "lastHealthyAt": "2026-09-19T16:07:14.261Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
@@ -159,9 +159,9 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-19T11:47:21.055Z",
-      "checkedAt": "2026-09-19T11:47:21.055Z",
-      "expiresAt": "2026-09-23T11:47:21.055Z",
+      "lastHealthyAt": "2026-09-19T16:07:14.261Z",
+      "checkedAt": "2026-09-19T16:07:14.261Z",
+      "expiresAt": "2026-09-23T16:07:14.261Z",
       "ageHours": 0,
       "maxAgeHours": 96,
       "roles": 10,
@@ -2044,7 +2044,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T16:03:35.904Z",
+    "checkedAt": "2026-09-19T16:07:27.652Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2052,7 +2052,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T16:03:35.965Z",
+    "updatedAt": "2026-09-19T16:07:27.703Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 692,
@@ -2065,13 +2065,13 @@
       "texas": 112,
       "southwest": 85,
       "southeast": 104,
-      "west": 109,
       "northeast": 24,
+      "west": 109,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T16:03:36.022Z",
+    "checkedAt": "2026-09-19T16:07:27.749Z",
     "before": 692,
     "after": 692,
     "removed": 0,
@@ -2079,7 +2079,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T16:03:48.875Z",
+    "checkedAt": "2026-09-19T16:07:40.744Z",
     "publishedJobs": 692,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -2097,7 +2097,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T16:03:49.022Z"
+    "updatedAt": "2026-09-19T16:07:40.876Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

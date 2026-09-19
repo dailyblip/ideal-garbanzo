@@ -39,6 +39,18 @@ const missionTitlePattern = /\b(?:client support technician i|cross connect spec
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman)\b/i;
 const leadershipRequirementPattern = /\b(?:supervisory or team lead|supervisory experience|team lead experience|supervising technical staff|supervise technicians|leadership experience|people management experience)\b/i;
 const dataCenterContextPattern = /\b(?:data cent(?:er|re)|mission-critical|critical infrastructure|critical facilities|supernap)\b/i;
+const detailRoleAliases = new Map([
+  ['network operations center technician i', new Set(['mission control network technician i', 'core support specialist i'])],
+  ['telecom network operations center technician i', new Set(['core support specialist i'])]
+]);
+
+function detailRoleCompatible(listedTitle = '', detailRole = '') {
+  const listed = normalizeTitle(listedTitle);
+  const detailed = normalizeTitle(detailRole);
+  if (!detailed) return true;
+  if (listed === detailed || listed.includes(detailed) || detailed.includes(listed)) return true;
+  return detailRoleAliases.get(listed)?.has(detailed) || false;
+}
 
 function requiredQualificationsText(description = '') {
   const text = clean(description);
@@ -135,11 +147,8 @@ function classify(title, description = '', detailRole = '') {
   if (seniorTitlePattern.test(t)) return { classification: null, reason: 'senior-title' };
   if (!dataCenterContextPattern.test(description)) return { classification: null, reason: 'missing-data-center-context' };
 
-  if (detailRole) {
-    const listed = normalizeTitle(t);
-    const detailed = normalizeTitle(detailRole);
-    const compatible = listed === detailed || listed.includes(detailed) || detailed.includes(listed);
-    if (!compatible) return { classification: null, reason: 'detail-title-mismatch' };
+  if (detailRole && !detailRoleCompatible(t, detailRole)) {
+    return { classification: null, reason: 'detail-title-mismatch' };
   }
 
   const required = requiredQualificationsText(description);
@@ -279,6 +288,20 @@ if (process.argv.includes('--test-classifier')) {
       detailRole: 'DCO Facilities Technician II',
       description: 'Critical facilities data center operations. Required 3+ years of related experience. Preferred certifications.',
       expectedType: 'entry-level', expectedExperience: '2-5-years'
+    },
+    {
+      name: 'network operations alias qualifies',
+      title: 'Network Operations Center Technician I',
+      detailRole: 'Mission Control Network Technician I',
+      description: 'Mission-critical data center network infrastructure monitoring. Required 2+ years of related experience or equivalent education and training.',
+      expectedType: 'entry-level', expectedExperience: '0-2-years'
+    },
+    {
+      name: 'telecom noc core support alias qualifies',
+      title: 'Telecom Network Operations Center Technician I',
+      detailRole: 'CORE Support Specialist I',
+      description: 'Data center network infrastructure, carrier coordination and incident support. Required 2+ years of telecom or IT support experience or equivalent education and training.',
+      expectedType: 'entry-level', expectedExperience: '0-2-years'
     },
     {
       name: 'over-five requirement is rejected',

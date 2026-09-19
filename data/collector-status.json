@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-09-19T21:34:07.952Z",
+  "updatedAt": "2026-09-19T21:46:57.397Z",
   "jobs": 730,
-  "sourcesAttempted": 22,
+  "sourcesAttempted": 23,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 3,
-    "googleCareers": 1
+    "googleCareers": 2
   },
   "countsByType": {
     "entry-level": 698,
@@ -2962,8 +2962,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-19T21:11:06.233Z",
-    "freshnessCheckedAt": "2026-09-19T21:11:06.233Z",
+    "lastHealthyAt": "2026-09-19T21:46:57.403Z",
+    "freshnessCheckedAt": "2026-09-19T21:46:57.403Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -3545,7 +3545,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T21:34:08.030Z",
+    "checkedAt": "2026-09-19T21:46:57.510Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3553,7 +3553,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T21:34:08.111Z",
+    "updatedAt": "2026-09-19T21:46:57.567Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 730,
@@ -3572,7 +3572,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T21:34:08.185Z",
+    "checkedAt": "2026-09-19T21:46:57.620Z",
     "before": 730,
     "after": 730,
     "removed": 0,
@@ -3598,7 +3598,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-19T21:34:32.265Z"
+    "updatedAt": "2026-09-19T21:46:57.668Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

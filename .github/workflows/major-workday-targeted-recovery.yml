@@ -19,9 +19,13 @@ permissions:
   contents: write
   actions: write
 
+# This recovery mutates the same shared jobs feed as the dedicated ATS writers.
+# Join their queue so long Workday verification runs do not repeatedly lose the
+# final push race to another shared-feed publisher.
 concurrency:
-  group: major-workday-targeted-recovery
+  group: careers-source-writers
   cancel-in-progress: false
+  queue: max
 
 jobs:
   recover:
@@ -127,7 +131,9 @@ jobs:
             rebuild_from_latest_main
           fi
 
-          for attempt in 1 2 3; do
+          # The shared queue prevents collisions with the busiest ATS writers;
+          # bounded retries still protect against independently queued publishers.
+          for attempt in 1 2 3 4 5; do
             git add data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo 'Targeted recovery left no data changes to commit.'
@@ -144,11 +150,11 @@ jobs:
             rebuild_from_latest_main
           done
 
-          echo '::error::Could not publish targeted Workday recovery after three fresh rebuilds.'
+          echo '::error::Could not publish targeted Workday recovery after five fresh rebuilds.'
           exit 1
 
-      - name: Deploy reconciled roles
-        if: steps.recovery.outputs.roles_changed == 'true'
+      - name: Deploy reconciled recovery state
+        if: steps.recovery.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

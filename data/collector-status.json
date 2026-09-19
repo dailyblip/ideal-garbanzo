@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-19T15:43:43.247Z",
-  "jobs": 707,
+  "updatedAt": "2026-09-19T15:51:29.558Z",
+  "jobs": 696,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -8,15 +8,15 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 675,
-    "internship": 11,
+    "entry-level": 664,
     "trainee": 10,
+    "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 299,
-    "0-2-years": 384,
-    "no-experience": 24
+    "2-5-years": 298,
+    "no-experience": 24,
+    "0-2-years": 374
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1351,24 +1351,21 @@
   "amazonDatacenter": {
     "officialSource": "https://www.amazon.jobs/content/en/teams/amazon-web-services/data-centers",
     "searchSource": "https://www.amazon.jobs/en/search",
-    "sourceHealthy": false,
+    "sourceHealthy": true,
     "queriesAttempted": 5,
-    "queriesSucceeded": 1,
+    "queriesSucceeded": 5,
     "queryStats": [
       {
         "query": "data center",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 2000
       },
       {
         "query": "data center technician",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center+technician&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 1318
       },
       {
         "query": "engineering operations technician",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=engineering+operations+technician&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 399
       },
       {
         "query": "work based learning data center",
@@ -1376,38 +1373,23 @@
       },
       {
         "query": "project engineer data center",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=project+engineer+data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 19
       }
     ],
-    "candidateRows": 3,
-    "uniqueCandidates": 2,
-    "freshQualifyingRoles": 2,
-    "preservedPreviousRoles": 235,
-    "qualifyingRoles": 237,
+    "candidateRows": 3739,
+    "uniqueCandidates": 1149,
+    "freshQualifyingRoles": 21,
+    "preservedPreviousRoles": 0,
+    "qualifyingRoles": 21,
     "drops": {
-      "nonUs": 0,
-      "title": 0,
+      "nonUs": 299,
+      "title": 533,
       "context": 0,
-      "experience": 0,
-      "unknownExperience": 0,
+      "experience": 2,
+      "unknownExperience": 294,
       "invalidUrl": 0
     },
-    "errors": [
-      "data center: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "data center technician: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center+technician&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "engineering operations technician: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=engineering+operations+technician&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "project engineer data center: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=project+engineer+data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "Amazon Jobs partial search: 1/5 queries succeeded; retained 235 previously verified AWS roles until a complete scan succeeds."
-    ],
-    "fallbackFreshness": {
-      "active": true,
-      "expired": false,
-      "lastHealthyAt": "2026-09-19T04:33:29Z",
-      "checkedAt": "2026-09-19T10:53:13.404Z",
-      "maxAgeHours": 96,
-      "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
-    }
+    "errors": []
   },
   "microsoftDatacenter": {
     "officialSource": "https://apply.careers.microsoft.com/careers",
@@ -2070,117 +2052,165 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T15:43:43.324Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-19T15:51:29.728Z",
+    "removedCount": 5,
+    "removedByReason": {
+      "senior/executive title": 2,
+      "non-mission role family": 3
+    },
+    "removed": [
+      {
+        "id": "amazon-10534644",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "San Antonio, TX",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10515905",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "Culpeper, VA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10513234",
+        "company": "Amazon Web Services",
+        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
+        "location": "Seattle, WA",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "amazon-10430644",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "Boardman, OR",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "amazon-10427682",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "New Carlisle, IN",
+        "reason": "non-mission role family"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T15:43:43.403Z",
+    "updatedAt": "2026-09-19T15:51:29.792Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 707,
+    "regionAssigned": 696,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 113,
-      "west": 113,
-      "southeast": 102,
-      "midwest": 140,
-      "mid-atlantic": 127,
-      "southwest": 88,
-      "northeast": 23,
+      "west": 110,
+      "mid-atlantic": 123,
+      "northeast": 24,
+      "southwest": 85,
+      "midwest": 136,
+      "texas": 112,
+      "southeast": 105,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T15:43:43.479Z",
-    "before": 707,
-    "after": 707,
+    "checkedAt": "2026-09-19T15:51:29.850Z",
+    "before": 696,
+    "after": 696,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T15:44:06.717Z",
-    "publishedJobs": 707,
+    "checkedAt": "2026-09-19T15:51:45.893Z",
+    "publishedJobs": 696,
     "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1217,
-    "currentJobs": 707,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1218,
+    "currentJobs": 696,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T15:44:07.012Z"
+    "updatedAt": "2026-09-19T15:51:46.011Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
-    "fullSearchHealthy": false,
+    "fullSearchHealthy": true,
     "queriesAttempted": 5,
-    "queriesSucceeded": 0,
+    "queriesSucceeded": 5,
     "queryStats": [
       {
         "query": "data center",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 2000
       },
       {
         "query": "data center technician",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center+technician&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 1318
       },
       {
         "query": "engineering operations technician",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=engineering+operations+technician&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 399
       },
       {
         "query": "work based learning data center",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=work+based+learning+data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 3
       },
       {
         "query": "project engineer data center",
-        "rows": 0,
-        "error": "503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=project+engineer+data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern"
+        "rows": 19
       }
     ],
-    "rawRows": 0,
-    "missionFitUsCandidates": 0,
-    "uniquePublishIdentities": 0,
-    "duplicatesSkippedBeforeHydration": 0,
-    "reusedVerified": 0,
-    "detailCandidates": 0,
-    "detailAttempted": 0,
-    "detailSucceeded": 0,
-    "detailRecovered": 0,
-    "detailFetchFailed": 0,
-    "detailUnknownExperience": 0,
-    "detailOverFiveYears": 0,
+    "rawRows": 3739,
+    "missionFitUsCandidates": 1294,
+    "uniquePublishIdentities": 307,
+    "duplicatesSkippedBeforeHydration": 987,
+    "reusedVerified": 20,
+    "detailCandidates": 287,
+    "detailAttempted": 287,
+    "detailSucceeded": 253,
+    "detailRecovered": 202,
+    "detailFetchFailed": 34,
+    "detailUnknownExperience": 38,
+    "detailOverFiveYears": 13,
     "invalidUrls": 0,
-    "preservedPrevious": 237,
-    "qualifyingRoles": 237,
-    "detailErrorSamples": [],
-    "errors": [
-      "data center: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "data center technician: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center+technician&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "engineering operations technician: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=engineering+operations+technician&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "work based learning data center: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=work+based+learning+data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "project engineer data center: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=project+engineer+data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",
-      "Amazon Jobs recovery returned no searchable rows; retained the previous verified AWS snapshot."
-    ]
+    "preservedPrevious": 0,
+    "qualifyingRoles": 222,
+    "detailErrorSamples": [
+      "https://www.amazon.jobs/en/jobs/10493571/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10493571/data-center-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10491905/data-center-engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10491905/data-center-engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10491606/engineering-operations-technician: 503 https://www.amazon.jobs/en/jobs/10491606/engineering-operations-technician",
+      "https://www.amazon.jobs/en/jobs/10491668/engineering-operations-technician-night-shift-dceo-engr: 503 https://www.amazon.jobs/en/jobs/10491668/engineering-operations-technician-night-shift-dceo-engr",
+      "https://www.amazon.jobs/en/jobs/10483648/engineering-operations-technician-aws-infrastructure-services: 503 https://www.amazon.jobs/en/jobs/10483648/engineering-operations-technician-aws-infrastructure-services",
+      "https://www.amazon.jobs/en/jobs/10482498/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/10482498/engineering-operation-technician",
+      "https://www.amazon.jobs/en/jobs/10479164/engineering-operations-technician-data-center-engineering-operations-dceo: 503 https://www.amazon.jobs/en/jobs/10479164/engineering-operations-technician-data-center-engineering-operations-dceo",
+      "https://www.amazon.jobs/en/jobs/10476297/data-center-technician-north-region-military-veterans-encouraged: 503 https://www.amazon.jobs/en/jobs/10476297/data-center-technician-north-region-military-veterans-encouraged",
+      "https://www.amazon.jobs/en/jobs/10476306/data-center-technician-southeast-region-military-veterans-encouraged: 503 https://www.amazon.jobs/en/jobs/10476306/data-center-technician-southeast-region-military-veterans-encouraged",
+      "https://www.amazon.jobs/en/jobs/10471743/data-center-technician-night-role: 503 https://www.amazon.jobs/en/jobs/10471743/data-center-technician-night-role",
+      "https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10478803/engineering-operations-technician-infraops-ag: 503 https://www.amazon.jobs/en/jobs/10478803/engineering-operations-technician-infraops-ag",
+      "https://www.amazon.jobs/en/jobs/10459296/data-center-operations-technician: 503 https://www.amazon.jobs/en/jobs/10459296/data-center-operations-technician",
+      "https://www.amazon.jobs/en/jobs/10467847/engineering-operations-technician-night-shift: 503 https://www.amazon.jobs/en/jobs/10467847/engineering-operations-technician-night-shift",
+      "https://www.amazon.jobs/en/jobs/10445982/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10445982/data-center-technician",
+      "https://www.amazon.jobs/en/jobs/10433914/engineering-operation-technician-aws-data-center-team: 503 https://www.amazon.jobs/en/jobs/10433914/engineering-operation-technician-aws-data-center-team",
+      "https://www.amazon.jobs/en/jobs/10435864/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10435864/data-center-technician",
+      "https://www.amazon.jobs/en/jobs/10433704/install-technician-aws-data-center-team: 503 https://www.amazon.jobs/en/jobs/10433704/install-technician-aws-data-center-team",
+      "https://www.amazon.jobs/en/jobs/10408193/data-center-technician-maf-hiring-event-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10408193/data-center-technician-maf-hiring-event-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10408378/engineering-operation-technician-maf-hiring-event: 503 https://www.amazon.jobs/en/jobs/10408378/engineering-operation-technician-maf-hiring-event"
+    ],
+    "errors": []
   },
   "earlyCareerStalePrune": {
     "checkedAt": "2026-09-10T20:49:51.524Z",

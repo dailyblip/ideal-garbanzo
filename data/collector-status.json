@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-19T04:50:23.876Z",
-  "jobs": 692,
+  "updatedAt": "2026-09-19T04:52:59.871Z",
+  "jobs": 688,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -8,15 +8,15 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 665,
+    "apprenticeship": 11,
     "internship": 6,
     "trainee": 10,
-    "apprenticeship": 11
+    "entry-level": 661
   },
   "countsByExperience": {
-    "0-2-years": 382,
-    "2-5-years": 286,
-    "no-experience": 24
+    "0-2-years": 378,
+    "no-experience": 24,
+    "2-5-years": 286
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1914,31 +1914,27 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 29,
-      "detailAttempted": 29,
-      "detailSucceeded": 29,
+      "candidateLinks": 28,
+      "detailAttempted": 28,
+      "detailSucceeded": 28,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 3,
+      "staleRemoved": 4,
       "qualifyingRoles": 1,
       "drops": {
-        "non-us": 6,
-        "context": 1,
-        "title": 15,
+        "non-us": 7,
+        "title": 14,
         "unknown-experience": 6
       },
       "dropSamples": [
         {
-          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
-          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
+          "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
         },
         {
-          "title": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
-          "listingLabel": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
+          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
         },
         {
           "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
@@ -1977,10 +1973,10 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 4,
+      "broadListingEvidenceAdded": 5,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -1992,13 +1988,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 4,
+        "unknownExperience": 3,
         "unusable": 0,
-        "verifiedMismatch": 3
+        "verifiedMismatch": 2
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 3,
-      "verifiedFallbackExpiredAt": "2026-09-18T21:07:13.497Z"
+      "expiredVerifiedFallbackRoles": 4,
+      "verifiedFallbackExpiredAt": "2026-09-19T04:52:59.871Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2029,28 +2025,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T04:50:24.027Z",
+    "updatedAt": "2026-09-19T04:53:00.035Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 692,
+    "regionAssigned": 688,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 106,
-      "southeast": 102,
       "midwest": 136,
-      "mid-atlantic": 129,
+      "mid-atlantic": 126,
       "texas": 111,
       "southwest": 86,
+      "southeast": 101,
       "northeast": 21,
+      "west": 106,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T04:50:24.095Z",
-    "before": 692,
-    "after": 692,
+    "checkedAt": "2026-09-19T04:53:00.112Z",
+    "before": 688,
+    "after": 688,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -2065,7 +2061,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1211,
-    "currentJobs": 692,
+    "currentJobs": 688,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2074,7 +2070,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-19T04:50:51.808Z"
+    "updatedAt": "2026-09-19T04:53:00.183Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2783,11 +2779,11 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-18T21:07:13.497Z",
+    "checkedAt": "2026-09-19T04:52:59.871Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 3,
+    "expiredEarlyCareerFallbackRoles": 4,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },

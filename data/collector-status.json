@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T05:17:22.062Z",
+  "updatedAt": "2026-09-19T05:30:57.307Z",
   "jobs": 689,
   "sourcesAttempted": 20,
   "providers": {
@@ -16,8 +16,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 378,
     "2-5-years": 287,
+    "0-2-years": 378,
     "no-experience": 24
   },
   "errors": [],
@@ -220,7 +220,7 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-18T16:57:43.955Z",
+    "checkedAt": "2026-09-19T05:30:57.307Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3533,7 +3533,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T05:11:03.285Z",
+    "checkedAt": "2026-09-19T05:30:57.375Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3541,7 +3541,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T05:11:03.350Z",
+    "updatedAt": "2026-09-19T05:30:57.437Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 689,
@@ -3549,10 +3549,10 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 136,
       "texas": 112,
       "west": 106,
       "southeast": 101,
+      "midwest": 136,
       "mid-atlantic": 126,
       "southwest": 86,
       "northeast": 21,
@@ -3560,7 +3560,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T05:11:03.407Z",
+    "checkedAt": "2026-09-19T05:30:57.494Z",
     "before": 689,
     "after": 689,
     "removed": 0,
@@ -3568,7 +3568,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T05:11:20.636Z",
+    "checkedAt": "2026-09-19T05:31:27.253Z",
     "publishedJobs": 689,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3584,9 +3584,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 10,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-19T05:11:20.885Z"
+    "updatedAt": "2026-09-19T05:31:27.410Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

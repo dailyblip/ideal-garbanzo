@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-19T20:58:24.242Z",
+  "updatedAt": "2026-09-19T21:00:42.390Z",
   "jobs": 721,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 2
+    "oracleRecruitingCloud": 3
   },
   "countsByType": {
     "apprenticeship": 11,
@@ -1823,8 +1823,8 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2261,
-    "listingRows": 2258,
+    "totalOpenRoles": 2254,
+    "listingRows": 2251,
     "pagesAttempted": 13,
     "pagesSucceeded": 13,
     "candidateRows": 92,
@@ -1833,7 +1833,7 @@
     "preservedFromPrevious": 0,
     "qualifyingRoles": 15,
     "drops": {
-      "title": 2166,
+      "title": 2159,
       "nonUs": 33,
       "context": 13,
       "experience": 26,
@@ -1842,7 +1842,7 @@
     },
     "errors": [],
     "missionFitScrub": {
-      "checkedAt": "2026-09-19T16:02:29.487Z",
+      "checkedAt": "2026-09-19T21:00:42.434Z",
       "removedFromSnapshot": 4,
       "removedFromPublicFeed": 4,
       "removed": [
@@ -2047,7 +2047,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T20:59:14.547Z",
+    "checkedAt": "2026-09-19T21:00:42.479Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2055,7 +2055,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T20:59:14.632Z",
+    "updatedAt": "2026-09-19T21:00:42.530Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 721,
@@ -2074,7 +2074,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T20:59:14.705Z",
+    "checkedAt": "2026-09-19T21:00:42.574Z",
     "before": 721,
     "after": 721,
     "removed": 0,
@@ -2098,9 +2098,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 15,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T20:59:36.750Z"
+    "updatedAt": "2026-09-19T21:00:42.613Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -4,21 +4,25 @@ on:
   pull_request:
     paths:
       - 'scripts/manage-promotion.mjs'
+      - 'scripts/prune-promotions.mjs'
       - 'scripts/validate-promotions.mjs'
       - 'scripts/test-promotion-runtime-contract.mjs'
       - 'data/employer-products.json'
       - 'data/featured-jobs.json'
       - '.github/workflows/promotion-admin.yml'
+      - '.github/workflows/promotion-lifecycle.yml'
       - '.github/workflows/promotion-admin-guard.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/manage-promotion.mjs'
+      - 'scripts/prune-promotions.mjs'
       - 'scripts/validate-promotions.mjs'
       - 'scripts/test-promotion-runtime-contract.mjs'
       - 'data/employer-products.json'
       - 'data/featured-jobs.json'
       - '.github/workflows/promotion-admin.yml'
+      - '.github/workflows/promotion-lifecycle.yml'
       - '.github/workflows/promotion-admin-guard.yml'
 
 permissions:
@@ -35,6 +39,7 @@ jobs:
       - name: Validate promotion admin safety contract
         run: |
           node --check scripts/manage-promotion.mjs
+          node --check scripts/prune-promotions.mjs
           node scripts/manage-promotion.mjs --self-test
           node scripts/validate-promotions.mjs
           node scripts/test-promotion-runtime-contract.mjs

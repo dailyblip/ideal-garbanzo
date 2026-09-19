@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'data/jobs.json'
       - 'data/featured-jobs.json'
       - 'data/employer-products.json'
       - 'employers/index.html'
@@ -42,7 +43,9 @@ jobs:
       - name: Validate employer promotion products and live activations
         run: node scripts/validate-promotions.mjs
       - name: Commit lifecycle cleanup when needed
+        shell: bash
         run: |
+          set -euo pipefail
           if git diff --quiet -- data/featured-jobs.json; then
             echo "No stale promotion activations to remove."
             exit 0
@@ -58,4 +61,15 @@ jobs:
             echo "::error::Could not rebase promotion lifecycle cleanup onto latest main."
             exit 1
           fi
+
+          # A job refresh can land while lifecycle hygiene is running. Re-run
+          # pruning and validation against the rebased feed so a just-removed
+          # job cannot leave an orphaned paid placement behind until tomorrow.
+          node scripts/prune-promotions.mjs
+          node scripts/validate-promotions.mjs
+          if ! git diff --quiet -- data/featured-jobs.json; then
+            git add data/featured-jobs.json
+            git commit --amend --no-edit
+          fi
+
           git push origin HEAD:main

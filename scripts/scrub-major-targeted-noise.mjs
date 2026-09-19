@@ -18,6 +18,9 @@ const TARGETED_EMPLOYERS = new Set([
 const CORPORATE_TITLE_TERMS = [
   'enterprise applications',
   'enterprise it support',
+  'service desk',
+  'help desk',
+  'desktop support',
   'process analytics',
   'learning operations',
   'business analyst',
@@ -159,6 +162,21 @@ if (process.argv.includes('--test')) {
     {
       title: 'Summer Internship: Business Operations',
       company: 'QTS Data Centers',
+      remove: true
+    },
+    {
+      title: '3574 - Associate Service Desk Technician',
+      company: 'NTT Global Data Centers',
+      remove: true
+    },
+    {
+      title: 'Data Center Help Desk Technician',
+      company: 'NTT Global Data Centers',
+      remove: true
+    },
+    {
+      title: 'Desktop Support Technician',
+      company: 'Vantage Data Centers',
       remove: true
     },
     {

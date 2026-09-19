@@ -21,6 +21,7 @@ const GENERIC_SOURCES = [
   { company: 'CoreWeave', provider: 'greenhouse' },
   { company: 'Flexential', provider: 'greenhouse' },
   { company: 'EdgeConneX', provider: 'greenhouse' },
+  { company: 'Lightning AI', provider: 'greenhouse' },
   { company: 'Lambda', provider: 'ashby' },
   { company: 'Crusoe', provider: 'ashby' },
   { company: 'Fluidstack', provider: 'ashby' },
@@ -220,8 +221,8 @@ function runSelfTest() {
   const currentGenericStatus = {
     updatedAt: '2026-09-09T06:00:00.000Z',
     jobs: 42,
-    sourcesAttempted: 17,
-    providers: { lever: 7, greenhouse: 5, ashby: 5 },
+    sourcesAttempted: 18,
+    providers: { lever: 7, greenhouse: 6, ashby: 5 },
     countsByType: { 'entry-level': 40, internship: 2 },
     countsByExperience: { '0-2-years': 25, '2-5-years': 17 },
     sourceDiagnostics,
@@ -231,7 +232,7 @@ function runSelfTest() {
   if (mergedStatus.majorSources?.jobs !== 217) throw new Error('generic status merge erased major Workday diagnostics');
   if (mergedStatus.dataBank?.qualifyingRoles !== 17) throw new Error('generic status merge erased DataBank diagnostics');
   if (mergedStatus.cologix?.qualifyingRoles !== 9) throw new Error('generic status merge erased Cologix diagnostics');
-  if (mergedStatus.jobs !== 42 || mergedStatus.sourcesAttempted !== 17) throw new Error('current generic status did not remain authoritative for current-run fields');
+  if (mergedStatus.jobs !== 42 || mergedStatus.sourcesAttempted !== 18) throw new Error('current generic status did not remain authoritative for current-run fields');
   if (mergedStatus.genericDirectSources?.sourceDiagnostics?.length !== GENERIC_SOURCES.length) throw new Error('generic per-source diagnostics were not namespaced');
   if (mergedStatus.genericDirectSources?.errors?.[0] !== 'EdgeConneX: 503 upstream unavailable') throw new Error('generic status diagnostics were not namespaced');
   if (mergedStatus.errors?.[0] !== 'EdgeConneX: 503 upstream unavailable') throw new Error('current generic errors were not kept current-run-only');

@@ -1,0 +1,56 @@
+name: Generic ATS source provenance guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/validate-generic-ats-provenance.mjs'
+      - '.github/workflows/generic-ats-provenance-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/validate-generic-ats-provenance.mjs'
+      - '.github/workflows/generic-ats-provenance-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check validator syntax
+        run: node --check scripts/validate-generic-ats-provenance.mjs
+      - name: Run provenance regression cases
+        run: node scripts/validate-generic-ats-provenance.mjs --test
+      - name: Validate Greenhouse feed provenance
+        run: |
+          cp data/jobs.json /tmp/jobs.json
+          trap 'cp /tmp/jobs.json data/jobs.json' EXIT
+          node -e "const fs=require('fs'); const jobs=JSON.parse(fs.readFileSync('data/jobs.json')); fs.writeFileSync('data/jobs.json', JSON.stringify(jobs.filter(j=>String(j.id||'').startsWith('gh-'))));"
+          node scripts/validate-generic-ats-provenance.mjs
+      - name: Validate Lever feed provenance
+        run: |
+          cp data/jobs.json /tmp/jobs.json
+          trap 'cp /tmp/jobs.json data/jobs.json' EXIT
+          node -e "const fs=require('fs'); const jobs=JSON.parse(fs.readFileSync('data/jobs.json')); fs.writeFileSync('data/jobs.json', JSON.stringify(jobs.filter(j=>String(j.id||'').startsWith('lever-'))));"
+          node scripts/validate-generic-ats-provenance.mjs
+      - name: Validate Ashby feed provenance
+        run: |
+          cp data/jobs.json /tmp/jobs.json
+          trap 'cp /tmp/jobs.json data/jobs.json' EXIT
+          node -e "const fs=require('fs'); const jobs=JSON.parse(fs.readFileSync('data/jobs.json')); fs.writeFileSync('data/jobs.json', JSON.stringify(jobs.filter(j=>String(j.id||'').startsWith('ashby-'))));"
+          node scripts/validate-generic-ats-provenance.mjs
+      - name: Validate complete public feed provenance
+        run: node scripts/validate-generic-ats-provenance.mjs

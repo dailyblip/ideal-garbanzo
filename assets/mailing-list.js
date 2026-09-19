@@ -5,33 +5,6 @@
   const submit = form.querySelector('button[type="submit"]');
   const toast = document.getElementById('toast');
   const fallbackAction = form.getAttribute('action') || '';
-  const regionSelect = document.getElementById('alertRegion');
-  const regionValue = document.getElementById('alertRegionValue');
-  const focusSelect = document.getElementById('alertFocus');
-  const focusValue = document.getElementById('alertFocusValue');
-  const allowedRegions = new Set(['all', 'mid-atlantic', 'texas', 'southwest', 'midwest', 'southeast', 'northeast', 'west']);
-  const allowedFocus = new Set(['all', 'early-career']);
-
-  const syncRegionPreference = () => {
-    if (!regionValue) return;
-    const value = String(regionSelect?.value || 'all').trim();
-    regionValue.value = allowedRegions.has(value) ? value : 'all';
-  };
-
-  const syncFocusPreference = () => {
-    if (!focusValue) return;
-    const value = String(focusSelect?.value || 'all').trim();
-    focusValue.value = allowedFocus.has(value) ? value : 'all';
-  };
-
-  const syncPreferences = () => {
-    syncRegionPreference();
-    syncFocusPreference();
-  };
-
-  syncPreferences();
-  regionSelect?.addEventListener('change', syncRegionPreference);
-  focusSelect?.addEventListener('change', syncFocusPreference);
 
   const showToast = message => {
     if (!toast) return;
@@ -43,7 +16,6 @@
 
   const armSubmitState = () => {
     form.addEventListener('submit', () => {
-      syncPreferences();
       if (submit) {
         submit.disabled = true;
         submit.textContent = 'Opening signup…';

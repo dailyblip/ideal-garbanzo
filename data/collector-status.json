@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T20:35:48.966Z",
+  "updatedAt": "2026-09-19T20:38:56.670Z",
   "jobs": 733,
   "sourcesAttempted": 24,
   "providers": {
@@ -1409,8 +1409,8 @@
         "query": "critical environment technician",
         "healthy": true,
         "pages": 24,
-        "reportedRows": 237,
-        "rows": 237
+        "reportedRows": 238,
+        "rows": 238
       },
       {
         "query": "critical environment field service engineer",
@@ -1427,7 +1427,7 @@
         "rows": 19
       }
     ],
-    "candidateRows": 366,
+    "candidateRows": 367,
     "plausibleRows": 35,
     "detailAttempts": 35,
     "detailVerified": 35,
@@ -1444,8 +1444,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-19T15:53:03.591Z",
-      "expiresAt": "2026-09-23T15:53:03.591Z",
+      "verifiedAt": "2026-09-19T20:38:55.608Z",
+      "expiresAt": "2026-09-23T20:38:55.608Z",
       "roles": 35,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -2053,54 +2053,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T20:35:49.130Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-19T20:38:56.709Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T20:35:49.190Z",
+    "updatedAt": "2026-09-19T20:38:56.748Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 733,
@@ -2119,7 +2080,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T20:35:49.247Z",
+    "checkedAt": "2026-09-19T20:38:56.783Z",
     "before": 733,
     "after": 733,
     "removed": 0,
@@ -2145,7 +2106,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T20:36:03.791Z"
+    "updatedAt": "2026-09-19T20:38:56.811Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

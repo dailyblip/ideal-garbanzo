@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-19T00:56:13.929Z",
+  "updatedAt": "2026-09-19T01:49:18.480Z",
   "jobs": 689,
-  "sourcesAttempted": 38,
+  "sourcesAttempted": 44,
   "providers": {
     "lever": 7,
     "greenhouse": 5,
@@ -265,9 +265,9 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-19T00:59:24.287Z",
-          "lastHealthyAt": "2026-09-19T00:59:24.287Z",
-          "expiresAt": "2026-09-23T00:59:24.287Z",
+          "checkedAt": "2026-09-19T01:52:32.805Z",
+          "lastHealthyAt": "2026-09-19T01:52:32.805Z",
+          "expiresAt": "2026-09-23T01:52:32.805Z",
           "roles": 8,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -290,9 +290,9 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-19T00:59:24.287Z",
-          "lastHealthyAt": "2026-09-19T00:59:24.287Z",
-          "expiresAt": "2026-09-23T00:59:24.287Z",
+          "checkedAt": "2026-09-19T01:52:32.805Z",
+          "lastHealthyAt": "2026-09-19T01:52:32.805Z",
+          "expiresAt": "2026-09-23T01:52:32.805Z",
           "roles": 40,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -315,9 +315,9 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-19T00:59:24.287Z",
-          "lastHealthyAt": "2026-09-19T00:59:24.287Z",
-          "expiresAt": "2026-09-23T00:59:24.287Z",
+          "checkedAt": "2026-09-19T01:52:32.805Z",
+          "lastHealthyAt": "2026-09-19T01:52:32.805Z",
+          "expiresAt": "2026-09-23T01:52:32.805Z",
           "roles": 46,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -340,9 +340,9 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-19T00:59:24.287Z",
-          "lastHealthyAt": "2026-09-19T00:59:24.287Z",
-          "expiresAt": "2026-09-23T00:59:24.287Z",
+          "checkedAt": "2026-09-19T01:52:32.805Z",
+          "lastHealthyAt": "2026-09-19T01:52:32.805Z",
+          "expiresAt": "2026-09-23T01:52:32.805Z",
           "roles": 9,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -365,9 +365,9 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-19T00:59:24.287Z",
-          "lastHealthyAt": "2026-09-19T00:59:24.287Z",
-          "expiresAt": "2026-09-23T00:59:24.287Z",
+          "checkedAt": "2026-09-19T01:52:32.805Z",
+          "lastHealthyAt": "2026-09-19T01:52:32.805Z",
+          "expiresAt": "2026-09-23T01:52:32.805Z",
           "roles": 22,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -390,9 +390,9 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-19T00:59:24.287Z",
-          "lastHealthyAt": "2026-09-19T00:59:24.287Z",
-          "expiresAt": "2026-09-23T00:59:24.287Z",
+          "checkedAt": "2026-09-19T01:52:32.805Z",
+          "lastHealthyAt": "2026-09-19T01:52:32.805Z",
+          "expiresAt": "2026-09-23T01:52:32.805Z",
           "roles": 35,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -404,7 +404,7 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-19T00:56:13.998Z",
+      "checkedAt": "2026-09-19T01:49:18.555Z",
       "rawJobs": 229,
       "publishedUsJobs": 184,
       "nonUsRemoved": 25,
@@ -572,7 +572,7 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-19T00:59:05.023Z",
+    "checkedAt": "2026-09-19T01:52:10.543Z",
     "officialOnly": true,
     "additiveOnly": true,
     "searchPaginationPolicy": "paginate-to-reported-total",
@@ -1187,7 +1187,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-19T00:59:05.086Z",
+      "checkedAt": "2026-09-19T01:52:10.611Z",
       "removed": 11,
       "removedRoles": [
         {
@@ -2027,7 +2027,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T00:59:05.140Z",
+    "checkedAt": "2026-09-19T01:52:10.689Z",
     "removedCount": 4,
     "removedByReason": {
       "non-mission role family": 1,
@@ -2096,7 +2096,7 @@
     ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T00:59:05.204Z",
+    "updatedAt": "2026-09-19T01:52:10.758Z",
     "changed": 11,
     "samples": [
       {
@@ -2156,7 +2156,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T00:59:05.313Z",
+    "checkedAt": "2026-09-19T01:52:10.879Z",
     "before": 714,
     "after": 689,
     "removed": 25,
@@ -2325,7 +2325,7 @@
     ]
   },
   "postQa": {
-    "checkedAt": "2026-09-19T00:59:23.852Z",
+    "checkedAt": "2026-09-19T01:52:32.595Z",
     "publishedJobs": 689,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -2343,7 +2343,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 160,
     "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-19T00:59:24.210Z"
+    "updatedAt": "2026-09-19T01:52:32.714Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3108,7 +3108,7 @@
     "errors": []
   },
   "multiLocationRegions": {
-    "checkedAt": "2026-09-19T00:59:05.250Z",
+    "checkedAt": "2026-09-19T01:52:10.807Z",
     "candidates": 0,
     "hydrated": 0,
     "retainedExisting": 0,

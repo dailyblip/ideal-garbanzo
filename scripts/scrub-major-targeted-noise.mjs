@@ -39,6 +39,15 @@ const CORPORATE_TITLE_TERMS = [
   'purchasing',
   'security operations',
   'security engineer',
+  'security analyst',
+  'security specialist',
+  'security technician',
+  'security officer',
+  'security guard',
+  'physical security',
+  'global security operations center',
+  'gsoc',
+  'wireless intrusion detection',
   'cybersecurity',
   'information security',
   'software engineer',
@@ -177,6 +186,16 @@ if (process.argv.includes('--test')) {
     {
       title: 'Desktop Support Technician',
       company: 'Vantage Data Centers',
+      remove: true
+    },
+    {
+      title: 'Data Center Security Technician',
+      company: 'CyrusOne',
+      remove: true
+    },
+    {
+      title: 'GSOC Operator (WIDS)',
+      company: 'QTS Data Centers',
       remove: true
     },
     {

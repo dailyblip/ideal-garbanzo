@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-19T20:45:07.982Z",
+  "updatedAt": "2026-09-19T20:47:12.007Z",
   "jobs": 733,
-  "sourcesAttempted": 19,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 2
   },
   "countsByType": {
     "entry-level": 701,
@@ -1891,8 +1891,8 @@
     "detailFailures": 0,
     "preservedPrevious": 0,
     "qualifyingRoles": 18,
-    "lastHealthyAt": "2026-09-19T20:45:04.031Z",
-    "snapshotVerifiedAt": "2026-09-19T20:45:04.031Z",
+    "lastHealthyAt": "2026-09-19T20:47:08.220Z",
+    "snapshotVerifiedAt": "2026-09-19T20:47:08.220Z",
     "snapshotMaxAgeHours": 96,
     "fallbackUsed": false,
     "fallbackFresh": false,
@@ -2053,7 +2053,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T20:45:08.051Z",
+    "checkedAt": "2026-09-19T20:47:12.074Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2061,7 +2061,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T20:45:08.124Z",
+    "updatedAt": "2026-09-19T20:47:12.151Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 733,
@@ -2080,7 +2080,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T20:45:08.194Z",
+    "checkedAt": "2026-09-19T20:47:12.225Z",
     "before": 733,
     "after": 733,
     "removed": 0,
@@ -2088,7 +2088,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T20:45:30.367Z",
+    "checkedAt": "2026-09-19T20:47:30.014Z",
     "publishedJobs": 733,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -2106,7 +2106,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 18,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T20:45:30.553Z"
+    "updatedAt": "2026-09-19T20:47:30.201Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

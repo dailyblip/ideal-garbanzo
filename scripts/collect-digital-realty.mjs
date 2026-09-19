@@ -43,6 +43,10 @@ const explicitMidTerms = [
   'operator ii', 'operator 2', 'journeyman', '3 years', '4 years', '5 years',
   '2-5 years', '2–5 years', '3-5 years', '3–5 years'
 ];
+const experienceNumberWords = new Map([
+  ['zero', '0'], ['one', '1'], ['two', '2'], ['three', '3'], ['four', '4'], ['five', '5'],
+  ['six', '6'], ['seven', '7'], ['eight', '8'], ['nine', '9'], ['ten', '10']
+]);
 
 const US_STATE_NAMES = [
   'alabama','alaska','arizona','arkansas','california','colorado','connecticut','delaware',
@@ -167,7 +171,26 @@ function relevant(title, description = '') {
   return hasAny(t, contextualTitleTerms) && hasAny(d, contextTerms);
 }
 
+function normalizeExperienceNumbers(text = '') {
+  return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+}
+
+function exceedsFiveYearCeiling(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
+  const strictMinimumPatterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})(?:\s*\(\d{1,2}\))?\s+years?\b/g,
+    />\s*(\d{1,2})\s+years?\b/g
+  ];
+  for (const pattern of strictMinimumPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      if (Number(match[1]) >= 5) return true;
+    }
+  }
+  return false;
+}
+
 function statedExperienceYears(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
   const values = [];
   const patterns = [
     /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s*(?:-|–|to)\s*(\d{1,2})\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
@@ -175,7 +198,7 @@ function statedExperienceYears(text = '') {
     /experience(?:\s+of)?\s+(?:at least\s+|minimum(?: of)?\s+)?(\d{1,2})\+?\s+years?/gi
   ];
   for (const pattern of patterns) {
-    for (const match of text.matchAll(pattern)) {
+    for (const match of normalized.matchAll(pattern)) {
       values.push(Number(match[1]));
       if (match[2]) values.push(Number(match[2]));
     }
@@ -188,7 +211,7 @@ function classify(title, description = '', schedule = '') {
   const t = lower(title);
   const text = lower(`${title} ${description}`);
   const years = statedExperienceYears(text);
-  if (years.some(year => year >= 6)) return null;
+  if (exceedsFiveYearCeiling(text) || years.some(year => year >= 6)) return null;
 
   let type = 'entry-level';
   if (t.includes('intern') || lower(schedule).includes('intern')) type = 'internship';
@@ -202,6 +225,32 @@ function classify(title, description = '', schedule = '') {
 
   // Avoid publishing roles whose experience fit cannot be confirmed.
   return null;
+}
+
+function runExperienceParserTests() {
+  const cases = [
+    ['exactly five years remains eligible', 'Minimum of 5 years of relevant experience in data center operations.', '2-5-years'],
+    ['five plus years remains eligible by policy', '5+ years of relevant experience in critical facilities.', '2-5-years'],
+    ['more than five years is rejected', 'Requires more than five years of experience in data center operations.', null],
+    ['over five years is rejected', 'Requires over 5 years of experience in critical facilities.', null],
+    ['greater than five years is rejected', 'Requires greater than five years of experience in facility operations.', null],
+    ['in excess of five years is rejected', 'Requires in excess of 5 years of experience in a critical environment.', null],
+    ['greater-than symbol five years is rejected', 'Requires > 5 years of experience in data center operations.', null],
+    ['spelled-out six years is rejected', 'Minimum of six years of relevant experience in data center operations.', null]
+  ];
+  for (const [name, description, expectedExperience] of cases) {
+    const result = classify('Data Center Technician', description);
+    const actual = result?.experience || null;
+    if (actual !== expectedExperience) {
+      throw new Error(`Digital Realty experience parser regression failed: ${name}; expected ${expectedExperience}, got ${actual}.`);
+    }
+  }
+  console.log('Digital Realty experience parser regression tests passed.');
+}
+
+if (process.argv.includes('--test-experience-parser')) {
+  runExperienceParserTests();
+  process.exit(0);
 }
 
 function payObject(label = 'Pay not listed', min = null, max = null, interval = '') {

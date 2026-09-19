@@ -2762,7 +2762,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-19T05:08:48.846Z",
+      "checkedAt": "2026-09-19T06:52:06.937Z",
       "removed": 0,
       "removedRoles": [],
       "policy": "Reject corporate title families and generic program roles without a clear infrastructure/operations title signal before publication."
@@ -3525,7 +3525,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T06:10:58.374Z",
+    "checkedAt": "2026-09-19T06:52:06.984Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3533,28 +3533,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T06:10:58.450Z",
+    "updatedAt": "2026-09-19T06:52:07.068Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 689,
+    "regionAssigned": 703,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "texas": 112,
-      "west": 106,
-      "southeast": 101,
-      "midwest": 136,
-      "mid-atlantic": 126,
+      "west": 114,
+      "southeast": 102,
+      "midwest": 138,
+      "mid-atlantic": 127,
       "southwest": 86,
-      "northeast": 21,
+      "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T06:10:58.518Z",
-    "before": 689,
-    "after": 689,
+    "checkedAt": "2026-09-19T06:52:07.181Z",
+    "before": 703,
+    "after": 703,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3571,14 +3571,14 @@
     "trackedJobs": 1212,
     "currentJobs": 703,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "recencySentinelsRepairedThisRun": 14,
+    "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 107,
-    "updatedAt": "2026-09-19T06:50:52.013Z"
+    "updatedAt": "2026-09-19T06:52:07.223Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

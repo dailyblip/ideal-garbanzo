@@ -172,6 +172,10 @@ function confidentUsLocation(value = '') {
   ];
   if (states.some(state => new RegExp(`\b${state.replace(/ /g, '\\s+')}\b`, 'i').test(text))) return true;
   const codes = new Set(['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']);
+  // Workday can expose internal U.S. site labels such as "US TX Turkey 1 DC1".
+  // Accept the explicit US + valid state-code prefix without guessing a city.
+  const internalUsMatch = text.match(/^US\s+([A-Z]{2})(?:\b|\s|$)/i);
+  if (internalUsMatch && codes.has(internalUsMatch[1].toUpperCase())) return true;
   const match = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
   return Boolean(match && codes.has(match[1]));
 }
@@ -527,11 +531,14 @@ if (process.argv.includes('--test')) {
   if (!confidentUsLocation('Austin, TX')) {
     failures.push({ name: 'Texas postal abbreviation remains recognized as U.S. geography' });
   }
+  if (!confidentUsLocation('US TX Turkey 1 DC1')) {
+    failures.push({ name: 'Workday internal US plus state-code geography remains recognized as U.S.' });
+  }
   if (failures.length) {
     for (const failure of failures) console.error(`Targeted recovery regression failed: ${failure.name}`);
     process.exit(1);
   }
-  console.log(`Targeted major Workday recovery passed ${cases.length + 2} regression cases.`);
+  console.log(`Targeted major Workday recovery passed ${cases.length + 3} regression cases.`);
   process.exit(0);
 }
 

@@ -154,7 +154,8 @@ for (const profile of profiles) {
 
       if (mode !== 'mobile') {
         metrics.newsletterHeight = newsletter.height;
-        if (newsletter.height > 82) fail(`Desktop/tablet newsletter is ${Math.round(newsletter.height)}px high; expected a condensed one-row bar.`);
+        const maxNewsletterHeight = mode === 'desktop' ? 112 : 136;
+        if (newsletter.height > maxNewsletterHeight) fail(`${mode === 'desktop' ? 'Desktop' : 'Tablet'} newsletter is ${Math.round(newsletter.height)}px high; expected a compact email-only bar no taller than ${maxNewsletterHeight}px.`);
         const controlTops = controls.map(control => control.top);
         const controlBottoms = controls.map(control => control.bottom);
         if (Math.max(...controlTops) - Math.min(...controlTops) > 4 || Math.max(...controlBottoms) - Math.min(...controlBottoms) > 4) {

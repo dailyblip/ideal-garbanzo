@@ -1,0 +1,37 @@
+name: Generic ATS source provenance guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/validate-generic-ats-provenance.mjs'
+      - '.github/workflows/generic-ats-provenance-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'scripts/collect-jobs.mjs'
+      - 'scripts/collect-jobs-core.mjs'
+      - 'scripts/validate-generic-ats-provenance.mjs'
+      - '.github/workflows/generic-ats-provenance-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate generic employer-direct provenance
+        run: |
+          node --check scripts/validate-generic-ats-provenance.mjs
+          node scripts/validate-generic-ats-provenance.mjs --test
+          node scripts/validate-generic-ats-provenance.mjs

@@ -46,6 +46,8 @@ jobs:
           node --check scripts/scrub-oracle-mission-fit.mjs
           node --check scripts/validate-oracle-snapshot.mjs
           node --check scripts/validate-oracle-parity.mjs
+      - name: Run Oracle experience policy regressions
+        run: node scripts/scrub-oracle-mission-fit.mjs --test-experience-parser
       - name: Run Oracle parity regressions
         run: node scripts/validate-oracle-parity.mjs --test
       - name: Validate current Oracle publication state

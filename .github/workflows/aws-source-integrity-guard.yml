@@ -52,6 +52,7 @@ jobs:
           node scripts/validate-source-workflow-isolation.mjs
       - name: Run AWS source regressions
         run: |
+          node scripts/collect-amazon-datacenter.mjs --test-experience-parser
           node scripts/enforce-amazon-fallback-freshness.mjs --test
           node scripts/validate-amazon-parity.mjs --test
       - name: Validate current AWS publication state

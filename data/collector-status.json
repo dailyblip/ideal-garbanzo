@@ -3525,7 +3525,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T07:52:50.397Z",
+    "checkedAt": "2026-09-19T08:18:31.312Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3533,7 +3533,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T07:52:50.478Z",
+    "updatedAt": "2026-09-19T08:18:31.391Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 705,
@@ -3552,7 +3552,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T07:52:50.552Z",
+    "checkedAt": "2026-09-19T08:18:31.465Z",
     "before": 705,
     "after": 705,
     "removed": 0,
@@ -3560,7 +3560,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T07:53:16.475Z",
+    "checkedAt": "2026-09-19T08:18:58.797Z",
     "publishedJobs": 705,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3570,15 +3570,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1214,
     "currentJobs": 705,
-    "newJobsThisRun": 2,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 2,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 107,
-    "updatedAt": "2026-09-19T07:53:16.676Z"
+    "updatedAt": "2026-09-19T08:18:58.987Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4268,8 +4268,8 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-18T18:39:59.477Z",
-    "lastHealthyAt": "2026-09-18T18:39:59.477Z",
+    "checkedAt": "2026-09-19T08:18:30.878Z",
+    "lastHealthyAt": "2026-09-19T08:18:30.878Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

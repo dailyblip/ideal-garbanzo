@@ -4,6 +4,7 @@ const config = JSON.parse(await readFile('data/mailing-list.json', 'utf8'));
 const homepage = await readFile('index.html', 'utf8');
 const signupScript = await readFile('assets/mailing-list.js', 'utf8');
 const alertScript = await readFile('scripts/send-weekly-job-alert.mjs', 'utf8');
+const buttondownConfigScript = await readFile('scripts/configure-buttondown.mjs', 'utf8');
 const workflow = await readFile('.github/workflows/weekly-job-alert.yml', 'utf8');
 
 const fail = message => { throw new Error(message); };
@@ -89,6 +90,19 @@ for (const marker of [
 if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script must not disable the static fallback when config fetch fails.');
 
 for (const marker of [
+  "const ALERT_TAG = 'weekly-job-alerts';",
+  "enabledFeatures.add('portal');",
+  "'X-Buttondown-Collision-Behavior': 'overwrite'",
+  "name: ALERT_TAG",
+  "subscriber_editable: false",
+  'subscription_redirect_url: REDIRECT_URL',
+  'subscription_confirmation_redirect_url:',
+  'Buttondown did not confirm the ${ALERT_TAG} audience tag.'
+]) {
+  if (!buttondownConfigScript.includes(marker)) fail(`Buttondown service configuration is missing: ${marker}`);
+}
+
+for (const marker of [
   'pull_request:',
   "cron: '37 14 * * 1'",
   "cron: '23 15 * * 1'",
@@ -164,4 +178,4 @@ await assertMissing('scripts/send-weekly-digest.mjs');
 await import('./validate-alert-job-detail-parity.mjs');
 await import('./validate-alert-signup-parity.mjs');
 
-console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline with ${scheduleMatches.length} redundant scheduler runs before the ${config.sendTimeUtc} UTC send, tracked Data Center Careers job links, and employer-diverse selection.`);
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one tagged, personalized Monday alert pipeline with ${scheduleMatches.length} redundant scheduler runs before the ${config.sendTimeUtc} UTC send, tracked Data Center Careers job links, employer-diverse selection, a configured subscriber portal and a pre-provisioned audience tag.`);

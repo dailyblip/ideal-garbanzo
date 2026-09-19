@@ -20,7 +20,8 @@ const MANAGED_COMPANIES = [
   'Crusoe',
   'Fluidstack',
   'Gimlet Labs',
-  'TensorWave'
+  'TensorWave',
+  'Lightning AI'
 ];
 const MANAGED_SET = new Set(MANAGED_COMPANIES);
 
@@ -137,6 +138,8 @@ function validateState({ jobs, status, nowMs }) {
 
 function runSelfTest() {
   const nowMs = Date.parse('2026-09-11T12:00:00Z');
+  if (!MANAGED_SET.has('Lightning AI')) throw new Error('Lightning AI is not covered by the generic ATS freshness guard');
+
   const healthy = sourceDecision({
     diagnostic: { sourceHealthy: true, error: '' },
     prior: {},

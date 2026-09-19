@@ -1,0 +1,56 @@
+name: Normalize CoreSite roles through publication pipeline
+
+on:
+  push:
+    branches:
+      - automation/refresh-coresite-20260919
+    paths:
+      - .github/workflows/automation-missionfit-normalize-pr.yml
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: automation/refresh-coresite-20260919
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run publication normalization
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/scrub-major-targeted-noise.mjs
+          node scripts/filter-mission-fit.mjs
+          node scripts/prune-unsupported-classification.mjs
+          node scripts/normalize-job-locations.mjs
+          node scripts/prune-unresolved-geography.mjs
+          node scripts/sync-publication-counts.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/stamp-job-history.mjs --repair-only
+          node scripts/refresh-career-events.mjs --prune-expired-only
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/sync-publication-counts.mjs
+          node scripts/sync-major-reconciliation-status.mjs
+          node scripts/validate-major-workday-parity.mjs
+      - name: Commit normalized publication state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/jobs.json data/major-jobs.json data/job-history.json data/career-events.json data/collector-status.json
+          if git diff --cached --quiet; then
+            echo "Publication state already normalized."
+            exit 0
+          fi
+          git commit -m "Normalize CoreSite publication state"
+          git push origin HEAD:automation/refresh-coresite-20260919

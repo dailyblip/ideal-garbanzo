@@ -1,23 +1,24 @@
 {
-  "updatedAt": "2026-09-19T16:06:28.048Z",
+  "updatedAt": "2026-09-19T16:09:27.557Z",
   "jobs": 692,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 2
+    "oracleRecruitingCloud": 2,
+    "icims": 1
   },
   "countsByType": {
-    "apprenticeship": 11,
+    "entry-level": 660,
     "internship": 11,
     "trainee": 10,
-    "entry-level": 660
+    "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 370,
-    "no-experience": 24,
-    "2-5-years": 298
+    "2-5-years": 298,
+    "no-experience": 24
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -44,6 +45,11 @@
     },
     "samples": [
       {
+        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
+        "title": "Cloud Engineer II",
+        "location": ""
+      },
+      {
         "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
         "title": "Supervisor, Data Center Operations",
         "location": "Breinigsville, PA",
@@ -52,11 +58,6 @@
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
         "title": "Sr Revenue Assurance Analyst",
-        "location": ""
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
         "location": ""
       },
       {
@@ -2044,7 +2045,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T16:07:27.652Z",
+    "checkedAt": "2026-09-19T16:09:27.663Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2052,7 +2053,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T16:07:27.703Z",
+    "updatedAt": "2026-09-19T16:09:27.722Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 692,
@@ -2061,17 +2062,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 136,
-      "mid-atlantic": 121,
       "texas": 112,
-      "southwest": 85,
-      "southeast": 104,
-      "northeast": 24,
       "west": 109,
+      "southeast": 104,
+      "southwest": 85,
+      "mid-atlantic": 121,
+      "northeast": 24,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T16:07:27.749Z",
+    "checkedAt": "2026-09-19T16:09:27.781Z",
     "before": 692,
     "after": 692,
     "removed": 0,
@@ -2097,7 +2098,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T16:07:40.876Z"
+    "updatedAt": "2026-09-19T16:09:27.826Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

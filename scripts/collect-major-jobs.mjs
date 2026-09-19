@@ -433,6 +433,7 @@ async function collectWorkday(board, previousCompanyJobs = []) {
         if (!cls) return { job: null, error: null };
         const location = selectWorkdayLocation(row, info);
         const externalId = clean(row.bulletFields?.[0] || row.externalPath?.split('_').pop() || hash(row.externalPath || row.title));
+        const previous = previousByUrl.get(clean(sourceUrl));
         return {
           job: {
             id: `workday-${board.tenant}-${externalId}`,
@@ -443,7 +444,10 @@ async function collectWorkday(board, previousCompanyJobs = []) {
             experience: cls.experience,
             tags: tagsFor(row.title, description, cls.experience, cls.type),
             ...extractPay(description),
-            postedAt: relativePostedAt(row.postedOn),
+            // Workday listing dates are relative (for example, "2 days ago").
+            // Recomputing them every crawl makes unchanged roles appear newer.
+            // Preserve the last verified timestamp for the same requisition URL.
+            postedAt: previous?.postedAt || relativePostedAt(row.postedOn),
             source: 'Employer career site',
             sourceUrl,
             active: true,

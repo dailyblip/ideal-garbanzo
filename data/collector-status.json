@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T06:49:07.563Z",
+  "updatedAt": "2026-09-19T06:50:51.925Z",
   "jobs": 703,
   "sourcesAttempted": 18,
   "providers": {
@@ -3569,16 +3569,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1212,
-    "currentJobs": 689,
+    "currentJobs": 703,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
+    "changedJobsThisRun": 1,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
-    "recencySentinelsRepairedThisRun": 0,
+    "recencySentinelsRepairedThisRun": 14,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-19T06:11:17.334Z"
+    "firstSeenRecencyFallbackJobs": 107,
+    "updatedAt": "2026-09-19T06:50:52.013Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

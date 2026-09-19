@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-19T06:10:58.298Z",
-  "jobs": 689,
+  "updatedAt": "2026-09-19T06:49:07.563Z",
+  "jobs": 703,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -8,14 +8,14 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 662,
-    "internship": 6,
+    "entry-level": 671,
+    "internship": 11,
     "trainee": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 287,
-    "0-2-years": 378,
+    "2-5-years": 299,
+    "0-2-years": 380,
     "no-experience": 24
   },
   "errors": [],
@@ -3383,7 +3383,7 @@
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
     "sourceHealthy": false,
-    "qualifyingRoles": 0,
+    "qualifyingRoles": 14,
     "diagnostics": {
       "listingPagesAttempted": 1,
       "listingPagesSucceeded": 0,
@@ -3405,19 +3405,13 @@
       "listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
     ],
     "verifiedFallback": {
-      "active": false,
-      "verifiedAt": "2026-09-10T02:40:00Z",
-      "expiresAt": "2026-09-14T02:40:00.000Z",
-      "roles": 0,
+      "active": true,
+      "verifiedAt": "2026-09-19T06:41:23Z",
+      "expiresAt": "2026-09-23T06:41:23Z",
+      "roles": 14,
       "classificationCorrections": 0,
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
-      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
-      "expired": true,
-      "checkedAt": "2026-09-19T05:55:18.821Z",
-      "maxAgeHours": 96,
-      "expiredAgeHours": 219.3,
-      "rolesRemoved": 0,
-      "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
+      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; retained roles were re-verified against CoreSite's official current Data Center Operations listing and employer job-detail pages on September 19, 2026. Roles no longer present in the official current listing were removed."
     }
   },
   "priorityEmployerExpansion": {

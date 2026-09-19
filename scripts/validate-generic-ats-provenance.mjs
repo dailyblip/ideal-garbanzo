@@ -5,6 +5,8 @@ const JOBS_PATH = 'data/jobs.json';
 // Generic employer-direct collectors share ATS hosts. Keep the employer/board
 // binding explicit so a provider response, mapping mistake, or future collector
 // change cannot publish a role under the wrong employer or a third-party URL.
+// T5 has a dedicated collector that intentionally uses a shorter `lever-t5-*`
+// id namespace, so bind that alias to the same official Lever board as well.
 const GENERIC_BOARDS = new Map([
   ['lever-serverfarm', { provider: 'lever', company: 'Serverfarm', slug: 'serverfarm' }],
   ['lever-lightedge', { provider: 'lever', company: 'LightEdge Solutions', slug: 'lightedge' }],
@@ -13,6 +15,7 @@ const GENERIC_BOARDS = new Map([
   ['lever-hive', { provider: 'lever', company: 'Hive', slug: 'hive' }],
   ['lever-cagents', { provider: 'lever', company: 'CAI', slug: 'cagents' }],
   ['lever-t5datacenters', { provider: 'lever', company: 'T5 Data Centers', slug: 't5datacenters' }],
+  ['lever-t5', { provider: 'lever', company: 'T5 Data Centers', slug: 't5datacenters' }],
   ['gh-xai', { provider: 'greenhouse', company: 'xAI', slug: 'xai' }],
   ['gh-elementcritical', { provider: 'greenhouse', company: 'Element Critical', slug: 'elementcritical' }],
   ['gh-coreweave', { provider: 'greenhouse', company: 'CoreWeave', slug: 'coreweave' }],
@@ -100,6 +103,11 @@ function runRegressionTests() {
     {
       name: 'valid Lever employer board',
       job: { id: 'lever-serverfarm-abc', company: 'Serverfarm', sourceUrl: 'https://jobs.lever.co/serverfarm/abc' },
+      valid: true
+    },
+    {
+      name: 'valid dedicated T5 Lever namespace',
+      job: { id: 'lever-t5-abc', company: 'T5 Data Centers', sourceUrl: 'https://jobs.lever.co/t5datacenters/abc' },
       valid: true
     },
     {

@@ -8,6 +8,7 @@ on:
       - 'scripts/reconcile-major-jobs.mjs'
       - 'scripts/recover-major-workday-targeted.mjs'
       - 'scripts/scrub-major-targeted-noise.mjs'
+      - 'scripts/prune-major-workday-overfive.mjs'
       - 'scripts/enforce-major-workday-fallback-freshness.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
@@ -44,11 +45,13 @@ jobs:
           node --check scripts/reconcile-major-jobs.mjs
           node --check scripts/recover-major-workday-targeted.mjs
           node --check scripts/scrub-major-targeted-noise.mjs
+          node --check scripts/prune-major-workday-overfive.mjs
           node --check scripts/enforce-major-workday-fallback-freshness.mjs
           node --check scripts/validate-major-workday-freshness-state.mjs
           node --check scripts/validate-major-workday-parity.mjs
           node scripts/collect-major-jobs.mjs --test-experience-parser
           node scripts/recover-major-workday-targeted.mjs --test
+          node scripts/prune-major-workday-overfive.mjs --test
           node scripts/enforce-major-workday-fallback-freshness.mjs --test
 
       - name: Enforce verified fallback freshness before collection
@@ -60,6 +63,7 @@ jobs:
           node scripts/reconcile-major-jobs.mjs
           node scripts/recover-major-workday-targeted.mjs
           node scripts/scrub-major-targeted-noise.mjs
+          node scripts/prune-major-workday-overfive.mjs
 
       - name: Normalize and QA refreshed feed
         run: |
@@ -97,17 +101,20 @@ jobs:
             node --check scripts/reconcile-major-jobs.mjs
             node --check scripts/recover-major-workday-targeted.mjs
             node --check scripts/scrub-major-targeted-noise.mjs
+            node --check scripts/prune-major-workday-overfive.mjs
             node --check scripts/enforce-major-workday-fallback-freshness.mjs
             node --check scripts/validate-major-workday-freshness-state.mjs
             node --check scripts/validate-major-workday-parity.mjs
             node scripts/collect-major-jobs.mjs --test-experience-parser
             node scripts/recover-major-workday-targeted.mjs --test
+            node scripts/prune-major-workday-overfive.mjs --test
             node scripts/enforce-major-workday-fallback-freshness.mjs --test
             node scripts/enforce-major-workday-fallback-freshness.mjs
             node scripts/collect-major-jobs.mjs
             node scripts/reconcile-major-jobs.mjs
             node scripts/recover-major-workday-targeted.mjs
             node scripts/scrub-major-targeted-noise.mjs
+            node scripts/prune-major-workday-overfive.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/enrich-workday-multilocation.mjs

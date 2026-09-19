@@ -29,7 +29,11 @@ const hash = value => crypto.createHash('sha1').update(String(value)).digest('he
 const relevantTitlePattern = /(?:data center|data centre).*(?:technician|facilities|operations|engineer)|(?:facilities technician developmental program)/i;
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|architect|program manager|product manager|security manager)\b/i;
 const usLocationPattern = /([A-Z][A-Za-z.'’()\- ]{1,90},\s*(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC)(?:\s+\d{5}(?:-\d{4})?)?,\s*USA\b)/i;
-const experienceYearsPattern = /\b(\d{1,2})\s+years?\s+(?:of\s+)?(?:[A-Za-z0-9/&+(),.'’\-]+\s+){0,8}experience\b/gi;
+const experienceYearsPattern = /\b(\d{1,2})\+?\s+years?\s+(?:of\s+)?(?:[A-Za-z0-9/&+(),.'’\-]+\s+){0,8}experience\b/gi;
+const experienceNumberWords = new Map([
+  ['zero', '0'], ['one', '1'], ['two', '2'], ['three', '3'], ['four', '4'], ['five', '5'],
+  ['six', '6'], ['seven', '7'], ['eight', '8'], ['nine', '9'], ['ten', '10']
+]);
 
 async function readJson(path, fallback) {
   try { return JSON.parse(await readFile(path, 'utf8')); }
@@ -108,18 +112,36 @@ function extractCandidates(html, diagnostics) {
   return rows;
 }
 
+function normalizeExperienceNumbers(text = '') {
+  return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+}
+
 function extractExperienceYears(text) {
   experienceYearsPattern.lastIndex = 0;
-  return [...String(text || '').matchAll(experienceYearsPattern)]
+  return [...normalizeExperienceNumbers(text).matchAll(experienceYearsPattern)]
     .map(match => Number(match[1]))
     .filter(Number.isFinite);
+}
+
+function exceedsFiveYearCeiling(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
+  const strictMinimumPatterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})(?:\s*\(\d{1,2}\))?\s+years?\b/g,
+    />\s*(\d{1,2})\s+years?\b/g
+  ];
+  for (const pattern of strictMinimumPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      if (Number(match[1]) >= 5) return true;
+    }
+  }
+  return false;
 }
 
 function parseMinimumQualifications(detailText) {
   const text = clean(detailText);
   const normalized = lower(text);
   const start = normalized.indexOf('minimum qualifications');
-  if (start < 0) return { text: '', maxYears: null };
+  if (start < 0) return { text: '', maxYears: null, exceedsFiveYears: false };
   const after = text.slice(start);
   const afterLower = lower(after);
   const preferredIndex = afterLower.indexOf('preferred qualifications');
@@ -128,7 +150,37 @@ function parseMinimumQualifications(detailText) {
   const end = ends.length ? Math.min(...ends) : Math.min(after.length, 5000);
   const minimumText = after.slice(0, end);
   const years = extractExperienceYears(minimumText);
-  return { text: minimumText, maxYears: years.length ? Math.max(...years) : null };
+  return {
+    text: minimumText,
+    maxYears: years.length ? Math.max(...years) : null,
+    exceedsFiveYears: exceedsFiveYearCeiling(minimumText)
+  };
+}
+
+function runExperienceParserTests() {
+  const cases = [
+    ['exactly five years remains eligible', 'Minimum qualifications: 5 years of experience in data center operations.', false, 5],
+    ['five plus years remains eligible by policy', 'Minimum qualifications: 5+ years of experience in critical facilities.', false, 5],
+    ['more than five years is rejected', 'Minimum qualifications: More than five years of experience in data center operations.', true, 5],
+    ['over five years is rejected', 'Minimum qualifications: Over 5 years of experience in critical facilities.', true, 5],
+    ['greater than five years is rejected', 'Minimum qualifications: Greater than five years of experience in facility operations.', true, 5],
+    ['in excess of five years is rejected', 'Minimum qualifications: In excess of 5 years of experience in a critical environment.', true, 5],
+    ['greater-than symbol five years is rejected', 'Minimum qualifications: > 5 years of experience in data center operations.', true, 5],
+    ['spelled-out six years is rejected', 'Minimum qualifications: Six years of experience in data center operations.', true, 6]
+  ];
+  for (const [name, minimumText, expectedRejected, expectedMaxYears] of cases) {
+    const parsed = parseMinimumQualifications(`${minimumText} Preferred qualifications: Experience with hyperscale facilities.`);
+    const rejected = parsed.exceedsFiveYears || (Number.isFinite(parsed.maxYears) && parsed.maxYears > 5);
+    if (rejected !== expectedRejected || parsed.maxYears !== expectedMaxYears) {
+      throw new Error(`Google experience parser regression failed: ${name}; expected rejected=${expectedRejected}, maxYears=${expectedMaxYears}; got rejected=${rejected}, maxYears=${parsed.maxYears}.`);
+    }
+  }
+  console.log('Google experience parser regression tests passed.');
+}
+
+if (process.argv.includes('--test-experience-parser')) {
+  runExperienceParserTests();
+  process.exit(0);
 }
 
 function classify(title, minimumText, maxYears) {
@@ -200,7 +252,7 @@ function extractDetail(html, row, diagnostics) {
   }
 
   const minimum = parseMinimumQualifications(detailText);
-  if (Number.isFinite(minimum.maxYears) && minimum.maxYears > 5) {
+  if (minimum.exceedsFiveYears || (Number.isFinite(minimum.maxYears) && minimum.maxYears > 5)) {
     diagnostics.detailDrops.experience += 1;
     return null;
   }

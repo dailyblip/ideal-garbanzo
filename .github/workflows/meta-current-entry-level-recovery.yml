@@ -1,0 +1,156 @@
+name: Meta current entry-level recovery
+
+on:
+  workflow_run:
+    workflows:
+      - Bootstrap Meta Careers
+      - Refresh jobs and deploy site
+    types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/recover-meta-current-entry-level.mjs'
+      - '.github/workflows/meta-current-entry-level-recovery.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/recover-meta-current-entry-level.mjs'
+      - '.github/workflows/meta-current-entry-level-recovery.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+# This recovery mutates the shared public jobs feed. Serialize it with the
+# employer-specific writers even though it is driven by completed Meta/full-refresh runs.
+concurrency:
+  group: careers-source-writers
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Guard current Meta entry-level recovery
+        run: |
+          node --check scripts/recover-meta-current-entry-level.mjs
+          node scripts/recover-meta-current-entry-level.mjs --test
+
+  recover:
+    needs: [verify]
+    if: >-
+      github.event_name != 'pull_request' &&
+      (github.event_name != 'workflow_run' ||
+       (github.event.workflow_run.conclusion == 'success' &&
+        (github.event.workflow_run.name == 'Bootstrap Meta Careers' ||
+         (github.event.workflow_run.name == 'Refresh jobs and deploy site' && github.event.workflow_run.event == 'schedule'))))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Recover official current Meta entry-level roles
+        id: recovery
+        env:
+          NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
+          META_DETAIL_INTERVAL_MS: '1200'
+          META_DETAIL_ATTEMPTS: '3'
+          META_MAX_RETRY_AFTER_MS: '12000'
+          META_RATE_LIMIT_STREAK_LIMIT: '3'
+          META_PERSISTENT_COOLDOWN_MS: '3500'
+        run: |
+          node scripts/recover-meta-current-entry-level.mjs
+          if git diff --quiet -- data/meta-jobs.json data/jobs.json data/collector-status.json; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo 'No current Meta entry-level publication changes.'
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Normalize and validate recovered roles
+        if: steps.recovery.outputs.changed == 'true'
+        run: |
+          node scripts/normalize-job-locations.mjs
+          node scripts/dedupe-normalized-jobs.mjs
+          node scripts/normalize-display-copy.mjs
+          node scripts/stamp-job-history.mjs
+          node scripts/refresh-region-status.mjs
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-meta-snapshot.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-homepage-contract.mjs
+
+      - name: Publish recovered Meta state from current main
+        if: steps.recovery.outputs.changed == 'true'
+        shell: bash
+        env:
+          NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
+          META_DETAIL_INTERVAL_MS: '1200'
+          META_DETAIL_ATTEMPTS: '3'
+          META_MAX_RETRY_AFTER_MS: '12000'
+          META_RATE_LIMIT_STREAK_LIMIT: '3'
+          META_PERSISTENT_COOLDOWN_MS: '3500'
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/recover-meta-current-entry-level.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/normalize-display-copy.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-meta-snapshot.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo 'Main moved during Meta entry-level recovery; rebuilding from latest main.'
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3 4 5; do
+            git add data/meta-jobs.json data/jobs.json data/job-history.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo 'Meta entry-level recovery left no data changes to commit.'
+              exit 0
+            fi
+
+            git commit -m 'Recover current Meta early-career data center roles'
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Main moved before Meta recovery push completed (attempt ${attempt}); rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo '::error::Could not publish current Meta entry-level recovery after five fresh rebuilds.'
+          exit 1
+
+      - name: Deploy recovered Meta state
+        if: steps.recovery.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

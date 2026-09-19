@@ -149,8 +149,8 @@ jobs:
 
           echo "::error::Could not publish generic ATS refresh state after three fresh-main rebuilds."
           exit 1
-      - name: Deploy verified generic ATS feed change
-        if: steps.publish.outputs.changed == 'true' && steps.publish.outputs.feed_changed == 'true'
+      - name: Deploy verified generic ATS state change
+        if: steps.publish.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

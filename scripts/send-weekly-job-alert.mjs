@@ -3,22 +3,12 @@ import fs from 'node:fs/promises';
 const JOBS_PATH = new URL('../data/jobs.json', import.meta.url);
 const API_BASE = 'https://api.buttondown.com/v1';
 const API_VERSION = '2026-04-01';
-const ALERT_TAG = 'weekly-job-alerts';
 const WINDOW_DAYS = 7;
-const MAX_ALL_US = 16;
-const MAX_PER_REGION = 10;
+const MAX_EARLY = 12;
+const MAX_OTHER = 12;
 const SITE_BASE = 'https://datacentercareers.us';
 const EARLY_TYPES = new Set(['internship', 'apprenticeship', 'trainee']);
 const EARLY_EXPERIENCE = new Set(['no-experience', '0-2-years']);
-const REGION_LABELS = new Map([
-  ['mid-atlantic', 'Northern Virginia / Mid-Atlantic'],
-  ['texas', 'Texas'],
-  ['southwest', 'Southwest'],
-  ['midwest', 'Midwest'],
-  ['southeast', 'Southeast'],
-  ['northeast', 'Northeast'],
-  ['west', 'West']
-]);
 
 const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
@@ -38,17 +28,8 @@ const isEarlyCareer = job => EARLY_TYPES.has(job.type) || EARLY_EXPERIENCE.has(j
 const isPublishable = job => job?.active === true && job?.demo !== true && /^https:\/\//i.test(String(job?.sourceUrl || ''));
 const clean = value => String(value || '').replace(/\s+/g, ' ').trim();
 const slugify = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'job';
-const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0, 32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g, '').slice(-10)}`;
+const jobSlug = job => `${slugify(job.title)}-${slugify(job.company).slice(0, 32)}-${String(job.id || '').replace(/[^a-zA-Z0-9]/g,'').slice(-10)}`;
 const escapeMd = value => clean(value).replace(/([\\[\]*_`])/g, '\\$1');
-const ALERT_REGION_TERMS = {
-  'mid-atlantic':['district of columbia','delaware','maryland','virginia','west virginia',', dc',', de',', md',', va',', wv','ashburn','manassas'],
-  texas:['texas',', tx','dallas','austin','fort worth','san antonio','houston'],
-  southwest:['arizona','new mexico','nevada','oklahoma',', az',', nm',', nv',', ok','phoenix','mesa'],
-  midwest:['illinois','indiana','iowa','kansas','michigan','minnesota','missouri','nebraska','north dakota','ohio','south dakota','wisconsin',', il',', in',', ia',', ks',', mi',', mn',', mo',', ne',', nd',', oh',', sd',', wi'],
-  southeast:['alabama','arkansas','florida','georgia','kentucky','louisiana','mississippi','north carolina','south carolina','tennessee',', al',', ar',', fl',', ga',', ky',', la',', ms',', nc',', sc',', tn'],
-  northeast:['connecticut','maine','massachusetts','new hampshire','new jersey','new york','pennsylvania','rhode island','vermont',', ct',', me',', ma',', nh',', nj',', ny',', pa',', ri',', vt'],
-  west:['alaska','california','colorado','hawaii','idaho','montana','oregon','utah','washington','wyoming',', ak',', ca',', co',', hi',', id',', mt',', or',', ut',', wa',', wy']
-};
 
 function trackedSiteUrl(path, content = '') {
   const url = new URL(path, `${SITE_BASE}/`);
@@ -61,23 +42,6 @@ function trackedSiteUrl(path, content = '') {
 
 function jobDetailUrl(job) {
   return trackedSiteUrl(`/jobs/${jobSlug(job)}/`, clean(job.id) || jobSlug(job));
-}
-
-function alertLocationMatchesRegion(location, region) {
-  const value = clean(location).toLowerCase();
-  if (/^(?:united states|usa|us)$/.test(value)) return true;
-  if (value.includes('washington, dc') || value.includes('washington, d.c.')) return region === 'mid-atlantic';
-  return (ALERT_REGION_TERMS[region] || []).some(term => value.includes(term));
-}
-
-function alertJobMatchesRegion(job, region) {
-  if (!region) return true;
-  if (job?.region === 'nationwide') return true;
-  if (Array.isArray(job?.regions) && job.regions.includes(region)) return true;
-  if (job?.region === region) return true;
-  const location = clean(job?.location);
-  if (!job?.region || location.includes(';')) return alertLocationMatchesRegion(location, region);
-  return false;
 }
 
 function rankJobs(a, b) {
@@ -177,35 +141,6 @@ function runSelectionTests() {
     throw new Error('Zero-slot employer-diverse selection must return no jobs.');
   }
 
-  const regionCases = [
-    [{ region:'texas', location:'Dallas, TX' }, 'texas', true],
-    [{ region:'texas', location:'Dallas, TX' }, 'west', false],
-    [{ regions:['west', 'southwest'], location:'Remote' }, 'southwest', true],
-    [{ region:'nationwide', location:'United States' }, 'northeast', true],
-    [{ location:'Ashburn, VA' }, 'mid-atlantic', true],
-    [{ location:'Washington, DC' }, 'mid-atlantic', true],
-    [{ location:'Washington, DC' }, 'west', false],
-    [{ region:'southeast', location:'Southaven, MS; Dallas, TX' }, 'texas', true]
-  ];
-  for (const [job, region, expectedMatch] of regionCases) {
-    const actual = alertJobMatchesRegion(job, region);
-    if (actual !== expectedMatch) {
-      throw new Error(`Regional alert regression for ${region}: ${JSON.stringify(job)} matched=${actual}, expected=${expectedMatch}`);
-    }
-  }
-
-  const earlyCases = [
-    [{ type:'entry-level', experience:'0-2-years' }, true],
-    [{ type:'internship', experience:'2-5-years' }, true],
-    [{ type:'entry-level', experience:'2-5-years' }, false]
-  ];
-  for (const [job, expectedEarly] of earlyCases) {
-    const actual = isEarlyCareer(job);
-    if (actual !== expectedEarly) {
-      throw new Error(`Early-career alert regression: ${JSON.stringify(job)} classified=${actual}, expected=${expectedEarly}`);
-    }
-  }
-
   const nowMs = Date.parse('2026-09-18T16:00:00.000Z');
   const common = { company:'Test', title:'Technician', location:'Dallas, TX', active:true, demo:false, sourceUrl:'https://example.com/job', type:'entry-level', experience:'2-5-years' };
   const selected = selectNewJobs([
@@ -223,7 +158,7 @@ function runSelectionTests() {
   }
 
   console.log('Weekly alert employer-diverse selection passed 4 regression cases.');
-  console.log('Weekly alert personalization selection passed regional, early-career and seven-day-window regression cases.');
+  console.log('Weekly alert seven-day-window selection passed.');
 }
 
 function formatJob(job) {
@@ -231,8 +166,7 @@ function formatJob(job) {
   const company = escapeMd(job.company);
   const location = escapeMd(job.location);
   const pay = clean(job.pay) ? ` · ${escapeMd(job.pay)}` : '';
-  const badge = isEarlyCareer(job) ? ' · Early-career fit' : '';
-  return `- **[${title}](${jobDetailUrl(job)})** — ${company} · ${location}${pay}${badge}`;
+  return `- **[${title}](${jobDetailUrl(job)})** — ${company} · ${location}${pay}`;
 }
 
 function listBlock(jobs, emptyMessage) {
@@ -241,48 +175,23 @@ function listBlock(jobs, emptyMessage) {
   return `${jobs.map(formatJob).join('\n')}\n\n[Browse all current openings](${browseUrl})`;
 }
 
-function focusBlock(allJobs, earlyJobs, label) {
-  return [
-    `{% if subscriber.metadata.focus == 'early-career' %}`,
-    `### ${label}`,
-    listBlock(earlyJobs, 'No new internships, apprenticeships or beginner-friendly openings were added in this area during the last seven days.'),
-    '{% else %}',
-    `### ${label}`,
-    listBlock(allJobs, 'No new mission-fit openings were added in this area during the last seven days.'),
-    '{% endif %}'
-  ].join('\n\n');
-}
-
 function buildBody(newJobs) {
-  const allUs = diversifyJobs(newJobs, MAX_ALL_US);
-  const allUsEarly = diversifyJobs(newJobs.filter(isEarlyCareer), MAX_ALL_US);
-  const blocks = [];
-
-  blocks.push('{% if not subscriber.metadata.region or subscriber.metadata.region == \'all\' %}');
-  blocks.push(focusBlock(allUs, allUsEarly, 'New openings across the U.S.'));
-
-  for (const [region, label] of REGION_LABELS) {
-    const regionalCandidates = newJobs.filter(job => alertJobMatchesRegion(job, region));
-    const regionalEarlyCandidates = regionalCandidates.filter(isEarlyCareer);
-    const regional = diversifyJobs(regionalCandidates, MAX_PER_REGION);
-    const regionalEarly = diversifyJobs(regionalEarlyCandidates, MAX_PER_REGION);
-    blocks.push(`{% elif subscriber.metadata.region == '${region}' %}`);
-    blocks.push(focusBlock(regional, regionalEarly, `New openings: ${label}`));
-  }
-
-  blocks.push('{% else %}');
-  blocks.push(focusBlock(allUs, allUsEarly, 'New openings across the U.S.'));
-  blocks.push('{% endif %}');
+  const earlyJobs = diversifyJobs(newJobs.filter(isEarlyCareer), MAX_EARLY);
+  const otherJobs = diversifyJobs(newJobs.filter(job => !isEarlyCareer(job)), MAX_OTHER);
 
   return [
     '<!-- buttondown-editor-mode: plaintext -->',
     '# This week in data center careers',
     '',
-    'These are employer-direct openings added to Data Center Careers during the last seven days. Open a role to see its details, then continue to the verified employer career page to apply.',
+    'These are employer-direct openings added to Data Center Careers during the last seven days. Internships, apprenticeships and beginner-friendly roles come first.',
     '',
-    blocks.join('\n\n'),
+    '### Start here: early-career openings',
+    listBlock(earlyJobs, 'No new internships, apprenticeships or beginner-friendly openings were added during the last seven days.'),
     '',
-    'Want to change what you receive? Use your Buttondown subscriber portal to update your preferences or unsubscribe.',
+    '### More openings for workers with up to 5 years of experience',
+    listBlock(otherJobs, 'No additional 0–5 year openings were added during the last seven days.'),
+    '',
+    '[Manage your subscription or unsubscribe]({{ manage_subscription_url }})',
     '',
     `Data Center Careers · [datacentercareers.us](${trackedSiteUrl('/', 'footer-home')})`
   ].join('\n');
@@ -322,32 +231,7 @@ async function buttondownRequest(path, options = {}) {
   return payload;
 }
 
-async function resolveButtondownTagId(tagName) {
-  const target = clean(tagName);
-  if (!target) throw new Error('Buttondown alert tag name is empty.');
-
-  const params = new URLSearchParams({ page_size: '100' });
-  let seen = 0;
-  for (let page = 1; page <= 25; page += 1) {
-    params.set('page', String(page));
-    const payload = await buttondownRequest(`/tags?${params.toString()}`);
-    const tags = Array.isArray(payload) ? payload : Array.isArray(payload?.results) ? payload.results : [];
-    const match = tags.find(tag => clean(tag?.name) === target);
-    const id = clean(match?.id);
-    if (id) return id;
-
-    seen += tags.length;
-    const total = Number(payload?.count);
-    if (!tags.length || (Number.isFinite(total) && seen >= total)) break;
-  }
-
-  throw new Error(`Buttondown tag "${target}" was not found; refusing to schedule an unfiltered weekly alert.`);
-}
-
 async function findExistingDigest(digestKey) {
-  // Buttondown supports metadata filtering on subscribers, not on /emails.
-  // Narrow the email list to the target publish date using supported filters,
-  // then compare our idempotency key client-side so a retry cannot double-send.
   const publishDate = digestKey.match(/\d{4}-\d{2}-\d{2}$/)?.[0];
   if (!publishDate) throw new Error(`Invalid weekly digest key: ${digestKey}`);
   const params = new URLSearchParams({
@@ -377,11 +261,10 @@ async function main() {
   const now = new Date();
   const newJobs = selectNewJobs(jobs, now.getTime());
   const earlyCount = newJobs.filter(isEarlyCareer).length;
-  const regionalCounts = Object.fromEntries([...REGION_LABELS.keys()].map(region => [region, newJobs.filter(job => alertJobMatchesRegion(job, region)).length]));
   const body = buildBody(newJobs);
 
-  if (!body.includes("subscriber.metadata.region") || !body.includes("subscriber.metadata.focus")) {
-    throw new Error('Digest body lost subscriber preference templating.');
+  if (body.includes('subscriber.metadata') || body.includes('subscriber.tags')) {
+    throw new Error('Weekly alert must stay compatible with Buttondown free-tier subscribers.');
   }
   if (!body.includes(`${SITE_BASE}/jobs/`) || !body.includes('utm_source=weekly-email')) {
     throw new Error('Digest body is missing tracked Data Center Careers job links.');
@@ -391,10 +274,10 @@ async function main() {
     throw new Error(`Digest body bypasses the site for ${directEmployerLinks.length} job link(s).`);
   }
 
-  console.log(JSON.stringify({ totalJobs: jobs.length, newJobs: newJobs.length, earlyCareerNewJobs: earlyCount, regionalCounts }, null, 2));
+  console.log(JSON.stringify({ totalJobs: jobs.length, newJobs: newJobs.length, earlyCareerNewJobs: earlyCount }, null, 2));
 
   if (dryRun || !schedule) {
-    console.log(`Weekly alert dry-run passed; generated ${body.length} characters of personalized Markdown with tracked site links.`);
+    console.log(`Weekly alert dry-run passed; generated ${body.length} characters of employer-diverse Markdown with early-career roles prioritized.`);
     return;
   }
 
@@ -411,9 +294,6 @@ async function main() {
     return;
   }
 
-  const alertTagId = await resolveButtondownTagId(ALERT_TAG);
-  // The body is personalized by region and career focus. Avoid a global job
-  // count in the subject because a subscriber may correctly receive fewer jobs.
   const subject = 'New data center openings this week';
   const payload = await buttondownRequest('/emails', {
     method: 'POST',
@@ -428,11 +308,6 @@ async function main() {
         dcc_window_days: WINDOW_DAYS,
         dcc_new_job_count: newJobs.length,
         dcc_early_career_count: earlyCount
-      },
-      filters: {
-        filters: [{ field: 'subscriber.tags', operator: 'contains', value: alertTagId }],
-        groups: [],
-        predicate: 'and'
       }
     })
   });

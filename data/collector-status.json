@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-19T06:10:58.298Z",
-  "jobs": 689,
+  "updatedAt": "2026-09-19T06:50:51.925Z",
+  "jobs": 703,
   "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
@@ -8,14 +8,14 @@
     "ashby": 5
   },
   "countsByType": {
-    "entry-level": 662,
-    "internship": 6,
+    "entry-level": 671,
+    "internship": 11,
     "trainee": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 287,
-    "0-2-years": 378,
+    "2-5-years": 299,
+    "0-2-years": 380,
     "no-experience": 24
   },
   "errors": [],
@@ -2762,7 +2762,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-19T05:08:48.846Z",
+      "checkedAt": "2026-09-19T06:52:06.937Z",
       "removed": 0,
       "removedRoles": [],
       "policy": "Reject corporate title families and generic program roles without a clear infrastructure/operations title signal before publication."
@@ -3383,7 +3383,7 @@
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
     "sourceHealthy": false,
-    "qualifyingRoles": 0,
+    "qualifyingRoles": 14,
     "diagnostics": {
       "listingPagesAttempted": 1,
       "listingPagesSucceeded": 0,
@@ -3405,19 +3405,13 @@
       "listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
     ],
     "verifiedFallback": {
-      "active": false,
-      "verifiedAt": "2026-09-10T02:40:00Z",
-      "expiresAt": "2026-09-14T02:40:00.000Z",
-      "roles": 0,
+      "active": true,
+      "verifiedAt": "2026-09-19T06:41:23Z",
+      "expiresAt": "2026-09-23T06:41:23Z",
+      "roles": 14,
       "classificationCorrections": 0,
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
-      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; fallback roles were re-verified against CoreSite's official careers listing and job-detail pages on September 9, 2026, and newly observed qualifying roles were added from official CoreSite pages.",
-      "expired": true,
-      "checkedAt": "2026-09-19T05:55:18.821Z",
-      "maxAgeHours": 96,
-      "expiredAgeHours": 219.3,
-      "rolesRemoved": 0,
-      "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
+      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; retained roles were re-verified against CoreSite's official current Data Center Operations listing and employer job-detail pages on September 19, 2026. Roles no longer present in the official current listing were removed."
     }
   },
   "priorityEmployerExpansion": {
@@ -3531,7 +3525,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T06:10:58.374Z",
+    "checkedAt": "2026-09-19T06:52:06.984Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3539,28 +3533,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T06:10:58.450Z",
+    "updatedAt": "2026-09-19T06:52:07.068Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 689,
+    "regionAssigned": 703,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "texas": 112,
-      "west": 106,
-      "southeast": 101,
-      "midwest": 136,
-      "mid-atlantic": 126,
+      "west": 114,
+      "southeast": 102,
+      "midwest": 138,
+      "mid-atlantic": 127,
       "southwest": 86,
-      "northeast": 21,
+      "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T06:10:58.518Z",
-    "before": 689,
-    "after": 689,
+    "checkedAt": "2026-09-19T06:52:07.181Z",
+    "before": 703,
+    "after": 703,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -3575,7 +3569,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1212,
-    "currentJobs": 689,
+    "currentJobs": 703,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3583,8 +3577,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 93,
-    "updatedAt": "2026-09-19T06:11:17.334Z"
+    "firstSeenRecencyFallbackJobs": 107,
+    "updatedAt": "2026-09-19T06:52:07.223Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

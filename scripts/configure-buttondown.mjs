@@ -3,7 +3,6 @@ if (!apiKey) throw new Error('BUTTONDOWN_API_KEY is required.');
 
 const USERNAME = 'datacentercareers';
 const REDIRECT_URL = 'https://datacentercareers.us/subscribed/';
-const ALERT_TAG = 'weekly-job-alerts';
 const headers = {
   Authorization: `Token ${apiKey}`,
   'Content-Type': 'application/json',
@@ -33,7 +32,9 @@ const newsletter = newsletters.find(item => String(item?.username || '').toLower
 if (!newsletter?.id) throw new Error(`Buttondown newsletter ${USERNAME} was not found.`);
 
 // Keep the subscriber portal available without removing any other newsletter
-// features that may already be enabled in Buttondown.
+// features that may already be enabled in Buttondown. Tags and subscriber
+// metadata are intentionally not configured here because this newsletter is
+// currently on Buttondown's free plan; both features require Basic or higher.
 const enabledFeatures = new Set(Array.isArray(newsletter.enabled_features) ? newsletter.enabled_features : []);
 enabledFeatures.add('portal');
 
@@ -46,21 +47,4 @@ const updated = await apiRequest(`https://api.buttondown.com/v1/newsletters/${en
   })
 });
 
-// The weekly sender fails closed when this audience tag is missing. Upsert it
-// during configuration so the alert pipeline is ready before the first signup
-// or Monday scheduler run instead of depending on a subscriber to create it.
-const alertTag = await apiRequest('https://api.buttondown.com/v1/tags', {
-  method: 'POST',
-  headers: { 'X-Buttondown-Collision-Behavior': 'overwrite' },
-  body: JSON.stringify({
-    name: ALERT_TAG,
-    color: '#A64636',
-    description: 'Subscribers to the Data Center Careers weekly job alert.',
-    subscriber_editable: false
-  })
-});
-if (!alertTag?.id || String(alertTag?.name || '') !== ALERT_TAG) {
-  throw new Error(`Buttondown did not confirm the ${ALERT_TAG} audience tag.`);
-}
-
-console.log(`Buttondown alert service configured for ${updated?.username || USERNAME}: redirects, subscriber portal and ${ALERT_TAG} audience tag are ready.`);
+console.log(`Buttondown alert service configured for ${updated?.username || USERNAME}: redirects and subscriber portal are ready for the weekly all-subscriber digest.`);

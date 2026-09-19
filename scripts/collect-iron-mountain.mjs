@@ -145,15 +145,35 @@ function payFrom(description = '') {
   };
 }
 
-function postedAt(label = '') {
+function canonicalIsoDay(value = '') {
+  const parsed = Date.parse(String(value || ''));
+  if (!Number.isFinite(parsed)) return null;
+  return `${new Date(parsed).toISOString().slice(0, 10)}T00:00:00.000Z`;
+}
+
+function relativePostedAt(label = '', nowMs = Date.now()) {
   const text = lower(label);
-  const now = Date.now();
   if (!text) return null;
-  if (text.includes('today')) return new Date(now).toISOString();
-  if (text.includes('yesterday')) return new Date(now - 864e5).toISOString();
-  const match = text.match(/(\d+)\+?\s+days?\s+ago/);
-  if (match) return new Date(now - Number(match[1]) * 864e5).toISOString();
-  return null;
+  let candidateMs = null;
+  if (text.includes('today')) candidateMs = nowMs;
+  else if (text.includes('yesterday')) candidateMs = nowMs - 864e5;
+  else {
+    const match = text.match(/(\d+)\+?\s+days?\s+ago/);
+    if (match) candidateMs = nowMs - Number(match[1]) * 864e5;
+  }
+  return Number.isFinite(candidateMs) ? canonicalIsoDay(new Date(candidateMs).toISOString()) : null;
+}
+
+// Workday exposes relative posting labels. Recomputing them with the current
+// crawl clock causes snapshot-only churn and can move old "30+ days ago" roles
+// forward indefinitely. Keep the earliest date evidence already verified for
+// the same requisition, matching the shared job-history stability policy.
+function stablePostedAt(label = '', previousPostedAt = null, nowMs = Date.now()) {
+  const current = relativePostedAt(label, nowMs);
+  const previous = canonicalIsoDay(previousPostedAt);
+  if (!current) return previous;
+  if (!previous) return current;
+  return Date.parse(previous) <= Date.parse(current) ? previous : current;
 }
 
 function tagsFor(title, description, cls) {
@@ -273,7 +293,25 @@ if (process.argv.includes('--test')) {
   if (!boundary.expired) throw new Error('Iron Mountain fallback did not expire at 96 hours.');
   if (!missing.expired) throw new Error('Iron Mountain fallback without verification evidence did not fail closed.');
   if (empty.expired) throw new Error('Empty Iron Mountain snapshot incorrectly entered fallback expiry.');
-  console.log('Iron Mountain collector fallback regression tests passed.');
+
+  const newRelative = stablePostedAt('2 Days Ago', null, now);
+  if (newRelative !== '2026-09-14T00:00:00.000Z') {
+    throw new Error(`Iron Mountain relative posting-date normalization regressed: ${newRelative}`);
+  }
+  const sameDay = stablePostedAt('4 Days Ago', '2026-09-12T05:11:02.267Z', now);
+  if (sameDay !== '2026-09-12T00:00:00.000Z') {
+    throw new Error(`Iron Mountain posting-date clock stability regressed: ${sameDay}`);
+  }
+  const capped = stablePostedAt('30+ Days Ago', '2026-08-10T00:00:00.000Z', now);
+  if (capped !== '2026-08-10T00:00:00.000Z') {
+    throw new Error(`Iron Mountain 30+ day stability regressed: ${capped}`);
+  }
+  const missingLabel = stablePostedAt('', '2026-08-10T17:00:00.000Z', now);
+  if (missingLabel !== '2026-08-10T00:00:00.000Z') {
+    throw new Error(`Iron Mountain missing-label preservation regressed: ${missingLabel}`);
+  }
+
+  console.log('Iron Mountain collector fallback and posting-date regression tests passed.');
   process.exit(0);
 }
 
@@ -281,6 +319,14 @@ const currentJobs = await readJson(JOBS_PATH, []);
 const status = await readJson(STATUS_PATH, {});
 const storedSnapshot = await readJson(SNAPSHOT_PATH, []);
 const previousSnapshot = Array.isArray(storedSnapshot) ? storedSnapshot.filter(ironMountainJob) : [];
+const previousPostedAtById = new Map();
+for (const job of [...previousSnapshot, ...currentJobs.filter(ironMountainJob)]) {
+  const id = clean(job?.id);
+  const date = canonicalIsoDay(job?.postedAt);
+  if (!id || !date) continue;
+  const existing = previousPostedAtById.get(id);
+  if (!existing || Date.parse(date) < Date.parse(existing)) previousPostedAtById.set(id, date);
+}
 const previousSource = status?.ironMountain && typeof status.ironMountain === 'object' ? status.ironMountain : {};
 const previousLastHealthyAt = clean(previousSource.lastHealthyAt || previousSource.fallbackFreshness?.lastHealthyAt || '');
 const checkedAt = new Date().toISOString();
@@ -344,8 +390,9 @@ try {
           diagnostics.drops.invalidRequisition += 1;
           return null;
         }
+        const jobId = `ironmountain-${reqId}`;
         return {
-          id: `ironmountain-${reqId}`,
+          id: jobId,
           title: clean(row.title),
           company: COMPANY,
           location,
@@ -353,7 +400,7 @@ try {
           experience: cls.experience,
           tags: tagsFor(row.title, description, cls),
           ...payFrom(description),
-          postedAt: postedAt(row.postedOn || row.posted || ''),
+          postedAt: stablePostedAt(row.postedOn || row.posted || '', previousPostedAtById.get(jobId), nowMs),
           postedHours: 9999,
           source: 'Official Iron Mountain Careers',
           sourceUrl: publicUrl,

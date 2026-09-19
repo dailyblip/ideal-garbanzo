@@ -172,6 +172,20 @@ function normalizeExperienceNumbers(text='') {
   return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
 }
 
+function exceedsFiveYearCeiling(text='') {
+  const normalized = normalizeExperienceNumbers(text);
+  const strictMinimumPatterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})(?:\s*\(\d{1,2}\))?\s+years?\b/g,
+    />\s*(\d{1,2})\s+years?\b/g
+  ];
+  for (const pattern of strictMinimumPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      if (Number(match[1]) >= 5) return true;
+    }
+  }
+  return false;
+}
+
 function statedExperienceYears(text='') {
   const normalized = normalizeExperienceNumbers(text);
   const values = [];
@@ -220,7 +234,7 @@ function classify(title, description='') {
   // and fail closed when experience cannot be established.
   const experienceText = lower(`${title} ${requiredExperienceText(description)}`);
   const years = statedExperienceYears(experienceText);
-  if (years.some(year => year > 5)) return null;
+  if (exceedsFiveYearCeiling(experienceText) || years.some(year => year > 5)) return null;
 
   const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required|\b0\+?\s+months?\s+(?:of\s+)?experience\b/i.test(experienceText);
   const explicitEntry = /\bentry[- ]level\b/i.test(experienceText);
@@ -245,6 +259,12 @@ function validateClassifier() {
       name: 'high-school requirement does not hide a six-year minimum',
       title: 'Data Center Technician',
       description: 'High school diploma required. Minimum of 6 years of relevant experience in data center operations.',
+      expected: null
+    },
+    {
+      name: 'strictly more than five years is outside the product ceiling',
+      title: 'Data Center Technician',
+      description: 'Entry level wording elsewhere. Requires more than five years of experience in data center operations.',
       expected: null
     },
     {

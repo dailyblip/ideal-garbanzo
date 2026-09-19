@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T16:14:35.077Z",
+  "updatedAt": "2026-09-19T16:15:14.007Z",
   "jobs": 692,
   "sourcesAttempted": 22,
   "providers": {
@@ -17,8 +17,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 370,
     "2-5-years": 298,
+    "0-2-years": 370,
     "no-experience": 24
   },
   "errors": [],
@@ -221,7 +221,7 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-19T05:30:57.307Z",
+    "checkedAt": "2026-09-19T16:15:14.007Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3543,7 +3543,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T16:14:35.168Z",
+    "checkedAt": "2026-09-19T16:15:14.090Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3551,18 +3551,18 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T16:14:35.216Z",
+    "updatedAt": "2026-09-19T16:15:14.165Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 693,
+    "regionAssigned": 692,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 136,
-      "texas": 113,
+      "texas": 112,
       "west": 109,
       "southeast": 104,
+      "midwest": 136,
       "mid-atlantic": 121,
       "southwest": 85,
       "northeast": 24,
@@ -3570,24 +3570,15 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T16:14:35.262Z",
-    "before": 693,
+    "checkedAt": "2026-09-19T16:15:14.235Z",
+    "before": 692,
     "after": 692,
-    "removed": 1,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "google-77675229853164230",
-        "keptId": "google-108517449598411462",
-        "company": "Google",
-        "title": "Data Center Technician, Night Shift",
-        "location": "Haskell, TX"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-19T16:07:40.744Z",
+    "checkedAt": "2026-09-19T16:15:32.310Z",
     "publishedJobs": 692,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3605,7 +3596,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T16:14:35.302Z"
+    "updatedAt": "2026-09-19T16:15:32.512Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

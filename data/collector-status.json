@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-19T15:58:54.091Z",
-  "jobs": 696,
+  "updatedAt": "2026-09-19T15:59:57.271Z",
+  "jobs": 692,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 664,
+    "apprenticeship": 11,
     "internship": 11,
     "trainee": 10,
-    "apprenticeship": 11
+    "entry-level": 660
   },
   "countsByExperience": {
-    "2-5-years": 298,
-    "0-2-years": 374,
-    "no-experience": 24
+    "0-2-years": 370,
+    "no-experience": 24,
+    "2-5-years": 298
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -2021,7 +2021,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-19T11:21:05.713Z"
+      "verifiedFallbackExpiredAt": "2026-09-19T15:59:57.271Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2052,28 +2052,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T15:58:54.273Z",
+    "updatedAt": "2026-09-19T15:59:57.398Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 696,
+    "regionAssigned": 692,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 112,
-      "west": 110,
-      "southeast": 105,
       "midwest": 136,
-      "mid-atlantic": 123,
+      "mid-atlantic": 121,
+      "texas": 112,
       "southwest": 85,
+      "southeast": 104,
+      "west": 109,
       "northeast": 24,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T15:58:54.342Z",
-    "before": 696,
-    "after": 696,
+    "checkedAt": "2026-09-19T15:59:57.447Z",
+    "before": 692,
+    "after": 692,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -2088,7 +2088,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1218,
-    "currentJobs": 696,
+    "currentJobs": 692,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2097,7 +2097,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T15:59:16.098Z"
+    "updatedAt": "2026-09-19T15:59:57.489Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2818,7 +2818,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-19T11:21:05.713Z",
+    "checkedAt": "2026-09-19T15:59:57.271Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,

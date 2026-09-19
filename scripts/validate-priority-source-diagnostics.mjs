@@ -64,6 +64,11 @@ if (violations.length) {
 
 console.log(`Priority source diagnostics present for all ${prioritySources.length} strategic employers. ${summary.join(', ')}`);
 
+// Dedicated hyperscaler/operator snapshots can outlive the source workflow that
+// created them. Validate freshness at deployment too so another healthy source
+// cannot keep stale retained roles deployable past their verification window.
+await import('./validate-dedicated-fallback-freshness.mjs');
+
 // Deployment already invokes this strategic-source diagnostic guard. Keep the
 // six major Workday operators fail-closed here as well so a stale or malformed
 // fallback state cannot remain deployable merely because an old sourceHealthy

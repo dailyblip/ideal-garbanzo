@@ -60,16 +60,12 @@ vm.runInNewContext(seoProbe, seoSandbox, { filename: 'scripts/generate-region-se
 assert.equal(typeof seoSandbox.__matchesRegion, 'function', 'regional SEO must expose jobMatchesRegion to the test probe');
 runContract('regional SEO', seoSandbox.__matchesRegion);
 
+// Region filtering remains a first-class site/search feature. The weekly email
+// intentionally uses one all-subscriber digest while this Buttondown account
+// is on the free plan, so it must not claim or silently implement regional
+// personalization through paid subscriber metadata.
 const alertSource = await readFile('scripts/send-weekly-job-alert.mjs', 'utf8');
-const alertStart = alertSource.indexOf('const ALERT_REGION_TERMS = {');
-const alertEnd = alertSource.indexOf('function rankJobs');
-assert.ok(alertStart >= 0 && alertEnd > alertStart, 'weekly job alert matcher block not found');
-const alertProbe = `${alertSource.slice(alertStart, alertEnd)}\nglobalThis.__matchesRegion = alertJobMatchesRegion;`;
-const alertSandbox = {
-  clean: value => String(value ?? '').replace(/\s+/g, ' ').trim()
-};
-vm.runInNewContext(alertProbe, alertSandbox, { filename: 'scripts/send-weekly-job-alert.mjs#matcher' });
-assert.equal(typeof alertSandbox.__matchesRegion, 'function', 'weekly job alert must expose alertJobMatchesRegion to the test probe');
-runContract('weekly job alert', alertSandbox.__matchesRegion);
+assert.equal(alertSource.includes('alertJobMatchesRegion'), false, 'weekly alert must not carry an unused regional personalization matcher');
+assert.equal(alertSource.includes('subscriber.metadata.region'), false, 'weekly alert must not depend on paid Buttondown regional metadata');
 
-console.log('Multi-location regional filtering contract passed for app, SEO, and the weekly job alert pipeline.');
+console.log('Multi-location regional filtering contract passed for the homepage/search app and regional SEO; weekly email remains explicitly all-subscriber on the current Buttondown plan.');

@@ -58,6 +58,7 @@ jobs:
           node scripts/validate-source-workflow-isolation.mjs
       - name: Run Google fail-closed regression tests
         run: |
+          node scripts/collect-google-careers.mjs --test-experience-parser
           node scripts/collect-google-careers-fresh.mjs --self-test
           node scripts/enforce-google-fallback-freshness.mjs --test
           node scripts/validate-google-freshness.mjs --test

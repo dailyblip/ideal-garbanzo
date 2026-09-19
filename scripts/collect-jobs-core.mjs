@@ -92,6 +92,20 @@ function normalizeExperienceNumbers(text='') {
   return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
 }
 
+function exceedsFiveYearCeiling(text='') {
+  const normalized = normalizeExperienceNumbers(text);
+  const strictMinimumPatterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})(?:\s*\(\d{1,2}\))?\s+years?\b/g,
+    />\s*(\d{1,2})\s+years?\b/g
+  ];
+  for (const pattern of strictMinimumPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      if (Number(match[1]) >= 5) return true;
+    }
+  }
+  return false;
+}
+
 function statedExperienceYears(text='') {
   const normalized = normalizeExperienceNumbers(text);
   const values = [];
@@ -126,7 +140,7 @@ function classify(title, description='', employmentType='') {
   // more experienced candidate, while still failing closed on ambiguous roles.
   const experienceText = lower(`${title} ${requiredExperienceText(description)}`);
   const years = statedExperienceYears(experienceText);
-  if (years.some(year => year > 5)) return null;
+  if (exceedsFiveYearCeiling(experienceText) || years.some(year => year > 5)) return null;
 
   const explicitProgram = type !== 'entry-level';
   const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required/i.test(experienceText);
@@ -160,6 +174,12 @@ if (process.argv.includes('--test-experience-parser')) {
       name: 'required experience above five years is rejected',
       title: 'Critical Facilities Technician',
       description: 'Minimum qualifications: Seven or more years of direct experience in a data center critical environment.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'strictly more than five years is outside the product ceiling',
+      title: 'Data Center Technician',
+      description: 'Requires more than five years of experience in data center operations and critical facilities.',
       expectedType: null, expectedExperience: null
     },
     {

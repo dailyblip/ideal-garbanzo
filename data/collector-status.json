@@ -101,9 +101,18 @@
     "snapshotVerifiedAt": "2026-09-19T11:13:56.513Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
-    "snapshotAgeHours": 0,
+    "snapshotAgeHours": 0.5,
     "normalizedTitles": 1,
-    "removedExpiredFallback": 0
+    "removedExpiredFallback": 0,
+    "fallbackFreshness": {
+      "active": false,
+      "expired": false,
+      "lastHealthyAt": "2026-09-19T11:13:56.513Z",
+      "checkedAt": "2026-09-19T11:43:41.081Z",
+      "expiresAt": "2026-09-23T11:13:56.513Z",
+      "maxAgeHours": 96,
+      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
+    }
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",

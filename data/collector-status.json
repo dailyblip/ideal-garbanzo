@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-19T11:05:18.834Z",
-  "jobs": 708,
+  "updatedAt": "2026-09-19T11:21:05.713Z",
+  "jobs": 704,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 676,
+    "apprenticeship": 11,
     "internship": 11,
     "trainee": 10,
-    "apprenticeship": 11
+    "entry-level": 672
   },
   "countsByExperience": {
-    "2-5-years": 299,
-    "0-2-years": 385,
-    "no-experience": 24
+    "0-2-years": 381,
+    "no-experience": 24,
+    "2-5-years": 299
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1959,9 +1959,10 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 4,
-      "qualifyingRoles": 1,
+      "qualifyingRoles": 0,
       "drops": {
         "non-us": 7,
+        "context": 1,
         "title": 14,
         "unknown-experience": 6
       },
@@ -1973,6 +1974,13 @@
         {
           "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
+        },
+        {
+          "title": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
+          "listingLabel": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
         },
         {
           "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
@@ -1993,13 +2001,6 @@
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
-        },
-        {
-          "title": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
-          "listingLabel": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-staff-security-engineer-security-platforms-automation-hybrid-dallas-texas-united-states"
         }
       ],
       "errors": []
@@ -2032,7 +2033,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-19T04:52:59.871Z"
+      "verifiedFallbackExpiredAt": "2026-09-19T11:21:05.713Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2046,7 +2047,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -2063,28 +2064,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T11:13:56.658Z",
+    "updatedAt": "2026-09-19T11:21:05.869Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 708,
+    "regionAssigned": 704,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 112,
-      "west": 113,
-      "southeast": 103,
-      "southwest": 88,
       "midwest": 138,
-      "mid-atlantic": 130,
+      "mid-atlantic": 127,
+      "texas": 112,
+      "southwest": 88,
+      "southeast": 102,
+      "west": 113,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T11:13:56.732Z",
-    "before": 708,
-    "after": 708,
+    "checkedAt": "2026-09-19T11:21:05.940Z",
+    "before": 704,
+    "after": 704,
     "removed": 0,
     "policy": "one representative posting per normalized employer + title + location",
     "examples": []
@@ -2099,7 +2100,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1214,
-    "currentJobs": 708,
+    "currentJobs": 704,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2108,7 +2109,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 107,
-    "updatedAt": "2026-09-19T11:13:56.791Z"
+    "updatedAt": "2026-09-19T11:21:06.001Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2820,7 +2821,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-19T04:52:59.871Z",
+    "checkedAt": "2026-09-19T11:21:05.713Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,

@@ -15,7 +15,8 @@ const greenhouseBoards = [
   ['elementcritical','Element Critical'],
   ['coreweave','CoreWeave'],
   ['flexentialcorp','Flexential'],
-  ['edgeconnex','EdgeConneX']
+  ['edgeconnex','EdgeConneX'],
+  ['lightningai','Lightning AI']
 ];
 const ashbyBoards = [
   ['lambda','Lambda'],

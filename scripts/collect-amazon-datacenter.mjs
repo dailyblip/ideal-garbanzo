@@ -31,6 +31,10 @@ const contextTerms = [
   'data center operations', 'datacenter operations'
 ];
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff engineer|supervisor|architect|program manager|product manager|software|developer|scientist|security engineer|security specialist|sales|account executive|recruiter|construction manager|project manager)\b/i;
+const experienceNumberWords = new Map([
+  ['zero', '0'], ['one', '1'], ['two', '2'], ['three', '3'], ['four', '4'], ['five', '5'],
+  ['six', '6'], ['seven', '7'], ['eight', '8'], ['nine', '9'], ['ten', '10']
+]);
 
 const clean = value => String(value ?? '')
   .replace(/<[^>]*>/g, ' ')
@@ -148,8 +152,13 @@ function normalizeLocation(row) {
   return state ? state : 'Location not listed';
 }
 
+function normalizeExperienceNumbers(text = '') {
+  return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+}
+
 function requiredExperienceYears(text = '') {
   const values = [];
+  const normalized = normalizeExperienceNumbers(text);
   const patterns = [
     /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s*(?:-|–|to)\s*(\d{1,2})\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
     /(?:minimum(?: of)?\s+|at least\s+)?(\d{1,2})\+?\s+years?(?:\s+of)?\s+(?:relevant\s+|related\s+)?experience/gi,
@@ -157,12 +166,53 @@ function requiredExperienceYears(text = '') {
     /(\d{1,2})\+?\s+years?\s+(?:of\s+)?(?:technical|professional|data center|datacenter|hardware|network|electrical|mechanical|operations)\s+experience/gi
   ];
   for (const pattern of patterns) {
-    for (const match of text.matchAll(pattern)) {
+    for (const match of normalized.matchAll(pattern)) {
       values.push(Number(match[1]));
       if (match[2]) values.push(Number(match[2]));
     }
   }
   return values.filter(Number.isFinite);
+}
+
+function exceedsFiveYearCeiling(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
+  const strictMinimumPatterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})(?:\s*\(\d{1,2}\))?\s+years?\b/g,
+    />\s*(\d{1,2})\s+years?\b/g
+  ];
+  for (const pattern of strictMinimumPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      if (Number(match[1]) >= 5) return true;
+    }
+  }
+  return false;
+}
+
+function runExperienceParserTests() {
+  const cases = [
+    ['exactly five years remains eligible', '5 years of experience in data center operations.', false, 5],
+    ['five plus years remains eligible by policy', '5+ years of experience in critical facilities.', false, 5],
+    ['more than five years is rejected', 'More than five years of experience in data center operations.', true, 5],
+    ['over five years is rejected', 'Over 5 years of experience in critical facilities.', true, 5],
+    ['greater than five years is rejected', 'Greater than five years of experience in facility operations.', true, 5],
+    ['in excess of five years is rejected', 'In excess of 5 years of experience in a critical environment.', true, 5],
+    ['greater-than symbol five years is rejected', '> 5 years of experience in data center operations.', true, 5],
+    ['spelled-out six years is rejected', 'Six years of experience in data center operations.', true, 6]
+  ];
+  for (const [name, requirement, expectedRejected, expectedMaxYears] of cases) {
+    const years = requiredExperienceYears(requirement);
+    const maxYears = years.length ? Math.max(...years) : null;
+    const rejected = exceedsFiveYearCeiling(requirement) || years.some(year => year > 5);
+    if (rejected !== expectedRejected || maxYears !== expectedMaxYears) {
+      throw new Error(`AWS experience parser regression failed: ${name}; expected rejected=${expectedRejected}, maxYears=${expectedMaxYears}; got rejected=${rejected}, maxYears=${maxYears}.`);
+    }
+  }
+  console.log('AWS experience parser regression tests passed.');
+}
+
+if (process.argv.includes('--test-experience-parser')) {
+  runExperienceParserTests();
+  process.exit(0);
 }
 
 function classify(row) {
@@ -177,7 +227,7 @@ function classify(row) {
   if (!/data cent(?:er|re)|datacenter/i.test(title) && !hasAny(text, contextTerms)) return { drop: 'context' };
 
   const years = requiredExperienceYears(required);
-  if (years.some(year => year >= 6)) return { drop: 'experience' };
+  if (exceedsFiveYearCeiling(required) || years.some(year => year > 5)) return { drop: 'experience' };
   const earlyProgramTitle = /work.?based learning|intern|apprentice|trainee|skillbridge/.test(t);
   const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required/.test(lower(required));
   const earlySignal = earlyProgramTitle || explicitNoExperience;

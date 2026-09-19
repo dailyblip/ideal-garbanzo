@@ -66,8 +66,17 @@ function canonicalTitle(job) {
   title = title.replace(/^\s*\d{2,5}\s*[-–—]\s*/u, '');
   title = title.replace(/\s+[-–—]\s+([^|]+)$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
   title = title.replace(/\s*\(([^)]+)\)\s*$/u, (full, tail) => tailBelongsToLocation(tail) ? '' : full);
-  title = title.replace(/\s*[-–—,:()]?\s*(?:day|night|overnight|weekend)\s+shift(?:\s*\d+)?\s*$/iu, '');
+  // Shift qualifiers are applicant-significant schedule differences. Keep them
+  // in the same semantic identity used by dedupe-normalized-jobs.mjs.
   return normalizeIdentity(title);
+}
+
+const shiftRegressionBase = { location: 'Carrollton, TX' };
+if (canonicalTitle({ ...shiftRegressionBase, title: 'Critical Environments Operator (Level 1-4)' }) === canonicalTitle({ ...shiftRegressionBase, title: 'Critical Environments Operator (Level 1-4) - NIGHT SHIFT' })) {
+  throw new Error('Shift-aware validation regression: night-shift openings must remain distinct from unqualified openings.');
+}
+if (canonicalTitle({ ...shiftRegressionBase, title: 'Critical Environments Operator - Night Shift' }) !== canonicalTitle({ ...shiftRegressionBase, title: 'Critical Environments Operator - NIGHT SHIFT' })) {
+  throw new Error('Shift-aware validation regression: equivalent shift labels must normalize consistently.');
 }
 
 const ids = new Set();
@@ -106,7 +115,8 @@ for (const [i, job] of jobs.entries()) {
   }
 
   // Distinct employer requisitions with the same title are valid when they are
-  // in different locations. The regional job board must preserve those cards.
+  // in different locations or on meaningfully different shifts. The regional
+  // job board must preserve those applicant-significant cards.
   const company = normalizeIdentity(job.company);
   const title = canonicalTitle(job);
   const semanticKey = [company, title, normalizeIdentity(job.location)].join('|');

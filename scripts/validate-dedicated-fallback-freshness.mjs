@@ -7,8 +7,10 @@ const nowMs = Date.now();
 const sources = [
   { company: 'Amazon Web Services', snapshot: 'data/amazon-jobs.json', diagnostic: status => status.amazonDatacenter },
   { company: 'Google', snapshot: 'data/google-jobs.json', diagnostic: status => status.googleCareers },
-  { company: 'Microsoft', snapshot: 'data/microsoft-jobs.json', diagnostic: status => status.microsoftDatacenter },
-  { company: 'Meta', snapshot: 'data/meta-jobs.json', diagnostic: status => status.metaCareers },
+  { company: 'Microsoft', snapshot: 'data/microsoft-jobs.json', diagnostic: status => status.microsoftDatacenter,
+    evidence: (status, rawSnapshot, diagnostic) => [diagnostic?.snapshotFallback, rawSnapshot] },
+  { company: 'Meta', snapshot: 'data/meta-jobs.json', diagnostic: status => status.metaCareers,
+    evidence: status => [status.metaFallbackFreshness] },
   { company: 'Oracle', snapshot: 'data/oracle-jobs.json', diagnostic: status => status.oracleCareers },
   { company: 'Digital Realty', snapshot: 'data/digital-realty-jobs.json', diagnostic: status => status.digitalRealty }
 ];
@@ -27,47 +29,50 @@ function snapshotJobs(value) {
   return null;
 }
 
-function firstTimestamp(diagnostic = {}) {
-  const candidates = [
-    diagnostic?.fallbackFreshness?.lastHealthyAt,
-    diagnostic?.lastHealthyAt,
-    diagnostic?.snapshotVerifiedAt,
-    diagnostic?.verifiedAt
-  ];
-  for (const value of candidates) {
-    const parsed = Date.parse(String(value || ''));
-    if (Number.isFinite(parsed)) return { value: String(value), parsed };
+function evidenceObjects(diagnostic = {}, extraEvidence = []) {
+  return [
+    diagnostic?.fallbackFreshness,
+    diagnostic?.snapshotFallback,
+    diagnostic,
+    ...extraEvidence
+  ].filter(value => value && typeof value === 'object' && !Array.isArray(value));
+}
+
+function firstTimestamp(diagnostic = {}, extraEvidence = []) {
+  for (const evidence of evidenceObjects(diagnostic, extraEvidence)) {
+    for (const value of [evidence.lastHealthyAt, evidence.verifiedAt, evidence.snapshotVerifiedAt]) {
+      const parsed = Date.parse(String(value || ''));
+      if (Number.isFinite(parsed)) return { value: String(value), parsed };
+    }
   }
   return null;
 }
 
-function fallbackMaxAgeHours(diagnostic = {}) {
-  const candidates = [
-    diagnostic?.fallbackFreshness?.maxAgeHours,
-    diagnostic?.fallbackMaxAgeHours,
-    diagnostic?.snapshotMaxAgeHours,
-    DEFAULT_MAX_AGE_HOURS
-  ];
-  for (const value of candidates) {
-    const numeric = Number(value);
-    if (Number.isFinite(numeric) && numeric > 0) return numeric;
+function fallbackMaxAgeHours(diagnostic = {}, extraEvidence = []) {
+  for (const evidence of evidenceObjects(diagnostic, extraEvidence)) {
+    for (const value of [evidence.maxAgeHours, evidence.fallbackMaxAgeHours, evidence.snapshotMaxAgeHours]) {
+      const numeric = Number(value);
+      if (Number.isFinite(numeric) && numeric > 0) return numeric;
+    }
   }
   return DEFAULT_MAX_AGE_HOURS;
 }
 
-function explicitFallbackExpired(diagnostic = {}) {
-  return diagnostic?.fallbackFreshness?.expired === true || diagnostic?.fallbackExpired === true;
+function explicitFallbackExpired(diagnostic = {}, extraEvidence = []) {
+  return evidenceObjects(diagnostic, extraEvidence).some(evidence =>
+    evidence.expired === true || evidence.fallbackExpired === true
+  );
 }
 
-function degradedFallbackViolation({ diagnostic, publishedRoles, snapshotRoles, atMs = nowMs }) {
+function degradedFallbackViolation({ diagnostic, extraEvidence = [], publishedRoles, snapshotRoles, atMs = nowMs }) {
   if (diagnostic?.sourceHealthy === true) return null;
   const retainedRoles = Math.max(Number(publishedRoles || 0), Number(snapshotRoles || 0));
   if (retainedRoles === 0) return null;
-  if (explicitFallbackExpired(diagnostic)) {
+  if (explicitFallbackExpired(diagnostic, extraEvidence)) {
     return `retains ${retainedRoles} role(s) even though its fallback is marked expired`;
   }
 
-  const verified = firstTimestamp(diagnostic);
+  const verified = firstTimestamp(diagnostic, extraEvidence);
   if (!verified) {
     return `retains ${retainedRoles} role(s) without a parseable last healthy verification timestamp`;
   }
@@ -77,7 +82,7 @@ function degradedFallbackViolation({ diagnostic, publishedRoles, snapshotRoles, 
     return `last healthy verification is unexpectedly future-dated (${verified.value})`;
   }
 
-  const maxAgeHours = fallbackMaxAgeHours(diagnostic);
+  const maxAgeHours = fallbackMaxAgeHours(diagnostic, extraEvidence);
   const ageHours = Math.max(0, (atMs - verified.parsed) / 36e5);
   if (ageHours >= maxAgeHours) {
     return `retains ${retainedRoles} role(s) ${ageHours.toFixed(1)}h after its last healthy verification (maximum ${maxAgeHours}h)`;
@@ -94,6 +99,15 @@ function runRegressionCases() {
     atMs: fixedNow
   });
   if (fresh) throw new Error(`Dedicated fallback regression: fresh fallback was rejected (${fresh})`);
+
+  const externalFresh = degradedFallbackViolation({
+    diagnostic: { sourceHealthy: false },
+    extraEvidence: [{ active: false, expired: false, lastHealthyAt: '2026-09-18T02:00:01Z', maxAgeHours: 96 }],
+    publishedRoles: 3,
+    snapshotRoles: 3,
+    atMs: fixedNow
+  });
+  if (externalFresh) throw new Error(`Dedicated fallback regression: fresh external verification evidence was rejected (${externalFresh})`);
 
   const stale = degradedFallbackViolation({
     diagnostic: { sourceHealthy: false, fallbackFreshness: { lastHealthyAt: '2026-09-15T02:00:00Z', maxAgeHours: 96 } },
@@ -112,7 +126,8 @@ function runRegressionCases() {
   if (!missingEvidence) throw new Error('Dedicated fallback regression: retained roles without verification evidence were not rejected');
 
   const expired = degradedFallbackViolation({
-    diagnostic: { sourceHealthy: false, lastHealthyAt: '2026-09-18T02:00:00Z', fallbackExpired: true },
+    diagnostic: { sourceHealthy: false },
+    extraEvidence: [{ lastHealthyAt: '2026-09-18T02:00:00Z', expired: true }],
     publishedRoles: 1,
     snapshotRoles: 1,
     atMs: fixedNow
@@ -165,10 +180,11 @@ for (const source of sources) {
     job?.demo !== true
   ).length;
   const dedicatedSnapshotRoles = snapshot.filter(job => String(job?.company || '').trim() === source.company).length;
-  const violation = degradedFallbackViolation({ diagnostic, publishedRoles, snapshotRoles: dedicatedSnapshotRoles });
+  const extraEvidence = source.evidence ? source.evidence(status, rawSnapshot, diagnostic) : [];
+  const violation = degradedFallbackViolation({ diagnostic, extraEvidence, publishedRoles, snapshotRoles: dedicatedSnapshotRoles });
   if (violation) violations.push(`${source.company}: ${violation}`);
 
-  const state = diagnostic.sourceHealthy ? 'healthy' : (Math.max(publishedRoles, dedicatedSnapshotRoles) ? 'fresh-fallback' : 'degraded-empty');
+  const state = diagnostic.sourceHealthy ? 'healthy' : (Math.max(publishedRoles, dedicatedSnapshotRoles) ? 'verified-retained' : 'degraded-empty');
   summary.push(`${source.company}=${state}:${publishedRoles}`);
 }
 

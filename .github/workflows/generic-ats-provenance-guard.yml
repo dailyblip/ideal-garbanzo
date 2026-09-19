@@ -34,5 +34,23 @@ jobs:
         run: node --check scripts/validate-generic-ats-provenance.mjs
       - name: Run provenance regression cases
         run: node scripts/validate-generic-ats-provenance.mjs --test
-      - name: Validate current public feed provenance
+      - name: Validate Greenhouse feed provenance
+        run: |
+          cp data/jobs.json /tmp/jobs.json
+          trap 'cp /tmp/jobs.json data/jobs.json' EXIT
+          node -e "const fs=require('fs'); const jobs=JSON.parse(fs.readFileSync('data/jobs.json')); fs.writeFileSync('data/jobs.json', JSON.stringify(jobs.filter(j=>String(j.id||'').startsWith('gh-'))));"
+          node scripts/validate-generic-ats-provenance.mjs
+      - name: Validate Lever feed provenance
+        run: |
+          cp data/jobs.json /tmp/jobs.json
+          trap 'cp /tmp/jobs.json data/jobs.json' EXIT
+          node -e "const fs=require('fs'); const jobs=JSON.parse(fs.readFileSync('data/jobs.json')); fs.writeFileSync('data/jobs.json', JSON.stringify(jobs.filter(j=>String(j.id||'').startsWith('lever-'))));"
+          node scripts/validate-generic-ats-provenance.mjs
+      - name: Validate Ashby feed provenance
+        run: |
+          cp data/jobs.json /tmp/jobs.json
+          trap 'cp /tmp/jobs.json data/jobs.json' EXIT
+          node -e "const fs=require('fs'); const jobs=JSON.parse(fs.readFileSync('data/jobs.json')); fs.writeFileSync('data/jobs.json', JSON.stringify(jobs.filter(j=>String(j.id||'').startsWith('ashby-'))));"
+          node scripts/validate-generic-ats-provenance.mjs
+      - name: Validate complete public feed provenance
         run: node scripts/validate-generic-ats-provenance.mjs

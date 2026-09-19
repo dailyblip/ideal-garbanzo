@@ -103,36 +103,33 @@ for (const profile of profiles) {
         if (!close(alert.left, events.left, 3) || !close(alert.right, events.right, 3)) fail('Newsletter and career-events outer edges are misaligned.');
       }
 
-      const alertRegion = rect('#alertRegion');
-      const alertFocus = rect('#alertFocus');
+      // Buttondown's current free plan supports the email-only signup used by the
+      // site. Region/focus preferences remain part of the jobs browser, not the
+      // newsletter form, so visual QA must not require paid metadata controls.
       const alertEmail = rect('#alertEmail');
       const alertJoin = rect('#weeklyAlertForm button[type="submit"]');
       const alertForm = rect('#weeklyAlertForm');
-      if (!alertRegion || !alertFocus || !alertEmail || !alertJoin || !alertForm) fail('Newsletter controls are missing.');
-      else if (mode === 'desktop') {
-        metrics.newsletterBottomDelta = Math.max(Math.abs(alertFocus.bottom-alertEmail.bottom), Math.abs(alertFocus.bottom-alertJoin.bottom));
-        if (!close(alertRegion.left, alertFocus.left, 3) || !close(alertRegion.width, alertFocus.width, 3)) fail('Desktop newsletter preference controls are not aligned.');
-        if (alertRegion.bottom >= alertFocus.top) fail('Desktop newsletter preference controls overlap instead of stacking cleanly.');
-        if (!close(alertFocus.bottom, alertEmail.bottom, 5) || !close(alertEmail.bottom, alertJoin.bottom, 3)) fail('Desktop newsletter focus, email and submit controls do not share a clean bottom baseline.');
-        if (!close(alertFocus.height, alertEmail.height, 3) || !close(alertEmail.height, alertJoin.height, 3)) fail('Desktop newsletter focus, email and submit control heights are mismatched.');
-      } else if (mode === 'tablet') {
-        if (!close(alertRegion.left, alertFocus.left, 3) || !close(alertRegion.width, alertFocus.width, 3)) fail('Tablet newsletter preference controls are not aligned.');
-        if (!close(alertFocus.left, alertForm.left, 3) || !close(alertFocus.width, alertForm.width, 3)) fail('Tablet newsletter preference and signup rows are not aligned to the same width.');
-        if (alertRegion.bottom >= alertFocus.top || alertFocus.bottom >= alertEmail.top) fail('Tablet newsletter rows overlap instead of stacking cleanly.');
-        if (!close(alertEmail.height, alertJoin.height, 3)) fail('Tablet newsletter email field and submit button heights are mismatched.');
+      if (!alertEmail || !alertJoin || !alertForm) fail('Newsletter email or submit control is missing.');
+      else if (mode === 'desktop' || mode === 'tablet') {
+        metrics.newsletterBottomDelta = Math.abs(alertEmail.bottom - alertJoin.bottom);
+        if (!close(alertEmail.bottom, alertJoin.bottom, 3)) fail('Newsletter email and submit controls do not share a clean bottom baseline.');
+        if (!close(alertEmail.height, alertJoin.height, 3)) fail('Newsletter email and submit control heights are mismatched.');
       }
 
       if (mode === 'mobile') {
-        for (const selector of ['#alertRegion','#alertFocus','#alertEmail','#weeklyAlertForm button[type="submit"]','.hero-search .btn']) {
+        for (const selector of ['#alertEmail','#weeklyAlertForm button[type="submit"]','.hero-search .btn']) {
           const r = rect(selector);
           if (!r) fail(`Mobile control missing: ${selector}.`);
           else if (r.height < 44) fail(`Mobile touch target ${selector} is only ${Math.round(r.height)}px high.`);
         }
-        if (alertRegion && alertFocus) {
-          if (!close(alertRegion.left, alertFocus.left, 2) || !close(alertRegion.width, alertFocus.width, 2)) fail('Mobile newsletter preference controls are not aligned.');
-          if (alertRegion.bottom >= alertFocus.top) fail('Mobile newsletter preference controls overlap instead of stacking cleanly.');
-        }
+        const emailStyle = getComputedStyle(document.querySelector('#alertEmail'));
+        if (Number.parseFloat(emailStyle?.fontSize || '0') < 16) fail('Mobile newsletter email field uses text smaller than 16px.');
         if (alert && events && (!close(alert.left, events.left, 2) || !close(alert.right, events.right, 2))) fail('Mobile newsletter and events cards are not horizontally aligned.');
+      }
+
+      const alertFormElement = document.querySelector('#weeklyAlertForm');
+      if (alertFormElement?.getAttribute('action') !== 'https://buttondown.com/api/emails/embed-subscribe/datacentercareers') {
+        fail('Newsletter form is not wired to the configured Buttondown list.');
       }
 
       const cards = [...document.querySelectorAll('#jobList .job-card')].filter(visible).map(element => element.getBoundingClientRect());

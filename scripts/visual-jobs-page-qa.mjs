@@ -119,14 +119,12 @@ for (const profile of profiles) {
       const browser = rect('[data-jobs-browser]');
       const copy = rect('.jobs-newsletter-copy');
       const form = rect('.jobs-newsletter-form');
-      const region = rect('#jobs-newsletter-region');
-      const focus = rect('#jobs-newsletter-focus');
       const email = rect('#jobs-newsletter-email');
       const submit = rect('.jobs-newsletter-submit');
-      const controls = [region, focus, email, submit];
+      const controls = [email, submit];
 
       if (!newsletter || !browser || !copy || !form || controls.some(value => !value)) {
-        fail('Jobs newsletter, search panel, or newsletter controls are missing.');
+        fail('Jobs newsletter, search panel, email field, or submit control is missing.');
         return { errors, metrics };
       }
 
@@ -150,7 +148,7 @@ for (const profile of profiles) {
       if (kickerStyle?.color !== 'rgb(201, 148, 47)') fail(`Newsletter kicker is ${kickerStyle?.color}; expected site gold accent.`);
       if (submitStyle?.backgroundColor !== 'rgb(169, 79, 69)') fail(`Newsletter CTA is ${submitStyle?.backgroundColor}; expected muted brick red.`);
 
-      for (const [label, control] of [['region',region],['focus',focus],['email',email],['submit',submit]]) {
+      for (const [label, control] of [['email',email],['submit',submit]]) {
         if (control.height < 44) fail(`Newsletter ${label} touch target is only ${Math.round(control.height)}px high.`);
       }
 
@@ -160,7 +158,7 @@ for (const profile of profiles) {
         const controlTops = controls.map(control => control.top);
         const controlBottoms = controls.map(control => control.bottom);
         if (Math.max(...controlTops) - Math.min(...controlTops) > 4 || Math.max(...controlBottoms) - Math.min(...controlBottoms) > 4) {
-          fail('Newsletter region, focus, email and CTA controls do not share one row/baseline.');
+          fail('Newsletter email and CTA controls do not share one row/baseline.');
         }
         const copyCenter = copy.top + copy.height / 2;
         const formCenter = form.top + form.height / 2;
@@ -168,17 +166,15 @@ for (const profile of profiles) {
       } else {
         metrics.newsletterHeight = newsletter.height;
         if (newsletter.height > 160) fail(`Mobile newsletter is ${Math.round(newsletter.height)}px high; expected compact wrapping.`);
-        for (const selector of ['#jobs-newsletter-region','#jobs-newsletter-focus','#jobs-newsletter-email']) {
-          const style = rgb(selector);
-          if (Number.parseFloat(style?.fontSize || '0') < 16) fail(`Mobile newsletter control ${selector} uses text smaller than 16px.`);
-        }
+        const emailStyle = rgb('#jobs-newsletter-email');
+        if (Number.parseFloat(emailStyle?.fontSize || '0') < 16) fail('Mobile newsletter email field uses text smaller than 16px.');
       }
 
+      // Buttondown's current free plan uses one email-only audience. Region and
+      // experience filtering stay on the jobs page; newsletter metadata fields
+      // are deliberately not part of this visual contract.
       const formElement = document.querySelector('#jobs-newsletter-form');
       if (formElement?.getAttribute('action') !== 'https://buttondown.com/api/emails/embed-subscribe/datacentercareers') fail('Newsletter form is not wired to the configured Buttondown list.');
-      const regionSelect = document.querySelector('#jobs-newsletter-region');
-      const focusSelect = document.querySelector('#jobs-newsletter-focus');
-      if (regionSelect?.name !== 'metadata__region' || focusSelect?.name !== 'metadata__focus') fail('Newsletter preference controls are not wired to regional/focus metadata.');
 
       return { errors, metrics };
     }, { mode: profile.mode });

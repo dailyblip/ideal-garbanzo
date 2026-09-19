@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T15:51:29.558Z",
+  "updatedAt": "2026-09-19T15:53:05.134Z",
   "jobs": 696,
   "sourcesAttempted": 18,
   "providers": {
@@ -1443,8 +1443,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-19T10:57:24.395Z",
-      "expiresAt": "2026-09-23T10:57:24.395Z",
+      "verifiedAt": "2026-09-19T15:53:03.591Z",
+      "expiresAt": "2026-09-23T15:53:03.591Z",
       "roles": 35,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -2052,54 +2052,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-19T15:51:29.728Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-19T15:53:05.196Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-19T15:51:29.792Z",
+    "updatedAt": "2026-09-19T15:53:05.257Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 696,
@@ -2118,7 +2079,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-19T15:51:29.850Z",
+    "checkedAt": "2026-09-19T15:53:05.316Z",
     "before": 696,
     "after": 696,
     "removed": 0,
@@ -2136,15 +2097,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1218,
     "currentJobs": 696,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-19T15:51:46.011Z"
+    "updatedAt": "2026-09-19T15:53:05.360Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

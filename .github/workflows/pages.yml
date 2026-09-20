@@ -112,6 +112,7 @@ jobs:
         run: |
           node scripts/validate.mjs
           node scripts/validate-promotions.mjs
+          node scripts/validate-employer-submissions.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-mailing-list.mjs
           node scripts/validate-compass-datacenters.mjs
@@ -174,6 +175,7 @@ jobs:
             node scripts/stamp-job-history.mjs
             node scripts/validate.mjs
             node scripts/validate-promotions.mjs
+            node scripts/validate-employer-submissions.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-mailing-list.mjs
             node scripts/validate-compass-datacenters.mjs
@@ -282,6 +284,7 @@ jobs:
         run: |
           node scripts/validate.mjs
           node scripts/validate-promotions.mjs
+          node scripts/validate-employer-submissions.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
@@ -312,6 +315,7 @@ jobs:
         run: |
           node scripts/validate.mjs
           node scripts/validate-promotions.mjs
+          node scripts/validate-employer-submissions.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs

@@ -21,6 +21,10 @@ const noExperienceTerms = [
   'no experience','no prior experience','entry level','entry-level',
   'training program','learning program','skillbridge'
 ];
+const experienceNumberWords = new Map([
+  ['zero','0'],['one','1'],['two','2'],['three','3'],['four','4'],['five','5'],
+  ['six','6'],['seven','7'],['eight','8'],['nine','9'],['ten','10']
+]);
 
 const clean = value => String(value ?? '')
   .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
@@ -151,27 +155,52 @@ function postingLocation(posting) {
   return { locations: [...new Set(locations)], us };
 }
 
+function requiredExperienceText(description = '') {
+  const text = clean(description);
+  const preferred = text.search(/\b(?:preferred qualifications?|preferred experience|preferred skills?|nice to have|bonus qualifications?)\b/i);
+  return preferred >= 0 ? text.slice(0, preferred) : text;
+}
+
+function normalizeExperienceNumbers(text = '') {
+  return lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+}
+
+function exceedsFiveYearCeiling(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
+  const patterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})\s+years?\b/gi,
+    />\s*(\d{1,2})\s+years?\b/gi
+  ];
+  for (const pattern of patterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      if (Number(match[1]) >= 5) return true;
+    }
+  }
+  return false;
+}
+
 function experienceRange(text) {
+  const normalized = normalizeExperienceNumbers(text);
   const mins = [];
   const maxes = [];
   const ranges = /(?:requires?|minimum(?: of)?|at least|typically requires)?\s*(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?(?:\s+of)?\s+(?:equivalent\s+|relevant\s+|related\s+)?(?:work\s+)?experience/gi;
-  for (const match of text.matchAll(ranges)) {
+  for (const match of normalized.matchAll(ranges)) {
     mins.push(Number(match[1]));
     maxes.push(Number(match[2]));
   }
   const singles = /(?:requires?|minimum(?: of)?|at least|typically requires)\s+(\d{1,2})\+?\s+years?(?:\s+of)?\s+(?:equivalent\s+|relevant\s+|related\s+)?(?:work\s+)?experience/gi;
-  for (const match of text.matchAll(singles)) {
+  for (const match of normalized.matchAll(singles)) {
     mins.push(Number(match[1]));
     maxes.push(Number(match[1]));
   }
   const fieldTerms = '(?:data\\s*center|datacenter|critical\\s+facilit(?:y|ies)|electrical|mechanical|hvac|network(?:ing)?|telecommunications?|technical|engineering|related\\s+field)';
   const fieldRanges = new RegExp(`\\b(\\d{1,2})\\s*(?:-|–|to)\\s*(\\d{1,2})\\s+years?\\s+(?:of\\s+)?(?:experience\\s+)?(?:in|within|working\\s+in)\\s+${fieldTerms}`, 'gi');
-  for (const match of text.matchAll(fieldRanges)) {
+  for (const match of normalized.matchAll(fieldRanges)) {
     mins.push(Number(match[1]));
     maxes.push(Number(match[2]));
   }
   const fieldSingles = new RegExp(`\\b(?:at\\s+least\\s+)?(\\d{1,2})\\+?\\s+years?\\s+(?:of\\s+)?(?:experience\\s+)?(?:in|within|working\\s+in)\\s+${fieldTerms}`, 'gi');
-  for (const match of text.matchAll(fieldSingles)) {
+  for (const match of normalized.matchAll(fieldSingles)) {
     mins.push(Number(match[1]));
     maxes.push(Number(match[1]));
   }
@@ -183,8 +212,9 @@ function classify(title, description) {
   const text = lower(`${title} ${description}`);
   if (!isAllowedTitle(title)) return { drop: 'title' };
   if (!hasAny(text, contextTerms)) return { drop: 'context' };
-  const years = experienceRange(text);
-  if (years.min != null && years.min > 5) return { drop: 'experience' };
+  const required = requiredExperienceText(description);
+  const years = experienceRange(required);
+  if (exceedsFiveYearCeiling(required) || (years.min != null && years.min > 5)) return { drop: 'experience' };
 
   let type = 'entry-level';
   if (/apprentice/.test(t)) type = 'apprenticeship';
@@ -197,6 +227,36 @@ function classify(title, description) {
   else if (hasAny(text, noExperienceTerms)) experience = 'no-experience';
   else return { drop: 'unknown-experience' };
   return { type, experience };
+}
+
+function validateExperienceParser() {
+  const cases = [
+    ['exactly five years remains eligible', 'Minimum 5 years of experience in data center operations.', false, 5],
+    ['five plus years remains eligible by policy', 'Minimum 5+ years of experience in critical facilities.', false, 5],
+    ['more than five years is rejected', 'More than five years of experience in data center operations.', true, 5],
+    ['over five years is rejected', 'Over 5 years of experience in critical facilities.', true, 5],
+    ['greater than five years is rejected', 'Greater than five years of experience in facility operations.', true, null],
+    ['in excess of five years is rejected', 'In excess of 5 years of experience in a critical environment.', true, null],
+    ['greater-than symbol five years is rejected', '> 5 years of experience in data center operations.', true, 5],
+    ['spelled-out six years is rejected', 'Minimum six years of experience in data center operations.', true, 6],
+    ['preferred seniority does not override required five years', 'Minimum 5 years of experience in data center operations. Preferred qualifications: more than eight years of experience.', false, 5]
+  ];
+  const failures = [];
+  for (const [name, description, expectedRejected, expectedMin] of cases) {
+    const required = requiredExperienceText(description);
+    const years = experienceRange(required);
+    const rejected = exceedsFiveYearCeiling(required) || (Number.isFinite(years.min) && years.min > 5);
+    if (rejected !== expectedRejected || years.min !== expectedMin) {
+      failures.push(`${name}: expected rejected=${expectedRejected}, min=${expectedMin}; got rejected=${rejected}, min=${years.min}`);
+    }
+  }
+  if (failures.length) throw new Error(`Equinix experience parser regression: ${failures.join(' | ')}`);
+  console.log('Equinix experience parser regression tests passed.');
+}
+
+if (process.argv.includes('--test-experience-parser')) {
+  validateExperienceParser();
+  process.exit(0);
 }
 
 function payFromPosting(posting, description) {

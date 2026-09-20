@@ -115,6 +115,15 @@ function statedExperienceYears(text = '') {
   return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
 }
 
+function strictlyExceedsFiveYearBoundary(text = '') {
+  const normalized = lower(text).replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g, word => experienceNumberWords.get(word) || word);
+  const patterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})\s+years?\b/gi,
+    /(?:^|\s)>\s*(\d{1,2})\s+years?\b/gi
+  ];
+  return patterns.some(pattern => [...normalized.matchAll(pattern)].some(match => Number(match[1]) >= 5));
+}
+
 function relevant(title = '', description = '') {
   const t = lower(title);
   const d = lower(description);
@@ -133,7 +142,7 @@ function classify(title = '', description = '', employmentType = '') {
   const t = lower(title);
   const required = lower(`${title} ${requiredExperienceText(description)}`);
   const years = statedExperienceYears(required);
-  if (years.some(year => year > 5)) return null;
+  if (years.some(year => year > 5) || strictlyExceedsFiveYearBoundary(required)) return null;
 
   let type = 'entry-level';
   const employment = lower(employmentType);
@@ -510,6 +519,48 @@ if (process.argv.includes('--test')) {
       title: 'Data Center Technician',
       description: 'Minimum of six years of experience in data center operations.',
       expected: null
+    },
+    {
+      name: 'more than five years is rejected',
+      title: 'Data Center Technician',
+      description: 'More than five years of experience in data center operations is required.',
+      expected: null
+    },
+    {
+      name: 'over five years is rejected',
+      title: 'Data Center Technician',
+      description: 'Over 5 years of experience in data center operations is required.',
+      expected: null
+    },
+    {
+      name: 'greater than five years is rejected',
+      title: 'Data Center Technician',
+      description: 'Greater than five years of experience in data center operations is required.',
+      expected: null
+    },
+    {
+      name: 'in excess of five years is rejected',
+      title: 'Data Center Technician',
+      description: 'In excess of five years of experience in data center operations is required.',
+      expected: null
+    },
+    {
+      name: 'symbolic greater-than five years is rejected',
+      title: 'Data Center Technician',
+      description: '> 5 years of experience in data center operations is required.',
+      expected: null
+    },
+    {
+      name: 'exact five-year role remains eligible',
+      title: 'Data Center Technician',
+      description: 'Minimum of five years of experience in data center operations.',
+      expected: '2-5-years'
+    },
+    {
+      name: 'five-plus role remains eligible at boundary',
+      title: 'Data Center Technician',
+      description: '5+ years of experience in data center operations.',
+      expected: '2-5-years'
     },
     {
       name: 'unknown-experience engineer rejected',

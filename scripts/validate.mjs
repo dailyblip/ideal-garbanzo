@@ -10,6 +10,7 @@ const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
 await import('./validate-priority-employer-sources.mjs');
+await import('./validate-priority-source-diagnostics.mjs');
 await import('./validate-direct-role-links.mjs');
 await import('./validate-cloudhq.mjs');
 await import('./validate-amazon-snapshot.mjs');

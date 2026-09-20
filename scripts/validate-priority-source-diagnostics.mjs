@@ -30,6 +30,8 @@ const prioritySources = [
   ['Compass Datacenters', value => value.compass],
   ['Stream Data Centers', value => value.streamDataCenters],
   ['EdgeConneX', value => value.edgeconnexCareers],
+  ['Prime Data Centers', value => value.primeDataCenters],
+  ['CoreWeave', value => value.coreWeaveCareers],
   ['Vantage Data Centers', value => value.majorSources?.employerDiagnostics?.['Vantage Data Centers']],
   ['QTS Data Centers', value => value.majorSources?.employerDiagnostics?.['QTS Data Centers']],
   ['CyrusOne', value => value.majorSources?.employerDiagnostics?.CyrusOne],
@@ -83,12 +85,6 @@ await import('./validate-digital-realty.mjs');
 // boolean is still present in collector-status.json.
 await import('./validate-major-workday-freshness-state.mjs');
 
-// Their reconciled snapshot is authoritative for role membership. Enforce exact
-// requisition membership plus the audience/source fields that downstream jobs
-// must not rewrite, so later refreshes cannot silently add or retain stale major
-// operator roles after reconciliation has completed.
-await import('./validate-major-workday-snapshot.mjs');
-
 // CoreSite is a major colocation operator and its verified fallback can outlive
 // the workflow that produced it. Enforce both its direct-source state and fallback
 // parity during every deployment, not only when CoreSite-specific files change.
@@ -104,6 +100,12 @@ await import('./validate-databank.mjs');
 // official careers page is unavailable. Enforce verified-host URLs, freshness,
 // supported audience metadata, and exact snapshot/public-feed parity on deploy.
 await import('./validate-sabey-snapshot.mjs');
+
+// Prime and CoreWeave are comparable large operators with authoritative direct
+// snapshots. Run their source-health, freshness, audience-fit, direct-link, and
+// public-feed parity checks through the same standard deployment path.
+await import('./validate-prime-data-centers.mjs');
+await import('./validate-coreweave.mjs');
 
 // Comparable operators are also part of the mission-critical source backbone.
 // Validate their direct-source integrity and snapshot/public-feed parity whenever

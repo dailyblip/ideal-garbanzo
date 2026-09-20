@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-20T11:51:53.727Z",
-  "jobs": 726,
+  "updatedAt": "2026-09-20T12:01:41.024Z",
+  "jobs": 718,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
-    "entry-level": 694,
+    "apprenticeship": 11,
     "internship": 11,
     "trainee": 10,
-    "apprenticeship": 11
+    "entry-level": 686
   },
   "countsByExperience": {
     "0-2-years": 395,
-    "2-5-years": 307,
-    "no-experience": 24
+    "no-experience": 24,
+    "2-5-years": 299
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3446,15 +3446,19 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 3,
-      "qualifyingRoles": 1,
+      "staleRemoved": 4,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 6,
+        "non-us": 7,
         "context": 1,
         "title": 14,
         "unknown-experience": 6
       },
       "dropSamples": [
+        {
+          "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
+        },
         {
           "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
@@ -3485,13 +3489,6 @@
         {
           "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
           "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
-        },
-        {
-          "title": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
-          "listingLabel": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-staff-security-engineer-security-platforms-automation-hybrid-dallas-texas-united-states"
         }
       ],
       "errors": []
@@ -3503,10 +3500,10 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 4,
+      "broadListingEvidenceAdded": 5,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -3518,13 +3515,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 4,
+        "unknownExperience": 3,
         "unusable": 0,
-        "verifiedMismatch": 3
+        "verifiedMismatch": 2
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 3,
-      "verifiedFallbackExpiredAt": "2026-09-20T11:43:08.956Z"
+      "expiredVerifiedFallbackRoles": 4,
+      "verifiedFallbackExpiredAt": "2026-09-20T12:01:41.024Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -3538,7 +3535,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -3555,209 +3552,31 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T12:01:22.936Z",
-    "changed": 11,
-    "samples": [
-      {
-        "id": "workday-qtsdatacenters-R2026-0881",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1093",
-        "before": "US VA Manassas 1 DC1",
-        "after": "Manassas, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0917",
-        "before": "US VA Ashburn 1 DC1",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0893",
-        "before": "US OR Hillsboro 1 DC1",
-        "after": "Hillsboro, OR"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0768",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-aligneddc-JR101086",
-        "before": "IAD-02",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-aligneddc-JR100970",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      },
-      {
-        "id": "workday-aligneddc-JR100971",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      }
-    ],
-    "regionAssigned": 726,
+    "updatedAt": "2026-09-20T12:01:41.162Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 718,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 142,
-      "texas": 119,
+      "midwest": 140,
+      "mid-atlantic": 129,
+      "texas": 116,
+      "southwest": 89,
+      "southeast": 106,
       "west": 113,
-      "southeast": 107,
-      "mid-atlantic": 130,
-      "southwest": 90,
       "northeast": 24,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T12:01:22.985Z",
-    "before": 743,
-    "after": 726,
-    "removed": 17,
+    "checkedAt": "2026-09-20T12:01:41.222Z",
+    "before": 718,
+    "after": 718,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101677",
-        "keptId": "workday-nttglobaldatacenters-JR102055",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101981",
-        "keptId": "workday-nttglobaldatacenters-JR101999",
-        "company": "NTT Global Data Centers",
-        "title": "1139 - Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101968",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0893",
-        "keptId": "workday-qtsdatacenters-R2026-0982",
-        "company": "QTS Data Centers",
-        "title": "Critical Environment Engineer",
-        "location": "Hillsboro, OR"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0881",
-        "keptId": "workday-qtsdatacenters-R2026-0768",
-        "company": "QTS Data Centers",
-        "title": "Regional Data Center Controls Quality Engineer",
-        "location": "Suwanee, GA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101903",
-        "keptId": "workday-nttglobaldatacenters-JR101999",
-        "company": "NTT Global Data Centers",
-        "title": "1139 - Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101861",
-        "keptId": "workday-nttglobaldatacenters-JR101912",
-        "company": "NTT Global Data Centers",
-        "title": "1127 - Data Center Technician L2",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101799",
-        "keptId": "workday-nttglobaldatacenters-JR101533",
-        "company": "NTT Global Data Centers",
-        "title": "5155 - Data Center IT Infrastructure Technician",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101847",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101681",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101746",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101821",
-        "keptId": "workday-nttglobaldatacenters-JR101755",
-        "company": "NTT Global Data Centers",
-        "title": "1162 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101610",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101929",
-        "keptId": "workday-nttglobaldatacenters-JR101129",
-        "company": "NTT Global Data Centers",
-        "title": "5174 - Data Center Technician L2",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101755",
-        "keptId": "workday-nttglobaldatacenters-JR100547",
-        "company": "NTT Global Data Centers",
-        "title": "5203 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR100813",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR100547",
-        "keptId": "workday-nttglobaldatacenters-JR100436",
-        "company": "NTT Global Data Centers",
-        "title": "2227 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-20T11:51:49.483Z",
@@ -3769,16 +3588,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1222,
-    "currentJobs": 726,
+    "currentJobs": 718,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 167,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T12:01:23.065Z"
+    "updatedAt": "2026-09-20T12:01:41.271Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4487,76 +4306,55 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-20T11:43:08.956Z",
+    "checkedAt": "2026-09-20T12:01:41.024Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 3,
+    "expiredEarlyCareerFallbackRoles": 4,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-20T11:47:16.534Z",
+    "checkedAt": "2026-09-20T12:01:40.576Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
-    "added": 1,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
+    "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": false
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       }
     ],
     "errors": []

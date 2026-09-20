@@ -1,8 +1,16 @@
+import { readFile } from 'node:fs/promises';
+
+const config = JSON.parse(await readFile('data/mailing-list.json', 'utf8'));
 const apiKey = String(process.env.BUTTONDOWN_API_KEY || '').trim();
 if (!apiKey) throw new Error('BUTTONDOWN_API_KEY is required.');
+if (config?.provider !== 'buttondown' || config?.enabled !== true) throw new Error('Buttondown mailing-list integration must be enabled before provider configuration runs.');
 
-const USERNAME = 'datacentercareers';
-const REDIRECT_URL = 'https://datacentercareers.us/subscribed/';
+const USERNAME = String(config.username || '').trim();
+const REDIRECT_URL = String(config.subscriptionRedirectUrl || '').trim();
+const CONFIRMATION_REDIRECT_URL = String(config.subscriptionConfirmationRedirectUrl || '').trim();
+if (!USERNAME) throw new Error('Mailing-list username is required.');
+if (!REDIRECT_URL || !CONFIRMATION_REDIRECT_URL) throw new Error('Mailing-list redirect URLs are required.');
+
 const headers = {
   Authorization: `Token ${apiKey}`,
   'Content-Type': 'application/json',
@@ -28,7 +36,7 @@ async function apiRequest(url, options = {}) {
 
 const payload = await apiRequest('https://api.buttondown.com/v1/newsletters');
 const newsletters = Array.isArray(payload) ? payload : Array.isArray(payload?.results) ? payload.results : [];
-const newsletter = newsletters.find(item => String(item?.username || '').toLowerCase() === USERNAME);
+const newsletter = newsletters.find(item => String(item?.username || '').toLowerCase() === USERNAME.toLowerCase());
 if (!newsletter?.id) throw new Error(`Buttondown newsletter ${USERNAME} was not found.`);
 
 // Keep the subscriber portal available without removing any other newsletter
@@ -42,7 +50,7 @@ const updated = await apiRequest(`https://api.buttondown.com/v1/newsletters/${en
   method: 'PATCH',
   body: JSON.stringify({
     subscription_redirect_url: REDIRECT_URL,
-    subscription_confirmation_redirect_url: `${REDIRECT_URL}?confirmed=1`,
+    subscription_confirmation_redirect_url: CONFIRMATION_REDIRECT_URL,
     enabled_features: [...enabledFeatures]
   })
 });

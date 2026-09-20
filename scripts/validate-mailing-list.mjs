@@ -6,6 +6,7 @@ const signupScript = await readFile('assets/mailing-list.js', 'utf8');
 const alertScript = await readFile('scripts/send-weekly-job-alert.mjs', 'utf8');
 const buttondownConfigScript = await readFile('scripts/configure-buttondown.mjs', 'utf8');
 const workflow = await readFile('.github/workflows/weekly-job-alert.yml', 'utf8');
+const redirectWorkflow = await readFile('.github/workflows/buttondown-redirect.yml', 'utf8');
 
 const fail = message => { throw new Error(message); };
 const assertMissing = async path => {
@@ -23,6 +24,21 @@ if (!/^[a-z0-9][a-z0-9_-]{1,62}$/i.test(String(config.username || ''))) fail('Bu
 if (config.cadence !== 'weekly') fail('Mailing list cadence must remain weekly.');
 if (config.sendDay !== 'Monday') fail('Weekly alert must send on Monday.');
 if (config.sendTimeUtc !== '16:00') fail('Weekly alert send time must remain 16:00 UTC.');
+
+for (const [field, expectedPath, requiredQuery] of [
+  ['subscriptionRedirectUrl', '/subscribed/', ''],
+  ['subscriptionConfirmationRedirectUrl', '/subscribed/', 'confirmed=1']
+]) {
+  let parsed;
+  try {
+    parsed = new URL(String(config[field] || ''));
+  } catch {
+    fail(`${field} must be a valid URL.`);
+  }
+  if (parsed.protocol !== 'https:' || parsed.hostname !== 'datacentercareers.us') fail(`${field} must stay on the production HTTPS domain.`);
+  if (parsed.pathname !== expectedPath) fail(`${field} must point to ${expectedPath}.`);
+  if (requiredQuery && parsed.searchParams.get('confirmed') !== '1') fail(`${field} must preserve ${requiredQuery}.`);
+}
 
 const scheduleMatches = [...workflow.matchAll(/cron:\s*'(\d{1,2})\s+(\d{1,2})\s+\*\s+\*\s+1'/g)];
 if (scheduleMatches.length < 2) fail('Weekly alert workflow must keep redundant Monday UTC scheduler runs.');
@@ -74,16 +90,20 @@ if (signupScript.includes('metadata__') || signupScript.includes('weekly-job-ale
 if (signupScript.includes('.catch(() => configure(null))')) fail('Signup script must not disable the static fallback when config fetch fails.');
 
 for (const marker of [
+  "readFile('data/mailing-list.json', 'utf8')",
+  'config.username',
+  'config.subscriptionRedirectUrl',
+  'config.subscriptionConfirmationRedirectUrl',
   "enabledFeatures.add('portal');",
   'subscription_redirect_url: REDIRECT_URL',
-  'subscription_confirmation_redirect_url:',
+  'subscription_confirmation_redirect_url: CONFIRMATION_REDIRECT_URL',
   'free plan',
   'weekly all-subscriber digest'
 ]) {
   if (!buttondownConfigScript.includes(marker)) fail(`Buttondown service configuration is missing: ${marker}`);
 }
-for (const forbidden of ['/v1/tags', 'X-Buttondown-Collision-Behavior', 'ALERT_TAG']) {
-  if (buttondownConfigScript.includes(forbidden)) fail(`Buttondown configuration must remain free-tier compatible: ${forbidden}`);
+for (const forbidden of ["const USERNAME = 'datacentercareers'", "const REDIRECT_URL = 'https://datacentercareers.us/subscribed/'", '/v1/tags', 'X-Buttondown-Collision-Behavior', 'ALERT_TAG']) {
+  if (buttondownConfigScript.includes(forbidden)) fail(`Buttondown configuration must stay shared-config-driven and free-tier compatible: ${forbidden}`);
 }
 
 for (const marker of [
@@ -101,6 +121,18 @@ for (const marker of [
   "- 'scripts/validate-alert-job-detail-parity.mjs'"
 ]) {
   if (!workflow.includes(marker)) fail(`Weekly alert workflow is missing: ${marker}`);
+}
+
+for (const marker of [
+  "- 'data/mailing-list.json'",
+  "- 'scripts/configure-buttondown.mjs'",
+  "- 'scripts/validate-mailing-list.mjs'",
+  "- 'subscribed/**'",
+  'run: node scripts/validate-mailing-list.mjs',
+  'BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}',
+  'run: node scripts/configure-buttondown.mjs'
+]) {
+  if (!redirectWorkflow.includes(marker)) fail(`Buttondown redirect workflow is missing: ${marker}`);
 }
 
 for (const marker of [
@@ -139,4 +171,4 @@ await assertMissing('scripts/send-weekly-digest.mjs');
 await import('./validate-alert-job-detail-parity.mjs');
 await import('./validate-alert-signup-parity.mjs');
 
-console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: one free-tier-compatible Monday digest pipeline with ${scheduleMatches.length} redundant scheduler runs, tracked Data Center Careers job links, employer-diverse early-career-first selection and a configured subscriber portal.`);
+console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: shared provider redirects, one free-tier-compatible Monday digest pipeline with ${scheduleMatches.length} redundant scheduler runs, tracked Data Center Careers job links, employer-diverse early-career-first selection and a configured subscriber portal.`);

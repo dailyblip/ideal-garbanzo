@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-20T12:02:05.038Z",
+  "updatedAt": "2026-09-20T12:02:56.935Z",
   "jobs": 718,
   "sourcesAttempted": 21,
   "providers": {
@@ -10,15 +10,15 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "apprenticeship": 11,
+    "entry-level": 686,
     "internship": 11,
     "trainee": 10,
-    "entry-level": 686
+    "apprenticeship": 11
   },
   "countsByExperience": {
+    "2-5-years": 299,
     "0-2-years": 395,
-    "no-experience": 24,
-    "2-5-years": 299
+    "no-experience": 24
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3545,15 +3545,25 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T12:02:05.152Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-20T12:02:57.033Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "senior/executive title": 1
+    },
+    "removed": [
+      {
+        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
+        "company": "Prime Data Centers",
+        "title": "Data Center Business Systems Architect",
+        "location": "Dallas, TX; Denver, CO",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T12:02:05.214Z",
+    "updatedAt": "2026-09-20T12:02:57.129Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 718,
@@ -3561,18 +3571,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "texas": 116,
+      "west": 113,
+      "southeast": 106,
       "midwest": 140,
       "mid-atlantic": 129,
-      "texas": 116,
       "southwest": 89,
-      "southeast": 106,
-      "west": 113,
       "northeast": 24,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T12:02:05.272Z",
+    "checkedAt": "2026-09-20T12:02:57.220Z",
     "before": 718,
     "after": 718,
     "removed": 0,
@@ -3580,7 +3590,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-20T11:51:49.483Z",
+    "checkedAt": "2026-09-20T12:03:26.966Z",
     "publishedJobs": 718,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3598,7 +3608,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T12:02:05.321Z"
+    "updatedAt": "2026-09-20T12:03:27.160Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4372,8 +4382,8 @@
     "samples": []
   },
   "primeDataCenters": {
-    "checkedAt": "2026-09-20T05:46:58.107Z",
-    "lastSuccessfulAt": "2026-09-20T05:46:58.107Z",
+    "checkedAt": "2026-09-20T12:02:56.935Z",
+    "lastSuccessfulAt": "2026-09-20T12:02:56.935Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://primedatacenters.com/careers/",

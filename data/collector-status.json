@@ -1,23 +1,24 @@
 {
-  "updatedAt": "2026-09-20T21:43:09.468Z",
-  "jobs": 728,
-  "sourcesAttempted": 21,
+  "updatedAt": "2026-09-20T21:46:34.121Z",
+  "jobs": 730,
+  "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 2,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "icims": 1
   },
   "countsByType": {
-    "entry-level": 696,
+    "entry-level": 698,
     "internship": 11,
     "trainee": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
+    "0-2-years": 399,
     "2-5-years": 307,
-    "0-2-years": 397,
     "no-experience": 24
   },
   "errors": [],
@@ -32,7 +33,7 @@
     "officialSource": "https://www.tierpoint.com/about-us/careers/",
     "boardUrl": "https://careers-tierpoint.icims.com/jobs/search?hashed=-626007049&ss=1",
     "sourceHealthy": true,
-    "qualifyingRoles": 10,
+    "qualifyingRoles": 12,
     "usedPreviousSnapshot": false,
     "listing": {
       "pagesAttempted": 2,
@@ -41,9 +42,15 @@
     },
     "drops": {
       "parse": 3,
-      "classification": 5
+      "classification": 3
     },
     "samples": [
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
+        "title": "Supervisor, Data Center Operations",
+        "location": "Breinigsville, PA",
+        "reason": "classification"
+      },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
         "title": "Cloud Engineer II",
@@ -55,21 +62,15 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
-        "title": "Supervisor, Data Center Operations",
-        "location": "Breinigsville, PA",
+        "url": "https://careers-tierpoint.icims.com/jobs/3020/eoc-support-analyst/job",
+        "title": "EOC Support Analyst",
+        "location": "Saint Louis | US-PA-Norristown, MO",
         "reason": "classification"
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3025/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Raleigh, NC",
-        "reason": "classification"
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3029/operations-specialist/job",
-        "title": "Operations Specialist",
-        "location": "Hawthorne, NY",
+        "url": "https://careers-tierpoint.icims.com/jobs/3010/manager%2c-accounting/job",
+        "title": "Manager, Accounting",
+        "location": "Saint Louis, MO",
         "reason": "classification"
       }
     ]
@@ -3565,7 +3566,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T21:43:09.546Z",
+    "checkedAt": "2026-09-20T21:46:34.196Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3573,28 +3574,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T21:43:09.623Z",
+    "updatedAt": "2026-09-20T21:46:34.272Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 728,
+    "regionAssigned": 730,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "midwest": 141,
       "texas": 121,
       "west": 115,
-      "southeast": 107,
-      "midwest": 141,
-      "mid-atlantic": 129,
+      "southeast": 108,
       "southwest": 90,
-      "northeast": 24,
+      "mid-atlantic": 129,
+      "northeast": 25,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T21:43:09.697Z",
-    "before": 729,
-    "after": 729,
+    "checkedAt": "2026-09-20T21:46:34.342Z",
+    "before": 730,
+    "after": 730,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3608,17 +3609,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1222,
-    "currentJobs": 728,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1224,
+    "currentJobs": 730,
+    "newJobsThisRun": 2,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T21:43:28.638Z"
+    "firstSeenRecencyFallbackJobs": 113,
+    "updatedAt": "2026-09-20T21:46:34.404Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

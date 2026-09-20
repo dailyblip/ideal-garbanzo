@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
-const BEGINNER_TYPES = new Set(['internship', 'apprenticeship', 'trainee']);
+const TARGET_EXPERIENCE_BANDS = new Set(['no-experience', '0-2-years', '2-5-years']);
 const DEFINITIVELY_CLOSED = new Set([404, 410]);
 const CONCURRENCY = 5;
 const TIMEOUT_MS = 20000;
@@ -16,8 +16,7 @@ async function readJson(path, fallback) {
 
 function isCandidate(job) {
   if (!job || job.demo === true || job.active === false) return false;
-  const beginnerPathway = BEGINNER_TYPES.has(clean(job.type)) || clean(job.experience) === 'no-experience';
-  if (!beginnerPathway) return false;
+  if (!TARGET_EXPERIENCE_BANDS.has(clean(job.experience))) return false;
   try {
     const url = new URL(clean(job.sourceUrl));
     return url.protocol === 'https:';
@@ -119,10 +118,10 @@ function runSelfTest() {
     { id:'gone-404', type:'apprenticeship', experience:'no-experience', sourceUrl:'https://example.com/a', active:true, demo:false },
     { id:'gone-410', type:'internship', experience:'0-2-years', sourceUrl:'https://example.com/b', active:true, demo:false },
     { id:'blocked-403', type:'trainee', experience:'no-experience', sourceUrl:'https://example.com/c', active:true, demo:false },
-    { id:'server-503', type:'entry-level', experience:'no-experience', sourceUrl:'https://example.com/d', active:true, demo:false },
-    { id:'timeout', type:'apprenticeship', experience:'no-experience', sourceUrl:'https://example.com/e', active:true, demo:false },
-    { id:'healthy', type:'internship', experience:'0-2-years', sourceUrl:'https://example.com/f', active:true, demo:false },
-    { id:'mid-career', type:'entry-level', experience:'2-5-years', sourceUrl:'https://example.com/g', active:true, demo:false },
+    { id:'server-503', type:'entry-level', experience:'0-2-years', sourceUrl:'https://example.com/d', active:true, demo:false },
+    { id:'timeout', type:'entry-level', experience:'2-5-years', sourceUrl:'https://example.com/e', active:true, demo:false },
+    { id:'healthy', type:'entry-level', experience:'2-5-years', sourceUrl:'https://example.com/f', active:true, demo:false },
+    { id:'unsupported-experience', type:'entry-level', experience:'6-plus-years', sourceUrl:'https://example.com/g', active:true, demo:false },
     { id:'equinix-verified-test', company:'Equinix', source:'Equinix official careers (verified fallback)', type:'internship', experience:'no-experience', sourceUrl:'https://careers.equinix.com/jobs/test', active:true, demo:false }
   ];
   const now = Date.parse('2026-09-08T12:00:00Z');
@@ -153,15 +152,19 @@ function runSelfTest() {
   if (!removedIds.has('gone-404') || !removedIds.has('gone-410') || removed.length !== 2) {
     throw new Error('404/410 roles were not pruned exactly as expected');
   }
-  for (const id of ['blocked-403','server-503','timeout','healthy','mid-career','equinix-verified-test']) {
+  for (const id of ['blocked-403','server-503','timeout','healthy','unsupported-experience','equinix-verified-test']) {
     if (!keptIds.has(id)) throw new Error(`non-definitive or actively provider-verified result was incorrectly pruned: ${id}`);
   }
   if (checks.find(check => check.id === 'equinix-verified-test')?.outcome !== 'verified-retained') {
     throw new Error('active Equinix provider verification did not override a generic false 404');
   }
-  if (!isCandidate(jobs.find(job => job.id === 'server-503'))) throw new Error('no-experience entry-level role was not selected');
-  if (isCandidate(jobs.find(job => job.id === 'mid-career'))) throw new Error('ordinary 2-5 year role became a beginner-pathway prune candidate');
-  console.log('Beginner-pathway stale-link pruning policy passed regression tests.');
+  for (const id of ['gone-404','gone-410','blocked-403','server-503','timeout','healthy','equinix-verified-test']) {
+    if (!isCandidate(jobs.find(job => job.id === id))) throw new Error(`supported 0–5-year role was not selected for stale checking: ${id}`);
+  }
+  if (isCandidate(jobs.find(job => job.id === 'unsupported-experience'))) {
+    throw new Error('unsupported experience band became a 0–5-year stale-prune candidate');
+  }
+  console.log('Published 0–5-year stale-link pruning policy passed regression tests.');
 }
 
 if (process.argv.includes('--test')) {
@@ -200,6 +203,7 @@ const nextStatus = {
   jobs: kept.length,
   earlyCareerStalePrune: {
     checkedAt,
+    scope: 'all published 0-5-year roles',
     candidates: candidates.length,
     open: counts.open,
     definitivelyClosed: counts.closed,
@@ -211,12 +215,12 @@ const nextStatus = {
       title: clean(job.title),
       sourceUrl: clean(job.sourceUrl)
     })),
-    policy: 'Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass.'
+    policy: 'Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass.'
   }
 };
 
 if (removed.length) await writeFile(JOBS_PATH, JSON.stringify(kept, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(nextStatus, null, 2) + '\n');
 
-console.log(`Checked ${candidates.length} beginner-pathway employer URLs: ${counts.open} reachable, ${counts.closed} definitively closed, ${counts.transient} transient/blocked retained, ${counts['verified-retained']} retained by active provider verification.`);
-if (removed.length) console.log(`Removed ${removed.length} definitively closed beginner-pathway role(s).`);
+console.log(`Checked ${candidates.length} published 0–5-year employer URLs: ${counts.open} reachable, ${counts.closed} definitively closed, ${counts.transient} transient/blocked retained, ${counts['verified-retained']} retained by active provider verification.`);
+if (removed.length) console.log(`Removed ${removed.length} definitively closed 0–5-year role(s).`);

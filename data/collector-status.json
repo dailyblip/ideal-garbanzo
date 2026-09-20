@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-20T09:38:06.158Z",
+  "updatedAt": "2026-09-20T10:40:23.621Z",
   "jobs": 689,
-  "sourcesAttempted": 25,
+  "sourcesAttempted": 31,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
@@ -16,8 +16,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 305,
     "0-2-years": 360,
+    "2-5-years": 305,
     "no-experience": 24
   },
   "errors": [],
@@ -264,7 +264,7 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-20T07:02:22.235Z",
+          "checkedAt": "2026-09-20T10:44:02.980Z",
           "roles": 8,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -275,8 +275,8 @@
           "uniqueRows": 186,
           "pagesAttempted": 10,
           "pagesSucceeded": 10,
-          "lastHealthyAt": "2026-09-20T07:02:22.235Z",
-          "expiresAt": "2026-09-24T07:02:22.235Z"
+          "lastHealthyAt": "2026-09-20T10:44:02.980Z",
+          "expiresAt": "2026-09-24T10:44:02.980Z"
         }
       },
       "QTS Data Centers": {
@@ -292,7 +292,7 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-20T07:02:22.235Z",
+          "checkedAt": "2026-09-20T10:44:02.980Z",
           "roles": 40,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -303,8 +303,8 @@
           "uniqueRows": 304,
           "pagesAttempted": 16,
           "pagesSucceeded": 16,
-          "lastHealthyAt": "2026-09-20T07:02:22.235Z",
-          "expiresAt": "2026-09-24T07:02:22.235Z"
+          "lastHealthyAt": "2026-09-20T10:44:02.980Z",
+          "expiresAt": "2026-09-24T10:44:02.980Z"
         }
       },
       "CyrusOne": {
@@ -320,7 +320,7 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-20T07:02:22.235Z",
+          "checkedAt": "2026-09-20T10:44:02.980Z",
           "roles": 54,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -331,8 +331,8 @@
           "uniqueRows": 119,
           "pagesAttempted": 6,
           "pagesSucceeded": 6,
-          "lastHealthyAt": "2026-09-20T07:02:22.235Z",
-          "expiresAt": "2026-09-24T07:02:22.235Z"
+          "lastHealthyAt": "2026-09-20T10:44:02.980Z",
+          "expiresAt": "2026-09-24T10:44:02.980Z"
         }
       },
       "STACK Infrastructure": {
@@ -348,7 +348,7 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-20T07:02:22.235Z",
+          "checkedAt": "2026-09-20T10:44:02.980Z",
           "roles": 9,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -359,8 +359,8 @@
           "uniqueRows": 72,
           "pagesAttempted": 4,
           "pagesSucceeded": 4,
-          "lastHealthyAt": "2026-09-20T07:02:22.235Z",
-          "expiresAt": "2026-09-24T07:02:22.235Z"
+          "lastHealthyAt": "2026-09-20T10:44:02.980Z",
+          "expiresAt": "2026-09-24T10:44:02.980Z"
         }
       },
       "NTT Global Data Centers": {
@@ -376,7 +376,7 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-20T07:02:22.235Z",
+          "checkedAt": "2026-09-20T10:44:02.980Z",
           "roles": 21,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -387,8 +387,8 @@
           "uniqueRows": 227,
           "pagesAttempted": 12,
           "pagesSucceeded": 12,
-          "lastHealthyAt": "2026-09-20T07:02:22.235Z",
-          "expiresAt": "2026-09-24T07:02:22.235Z"
+          "lastHealthyAt": "2026-09-20T10:44:02.980Z",
+          "expiresAt": "2026-09-24T10:44:02.980Z"
         }
       },
       "Aligned Data Centers": {
@@ -404,7 +404,7 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-20T07:02:22.235Z",
+          "checkedAt": "2026-09-20T10:44:02.980Z",
           "roles": 35,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -415,13 +415,13 @@
           "uniqueRows": 206,
           "pagesAttempted": 11,
           "pagesSucceeded": 11,
-          "lastHealthyAt": "2026-09-20T07:02:22.235Z",
-          "expiresAt": "2026-09-24T07:02:22.235Z"
+          "lastHealthyAt": "2026-09-20T10:44:02.980Z",
+          "expiresAt": "2026-09-24T10:44:02.980Z"
         }
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-20T06:58:22.173Z",
+      "checkedAt": "2026-09-20T10:40:23.672Z",
       "rawJobs": 229,
       "publishedUsJobs": 183,
       "nonUsRemoved": 25,
@@ -596,7 +596,7 @@
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-20T07:01:10.068Z",
+    "checkedAt": "2026-09-20T10:42:56.435Z",
     "officialOnly": true,
     "additiveOnly": true,
     "searchPaginationPolicy": "paginate-to-reported-total",
@@ -1211,7 +1211,7 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-20T07:01:10.132Z",
+      "checkedAt": "2026-09-20T10:42:56.500Z",
       "removed": 13,
       "removedRoles": [
         {
@@ -2063,26 +2063,113 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T08:50:57.081Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
-    "majorSnapshotRemovedCount": 0,
-    "majorSnapshotRemoved": []
+    "checkedAt": "2026-09-20T10:43:40.234Z",
+    "removedCount": 3,
+    "removedByReason": {
+      "senior/executive title": 3
+    },
+    "removed": [
+      {
+        "id": "workday-stackinfra-JR00247",
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Integration Lead",
+        "location": "Plano, TX",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "workday-stackinfra-JR00249",
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Integration Lead",
+        "location": "Sterling, VA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "workday-aligneddc-JR101023",
+        "company": "Aligned Data Centers",
+        "title": "VP, Operations - South Region",
+        "location": "Plano, TX",
+        "reason": "senior/executive title"
+      }
+    ],
+    "majorSnapshotRemovedCount": 3,
+    "majorSnapshotRemoved": [
+      {
+        "id": "workday-stackinfra-JR00247",
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Integration Lead",
+        "location": "Plano, TX",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "workday-stackinfra-JR00249",
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Integration Lead",
+        "location": "Sterling, VA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "workday-aligneddc-JR101023",
+        "company": "Aligned Data Centers",
+        "title": "VP, Operations - South Region",
+        "location": "Plano, TX",
+        "reason": "senior/executive title"
+      }
+    ]
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T09:38:06.285Z",
-    "changed": 0,
-    "samples": [],
+    "updatedAt": "2026-09-20T10:43:40.283Z",
+    "changed": 11,
+    "samples": [
+      {
+        "id": "workday-qtsdatacenters-R2026-0881",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1093",
+        "before": "US VA Manassas 1 DC1",
+        "after": "Manassas, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0768",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-aligneddc-JR101086",
+        "before": "IAD-02",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-aligneddc-JR100970",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-aligneddc-JR100971",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      }
+    ],
     "regionAssigned": 689,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "midwest": 133,
       "texas": 113,
       "west": 111,
       "southeast": 101,
-      "midwest": 133,
       "mid-atlantic": 121,
       "southwest": 88,
       "northeast": 21,
@@ -2090,15 +2177,152 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T09:38:06.342Z",
-    "before": 689,
+    "checkedAt": "2026-09-20T10:43:40.363Z",
+    "before": 706,
     "after": 689,
-    "removed": 0,
+    "removed": 17,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101677",
+        "keptId": "workday-nttglobaldatacenters-JR102055",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101981",
+        "keptId": "workday-nttglobaldatacenters-JR101999",
+        "company": "NTT Global Data Centers",
+        "title": "1139 - Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101968",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0893",
+        "keptId": "workday-qtsdatacenters-R2026-0982",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0881",
+        "keptId": "workday-qtsdatacenters-R2026-0768",
+        "company": "QTS Data Centers",
+        "title": "Regional Data Center Controls Quality Engineer",
+        "location": "Suwanee, GA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101903",
+        "keptId": "workday-nttglobaldatacenters-JR101999",
+        "company": "NTT Global Data Centers",
+        "title": "1139 - Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101861",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101799",
+        "keptId": "workday-nttglobaldatacenters-JR101533",
+        "company": "NTT Global Data Centers",
+        "title": "5155 - Data Center IT Infrastructure Technician",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101847",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101681",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101746",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101821",
+        "keptId": "workday-nttglobaldatacenters-JR101755",
+        "company": "NTT Global Data Centers",
+        "title": "1162 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101610",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101929",
+        "keptId": "workday-nttglobaldatacenters-JR101129",
+        "company": "NTT Global Data Centers",
+        "title": "5174 - Data Center Technician L2",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101755",
+        "keptId": "workday-nttglobaldatacenters-JR100547",
+        "company": "NTT Global Data Centers",
+        "title": "5203 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR100813",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR100547",
+        "keptId": "workday-nttglobaldatacenters-JR100436",
+        "company": "NTT Global Data Centers",
+        "title": "2227 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      }
+    ]
   },
   "postQa": {
-    "checkedAt": "2026-09-20T09:38:25.838Z",
+    "checkedAt": "2026-09-20T10:44:02.658Z",
     "publishedJobs": 689,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -2114,9 +2338,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 167,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T09:38:25.983Z"
+    "updatedAt": "2026-09-20T10:44:02.748Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2912,7 +3136,7 @@
     "errors": []
   },
   "multiLocationRegions": {
-    "checkedAt": "2026-09-20T07:01:57.974Z",
+    "checkedAt": "2026-09-20T10:43:40.313Z",
     "candidates": 0,
     "hydrated": 0,
     "retainedExisting": 0,
@@ -2997,7 +3221,7 @@
     "policy": "Publish only seeded early-career Meta data-center requisitions that remain in the official Meta Careers sitemap and whose official JobPosting structured data proves the expected title, U.S. location, and explicit early-career fit. Preserve a previously verified seeded role only while its requisition remains live in the official sitemap."
   },
   "majorExperienceBoundary": {
-    "checkedAt": "2026-09-20T07:01:10.173Z",
+    "checkedAt": "2026-09-20T10:42:56.530Z",
     "policy": "required experience must not be strictly greater than five years",
     "checked": 187,
     "pruned": 0,

@@ -96,6 +96,12 @@ await import('./validate-coresite-fallback.mjs');
 // DataBank requisitions cannot remain deployable between collector refreshes.
 await import('./validate-databank.mjs');
 
+// Iron Mountain and Novva publish from protected employer-direct snapshots that
+// can remain active through bounded source outages. Enforce canonical direct URLs,
+// 0-5-year mission fit, fallback freshness, and snapshot/public parity on deploy.
+await import('./validate-iron-mountain.mjs');
+await import('./validate-novva.mjs');
+
 // Sabey publishes from a verified employer-recruiter iCIMS snapshot when its
 // official careers page is unavailable. Enforce verified-host URLs, freshness,
 // supported audience metadata, and exact snapshot/public-feed parity on deploy.

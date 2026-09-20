@@ -56,17 +56,27 @@ function required(text) {
   for(const x of ['preferred qualifications','preferred experience','other requirements','background check requirements','additional or preferred qualifications']) { const i=tl.indexOf(x); if(i>0&&i<end) end=i; }
   return tail.slice(0,end);
 }
+function normalizedExperienceText(text) {
+  return clean(text).toLowerCase().replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g,w=>numberWords[w]||w);
+}
 function years(text) {
-  const t=clean(text).toLowerCase().replace(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\b/g,w=>numberWords[w]||w), out=[];
+  const t=normalizedExperienceText(text), out=[];
   for(const re of [/(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s+years?(?:\(s\))?[^.;]{0,100}experience/gi,/(\d{1,2})\s*(?:\+|or more)?\s+years?(?:\(s\))?[^.;]{0,100}experience/gi,/experience[^.;]{0,70}?(\d{1,2})\s*(?:\+|or more)?\s+years?(?:\(s\))?/gi,/(?:minimum(?: of)?\s+|at least\s+)(\d{1,2})\s*(?:\+|or more)?\s+years?(?:\(s\))?\b/gi]) {
     for(const m of t.matchAll(re)){ out.push(Number(m[1])); if(m[2]) out.push(Number(m[2])); }
   }
   return out.filter(n=>Number.isFinite(n)&&n>=0&&n<=50);
 }
+function exceedsFiveYearCeiling(text) {
+  const t=normalizedExperienceText(text);
+  for(const re of [/\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})(?:\s*\(\d{1,2}\))?\s+years?\b/gi,/>\s*(\d{1,2})\s+years?\b/g]) {
+    for(const m of t.matchAll(re)) if(Number(m[1])>=5) return true;
+  }
+  return false;
+}
 function relevant(title,text='') { return Boolean(title)&&!senior.test(title)&&candidate.test(title)&&(strong.test(title)||context.test(`${title} ${text}`)); }
 function classify(title,text='') {
   if(!relevant(title,text)) return null;
-  const req=required(text), ys=years(req); if(ys.some(y=>y>5)) return null;
+  const req=required(text), ys=years(req); if(exceedsFiveYearCeiling(req)||ys.some(y=>y>5)) return null;
   let type='entry-level'; if(/intern/i.test(title)) type='internship'; else if(/apprentice/i.test(title)) type='apprenticeship'; else if(/trainee|skillbridge/i.test(title)) type='trainee';
   const noexp=/\b(?:no experience(?: required| needed)?|0\+?\s*(?:months?|years?)|entry[- ]level)\b/i.test(req);
   const baseline=/high school diploma|high school qualification|secondary school|equivalent experience/i.test(req);
@@ -77,8 +87,16 @@ function classify(title,text='') {
 if(process.argv.includes('--test-experience-parser')) {
   const tests=[
     ['Critical Environment Field Service Engineer','Required Qualifications Two years of experience maintaining critical environment systems. Preferred Qualifications Seven years of experience.','entry-level/0-2-years'],
+    ['Critical Environment Field Service Engineer','Required Qualifications Two years of experience maintaining critical environment systems. Preferred Qualifications More than five years of experience.','entry-level/0-2-years'],
     ['Critical Environment Technician','Required Qualifications 3+ years of experience in data center critical facilities.','entry-level/2-5-years'],
-    ['Data Center Technician','Required Qualifications At least 6 years of experience in data center operations.',null],
+    ['Data Center Technician','Required Qualifications 5 years of experience in data center operations.','entry-level/2-5-years'],
+    ['Data Center Technician','Required Qualifications 5+ years of experience in data center operations.','entry-level/2-5-years'],
+    ['Data Center Technician','Required Qualifications More than five years of experience in data center operations.',null],
+    ['Data Center Technician','Required Qualifications Over 5 years of experience in data center operations.',null],
+    ['Data Center Technician','Required Qualifications Greater than five years of experience in data center operations.',null],
+    ['Data Center Technician','Required Qualifications In excess of 5 years of experience in data center operations.',null],
+    ['Data Center Technician','Required Qualifications > 5 years of experience in data center operations.',null],
+    ['Data Center Technician','Required Qualifications At least six years of experience in data center operations.',null],
     ['Data Center Technician','Required Qualifications High School Diploma or equivalent experience. Training is provided.','entry-level/0-2-years'],
     ['Senior Data Center Technician','Required Qualifications 2 years of experience in data center operations.',null]
   ];

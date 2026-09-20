@@ -12,7 +12,9 @@ const sources = [
   { company: 'Meta', snapshot: 'data/meta-jobs.json', diagnostic: status => status.metaCareers,
     evidence: status => [status.metaFallbackFreshness] },
   { company: 'Oracle', snapshot: 'data/oracle-jobs.json', diagnostic: status => status.oracleCareers },
-  { company: 'Digital Realty', snapshot: 'data/digital-realty-jobs.json', diagnostic: status => status.digitalRealty }
+  { company: 'Digital Realty', snapshot: 'data/digital-realty-jobs.json', diagnostic: status => status.digitalRealty },
+  { company: 'Flexential', snapshot: 'data/flexential-jobs.json', diagnostic: status => status.flexential },
+  { company: 'Cologix', snapshot: 'data/cologix-jobs.json', diagnostic: status => status.cologix }
 ];
 
 async function readJson(path) {

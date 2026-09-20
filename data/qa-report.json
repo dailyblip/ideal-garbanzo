@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-20T21:12:53.985Z",
+  "checkedAt": "2026-09-20T21:43:28.500Z",
   "jobsBefore": 729,
-  "jobsAfter": 729,
+  "jobsAfter": 728,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10507291",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician - Night Shift, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10507291/engineering-operation-technician-night-shift-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10507291/engineering-operation-technician-night-shift-dcc-communities"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [
     {

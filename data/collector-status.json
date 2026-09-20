@@ -3546,7 +3546,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T17:40:23.630Z",
+    "checkedAt": "2026-09-20T18:19:31.455Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3554,7 +3554,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T17:40:23.707Z",
+    "updatedAt": "2026-09-20T18:19:31.537Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 729,
@@ -3573,7 +3573,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T17:40:23.777Z",
+    "checkedAt": "2026-09-20T18:19:31.618Z",
     "before": 729,
     "after": 729,
     "removed": 0,
@@ -3581,7 +3581,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-20T17:40:56.824Z",
+    "checkedAt": "2026-09-20T18:19:52.083Z",
     "publishedJobs": 729,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3599,7 +3599,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T17:40:56.962Z"
+    "updatedAt": "2026-09-20T18:19:52.282Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4276,8 +4276,8 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-20T08:50:56.292Z",
-    "lastHealthyAt": "2026-09-20T08:50:56.292Z",
+    "checkedAt": "2026-09-20T18:19:30.704Z",
+    "lastHealthyAt": "2026-09-20T18:19:30.704Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

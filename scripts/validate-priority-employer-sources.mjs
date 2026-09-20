@@ -313,12 +313,14 @@ if (violations.length) {
 }
 
 // This guard runs in every refresh/rebuild and Pages deployment validation path.
-// Reuse the strict employer-specific ledgers here so AWS, Google, and Oracle
-// cannot deploy when their authoritative snapshot, public feed, or fallback
-// evidence drifts even if a source-specific workflow has not run recently.
+// Reuse strict employer-specific ledgers here so AWS, Google, Microsoft, Meta,
+// and Oracle cannot deploy when their authoritative snapshot, public feed, or
+// fallback evidence drifts even if a source-specific workflow has not run recently.
 await import('./validate-amazon-snapshot.mjs');
 await import('./validate-amazon-parity.mjs');
 await import('./validate-google-snapshot.mjs');
+await import('./validate-microsoft-snapshot.mjs');
+await import('./validate-meta-snapshot.mjs');
 await import('./validate-oracle-snapshot.mjs');
 await import('./validate-oracle-parity.mjs');
 

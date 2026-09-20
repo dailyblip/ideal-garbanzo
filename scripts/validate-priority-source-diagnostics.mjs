@@ -30,6 +30,8 @@ const prioritySources = [
   ['Compass Datacenters', value => value.compass],
   ['Stream Data Centers', value => value.streamDataCenters],
   ['EdgeConneX', value => value.edgeconnexCareers],
+  ['Prime Data Centers', value => value.primeDataCenters],
+  ['CoreWeave', value => value.coreWeaveCareers],
   ['Vantage Data Centers', value => value.majorSources?.employerDiagnostics?.['Vantage Data Centers']],
   ['QTS Data Centers', value => value.majorSources?.employerDiagnostics?.['QTS Data Centers']],
   ['CyrusOne', value => value.majorSources?.employerDiagnostics?.CyrusOne],
@@ -98,6 +100,12 @@ await import('./validate-databank.mjs');
 // official careers page is unavailable. Enforce verified-host URLs, freshness,
 // supported audience metadata, and exact snapshot/public-feed parity on deploy.
 await import('./validate-sabey-snapshot.mjs');
+
+// Prime and CoreWeave are comparable large operators with authoritative direct
+// snapshots. Run their source-health, freshness, audience-fit, direct-link, and
+// public-feed parity checks through the same standard deployment path.
+await import('./validate-prime-data-centers.mjs');
+await import('./validate-coreweave.mjs');
 
 // Comparable operators are also part of the mission-critical source backbone.
 // Validate their direct-source integrity and snapshot/public-feed parity whenever

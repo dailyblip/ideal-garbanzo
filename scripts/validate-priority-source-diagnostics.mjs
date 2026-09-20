@@ -83,6 +83,12 @@ await import('./validate-digital-realty.mjs');
 // boolean is still present in collector-status.json.
 await import('./validate-major-workday-freshness-state.mjs');
 
+// Their reconciled snapshot is authoritative for role membership. Enforce exact
+// requisition membership plus the audience/source fields that downstream jobs
+// must not rewrite, so later refreshes cannot silently add or retain stale major
+// operator roles after reconciliation has completed.
+await import('./validate-major-workday-snapshot.mjs');
+
 // CoreSite is a major colocation operator and its verified fallback can outlive
 // the workflow that produced it. Enforce both its direct-source state and fallback
 // parity during every deployment, not only when CoreSite-specific files change.

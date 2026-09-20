@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-20T20:52:26.876Z",
-  "jobs": 733,
+  "updatedAt": "2026-09-20T20:59:24.587Z",
+  "jobs": 721,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 701,
+    "apprenticeship": 11,
     "internship": 11,
     "trainee": 10,
-    "apprenticeship": 11
+    "entry-level": 689
   },
   "countsByExperience": {
-    "0-2-years": 402,
-    "2-5-years": 307,
-    "no-experience": 24
+    "0-2-years": 398,
+    "no-experience": 24,
+    "2-5-years": 299
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1970,11 +1970,11 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 4,
-      "qualifyingRoles": 1,
+      "qualifyingRoles": 0,
       "drops": {
         "non-us": 7,
         "context": 1,
-        "title": 13,
+        "title": 14,
         "unknown-experience": 6
       },
       "dropSamples": [
@@ -2044,7 +2044,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-20T16:22:46.402Z"
+      "verifiedFallbackExpiredAt": "2026-09-20T20:59:24.587Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2058,7 +2058,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -2075,28 +2075,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T20:56:15.326Z",
+    "updatedAt": "2026-09-20T20:59:24.744Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 733,
+    "regionAssigned": 721,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 142,
-      "texas": 121,
-      "west": 116,
-      "southeast": 108,
-      "southwest": 90,
-      "mid-atlantic": 131,
+      "midwest": 140,
+      "mid-atlantic": 128,
+      "texas": 118,
+      "southwest": 89,
+      "southeast": 106,
+      "west": 115,
       "northeast": 24,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T20:56:15.400Z",
-    "before": 733,
-    "after": 733,
+    "checkedAt": "2026-09-20T20:59:24.825Z",
+    "before": 721,
+    "after": 721,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2111,7 +2111,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1222,
-    "currentJobs": 733,
+    "currentJobs": 721,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2120,7 +2120,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T20:56:15.470Z"
+    "updatedAt": "2026-09-20T20:59:24.888Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2832,7 +2832,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-20T16:22:46.402Z",
+    "checkedAt": "2026-09-20T20:59:24.587Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
@@ -2842,13 +2842,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-20T16:27:49.537Z",
+    "checkedAt": "2026-09-20T20:59:23.890Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2856,52 +2856,31 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       }
     ],
     "errors": []

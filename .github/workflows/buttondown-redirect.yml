@@ -4,7 +4,9 @@ on:
   push:
     branches: [main]
     paths:
+      - 'data/mailing-list.json'
       - 'scripts/configure-buttondown.mjs'
+      - 'scripts/validate-mailing-list.mjs'
       - 'subscribed/**'
       - '.github/workflows/buttondown-redirect.yml'
   workflow_dispatch:
@@ -22,6 +24,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate weekly alert contract
+        run: node scripts/validate-mailing-list.mjs
       - name: Validate Buttondown configuration script
         run: node --check scripts/configure-buttondown.mjs
       - name: Point signup flow back to Data Center Careers

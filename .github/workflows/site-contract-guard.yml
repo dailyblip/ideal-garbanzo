@@ -122,7 +122,9 @@ jobs:
       - name: Build apprenticeship page in homepage visual system
         run: node scripts/enhance-apprenticeship-page.mjs
       - name: Validate generated-page copy and accessibility
-        run: node scripts/validate-site-copy.mjs
+        run: |
+          node scripts/validate-site-copy.mjs
+          node scripts/validate-accessibility.mjs
       - name: Validate search landing contract
         run: node scripts/validate-search-landings.mjs
       - name: Validate region and employer discovery landings

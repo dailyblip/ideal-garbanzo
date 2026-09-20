@@ -88,6 +88,20 @@ function statedExperienceYears(text = '') {
   return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
 }
 
+function exceedsFiveYearCeiling(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
+  const strictMinimumPatterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})\s+years?\b/g,
+    />\s*(\d{1,2})\s+years?\b/g
+  ];
+  for (const pattern of strictMinimumPatterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      if (Number(match[1]) >= 5) return true;
+    }
+  }
+  return false;
+}
+
 function extractTag(xml = '', tag = '') {
   const escaped = tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const match = String(xml).match(new RegExp(`<${escaped}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${escaped}>`, 'i'));
@@ -161,7 +175,7 @@ function classify(title, description = '', detailRole = '') {
   else if (titleLower.includes('trainee')) type = 'trainee';
 
   const years = statedExperienceYears(required);
-  if (years.some(year => year > 5)) return { classification: null, reason: 'over-5-years' };
+  if (exceedsFiveYearCeiling(required) || years.some(year => year > 5)) return { classification: null, reason: 'over-5-years' };
 
   const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required/i.test(required);
   const explicitEntryLevel = /\bentry[- ]level\b/i.test(description);
@@ -290,6 +304,20 @@ if (process.argv.includes('--test-classifier')) {
       expectedType: 'entry-level', expectedExperience: '2-5-years'
     },
     {
+      name: 'exactly five years remains eligible',
+      title: 'DCO Facilities Technician III',
+      detailRole: 'DCO Facilities Technician III',
+      description: 'Critical facilities data center operations. Required 5 years of related experience. Preferred certifications.',
+      expectedType: 'entry-level', expectedExperience: '2-5-years'
+    },
+    {
+      name: 'five plus years remains eligible by policy',
+      title: 'DCO Facilities Technician III',
+      detailRole: 'DCO Facilities Technician III',
+      description: 'Critical facilities data center operations. Required 5+ years of related experience. Preferred certifications.',
+      expectedType: 'entry-level', expectedExperience: '2-5-years'
+    },
+    {
       name: 'network operations alias qualifies',
       title: 'Network Operations Center Technician I',
       detailRole: 'Mission Control Network Technician I',
@@ -308,6 +336,48 @@ if (process.argv.includes('--test-classifier')) {
       title: 'DCO Facilities Technician III',
       detailRole: 'DCO Facilities Technician III',
       description: 'Critical facilities data center operations. Required 7+ years of experience. Preferred certifications.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'more than five years is rejected',
+      title: 'DCO Facilities Technician III',
+      detailRole: 'DCO Facilities Technician III',
+      description: 'Critical facilities data center operations. Required more than five years of related experience. Preferred certifications.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'over five years is rejected',
+      title: 'DCO Facilities Technician III',
+      detailRole: 'DCO Facilities Technician III',
+      description: 'Critical facilities data center operations. Required over 5 years of related experience. Preferred certifications.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'greater than five years is rejected',
+      title: 'DCO Facilities Technician III',
+      detailRole: 'DCO Facilities Technician III',
+      description: 'Critical facilities data center operations. Required greater than five years of related experience. Preferred certifications.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'in excess of five years is rejected',
+      title: 'DCO Facilities Technician III',
+      detailRole: 'DCO Facilities Technician III',
+      description: 'Critical facilities data center operations. Required in excess of 5 years of related experience. Preferred certifications.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'greater-than symbol five years is rejected',
+      title: 'DCO Facilities Technician III',
+      detailRole: 'DCO Facilities Technician III',
+      description: 'Critical facilities data center operations. Required > 5 years of related experience. Preferred certifications.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'spelled-out six years is rejected',
+      title: 'DCO Facilities Technician III',
+      detailRole: 'DCO Facilities Technician III',
+      description: 'Critical facilities data center operations. Required six years of related experience. Preferred certifications.',
       expectedType: null, expectedExperience: null
     },
     {

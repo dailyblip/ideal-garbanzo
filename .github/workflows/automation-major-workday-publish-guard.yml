@@ -28,45 +28,24 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-
-          path = Path('.github/workflows/pages.yml')
-          text = path.read_text()
-
-          old = """      - name: Scrub targeted Workday recovery noise
-        run: node scripts/scrub-major-targeted-noise.mjs
-      - name: Add early-career internships and training roles"""
-          new = """      - name: Scrub targeted Workday recovery noise
-        run: node scripts/scrub-major-targeted-noise.mjs
-      - name: Enforce major Workday 0–5 year ceiling
-        run: node scripts/prune-major-workday-overfive.mjs
-      - name: Add early-career internships and training roles"""
-          if text.count(old) != 1:
-              raise SystemExit(f'expected one full-refresh anchor, found {text.count(old)}')
+          p = Path('.github/workflows/pages.yml')
+          text = p.read_text()
+          old = "      - name: Scrub targeted Workday recovery noise\n        run: node scripts/scrub-major-targeted-noise.mjs\n      - name: Add early-career internships and training roles"
+          new = "      - name: Scrub targeted Workday recovery noise\n        run: node scripts/scrub-major-targeted-noise.mjs\n      - name: Enforce major Workday 0–5 year ceiling\n        run: node scripts/prune-major-workday-overfive.mjs\n      - name: Add early-career internships and training roles"
+          if text.count(old) != 1: raise SystemExit(f'expected one full-refresh anchor, found {text.count(old)}')
           text = text.replace(old, new, 1)
-
-          old = """            node scripts/recover-major-workday-targeted.mjs
-            node scripts/scrub-major-targeted-noise.mjs
-            node scripts/collect-early-career.mjs"""
-          new = """            node scripts/recover-major-workday-targeted.mjs
-            node scripts/scrub-major-targeted-noise.mjs
-            node scripts/prune-major-workday-overfive.mjs
-            node scripts/collect-early-career.mjs"""
-          if text.count(old) != 1:
-              raise SystemExit(f'expected one rebuild anchor, found {text.count(old)}')
+          old = "            node scripts/recover-major-workday-targeted.mjs\n            node scripts/scrub-major-targeted-noise.mjs\n            node scripts/collect-early-career.mjs"
+          new = "            node scripts/recover-major-workday-targeted.mjs\n            node scripts/scrub-major-targeted-noise.mjs\n            node scripts/prune-major-workday-overfive.mjs\n            node scripts/collect-early-career.mjs"
+          if text.count(old) != 1: raise SystemExit(f'expected one rebuild anchor, found {text.count(old)}')
           text = text.replace(old, new, 1)
-
           needle = "          node scripts/validate-major-workday-parity.mjs\n"
           count = text.count(needle)
-          if count != 4:
-              raise SystemExit(f'expected four validation anchors, found {count}')
+          if count != 4: raise SystemExit(f'expected four validation anchors, found {count}')
           text = text.replace(needle, needle + "          node scripts/prune-major-workday-overfive.mjs --test\n")
-
-          path.write_text(text)
+          p.write_text(text)
           PY
-
           node --check scripts/prune-major-workday-overfive.mjs
           node scripts/prune-major-workday-overfive.mjs --test
-
       - name: Commit publication guard and remove patch helpers
         shell: bash
         run: |

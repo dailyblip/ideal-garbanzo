@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Patch major Workday publication boundary
+      - name: Patch collectors and full refresh publication guard
         shell: bash
         run: |
           set -euo pipefail
@@ -32,35 +32,38 @@ jobs:
           def replace_once(path, old, new):
               p = Path(path)
               text = p.read_text()
-              if text.count(old) != 1:
-                  raise SystemExit(f'{path}: expected exactly one patch anchor, found {text.count(old)}')
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{path}: expected one patch anchor, found {count}')
               p.write_text(text.replace(old, new, 1))
 
           collect = 'scripts/collect-major-jobs.mjs'
-          collect_anchor = """  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);\n}\n\nfunction classify(title, description = '', employmentType = '') {"""
-          collect_helper = """  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);\n}\n\nfunction strictlyExceedsFiveYearBoundary(text = '') {\n  const normalized = normalizeExperienceNumbers(text);\n  const patterns = [\n    /\\b(?:more than|over|greater than|in excess of)\\s+(\\d{1,2})\\s+years?\\b/gi,\n    /(?:^|\\s)>\\s*(\\d{1,2})\\s+years?\\b/gi\n  ];\n  return patterns.some(pattern => [...normalized.matchAll(pattern)].some(match => Number(match[1]) >= 5));\n}\n\nfunction classify(title, description = '', employmentType = '') {"""
-          replace_once(collect, collect_anchor, collect_helper)
+          replace_once(
+              collect,
+              """  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);\n}\n\nfunction classify(title, description = '', employmentType = '') {""",
+              """  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);\n}\n\nfunction strictlyExceedsFiveYearBoundary(text = '') {\n  const normalized = normalizeExperienceNumbers(text);\n  const patterns = [\n    /\\b(?:more than|over|greater than|in excess of)\\s+(\\d{1,2})\\s+years?\\b/gi,\n    /(?:^|\\s)>\\s*(\\d{1,2})\\s+years?\\b/gi\n  ];\n  return patterns.some(pattern => [...normalized.matchAll(pattern)].some(match => Number(match[1]) >= 5));\n}\n\nfunction classify(title, description = '', employmentType = '') {"""
+          )
           replace_once(
               collect,
               "if (years.some(year => year > 5)) return null;",
               "if (years.some(year => year > 5) || strictlyExceedsFiveYearBoundary(experienceText)) return null;"
           )
-          collect_test_anchor = """    {\n      name: 'required experience above five years is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'Basic Qualifications Seven or more years of direct experience in a technical critical environment.',\n      expectedType: null, expectedExperience: null\n    },"""
-          collect_tests = collect_test_anchor + """\n    {\n      name: 'strict more-than-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'More than five years of direct experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'strict over-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'Over 5 years of direct experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'strict greater-than-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'Greater than five years of relevant experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'strict in-excess-of-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'In excess of five years of relevant experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'symbolic greater-than-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: '> 5 years of relevant experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'exact five-year minimum remains eligible',\n      title: 'Critical Environment Engineer',\n      description: 'Minimum of five years of relevant experience in data center critical environments.',\n      expectedType: 'entry-level', expectedExperience: '2-5-years'\n    },\n    {\n      name: 'five-plus boundary remains eligible',\n      title: 'Critical Environment Engineer',\n      description: '5+ years of relevant experience in data center critical environments.',\n      expectedType: 'entry-level', expectedExperience: '2-5-years'\n    },"""
-          replace_once(collect, collect_test_anchor, collect_tests)
+          anchor = """    {\n      name: 'required experience above five years is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'Basic Qualifications Seven or more years of direct experience in a technical critical environment.',\n      expectedType: null, expectedExperience: null\n    },"""
+          replace_once(collect, anchor, anchor + """\n    {\n      name: 'strict more-than-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'More than five years of direct experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'strict over-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'Over 5 years of direct experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'strict greater-than-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'Greater than five years of relevant experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'strict in-excess-of-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: 'In excess of five years of relevant experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'symbolic greater-than-five wording is rejected',\n      title: 'Critical Environment Engineer',\n      description: '> 5 years of relevant experience in data center critical environments is required.',\n      expectedType: null, expectedExperience: null\n    },\n    {\n      name: 'exact five-year minimum remains eligible',\n      title: 'Critical Environment Engineer',\n      description: 'Minimum of five years of relevant experience in data center critical environments.',\n      expectedType: 'entry-level', expectedExperience: '2-5-years'\n    },\n    {\n      name: 'five-plus boundary remains eligible',\n      title: 'Critical Environment Engineer',\n      description: '5+ years of relevant experience in data center critical environments.',\n      expectedType: 'entry-level', expectedExperience: '2-5-years'\n    },""")
 
           recovery = 'scripts/recover-major-workday-targeted.mjs'
-          recovery_anchor = """  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);\n}\n\nfunction relevant(title = '', description = '') {"""
-          recovery_helper = """  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);\n}\n\nfunction strictlyExceedsFiveYearBoundary(text = '') {\n  const normalized = lower(text).replace(\n    /\\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\\b/g,\n    word => experienceNumberWords.get(word) || word\n  );\n  const patterns = [\n    /\\b(?:more than|over|greater than|in excess of)\\s+(\\d{1,2})\\s+years?\\b/gi,\n    /(?:^|\\s)>\\s*(\\d{1,2})\\s+years?\\b/gi\n  ];\n  return patterns.some(pattern => [...normalized.matchAll(pattern)].some(match => Number(match[1]) >= 5));\n}\n\nfunction relevant(title = '', description = '') {"""
-          replace_once(recovery, recovery_anchor, recovery_helper)
+          replace_once(
+              recovery,
+              """  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);\n}\n\nfunction relevant(title = '', description = '') {""",
+              """  return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);\n}\n\nfunction strictlyExceedsFiveYearBoundary(text = '') {\n  const normalized = lower(text).replace(\n    /\\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten)\\b/g,\n    word => experienceNumberWords.get(word) || word\n  );\n  const patterns = [\n    /\\b(?:more than|over|greater than|in excess of)\\s+(\\d{1,2})\\s+years?\\b/gi,\n    /(?:^|\\s)>\\s*(\\d{1,2})\\s+years?\\b/gi\n  ];\n  return patterns.some(pattern => [...normalized.matchAll(pattern)].some(match => Number(match[1]) >= 5));\n}\n\nfunction relevant(title = '', description = '') {"""
+          )
           replace_once(
               recovery,
               "if (years.some(year => year > 5)) return null;",
               "if (years.some(year => year > 5) || strictlyExceedsFiveYearBoundary(required)) return null;"
           )
-          recovery_test_anchor = """    {\n      name: 'six-year role rejected',\n      title: 'Data Center Technician',\n      description: 'Minimum of six years of experience in data center operations.',\n      expected: null\n    },"""
-          recovery_tests = recovery_test_anchor + """\n    {\n      name: 'more than five years is rejected',\n      title: 'Data Center Technician',\n      description: 'More than five years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'over five years is rejected',\n      title: 'Data Center Technician',\n      description: 'Over 5 years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'greater than five years is rejected',\n      title: 'Data Center Technician',\n      description: 'Greater than five years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'in excess of five years is rejected',\n      title: 'Data Center Technician',\n      description: 'In excess of five years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'symbolic greater-than five years is rejected',\n      title: 'Data Center Technician',\n      description: '> 5 years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'exact five-year role remains eligible',\n      title: 'Data Center Technician',\n      description: 'Minimum of five years of experience in data center operations.',\n      expected: '2-5-years'\n    },\n    {\n      name: 'five-plus role remains eligible at boundary',\n      title: 'Data Center Technician',\n      description: '5+ years of experience in data center operations.',\n      expected: '2-5-years'\n    },"""
-          replace_once(recovery, recovery_test_anchor, recovery_tests)
+          anchor = """    {\n      name: 'six-year role rejected',\n      title: 'Data Center Technician',\n      description: 'Minimum of six years of experience in data center operations.',\n      expected: null\n    },"""
+          replace_once(recovery, anchor, anchor + """\n    {\n      name: 'more than five years is rejected',\n      title: 'Data Center Technician',\n      description: 'More than five years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'over five years is rejected',\n      title: 'Data Center Technician',\n      description: 'Over 5 years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'greater than five years is rejected',\n      title: 'Data Center Technician',\n      description: 'Greater than five years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'in excess of five years is rejected',\n      title: 'Data Center Technician',\n      description: 'In excess of five years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'symbolic greater-than five years is rejected',\n      title: 'Data Center Technician',\n      description: '> 5 years of experience in data center operations is required.',\n      expected: null\n    },\n    {\n      name: 'exact five-year role remains eligible',\n      title: 'Data Center Technician',\n      description: 'Minimum of five years of experience in data center operations.',\n      expected: '2-5-years'\n    },\n    {\n      name: 'five-plus role remains eligible at boundary',\n      title: 'Data Center Technician',\n      description: '5+ years of experience in data center operations.',\n      expected: '2-5-years'\n    },""")
 
           pages = '.github/workflows/pages.yml'
           replace_once(
@@ -73,41 +76,12 @@ jobs:
               """            node scripts/recover-major-workday-targeted.mjs\n            node scripts/scrub-major-targeted-noise.mjs\n            node scripts/collect-early-career.mjs""",
               """            node scripts/recover-major-workday-targeted.mjs\n            node scripts/scrub-major-targeted-noise.mjs\n            node scripts/prune-major-workday-overfive.mjs\n            node scripts/collect-early-career.mjs"""
           )
-          replace_once(
-              pages,
-              """          node scripts/validate-major-workday-parity.mjs\n          node scripts/validate-coresite-fallback.mjs""",
-              """          node scripts/validate-major-workday-parity.mjs\n          node scripts/prune-major-workday-overfive.mjs --test\n          node scripts/validate-coresite-fallback.mjs"""
-          )
-          # The validation sequence appears three times; patch the remaining two.
-          for _ in range(2):
-              text = Path(pages).read_text()
-              old = """          node scripts/validate-major-workday-parity.mjs\n          node scripts/validate-major-workday-freshness-state.mjs"""
-              if old not in text:
-                  raise SystemExit('pages.yml: missing deploy validation anchor')
-              Path(pages).write_text(text.replace(old, """          node scripts/validate-major-workday-parity.mjs\n          node scripts/prune-major-workday-overfive.mjs --test\n          node scripts/validate-major-workday-freshness-state.mjs""", 1))
-
-          guard = '.github/workflows/major-workday-classifier-guard.yml'
-          replace_once(
-              guard,
-              """      - 'scripts/recover-major-workday-targeted.mjs'\n      - 'scripts/scrub-major-targeted-noise.mjs'""",
-              """      - 'scripts/recover-major-workday-targeted.mjs'\n      - 'scripts/prune-major-workday-overfive.mjs'\n      - 'scripts/scrub-major-targeted-noise.mjs'"""
-          )
-          # Same paths block exists for pull_request.
-          text = Path(guard).read_text()
-          old = """      - 'scripts/recover-major-workday-targeted.mjs'\n      - 'scripts/scrub-major-targeted-noise.mjs'"""
-          if old not in text:
-              raise SystemExit('classifier guard: missing pull_request path anchor')
-          Path(guard).write_text(text.replace(old, """      - 'scripts/recover-major-workday-targeted.mjs'\n      - 'scripts/prune-major-workday-overfive.mjs'\n      - 'scripts/scrub-major-targeted-noise.mjs'""", 1))
-          replace_once(
-              guard,
-              """          node --check scripts/recover-major-workday-targeted.mjs\n          node --check scripts/scrub-major-targeted-noise.mjs""",
-              """          node --check scripts/recover-major-workday-targeted.mjs\n          node --check scripts/prune-major-workday-overfive.mjs\n          node --check scripts/scrub-major-targeted-noise.mjs"""
-          )
-          replace_once(
-              guard,
-              """          node scripts/recover-major-workday-targeted.mjs --test\n          node scripts/scrub-major-targeted-noise.mjs --test""",
-              """          node scripts/recover-major-workday-targeted.mjs --test\n          node scripts/prune-major-workday-overfive.mjs --test\n          node scripts/scrub-major-targeted-noise.mjs --test"""
-          )
+          text = Path(pages).read_text()
+          needle = "          node scripts/validate-major-workday-parity.mjs\n"
+          count = text.count(needle)
+          if count != 3:
+              raise SystemExit(f'{pages}: expected three parity validation anchors, found {count}')
+          Path(pages).write_text(text.replace(needle, needle + "          node scripts/prune-major-workday-overfive.mjs --test\n"))
           PY
 
           node --check scripts/collect-major-jobs.mjs
@@ -117,13 +91,14 @@ jobs:
           node scripts/recover-major-workday-targeted.mjs --test
           node scripts/prune-major-workday-overfive.mjs --test
 
-      - name: Commit branch patch and remove helper
+      - name: Commit branch patch and remove helpers
         shell: bash
         run: |
           set -euo pipefail
-          rm .github/workflows/automation-major-workday-boundary-patch.yml
+          rm -f .github/workflows/automation-major-workday-boundary-patch.yml
+          rm -f .github/workflows/automation-major-workday-boundary-patch-v2.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/collect-major-jobs.mjs scripts/recover-major-workday-targeted.mjs .github/workflows/pages.yml .github/workflows/major-workday-classifier-guard.yml .github/workflows/automation-major-workday-boundary-patch.yml
+          git add scripts/collect-major-jobs.mjs scripts/recover-major-workday-targeted.mjs .github/workflows/pages.yml .github/workflows/automation-major-workday-boundary-patch.yml .github/workflows/automation-major-workday-boundary-patch-v2.yml
           git commit -m 'Harden major Workday five-year boundary'
           git push origin HEAD:automation/major-workday-boundary-refresh

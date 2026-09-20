@@ -114,6 +114,15 @@ function statedExperienceYears(text = '') {
   return values.filter(value => Number.isFinite(value) && value >= 0 && value <= 50);
 }
 
+function strictlyExceedsFiveYearBoundary(text = '') {
+  const normalized = normalizeExperienceNumbers(text);
+  const patterns = [
+    /\b(?:more than|over|greater than|in excess of)\s+(\d{1,2})\s+years?\b/gi,
+    /(?:^|\s)>\s*(\d{1,2})\s+years?\b/gi
+  ];
+  return patterns.some(pattern => [...normalized.matchAll(pattern)].some(match => Number(match[1]) >= 5));
+}
+
 function classify(title, description = '', employmentType = '') {
   const text = lower(`${title} ${description}`);
   const t = lower(title);
@@ -130,7 +139,7 @@ function classify(title, description = '', employmentType = '') {
   // and fail closed when a non-program role has no reliable experience signal.
   const experienceText = lower(`${title} ${requiredExperienceText(description)}`);
   const years = statedExperienceYears(experienceText);
-  if (years.some(year => year > 5)) return null;
+  if (years.some(year => year > 5) || strictlyExceedsFiveYearBoundary(experienceText)) return null;
 
   const explicitProgram = type !== 'entry-level';
   const explicitNoExperience = /(?:no|zero) (?:prior )?experience(?: is)? (?:required|needed)|experience (?:is )?not required/i.test(experienceText);
@@ -158,6 +167,48 @@ if (process.argv.includes('--test-experience-parser')) {
       title: 'Critical Environment Engineer',
       description: 'Basic Qualifications Seven or more years of direct experience in a technical critical environment.',
       expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'strict more-than-five wording is rejected',
+      title: 'Critical Environment Engineer',
+      description: 'More than five years of direct experience in data center critical environments is required.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'strict over-five wording is rejected',
+      title: 'Critical Environment Engineer',
+      description: 'Over 5 years of direct experience in data center critical environments is required.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'strict greater-than-five wording is rejected',
+      title: 'Critical Environment Engineer',
+      description: 'Greater than five years of relevant experience in data center critical environments is required.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'strict in-excess-of-five wording is rejected',
+      title: 'Critical Environment Engineer',
+      description: 'In excess of five years of relevant experience in data center critical environments is required.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'symbolic greater-than-five wording is rejected',
+      title: 'Critical Environment Engineer',
+      description: '> 5 years of relevant experience in data center critical environments is required.',
+      expectedType: null, expectedExperience: null
+    },
+    {
+      name: 'exact five-year minimum remains eligible',
+      title: 'Critical Environment Engineer',
+      description: 'Minimum of five years of relevant experience in data center critical environments.',
+      expectedType: 'entry-level', expectedExperience: '2-5-years'
+    },
+    {
+      name: 'five-plus boundary remains eligible',
+      title: 'Critical Environment Engineer',
+      description: '5+ years of relevant experience in data center critical environments.',
+      expectedType: 'entry-level', expectedExperience: '2-5-years'
     },
     {
       name: 'unknown-experience generic engineer is rejected',

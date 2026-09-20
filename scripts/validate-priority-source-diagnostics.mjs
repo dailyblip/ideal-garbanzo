@@ -21,6 +21,7 @@ const prioritySources = [
   ['DataBank', value => value.databank],
   ['CoreSite', value => value.coreSite],
   ['Iron Mountain', value => value.ironMountain],
+  ['Sabey Data Centers', value => value.sabeyCareers],
   ['Novva Data Centers', value => value.novvaCareers],
   ['Flexential', value => value.flexential],
   ['Switch', value => value.switchCareers],
@@ -92,6 +93,11 @@ await import('./validate-coresite-fallback.mjs');
 // Enforce exact source/public parity on every deployment so stale or drifted
 // DataBank requisitions cannot remain deployable between collector refreshes.
 await import('./validate-databank.mjs');
+
+// Sabey publishes from a verified employer-recruiter iCIMS snapshot when its
+// official careers page is unavailable. Enforce verified-host URLs, freshness,
+// supported audience metadata, and exact snapshot/public-feed parity on deploy.
+await import('./validate-sabey-snapshot.mjs');
 
 // Comparable operators are also part of the mission-critical source backbone.
 // Validate their direct-source integrity and snapshot/public-feed parity whenever

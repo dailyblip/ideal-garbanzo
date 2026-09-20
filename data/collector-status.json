@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-20T15:50:44.322Z",
-  "jobs": 726,
+  "updatedAt": "2026-09-20T16:00:45.193Z",
+  "jobs": 733,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 694,
-    "internship": 11,
+    "entry-level": 701,
     "trainee": 10,
+    "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 307,
-    "0-2-years": 395,
-    "no-experience": 24
+    "no-experience": 24,
+    "0-2-years": 402
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1364,7 +1364,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1310
+        "rows": 1311
       },
       {
         "query": "engineering operations technician",
@@ -1379,7 +1379,7 @@
         "rows": 19
       }
     ],
-    "candidateRows": 3729,
+    "candidateRows": 3730,
     "uniqueCandidates": 1149,
     "freshQualifyingRoles": 23,
     "preservedPreviousRoles": 0,
@@ -2058,43 +2058,82 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T15:50:44.397Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-20T16:00:45.370Z",
+    "removedCount": 5,
+    "removedByReason": {
+      "senior/executive title": 2,
+      "non-mission role family": 3
+    },
+    "removed": [
+      {
+        "id": "amazon-10534644",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "San Antonio, TX",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10515905",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "Culpeper, VA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10513234",
+        "company": "Amazon Web Services",
+        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
+        "location": "Seattle, WA",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "amazon-10430644",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "Boardman, OR",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "amazon-10427682",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "New Carlisle, IN",
+        "reason": "non-mission role family"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T15:50:44.469Z",
+    "updatedAt": "2026-09-20T16:00:45.436Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 726,
+    "regionAssigned": 733,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 119,
-      "west": 113,
-      "southeast": 107,
-      "midwest": 142,
-      "mid-atlantic": 130,
-      "southwest": 90,
+      "west": 116,
+      "mid-atlantic": 131,
       "northeast": 24,
+      "southwest": 90,
+      "midwest": 142,
+      "texas": 121,
+      "southeast": 108,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T15:50:44.537Z",
-    "before": 726,
-    "after": 726,
+    "checkedAt": "2026-09-20T16:00:45.492Z",
+    "before": 733,
+    "after": 733,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-20T15:51:06.329Z",
-    "publishedJobs": 726,
+    "checkedAt": "2026-09-20T16:01:01.558Z",
+    "publishedJobs": 733,
     "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
@@ -2102,7 +2141,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1222,
-    "currentJobs": 726,
+    "currentJobs": 733,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2111,7 +2150,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T15:51:06.516Z"
+    "updatedAt": "2026-09-20T16:01:01.685Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2125,7 +2164,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1310
+        "rows": 1311
       },
       {
         "query": "engineering operations technician",
@@ -2140,30 +2179,27 @@
         "rows": 19
       }
     ],
-    "rawRows": 3729,
+    "rawRows": 3730,
     "missionFitUsCandidates": 1286,
     "uniquePublishIdentities": 306,
     "duplicatesSkippedBeforeHydration": 980,
     "reusedVerified": 22,
     "detailCandidates": 284,
     "detailAttempted": 284,
-    "detailSucceeded": 276,
-    "detailRecovered": 226,
-    "detailFetchFailed": 8,
+    "detailSucceeded": 279,
+    "detailRecovered": 229,
+    "detailFetchFailed": 5,
     "detailUnknownExperience": 37,
     "detailOverFiveYears": 13,
     "invalidUrls": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 248,
+    "qualifyingRoles": 251,
     "detailErrorSamples": [
-      "https://www.amazon.jobs/en/jobs/10487091/data-center-technician-nights-shift: 503 https://www.amazon.jobs/en/jobs/10487091/data-center-technician-nights-shift",
-      "https://www.amazon.jobs/en/jobs/10490888/engineering-operations-tech-dceo-engr-4: 503 https://www.amazon.jobs/en/jobs/10490888/engineering-operations-tech-dceo-engr-4",
-      "https://www.amazon.jobs/en/jobs/10468414/engineering-operation-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10468414/engineering-operation-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10448901/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10448901/data-center-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10433704/install-technician-aws-data-center-team: 503 https://www.amazon.jobs/en/jobs/10433704/install-technician-aws-data-center-team",
-      "https://www.amazon.jobs/en/jobs/10404079/engineering-operations-technician-pdx54: 503 https://www.amazon.jobs/en/jobs/10404079/engineering-operations-technician-pdx54",
-      "https://www.amazon.jobs/en/jobs/3201532/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3201532/engineering-operations-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia"
+      "https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3178438/data-center-logistics-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3178438/data-center-logistics-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia",
+      "https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia",
+      "https://www.amazon.jobs/en/jobs/3198499/engineering-operations-technician-aws-ais: 503 https://www.amazon.jobs/en/jobs/3198499/engineering-operations-technician-aws-ais"
     ],
     "errors": []
   },

@@ -18,6 +18,7 @@ const prioritySources = [
   ['Oracle', value => value.oracleCareers],
   ['Equinix', value => value.priorityEmployerExpansion?.Equinix],
   ['Digital Realty', value => value.digitalRealty],
+  ['CoreSite', value => value.coreSite],
   ['Iron Mountain', value => value.ironMountain],
   ['Novva Data Centers', value => value.novvaCareers],
   ['Flexential', value => value.flexential],
@@ -74,6 +75,12 @@ await import('./validate-dedicated-fallback-freshness.mjs');
 // fallback state cannot remain deployable merely because an old sourceHealthy
 // boolean is still present in collector-status.json.
 await import('./validate-major-workday-freshness-state.mjs');
+
+// CoreSite is a major colocation operator and its verified fallback can outlive
+// the workflow that produced it. Enforce both its direct-source state and fallback
+// parity during every deployment, not only when CoreSite-specific files change.
+await import('./validate-coresite-source-integrity.mjs');
+await import('./validate-coresite-fallback.mjs');
 
 // Comparable operators are also part of the mission-critical source backbone.
 // Validate their direct-source integrity and snapshot/public-feed parity whenever

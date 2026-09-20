@@ -63,8 +63,10 @@ jobs:
           node-version: 22
       - name: Check Equinix source-integrity scripts
         run: |
+          node --check scripts/collect-equinix-v2.mjs
           node --check scripts/enforce-equinix-fallback-freshness.mjs
           node --check scripts/enforce-equinix-verified-evidence.mjs
+          node scripts/collect-equinix-v2.mjs --test-experience-parser
           node scripts/enforce-equinix-fallback-freshness.mjs --test
           node scripts/enforce-equinix-verified-evidence.mjs --test
       - name: Guard Equinix refresh cadence and source-writer safety

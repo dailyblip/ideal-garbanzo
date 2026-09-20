@@ -11,6 +11,7 @@ on:
       - 'scripts/meta-fetch-policy.mjs'
       - 'scripts/guard-meta-detail-collapse.mjs'
       - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/prune-meta-overfive.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/enforce-meta-fallback-freshness.mjs'
       - '.github/workflows/meta-bootstrap.yml'
@@ -26,6 +27,7 @@ on:
       - 'scripts/meta-fetch-policy.mjs'
       - 'scripts/guard-meta-detail-collapse.mjs'
       - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/prune-meta-overfive.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/enforce-meta-fallback-freshness.mjs'
       - '.github/workflows/meta-bootstrap.yml'
@@ -49,6 +51,8 @@ jobs:
           node --check scripts/meta-fetch-policy.mjs
           node --check scripts/guard-meta-detail-collapse.mjs
           node scripts/guard-meta-detail-collapse.mjs --test
+          node --check scripts/prune-meta-overfive.mjs
+          node scripts/prune-meta-overfive.mjs --test
           node --check scripts/validate-meta-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs --test
           node scripts/validate-meta-snapshot.mjs

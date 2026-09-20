@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-20T20:46:52.508Z",
+  "updatedAt": "2026-09-20T20:48:07.965Z",
   "jobs": 733,
   "sourcesAttempted": 28,
   "providers": {
@@ -1450,7 +1450,7 @@
         "rows": 19
       }
     ],
-    "candidateRows": 359,
+    "candidateRows": 358,
     "plausibleRows": 34,
     "detailAttempts": 34,
     "detailVerified": 34,
@@ -1467,8 +1467,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-20T16:06:31.658Z",
-      "expiresAt": "2026-09-24T16:06:31.658Z",
+      "verifiedAt": "2026-09-20T20:48:06.407Z",
+      "expiresAt": "2026-09-24T20:48:06.407Z",
       "roles": 34,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -2079,54 +2079,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T20:46:52.845Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-20T20:48:08.035Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T20:46:52.894Z",
+    "updatedAt": "2026-09-20T20:48:08.099Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 733,
@@ -2145,7 +2106,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T20:46:52.938Z",
+    "checkedAt": "2026-09-20T20:48:08.154Z",
     "before": 733,
     "after": 733,
     "removed": 0,
@@ -2171,7 +2132,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T20:47:02.637Z"
+    "updatedAt": "2026-09-20T20:48:08.198Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

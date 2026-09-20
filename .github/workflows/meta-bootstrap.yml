@@ -12,6 +12,7 @@ on:
       - 'scripts/meta-fetch-policy.mjs'
       - 'scripts/guard-meta-detail-collapse.mjs'
       - 'scripts/recover-meta-structured.mjs'
+      - 'scripts/prune-meta-overfive.mjs'
       - 'scripts/normalize-meta-compensation.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
 
@@ -70,6 +71,18 @@ jobs:
           META_RATE_LIMIT_STREAK_LIMIT: '3'
           META_PERSISTENT_COOLDOWN_MS: '3500'
         run: node scripts/recover-meta-structured.mjs
+      - name: Enforce Meta five-year experience ceiling
+        env:
+          NODE_OPTIONS: --import=./scripts/meta-fetch-policy.mjs
+          META_DETAIL_INTERVAL_MS: '1200'
+          META_DETAIL_ATTEMPTS: '3'
+          META_MAX_RETRY_AFTER_MS: '12000'
+          META_RATE_LIMIT_STREAK_LIMIT: '3'
+          META_PERSISTENT_COOLDOWN_MS: '3500'
+          META_EXPERIENCE_INTERVAL_MS: '700'
+        run: |
+          node scripts/prune-meta-overfive.mjs --test
+          node scripts/prune-meta-overfive.mjs
       - name: Test Meta compensation normalization
         run: node scripts/normalize-meta-compensation.mjs --test
       - name: Normalize missing Meta compensation
@@ -96,6 +109,7 @@ jobs:
           META_MAX_RETRY_AFTER_MS: '12000'
           META_RATE_LIMIT_STREAK_LIMIT: '3'
           META_PERSISTENT_COOLDOWN_MS: '3500'
+          META_EXPERIENCE_INTERVAL_MS: '700'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -111,6 +125,8 @@ jobs:
             node scripts/guard-meta-detail-collapse.mjs
             node scripts/enforce-meta-fallback-freshness.mjs
             node scripts/recover-meta-structured.mjs
+            node scripts/prune-meta-overfive.mjs --test
+            node scripts/prune-meta-overfive.mjs
             node scripts/normalize-meta-compensation.mjs --test
             node scripts/normalize-meta-compensation.mjs
             node scripts/normalize-job-locations.mjs

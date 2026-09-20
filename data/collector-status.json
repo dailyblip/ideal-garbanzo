@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-20T11:30:07.096Z",
-  "jobs": 730,
+  "updatedAt": "2026-09-20T11:43:08.956Z",
+  "jobs": 717,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "trainee": 10,
-    "entry-level": 698,
+    "apprenticeship": 11,
     "internship": 11,
-    "apprenticeship": 11
+    "trainee": 9,
+    "entry-level": 686
   },
   "countsByExperience": {
-    "2-5-years": 307,
-    "0-2-years": 399,
-    "no-experience": 24
+    "0-2-years": 394,
+    "no-experience": 24,
+    "2-5-years": 299
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1949,15 +1949,19 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 2,
-      "qualifyingRoles": 2,
+      "staleRemoved": 3,
+      "qualifyingRoles": 1,
       "drops": {
+        "non-us": 6,
         "context": 1,
-        "non-us": 5,
         "title": 14,
         "unknown-experience": 6
       },
       "dropSamples": [
+        {
+          "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
+        },
         {
           "title": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
           "listingLabel": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
@@ -1991,13 +1995,6 @@
           "pageTitle": "",
           "heading": "",
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-staff-security-engineer-security-platforms-automation-hybrid-dallas-texas-united-states"
-        },
-        {
-          "title": "Data Center Critical Facilities Engineer (Electrical) IV",
-          "listingLabel": "Data Center Critical Facilities Engineer (Electrical) IV",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-engineer-electrical-iv-secaucus-new-jersey-united-states"
         }
       ],
       "errors": []
@@ -2009,10 +2006,10 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 3,
-      "verifiedSeeded": 4,
+      "recoveredCandidates": 4,
+      "verifiedSeeded": 3,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 3,
+      "broadListingEvidenceAdded": 4,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -2024,13 +2021,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 5,
+        "unknownExperience": 4,
         "unusable": 0,
-        "verifiedMismatch": 4
+        "verifiedMismatch": 3
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 2,
-      "verifiedFallbackExpiredAt": "2026-09-20T05:12:34.589Z"
+      "expiredVerifiedFallbackRoles": 3,
+      "verifiedFallbackExpiredAt": "2026-09-20T11:43:08.956Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2044,7 +2041,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 2,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -2061,28 +2058,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T11:37:50.720Z",
+    "updatedAt": "2026-09-20T11:43:09.115Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 730,
+    "regionAssigned": 717,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 114,
-      "midwest": 142,
-      "texas": 119,
-      "southeast": 108,
-      "southwest": 90,
-      "mid-atlantic": 132,
+      "midwest": 140,
+      "mid-atlantic": 129,
+      "texas": 116,
+      "southwest": 89,
+      "southeast": 106,
+      "west": 112,
       "northeast": 24,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T11:37:50.786Z",
-    "before": 730,
-    "after": 730,
+    "checkedAt": "2026-09-20T11:43:09.184Z",
+    "before": 717,
+    "after": 717,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2097,7 +2094,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1222,
-    "currentJobs": 730,
+    "currentJobs": 717,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2105,8 +2102,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T11:37:50.844Z"
+    "firstSeenRecencyFallbackJobs": 110,
+    "updatedAt": "2026-09-20T11:43:09.243Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2815,11 +2812,11 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-20T05:12:34.589Z",
+    "checkedAt": "2026-09-20T11:43:08.956Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 2,
+    "expiredEarlyCareerFallbackRoles": 3,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },

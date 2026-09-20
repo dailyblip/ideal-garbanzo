@@ -10,6 +10,12 @@ if (!Array.isArray(jobs)) {
   throw new Error('data/jobs.json must contain an array.');
 }
 
+const genericSourceDiagnostics = [
+  ...(Array.isArray(status?.genericDirectSources?.sourceDiagnostics) ? status.genericDirectSources.sourceDiagnostics : []),
+  ...(Array.isArray(status?.sourceDiagnostics) ? status.sourceDiagnostics : [])
+];
+const genericSourceDiagnostic = company => genericSourceDiagnostics.find(item => String(item?.company || '').trim() === company);
+
 const prioritySources = [
   ['Amazon Web Services', value => value.amazonDatacenter],
   ['Google', value => value.googleCareers],
@@ -28,6 +34,7 @@ const prioritySources = [
   ['Cologix', value => value.cologix],
   ['T5 Data Centers', value => value.t5DataCenters],
   ['TierPoint', value => value.tierPoint],
+  ['Crusoe', () => genericSourceDiagnostic('Crusoe')],
   ['Compass Datacenters', value => value.compass],
   ['Stream Data Centers', value => value.streamDataCenters],
   ['EdgeConneX', value => value.edgeconnexCareers],
@@ -123,6 +130,11 @@ await import('./validate-t5-data-centers.mjs');
 // exact requisition/public parity and refuse degraded deployments that would rely
 // on the collector's historical unbounded previous-snapshot retention behavior.
 await import('./validate-tierpoint.mjs');
+
+// Crusoe is a comparable operator with employer-direct Ashby inventory in the
+// public feed. Enforce official-board provenance, 0-5-year scope, senior-role
+// exclusion, retention protection, and fresh source/fallback evidence on deploy.
+await import('./validate-crusoe.mjs');
 
 // Sabey publishes from a verified employer-recruiter iCIMS snapshot when its
 // official careers page is unavailable. Enforce verified-host URLs, freshness,

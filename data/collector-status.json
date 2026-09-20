@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-20T21:46:34.121Z",
+  "updatedAt": "2026-09-20T22:42:33.205Z",
   "jobs": 730,
   "sourcesAttempted": 22,
   "providers": {
@@ -17,8 +17,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 399,
     "2-5-years": 307,
+    "0-2-years": 399,
     "no-experience": 24
   },
   "errors": [],
@@ -3566,7 +3566,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T21:46:34.196Z",
+    "checkedAt": "2026-09-20T22:42:33.281Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3574,7 +3574,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T21:46:34.272Z",
+    "updatedAt": "2026-09-20T22:42:33.358Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 730,
@@ -3582,18 +3582,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 141,
       "texas": 121,
       "west": 115,
       "southeast": 108,
-      "southwest": 90,
+      "midwest": 141,
       "mid-atlantic": 129,
+      "southwest": 90,
       "northeast": 25,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T21:46:34.342Z",
+    "checkedAt": "2026-09-20T22:42:33.428Z",
     "before": 730,
     "after": 730,
     "removed": 0,
@@ -3601,9 +3601,9 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-20T21:43:28.500Z",
-    "publishedJobs": 728,
-    "removedJobs": 1,
+    "checkedAt": "2026-09-20T22:43:14.947Z",
+    "publishedJobs": 730,
+    "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
   },
@@ -3611,15 +3611,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1224,
     "currentJobs": 730,
-    "newJobsThisRun": 2,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 2,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 113,
-    "updatedAt": "2026-09-20T21:46:34.404Z"
+    "updatedAt": "2026-09-20T22:43:15.079Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3767,7 +3767,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-20T17:40:23.556Z",
+    "checkedAt": "2026-09-20T22:42:33.205Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

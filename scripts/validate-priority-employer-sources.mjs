@@ -101,7 +101,7 @@ function confidentUsLocation(value = '') {
   if (!text) return false;
   const lower = text.toLowerCase().replace(/[-_/]+/g, ' ').replace(/\s+/g, ' ');
   if (/\b(?:united states|usa|u\.s\.a\.|u\.s\.)\b/i.test(text)) return true;
-  if (usStateNames.some(state => new RegExp(`\\b${state.replace(/ /g, '\\s+')}\\b`, 'i').test(lower))) return true;
+  if (usStateNames.some(state => new RegExp(`\b${state.replace(/ /g, '\s+')}\b`, 'i').test(lower))) return true;
   const abbreviationMatch = text.match(/,\s*([A-Z]{2})(?:\b|\s|$)/);
   return Boolean(abbreviationMatch && usStateAbbreviations.has(abbreviationMatch[1]));
 }
@@ -311,6 +311,16 @@ if (violations.length) {
   violations.forEach(violation => console.error(`Priority employer source guard: ${violation}`));
   throw new Error(`Blocked ${violations.length} priority employer source regression(s).`);
 }
+
+// This guard runs in every refresh/rebuild and Pages deployment validation path.
+// Reuse the strict employer-specific ledgers here so AWS, Google, and Oracle
+// cannot deploy when their authoritative snapshot, public feed, or fallback
+// evidence drifts even if a source-specific workflow has not run recently.
+await import('./validate-amazon-snapshot.mjs');
+await import('./validate-amazon-parity.mjs');
+await import('./validate-google-snapshot.mjs');
+await import('./validate-oracle-snapshot.mjs');
+await import('./validate-oracle-parity.mjs');
 
 const summary = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([company, count]) => `${company}=${count}`).join(', ');
 console.log(`Priority employer source guard passed. ${summary}`);

@@ -1,4 +1,4 @@
-name: Early-career stale job pruning
+name: 0–5 year stale job pruning
 
 on:
   push:
@@ -30,16 +30,16 @@ jobs:
         with:
           node-version: 22
 
-      - name: Guard stale-link policy
+      - name: Guard 0–5-year stale-link policy
         run: node scripts/prune-closed-early-career.mjs --test
 
-      - name: Recheck employer-direct early-career URLs
+      - name: Recheck published 0–5-year employer-direct URLs
         id: prune
         run: |
           node scripts/prune-closed-early-career.mjs
           if git diff --quiet -- data/jobs.json; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
-            echo 'No definitively closed early-career roles found.'
+            echo 'No definitively closed published 0–5-year roles found.'
           else
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
@@ -104,7 +104,7 @@ jobs:
               exit 0
             fi
 
-            git commit -m 'Prune closed early-career job links'
+            git commit -m 'Prune closed 0–5-year job links'
             if git push origin HEAD:main; then
               echo 'pushed=true' >> "$GITHUB_OUTPUT"
               exit 0

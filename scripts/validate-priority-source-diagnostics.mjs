@@ -18,6 +18,7 @@ const prioritySources = [
   ['Oracle', value => value.oracleCareers],
   ['Equinix', value => value.priorityEmployerExpansion?.Equinix],
   ['Digital Realty', value => value.digitalRealty],
+  ['DataBank', value => value.databank],
   ['CoreSite', value => value.coreSite],
   ['Iron Mountain', value => value.ironMountain],
   ['Novva Data Centers', value => value.novvaCareers],
@@ -81,6 +82,11 @@ await import('./validate-major-workday-freshness-state.mjs');
 // parity during every deployment, not only when CoreSite-specific files change.
 await import('./validate-coresite-source-integrity.mjs');
 await import('./validate-coresite-fallback.mjs');
+
+// DataBank publishes from an authoritative employer-direct TalentReef snapshot.
+// Enforce exact source/public parity on every deployment so stale or drifted
+// DataBank requisitions cannot remain deployable between collector refreshes.
+await import('./validate-databank.mjs');
 
 // Comparable operators are also part of the mission-critical source backbone.
 // Validate their direct-source integrity and snapshot/public-feed parity whenever

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-20T05:12:34.589Z",
-  "jobs": 679,
+  "updatedAt": "2026-09-20T05:22:40.759Z",
+  "jobs": 681,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
+    "trainee": 10,
     "apprenticeship": 11,
     "internship": 11,
-    "trainee": 8,
     "entry-level": 649
   },
   "countsByExperience": {
-    "0-2-years": 359,
-    "no-experience": 24,
-    "2-5-years": 296
+    "0-2-years": 360,
+    "2-5-years": 297,
+    "no-experience": 24
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -2036,28 +2036,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T05:12:34.722Z",
+    "updatedAt": "2026-09-20T05:22:40.835Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 679,
+    "regionAssigned": 681,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "west": 111,
       "midwest": 131,
       "mid-atlantic": 120,
       "texas": 110,
       "southwest": 87,
       "southeast": 100,
-      "west": 109,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T05:12:34.778Z",
-    "before": 679,
-    "after": 679,
+    "checkedAt": "2026-09-20T05:22:40.902Z",
+    "before": 681,
+    "after": 681,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2071,17 +2071,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1221,
-    "currentJobs": 679,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1222,
+    "currentJobs": 681,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-20T05:12:34.826Z"
+    "firstSeenRecencyFallbackJobs": 111,
+    "updatedAt": "2026-09-20T05:22:40.962Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2812,14 +2812,14 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-19T20:58:24.242Z",
+    "checkedAt": "2026-09-20T05:22:40.759Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
     "qualifyingRoles": 4,
-    "added": 0,
+    "added": 2,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
@@ -2831,7 +2831,7 @@
         "detailStatus": 200,
         "published": true,
         "years": [],
-        "alreadyPublishedByOtherCollector": true
+        "alreadyPublishedByOtherCollector": false
       },
       {
         "requisition": "JR-163300",
@@ -2843,7 +2843,7 @@
           2,
           4
         ],
-        "alreadyPublishedByOtherCollector": true
+        "alreadyPublishedByOtherCollector": false
       },
       {
         "requisition": "JR-158170",

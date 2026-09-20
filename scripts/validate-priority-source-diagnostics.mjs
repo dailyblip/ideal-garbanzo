@@ -102,6 +102,22 @@ await import('./validate-databank.mjs');
 await import('./validate-iron-mountain.mjs');
 await import('./validate-novva.mjs');
 
+// Flexential and Cologix also have bounded employer-direct fallback windows. The
+// shared freshness guard above protects degraded snapshots; when their sources are
+// healthy, additionally require exact direct-link, audience-fit, and public parity.
+if (status.flexential?.sourceHealthy === true) {
+  await import('./validate-flexential.mjs');
+}
+if (status.cologix?.sourceHealthy === true) {
+  await import('./validate-cologix.mjs');
+}
+
+// Switch and T5 publish authoritative employer-direct requisition snapshots with
+// no retained degraded publication path. Validate canonical requisition identity,
+// 0-5-year scope, senior-role exclusion, regional metadata, and feed parity here.
+await import('./validate-switch-careers.mjs');
+await import('./validate-t5-data-centers.mjs');
+
 // Sabey publishes from a verified employer-recruiter iCIMS snapshot when its
 // official careers page is unavailable. Enforce verified-host URLs, freshness,
 // supported audience metadata, and exact snapshot/public-feed parity on deploy.

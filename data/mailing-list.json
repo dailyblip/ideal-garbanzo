@@ -5,5 +5,7 @@
   "cadence": "weekly",
   "sendDay": "Monday",
   "sendTimeUtc": "16:00",
+  "subscriptionRedirectUrl": "https://datacentercareers.us/subscribed/",
+  "subscriptionConfirmationRedirectUrl": "https://datacentercareers.us/subscribed/?confirmed=1",
   "description": "Weekly roundup of newly listed Data Center Careers jobs sent through Buttondown every Monday."
 }

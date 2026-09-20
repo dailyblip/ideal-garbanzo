@@ -192,8 +192,8 @@
       "structured data missing: https://compass-datacenters.breezy.hr/p/9f8cec332fbd-director-customer-management",
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "checkedAt": "2026-09-19T20:58:45.436Z",
-    "lastHealthyAt": "2026-09-19T20:58:45.436Z",
+    "checkedAt": "2026-09-20T05:22:51.526Z",
+    "lastHealthyAt": "2026-09-20T05:22:51.526Z",
     "listingComplete": true,
     "authoritativeSnapshot": true,
     "fallbackMaxAgeHours": 96,
@@ -2028,7 +2028,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T05:08:16.600Z",
+    "checkedAt": "2026-09-20T05:22:51.594Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2036,7 +2036,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T05:22:40.835Z",
+    "updatedAt": "2026-09-20T05:22:51.655Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 681,
@@ -2055,7 +2055,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T05:22:40.902Z",
+    "checkedAt": "2026-09-20T05:22:51.710Z",
     "before": 681,
     "after": 681,
     "removed": 0,
@@ -2063,8 +2063,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-20T05:08:36.885Z",
-    "publishedJobs": 694,
+    "checkedAt": "2026-09-20T05:22:59.855Z",
+    "publishedJobs": 681,
     "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
@@ -2073,15 +2073,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1222,
     "currentJobs": 681,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T05:22:40.962Z"
+    "updatedAt": "2026-09-20T05:23:00.013Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

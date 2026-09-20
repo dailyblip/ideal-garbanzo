@@ -27,6 +27,7 @@ const prioritySources = [
   ['Switch', value => value.switchCareers],
   ['Cologix', value => value.cologix],
   ['T5 Data Centers', value => value.t5DataCenters],
+  ['TierPoint', value => value.tierPoint],
   ['Compass Datacenters', value => value.compass],
   ['Stream Data Centers', value => value.streamDataCenters],
   ['EdgeConneX', value => value.edgeconnexCareers],
@@ -117,6 +118,11 @@ if (status.cologix?.sourceHealthy === true) {
 // 0-5-year scope, senior-role exclusion, regional metadata, and feed parity here.
 await import('./validate-switch-careers.mjs');
 await import('./validate-t5-data-centers.mjs');
+
+// TierPoint currently publishes from an authoritative iCIMS snapshot. Guard its
+// exact requisition/public parity and refuse degraded deployments that would rely
+// on the collector's historical unbounded previous-snapshot retention behavior.
+await import('./validate-tierpoint.mjs');
 
 // Sabey publishes from a verified employer-recruiter iCIMS snapshot when its
 // official careers page is unavailable. Enforce verified-host URLs, freshness,

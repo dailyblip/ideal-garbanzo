@@ -100,3 +100,9 @@ await import('./validate-compass-datacenters.mjs');
 await import('./validate-stream-data-centers.mjs');
 await import('./validate-edgeconnex-snapshot.mjs');
 await import('./validate-edgeconnex.mjs');
+
+// Regional filtering is part of the user-facing product contract. Run its
+// authoritative state-market and beginner-pathway coverage checks through this
+// shared guard so standard validation and Pages deployment both fail closed if
+// a priority employer silently loses a market or receives the wrong region tag.
+await import('./validate-priority-region-coverage.mjs');

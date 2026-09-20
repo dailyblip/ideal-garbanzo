@@ -312,5 +312,15 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} priority employer source regression(s).`);
 }
 
+// This guard runs in every refresh/rebuild and Pages deployment validation path.
+// Reuse the strict employer-specific ledgers here so AWS, Google, and Oracle
+// cannot deploy when their authoritative snapshot, public feed, or fallback
+// evidence drifts even if a source-specific workflow has not run recently.
+await import('./validate-amazon-snapshot.mjs');
+await import('./validate-amazon-parity.mjs');
+await import('./validate-google-snapshot.mjs');
+await import('./validate-oracle-snapshot.mjs');
+await import('./validate-oracle-parity.mjs');
+
 const summary = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([company, count]) => `${company}=${count}`).join(', ');
 console.log(`Priority employer source guard passed. ${summary}`);

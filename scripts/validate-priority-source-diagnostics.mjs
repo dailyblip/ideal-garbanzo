@@ -71,6 +71,11 @@ console.log(`Priority source diagnostics present for all ${prioritySources.lengt
 // cannot keep stale retained roles deployable past their verification window.
 await import('./validate-dedicated-fallback-freshness.mjs');
 
+// Digital Realty's dedicated Oracle Recruiting Cloud snapshot is authoritative.
+// Enforce its employer-direct URLs, audience-fit metadata, source-health evidence,
+// and snapshot/public-feed parity during every standard deployment.
+await import('./validate-digital-realty.mjs');
+
 // Deployment already invokes this strategic-source diagnostic guard. Keep the
 // six major Workday operators fail-closed here as well so a stale or malformed
 // fallback state cannot remain deployable merely because an old sourceHealthy

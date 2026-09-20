@@ -40,6 +40,8 @@ jobs:
           node-version: 22
       - name: Test Microsoft requisition parity
         run: node scripts/validate-microsoft-snapshot.mjs --test
+      - name: Test Microsoft experience policy
+        run: node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
       - name: Test Microsoft request-throttle policy
         run: |
           node --check scripts/run-microsoft-datacenter.mjs

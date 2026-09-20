@@ -131,8 +131,8 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-20T05:28:02.975Z",
-    "lastHealthyAt": "2026-09-20T05:28:02.975Z",
+    "checkedAt": "2026-09-20T11:51:09.320Z",
+    "lastHealthyAt": "2026-09-20T11:51:09.320Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
@@ -159,9 +159,9 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-20T05:28:02.975Z",
-      "checkedAt": "2026-09-20T05:28:02.975Z",
-      "expiresAt": "2026-09-24T05:28:02.975Z",
+      "lastHealthyAt": "2026-09-20T11:51:09.320Z",
+      "checkedAt": "2026-09-20T11:51:09.320Z",
+      "expiresAt": "2026-09-24T11:51:09.320Z",
       "ageHours": 0,
       "maxAgeHours": 96,
       "roles": 10,
@@ -2050,7 +2050,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T11:48:01.507Z",
+    "checkedAt": "2026-09-20T11:51:22.336Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2058,7 +2058,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T11:48:01.570Z",
+    "updatedAt": "2026-09-20T11:51:22.415Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 718,
@@ -2077,7 +2077,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T11:48:01.625Z",
+    "checkedAt": "2026-09-20T11:51:22.486Z",
     "before": 718,
     "after": 718,
     "removed": 0,
@@ -2085,7 +2085,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-20T11:48:10.811Z",
+    "checkedAt": "2026-09-20T11:51:49.483Z",
     "publishedJobs": 718,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -2103,7 +2103,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T11:48:10.967Z"
+    "updatedAt": "2026-09-20T11:51:49.676Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

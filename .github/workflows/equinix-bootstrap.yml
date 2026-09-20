@@ -43,6 +43,10 @@ jobs:
         run: node scripts/collect-equinix-v2.mjs
       - name: Add Equinix US early-career roles
         run: node scripts/collect-equinix-early.mjs
+      - name: Validate current Equinix SkillBridge classifier
+        run: node scripts/collect-equinix-current-skillbridge.mjs --test
+      - name: Verify current official Equinix SkillBridge roles
+        run: node scripts/collect-equinix-current-skillbridge.mjs
       - name: Recover requirements from official Equinix locale detail pages
         run: node scripts/recover-equinix-rendered-details.mjs
       - name: Restore source-verified Equinix roles when rendered requirements are unavailable
@@ -84,6 +88,8 @@ jobs:
             git reset --hard origin/main
             node scripts/collect-equinix-v2.mjs
             node scripts/collect-equinix-early.mjs
+            node scripts/collect-equinix-current-skillbridge.mjs --test
+            node scripts/collect-equinix-current-skillbridge.mjs
             node scripts/recover-equinix-rendered-details.mjs
             node scripts/apply-equinix-verified-fallback.mjs
             node scripts/promote-equinix-direct-clicks.mjs --test

@@ -97,21 +97,12 @@
     ],
     "snapshotRoles": 1,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-20T05:03:36.685Z",
+    "snapshotVerifiedAt": "2026-09-20T11:37:50.574Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
-    "snapshotAgeHours": 0.5,
+    "snapshotAgeHours": 0,
     "normalizedTitles": 1,
-    "removedExpiredFallback": 0,
-    "fallbackFreshness": {
-      "active": false,
-      "expired": false,
-      "lastHealthyAt": "2026-09-20T05:03:36.685Z",
-      "checkedAt": "2026-09-20T05:34:42.723Z",
-      "expiresAt": "2026-09-24T05:03:36.685Z",
-      "maxAgeHours": 96,
-      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
-    }
+    "removedExpiredFallback": 0
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
@@ -2062,7 +2053,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-20T11:30:07.165Z",
+    "checkedAt": "2026-09-20T11:37:50.646Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2070,7 +2061,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-20T11:30:07.238Z",
+    "updatedAt": "2026-09-20T11:37:50.720Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 730,
@@ -2089,7 +2080,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-20T11:30:07.317Z",
+    "checkedAt": "2026-09-20T11:37:50.786Z",
     "before": 730,
     "after": 730,
     "removed": 0,
@@ -2113,9 +2104,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 18,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-20T11:30:29.037Z"
+    "updatedAt": "2026-09-20T11:37:50.844Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

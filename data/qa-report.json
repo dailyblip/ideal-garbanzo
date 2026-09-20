@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-20T16:28:30.616Z",
+  "checkedAt": "2026-09-20T16:28:58.179Z",
   "jobsBefore": 721,
   "jobsAfter": 721,
   "demoJobsRemoved": [],
@@ -138,10 +138,19 @@
   ],
   "transientJobLinks": [
     {
-      "id": "gh-xai-5182374007",
+      "id": "gh-xai-5214372007",
       "company": "xAI",
-      "title": "Facilities Infrastructure Engineer, Data Center Infrastructure - Memphis",
-      "url": "https://job-boards.greenhouse.io/xai/jobs/5182374007",
+      "title": "Electrician, Operations - Memphis",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5214372007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "icims-tierpoint-3038",
+      "company": "TierPoint",
+      "title": "MEP Technician II",
+      "url": "https://careers-tierpoint.icims.com/jobs/3038/mep-technician-ii/job",
       "state": "transient",
       "status": null,
       "error": "timeout"

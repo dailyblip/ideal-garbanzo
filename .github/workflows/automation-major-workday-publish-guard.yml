@@ -1,0 +1,81 @@
+name: Apply major Workday publication ceiling guard
+
+on:
+  push:
+    branches:
+      - automation/major-workday-boundary-refresh
+    paths:
+      - '.github/workflows/automation-major-workday-publish-guard.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: automation/major-workday-boundary-refresh
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Add five-year ceiling guard to full refresh
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('.github/workflows/pages.yml')
+          text = path.read_text()
+
+          old = """      - name: Scrub targeted Workday recovery noise
+        run: node scripts/scrub-major-targeted-noise.mjs
+      - name: Add early-career internships and training roles"""
+          new = """      - name: Scrub targeted Workday recovery noise
+        run: node scripts/scrub-major-targeted-noise.mjs
+      - name: Enforce major Workday 0–5 year ceiling
+        run: node scripts/prune-major-workday-overfive.mjs
+      - name: Add early-career internships and training roles"""
+          if text.count(old) != 1:
+              raise SystemExit(f'expected one full-refresh anchor, found {text.count(old)}')
+          text = text.replace(old, new, 1)
+
+          old = """            node scripts/recover-major-workday-targeted.mjs
+            node scripts/scrub-major-targeted-noise.mjs
+            node scripts/collect-early-career.mjs"""
+          new = """            node scripts/recover-major-workday-targeted.mjs
+            node scripts/scrub-major-targeted-noise.mjs
+            node scripts/prune-major-workday-overfive.mjs
+            node scripts/collect-early-career.mjs"""
+          if text.count(old) != 1:
+              raise SystemExit(f'expected one rebuild anchor, found {text.count(old)}')
+          text = text.replace(old, new, 1)
+
+          needle = "          node scripts/validate-major-workday-parity.mjs\n"
+          count = text.count(needle)
+          if count != 4:
+              raise SystemExit(f'expected four validation anchors, found {count}')
+          text = text.replace(needle, needle + "          node scripts/prune-major-workday-overfive.mjs --test\n")
+
+          path.write_text(text)
+          PY
+
+          node --check scripts/prune-major-workday-overfive.mjs
+          node scripts/prune-major-workday-overfive.mjs --test
+
+      - name: Commit publication guard and remove patch helpers
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/automation-major-workday-boundary-patch.yml
+          rm -f .github/workflows/automation-major-workday-boundary-patch-v2.yml
+          rm -f .github/workflows/automation-major-workday-publish-guard.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/workflows/pages.yml .github/workflows/automation-major-workday-boundary-patch.yml .github/workflows/automation-major-workday-boundary-patch-v2.yml .github/workflows/automation-major-workday-publish-guard.yml
+          git commit -m 'Enforce major Workday ceiling in full refresh'
+          git push origin HEAD:automation/major-workday-boundary-refresh

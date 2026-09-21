@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T03:50:54.172Z",
+  "updatedAt": "2026-09-21T04:26:17.228Z",
   "jobs": 729,
   "sourcesAttempted": 29,
   "providers": {
@@ -19,8 +19,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 399,
     "2-5-years": 306,
+    "0-2-years": 399,
     "no-experience": 24
   },
   "errors": [
@@ -2082,7 +2082,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T03:39:03.588Z",
+    "checkedAt": "2026-09-21T04:26:17.292Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2090,7 +2090,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T03:50:54.253Z",
+    "updatedAt": "2026-09-21T04:26:17.356Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 729,
@@ -2098,10 +2098,10 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 141,
       "texas": 121,
       "west": 115,
       "southeast": 108,
+      "midwest": 141,
       "mid-atlantic": 128,
       "southwest": 90,
       "northeast": 25,
@@ -2109,7 +2109,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T03:50:54.321Z",
+    "checkedAt": "2026-09-21T04:26:17.413Z",
     "before": 729,
     "after": 729,
     "removed": 0,
@@ -2117,7 +2117,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-21T03:39:25.251Z",
+    "checkedAt": "2026-09-21T04:26:40.812Z",
     "publishedJobs": 729,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -2135,7 +2135,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T03:50:54.381Z"
+    "updatedAt": "2026-09-21T04:26:40.984Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2246,7 +2246,7 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-20T15:50:44.322Z",
+    "checkedAt": "2026-09-21T04:26:17.228Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",

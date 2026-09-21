@@ -1,8 +1,46 @@
 import { readFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 
 const DEFAULT_MAX_AGE_HOURS = 96;
 const FUTURE_SKEW_MINUTES = 10;
 const nowMs = Date.now();
+const STATUS_PATH = 'data/collector-status.json';
+
+function gitText(args) {
+  try {
+    return execFileSync('git', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch {
+    return '';
+  }
+}
+
+function readStatusAtCommit(sha) {
+  const raw = gitText(['show', `${sha}:${STATUS_PATH}`]);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function oraclePublishedRefreshEvidence() {
+  const history = gitText(['log', '-120', '--format=%H%x09%cI%x09%s', '--', STATUS_PATH]);
+  if (!history) return null;
+
+  for (const line of history.split('\n').filter(Boolean)) {
+    const [sha, committedAt, ...subjectParts] = line.split('\t');
+    const subject = subjectParts.join('\t');
+    if (!sha || !committedAt) continue;
+    if (subject !== 'Bootstrap verified Oracle Careers roles' && subject !== 'Refresh verified jobs, events, and QA report') continue;
+
+    const oracle = readStatusAtCommit(sha)?.oracleCareers;
+    if (oracle?.sourceHealthy === true && oracle?.listingComplete === true) {
+      return { checkedAt: committedAt, evidenceSource: 'published-oracle-refresh' };
+    }
+  }
+  return null;
+}
 
 const sources = [
   { company: 'Amazon Web Services', snapshot: 'data/amazon-jobs.json', diagnostic: status => status.amazonDatacenter },
@@ -11,7 +49,8 @@ const sources = [
     evidence: (status, rawSnapshot, diagnostic) => [diagnostic?.snapshotFallback, rawSnapshot] },
   { company: 'Meta', snapshot: 'data/meta-jobs.json', diagnostic: status => status.metaCareers,
     evidence: status => [status.metaFallbackFreshness] },
-  { company: 'Oracle', snapshot: 'data/oracle-jobs.json', diagnostic: status => status.oracleCareers },
+  { company: 'Oracle', snapshot: 'data/oracle-jobs.json', diagnostic: status => status.oracleCareers,
+    evidence: status => [status.oracleCareers?.fallbackFreshness, oraclePublishedRefreshEvidence()] },
   { company: 'Digital Realty', snapshot: 'data/digital-realty-jobs.json', diagnostic: status => status.digitalRealty },
   { company: 'Flexential', snapshot: 'data/flexential-jobs.json', diagnostic: status => status.flexential },
   { company: 'Cologix', snapshot: 'data/cologix-jobs.json', diagnostic: status => status.cologix }
@@ -224,10 +263,10 @@ function runRegressionCases() {
 
 runRegressionCases();
 
-const status = await readJson('data/collector-status.json');
+const status = await readJson(STATUS_PATH);
 const publicJobs = await readJson('data/jobs.json');
 if (!status || typeof status !== 'object' || Array.isArray(status)) {
-  throw new Error('data/collector-status.json must contain an object.');
+  throw new Error(`${STATUS_PATH} must contain an object.`);
 }
 if (!Array.isArray(publicJobs)) {
   throw new Error('data/jobs.json must contain an array.');

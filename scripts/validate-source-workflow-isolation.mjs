@@ -31,6 +31,15 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
+// These writers have completed the migration away from destructive site-wide
+// QA inside a source-specific refresh. Keep that isolation from regressing as
+// the remaining shared writers are migrated independently.
+const liveQaIsolatedWriters = new Set([
+  '.github/workflows/cloudhq-bootstrap.yml',
+  '.github/workflows/cologix-bootstrap.yml',
+  '.github/workflows/databank-bootstrap.yml'
+]);
+
 // Retained as a compatibility contract for the stale-prune isolation validator.
 // The main source guard no longer relies on this list for discovery.
 const scheduledPrimaryWriters = new Set([
@@ -170,6 +179,9 @@ for (const path of feedWriters) {
   }
   if (sharedWriterQueue.has(path) && !/queue:\s*max\b/.test(text)) {
     violations.push(`${path}: shared-feed writer must use queue: max so pending employer refreshes are not replaced`);
+  }
+  if (liveQaIsolatedWriters.has(path) && /scripts\/qa-site\.mjs/.test(text)) {
+    violations.push(`${path}: isolated source writer must not run site-wide live QA; destructive cross-employer pruning belongs to the full refresh/deploy pipeline`);
   }
 
   const crons = [...onBlock.matchAll(/cron:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);

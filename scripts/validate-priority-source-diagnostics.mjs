@@ -24,6 +24,7 @@ const prioritySources = [
   ['Oracle', value => value.oracleCareers],
   ['Equinix', value => value.priorityEmployerExpansion?.Equinix],
   ['Digital Realty', value => value.digitalRealty],
+  ['CloudHQ', value => value.cloudHqCareers],
   ['DataBank', value => value.databank],
   ['CoreSite', value => value.coreSite],
   ['Iron Mountain', value => value.ironMountain],
@@ -95,10 +96,11 @@ await import('./validate-amazon-parity.mjs');
 await import('./validate-google-snapshot.mjs');
 await import('./validate-oracle-snapshot.mjs');
 
-// Digital Realty's dedicated Oracle Recruiting Cloud snapshot is authoritative.
-// Enforce its employer-direct URLs, audience-fit metadata, source-health evidence,
-// and snapshot/public-feed parity during every standard deployment.
+// Digital Realty and CloudHQ publish authoritative employer-direct snapshots.
+// Enforce canonical direct URLs, audience-fit metadata, source-health evidence,
+// bounded fallback state, and snapshot/public-feed parity on every deployment.
 await import('./validate-digital-realty.mjs');
+await import('./validate-cloudhq.mjs');
 
 // Deployment already invokes this strategic-source diagnostic guard. Keep the
 // six major Workday operators fail-closed here as well so a stale or malformed

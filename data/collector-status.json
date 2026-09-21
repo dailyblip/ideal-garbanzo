@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-21T05:23:22.070Z",
-  "jobs": 718,
+  "updatedAt": "2026-09-21T05:25:49.115Z",
+  "jobs": 719,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 2
   },
   "countsByType": {
+    "trainee": 10,
     "apprenticeship": 11,
     "internship": 11,
-    "trainee": 9,
     "entry-level": 687
   },
   "countsByExperience": {
+    "2-5-years": 298,
     "0-2-years": 397,
-    "no-experience": 24,
-    "2-5-years": 297
+    "no-experience": 24
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -2080,17 +2080,17 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T05:23:23.098Z",
+    "updatedAt": "2026-09-21T05:25:49.178Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 718,
+    "regionAssigned": 719,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "texas": 118,
       "midwest": 139,
       "mid-atlantic": 126,
-      "texas": 117,
       "southwest": 89,
       "southeast": 106,
       "west": 115,
@@ -2099,9 +2099,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T05:23:23.165Z",
-    "before": 718,
-    "after": 718,
+    "checkedAt": "2026-09-21T05:25:49.235Z",
+    "before": 719,
+    "after": 719,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2116,16 +2116,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1224,
-    "currentJobs": 718,
+    "currentJobs": 719,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 15,
-    "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-21T05:23:23.222Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 112,
+    "updatedAt": "2026-09-21T05:25:49.283Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2847,45 +2847,66 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-21T05:17:20.092Z",
+    "checkedAt": "2026-09-21T05:25:49.115Z",
     "listingHealthy": true,
-    "listingStatus": 202,
+    "listingStatus": 200,
     "rolesExpected": 4,
-    "rolesListed": 0,
-    "detailChecksPassed": 0,
-    "qualifyingRoles": 0,
-    "added": 0,
+    "rolesListed": 4,
+    "detailChecksPassed": 4,
+    "qualifyingRoles": 4,
+    "added": 1,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-163300",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          2,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-158170",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": false
       },
       {
         "requisition": "JR-811161",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       }
     ],
     "errors": []

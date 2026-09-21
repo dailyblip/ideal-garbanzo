@@ -88,6 +88,13 @@ await import('./validate-dedicated-fallback-freshness.mjs');
 // dedupe, source-state evidence, and protected snapshot/public-feed retention.
 await import('./validate-amazon-parity.mjs');
 
+// Google and Oracle also publish from authoritative employer-direct snapshots.
+// Run their dedicated integrity guards in every standard validation/deployment so
+// canonical requisition URLs, 0-5-year scope, senior-role exclusion, bounded
+// fallback evidence, and protected snapshot/public-feed parity fail closed.
+await import('./validate-google-snapshot.mjs');
+await import('./validate-oracle-snapshot.mjs');
+
 // Digital Realty's dedicated Oracle Recruiting Cloud snapshot is authoritative.
 // Enforce its employer-direct URLs, audience-fit metadata, source-health evidence,
 // and snapshot/public-feed parity during every standard deployment.

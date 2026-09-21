@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T15:20:21.637Z",
+  "updatedAt": "2026-09-21T15:54:52.680Z",
   "jobs": 722,
   "sourcesAttempted": 20,
   "providers": {
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
+    "trainee": 10,
     "entry-level": 690,
     "internship": 11,
-    "trainee": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 303,
     "0-2-years": 395,
+    "2-5-years": 303,
     "no-experience": 24
   },
   "errors": [],
@@ -3578,7 +3578,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T15:20:21.791Z",
+    "updatedAt": "2026-09-21T15:54:52.744Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 722,
@@ -3586,8 +3586,8 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 122,
       "west": 113,
+      "texas": 122,
       "southeast": 106,
       "midwest": 141,
       "mid-atlantic": 126,
@@ -3597,7 +3597,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T15:20:21.860Z",
+    "checkedAt": "2026-09-21T15:54:52.803Z",
     "before": 722,
     "after": 722,
     "removed": 0,
@@ -3623,7 +3623,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-21T15:20:47.248Z"
+    "updatedAt": "2026-09-21T15:54:52.852Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4345,7 +4345,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-21T14:51:55.708Z",
+    "checkedAt": "2026-09-21T15:54:52.680Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

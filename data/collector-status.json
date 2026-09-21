@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T22:07:29.348Z",
+  "updatedAt": "2026-09-21T22:11:19.832Z",
   "jobs": 713,
   "sourcesAttempted": 18,
   "providers": {
@@ -3566,7 +3566,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T22:07:29.501Z",
+    "updatedAt": "2026-09-21T22:11:19.916Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 713,
@@ -3585,7 +3585,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T22:07:29.571Z",
+    "checkedAt": "2026-09-21T22:11:19.989Z",
     "before": 713,
     "after": 713,
     "removed": 0,
@@ -3611,7 +3611,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-21T22:07:29.631Z"
+    "updatedAt": "2026-09-21T22:11:20.052Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4333,45 +4333,66 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-21T22:07:28.845Z",
+    "checkedAt": "2026-09-21T22:11:19.832Z",
     "listingHealthy": true,
-    "listingStatus": 202,
+    "listingStatus": 200,
     "rolesExpected": 4,
-    "rolesListed": 0,
-    "detailChecksPassed": 0,
-    "qualifyingRoles": 0,
+    "rolesListed": 4,
+    "detailChecksPassed": 4,
+    "qualifyingRoles": 4,
     "added": 0,
     "removedManaged": 0,
-    "removedKnownOverExperience": 1,
+    "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-163300",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          2,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-158170",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-811161",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       }
     ],
     "errors": []

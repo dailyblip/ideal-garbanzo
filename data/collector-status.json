@@ -3570,7 +3570,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T18:23:08.995Z",
+    "checkedAt": "2026-09-21T20:48:52.221Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3578,7 +3578,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T18:51:03.781Z",
+    "updatedAt": "2026-09-21T20:48:52.305Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 722,
@@ -3597,7 +3597,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T18:51:03.855Z",
+    "checkedAt": "2026-09-21T20:48:52.385Z",
     "before": 722,
     "after": 722,
     "removed": 0,
@@ -3623,7 +3623,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-21T18:51:03.916Z"
+    "updatedAt": "2026-09-21T20:48:52.576Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4306,8 +4306,8 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-20T18:19:30.704Z",
-    "lastHealthyAt": "2026-09-20T18:19:30.704Z",
+    "checkedAt": "2026-09-21T20:48:51.678Z",
+    "lastHealthyAt": "2026-09-21T20:48:51.678Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

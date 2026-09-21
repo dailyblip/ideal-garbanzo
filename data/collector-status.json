@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T02:55:30.437Z",
+  "updatedAt": "2026-09-21T02:55:59.996Z",
   "jobs": 729,
   "sourcesAttempted": 23,
   "providers": {
@@ -3577,7 +3577,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T02:55:30.596Z",
+    "updatedAt": "2026-09-21T02:56:00.074Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 729,
@@ -3596,7 +3596,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T02:55:30.665Z",
+    "checkedAt": "2026-09-21T02:56:00.131Z",
     "before": 729,
     "after": 729,
     "removed": 0,
@@ -3622,7 +3622,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T02:55:30.739Z"
+    "updatedAt": "2026-09-21T02:56:00.239Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4469,9 +4469,9 @@
     "policy": "Verify Prime role liveness against the official Rippling board. If that source cannot be verified, retain the last verified employer-direct snapshot for at most 96 hours."
   },
   "metaCurrentEntryLevelRecovery": {
-    "checkedAt": "2026-09-19T14:54:11.523Z",
+    "checkedAt": "2026-09-21T02:55:59.996Z",
     "officialSource": "https://www.metacareers.com/jobsearch/sitemap.xml",
-    "sitemapJobs": 989,
+    "sitemapJobs": 988,
     "targetRoleIds": [
       "meta-931982199496426",
       "meta-2435616253932563",

@@ -329,6 +329,7 @@ jobs:
           node scripts/validate-major-workday-freshness-state.mjs
           node scripts/validate-coresite-fallback.mjs
           node scripts/validate-site-copy.mjs
+          node scripts/validate-accessibility.mjs
           node scripts/validate-technical-seo.mjs
           node scripts/validate-google-analytics.mjs
           node scripts/validate-discovery-landings.mjs

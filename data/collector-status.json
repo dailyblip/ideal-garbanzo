@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-21T05:13:51.063Z",
-  "jobs": 731,
+  "updatedAt": "2026-09-21T05:17:20.731Z",
+  "jobs": 718,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 699,
+    "apprenticeship": 11,
     "internship": 11,
-    "trainee": 10,
-    "apprenticeship": 11
+    "trainee": 9,
+    "entry-level": 687
   },
   "countsByExperience": {
-    "2-5-years": 306,
-    "0-2-years": 401,
-    "no-experience": 24
+    "0-2-years": 397,
+    "no-experience": 24,
+    "2-5-years": 297
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1963,17 +1963,16 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 28,
-      "detailAttempted": 28,
-      "detailSucceeded": 28,
+      "candidateLinks": 26,
+      "detailAttempted": 26,
+      "detailSucceeded": 26,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 4,
-      "qualifyingRoles": 0,
+      "staleRemoved": 3,
+      "qualifyingRoles": 1,
       "drops": {
-        "non-us": 7,
-        "context": 1,
+        "non-us": 5,
         "title": 14,
         "unknown-experience": 6
       },
@@ -1987,13 +1986,6 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
         },
         {
-          "title": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
-          "listingLabel": "SkillBridge Military Transition Program, Information Security (IAM PAM) Engineer - Trainee",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-information-security-iam-pam-engineer-trainee-dallas-texas-united-states"
-        },
-        {
           "title": "SkillBridge, Data Center Critical Facilities Engineer - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
         },
@@ -2002,16 +1994,29 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
         {
-          "title": "SkillBridge Critical Facilities Engineer - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
-        },
-        {
           "title": "Data Center Customer Operations Intern",
           "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
         },
         {
-          "title": "数据中心关键基础设施实习生 - Data Center Critical Facilities Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-intern-shanghai-china-516ecc58-da2d-4149-a4bf-b26bfaded27f"
+          "title": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
+          "listingLabel": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-staff-security-engineer-security-platforms-automation-hybrid-dallas-texas-united-states"
+        },
+        {
+          "title": "Data Center Critical Facilities Engineer (Electrical) IV",
+          "listingLabel": "Data Center Critical Facilities Engineer (Electrical) IV",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-engineer-electrical-iv-secaucus-new-jersey-united-states"
+        },
+        {
+          "title": "Senior Supervisor, Data Center Critical Facilities",
+          "listingLabel": "Senior Supervisor, Data Center Critical Facilities",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/senior-supervisor-data-center-critical-facilities-dallas-texas-united-states-1c553df0-6438-4ffe-8a7e-968f7214b2af"
         }
       ],
       "errors": []
@@ -2023,10 +2028,10 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 5,
-      "verifiedSeeded": 2,
+      "recoveredCandidates": 4,
+      "verifiedSeeded": 3,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 5,
+      "broadListingEvidenceAdded": 4,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -2038,13 +2043,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 3,
+        "unknownExperience": 4,
         "unusable": 0,
-        "verifiedMismatch": 2
+        "verifiedMismatch": 3
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-20T20:59:24.587Z"
+      "expiredVerifiedFallbackRoles": 3,
+      "verifiedFallbackExpiredAt": "2026-09-21T05:17:20.731Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2058,7 +2063,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -2075,28 +2080,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T05:13:51.226Z",
+    "updatedAt": "2026-09-21T05:17:20.892Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 731,
+    "regionAssigned": 718,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 121,
-      "west": 116,
-      "southeast": 108,
-      "midwest": 141,
-      "mid-atlantic": 129,
-      "southwest": 90,
+      "midwest": 139,
+      "mid-atlantic": 126,
+      "texas": 117,
+      "southwest": 89,
+      "southeast": 106,
+      "west": 115,
       "northeast": 25,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T05:13:51.288Z",
-    "before": 731,
-    "after": 731,
+    "checkedAt": "2026-09-21T05:17:20.962Z",
+    "before": 718,
+    "after": 718,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2111,7 +2116,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1224,
-    "currentJobs": 731,
+    "currentJobs": 718,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2119,8 +2124,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T05:14:12.801Z"
+    "firstSeenRecencyFallbackJobs": 111,
+    "updatedAt": "2026-09-21T05:17:21.020Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2832,23 +2837,23 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-20T20:59:24.587Z",
+    "checkedAt": "2026-09-21T05:17:20.731Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 4,
+    "expiredEarlyCareerFallbackRoles": 3,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-21T04:49:30.024Z",
+    "checkedAt": "2026-09-21T05:17:20.092Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2856,52 +2861,31 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       }
     ],
     "errors": []

@@ -95,21 +95,12 @@
     ],
     "snapshotRoles": 0,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-21T13:03:04.203Z",
+    "snapshotVerifiedAt": "2026-09-21T22:04:18.890Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
     "snapshotAgeHours": 0,
     "normalizedTitles": 0,
-    "removedExpiredFallback": 0,
-    "fallbackFreshness": {
-      "active": false,
-      "expired": false,
-      "lastHealthyAt": "2026-09-21T13:03:04.203Z",
-      "checkedAt": "2026-09-21T13:30:47.212Z",
-      "expiresAt": null,
-      "maxAgeHours": 96,
-      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
-    }
+    "removedExpiredFallback": 0
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
@@ -3567,138 +3558,23 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T21:59:43.657Z",
-    "removedCount": 13,
-    "removedByReason": {
-      "senior/executive title": 3,
-      "non-mission role family": 8,
-      "non-US location": 2
-    },
-    "removed": [
-      {
-        "id": "ashby-fluidstack-f2990eac8950ce",
-        "company": "Fluidstack",
-        "title": "Staff Electrical Operator",
-        "location": "Abernathy, TX; River Bend, LA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-lambda-ebee6943394494",
-        "company": "Lambda",
-        "title": "Staff Electrical Engineer - Medium Voltage",
-        "location": "San Francisco Office (Fremont St)",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-gimlet-eb9a94c8bab714",
-        "company": "Gimlet Labs",
-        "title": "Legal Intern",
-        "location": "San Francisco, CA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-xai-5169675007",
-        "company": "xAI",
-        "title": "Network Operations Technician (SpaceXAI / Starlink)",
-        "location": "Dublin, Ireland",
-        "reason": "non-US location"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "location": "Southaven, MS; Memphis, TN",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-55e8ca08729b80",
-        "company": "Crusoe",
-        "title": "Quality Technician - Electrical Inspector",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-316d2a228cba07",
-        "company": "Crusoe",
-        "title": "Material Planner (Electrical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-129b9fd8c0d03e",
-        "company": "Crusoe",
-        "title": "Material Planner (Mechanical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
-        "company": "Serverfarm",
-        "title": "Data Center Technician",
-        "location": "Toronto, ON",
-        "reason": "non-US location"
-      },
-      {
-        "id": "ashby-crusoe-70b01f17d09a8b",
-        "company": "Crusoe",
-        "title": "CNC Operator",
-        "location": "Tulsa, OK - US (1)",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-ab810e7251cc10",
-        "company": "Crusoe",
-        "title": "Assembly Technician",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-8d30086e281f80",
-        "company": "Crusoe",
-        "title": "Project Controls Analyst",
-        "location": "Denver, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-fluidstack-229040aff58cbe",
-        "company": "Fluidstack",
-        "title": "Mechanical Engineer, R&D Team Lead",
-        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-21T22:04:18.968Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T21:59:43.725Z",
-    "changed": 1,
-    "samples": [
-      {
-        "id": "ashby-lambda-0bdbbcbdc49122",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
-      }
-    ],
-    "regionAssigned": 724,
-    "regionMissing": 2,
-    "coveragePct": 99.7,
-    "missingSamples": [
-      {
-        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
-      },
-      {
-        "id": "ashby-lambda-8308606de297f6",
-        "company": "Lambda",
-        "location": "Querétaro, Mexico - Data Center",
-        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
-      }
-    ],
+    "updatedAt": "2026-09-21T22:04:19.053Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 721,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
-      "southeast": 109,
+      "southeast": 106,
       "texas": 122,
       "midwest": 141,
       "west": 113,
@@ -3709,29 +3585,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T21:59:43.819Z",
-    "before": 724,
-    "after": 722,
-    "removed": 2,
+    "checkedAt": "2026-09-21T22:04:19.130Z",
+    "before": 721,
+    "after": 721,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-4538639007",
-        "keptId": "gh-xai-5227699007",
-        "company": "xAI",
-        "title": "Facilities Operations Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-5127519007",
-        "keptId": "gh-xai-5219754007",
-        "company": "xAI",
-        "title": "Mechanical Commissioning Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-21T15:20:47.113Z",
@@ -3743,16 +3602,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1231,
-    "currentJobs": 722,
-    "newJobsThisRun": 3,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 3,
+    "currentJobs": 721,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-21T21:59:43.849Z"
+    "firstSeenRecencyFallbackJobs": 110,
+    "updatedAt": "2026-09-21T22:04:19.196Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

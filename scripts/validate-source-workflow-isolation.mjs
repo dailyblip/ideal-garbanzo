@@ -171,6 +171,9 @@ for (const path of feedWriters) {
   if (sharedWriterQueue.has(path) && !/queue:\s*max\b/.test(text)) {
     violations.push(`${path}: shared-feed writer must use queue: max so pending employer refreshes are not replaced`);
   }
+  if (sharedWriterQueue.has(path) && /scripts\/qa-site\.mjs/.test(text)) {
+    violations.push(`${path}: shared source writer must not run site-wide live QA; destructive cross-employer pruning belongs to the full refresh/deploy pipeline`);
+  }
 
   const crons = [...onBlock.matchAll(/cron:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
   if (!crons.length) violations.push(`${path}: recurring source-feed writer must have a scheduled refresh`);

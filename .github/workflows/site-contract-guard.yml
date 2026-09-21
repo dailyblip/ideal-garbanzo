@@ -46,7 +46,9 @@ jobs:
       - name: Validate DataBank employer-direct source contract
         run: |
           node scripts/validate-databank.mjs --test
+          node scripts/validate-databank-publication-state.mjs --test
           node scripts/validate-databank.mjs
+          node scripts/validate-databank-publication-state.mjs
       - name: Validate Compass employer-direct source contract
         run: |
           node scripts/persist-compass-status.mjs --test-freshness

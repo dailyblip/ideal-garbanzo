@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T22:48:06.354Z",
+  "updatedAt": "2026-09-21T23:45:05.646Z",
   "jobs": 719,
   "sourcesAttempted": 18,
   "providers": {
@@ -3571,7 +3571,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T22:48:06.434Z",
+    "checkedAt": "2026-09-21T23:45:05.709Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3579,7 +3579,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T22:48:06.510Z",
+    "updatedAt": "2026-09-21T23:45:05.771Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 719,
@@ -3598,7 +3598,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T22:48:06.581Z",
+    "checkedAt": "2026-09-21T23:45:05.830Z",
     "before": 719,
     "after": 719,
     "removed": 0,
@@ -3624,7 +3624,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-21T22:48:06.701Z"
+    "updatedAt": "2026-09-21T23:45:05.935Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3772,7 +3772,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-21T15:20:21.638Z",
+    "checkedAt": "2026-09-21T23:45:05.646Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",
@@ -3781,14 +3781,14 @@
     "talentReefClientId": "14459",
     "talentReefBrand": null,
     "authoritativeSnapshot": true,
-    "listedJobs": 44,
-    "externalJobs": 44,
-    "usJobs": 44,
-    "candidateRoles": 30,
+    "listedJobs": 43,
+    "externalJobs": 43,
+    "usJobs": 43,
+    "candidateRoles": 29,
     "qualifyingRoles": 15,
     "rejectedOutOfScopeTitle": 22,
     "rejectedOver5Years": 2,
-    "rejectedUnknownExperience": 5,
+    "rejectedUnknownExperience": 4,
     "rejectedLocation": 0
   },
   "edgeconnexCareers": {

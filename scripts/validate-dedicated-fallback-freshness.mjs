@@ -50,6 +50,18 @@ function firstTimestamp(diagnostic = {}, extraEvidence = []) {
   return null;
 }
 
+function latestHealthyTimestamp(diagnostic = {}, extraEvidence = []) {
+  let latest = null;
+  for (const evidence of evidenceObjects(diagnostic, extraEvidence)) {
+    for (const value of [evidence.checkedAt, evidence.lastHealthyAt, evidence.verifiedAt, evidence.snapshotVerifiedAt]) {
+      const parsed = Date.parse(String(value || ''));
+      if (!Number.isFinite(parsed)) continue;
+      if (!latest || parsed > latest.parsed) latest = { value: String(value), parsed };
+    }
+  }
+  return latest;
+}
+
 function fallbackMaxAgeHours(diagnostic = {}, extraEvidence = []) {
   for (const evidence of evidenceObjects(diagnostic, extraEvidence)) {
     for (const value of [evidence.maxAgeHours, evidence.fallbackMaxAgeHours, evidence.snapshotMaxAgeHours]) {
@@ -64,6 +76,30 @@ function explicitFallbackExpired(diagnostic = {}, extraEvidence = []) {
   return evidenceObjects(diagnostic, extraEvidence).some(evidence =>
     evidence.expired === true || evidence.fallbackExpired === true
   );
+}
+
+function healthySourceRecencyViolation({ diagnostic, extraEvidence = [], publishedRoles, snapshotRoles, atMs = nowMs }) {
+  if (diagnostic?.sourceHealthy !== true) return null;
+  const retainedRoles = Math.max(Number(publishedRoles || 0), Number(snapshotRoles || 0));
+  if (retainedRoles === 0) return null;
+
+  const verified = latestHealthyTimestamp(diagnostic, extraEvidence);
+  if (!verified) {
+    return `publishes ${retainedRoles} role(s) while marked healthy without a parseable source verification timestamp`;
+  }
+
+  const futureSkewMs = FUTURE_SKEW_MINUTES * 60 * 1000;
+  if (verified.parsed > atMs + futureSkewMs) {
+    return `healthy-source verification is unexpectedly future-dated (${verified.value})`;
+  }
+
+  const configuredMaxAge = fallbackMaxAgeHours(diagnostic, extraEvidence);
+  const maxAgeHours = Math.min(configuredMaxAge, DEFAULT_MAX_AGE_HOURS);
+  const ageHours = Math.max(0, (atMs - verified.parsed) / 36e5);
+  if (ageHours >= maxAgeHours) {
+    return `publishes ${retainedRoles} role(s) from a source still marked healthy ${ageHours.toFixed(1)}h after its last verification (maximum ${maxAgeHours}h)`;
+  }
+  return null;
 }
 
 function degradedFallbackViolation({ diagnostic, extraEvidence = [], publishedRoles, snapshotRoles, atMs = nowMs }) {
@@ -94,6 +130,47 @@ function degradedFallbackViolation({ diagnostic, extraEvidence = [], publishedRo
 
 function runRegressionCases() {
   const fixedNow = Date.parse('2026-09-19T02:00:00Z');
+  const healthyFresh = healthySourceRecencyViolation({
+    diagnostic: { sourceHealthy: true, checkedAt: '2026-09-18T02:00:01Z' },
+    publishedRoles: 3,
+    snapshotRoles: 3,
+    atMs: fixedNow
+  });
+  if (healthyFresh) throw new Error(`Dedicated source recency regression: fresh healthy source was rejected (${healthyFresh})`);
+
+  const healthyExternalFresh = healthySourceRecencyViolation({
+    diagnostic: { sourceHealthy: true },
+    extraEvidence: [{ verifiedAt: '2026-09-18T02:00:01Z' }],
+    publishedRoles: 3,
+    snapshotRoles: 3,
+    atMs: fixedNow
+  });
+  if (healthyExternalFresh) throw new Error(`Dedicated source recency regression: fresh external healthy evidence was rejected (${healthyExternalFresh})`);
+
+  const healthyStale = healthySourceRecencyViolation({
+    diagnostic: { sourceHealthy: true, checkedAt: '2026-09-15T02:00:00Z' },
+    publishedRoles: 3,
+    snapshotRoles: 3,
+    atMs: fixedNow
+  });
+  if (!healthyStale) throw new Error('Dedicated source recency regression: stale sourceHealthy state was not rejected at the 96-hour boundary');
+
+  const healthyMissing = healthySourceRecencyViolation({
+    diagnostic: { sourceHealthy: true },
+    publishedRoles: 1,
+    snapshotRoles: 1,
+    atMs: fixedNow
+  });
+  if (!healthyMissing) throw new Error('Dedicated source recency regression: healthy published roles without verification evidence were not rejected');
+
+  const healthyFuture = healthySourceRecencyViolation({
+    diagnostic: { sourceHealthy: true, checkedAt: '2026-09-19T02:11:00Z' },
+    publishedRoles: 1,
+    snapshotRoles: 1,
+    atMs: fixedNow
+  });
+  if (!healthyFuture) throw new Error('Dedicated source recency regression: future-dated healthy verification was not rejected');
+
   const fresh = degradedFallbackViolation({
     diagnostic: { sourceHealthy: false, lastHealthyAt: '2026-09-18T02:00:01Z', fallbackMaxAgeHours: 96 },
     publishedRoles: 3,
@@ -183,16 +260,18 @@ for (const source of sources) {
   ).length;
   const dedicatedSnapshotRoles = snapshot.filter(job => String(job?.company || '').trim() === source.company).length;
   const extraEvidence = source.evidence ? source.evidence(status, rawSnapshot, diagnostic) : [];
-  const violation = degradedFallbackViolation({ diagnostic, extraEvidence, publishedRoles, snapshotRoles: dedicatedSnapshotRoles });
-  if (violation) violations.push(`${source.company}: ${violation}`);
+  const healthyViolation = healthySourceRecencyViolation({ diagnostic, extraEvidence, publishedRoles, snapshotRoles: dedicatedSnapshotRoles });
+  if (healthyViolation) violations.push(`${source.company}: ${healthyViolation}`);
+  const fallbackViolation = degradedFallbackViolation({ diagnostic, extraEvidence, publishedRoles, snapshotRoles: dedicatedSnapshotRoles });
+  if (fallbackViolation) violations.push(`${source.company}: ${fallbackViolation}`);
 
   const state = diagnostic.sourceHealthy ? 'healthy' : (Math.max(publishedRoles, dedicatedSnapshotRoles) ? 'verified-retained' : 'degraded-empty');
   summary.push(`${source.company}=${state}:${publishedRoles}`);
 }
 
 if (violations.length) {
-  for (const violation of violations) console.error(`Dedicated fallback freshness guard: ${violation}`);
-  throw new Error(`Blocked ${violations.length} stale or unverifiable dedicated-source fallback regression(s).`);
+  for (const violation of violations) console.error(`Dedicated source freshness guard: ${violation}`);
+  throw new Error(`Blocked ${violations.length} stale or unverifiable dedicated-source publication regression(s).`);
 }
 
-console.log(`Dedicated employer fallback freshness passed. ${summary.join(', ')}`);
+console.log(`Dedicated employer source freshness passed. ${summary.join(', ')}`);

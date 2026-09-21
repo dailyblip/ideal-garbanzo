@@ -131,16 +131,16 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-21T05:34:00.517Z",
-    "lastHealthyAt": "2026-09-21T05:34:00.517Z",
+    "checkedAt": "2026-09-21T13:24:10.720Z",
+    "lastHealthyAt": "2026-09-21T13:24:10.720Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
     "usedPreviousSnapshot": false,
-    "listingPagesAttempted": 18,
-    "listingPagesSucceeded": 18,
+    "listingPagesAttempted": 19,
+    "listingPagesSucceeded": 19,
     "listingComplete": true,
-    "listedTotal": 360,
+    "listedTotal": 362,
     "candidateRows": 13,
     "detailAttempted": 13,
     "detailSucceeded": 13,
@@ -159,9 +159,9 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-21T05:34:00.517Z",
-      "checkedAt": "2026-09-21T05:34:00.517Z",
-      "expiresAt": "2026-09-25T05:34:00.517Z",
+      "lastHealthyAt": "2026-09-21T13:24:10.720Z",
+      "checkedAt": "2026-09-21T13:24:10.720Z",
+      "expiresAt": "2026-09-25T13:24:10.720Z",
       "ageHours": 0,
       "maxAgeHours": 96,
       "roles": 10,
@@ -3560,7 +3560,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T13:19:45.749Z",
+    "checkedAt": "2026-09-21T13:24:26.359Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3568,7 +3568,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T13:19:45.793Z",
+    "updatedAt": "2026-09-21T13:24:26.424Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 718,
@@ -3587,7 +3587,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T13:19:45.827Z",
+    "checkedAt": "2026-09-21T13:24:26.482Z",
     "before": 718,
     "after": 718,
     "removed": 0,
@@ -3595,7 +3595,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-21T13:20:04.801Z",
+    "checkedAt": "2026-09-21T13:24:39.900Z",
     "publishedJobs": 718,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3613,7 +3613,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-21T13:20:04.922Z"
+    "updatedAt": "2026-09-21T13:24:40.061Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

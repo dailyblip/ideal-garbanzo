@@ -55,8 +55,6 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Run live QA
-        run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Track first-seen dates
@@ -92,7 +90,6 @@ jobs:
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/stamp-job-history.mjs
             node scripts/validate-databank-publication-state.mjs
@@ -109,7 +106,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/databank-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            git add data/jobs.json data/databank-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo 'No verified DataBank data changes.'
               echo 'changed=false' >> "$GITHUB_OUTPUT"

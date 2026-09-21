@@ -120,6 +120,8 @@ jobs:
           node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs
+          node scripts/validate-databank.mjs
+          node scripts/validate-databank-publication-state.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-major-workday-parity.mjs
           node scripts/validate-coresite-fallback.mjs
@@ -183,6 +185,8 @@ jobs:
             node scripts/validate-microsoft-snapshot.mjs
             node scripts/validate-meta-snapshot.mjs
             node scripts/validate-digital-realty.mjs
+            node scripts/validate-databank.mjs
+            node scripts/validate-databank-publication-state.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-major-workday-parity.mjs
             node scripts/validate-coresite-fallback.mjs
@@ -293,6 +297,8 @@ jobs:
           node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs
+          node scripts/validate-databank.mjs
+          node scripts/validate-databank-publication-state.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-major-workday-parity.mjs
           node scripts/validate-major-workday-freshness-state.mjs
@@ -324,6 +330,8 @@ jobs:
           node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs
           node scripts/validate-digital-realty.mjs
+          node scripts/validate-databank.mjs
+          node scripts/validate-databank-publication-state.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-major-workday-parity.mjs
           node scripts/validate-major-workday-freshness-state.mjs

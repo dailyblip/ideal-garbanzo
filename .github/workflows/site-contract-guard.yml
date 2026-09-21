@@ -97,6 +97,10 @@ jobs:
         run: |
           node scripts/validate-source-workflow-isolation.mjs
           node scripts/validate-stale-prune-isolation.mjs
+      - name: Validate generic ATS fallback publication state
+        run: |
+          node scripts/validate-generic-fallback-publication-state.mjs --test
+          node scripts/validate-generic-fallback-publication-state.mjs
       - name: Validate time-bounded Equinix fallback state
         run: |
           node scripts/enforce-equinix-verified-evidence.mjs --test

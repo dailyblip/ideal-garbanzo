@@ -55,8 +55,6 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Run live QA
-        run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Track first-seen dates
@@ -68,6 +66,7 @@ jobs:
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish verified Cologix roles from current main
         id: commit
         shell: bash
@@ -89,13 +88,13 @@ jobs:
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/stamp-job-history.mjs
             node scripts/validate-cologix-publication-state.mjs
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main
@@ -105,7 +104,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/cologix-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            git add data/jobs.json data/cologix-jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo 'No verified Cologix data changes.'
               echo 'changed=false' >> "$GITHUB_OUTPUT"

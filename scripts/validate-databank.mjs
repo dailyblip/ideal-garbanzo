@@ -8,6 +8,8 @@ const CAREERS_URL = 'https://www.databank.com/about-databank/careers-at-databank
 const PORTAL_HOST = 'www.databankcareers.com';
 const PORTAL_ROOT = `https://${PORTAL_HOST}`;
 const EXPECTED_SOURCE = 'Employer career site';
+const MAX_SOURCE_AGE_HOURS = 96;
+const MAX_FUTURE_SKEW_MINUTES = 15;
 const allowedTypes = new Set(['entry-level', 'internship', 'apprenticeship', 'trainee']);
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const excludedTitlePattern = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|superintendent|foreman|architect|security|sales|account executive|solutions engineer|technical support|support engineer|project manager|product manager|analyst|finance|procurement|marketing|software|developer|data scientist|human resources|recruiter)\b/i;
@@ -79,10 +81,20 @@ function validateRole(job, context, expectedClientId, violations) {
   if (job?.active !== true || job?.demo === true) violations.push(`${prefix}: role must be active and non-demo`);
 }
 
-function validateState(snapshot, jobs, status) {
+function sourceFreshness(sourceStatus = {}, nowMs = Date.now()) {
+  const checkedAtMs = Date.parse(clean(sourceStatus?.checkedAt));
+  if (!Number.isFinite(checkedAtMs)) return { checkedAtMs: null, ageHours: null, state: 'invalid' };
+  const ageHours = (nowMs - checkedAtMs) / 36e5;
+  if (ageHours < -(MAX_FUTURE_SKEW_MINUTES / 60)) return { checkedAtMs, ageHours, state: 'future' };
+  if (ageHours > MAX_SOURCE_AGE_HOURS) return { checkedAtMs, ageHours, state: 'stale' };
+  return { checkedAtMs, ageHours: Math.max(0, ageHours), state: 'fresh' };
+}
+
+function validateState(snapshot, jobs, status, { nowMs = Date.now() } = {}) {
   const violations = [];
   const sourceStatus = status?.databank || {};
   const expectedClientId = clean(sourceStatus.talentReefClientId);
+  const freshness = sourceFreshness(sourceStatus, nowMs);
 
   if (!Array.isArray(snapshot)) violations.push('snapshot is not a JSON array');
   if (!Array.isArray(jobs)) violations.push('jobs.json is not a JSON array');
@@ -94,6 +106,9 @@ function validateState(snapshot, jobs, status) {
   if (!expectedClientId || !/^\d+$/.test(expectedClientId)) violations.push('TalentReef client ID is missing or invalid');
   if (!Number.isFinite(Number(sourceStatus.listedJobs)) || Number(sourceStatus.listedJobs) <= 0) violations.push('TalentReef listing count is missing or zero');
   if (Number(sourceStatus.qualifyingRoles) !== (Array.isArray(snapshot) ? snapshot.length : 0)) violations.push(`snapshot/status count mismatch: ${Array.isArray(snapshot) ? snapshot.length : 0} vs ${sourceStatus.qualifyingRoles}`);
+  if (freshness.state === 'invalid') violations.push('collector status is missing a valid checkedAt verification timestamp');
+  if (freshness.state === 'future') violations.push(`collector checkedAt is more than ${MAX_FUTURE_SKEW_MINUTES} minutes in the future`);
+  if (freshness.state === 'stale') violations.push(`employer-direct verification is ${Math.round(freshness.ageHours * 10) / 10} hours old; maximum deployable age is ${MAX_SOURCE_AGE_HOURS} hours`);
 
   const authoritative = new Map();
   const snapshotUrls = new Set();
@@ -164,8 +179,10 @@ if (process.argv.includes('--test')) {
     demo: false,
     region: 'texas'
   };
+  const testNowMs = Date.parse('2026-09-21T16:00:00.000Z');
   const healthy = {
     databank: {
+      checkedAt: '2026-09-21T15:20:00.000Z',
       sourceHealthy: true,
       listingComplete: true,
       authoritativeSnapshot: true,
@@ -192,18 +209,21 @@ if (process.argv.includes('--test')) {
     ['unexpected public requisition rejected', [base], [base, alternate], healthy, false],
     ['field drift rejected', [base], [{ ...base, experience: '0-2-years' }], healthy, false],
     ['duplicate public requisition rejected', [base], [base, { ...base }], healthy, false],
-    ['misattributed portal requisition rejected', [base], [{ ...base, company: 'Example Data Centers' }], healthy, false]
+    ['misattributed portal requisition rejected', [base], [{ ...base, company: 'Example Data Centers' }], healthy, false],
+    ['missing verification timestamp rejected', [base], [base], { databank: { ...healthy.databank, checkedAt: null } }, false],
+    ['stale verification rejected', [base], [base], { databank: { ...healthy.databank, checkedAt: '2026-09-17T15:59:59.000Z' } }, false],
+    ['future verification rejected', [base], [base], { databank: { ...healthy.databank, checkedAt: '2026-09-21T16:16:00.000Z' } }, false]
   ];
   const testFailures = [];
   for (const [name, snapshot, jobs, status, shouldPass] of regressions) {
-    const failures = validateState(snapshot, jobs, status);
+    const failures = validateState(snapshot, jobs, status, { nowMs: testNowMs });
     if ((failures.length === 0) !== shouldPass) testFailures.push(`${name}: ${failures.join(' | ') || 'unexpected pass'}`);
   }
   if (testFailures.length) {
     for (const failure of testFailures) console.error(`DataBank integrity regression: ${failure}`);
     process.exit(1);
   }
-  console.log(`DataBank source-integrity validator passed ${regressions.length} regression cases.`);
+  console.log(`DataBank source-integrity validator passed ${regressions.length} regression cases, including bounded verification freshness.`);
   process.exit(0);
 }
 
@@ -220,4 +240,6 @@ if (violations.length) {
 }
 
 const sourceStatus = status.databank;
-console.log(`DataBank employer-direct publication passed: exact authoritative-public parity for ${snapshot.length} TalentReef requisition(s) from ${sourceStatus.listedJobs} public postings.`);
+const freshness = sourceFreshness(sourceStatus);
+const ageLabel = freshness.ageHours === null ? 'unknown' : `${Math.round(freshness.ageHours * 10) / 10}h`;
+console.log(`DataBank employer-direct publication passed: exact authoritative-public parity for ${snapshot.length} TalentReef requisition(s) from ${sourceStatus.listedJobs} public postings; verification age ${ageLabel}/${MAX_SOURCE_AGE_HOURS}h.`);

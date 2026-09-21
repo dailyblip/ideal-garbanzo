@@ -10,6 +10,10 @@ on:
     paths:
       - 'scripts/collect-equinix-current-skillbridge.mjs'
       - '.github/workflows/equinix-current-skillbridge.yml'
+  workflow_run:
+    workflows: ['Refresh jobs and deploy site']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: '37 */6 * * *'
@@ -24,6 +28,7 @@ concurrency:
 
 jobs:
   collect:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

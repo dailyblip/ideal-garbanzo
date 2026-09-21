@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T05:02:23.539Z",
+  "updatedAt": "2026-09-21T05:13:51.063Z",
   "jobs": 731,
   "sourcesAttempted": 19,
   "providers": {
@@ -15,8 +15,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 401,
     "2-5-years": 306,
+    "0-2-years": 401,
     "no-experience": 24
   },
   "errors": [],
@@ -2067,7 +2067,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T05:09:17.821Z",
+    "checkedAt": "2026-09-21T05:13:51.161Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2075,7 +2075,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T05:09:17.896Z",
+    "updatedAt": "2026-09-21T05:13:51.226Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 731,
@@ -2083,18 +2083,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 141,
       "texas": 121,
       "west": 116,
       "southeast": 108,
-      "southwest": 90,
+      "midwest": 141,
       "mid-atlantic": 129,
+      "southwest": 90,
       "northeast": 25,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T05:09:17.968Z",
+    "checkedAt": "2026-09-21T05:13:51.288Z",
     "before": 731,
     "after": 731,
     "removed": 0,
@@ -2102,7 +2102,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-21T05:08:09.108Z",
+    "checkedAt": "2026-09-21T05:14:12.611Z",
     "publishedJobs": 731,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -2120,7 +2120,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T05:09:18.028Z"
+    "updatedAt": "2026-09-21T05:14:12.801Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2251,7 +2251,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-20T16:21:19.712Z",
+    "checkedAt": "2026-09-21T05:13:51.063Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

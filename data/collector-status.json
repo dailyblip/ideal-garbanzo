@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T13:40:54.159Z",
+  "updatedAt": "2026-09-21T13:46:53.947Z",
   "jobs": 722,
   "sourcesAttempted": 20,
   "providers": {
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
+    "trainee": 10,
     "entry-level": 690,
     "internship": 11,
-    "trainee": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 303,
     "0-2-years": 395,
+    "2-5-years": 303,
     "no-experience": 24
   },
   "errors": [],
@@ -3588,7 +3588,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T13:40:54.308Z",
+    "updatedAt": "2026-09-21T13:46:54.027Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 722,
@@ -3596,8 +3596,8 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 122,
       "west": 113,
+      "texas": 122,
       "southeast": 106,
       "midwest": 141,
       "mid-atlantic": 126,
@@ -3607,9 +3607,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T13:40:54.380Z",
-    "before": 726,
-    "after": 726,
+    "checkedAt": "2026-09-21T13:46:54.101Z",
+    "before": 722,
+    "after": 722,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3633,7 +3633,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-21T13:41:18.715Z"
+    "updatedAt": "2026-09-21T13:46:54.163Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4355,7 +4355,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-21T13:18:36.870Z",
+    "checkedAt": "2026-09-21T13:46:53.947Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
@@ -4363,7 +4363,7 @@
     "detailChecksPassed": 4,
     "qualifyingRoles": 4,
     "added": 1,
-    "removedManaged": 0,
+    "removedManaged": 1,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
     "checks": [

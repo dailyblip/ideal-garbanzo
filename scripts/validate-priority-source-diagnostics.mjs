@@ -82,6 +82,11 @@ console.log(`Priority source diagnostics present for all ${prioritySources.lengt
 // cannot keep stale retained roles deployable past their verification window.
 await import('./validate-dedicated-fallback-freshness.mjs');
 
+// AWS is a primary early-career source and can publish from a bounded verified
+// fallback during Amazon Jobs outages. Enforce official requisition identity,
+// audience fit, source-state evidence, dedupe, and exact snapshot/feed parity.
+await import('./validate-amazon-datacenter.mjs');
+
 // Digital Realty's dedicated Oracle Recruiting Cloud snapshot is authoritative.
 // Enforce its employer-direct URLs, audience-fit metadata, source-health evidence,
 // and snapshot/public-feed parity during every standard deployment.

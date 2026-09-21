@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T05:56:22.843Z",
+  "updatedAt": "2026-09-21T05:57:06.150Z",
   "jobs": 727,
   "sourcesAttempted": 21,
   "providers": {
@@ -3570,15 +3570,25 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T05:56:22.920Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-21T05:57:05.878Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "senior/executive title": 1
+    },
+    "removed": [
+      {
+        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
+        "company": "Prime Data Centers",
+        "title": "Data Center Business Systems Architect",
+        "location": "Dallas, TX; Denver, CO",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T05:56:22.990Z",
+    "updatedAt": "2026-09-21T05:57:05.955Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 727,
@@ -3597,7 +3607,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T05:56:23.055Z",
+    "checkedAt": "2026-09-21T05:57:06.029Z",
     "before": 727,
     "after": 727,
     "removed": 0,
@@ -3605,7 +3615,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-21T05:56:42.601Z",
+    "checkedAt": "2026-09-21T05:57:25.402Z",
     "publishedJobs": 727,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3623,7 +3633,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T05:56:42.944Z"
+    "updatedAt": "2026-09-21T05:57:25.600Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4421,8 +4431,8 @@
     "samples": []
   },
   "primeDataCenters": {
-    "checkedAt": "2026-09-20T21:12:32.777Z",
-    "lastSuccessfulAt": "2026-09-20T21:12:32.777Z",
+    "checkedAt": "2026-09-21T05:57:05.804Z",
+    "lastSuccessfulAt": "2026-09-21T05:57:05.804Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://primedatacenters.com/careers/",
@@ -4458,8 +4468,8 @@
   "primeFallbackFreshness": {
     "active": false,
     "expired": false,
-    "lastHealthyAt": "2026-09-20T05:46:58.414Z",
-    "checkedAt": "2026-09-20T05:46:58.414Z",
+    "lastHealthyAt": "2026-09-21T05:57:06.150Z",
+    "checkedAt": "2026-09-21T05:57:06.150Z",
     "maxAgeHours": 96,
     "healthStampIntervalHours": 24,
     "boardUrl": "https://api.rippling.com/platform/api/ats/v1/board/prime-data-centers/jobs",

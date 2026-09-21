@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T13:46:53.947Z",
+  "updatedAt": "2026-09-21T14:24:33.649Z",
   "jobs": 722,
   "sourcesAttempted": 20,
   "providers": {
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "trainee": 10,
     "entry-level": 690,
     "internship": 11,
+    "trainee": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 395,
     "2-5-years": 303,
+    "0-2-years": 395,
     "no-experience": 24
   },
   "errors": [],
@@ -3570,25 +3570,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T13:40:54.232Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-21T14:24:33.723Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T13:46:54.027Z",
+    "updatedAt": "2026-09-21T14:24:33.790Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 722,
@@ -3596,8 +3586,8 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 113,
       "texas": 122,
+      "west": 113,
       "southeast": 106,
       "midwest": 141,
       "mid-atlantic": 126,
@@ -3607,7 +3597,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T13:46:54.101Z",
+    "checkedAt": "2026-09-21T14:24:33.851Z",
     "before": 722,
     "after": 722,
     "removed": 0,
@@ -3615,9 +3605,9 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-21T13:41:18.525Z",
+    "checkedAt": "2026-09-21T14:24:56.872Z",
     "publishedJobs": 722,
-    "removedJobs": 4,
+    "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
   },
@@ -3633,7 +3623,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-21T13:46:54.163Z"
+    "updatedAt": "2026-09-21T14:24:57.006Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3710,7 +3700,7 @@
     "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-21T06:41:32.893Z",
+    "checkedAt": "2026-09-21T14:24:33.649Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

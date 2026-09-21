@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-21T04:49:30.024Z",
-  "jobs": 729,
+  "updatedAt": "2026-09-21T04:50:32.012Z",
+  "jobs": 734,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 697,
-    "internship": 11,
+    "entry-level": 702,
     "trainee": 10,
+    "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 306,
-    "0-2-years": 399,
-    "no-experience": 24
+    "no-experience": 24,
+    "0-2-years": 404
   },
   "errors": [
     "Meta Careers: semantic verification collapsed (0 qualifying roles after 988/988 successful detail fetches, down from 11); publication is using only the prior verified Meta snapshot until classification verification recovers."
@@ -1413,7 +1413,7 @@
       "active": true,
       "expired": false,
       "lastHealthyAt": "2026-09-20T16:01:02Z",
-      "checkedAt": "2026-09-20T20:46:52.800Z",
+      "checkedAt": "2026-09-21T04:50:32.469Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     }
@@ -2082,43 +2082,82 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T04:26:17.292Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-21T04:50:32.524Z",
+    "removedCount": 5,
+    "removedByReason": {
+      "senior/executive title": 2,
+      "non-mission role family": 3
+    },
+    "removed": [
+      {
+        "id": "amazon-10534644",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "San Antonio, TX",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10515905",
+        "company": "Amazon Web Services",
+        "title": "Cluster Operations Leader, ADC Data Center Ops",
+        "location": "Culpeper, VA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "amazon-10513234",
+        "company": "Amazon Web Services",
+        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
+        "location": "Seattle, WA",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "amazon-10430644",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "Boardman, OR",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "amazon-10427682",
+        "company": "Amazon Web Services",
+        "title": "Data Center Technician, Human Resources",
+        "location": "New Carlisle, IN",
+        "reason": "non-mission role family"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T04:49:30.199Z",
+    "updatedAt": "2026-09-21T04:50:32.586Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 729,
+    "regionAssigned": 734,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 121,
-      "west": 115,
-      "southeast": 108,
-      "midwest": 141,
-      "mid-atlantic": 128,
-      "southwest": 90,
+      "west": 116,
+      "mid-atlantic": 130,
       "northeast": 25,
+      "southwest": 90,
+      "midwest": 142,
+      "texas": 121,
+      "southeast": 109,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T04:49:30.360Z",
-    "before": 729,
-    "after": 729,
+    "checkedAt": "2026-09-21T04:50:32.641Z",
+    "before": 734,
+    "after": 734,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-21T04:26:40.812Z",
-    "publishedJobs": 729,
+    "checkedAt": "2026-09-21T04:50:43.036Z",
+    "publishedJobs": 734,
     "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
@@ -2126,7 +2165,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1224,
-    "currentJobs": 729,
+    "currentJobs": 734,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2135,7 +2174,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T04:49:30.537Z"
+    "updatedAt": "2026-09-21T04:50:43.150Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

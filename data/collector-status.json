@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T11:46:52.773Z",
+  "updatedAt": "2026-09-21T12:44:30.420Z",
   "jobs": 727,
   "sourcesAttempted": 21,
   "providers": {
@@ -2918,15 +2918,15 @@
         "query": "critical environment technician",
         "healthy": true,
         "pages": 23,
-        "reportedRows": 229,
-        "rows": 229
+        "reportedRows": 226,
+        "rows": 226
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 27,
-        "reportedRows": 270,
-        "rows": 270
+        "reportedRows": 266,
+        "rows": 266
       },
       {
         "query": "inventory and asset technician",
@@ -2936,7 +2936,7 @@
         "rows": 17
       }
     ],
-    "candidateRows": 353,
+    "candidateRows": 349,
     "plausibleRows": 32,
     "detailAttempts": 32,
     "detailVerified": 32,
@@ -2953,8 +2953,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-21T04:52:58.622Z",
-      "expiresAt": "2026-09-25T04:52:58.622Z",
+      "verifiedAt": "2026-09-21T12:44:30.688Z",
+      "expiresAt": "2026-09-25T12:44:30.688Z",
       "roles": 32,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -3570,7 +3570,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T06:41:32.967Z",
+    "checkedAt": "2026-09-21T12:44:30.495Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3578,7 +3578,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T11:46:52.853Z",
+    "updatedAt": "2026-09-21T12:44:30.566Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 727,
@@ -3587,17 +3587,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "texas": 121,
-      "west": 115,
       "southeast": 107,
-      "midwest": 141,
+      "west": 115,
       "mid-atlantic": 127,
+      "midwest": 141,
       "southwest": 90,
       "northeast": 25,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T11:46:52.930Z",
+    "checkedAt": "2026-09-21T12:44:30.632Z",
     "before": 727,
     "after": 727,
     "removed": 0,
@@ -3623,7 +3623,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T11:46:52.992Z"
+    "updatedAt": "2026-09-21T12:44:30.744Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

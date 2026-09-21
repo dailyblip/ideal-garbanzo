@@ -117,6 +117,11 @@ for (const label of ['Highlighted Job', 'Spotlight Position']) {
 // bypass the same employer-submission rules that PR CI enforces.
 await import('./validate-employer-submissions.mjs');
 
+// The homepage runtime owns promotion timing, tier precedence, and fail-closed
+// handling for malformed records. Keep that behavior deployment-gated anywhere
+// promotion validation runs, not only in the promotion-specific PR workflow.
+await import('./test-promotion-runtime-contract.mjs');
+
 if (lifecycleStale) {
   console.warn(`Promotion lifecycle warning: ${lifecycleStale} expired/orphaned record(s) await cleanup.`);
 }

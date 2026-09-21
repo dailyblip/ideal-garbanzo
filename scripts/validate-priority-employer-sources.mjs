@@ -318,6 +318,7 @@ if (violations.length) {
 // per-role evidence drifts even if a source-specific workflow has not run recently.
 await import('./validate-amazon-snapshot.mjs');
 await import('./validate-amazon-parity.mjs');
+await import('./validate-google-freshness.mjs');
 await import('./validate-google-snapshot.mjs');
 await import('./validate-microsoft-snapshot.mjs');
 await import('./validate-meta-snapshot.mjs');

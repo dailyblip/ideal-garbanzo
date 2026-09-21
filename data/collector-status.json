@@ -2076,7 +2076,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T05:02:23.610Z",
+    "checkedAt": "2026-09-21T05:06:24.960Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2084,7 +2084,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T05:02:23.684Z",
+    "updatedAt": "2026-09-21T05:06:25.038Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 731,
@@ -2103,17 +2103,17 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T05:02:23.755Z",
-    "before": 732,
-    "after": 732,
+    "checkedAt": "2026-09-21T05:06:25.112Z",
+    "before": 731,
+    "after": 731,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-21T05:02:42.596Z",
+    "checkedAt": "2026-09-21T05:06:44.883Z",
     "publishedJobs": 731,
-    "removedJobs": 1,
+    "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
   },
@@ -2127,9 +2127,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 18,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T05:02:42.786Z"
+    "updatedAt": "2026-09-21T05:06:45.263Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2314,11 +2314,11 @@
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-20T16:14:53.132Z",
-    "lastHealthyAt": "2026-09-20T16:14:53.132Z",
+    "checkedAt": "2026-09-21T05:06:24.872Z",
+    "lastHealthyAt": "2026-09-21T05:06:24.872Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-24T16:14:53.132Z",
+    "fallbackExpiresAt": "2026-09-25T05:06:24.872Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 2,

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T06:41:32.893Z",
+  "updatedAt": "2026-09-21T06:47:17.872Z",
   "jobs": 727,
   "sourcesAttempted": 21,
   "providers": {
@@ -10,9 +10,9 @@
     "googleCareers": 1
   },
   "countsByType": {
+    "trainee": 10,
     "entry-level": 695,
     "internship": 11,
-    "trainee": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
@@ -3578,7 +3578,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T06:41:33.042Z",
+    "updatedAt": "2026-09-21T06:47:17.962Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 727,
@@ -3597,7 +3597,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T06:41:33.113Z",
+    "checkedAt": "2026-09-21T06:47:18.044Z",
     "before": 727,
     "after": 727,
     "removed": 0,
@@ -3623,7 +3623,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 112,
-    "updatedAt": "2026-09-21T06:41:59.620Z"
+    "updatedAt": "2026-09-21T06:47:18.114Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4345,7 +4345,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-21T05:46:40.940Z",
+    "checkedAt": "2026-09-21T06:47:17.872Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

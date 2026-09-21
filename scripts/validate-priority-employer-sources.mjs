@@ -313,9 +313,9 @@ if (violations.length) {
 }
 
 // This guard runs in every refresh/rebuild and Pages deployment validation path.
-// Reuse strict employer-specific ledgers here so AWS, Google, Microsoft, Meta,
-// and Oracle cannot deploy when their authoritative snapshot, public feed, or
-// fallback evidence drifts even if a source-specific workflow has not run recently.
+// Reuse strict employer-specific ledgers here so priority sources cannot deploy
+// when their authoritative snapshot, public feed, fallback freshness, or exact
+// per-role evidence drifts even if a source-specific workflow has not run recently.
 await import('./validate-amazon-snapshot.mjs');
 await import('./validate-amazon-parity.mjs');
 await import('./validate-google-snapshot.mjs');
@@ -323,6 +323,7 @@ await import('./validate-microsoft-snapshot.mjs');
 await import('./validate-meta-snapshot.mjs');
 await import('./validate-oracle-snapshot.mjs');
 await import('./validate-oracle-parity.mjs');
+await import('./validate-equinix-publication-state.mjs');
 
 const summary = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([company, count]) => `${company}=${count}`).join(', ');
 console.log(`Priority employer source guard passed. ${summary}`);

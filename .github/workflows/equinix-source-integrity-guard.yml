@@ -15,6 +15,8 @@ on:
       - 'scripts/enforce-equinix-verified-evidence.mjs'
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/recover-equinix-rendered-details.mjs'
+      - 'scripts/validate-equinix-publication-state.mjs'
+      - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-current-skillbridge.yml'
@@ -35,6 +37,8 @@ on:
       - 'scripts/enforce-equinix-verified-evidence.mjs'
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/recover-equinix-rendered-details.mjs'
+      - 'scripts/validate-equinix-publication-state.mjs'
+      - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/equinix-bootstrap.yml'
       - '.github/workflows/equinix-current-skillbridge.yml'
@@ -66,9 +70,11 @@ jobs:
           node --check scripts/collect-equinix-v2.mjs
           node --check scripts/enforce-equinix-fallback-freshness.mjs
           node --check scripts/enforce-equinix-verified-evidence.mjs
+          node --check scripts/validate-equinix-publication-state.mjs
           node scripts/collect-equinix-v2.mjs --test-experience-parser
           node scripts/enforce-equinix-fallback-freshness.mjs --test
           node scripts/enforce-equinix-verified-evidence.mjs --test
+          node scripts/validate-equinix-publication-state.mjs --test
       - name: Guard Equinix refresh cadence and source-writer safety
         run: |
           grep -Fq "cron: '31 */6 * * *'" .github/workflows/equinix-bootstrap.yml
@@ -76,6 +82,7 @@ jobs:
           node scripts/validate-source-workflow-isolation.mjs
       - name: Fail closed if Equinix publication needs cleanup
         run: |
+          node scripts/validate-equinix-publication-state.mjs
           node scripts/enforce-equinix-fallback-freshness.mjs
           node scripts/enforce-equinix-verified-evidence.mjs
           git diff --exit-code -- data/jobs.json data/collector-status.json

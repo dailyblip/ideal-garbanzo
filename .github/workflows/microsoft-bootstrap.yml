@@ -13,7 +13,6 @@ on:
       - 'scripts/apply-microsoft-verified-publish.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/preserve-source-group.mjs'
-      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - '.github/workflows/microsoft-bootstrap.yml'
 

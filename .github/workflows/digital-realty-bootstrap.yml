@@ -7,6 +7,7 @@ on:
       - scripts/collect-digital-realty.mjs
       - scripts/validate-digital-realty.mjs
       - scripts/enforce-digital-realty-fallback-freshness.mjs
+      - scripts/preserve-source-group.mjs
       - .github/workflows/digital-realty-bootstrap.yml
   workflow_dispatch:
   schedule:
@@ -33,13 +34,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate Digital Realty collector and freshness policy
+      - name: Validate Digital Realty collector, freshness and source-isolation policy
         run: |
           node --check scripts/collect-digital-realty.mjs
           node --check scripts/validate-digital-realty.mjs
           node --check scripts/enforce-digital-realty-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
           node scripts/enforce-digital-realty-fallback-freshness.mjs --test
           node scripts/validate-digital-realty.mjs --test-freshness
+      - name: Preserve public-feed boundary before Digital Realty refresh
+        run: cp data/jobs.json /tmp/digital-realty-public-before.json
       - name: Collect official Digital Realty Oracle Recruiting Cloud roles
         run: node scripts/collect-digital-realty.mjs
       - name: Enforce mission-fit role families
@@ -48,12 +54,18 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply Digital Realty source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-public-before.json
+          node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-public-before.json --verify
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate Digital Realty employer-direct snapshot
         run: node scripts/validate-digital-realty.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
+      - name: Track Digital Realty first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "Digital Realty"
+      - name: Verify non-Digital Realty rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-public-before.json --verify
       - name: Validate updated feed and priority-source contract
         run: |
           node scripts/validate.mjs
@@ -72,14 +84,18 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/digital-realty-public-before.json
             node scripts/collect-digital-realty.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-public-before.json
+            node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-public-before.json --verify
             node scripts/refresh-region-status.mjs
             node scripts/validate-digital-realty.mjs --test-freshness
             node scripts/validate-digital-realty.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "Digital Realty"
+            node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-public-before.json --verify
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-priority-employer-sources.mjs

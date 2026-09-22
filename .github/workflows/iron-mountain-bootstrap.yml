@@ -49,8 +49,6 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Run live QA
-        run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate Iron Mountain source health and parity
@@ -63,6 +61,7 @@ jobs:
           node scripts/validate-job-history.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Commit verified Iron Mountain roles
         id: commit
         shell: bash
@@ -79,7 +78,6 @@ jobs:
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/validate-iron-mountain.mjs
             node scripts/stamp-job-history.mjs
@@ -87,6 +85,7 @@ jobs:
             node scripts/validate-job-history.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           # Shared feed data can move while this source is being verified. Always
@@ -99,7 +98,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/iron-mountain-jobs.json data/job-history.json data/collector-status.json data/qa-report.json
+            git add data/jobs.json data/iron-mountain-jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo "No verified Iron Mountain data changes."
               echo "changed=false" >> "$GITHUB_OUTPUT"

@@ -1,21 +1,22 @@
 {
-  "updatedAt": "2026-09-22T21:21:20.418Z",
-  "jobs": 722,
-  "sourcesAttempted": 18,
+  "updatedAt": "2026-09-22T21:23:08.999Z",
+  "jobs": 723,
+  "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
-    "ashby": 5
+    "ashby": 5,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 686,
+    "entry-level": 687,
     "trainee": 14,
     "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 303,
-    "0-2-years": 390,
+    "0-2-years": 391,
     "no-experience": 29
   },
   "errors": [],
@@ -1930,20 +1931,20 @@
     "officialSource": "https://www.digitalrealty.com/about/careers",
     "boardUrl": "https://hdep.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX",
     "sourceHealthy": true,
-    "candidateRows": 47,
-    "detailAttempts": 47,
+    "candidateRows": 48,
+    "detailAttempts": 48,
     "detailFailures": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 15,
-    "lastHealthyAt": "2026-09-22T17:00:27.879Z",
-    "snapshotVerifiedAt": "2026-09-22T17:00:27.879Z",
+    "qualifyingRoles": 16,
+    "lastHealthyAt": "2026-09-22T21:23:05.690Z",
+    "snapshotVerifiedAt": "2026-09-22T21:23:05.690Z",
     "snapshotMaxAgeHours": 96,
     "fallbackUsed": false,
     "fallbackFresh": false,
     "fallbackExpired": false,
     "fallbackAgeHours": null,
     "drops": {
-      "title": 127,
+      "title": 129,
       "nonUs": 29,
       "context": 0,
       "experience": 2,
@@ -2099,140 +2100,25 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T21:21:21.820Z",
-    "removedCount": 13,
-    "removedByReason": {
-      "senior/executive title": 3,
-      "non-mission role family": 8,
-      "non-US location": 2
-    },
-    "removed": [
-      {
-        "id": "ashby-fluidstack-f2990eac8950ce",
-        "company": "Fluidstack",
-        "title": "Staff Electrical Operator",
-        "location": "Abernathy, TX; River Bend, LA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-lambda-ebee6943394494",
-        "company": "Lambda",
-        "title": "Staff Electrical Engineer - Medium Voltage",
-        "location": "San Francisco Office (Fremont St)",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "ashby-gimlet-eb9a94c8bab714",
-        "company": "Gimlet Labs",
-        "title": "Legal Intern",
-        "location": "San Francisco, CA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "gh-xai-5169675007",
-        "company": "xAI",
-        "title": "Network Operations Technician (SpaceXAI / Starlink)",
-        "location": "Dublin, Ireland",
-        "reason": "non-US location"
-      },
-      {
-        "id": "gh-xai-5211587007",
-        "company": "xAI",
-        "title": "Site Reliability Engineer, Data Center - Memphis",
-        "location": "Southaven, MS; Memphis, TN",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-55e8ca08729b80",
-        "company": "Crusoe",
-        "title": "Quality Technician - Electrical Inspector",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-316d2a228cba07",
-        "company": "Crusoe",
-        "title": "Material Planner (Electrical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-129b9fd8c0d03e",
-        "company": "Crusoe",
-        "title": "Material Planner (Mechanical)",
-        "location": "Arvada, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
-        "company": "Serverfarm",
-        "title": "Data Center Technician",
-        "location": "Toronto, ON",
-        "reason": "non-US location"
-      },
-      {
-        "id": "ashby-crusoe-70b01f17d09a8b",
-        "company": "Crusoe",
-        "title": "CNC Operator",
-        "location": "Tulsa, OK - US (1)",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-ab810e7251cc10",
-        "company": "Crusoe",
-        "title": "Assembly Technician",
-        "location": "Brighton, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-crusoe-8d30086e281f80",
-        "company": "Crusoe",
-        "title": "Project Controls Analyst",
-        "location": "Denver, CO - US",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "ashby-fluidstack-229040aff58cbe",
-        "company": "Fluidstack",
-        "title": "Mechanical Engineer, R&D Team Lead",
-        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-22T21:23:09.068Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T21:21:21.957Z",
-    "changed": 1,
-    "samples": [
-      {
-        "id": "ashby-lambda-0bdbbcbdc49122",
-        "before": "San Jose Office (Zanker)",
-        "after": "San Jose, CA"
-      }
-    ],
-    "regionAssigned": 724,
-    "regionMissing": 2,
-    "coveragePct": 99.7,
-    "missingSamples": [
-      {
-        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
-        "company": "Serverfarm",
-        "location": "AMS1",
-        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
-      },
-      {
-        "id": "ashby-lambda-8308606de297f6",
-        "company": "Lambda",
-        "location": "Querétaro, Mexico - Data Center",
-        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
-      }
-    ],
+    "updatedAt": "2026-09-22T21:23:09.144Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 723,
+    "regionMissing": 0,
+    "coveragePct": 100,
+    "missingSamples": [],
     "countsByRegion": {
-      "southeast": 113,
+      "southeast": 111,
       "west": 115,
-      "texas": 122,
+      "texas": 123,
       "southwest": 81,
       "mid-atlantic": 132,
       "northeast": 21,
@@ -2241,29 +2127,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T21:21:22.318Z",
-    "before": 724,
-    "after": 722,
-    "removed": 2,
+    "checkedAt": "2026-09-22T21:23:09.211Z",
+    "before": 723,
+    "after": 723,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-4538639007",
-        "keptId": "gh-xai-5227699007",
-        "company": "xAI",
-        "title": "Facilities Operations Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "gh-xai-5127519007",
-        "keptId": "gh-xai-5219754007",
-        "company": "xAI",
-        "title": "Mechanical Commissioning Technician",
-        "location": "Southaven, MS; Memphis, TN"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-22T12:24:20.898Z",
@@ -2274,17 +2143,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1273,
-    "currentJobs": 722,
+    "trackedJobs": 1274,
+    "currentJobs": 723,
     "newJobsThisRun": 1,
-    "changedJobsThisRun": 3,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 16,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T21:21:22.466Z"
+    "updatedAt": "2026-09-22T21:23:09.383Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -12,6 +12,8 @@ on:
       - 'scripts/guard-meta-detail-collapse.mjs'
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/prune-meta-overfive.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/enforce-meta-fallback-freshness.mjs'
       - '.github/workflows/meta-bootstrap.yml'
@@ -28,6 +30,8 @@ on:
       - 'scripts/guard-meta-detail-collapse.mjs'
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/prune-meta-overfive.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
       - 'scripts/enforce-meta-fallback-freshness.mjs'
       - '.github/workflows/meta-bootstrap.yml'
@@ -46,13 +50,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Verify Meta exact requisition parity and failover
+      - name: Verify Meta exact requisition parity, source isolation and failover
         run: |
           node --check scripts/meta-fetch-policy.mjs
           node --check scripts/guard-meta-detail-collapse.mjs
           node scripts/guard-meta-detail-collapse.mjs --test
           node --check scripts/prune-meta-overfive.mjs
           node scripts/prune-meta-overfive.mjs --test
+          node --check scripts/preserve-source-group.mjs
+          node scripts/preserve-source-group.mjs --test
+          node --check scripts/stamp-job-history.mjs
+          grep -q "preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json" .github/workflows/meta-bootstrap.yml
+          grep -q "stamp-job-history.mjs --company Meta" .github/workflows/meta-bootstrap.yml
           node --check scripts/validate-meta-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs --test
           node scripts/validate-meta-snapshot.mjs

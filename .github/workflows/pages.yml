@@ -18,9 +18,12 @@ permissions:
   pages: write
   id-token: write
 
+# Let an active Pages deployment finish. GitHub keeps at most one pending run
+# in this group, so rapid source refreshes coalesce to the newest revision
+# instead of repeatedly cancelling deployment before it can complete.
 concurrency:
   group: data-center-careers
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   refresh:

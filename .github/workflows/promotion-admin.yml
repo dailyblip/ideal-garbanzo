@@ -26,6 +26,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: employer-promotion-admin
@@ -84,3 +85,7 @@ jobs:
           node scripts/validate-promotions.mjs
           node scripts/test-promotion-runtime-contract.mjs
           git push origin HEAD:main
+      - name: Deploy committed promotion state
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

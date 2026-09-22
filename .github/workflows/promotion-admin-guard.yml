@@ -43,3 +43,12 @@ jobs:
           node scripts/manage-promotion.mjs --self-test
           node scripts/validate-promotions.mjs
           node scripts/test-promotion-runtime-contract.mjs
+      - name: Guard immediate promotion deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for workflow in .github/workflows/promotion-admin.yml .github/workflows/promotion-lifecycle.yml; do
+            grep -Fq 'actions: write' "$workflow" || { echo "::error::$workflow must retain actions: write so promotion state can dispatch Pages."; exit 1; }
+            grep -Fq 'gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true' "$workflow" || { echo "::error::$workflow must deploy committed promotion state immediately."; exit 1; }
+          done
+          grep -Fq "if: steps.commit.outputs.changed == 'true'" .github/workflows/promotion-lifecycle.yml || { echo "::error::Promotion lifecycle must only dispatch Pages when cleanup changed state."; exit 1; }

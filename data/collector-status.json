@@ -253,19 +253,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-21T03:28:01.706Z",
+          "checkedAt": "2026-09-22T05:13:52.334Z",
           "roles": 8,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 187,
-          "uniqueRows": 187,
+          "reportedRows": 190,
+          "uniqueRows": 190,
           "pagesAttempted": 10,
           "pagesSucceeded": 10,
-          "lastHealthyAt": "2026-09-21T03:28:01.706Z",
-          "expiresAt": "2026-09-25T03:28:01.706Z"
+          "lastHealthyAt": "2026-09-22T05:13:52.334Z",
+          "expiresAt": "2026-09-26T05:13:52.334Z"
         }
       },
       "QTS Data Centers": {
@@ -281,19 +281,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-21T03:28:01.706Z",
+          "checkedAt": "2026-09-22T05:13:52.334Z",
           "roles": 40,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 304,
-          "uniqueRows": 304,
+          "reportedRows": 303,
+          "uniqueRows": 303,
           "pagesAttempted": 16,
           "pagesSucceeded": 16,
-          "lastHealthyAt": "2026-09-21T03:28:01.706Z",
-          "expiresAt": "2026-09-25T03:28:01.706Z"
+          "lastHealthyAt": "2026-09-22T05:13:52.334Z",
+          "expiresAt": "2026-09-26T05:13:52.334Z"
         }
       },
       "CyrusOne": {
@@ -309,19 +309,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-21T03:28:01.706Z",
+          "checkedAt": "2026-09-22T05:13:52.334Z",
           "roles": 54,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 119,
-          "uniqueRows": 119,
-          "pagesAttempted": 6,
-          "pagesSucceeded": 6,
-          "lastHealthyAt": "2026-09-21T03:28:01.706Z",
-          "expiresAt": "2026-09-25T03:28:01.706Z"
+          "reportedRows": 123,
+          "uniqueRows": 123,
+          "pagesAttempted": 7,
+          "pagesSucceeded": 7,
+          "lastHealthyAt": "2026-09-22T05:13:52.334Z",
+          "expiresAt": "2026-09-26T05:13:52.334Z"
         }
       },
       "STACK Infrastructure": {
@@ -337,19 +337,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-21T03:28:01.706Z",
+          "checkedAt": "2026-09-22T05:13:52.334Z",
           "roles": 9,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 72,
-          "uniqueRows": 72,
+          "reportedRows": 64,
+          "uniqueRows": 64,
           "pagesAttempted": 4,
           "pagesSucceeded": 4,
-          "lastHealthyAt": "2026-09-21T03:28:01.706Z",
-          "expiresAt": "2026-09-25T03:28:01.706Z"
+          "lastHealthyAt": "2026-09-22T05:13:52.334Z",
+          "expiresAt": "2026-09-26T05:13:52.334Z"
         }
       },
       "NTT Global Data Centers": {
@@ -365,19 +365,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-21T03:28:01.706Z",
+          "checkedAt": "2026-09-22T05:13:52.334Z",
           "roles": 21,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 225,
-          "uniqueRows": 225,
+          "reportedRows": 234,
+          "uniqueRows": 234,
           "pagesAttempted": 12,
           "pagesSucceeded": 12,
-          "lastHealthyAt": "2026-09-21T03:28:01.706Z",
-          "expiresAt": "2026-09-25T03:28:01.706Z"
+          "lastHealthyAt": "2026-09-22T05:13:52.334Z",
+          "expiresAt": "2026-09-26T05:13:52.334Z"
         }
       },
       "Aligned Data Centers": {
@@ -393,7 +393,7 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-09-21T03:28:01.706Z",
+          "checkedAt": "2026-09-22T05:13:52.334Z",
           "roles": 35,
           "maxAgeHours": 96,
           "listingComplete": true,
@@ -404,8 +404,8 @@
           "uniqueRows": 206,
           "pagesAttempted": 11,
           "pagesSucceeded": 11,
-          "lastHealthyAt": "2026-09-21T03:28:01.706Z",
-          "expiresAt": "2026-09-25T03:28:01.706Z"
+          "lastHealthyAt": "2026-09-22T05:13:52.334Z",
+          "expiresAt": "2026-09-26T05:13:52.334Z"
         }
       }
     },
@@ -430,35 +430,35 @@
           "company": "Vantage Data Centers",
           "state": "healthy",
           "roles": 8,
-          "reportedRows": 187,
+          "reportedRows": 190,
           "detailVerified": "3/3"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 40,
-          "reportedRows": 304,
+          "reportedRows": 303,
           "detailVerified": "3/3"
         },
         {
           "company": "CyrusOne",
           "state": "healthy",
           "roles": 54,
-          "reportedRows": 119,
+          "reportedRows": 123,
           "detailVerified": "3/3"
         },
         {
           "company": "STACK Infrastructure",
           "state": "healthy",
           "roles": 9,
-          "reportedRows": 72,
+          "reportedRows": 64,
           "detailVerified": "3/3"
         },
         {
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 21,
-          "reportedRows": 225,
+          "reportedRows": 234,
           "detailVerified": "3/3"
         },
         {

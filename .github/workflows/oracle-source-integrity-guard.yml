@@ -8,6 +8,7 @@ on:
       - 'data/jobs.json'
       - 'data/collector-status.json'
       - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/preserve-source-posted-hours.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
       - 'scripts/validate-oracle-parity.mjs'
@@ -21,6 +22,7 @@ on:
       - 'data/jobs.json'
       - 'data/collector-status.json'
       - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/preserve-source-posted-hours.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
       - 'scripts/validate-oracle-parity.mjs'
@@ -43,9 +45,12 @@ jobs:
       - name: Check Oracle collector and validator syntax
         run: |
           node --check scripts/collect-oracle-careers.mjs
+          node --check scripts/preserve-source-posted-hours.mjs
           node --check scripts/scrub-oracle-mission-fit.mjs
           node --check scripts/validate-oracle-snapshot.mjs
           node --check scripts/validate-oracle-parity.mjs
+      - name: Run Oracle source-isolation regression
+        run: node scripts/preserve-source-posted-hours.mjs --test
       - name: Run Oracle experience policy regressions
         run: node scripts/scrub-oracle-mission-fit.mjs --test-experience-parser
       - name: Run Oracle parity regressions

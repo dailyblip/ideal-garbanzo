@@ -9,7 +9,6 @@ on:
     paths:
       - 'scripts/collect-oracle-careers.mjs'
       - 'scripts/preserve-source-posted-hours.mjs'
-      - 'scripts/stamp-job-history.mjs'
       - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'

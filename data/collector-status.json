@@ -1,23 +1,24 @@
 {
-  "updatedAt": "2026-09-22T17:21:05.662Z",
+  "updatedAt": "2026-09-22T17:26:15.658Z",
   "jobs": 715,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 2
+    "oracleRecruitingCloud": 2,
+    "icims": 1
   },
   "countsByType": {
-    "apprenticeship": 11,
-    "internship": 11,
+    "entry-level": 680,
     "trainee": 13,
-    "entry-level": 680
+    "internship": 11,
+    "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 393,
-    "no-experience": 28,
-    "2-5-years": 294
+    "2-5-years": 294,
+    "no-experience": 28
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -40,7 +41,7 @@
     },
     "drops": {
       "parse": 3,
-      "classification": 2
+      "classification": 3
     },
     "samples": [
       {
@@ -55,6 +56,12 @@
         "location": ""
       },
       {
+        "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
+        "title": "Senior Client Executive",
+        "location": "Marlborough, MA",
+        "reason": "classification"
+      },
+      {
         "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
         "title": "Sr Revenue Assurance Analyst",
         "location": ""
@@ -63,22 +70,8 @@
         "url": "https://careers-tierpoint.icims.com/jobs/3015/sr-automation-engineer/job",
         "title": "Sr Automation Engineer",
         "location": ""
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3010/manager%2c-accounting/job",
-        "title": "Manager, Accounting",
-        "location": "Saint Louis, MO",
-        "reason": "classification"
       }
-    ],
-    "qaDeadSnapshotReconciliation": {
-      "checkedAt": "2026-09-22T10:04:52.728Z",
-      "removedRoles": 1,
-      "removedRequisitionIds": [
-        "2959"
-      ],
-      "policy": "Nightly QA-confirmed dead TierPoint detail links are removed from the authoritative iCIMS snapshot so stale roles do not return after live QA removes them from the public feed."
-    }
+    ]
   },
   "sabeyCareers": {
     "officialSource": "https://sabey.com/about/careers",
@@ -2110,7 +2103,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T17:20:05.512Z",
+    "checkedAt": "2026-09-22T17:26:15.733Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2118,7 +2111,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T17:20:05.588Z",
+    "updatedAt": "2026-09-22T17:26:15.808Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 715,
@@ -2126,18 +2119,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 135,
+      "southeast": 108,
       "mid-atlantic": 133,
       "texas": 119,
-      "southwest": 81,
-      "southeast": 108,
       "west": 115,
+      "midwest": 135,
       "northeast": 23,
+      "southwest": 81,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T17:20:05.658Z",
+    "checkedAt": "2026-09-22T17:26:15.878Z",
     "before": 715,
     "after": 715,
     "removed": 0,
@@ -2163,7 +2156,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-22T17:20:05.841Z"
+    "updatedAt": "2026-09-22T17:26:15.941Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

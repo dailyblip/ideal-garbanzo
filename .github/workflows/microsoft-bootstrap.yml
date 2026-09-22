@@ -12,6 +12,7 @@ on:
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - 'scripts/apply-microsoft-verified-publish.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - '.github/workflows/microsoft-bootstrap.yml'
 
@@ -35,14 +36,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate Microsoft experience classifier and request pacing
+      - name: Validate Microsoft experience, pacing and source-isolation policy
         run: |
           node --check scripts/collect-microsoft-datacenter.mjs
           node --check scripts/run-microsoft-datacenter.mjs
           node --check scripts/apply-microsoft-verified-publish.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node scripts/collect-microsoft-datacenter.mjs --test-experience-parser
           node scripts/run-microsoft-datacenter.mjs --test-rate-limit-policy
           node scripts/apply-microsoft-verified-publish.mjs --test
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before Microsoft refresh
+        run: cp data/jobs.json /tmp/microsoft-public-before.json
       - name: Restore fresh Microsoft snapshot before direct refresh
         run: node scripts/apply-microsoft-verified-fallback.mjs
       - name: Collect official Microsoft data center roles with adaptive pacing
@@ -53,10 +59,16 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply Microsoft source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json
+          node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json --verify
       - name: Persist freshly verified publishable Microsoft snapshot
         run: node scripts/persist-microsoft-snapshot.mjs
-      - name: Persist first-seen dates for weekly alerts
-        run: node scripts/stamp-job-history.mjs
+      - name: Persist Microsoft first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs --company "Microsoft"
+      - name: Verify non-Microsoft rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json --verify
       - name: Validate employer-direct sources and feed
         run: |
           node scripts/validate-microsoft-snapshot.mjs
@@ -95,11 +107,15 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/microsoft-public-before.json
             node scripts/apply-microsoft-verified-publish.mjs /tmp/microsoft-jobs-verified.json /tmp/microsoft-status-verified.json
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json
+            node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json --verify
+            node scripts/stamp-job-history.mjs --company "Microsoft"
+            node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json --verify
             node scripts/validate-microsoft-snapshot.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-job-history.mjs

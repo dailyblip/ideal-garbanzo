@@ -1,0 +1,76 @@
+name: Flexential source integrity guard
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/flexential-jobs.json'
+      - 'data/jobs.json'
+      - 'data/job-history.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-flexential.mjs'
+      - 'scripts/validate-flexential.mjs'
+      - 'scripts/enforce-flexential-fallback-freshness.mjs'
+      - 'scripts/validate-flexential-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - '.github/workflows/flexential-bootstrap.yml'
+      - '.github/workflows/flexential-source-integrity-guard.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/flexential-jobs.json'
+      - 'data/jobs.json'
+      - 'data/job-history.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-flexential.mjs'
+      - 'scripts/validate-flexential.mjs'
+      - 'scripts/enforce-flexential-fallback-freshness.mjs'
+      - 'scripts/validate-flexential-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - '.github/workflows/flexential-bootstrap.yml'
+      - '.github/workflows/flexential-source-integrity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test Flexential classifier and fallback policy
+        run: |
+          node --check scripts/collect-flexential.mjs
+          node --check scripts/enforce-flexential-fallback-freshness.mjs
+          node scripts/collect-flexential.mjs --test-classifier
+          node scripts/enforce-flexential-fallback-freshness.mjs --test
+      - name: Test Flexential source-boundary helpers
+        run: |
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Guard Flexential refresh isolation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow='.github/workflows/flexential-bootstrap.yml'
+          grep -Fq 'cp data/jobs.json /tmp/flexential-public-before.json' "$workflow"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json' "$workflow"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json --verify' "$workflow"
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Flexential"' "$workflow"
+          if grep -Eq '^[[:space:]]*run:[[:space:]]+node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Flexential source refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
+      - name: Validate committed Flexential snapshot and freshness
+        run: |
+          node scripts/validate-flexential.mjs
+          node scripts/validate-flexential-freshness.mjs
+      - name: Validate shared employer-direct contracts
+        run: |
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs

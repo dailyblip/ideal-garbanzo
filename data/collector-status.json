@@ -96,21 +96,12 @@
     ],
     "snapshotRoles": 0,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-22T17:05:01.329Z",
+    "snapshotVerifiedAt": "2026-09-22T21:30:17.510Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
     "snapshotAgeHours": 0,
     "normalizedTitles": 0,
-    "removedExpiredFallback": 0,
-    "fallbackFreshness": {
-      "active": false,
-      "expired": false,
-      "lastHealthyAt": "2026-09-22T17:05:01.329Z",
-      "checkedAt": "2026-09-22T17:27:49.842Z",
-      "expiresAt": null,
-      "maxAgeHours": 96,
-      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
-    }
+    "removedExpiredFallback": 0
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
@@ -2100,7 +2091,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T21:23:09.068Z",
+    "checkedAt": "2026-09-22T21:30:17.580Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2108,7 +2099,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T21:23:09.144Z",
+    "updatedAt": "2026-09-22T21:30:17.662Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 723,
@@ -2127,7 +2118,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T21:23:09.211Z",
+    "checkedAt": "2026-09-22T21:30:17.730Z",
     "before": 723,
     "after": 723,
     "removed": 0,
@@ -2145,15 +2136,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1274,
     "currentJobs": 723,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 16,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T21:23:09.383Z"
+    "updatedAt": "2026-09-22T21:30:17.787Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

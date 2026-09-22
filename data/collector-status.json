@@ -2114,61 +2114,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T18:54:22.680Z",
-    "removedCount": 3,
-    "removedByReason": {
-      "senior/executive title": 3
-    },
-    "removed": [
-      {
-        "id": "workday-stackinfra-JR00247",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-stackinfra-JR00249",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Sterling, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-aligneddc-JR101023",
-        "company": "Aligned Data Centers",
-        "title": "VP, Operations - South Region",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      }
-    ],
-    "majorSnapshotRemovedCount": 3,
-    "majorSnapshotRemoved": [
-      {
-        "id": "workday-stackinfra-JR00247",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-stackinfra-JR00249",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Sterling, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-aligneddc-JR101023",
-        "company": "Aligned Data Centers",
-        "title": "VP, Operations - South Region",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      }
-    ]
+    "checkedAt": "2026-09-22T19:17:09.599Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
+    "majorSnapshotRemovedCount": 0,
+    "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T18:55:20.202Z",
+    "updatedAt": "2026-09-22T19:17:09.685Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 720,
@@ -2187,7 +2141,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T18:55:20.242Z",
+    "checkedAt": "2026-09-22T19:17:09.763Z",
     "before": 720,
     "after": 720,
     "removed": 0,
@@ -2213,7 +2167,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T18:55:20.277Z"
+    "updatedAt": "2026-09-22T19:17:09.954Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2897,8 +2851,8 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-22T08:49:43.500Z",
-    "lastHealthyAt": "2026-09-22T08:49:43.500Z",
+    "checkedAt": "2026-09-22T19:17:08.710Z",
+    "lastHealthyAt": "2026-09-22T19:17:08.710Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

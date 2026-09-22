@@ -10,6 +10,9 @@ on:
       - 'scripts/scrub-major-targeted-noise.mjs'
       - 'scripts/prune-major-workday-overfive.mjs'
       - 'scripts/enforce-major-workday-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/stamp-job-history-group.mjs'
       - 'scripts/sync-publication-counts.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
@@ -26,6 +29,9 @@ concurrency:
   group: careers-source-writers
   cancel-in-progress: false
   queue: max
+
+env:
+  PRIORITY_WORKDAY_COMPANIES: 'Vantage Data Centers|QTS Data Centers|CyrusOne|STACK Infrastructure|NTT Global Data Centers|Aligned Data Centers'
 
 jobs:
   collect:
@@ -48,6 +54,9 @@ jobs:
           node --check scripts/scrub-major-targeted-noise.mjs
           node --check scripts/prune-major-workday-overfive.mjs
           node --check scripts/enforce-major-workday-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/stamp-job-history-group.mjs
           node --check scripts/sync-publication-counts.mjs
           node --check scripts/validate-major-workday-freshness-state.mjs
           node --check scripts/validate-major-workday-parity.mjs
@@ -55,10 +64,15 @@ jobs:
           node scripts/recover-major-workday-targeted.mjs --test
           node scripts/prune-major-workday-overfive.mjs --test
           node scripts/enforce-major-workday-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
+          node scripts/stamp-job-history-group.mjs --test
           node scripts/sync-publication-counts.mjs --test
 
       - name: Enforce verified fallback freshness before collection
         run: node scripts/enforce-major-workday-fallback-freshness.mjs
+
+      - name: Capture pre-refresh public-feed state
+        run: cp data/jobs.json /tmp/major-workday-baseline.json
 
       - name: Refresh official priority Workday boards
         run: |
@@ -74,10 +88,14 @@ jobs:
           node scripts/normalize-job-locations.mjs
           node scripts/enrich-workday-multilocation.mjs
           node scripts/dedupe-normalized-jobs.mjs
+          node scripts/preserve-source-group.mjs "$PRIORITY_WORKDAY_COMPANIES" /tmp/major-workday-baseline.json
           node scripts/refresh-region-status.mjs
-          node scripts/stamp-job-history.mjs
+          node scripts/stamp-job-history-group.mjs "$PRIORITY_WORKDAY_COMPANIES"
           node scripts/enforce-major-workday-fallback-freshness.mjs
           node scripts/sync-publication-counts.mjs --major
+
+      - name: Verify priority Workday source boundary
+        run: node scripts/preserve-source-group.mjs "$PRIORITY_WORKDAY_COMPANIES" /tmp/major-workday-baseline.json --verify
 
       - name: Validate refreshed priority Workday publication
         run: |
@@ -106,6 +124,9 @@ jobs:
             node --check scripts/scrub-major-targeted-noise.mjs
             node --check scripts/prune-major-workday-overfive.mjs
             node --check scripts/enforce-major-workday-fallback-freshness.mjs
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
+            node --check scripts/stamp-job-history-group.mjs
             node --check scripts/sync-publication-counts.mjs
             node --check scripts/validate-major-workday-freshness-state.mjs
             node --check scripts/validate-major-workday-parity.mjs
@@ -113,8 +134,11 @@ jobs:
             node scripts/recover-major-workday-targeted.mjs --test
             node scripts/prune-major-workday-overfive.mjs --test
             node scripts/enforce-major-workday-fallback-freshness.mjs --test
+            node scripts/preserve-source-group.mjs --test
+            node scripts/stamp-job-history-group.mjs --test
             node scripts/sync-publication-counts.mjs --test
             node scripts/enforce-major-workday-fallback-freshness.mjs
+            cp data/jobs.json /tmp/major-workday-baseline.json
             node scripts/collect-major-jobs.mjs
             node scripts/reconcile-major-jobs.mjs
             node scripts/recover-major-workday-targeted.mjs
@@ -124,10 +148,12 @@ jobs:
             node scripts/normalize-job-locations.mjs
             node scripts/enrich-workday-multilocation.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "$PRIORITY_WORKDAY_COMPANIES" /tmp/major-workday-baseline.json
             node scripts/refresh-region-status.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history-group.mjs "$PRIORITY_WORKDAY_COMPANIES"
             node scripts/enforce-major-workday-fallback-freshness.mjs
             node scripts/sync-publication-counts.mjs --major
+            node scripts/preserve-source-group.mjs "$PRIORITY_WORKDAY_COMPANIES" /tmp/major-workday-baseline.json --verify
             node scripts/validate-major-workday-freshness-state.mjs
             node scripts/validate-major-workday-parity.mjs
             node scripts/validate-priority-employer-sources.mjs

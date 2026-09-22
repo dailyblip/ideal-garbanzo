@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T21:23:08.999Z",
+  "updatedAt": "2026-09-22T21:38:51.580Z",
   "jobs": 723,
   "sourcesAttempted": 19,
   "providers": {
@@ -2099,7 +2099,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T21:38:41.345Z",
+    "updatedAt": "2026-09-22T21:38:51.640Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 723,
@@ -2118,7 +2118,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T21:38:41.416Z",
+    "checkedAt": "2026-09-22T21:38:51.696Z",
     "before": 723,
     "after": 723,
     "removed": 0,
@@ -2144,7 +2144,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T21:38:41.606Z"
+    "updatedAt": "2026-09-22T21:38:51.741Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2867,13 +2867,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-22T20:47:44.735Z",
+    "checkedAt": "2026-09-22T21:38:51.580Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "qualifyingRoles": 2,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2892,27 +2892,19 @@
         "requisition": "JR-163300",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "detailStatus": 202,
+        "published": false,
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-158170",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "detailStatus": 202,
+        "published": false,
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-811161",

@@ -31,9 +31,9 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
-// These writers have completed the migration away from destructive site-wide
-// QA inside a source-specific refresh. Keep that isolation from regressing as
-// the remaining shared writers are migrated independently.
+// Source-specific writers in this set must never run destructive site-wide QA.
+// All shared-queue writers have completed this migration; Compass is also kept
+// here because its independent source refresh follows the same isolation rule.
 const liveQaIsolatedWriters = new Set([
   '.github/workflows/cloudhq-bootstrap.yml',
   '.github/workflows/cologix-bootstrap.yml',
@@ -42,9 +42,12 @@ const liveQaIsolatedWriters = new Set([
   '.github/workflows/databank-bootstrap.yml',
   '.github/workflows/digital-realty-bootstrap.yml',
   '.github/workflows/edgeconnex-bootstrap.yml',
+  '.github/workflows/equinix-bootstrap.yml',
   '.github/workflows/flexential-bootstrap.yml',
+  '.github/workflows/google-bootstrap.yml',
   '.github/workflows/major-workday-bootstrap.yml',
   '.github/workflows/novva-bootstrap.yml',
+  '.github/workflows/prime-data-centers-bootstrap.yml',
   '.github/workflows/stream-data-centers-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml',
   '.github/workflows/t5-data-centers-bootstrap.yml'

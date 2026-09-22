@@ -12,6 +12,10 @@ on:
       - 'scripts/run-microsoft-datacenter.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
+      - 'scripts/apply-microsoft-verified-publish.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - '.github/workflows/microsoft-bootstrap.yml'
       - '.github/workflows/microsoft-source-integrity-guard.yml'
   push:
     branches: [main]
@@ -24,6 +28,10 @@ on:
       - 'scripts/run-microsoft-datacenter.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
+      - 'scripts/apply-microsoft-verified-publish.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - '.github/workflows/microsoft-bootstrap.yml'
       - '.github/workflows/microsoft-source-integrity-guard.yml'
   workflow_dispatch:
 
@@ -46,5 +54,23 @@ jobs:
         run: |
           node --check scripts/run-microsoft-datacenter.mjs
           node scripts/run-microsoft-datacenter.mjs --test-rate-limit-policy
+      - name: Test Microsoft source-boundary helpers
+        run: |
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Guard Microsoft refresh isolation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow='.github/workflows/microsoft-bootstrap.yml'
+          grep -Fq 'cp data/jobs.json /tmp/microsoft-public-before.json' "$workflow"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json' "$workflow"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json --verify' "$workflow"
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Microsoft"' "$workflow"
+          if grep -Eq '^[[:space:]]*run:[[:space:]]+node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Microsoft source refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
       - name: Validate Microsoft employer-direct snapshot and public feed
         run: node scripts/validate-microsoft-snapshot.mjs

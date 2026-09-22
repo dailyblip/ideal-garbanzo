@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T22:45:50.559Z",
+  "updatedAt": "2026-09-22T22:49:08.451Z",
   "jobs": 723,
   "sourcesAttempted": 19,
   "providers": {
@@ -2928,15 +2928,15 @@
         "query": "critical environment technician",
         "healthy": true,
         "pages": 23,
-        "reportedRows": 226,
-        "rows": 226
+        "reportedRows": 230,
+        "rows": 230
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 28,
-        "reportedRows": 278,
-        "rows": 278
+        "pages": 29,
+        "reportedRows": 283,
+        "rows": 283
       },
       {
         "query": "inventory and asset technician",
@@ -2946,7 +2946,7 @@
         "rows": 17
       }
     ],
-    "candidateRows": 356,
+    "candidateRows": 362,
     "plausibleRows": 32,
     "detailAttempts": 32,
     "detailVerified": 32,
@@ -2963,8 +2963,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-22T21:18:42.883Z",
-      "expiresAt": "2026-09-26T21:18:42.883Z",
+      "verifiedAt": "2026-09-22T22:49:06.602Z",
+      "expiresAt": "2026-09-26T22:49:06.602Z",
       "roles": 32,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -3588,7 +3588,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T22:21:09.813Z",
+    "checkedAt": "2026-09-22T22:49:08.512Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3596,7 +3596,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T22:45:50.625Z",
+    "updatedAt": "2026-09-22T22:49:08.574Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 723,
@@ -3606,16 +3606,16 @@
     "countsByRegion": {
       "southeast": 111,
       "texas": 123,
-      "southwest": 81,
       "midwest": 139,
       "west": 115,
       "mid-atlantic": 132,
       "northeast": 21,
+      "southwest": 81,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T22:45:50.685Z",
+    "checkedAt": "2026-09-22T22:49:08.628Z",
     "before": 723,
     "after": 723,
     "removed": 0,
@@ -3633,6 +3633,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1274,
     "currentJobs": 723,
+    "scopeCompany": "Microsoft",
+    "scopedJobs": 32,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3640,8 +3642,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T22:45:50.734Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-22T22:49:08.769Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/recover-amazon-details.mjs'
+      - 'scripts/stamp-amazon-source-verification.mjs'
   schedule:
     - cron: '13 */6 * * *'
   workflow_dispatch:
@@ -43,15 +44,17 @@ jobs:
         run: |
           node scripts/enforce-amazon-fallback-freshness.mjs --test
           node scripts/enforce-amazon-fallback-freshness.mjs
+      - name: Stamp AWS source verification evidence
+        run: |
+          node --check scripts/stamp-amazon-source-verification.mjs
+          node scripts/stamp-amazon-source-verification.mjs
       - name: Normalize recovered feed
         run: |
           node scripts/filter-mission-fit.mjs
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
-      - name: Run post-recovery live-link and duplicate QA
-        run: node scripts/qa-site.mjs
-      - name: Refresh post-QA tracking
+      - name: Refresh post-recovery tracking
         run: |
           node scripts/refresh-region-status.mjs
           node scripts/stamp-job-history.mjs
@@ -80,11 +83,12 @@ jobs:
             node scripts/recover-amazon-details.mjs
             node scripts/enforce-amazon-fallback-freshness.mjs --test
             node scripts/enforce-amazon-fallback-freshness.mjs
+            node --check scripts/stamp-amazon-source-verification.mjs
+            node scripts/stamp-amazon-source-verification.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/normalize-display-copy.mjs
-            node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/stamp-job-history.mjs
             node scripts/validate.mjs
@@ -102,14 +106,14 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json data/career-events.json data/qa-report.json
+            git add data/jobs.json data/amazon-jobs.json data/collector-status.json data/job-history.json
             if git diff --cached --quiet; then
-              echo "No AWS recovery or QA changes."
+              echo "No AWS recovery changes."
               echo "pushed=false" >> "$GITHUB_OUTPUT"
               exit 0
             fi
 
-            git commit -m "Recover verified AWS roles and refresh QA"
+            git commit -m "Recover verified AWS roles"
             if git push origin HEAD:main; then
               echo "pushed=true" >> "$GITHUB_OUTPUT"
               exit 0

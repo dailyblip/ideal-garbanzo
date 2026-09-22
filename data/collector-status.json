@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T03:46:18.281Z",
+  "updatedAt": "2026-09-22T04:44:05.487Z",
   "jobs": 717,
   "sourcesAttempted": 19,
   "providers": {
@@ -3572,7 +3572,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T03:46:18.364Z",
+    "checkedAt": "2026-09-22T04:44:05.594Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3580,7 +3580,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T03:46:18.453Z",
+    "updatedAt": "2026-09-22T04:44:05.660Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 717,
@@ -3599,7 +3599,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T03:46:18.529Z",
+    "checkedAt": "2026-09-22T04:44:05.719Z",
     "before": 717,
     "after": 717,
     "removed": 0,
@@ -3625,7 +3625,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-22T03:46:18.762Z"
+    "updatedAt": "2026-09-22T04:44:05.865Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3736,17 +3736,17 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-21T04:26:17.228Z",
+    "checkedAt": "2026-09-22T04:44:05.487Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",
     "officialJobBoard": "https://switchltd.hrmdirect.com/employment/job-openings.php?jbsrc=1014&search=true&sort=pa",
     "officialRssFeed": "https://switchltd.hrmdirect.com/employment/rss.php?search=true&dept=-1&city=-1&state=-1",
     "authoritativeSnapshot": true,
-    "listedJobs": 106,
+    "listedJobs": 108,
     "candidateRoles": 29,
     "qualifyingRoles": 22,
-    "rejectedOutOfScopeTitle": 77,
+    "rejectedOutOfScopeTitle": 79,
     "rejectedSeniorTitle": 0,
     "rejectedMissingDataCenterContext": 0,
     "rejectedDetailTitleMismatch": 2,

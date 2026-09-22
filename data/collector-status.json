@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T05:15:25.676Z",
+  "updatedAt": "2026-09-22T05:21:03.452Z",
   "jobs": 708,
   "sourcesAttempted": 19,
   "providers": {
@@ -3571,7 +3571,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T05:20:56.753Z",
+    "updatedAt": "2026-09-22T05:21:03.518Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3590,7 +3590,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T05:20:56.810Z",
+    "checkedAt": "2026-09-22T05:21:03.576Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3616,7 +3616,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T05:20:56.959Z"
+    "updatedAt": "2026-09-22T05:21:03.625Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4338,12 +4338,12 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-22T05:15:25.158Z",
+    "checkedAt": "2026-09-22T05:21:03.452Z",
     "listingHealthy": true,
-    "listingStatus": 202,
+    "listingStatus": 200,
     "rolesExpected": 4,
-    "rolesListed": 0,
-    "detailChecksPassed": 0,
+    "rolesListed": 4,
+    "detailChecksPassed": 4,
     "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
@@ -4352,31 +4352,39 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": false,
-        "detailOk": false,
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 202,
         "published": false,
-        "reason": "not-listed"
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-163300",
-        "listed": false,
-        "detailOk": false,
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 202,
         "published": false,
-        "reason": "not-listed"
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-158170",
-        "listed": false,
-        "detailOk": false,
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 202,
         "published": false,
-        "reason": "not-listed"
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-811161",
-        "listed": false,
-        "detailOk": false,
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 202,
         "published": false,
-        "reason": "not-listed"
+        "reason": "identity-drift",
+        "heading": ""
       }
     ],
     "errors": []

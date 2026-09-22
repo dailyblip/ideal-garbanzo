@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-22T16:54:21.582Z",
+  "updatedAt": "2026-09-22T16:55:51.079Z",
   "jobs": 729,
-  "sourcesAttempted": 33,
+  "sourcesAttempted": 34,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 2,
+    "oracleRecruitingCloud": 3,
     "googleCareers": 1,
     "workday": 6
   },
@@ -1884,37 +1884,37 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2219,
-    "listingRows": 2216,
+    "totalOpenRoles": 2226,
+    "listingRows": 2223,
     "pagesAttempted": 13,
     "pagesSucceeded": 13,
-    "candidateRows": 94,
-    "detailAttempted": 94,
+    "candidateRows": 95,
+    "detailAttempted": 95,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
     "qualifyingRoles": 15,
     "drops": {
-      "title": 2122,
-      "nonUs": 33,
+      "title": 2128,
+      "nonUs": 34,
       "context": 12,
       "experience": 29,
       "missingId": 0,
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-22T12:01:02.226Z",
-    "lastHealthyAt": "2026-09-22T12:01:02.226Z",
+    "checkedAt": "2026-09-22T16:55:51.079Z",
+    "lastHealthyAt": "2026-09-22T16:55:51.079Z",
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-22T12:01:02.226Z",
-      "checkedAt": "2026-09-22T12:01:02.226Z",
+      "lastHealthyAt": "2026-09-22T16:55:51.079Z",
+      "checkedAt": "2026-09-22T16:55:51.079Z",
       "maxAgeHours": 96,
       "ageHours": 0,
       "policy": "Retain the most recent verified Oracle snapshot for up to 96 hours when the official source is unavailable; fail closed after expiry."
     },
     "missionFitScrub": {
-      "checkedAt": "2026-09-22T12:01:03.313Z",
+      "checkedAt": "2026-09-22T16:55:53.193Z",
       "removedFromSnapshot": 4,
       "removedFromPublicFeed": 4,
       "experienceCandidates": 15,
@@ -2124,54 +2124,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T16:54:21.989Z",
-    "removedCount": 5,
-    "removedByReason": {
-      "senior/executive title": 2,
-      "non-mission role family": 3
-    },
-    "removed": [
-      {
-        "id": "amazon-10534644",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "San Antonio, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10515905",
-        "company": "Amazon Web Services",
-        "title": "Cluster Operations Leader, ADC Data Center Ops",
-        "location": "Culpeper, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "amazon-10513234",
-        "company": "Amazon Web Services",
-        "title": "AI/ML Engineer, Amazon Global Data Center Ops Central Insight and Analytics Team",
-        "location": "Seattle, WA",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10430644",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "Boardman, OR",
-        "reason": "non-mission role family"
-      },
-      {
-        "id": "amazon-10427682",
-        "company": "Amazon Web Services",
-        "title": "Data Center Technician, Human Resources",
-        "location": "New Carlisle, IN",
-        "reason": "non-mission role family"
-      }
-    ],
+    "checkedAt": "2026-09-22T16:55:53.263Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T16:54:22.043Z",
+    "updatedAt": "2026-09-22T16:55:53.335Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 729,
@@ -2190,7 +2151,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T16:54:22.090Z",
+    "checkedAt": "2026-09-22T16:55:53.400Z",
     "before": 729,
     "after": 729,
     "removed": 0,
@@ -2214,9 +2175,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 15,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-22T16:54:22.238Z"
+    "updatedAt": "2026-09-22T16:55:53.460Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

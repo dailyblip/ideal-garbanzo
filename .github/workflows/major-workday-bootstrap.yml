@@ -77,7 +77,7 @@ jobs:
           node scripts/refresh-region-status.mjs
           node scripts/stamp-job-history.mjs
           node scripts/enforce-major-workday-fallback-freshness.mjs
-          node scripts/sync-publication-counts.mjs
+          node scripts/sync-publication-counts.mjs --major
 
       - name: Validate refreshed priority Workday publication
         run: |
@@ -127,7 +127,7 @@ jobs:
             node scripts/refresh-region-status.mjs
             node scripts/stamp-job-history.mjs
             node scripts/enforce-major-workday-fallback-freshness.mjs
-            node scripts/sync-publication-counts.mjs
+            node scripts/sync-publication-counts.mjs --major
             node scripts/validate-major-workday-freshness-state.mjs
             node scripts/validate-major-workday-parity.mjs
             node scripts/validate-priority-employer-sources.mjs

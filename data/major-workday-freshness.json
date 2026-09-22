@@ -6,7 +6,7 @@
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-09-22T11:04:11.109Z",
+      "checkedAt": "2026-09-22T16:00:30.662Z",
       "roles": 8,
       "maxAgeHours": 96,
       "listingComplete": true,
@@ -17,50 +17,50 @@
       "uniqueRows": 191,
       "pagesAttempted": 10,
       "pagesSucceeded": 10,
-      "lastHealthyAt": "2026-09-22T11:04:11.109Z",
-      "expiresAt": "2026-09-26T11:04:11.109Z"
+      "lastHealthyAt": "2026-09-22T16:00:30.662Z",
+      "expiresAt": "2026-09-26T16:00:30.662Z"
     },
     "QTS Data Centers": {
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-09-22T11:04:11.109Z",
+      "checkedAt": "2026-09-22T16:00:30.662Z",
       "roles": 40,
       "maxAgeHours": 96,
       "listingComplete": true,
       "detailHealthy": true,
       "detailAttempted": 3,
       "detailSucceeded": 3,
-      "reportedRows": 303,
-      "uniqueRows": 303,
+      "reportedRows": 304,
+      "uniqueRows": 304,
       "pagesAttempted": 16,
       "pagesSucceeded": 16,
-      "lastHealthyAt": "2026-09-22T11:04:11.109Z",
-      "expiresAt": "2026-09-26T11:04:11.109Z"
+      "lastHealthyAt": "2026-09-22T16:00:30.662Z",
+      "expiresAt": "2026-09-26T16:00:30.662Z"
     },
     "CyrusOne": {
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-09-22T11:04:11.109Z",
+      "checkedAt": "2026-09-22T16:00:30.662Z",
       "roles": 56,
       "maxAgeHours": 96,
       "listingComplete": true,
       "detailHealthy": true,
       "detailAttempted": 3,
       "detailSucceeded": 3,
-      "reportedRows": 123,
-      "uniqueRows": 123,
+      "reportedRows": 124,
+      "uniqueRows": 124,
       "pagesAttempted": 7,
       "pagesSucceeded": 7,
-      "lastHealthyAt": "2026-09-22T11:04:11.109Z",
-      "expiresAt": "2026-09-26T11:04:11.109Z"
+      "lastHealthyAt": "2026-09-22T16:00:30.662Z",
+      "expiresAt": "2026-09-26T16:00:30.662Z"
     },
     "STACK Infrastructure": {
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-09-22T11:04:11.109Z",
+      "checkedAt": "2026-09-22T16:00:30.662Z",
       "roles": 7,
       "maxAgeHours": 96,
       "listingComplete": true,
@@ -71,14 +71,14 @@
       "uniqueRows": 64,
       "pagesAttempted": 4,
       "pagesSucceeded": 4,
-      "lastHealthyAt": "2026-09-22T11:04:11.109Z",
-      "expiresAt": "2026-09-26T11:04:11.109Z"
+      "lastHealthyAt": "2026-09-22T16:00:30.662Z",
+      "expiresAt": "2026-09-26T16:00:30.662Z"
     },
     "NTT Global Data Centers": {
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-09-22T11:04:11.109Z",
+      "checkedAt": "2026-09-22T16:00:30.662Z",
       "roles": 21,
       "maxAgeHours": 96,
       "listingComplete": true,
@@ -89,14 +89,14 @@
       "uniqueRows": 236,
       "pagesAttempted": 12,
       "pagesSucceeded": 12,
-      "lastHealthyAt": "2026-09-22T11:04:11.109Z",
-      "expiresAt": "2026-09-26T11:04:11.109Z"
+      "lastHealthyAt": "2026-09-22T16:00:30.662Z",
+      "expiresAt": "2026-09-26T16:00:30.662Z"
     },
     "Aligned Data Centers": {
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-09-22T11:04:11.109Z",
+      "checkedAt": "2026-09-22T16:00:30.662Z",
       "roles": 35,
       "maxAgeHours": 96,
       "listingComplete": true,
@@ -107,8 +107,8 @@
       "uniqueRows": 206,
       "pagesAttempted": 11,
       "pagesSucceeded": 11,
-      "lastHealthyAt": "2026-09-22T11:04:11.109Z",
-      "expiresAt": "2026-09-26T11:04:11.109Z"
+      "lastHealthyAt": "2026-09-22T16:00:30.662Z",
+      "expiresAt": "2026-09-26T16:00:30.662Z"
     }
   },
   "verificationPolicy": "complete Workday listing plus sampled current job-detail JSON"

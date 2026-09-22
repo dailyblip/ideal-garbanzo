@@ -11,7 +11,6 @@ on:
       - 'scripts/prune-major-workday-overfive.mjs'
       - 'scripts/enforce-major-workday-fallback-freshness.mjs'
       - 'scripts/preserve-source-group.mjs'
-      - 'scripts/stamp-job-history.mjs'
       - 'scripts/stamp-job-history-group.mjs'
       - 'scripts/sync-publication-counts.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'

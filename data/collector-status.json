@@ -1,20 +1,21 @@
 {
-  "updatedAt": "2026-09-21T23:45:05.646Z",
-  "jobs": 719,
-  "sourcesAttempted": 18,
+  "updatedAt": "2026-09-22T00:43:52.331Z",
+  "jobs": 717,
+  "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
-    "ashby": 5
+    "ashby": 5,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 687,
+    "entry-level": 685,
     "internship": 11,
     "trainee": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 303,
+    "2-5-years": 301,
     "0-2-years": 392,
     "no-experience": 24
   },
@@ -3399,13 +3400,13 @@
     "officialSource": "https://www.digitalrealty.com/about/careers",
     "boardUrl": "https://hdep.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX",
     "sourceHealthy": true,
-    "candidateRows": 51,
-    "detailAttempts": 51,
+    "candidateRows": 47,
+    "detailAttempts": 47,
     "detailFailures": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 18,
-    "lastHealthyAt": "2026-09-21T05:02:19.107Z",
-    "snapshotVerifiedAt": "2026-09-21T05:02:19.107Z",
+    "qualifyingRoles": 16,
+    "lastHealthyAt": "2026-09-22T00:43:48.954Z",
+    "snapshotVerifiedAt": "2026-09-22T00:43:48.954Z",
     "snapshotMaxAgeHours": 96,
     "fallbackUsed": false,
     "fallbackFresh": false,
@@ -3413,7 +3414,7 @@
     "fallbackAgeHours": null,
     "drops": {
       "title": 127,
-      "nonUs": 31,
+      "nonUs": 29,
       "context": 0,
       "experience": 1,
       "missingId": 0
@@ -3571,7 +3572,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-21T23:45:05.709Z",
+    "checkedAt": "2026-09-22T00:43:52.400Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3579,16 +3580,16 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-21T23:45:05.771Z",
+    "updatedAt": "2026-09-22T00:43:52.477Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 719,
+    "regionAssigned": 717,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 106,
-      "texas": 122,
+      "texas": 120,
       "west": 113,
       "midwest": 139,
       "mid-atlantic": 126,
@@ -3598,9 +3599,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-21T23:45:05.830Z",
-    "before": 719,
-    "after": 719,
+    "checkedAt": "2026-09-22T00:43:52.546Z",
+    "before": 717,
+    "after": 717,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3615,16 +3616,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1231,
-    "currentJobs": 719,
+    "currentJobs": 717,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 16,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-21T23:45:05.935Z"
+    "updatedAt": "2026-09-22T00:43:52.719Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

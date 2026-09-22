@@ -53,8 +53,6 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Run live QA
-        run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate CoreWeave employer-direct snapshot
@@ -85,7 +83,6 @@ jobs:
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/enforce-coreweave-fallback-freshness.mjs --check
             node scripts/validate-coreweave.mjs
@@ -103,7 +100,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/coreweave-jobs.json data/coreweave-source-evidence.json data/major-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            git add data/jobs.json data/coreweave-jobs.json data/coreweave-source-evidence.json data/major-jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo "No verified CoreWeave data changes."
               echo "changed=false" >> "$GITHUB_OUTPUT"

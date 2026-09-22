@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
       - '.github/workflows/oracle-bootstrap.yml'
@@ -30,11 +31,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - name: Collect official Oracle Careers roles
         run: node scripts/collect-oracle-careers.mjs
+      - name: Persist Oracle source freshness evidence
+        run: |
+          node scripts/stamp-oracle-source-freshness.mjs --test
+          node scripts/stamp-oracle-source-freshness.mjs
       - name: Scrub non-operational Oracle role families
         run: node scripts/scrub-oracle-mission-fit.mjs
       - name: Enforce mission-fit role families
@@ -63,6 +69,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node scripts/collect-oracle-careers.mjs
+            node scripts/stamp-oracle-source-freshness.mjs
             node scripts/scrub-oracle-mission-fit.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs

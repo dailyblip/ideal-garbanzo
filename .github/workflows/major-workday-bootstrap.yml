@@ -10,6 +10,7 @@ on:
       - 'scripts/scrub-major-targeted-noise.mjs'
       - 'scripts/prune-major-workday-overfive.mjs'
       - 'scripts/enforce-major-workday-fallback-freshness.mjs'
+      - 'scripts/sync-publication-counts.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
       - '.github/workflows/major-workday-bootstrap.yml'
@@ -47,12 +48,14 @@ jobs:
           node --check scripts/scrub-major-targeted-noise.mjs
           node --check scripts/prune-major-workday-overfive.mjs
           node --check scripts/enforce-major-workday-fallback-freshness.mjs
+          node --check scripts/sync-publication-counts.mjs
           node --check scripts/validate-major-workday-freshness-state.mjs
           node --check scripts/validate-major-workday-parity.mjs
           node scripts/collect-major-jobs.mjs --test-experience-parser
           node scripts/recover-major-workday-targeted.mjs --test
           node scripts/prune-major-workday-overfive.mjs --test
           node scripts/enforce-major-workday-fallback-freshness.mjs --test
+          node scripts/sync-publication-counts.mjs --test
 
       - name: Enforce verified fallback freshness before collection
         run: node scripts/enforce-major-workday-fallback-freshness.mjs
@@ -74,6 +77,7 @@ jobs:
           node scripts/refresh-region-status.mjs
           node scripts/stamp-job-history.mjs
           node scripts/enforce-major-workday-fallback-freshness.mjs
+          node scripts/sync-publication-counts.mjs --major
 
       - name: Validate refreshed priority Workday publication
         run: |
@@ -102,12 +106,14 @@ jobs:
             node --check scripts/scrub-major-targeted-noise.mjs
             node --check scripts/prune-major-workday-overfive.mjs
             node --check scripts/enforce-major-workday-fallback-freshness.mjs
+            node --check scripts/sync-publication-counts.mjs
             node --check scripts/validate-major-workday-freshness-state.mjs
             node --check scripts/validate-major-workday-parity.mjs
             node scripts/collect-major-jobs.mjs --test-experience-parser
             node scripts/recover-major-workday-targeted.mjs --test
             node scripts/prune-major-workday-overfive.mjs --test
             node scripts/enforce-major-workday-fallback-freshness.mjs --test
+            node scripts/sync-publication-counts.mjs --test
             node scripts/enforce-major-workday-fallback-freshness.mjs
             node scripts/collect-major-jobs.mjs
             node scripts/reconcile-major-jobs.mjs
@@ -121,6 +127,7 @@ jobs:
             node scripts/refresh-region-status.mjs
             node scripts/stamp-job-history.mjs
             node scripts/enforce-major-workday-fallback-freshness.mjs
+            node scripts/sync-publication-counts.mjs --major
             node scripts/validate-major-workday-freshness-state.mjs
             node scripts/validate-major-workday-parity.mjs
             node scripts/validate-priority-employer-sources.mjs

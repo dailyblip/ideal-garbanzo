@@ -45,7 +45,8 @@ const liveQaIsolatedWriters = new Set([
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/major-workday-bootstrap.yml',
   '.github/workflows/novva-bootstrap.yml',
-  '.github/workflows/switch-bootstrap.yml'
+  '.github/workflows/switch-bootstrap.yml',
+  '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
 // Retained as a compatibility contract for the stale-prune isolation validator.

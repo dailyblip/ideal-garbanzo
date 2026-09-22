@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/*.yml'
       - 'scripts/validate-source-workflow-isolation.mjs'
+      - 'scripts/validate-source-deploy-dispatch.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history-group.mjs'
   pull_request:
@@ -13,6 +14,7 @@ on:
     paths:
       - '.github/workflows/*.yml'
       - 'scripts/validate-source-workflow-isolation.mjs'
+      - 'scripts/validate-source-deploy-dispatch.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history-group.mjs'
   workflow_dispatch:
@@ -31,6 +33,8 @@ jobs:
           node-version: 22
       - name: Validate source workflow trigger isolation
         run: node scripts/validate-source-workflow-isolation.mjs
+      - name: Validate source refresh deploy dispatch
+        run: node scripts/validate-source-deploy-dispatch.mjs
       - name: Validate source-group isolation helpers
         run: |
           node --check scripts/preserve-source-group.mjs

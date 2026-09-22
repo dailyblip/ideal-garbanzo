@@ -37,7 +37,8 @@ const sharedWriterQueue = new Set([
 const liveQaIsolatedWriters = new Set([
   '.github/workflows/cloudhq-bootstrap.yml',
   '.github/workflows/cologix-bootstrap.yml',
-  '.github/workflows/databank-bootstrap.yml'
+  '.github/workflows/databank-bootstrap.yml',
+  '.github/workflows/digital-realty-bootstrap.yml'
 ]);
 
 // Retained as a compatibility contract for the stale-prune isolation validator.

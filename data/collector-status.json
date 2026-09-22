@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-22T11:44:43.296Z",
-  "jobs": 706,
+  "updatedAt": "2026-09-22T11:45:38.608Z",
+  "jobs": 477,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 675,
-    "internship": 11,
-    "trainee": 9,
+    "entry-level": 449,
+    "trainee": 7,
+    "internship": 10,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 298,
-    "0-2-years": 384,
-    "no-experience": 24
+    "2-5-years": 276,
+    "0-2-years": 180,
+    "no-experience": 21
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1392,8 +1392,8 @@
     "candidateRows": 0,
     "uniqueCandidates": 0,
     "freshQualifyingRoles": 0,
-    "preservedPreviousRoles": 244,
-    "qualifyingRoles": 244,
+    "preservedPreviousRoles": 0,
+    "qualifyingRoles": 0,
     "drops": {
       "nonUs": 0,
       "title": 0,
@@ -1411,26 +1411,14 @@
       "Amazon Jobs returned no rows; retained previous AWS snapshot."
     ],
     "fallbackFreshness": {
-      "active": true,
-      "expired": false,
-      "lastHealthyAt": "2026-09-20T16:01:02Z",
-      "checkedAt": "2026-09-21T04:50:32.469Z",
+      "active": false,
+      "expired": true,
+      "lastHealthyAt": null,
+      "checkedAt": "2026-09-22T11:45:39.235Z",
       "maxAgeHours": 96,
-      "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
-    },
-    "qaDeadSnapshotReconciliation": {
-      "checkedAt": "2026-09-22T10:04:52.728Z",
-      "removedRoles": 7,
-      "removedRequisitionIds": [
-        "10552223",
-        "10538152",
-        "10504890",
-        "10499283",
-        "10435864",
-        "10433897",
-        "10433704"
-      ],
-      "policy": "Nightly QA-confirmed 404/410 or generic-career redirects are removed from the preserved AWS snapshot so stale roles do not return during an active source fallback."
+      "expiredAgeHours": null,
+      "rolesRemoved": 244,
+      "policy": "AWS fallback exceeded 96 hours without an evidenced complete healthy official-source search, so retained AWS roles were removed until the source recovers."
     }
   },
   "microsoftDatacenter": {
@@ -2113,7 +2101,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T11:44:43.354Z",
+    "checkedAt": "2026-09-22T11:45:39.344Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2121,28 +2109,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T11:44:43.417Z",
+    "updatedAt": "2026-09-22T11:45:39.397Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 706,
+    "regionAssigned": 477,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 112,
-      "texas": 119,
-      "midwest": 138,
-      "southeast": 106,
-      "mid-atlantic": 124,
-      "southwest": 83,
-      "northeast": 23,
+      "west": 63,
+      "texas": 92,
+      "midwest": 97,
+      "southeast": 80,
+      "mid-atlantic": 65,
+      "southwest": 64,
+      "northeast": 15,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T11:44:43.515Z",
-    "before": 706,
-    "after": 706,
+    "checkedAt": "2026-09-22T11:45:39.446Z",
+    "before": 477,
+    "after": 477,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2157,16 +2145,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1237,
-    "currentJobs": 706,
+    "currentJobs": 477,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 16,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 108,
-    "updatedAt": "2026-09-22T11:44:43.663Z"
+    "updatedAt": "2026-09-22T11:45:39.579Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2213,8 +2201,8 @@
     "detailUnknownExperience": 0,
     "detailOverFiveYears": 0,
     "invalidUrls": 0,
-    "preservedPrevious": 251,
-    "qualifyingRoles": 251,
+    "preservedPrevious": 244,
+    "qualifyingRoles": 244,
     "detailErrorSamples": [],
     "errors": [
       "data center: 503 https://www.amazon.jobs/search.json?offset=0&result_limit=100&sort=recent&base_query=data+center&loc_query=&city=&region=&county=&query_options=&country%5B%5D=USA&facets%5B%5D=normalized_country_code&facets%5B%5D=normalized_state_name&facets%5B%5D=normalized_city_name&facets%5B%5D=is_intern",

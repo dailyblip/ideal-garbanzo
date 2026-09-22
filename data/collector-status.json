@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-22T11:33:52.091Z",
-  "jobs": 707,
+  "updatedAt": "2026-09-22T11:40:57.182Z",
+  "jobs": 706,
   "sourcesAttempted": 32,
   "providers": {
     "lever": 7,
@@ -10,14 +10,14 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 676,
+    "entry-level": 675,
     "internship": 11,
     "trainee": 9,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 298,
-    "0-2-years": 385,
+    "0-2-years": 384,
     "no-experience": 24
   },
   "errors": [],
@@ -2122,10 +2122,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T11:33:52.234Z",
+    "updatedAt": "2026-09-22T11:41:29.661Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 707,
+    "regionAssigned": 706,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -2136,14 +2136,14 @@
       "southeast": 106,
       "mid-atlantic": 124,
       "southwest": 83,
-      "northeast": 24,
+      "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T11:33:52.300Z",
-    "before": 707,
-    "after": 707,
+    "checkedAt": "2026-09-22T11:41:29.713Z",
+    "before": 706,
+    "after": 706,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2158,16 +2158,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1237,
-    "currentJobs": 707,
-    "newJobsThisRun": 2,
-    "changedJobsThisRun": 1,
-    "migratedEntriesThisRun": 2,
+    "currentJobs": 706,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 108,
-    "updatedAt": "2026-09-22T11:33:52.421Z"
+    "updatedAt": "2026-09-22T11:41:29.802Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2227,21 +2227,22 @@
     ]
   },
   "earlyCareerStalePrune": {
-    "checkedAt": "2026-09-10T20:49:51.524Z",
-    "candidates": 81,
-    "open": 72,
+    "checkedAt": "2026-09-22T11:40:57.182Z",
+    "scope": "all published 0-5-year roles",
+    "candidates": 707,
+    "open": 692,
     "definitivelyClosed": 1,
-    "transientRetained": 5,
-    "providerVerifiedRetained": 3,
+    "transientRetained": 14,
+    "providerVerifiedRetained": 0,
     "removed": [
       {
-        "id": "amazon-10532221",
+        "id": "amazon-10539556",
         "company": "Amazon Web Services",
-        "title": "Work Based Learning Program Data Center Operations Technician",
-        "sourceUrl": "https://www.amazon.jobs/en/jobs/10532221/work-based-learning-program-data-center-operations-technician"
+        "title": "Engineering Operations Technician",
+        "sourceUrl": "https://www.amazon.jobs/en/jobs/10539556/engineering-operations-technician"
       }
     ],
-    "policy": "Recheck internships, apprenticeships, trainees and no-experience roles. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
+    "policy": "Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
     "checkedAt": "2026-09-22T06:29:09.410Z",

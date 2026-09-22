@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T21:49:56.860Z",
+  "updatedAt": "2026-09-22T22:21:09.731Z",
   "jobs": 723,
   "sourcesAttempted": 19,
   "providers": {
@@ -3588,25 +3588,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T21:49:56.930Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-22T22:21:09.813Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T21:49:57.000Z",
+    "updatedAt": "2026-09-22T22:21:09.892Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 723,
@@ -3625,7 +3615,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T21:49:57.066Z",
+    "checkedAt": "2026-09-22T22:21:09.966Z",
     "before": 723,
     "after": 723,
     "removed": 0,
@@ -3651,7 +3641,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T21:49:57.615Z"
+    "updatedAt": "2026-09-22T22:21:10.099Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3729,18 +3719,18 @@
     "policy": "Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-22T17:41:07.864Z",
+    "checkedAt": "2026-09-22T22:21:09.731Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",
     "officialLeverBoard": "https://jobs.lever.co/cologix",
     "api": "https://api.lever.co/v0/postings/cologix?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 28,
-    "usJobs": 20,
+    "listedJobs": 27,
+    "usJobs": 19,
     "candidateRoles": 10,
     "qualifyingRoles": 8,
-    "rejectedOutOfScopeTitle": 10,
+    "rejectedOutOfScopeTitle": 9,
     "rejectedSeniorTitle": 0,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0

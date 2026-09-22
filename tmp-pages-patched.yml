@@ -1,0 +1,452 @@
+name: Refresh jobs and deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy_only:
+        description: 'Deploy current main without running a full job refresh'
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    - cron: '17 13 * * *'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  refresh:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only != true)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Refresh employer-direct jobs
+        run: node scripts/collect-jobs.mjs
+      - name: Refresh official TierPoint roles
+        run: node scripts/collect-tierpoint-v3.mjs
+      - name: Add official Sabey careers roles
+        run: node scripts/collect-sabey-careers.mjs
+      - name: Persist Sabey source snapshot
+        run: node scripts/persist-sabey-snapshot.mjs
+      - name: Add official Novva Data Centers roles
+        run: node scripts/collect-novva-careers.mjs
+      - name: Add official Iron Mountain data center roles
+        run: node scripts/collect-iron-mountain.mjs
+      - name: Add official Compass Datacenters roles
+        run: node scripts/collect-compass-datacenters.mjs
+      - name: Persist Compass source health
+        run: node scripts/persist-compass-status.mjs
+      - name: Add official T5 Data Centers roles
+        run: node scripts/collect-t5-data-centers.mjs
+      - name: Merge priority major-employer jobs
+        run: node scripts/collect-major-jobs.mjs
+      - name: Reconcile major-employer snapshot
+        run: node scripts/reconcile-major-jobs.mjs
+      - name: Recover verified U.S. priority Workday roles
+        run: node scripts/recover-major-workday-targeted.mjs
+      - name: Scrub targeted Workday recovery noise
+        run: node scripts/scrub-major-targeted-noise.mjs
+      - name: Add early-career internships and training roles
+        run: node scripts/collect-early-career.mjs
+      - name: Add official AWS data center roles
+        run: node scripts/collect-amazon-datacenter.mjs
+      - name: Restore fresh Microsoft snapshot before direct refresh
+        run: node scripts/apply-microsoft-verified-fallback.mjs
+      - name: Add official Microsoft datacenter roles
+        run: node scripts/collect-microsoft-datacenter.mjs
+      - name: Persist freshly verified Microsoft snapshot
+        run: node scripts/persist-microsoft-snapshot.mjs
+      - name: Add official Google Careers roles
+        run: node scripts/collect-google-careers.mjs
+      - name: Add official Meta Careers roles
+        run: node scripts/collect-meta-careers.mjs
+      - name: Recover Meta requirements from structured data
+        run: node scripts/recover-meta-structured.mjs
+      - name: Add official Oracle Careers roles
+        run: node scripts/collect-oracle-careers.mjs
+      - name: Add official Digital Realty roles
+        run: node scripts/collect-digital-realty.mjs
+      - name: Add official CoreSite operations roles
+        run: node scripts/collect-coresite.mjs
+      - name: Preserve freshly verified CoreSite roles when GitHub is blocked
+        run: node scripts/apply-coresite-verified-fallback.mjs
+      - name: Add official Equinix careers roles
+        run: node scripts/collect-equinix-v2.mjs
+      - name: Add Equinix US early-career roles
+        run: node scripts/collect-equinix-early.mjs
+      - name: Restore source-verified Equinix roles when rendered requirements are unavailable
+        run: node scripts/apply-equinix-verified-fallback.mjs
+      - name: Enforce mission-fit role families
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize job locations
+        run: node scripts/normalize-job-locations.mjs
+      - name: Expand Workday multi-location regional coverage
+        run: node scripts/enrich-workday-multilocation.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Normalize display copy punctuation
+        run: node scripts/normalize-display-copy.mjs
+      - name: Run live link, duplicate, and career-event QA
+        run: node scripts/qa-site.mjs
+      - name: Refresh post-QA regional coverage
+        run: node scripts/refresh-region-status.mjs
+      - name: Guard against refresh regressions
+        run: node scripts/validate-refresh-health.mjs
+      - name: Track first-seen dates for weekly job emails
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate site and job data
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-promotions.mjs
+          node scripts/validate-employer-submissions.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-mailing-list.mjs
+          node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-t5-data-centers.mjs
+          node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-meta-snapshot.mjs
+          node scripts/validate-digital-realty.mjs
+          node scripts/validate-databank.mjs
+          node scripts/validate-databank-publication-state.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-major-workday-parity.mjs
+          node scripts/validate-coresite-fallback.mjs
+      - name: Validate approved homepage contract
+        run: node scripts/validate-homepage-contract.mjs
+      - name: Commit refreshed jobs and events when changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+
+            node scripts/collect-jobs.mjs
+            node scripts/collect-tierpoint-v3.mjs
+            node scripts/collect-sabey-careers.mjs
+            node scripts/persist-sabey-snapshot.mjs
+            node scripts/collect-novva-careers.mjs
+            node scripts/collect-iron-mountain.mjs
+            node scripts/collect-compass-datacenters.mjs
+            node scripts/persist-compass-status.mjs
+            node scripts/collect-t5-data-centers.mjs
+            node scripts/collect-major-jobs.mjs
+            node scripts/reconcile-major-jobs.mjs
+            node scripts/recover-major-workday-targeted.mjs
+            node scripts/scrub-major-targeted-noise.mjs
+            node scripts/collect-early-career.mjs
+            node scripts/collect-amazon-datacenter.mjs
+            node scripts/apply-microsoft-verified-fallback.mjs
+            node scripts/collect-microsoft-datacenter.mjs
+            node scripts/persist-microsoft-snapshot.mjs
+            node scripts/collect-google-careers.mjs
+            node scripts/collect-meta-careers.mjs
+            node scripts/recover-meta-structured.mjs
+            node scripts/collect-oracle-careers.mjs
+            node scripts/collect-digital-realty.mjs
+            node scripts/collect-coresite.mjs
+            node scripts/apply-coresite-verified-fallback.mjs
+            node scripts/collect-equinix-v2.mjs
+            node scripts/collect-equinix-early.mjs
+            node scripts/apply-equinix-verified-fallback.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/enrich-workday-multilocation.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/normalize-display-copy.mjs
+            node scripts/qa-site.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/validate-refresh-health.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-promotions.mjs
+            node scripts/validate-employer-submissions.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-mailing-list.mjs
+            node scripts/validate-compass-datacenters.mjs
+            node scripts/validate-t5-data-centers.mjs
+            node scripts/validate-microsoft-snapshot.mjs
+            node scripts/validate-meta-snapshot.mjs
+            node scripts/validate-digital-realty.mjs
+            node scripts/validate-databank.mjs
+            node scripts/validate-databank-publication-state.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-major-workday-parity.mjs
+            node scripts/validate-coresite-fallback.mjs
+            node scripts/validate-homepage-contract.mjs
+          }
+
+          commit_refresh_state() {
+            # Every refresh artifact under data/ is repository state. Stage all
+            # tracked data changes so newly added collectors cannot outgrow a
+            # hand-maintained filename list and leave the runner dirty.
+            git add -u -- data/
+
+            if git diff --cached --quiet; then
+              echo "No tracked job, career-event, snapshot, or QA data changes."
+            else
+              git commit -m "Refresh verified jobs, events, and QA report"
+            fi
+
+            if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+              echo "::error::Refresh left unexpected tracked changes outside data/."
+              git status --short --untracked-files=no
+              exit 1
+            fi
+          }
+
+          refresh_base="$(git rev-parse HEAD)"
+          commit_refresh_state
+
+          # Employer-specific writers can move main while the daily full refresh
+          # is collecting. Never rebase generated JSON from a stale checkout:
+          # rebuild the entire verified feed from newest main and retry instead.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            latest_main="$(git rev-parse origin/main)"
+
+            if [ "$latest_main" != "$refresh_base" ]; then
+              echo "Main moved during full refresh; rebuilding from latest main (attempt ${attempt})."
+              rebuild_from_latest_main
+              refresh_base="$(git rev-parse HEAD)"
+              commit_refresh_state
+              latest_main="$(git rev-parse origin/main)"
+            fi
+
+            if [ "$(git rev-parse HEAD)" = "$latest_main" ]; then
+              echo "No refresh commit to push after rebuilding from latest main."
+              exit 0
+            fi
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Main moved before full refresh push completed; retrying from latest main."
+            sleep $((attempt * 2))
+          done
+
+          echo "::error::Could not publish full refresh after three fresh rebuilds."
+          exit 1
+
+  deploy:
+    needs: [refresh]
+    if: always() && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only == true) || needs.refresh.result == 'success')
+    # Serialize only actual Pages deployments. Keeping concurrency at the job
+    # level lets source-refresh workflows materialize instead of being dropped
+    # while an earlier deployment is pending at GitHub Pages.
+    concurrency:
+      group: data-center-careers-deploy
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && github.sha || 'main' }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate JavaScript build scripts
+        run: |
+          for file in scripts/*.mjs; do
+            node --check "$file"
+          done
+      - name: Apply current CoreSite verified fallback for the build
+        run: node scripts/apply-coresite-verified-fallback.mjs
+      - name: Apply current Microsoft verified fallback for the build
+        run: node scripts/apply-microsoft-verified-fallback.mjs
+      - name: Apply current Equinix verified fallback for the build
+        run: node scripts/apply-equinix-verified-fallback.mjs
+      - name: Enforce mission-fit role families for the build
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize job locations for the build
+        run: node scripts/normalize-job-locations.mjs
+      - name: Expand Workday multi-location regional coverage for the build
+        run: node scripts/enrich-workday-multilocation.mjs
+      - name: Deduplicate normalized jobs for the build
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Refresh regional coverage for the build
+        run: node scripts/refresh-region-status.mjs
+      - name: Restore job discovery history for the build
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate committed feed before build
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-promotions.mjs
+          node scripts/validate-employer-submissions.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-mailing-list.mjs
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-t5-data-centers.mjs
+          node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-meta-snapshot.mjs
+          node scripts/validate-digital-realty.mjs
+          node scripts/validate-databank.mjs
+          node scripts/validate-databank-publication-state.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-major-workday-parity.mjs
+          node scripts/validate-major-workday-freshness-state.mjs
+          node scripts/validate-coresite-fallback.mjs
+          node scripts/validate-data-freshness.mjs
+      - name: Generate crawlable SEO pages
+        run: |
+          node scripts/generate-seo.mjs
+          node scripts/generate-region-seo.mjs
+          node scripts/generate-company-seo.mjs
+          mkdir -p assets/guides
+          base64 -d assets/guides/data-center-career-guide-mentor.webp.b64 > assets/guides/data-center-career-guide-mentor.webp
+          base64 -d assets/guides/data-center-internship-training.webp.b64 > assets/guides/data-center-internship-training.webp
+          node scripts/generate-career-guide.mjs
+          node scripts/generate-apprenticeship-guide.mjs
+          node scripts/generate-internship-guide.mjs
+          node scripts/harden-seo.mjs
+          node scripts/inject-google-analytics.mjs
+      - name: Validate latest main before deployment
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-promotions.mjs
+          node scripts/validate-employer-submissions.mjs
+          node scripts/validate-job-history.mjs
+          node scripts/validate-mailing-list.mjs
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate-compass-datacenters.mjs
+          node scripts/validate-t5-data-centers.mjs
+          node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-meta-snapshot.mjs
+          node scripts/validate-digital-realty.mjs
+          node scripts/validate-databank.mjs
+          node scripts/validate-databank-publication-state.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-major-workday-parity.mjs
+          node scripts/validate-major-workday-freshness-state.mjs
+          node scripts/validate-coresite-fallback.mjs
+          node scripts/validate-site-copy.mjs
+          node scripts/validate-accessibility.mjs
+          node scripts/validate-technical-seo.mjs
+          node scripts/validate-google-analytics.mjs
+          node scripts/validate-discovery-landings.mjs
+          expected_jobs=$(node -e "console.log(require('./data/jobs.json').length)")
+          generated_jobs=$(find jobs -mindepth 2 -maxdepth 2 -type f -name index.html | wc -l)
+          test "$expected_jobs" -eq "$generated_jobs"
+          test -s sitemap.xml
+          test -s robots.txt
+          test -s jobs/index.html
+          test -s locations/index.html
+          test -s companies/index.html
+          test -s apprenticeships/index.html
+          test -s internships/index.html
+          test -s entry-level/index.html
+          test -s career-events/index.html
+          test -s how-to-get-a-data-center-job/index.html
+          test -s how-to-get-a-data-center-apprenticeship/index.html
+          test -s how-to-get-a-data-center-internship/index.html
+          test -s assets/guides/data-center-career-guide-mentor.webp
+          test -s assets/guides/data-center-internship-training.webp
+          grep -Fq 'How to get a job at a data center' how-to-get-a-data-center-job/index.html
+          grep -Fq 'How to get a data center apprenticeship' how-to-get-a-data-center-apprenticeship/index.html
+          grep -Fq 'How to get a data center internship' how-to-get-a-data-center-internship/index.html
+          grep -Fq '/locations/' sitemap.xml
+          grep -Fq '/companies/' sitemap.xml
+          grep -Fq '/how-to-get-a-data-center-job/' sitemap.xml
+          grep -Fq '/how-to-get-a-data-center-apprenticeship/' sitemap.xml
+          grep -Fq '/how-to-get-a-data-center-internship/' sitemap.xml
+          grep -Fq '/how-to-get-a-data-center-apprenticeship/' apprenticeships/index.html
+          grep -Fq '/how-to-get-a-data-center-internship/' internships/index.html
+          grep -R -m1 '"@type":"JobPosting"' jobs/*/index.html >/dev/null
+      - name: Stamp deployment revision
+        run: |
+          printf '{"sha":"%s","generatedAt":"%s"}\n' "$(git rev-parse HEAD)" "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" > deployment-version.json
+      - uses: actions/configure-pages@v5
+      - name: Choose unique Pages artifact name
+        id: pages_artifact
+        run: echo "name=github-pages-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${GITHUB_JOB}-$(date +%s%N)" >> "$GITHUB_OUTPUT"
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+          name: ${{ steps.pages_artifact.outputs.name }}
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ steps.pages_artifact.outputs.name }}
+      - name: Verify custom-domain deployment
+        run: |
+          set -euo pipefail
+          reported_base='${{ steps.deployment.outputs.page_url }}'
+          reported_base="${reported_base%/}"
+          base='https://datacentercareers.us'
+          expected_sha="$(git rev-parse HEAD)"
+
+          case "$reported_base" in
+            *datacentercareers.us*) ;;
+            *)
+              echo "::error::Pages reported an unexpected public URL: $reported_base"
+              exit 1
+              ;;
+          esac
+
+          curl_args=(--fail --silent --show-error --location --connect-timeout 10 --max-time 30 --header 'Cache-Control: no-cache')
+          ready=false
+          actual_sha=''
+
+          for attempt in $(seq 1 18); do
+            cache_key="${expected_sha}-$(date +%s)-${attempt}"
+            actual_sha=''
+            if curl "${curl_args[@]}" "${base}/deployment-version.json?deploy=${cache_key}" -o /tmp/deployment-version.json; then
+              actual_sha="$(node -e "try { console.log(require('/tmp/deployment-version.json').sha || '') } catch { console.log('') }" 2>/dev/null)"
+              if [ "$actual_sha" = "$expected_sha" ]; then
+                ready=true
+                break
+              fi
+            else
+              curl_status=$?
+              echo "Custom-domain HTTPS check failed (attempt ${attempt}/18; curl exit ${curl_status})."
+            fi
+            echo "Waiting for custom-domain edge to serve revision ${expected_sha:0:8} (attempt ${attempt}/18; saw ${actual_sha:-none})."
+            if [ "$attempt" -lt 18 ]; then sleep 10; fi
+          done
+
+          if [ "$ready" != true ]; then
+            echo "::error::Custom domain did not serve the deployed revision ${expected_sha} over verified HTTPS within the propagation window; last revision was ${actual_sha:-unreadable}."
+            exit 1
+          fi
+
+          cache_key="${expected_sha}-verified"
+          curl "${curl_args[@]}" "${base}/?deploy=${cache_key}" -o /tmp/homepage.html
+          homepage_text="$(sed -E 's/<[^>]+>/ /g; s/&nbsp;/ /g' /tmp/homepage.html | tr '\n' ' ' | sed -E 's/[[:space:]]+/ /g')"
+          printf '%s' "$homepage_text" | grep -Fq 'SKILLED WORK · MODERN INFRASTRUCTURE · REAL OPPORTUNITY'
+          printf '%s' "$homepage_text" | grep -Fq 'Build your future in data centers.'
+          printf '%s' "$homepage_text" | grep -Fq 'Real openings for interns, apprentices, first-time applicants and workers ready for their next step.'
+          grep -Fq 'G-TD86GFYGW5' /tmp/homepage.html
+
+          curl "${curl_args[@]}" "${base}/assets/styles.css?deploy=${cache_key}" -o /tmp/styles.css
+          test -s /tmp/styles.css
+
+          curl "${curl_args[@]}" "${base}/data/jobs.json?deploy=${cache_key}" -o /tmp/jobs.json
+          node -e "const jobs=require('/tmp/jobs.json'); if (!Array.isArray(jobs) || jobs.length === 0) process.exit(1);"
+
+          echo "Custom-domain smoke test passed for ${base} at revision ${expected_sha:0:8}."
+      - name: Validate live indexability after deployment
+        run: |
+          LIVE_SITE_BASE='https://datacentercareers.us' \
+          DEPLOYMENT_SHA="$(git rev-parse HEAD)" \
+          node scripts/validate-live-indexability.mjs

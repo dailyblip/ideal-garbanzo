@@ -138,8 +138,8 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-22T13:44:56.298Z",
-    "lastHealthyAt": "2026-09-22T13:44:56.298Z",
+    "checkedAt": "2026-09-22T17:19:42.701Z",
+    "lastHealthyAt": "2026-09-22T17:19:42.701Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
@@ -147,7 +147,7 @@
     "listingPagesAttempted": 19,
     "listingPagesSucceeded": 19,
     "listingComplete": true,
-    "listedTotal": 370,
+    "listedTotal": 375,
     "candidateRows": 14,
     "detailAttempted": 14,
     "detailSucceeded": 14,
@@ -166,9 +166,9 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-22T13:44:56.298Z",
-      "checkedAt": "2026-09-22T13:44:56.298Z",
-      "expiresAt": "2026-09-26T13:44:56.298Z",
+      "lastHealthyAt": "2026-09-22T17:19:42.701Z",
+      "checkedAt": "2026-09-22T17:19:42.701Z",
+      "expiresAt": "2026-09-26T17:19:42.701Z",
       "ageHours": 0,
       "maxAgeHours": 96,
       "roles": 11,
@@ -2110,7 +2110,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T17:19:27.807Z",
+    "checkedAt": "2026-09-22T17:20:05.512Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2118,7 +2118,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T17:19:27.873Z",
+    "updatedAt": "2026-09-22T17:20:05.588Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 715,
@@ -2137,7 +2137,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T17:19:27.931Z",
+    "checkedAt": "2026-09-22T17:20:05.658Z",
     "before": 715,
     "after": 715,
     "removed": 0,
@@ -2155,17 +2155,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1258,
     "currentJobs": 715,
-    "scopeCompany": "Oracle",
-    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 15,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-22T17:19:28.050Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 111,
+    "updatedAt": "2026-09-22T17:20:05.841Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -40,14 +40,14 @@ jobs:
         run: |
           node --check scripts/recover-amazon-details.mjs
           node scripts/recover-amazon-details.mjs
-      - name: Enforce AWS fallback freshness
-        run: |
-          node scripts/enforce-amazon-fallback-freshness.mjs --test
-          node scripts/enforce-amazon-fallback-freshness.mjs
       - name: Stamp AWS source verification evidence
         run: |
           node --check scripts/stamp-amazon-source-verification.mjs
           node scripts/stamp-amazon-source-verification.mjs
+      - name: Enforce AWS fallback freshness
+        run: |
+          node scripts/enforce-amazon-fallback-freshness.mjs --test
+          node scripts/enforce-amazon-fallback-freshness.mjs
       - name: Normalize recovered feed
         run: |
           node scripts/filter-mission-fit.mjs
@@ -81,10 +81,10 @@ jobs:
             node scripts/collect-amazon-datacenter.mjs
             node --check scripts/recover-amazon-details.mjs
             node scripts/recover-amazon-details.mjs
-            node scripts/enforce-amazon-fallback-freshness.mjs --test
-            node scripts/enforce-amazon-fallback-freshness.mjs
             node --check scripts/stamp-amazon-source-verification.mjs
             node scripts/stamp-amazon-source-verification.mjs
+            node scripts/enforce-amazon-fallback-freshness.mjs --test
+            node scripts/enforce-amazon-fallback-freshness.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs

@@ -15,6 +15,8 @@ on:
       - 'scripts/prune-meta-overfive.mjs'
       - 'scripts/reconcile-meta-status.mjs'
       - 'scripts/normalize-meta-compensation.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
 
 permissions:
@@ -38,7 +40,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Preserve last verified Meta state
+      - name: Validate Meta source-isolation helpers
+        run: |
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve last verified Meta state and public-feed boundary
         run: |
           cp data/meta-jobs.json /tmp/meta-jobs-before.json
           cp data/jobs.json /tmp/meta-jobs-public-before.json
@@ -94,12 +101,18 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Persist first-seen dates for weekly alerts
-        run: node scripts/stamp-job-history.mjs
+      - name: Reapply Meta source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json
+          node scripts/preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json --verify
+      - name: Persist Meta first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs --company Meta
+      - name: Verify non-Meta rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json --verify
       - name: Validate refreshed feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-meta-snapshot.mjs
           node scripts/validate-homepage-contract.mjs
       - name: Publish Meta snapshot from current main
@@ -136,9 +149,12 @@ jobs:
             node scripts/normalize-meta-compensation.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json
+            node scripts/preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json --verify
+            node scripts/stamp-job-history.mjs --company Meta
+            node scripts/preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-meta-snapshot.mjs
             node scripts/validate-homepage-contract.mjs
           }

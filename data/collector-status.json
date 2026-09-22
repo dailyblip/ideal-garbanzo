@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T07:57:10.523Z",
+  "updatedAt": "2026-09-22T08:45:41.562Z",
   "jobs": 716,
   "sourcesAttempted": 25,
   "providers": {
@@ -219,19 +219,19 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-21T05:56:22.843Z",
+    "checkedAt": "2026-09-22T08:45:41.562Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
     "officialLeverBoard": "https://jobs.lever.co/t5datacenters",
     "api": "https://api.lever.co/v0/postings/t5datacenters?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 86,
-    "usJobs": 76,
-    "candidateRoles": 28,
+    "listedJobs": 90,
+    "usJobs": 81,
+    "candidateRoles": 29,
     "qualifyingRoles": 22,
-    "rejectedOutOfScopeTitle": 48,
-    "rejectedSeniorTitle": 3,
+    "rejectedOutOfScopeTitle": 52,
+    "rejectedSeniorTitle": 4,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 3
   },
@@ -2081,7 +2081,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T07:57:10.602Z",
+    "checkedAt": "2026-09-22T08:45:41.644Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2089,7 +2089,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T07:57:10.678Z",
+    "updatedAt": "2026-09-22T08:45:41.721Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 716,
@@ -2108,7 +2108,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T07:57:10.749Z",
+    "checkedAt": "2026-09-22T08:45:41.791Z",
     "before": 716,
     "after": 716,
     "removed": 0,
@@ -2134,7 +2134,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T07:57:10.872Z"
+    "updatedAt": "2026-09-22T08:45:41.974Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-22T20:55:20.674Z",
+  "updatedAt": "2026-09-22T21:13:37.132Z",
   "jobs": 721,
-  "sourcesAttempted": 40,
+  "sourcesAttempted": 41,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 2,
+    "oracleRecruitingCloud": 3,
     "icims": 1,
     "googleCareers": 1,
     "workday": 6
@@ -1877,8 +1877,8 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2224,
-    "listingRows": 2221,
+    "totalOpenRoles": 2234,
+    "listingRows": 2231,
     "pagesAttempted": 13,
     "pagesSucceeded": 13,
     "candidateRows": 95,
@@ -1887,7 +1887,7 @@
     "preservedFromPrevious": 0,
     "qualifyingRoles": 15,
     "drops": {
-      "title": 2126,
+      "title": 2136,
       "nonUs": 34,
       "context": 12,
       "experience": 29,
@@ -1895,19 +1895,19 @@
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-22T17:19:26.525Z",
-    "lastHealthyAt": "2026-09-22T17:19:26.525Z",
+    "checkedAt": "2026-09-22T21:13:37.132Z",
+    "lastHealthyAt": "2026-09-22T21:13:37.132Z",
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-22T17:19:26.525Z",
-      "checkedAt": "2026-09-22T17:19:26.525Z",
+      "lastHealthyAt": "2026-09-22T21:13:37.132Z",
+      "checkedAt": "2026-09-22T21:13:37.132Z",
       "maxAgeHours": 96,
       "ageHours": 0,
       "policy": "Retain the most recent verified Oracle snapshot for up to 96 hours when the official source is unavailable; fail closed after expiry."
     },
     "missionFitScrub": {
-      "checkedAt": "2026-09-22T17:19:27.742Z",
+      "checkedAt": "2026-09-22T21:13:38.011Z",
       "removedFromSnapshot": 4,
       "removedFromPublicFeed": 4,
       "experienceCandidates": 15,
@@ -2114,104 +2114,17 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T20:59:27.955Z",
-    "removedCount": 3,
-    "removedByReason": {
-      "senior/executive title": 3
-    },
-    "removed": [
-      {
-        "id": "workday-stackinfra-JR00247",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-stackinfra-JR00249",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Sterling, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-aligneddc-JR101023",
-        "company": "Aligned Data Centers",
-        "title": "VP, Operations - South Region",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      }
-    ],
-    "majorSnapshotRemovedCount": 3,
-    "majorSnapshotRemoved": [
-      {
-        "id": "workday-stackinfra-JR00247",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-stackinfra-JR00249",
-        "company": "STACK Infrastructure",
-        "title": "Critical Operations Integration Lead",
-        "location": "Sterling, VA",
-        "reason": "senior/executive title"
-      },
-      {
-        "id": "workday-aligneddc-JR101023",
-        "company": "Aligned Data Centers",
-        "title": "VP, Operations - South Region",
-        "location": "Plano, TX",
-        "reason": "senior/executive title"
-      }
-    ]
+    "checkedAt": "2026-09-22T21:13:38.081Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
+    "majorSnapshotRemovedCount": 0,
+    "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T20:59:28.017Z",
-    "changed": 11,
-    "samples": [
-      {
-        "id": "workday-qtsdatacenters-R2026-0881",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1093",
-        "before": "US VA Manassas 1 DC1",
-        "after": "Manassas, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0917",
-        "before": "US VA Ashburn 1 DC1",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0893",
-        "before": "US OR Hillsboro 1 DC1",
-        "after": "Hillsboro, OR"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0768",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-aligneddc-JR101086",
-        "before": "IAD-02",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-aligneddc-JR100970",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      },
-      {
-        "id": "workday-aligneddc-JR100971",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      }
-    ],
+    "updatedAt": "2026-09-22T21:13:38.156Z",
+    "changed": 0,
+    "samples": [],
     "regionAssigned": 721,
     "regionMissing": 0,
     "coveragePct": 100,
@@ -2228,149 +2141,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T20:59:28.125Z",
-    "before": 738,
+    "checkedAt": "2026-09-22T21:13:38.223Z",
+    "before": 721,
     "after": 721,
-    "removed": 17,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101677",
-        "keptId": "workday-nttglobaldatacenters-JR102055",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101981",
-        "keptId": "workday-nttglobaldatacenters-JR101999",
-        "company": "NTT Global Data Centers",
-        "title": "1139 - Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101968",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0893",
-        "keptId": "workday-qtsdatacenters-R2026-0982",
-        "company": "QTS Data Centers",
-        "title": "Critical Environment Engineer",
-        "location": "Hillsboro, OR"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0881",
-        "keptId": "workday-qtsdatacenters-R2026-0768",
-        "company": "QTS Data Centers",
-        "title": "Regional Data Center Controls Quality Engineer",
-        "location": "Suwanee, GA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101929",
-        "keptId": "workday-nttglobaldatacenters-JR101473",
-        "company": "NTT Global Data Centers",
-        "title": "5175 - Data Center Technician L2",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101861",
-        "keptId": "workday-nttglobaldatacenters-JR101912",
-        "company": "NTT Global Data Centers",
-        "title": "1127 - Data Center Technician L2",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101799",
-        "keptId": "workday-nttglobaldatacenters-JR101533",
-        "company": "NTT Global Data Centers",
-        "title": "5155 - Data Center IT Infrastructure Technician",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101847",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101681",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101746",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101821",
-        "keptId": "workday-nttglobaldatacenters-JR101755",
-        "company": "NTT Global Data Centers",
-        "title": "1162 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101610",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101473",
-        "keptId": "workday-nttglobaldatacenters-JR101129",
-        "company": "NTT Global Data Centers",
-        "title": "5174 - Data Center Technician L2",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101755",
-        "keptId": "workday-nttglobaldatacenters-JR100547",
-        "company": "NTT Global Data Centers",
-        "title": "5203 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR100813",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR100547",
-        "keptId": "workday-nttglobaldatacenters-JR100436",
-        "company": "NTT Global Data Centers",
-        "title": "2227 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-22T12:24:20.898Z",
@@ -2383,24 +2159,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1261,
     "currentJobs": 721,
-    "scopedJobs": 167,
-    "newJobsThisRun": 1,
+    "scopeCompany": "Oracle",
+    "scopedJobs": 15,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 167,
+    "normalizedWorkdayPostingDatesThisRun": 15,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-22T20:59:28.656Z",
-    "scopeCompanies": [
-      "Vantage Data Centers",
-      "QTS Data Centers",
-      "CyrusOne",
-      "STACK Infrastructure",
-      "NTT Global Data Centers",
-      "Aligned Data Centers"
-    ]
+    "updatedAt": "2026-09-22T21:13:38.348Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

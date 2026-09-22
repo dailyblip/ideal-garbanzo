@@ -1,0 +1,75 @@
+name: One-time scope Pages concurrency
+
+on:
+  push:
+    branches:
+      - fix/pages-deploy-concurrency-scope
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/pages-deploy-concurrency-scope
+          fetch-depth: 0
+      - name: Scope concurrency to the deploy job
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('.github/workflows/pages.yml')
+          text = path.read_text()
+
+          workflow_block = """# Let an active Pages deployment finish. GitHub keeps at most one pending run
+          # in this group, so rapid source refreshes coalesce to the newest revision
+          # instead of repeatedly cancelling deployment before it can complete.
+          concurrency:
+            group: data-center-careers
+            cancel-in-progress: false
+
+          """
+          if text.count(workflow_block) != 1:
+              raise SystemExit(f'Expected one workflow concurrency block, found {text.count(workflow_block)}')
+          text = text.replace(workflow_block, '', 1)
+
+          marker = """  deploy:
+            needs: [refresh]
+            if: always() && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only == true) || needs.refresh.result == 'success')
+            environment:
+          """
+          replacement = """  deploy:
+            needs: [refresh]
+            if: always() && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only == true) || needs.refresh.result == 'success')
+            # Serialize only actual Pages deployments. Keeping concurrency at the job
+            # level lets source-refresh workflows materialize instead of being dropped
+            # while an earlier deployment is pending at GitHub Pages.
+            concurrency:
+              group: data-center-careers-deploy
+              cancel-in-progress: false
+            environment:
+          """
+          if text.count(marker) != 1:
+              raise SystemExit(f'Expected one deploy marker, found {text.count(marker)}')
+          text = text.replace(marker, replacement, 1)
+
+          if '\nconcurrency:\n  group: data-center-careers\n' in text:
+              raise SystemExit('Workflow-level concurrency block still present')
+          if text.count('group: data-center-careers-deploy') != 1:
+              raise SystemExit('Deploy concurrency block missing or duplicated')
+
+          path.write_text(text)
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/zz-fix-pages-concurrency-once.yml
+          git add .github/workflows/pages.yml
+          git diff --cached --check
+          git commit -m "Scope Pages concurrency to deploy job"
+          git push origin HEAD:fix/pages-deploy-concurrency-scope

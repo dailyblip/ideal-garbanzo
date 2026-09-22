@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T17:06:57.865Z",
+  "updatedAt": "2026-09-22T17:07:23.367Z",
   "jobs": 728,
   "sourcesAttempted": 19,
   "providers": {
@@ -9,8 +9,8 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 693,
+    "trainee": 13,
     "internship": 11,
     "apprenticeship": 11
   },
@@ -2113,7 +2113,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T17:05:01.398Z",
+    "checkedAt": "2026-09-22T17:07:23.471Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2121,7 +2121,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T17:06:57.947Z",
+    "updatedAt": "2026-09-22T17:07:23.553Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 728,
@@ -2129,18 +2129,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 116,
       "southeast": 110,
-      "mid-atlantic": 137,
+      "west": 116,
       "texas": 122,
       "midwest": 137,
+      "mid-atlantic": 137,
       "northeast": 23,
       "southwest": 82,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T17:06:58.023Z",
+    "checkedAt": "2026-09-22T17:07:23.635Z",
     "before": 728,
     "after": 728,
     "removed": 0,
@@ -2166,7 +2166,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-22T17:06:58.092Z"
+    "updatedAt": "2026-09-22T17:07:23.822Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2298,7 +2298,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-21T05:13:51.063Z",
+    "checkedAt": "2026-09-22T17:07:23.367Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

@@ -8,6 +8,7 @@ on:
       - scripts/validate-flexential.mjs
       - scripts/enforce-flexential-fallback-freshness.mjs
       - scripts/validate-flexential-freshness.mjs
+      - scripts/preserve-source-group.mjs
       - .github/workflows/flexential-bootstrap.yml
   workflow_dispatch:
   schedule:
@@ -34,14 +35,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate collector and classifier
+      - name: Validate collector, classifier and source-isolation helpers
         run: |
           node --check scripts/collect-flexential.mjs
           node --check scripts/validate-flexential.mjs
           node --check scripts/enforce-flexential-fallback-freshness.mjs
           node --check scripts/validate-flexential-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node scripts/collect-flexential.mjs --test-classifier
           node scripts/enforce-flexential-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before Flexential refresh
+        run: cp data/jobs.json /tmp/flexential-public-before.json
       - name: Collect official Flexential Greenhouse roles
         run: node scripts/collect-flexential.mjs
       - name: Enforce mission-fit role families
@@ -50,14 +56,20 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply Flexential source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json
+          node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json --verify
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate Flexential employer-direct snapshot
         run: |
           node scripts/validate-flexential.mjs
           node scripts/validate-flexential-freshness.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
+      - name: Track Flexential first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "Flexential"
+      - name: Verify non-Flexential rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json --verify
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
@@ -75,14 +87,20 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/flexential-public-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
             node scripts/collect-flexential.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json
+            node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json --verify
             node scripts/refresh-region-status.mjs
             node scripts/validate-flexential.mjs
             node scripts/validate-flexential-freshness.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "Flexential"
+            node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json --verify
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-homepage-contract.mjs

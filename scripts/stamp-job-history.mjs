@@ -7,6 +7,9 @@ const STATUS_PATH = 'data/collector-status.json';
 const FUTURE_GRACE_MS = 6 * 60 * 60 * 1000;
 const HOUR_MS = 60 * 60 * 1000;
 const repairOnly = process.argv.includes('--repair-only');
+const companyArgIndex = process.argv.indexOf('--company');
+const scopeCompany = companyArgIndex >= 0 ? String(process.argv[companyArgIndex + 1] || '').trim() : '';
+if (companyArgIndex >= 0 && !scopeCompany) throw new Error('--company requires a non-empty company name.');
 
 async function readJson(path, fallback) {
   try {
@@ -184,10 +187,13 @@ let migrated = 0;
 let recencyRepaired = 0;
 let firstSeenRecencyFallbacks = 0;
 let normalizedWorkdayPostingDates = 0;
+let scopedJobs = 0;
 
 for (const job of jobs) {
   const id = String(job?.id || '').trim();
   if (!id) throw new Error('Cannot stamp job history: published job is missing id.');
+  if (scopeCompany && String(job?.company || '').trim() !== scopeCompany) continue;
+  scopedJobs += 1;
 
   const existingEntry = historyEntries[id] && typeof historyEntries[id] === 'object' ? historyEntries[id] : {};
   const normalizedPostedAt = stablePostedAt(job, existingEntry.postedAt, nowMs);
@@ -277,6 +283,7 @@ status.jobHistory = {
   initializedAt,
   trackedJobs: Object.keys(sortedEntries).length,
   currentJobs: jobs.length,
+  ...(scopeCompany ? { scopeCompany, scopedJobs } : {}),
   newJobsThisRun: initializing ? 0 : added,
   changedJobsThisRun: changed,
   migratedEntriesThisRun: migrated,
@@ -289,10 +296,11 @@ status.jobHistory = {
 };
 await writeFile(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`);
 
+const scopeLabel = scopeCompany ? ` for ${scopeCompany} (${scopedJobs} jobs)` : '';
 console.log(
   repairOnly
-    ? `Job history repair pass: ${added} missing IDs added, ${repaired} invalid entries repaired, ${recencyRepaired} recency sentinels repaired, ${normalizedWorkdayPostingDates} Workday posting dates normalized, ${changed} content changes tracked; healthy postedHours left unchanged.`
+    ? `Job history repair pass${scopeLabel}: ${added} missing IDs added, ${repaired} invalid entries repaired, ${recencyRepaired} recency sentinels repaired, ${normalizedWorkdayPostingDates} Workday posting dates normalized, ${changed} content changes tracked; healthy postedHours left unchanged.`
     : initializing
-      ? `Initialized job history for ${seeded} existing jobs without marking the current feed as newly discovered.`
-      : `Job history updated: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs, ${normalizedWorkdayPostingDates} Workday posting dates normalized, ${firstSeenRecencyFallbacks} using first-seen recency.`
+      ? `Initialized job history${scopeLabel} for ${seeded} existing jobs without marking the current feed as newly discovered.`
+      : `Job history updated${scopeLabel}: ${added} new, ${changed} meaningfully changed, ${jobs.length} current jobs, ${Object.keys(sortedEntries).length} tracked IDs, ${normalizedWorkdayPostingDates} Workday posting dates normalized, ${firstSeenRecencyFallbacks} using first-seen recency.`
 );

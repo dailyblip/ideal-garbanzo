@@ -48,12 +48,12 @@ function syncMajorPublicationMetrics(jobs, status) {
   status.majorSources.publishedByEmployer = publishedByEmployer;
 }
 
-function buildSyncedStatus(jobs, status) {
+function buildSyncedStatus(jobs, status, { includeMajor = false } = {}) {
   const next = structuredClone(status);
   next.jobs = jobs.length;
   next.countsByType = countsBy(jobs, 'type');
   next.countsByExperience = countsBy(jobs, 'experience');
-  syncMajorPublicationMetrics(jobs, next);
+  if (includeMajor) syncMajorPublicationMetrics(jobs, next);
   return next;
 }
 
@@ -78,11 +78,13 @@ function runTests() {
     }
   };
 
-  const next = buildSyncedStatus(jobs, status);
+  const aggregateOnly = buildSyncedStatus(jobs, status);
+  const next = buildSyncedStatus(jobs, status, { includeMajor: true });
   const vantage = next.majorSources.employerDiagnostics['Vantage Data Centers'];
   const qts = next.majorSources.employerDiagnostics['QTS Data Centers'];
   const failures = [];
 
+  if (aggregateOnly.majorSources.publishedJobs !== undefined) failures.push('default synchronization must not rewrite source diagnostics');
   if (next.jobs !== 4) failures.push(`expected 4 published jobs, got ${next.jobs}`);
   if (next.countsByType['entry-level'] !== 2 || next.countsByType.internship !== 1 || next.countsByType.trainee !== 1) {
     failures.push('aggregate type counts did not match the public feed');
@@ -116,7 +118,8 @@ if (!status || typeof status !== 'object' || Array.isArray(status)) {
   throw new Error('data/collector-status.json must contain an object.');
 }
 
-const nextStatus = buildSyncedStatus(jobs, status);
+const includeMajor = args.has('--major');
+const nextStatus = buildSyncedStatus(jobs, status, { includeMajor });
 const changed = JSON.stringify(status) !== JSON.stringify(nextStatus);
 
 if (!changed) {
@@ -125,7 +128,7 @@ if (!changed) {
 }
 
 await writeFile(STATUS_PATH, JSON.stringify(nextStatus, null, 2) + '\n');
-const majorPublished = Number(nextStatus?.majorSources?.publishedJobs);
+const majorPublished = includeMajor ? Number(nextStatus?.majorSources?.publishedJobs) : NaN;
 const majorSuffix = Number.isFinite(majorPublished)
   ? `; ${majorPublished} published priority Workday roles recorded by employer`
   : '';

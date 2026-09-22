@@ -1,6 +1,6 @@
 {
-  "verifiedAt": "2026-09-21T12:44:30.688Z",
-  "expiresAt": "2026-09-25T12:44:30.688Z",
+  "verifiedAt": "2026-09-22T11:33:52.362Z",
+  "expiresAt": "2026-09-26T11:33:52.362Z",
   "officialSource": "https://apply.careers.microsoft.com/careers",
   "jobs": [
     {
@@ -23,58 +23,8 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556642872",
       "active": true,
       "demo": false,
-      "postedHours": 308,
+      "postedHours": 331,
       "region": "northeast"
-    },
-    {
-      "id": "microsoft-1970393556984941",
-      "title": "Data Center Technician - Phoenix East",
-      "company": "Microsoft",
-      "location": "Phoenix, AZ",
-      "type": "entry-level",
-      "experience": "0-2-years",
-      "tags": [
-        "0–2 Years",
-        "Critical Facilities",
-        "Electrical",
-        "IT / Hardware"
-      ],
-      "pay": "$23.65–$37.07 / hr",
-      "salaryMin": 23.65,
-      "salaryMax": 37.07,
-      "salarySortMax": 77106,
-      "postedAt": "2026-09-02T20:21:38.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556984941",
-      "active": true,
-      "demo": false,
-      "postedHours": 448,
-      "region": "southwest"
-    },
-    {
-      "id": "microsoft-1970393556957479",
-      "title": "Data Center Technician - CTJ - Top Secret",
-      "company": "Microsoft",
-      "location": "Cheyenne, WY",
-      "type": "entry-level",
-      "experience": "0-2-years",
-      "tags": [
-        "0–2 Years",
-        "Critical Facilities",
-        "Electrical",
-        "IT / Hardware"
-      ],
-      "pay": "$27.45–$48.03 / hr",
-      "salaryMin": 27.45,
-      "salaryMax": 48.03,
-      "salarySortMax": 99902,
-      "postedAt": "2026-08-11T13:46:58.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556957479",
-      "active": true,
-      "demo": false,
-      "postedHours": 983,
-      "region": "west"
     },
     {
       "id": "microsoft-1970393556984169",
@@ -98,14 +48,14 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556984169",
       "active": true,
       "demo": false,
-      "postedHours": 430,
+      "postedHours": 453,
       "region": "mid-atlantic"
     },
     {
-      "id": "microsoft-1970393556994847",
-      "title": "Data Center Technician",
+      "id": "microsoft-1970393556957479",
+      "title": "Data Center Technician - CTJ - Top Secret",
       "company": "Microsoft",
-      "location": "Goodyear, AZ",
+      "location": "Cheyenne, WY",
       "type": "entry-level",
       "experience": "0-2-years",
       "tags": [
@@ -118,13 +68,13 @@
       "salaryMin": 27.45,
       "salaryMax": 48.03,
       "salarySortMax": 99902,
-      "postedAt": "2026-09-15T17:11:38.000Z",
+      "postedAt": "2026-08-11T13:46:58.000Z",
       "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556994847",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556957479",
       "active": true,
       "demo": false,
-      "postedHours": 140,
-      "region": "southwest"
+      "postedHours": 1006,
+      "region": "west"
     },
     {
       "id": "microsoft-1970393556980027",
@@ -148,7 +98,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556980027",
       "active": true,
       "demo": false,
-      "postedHours": 663,
+      "postedHours": 686,
       "region": "southeast"
     },
     {
@@ -171,8 +121,58 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556874606",
       "active": true,
       "demo": false,
-      "postedHours": 874,
+      "postedHours": 896,
       "region": "west"
+    },
+    {
+      "id": "microsoft-1970393556984941",
+      "title": "Data Center Technician - Phoenix East",
+      "company": "Microsoft",
+      "location": "Phoenix, AZ",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "Critical Facilities",
+        "Electrical",
+        "IT / Hardware"
+      ],
+      "pay": "$23.65–$37.07 / hr",
+      "salaryMin": 23.65,
+      "salaryMax": 37.07,
+      "salarySortMax": 77106,
+      "postedAt": "2026-09-02T20:21:38.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556984941",
+      "active": true,
+      "demo": false,
+      "postedHours": 471,
+      "region": "southwest"
+    },
+    {
+      "id": "microsoft-1970393556994847",
+      "title": "Data Center Technician",
+      "company": "Microsoft",
+      "location": "Goodyear, AZ",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "Critical Facilities",
+        "Electrical",
+        "IT / Hardware"
+      ],
+      "pay": "$27.45–$48.03 / hr",
+      "salaryMin": 27.45,
+      "salaryMax": 48.03,
+      "salarySortMax": 99902,
+      "postedAt": "2026-09-15T17:11:38.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556994847",
+      "active": true,
+      "demo": false,
+      "postedHours": 162,
+      "region": "southwest"
     },
     {
       "id": "microsoft-1970393556864979",
@@ -196,57 +196,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556864979",
       "active": true,
       "demo": false,
-      "postedHours": 3259,
-      "region": "mid-atlantic"
-    },
-    {
-      "id": "microsoft-1970393556984939",
-      "title": "Critical Environment Technician",
-      "company": "Microsoft",
-      "location": "Quincy, WA",
-      "type": "entry-level",
-      "experience": "0-2-years",
-      "tags": [
-        "0–2 Years",
-        "Critical Facilities",
-        "Electrical",
-        "IT / Hardware"
-      ],
-      "pay": "$23.65–$37.07 / hr",
-      "salaryMin": 23.65,
-      "salaryMax": 37.07,
-      "salarySortMax": 77106,
-      "postedAt": "2026-09-02T17:40:01.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556984939",
-      "active": true,
-      "demo": false,
-      "postedHours": 451,
-      "region": "west"
-    },
-    {
-      "id": "microsoft-1970393556958315",
-      "title": "Critical Environment Technician",
-      "company": "Microsoft",
-      "location": "Dulles, VA",
-      "type": "entry-level",
-      "experience": "2-5-years",
-      "tags": [
-        "2–5 Years",
-        "Critical Facilities",
-        "Electrical",
-        "IT / Hardware"
-      ],
-      "pay": "$23.65–$37.07 / hr",
-      "salaryMin": 23.65,
-      "salaryMax": 37.07,
-      "salarySortMax": 77106,
-      "postedAt": "2026-08-20T18:21:24.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556958315",
-      "active": true,
-      "demo": false,
-      "postedHours": 762,
+      "postedHours": 3282,
       "region": "mid-atlantic"
     },
     {
@@ -271,37 +221,14 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556971318",
       "active": true,
       "demo": false,
-      "postedHours": 784,
+      "postedHours": 807,
       "region": "mid-atlantic"
     },
     {
-      "id": "microsoft-1970393556983019",
-      "title": "Logistics Technician - CTJ - Top Secret",
+      "id": "microsoft-1970393556958315",
+      "title": "Critical Environment Technician",
       "company": "Microsoft",
-      "location": "Manassas, VA",
-      "type": "entry-level",
-      "experience": "0-2-years",
-      "tags": [
-        "0–2 Years",
-        "IT / Hardware"
-      ],
-      "pay": "$27.16–$43.27 / hr",
-      "salaryMin": 27.16,
-      "salaryMax": 43.27,
-      "salarySortMax": 90002,
-      "postedAt": "2026-09-01T17:40:54.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556983019",
-      "active": true,
-      "demo": false,
-      "postedHours": 475,
-      "region": "mid-atlantic"
-    },
-    {
-      "id": "microsoft-1970393556938957",
-      "title": "Critical Environment Technician - CTJ - Poly",
-      "company": "Microsoft",
-      "location": "US, MD",
+      "location": "Dulles, VA",
       "type": "entry-level",
       "experience": "2-5-years",
       "tags": [
@@ -310,42 +237,17 @@
         "Electrical",
         "IT / Hardware"
       ],
-      "pay": "$34.13–$56.54 / hr",
-      "salaryMin": 34.13,
-      "salaryMax": 56.54,
-      "salarySortMax": 117603,
-      "postedAt": "2026-07-20T20:54:42.000Z",
+      "pay": "$23.65–$37.07 / hr",
+      "salaryMin": 23.65,
+      "salaryMax": 37.07,
+      "salarySortMax": 77106,
+      "postedAt": "2026-08-20T18:21:24.000Z",
       "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556938957",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556958315",
       "active": true,
       "demo": false,
-      "postedHours": 1504,
+      "postedHours": 785,
       "region": "mid-atlantic"
-    },
-    {
-      "id": "microsoft-1970393556972142",
-      "title": "Critical Environment Ops Technician",
-      "company": "Microsoft",
-      "location": "San Antonio, TX",
-      "type": "entry-level",
-      "experience": "0-2-years",
-      "tags": [
-        "0–2 Years",
-        "Critical Facilities",
-        "Electrical",
-        "IT / Hardware"
-      ],
-      "pay": "$27.45–$48.03 / hr",
-      "salaryMin": 27.45,
-      "salaryMax": 48.03,
-      "salarySortMax": 99902,
-      "postedAt": "2026-09-16T18:33:20.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556972142",
-      "active": true,
-      "demo": false,
-      "postedHours": 114,
-      "region": "texas"
     },
     {
       "id": "microsoft-1970393556994741",
@@ -369,8 +271,31 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556994741",
       "active": true,
       "demo": false,
-      "postedHours": 112,
+      "postedHours": 134,
       "region": "west"
+    },
+    {
+      "id": "microsoft-1970393556983019",
+      "title": "Logistics Technician - CTJ - Top Secret",
+      "company": "Microsoft",
+      "location": "Manassas, VA",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "IT / Hardware"
+      ],
+      "pay": "$27.16–$43.27 / hr",
+      "salaryMin": 27.16,
+      "salaryMax": 43.27,
+      "salarySortMax": 90002,
+      "postedAt": "2026-09-01T17:40:54.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556983019",
+      "active": true,
+      "demo": false,
+      "postedHours": 498,
+      "region": "mid-atlantic"
     },
     {
       "id": "microsoft-1970393556990420",
@@ -394,8 +319,33 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556990420",
       "active": true,
       "demo": false,
-      "postedHours": 281,
+      "postedHours": 304,
       "region": "west"
+    },
+    {
+      "id": "microsoft-1970393556958319",
+      "title": "Critical Environment Ops Tech",
+      "company": "Microsoft",
+      "location": "Atlanta, GA",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "Critical Facilities",
+        "Electrical",
+        "IT / Hardware"
+      ],
+      "pay": "$23.65–$37.07 / hr",
+      "salaryMin": 23.65,
+      "salaryMax": 37.07,
+      "salarySortMax": 77106,
+      "postedAt": "2026-09-18T19:20:44.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556958319",
+      "active": true,
+      "demo": false,
+      "postedHours": 88,
+      "region": "southeast"
     },
     {
       "id": "microsoft-1970393556972143",
@@ -419,7 +369,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556972143",
       "active": true,
       "demo": false,
-      "postedHours": 403,
+      "postedHours": 426,
       "region": "west"
     },
     {
@@ -444,32 +394,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556980056",
       "active": true,
       "demo": false,
-      "postedHours": 141,
-      "region": "southeast"
-    },
-    {
-      "id": "microsoft-1970393556958319",
-      "title": "Critical Environment Ops Tech",
-      "company": "Microsoft",
-      "location": "Atlanta, GA",
-      "type": "entry-level",
-      "experience": "0-2-years",
-      "tags": [
-        "0–2 Years",
-        "Critical Facilities",
-        "Electrical",
-        "IT / Hardware"
-      ],
-      "pay": "$23.65–$37.07 / hr",
-      "salaryMin": 23.65,
-      "salaryMax": 37.07,
-      "salarySortMax": 77106,
-      "postedAt": "2026-09-18T19:20:44.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556958319",
-      "active": true,
-      "demo": false,
-      "postedHours": 65,
+      "postedHours": 164,
       "region": "southeast"
     },
     {
@@ -493,7 +418,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556971440",
       "active": true,
       "demo": false,
-      "postedHours": 309,
+      "postedHours": 332,
       "region": "west"
     },
     {
@@ -518,8 +443,107 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556928891",
       "active": true,
       "demo": false,
-      "postedHours": 458,
+      "postedHours": 481,
       "region": "southwest"
+    },
+    {
+      "id": "microsoft-1970393557001976",
+      "title": "Critical Environment Electrical Engineer",
+      "company": "Microsoft",
+      "location": "Cheyenne, WY",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "Critical Facilities",
+        "Electrical",
+        "IT / Hardware"
+      ],
+      "pay": "$102,100–$202,200 / year",
+      "salaryMin": 102100,
+      "salaryMax": 202200,
+      "salarySortMax": 202200,
+      "postedAt": "2026-09-21T21:12:40.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393557001976",
+      "active": true,
+      "demo": false,
+      "postedHours": 14,
+      "region": "west"
+    },
+    {
+      "id": "microsoft-1970393556889434",
+      "title": "Critical Environment Electrical Engineer",
+      "company": "Microsoft",
+      "location": "San Antonio, TX",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "Critical Facilities",
+        "Electrical",
+        "IT / Hardware"
+      ],
+      "pay": "$102,100–$202,200 / year",
+      "salaryMin": 102100,
+      "salaryMax": 202200,
+      "salarySortMax": 202200,
+      "postedAt": "2026-09-21T18:59:36.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556889434",
+      "active": true,
+      "demo": false,
+      "postedHours": 17,
+      "region": "texas"
+    },
+    {
+      "id": "microsoft-1970393556952670",
+      "title": "Critical Environment Mechanical Engineer",
+      "company": "Microsoft",
+      "location": "Atlanta, GA",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "Critical Facilities",
+        "IT / Hardware"
+      ],
+      "pay": "$102,100–$202,200 / year",
+      "salaryMin": 102100,
+      "salaryMax": 202200,
+      "salarySortMax": 202200,
+      "postedAt": "2026-09-03T16:17:49.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556952670",
+      "active": true,
+      "demo": false,
+      "postedHours": 451,
+      "region": "southeast"
+    },
+    {
+      "id": "microsoft-1970393556986820",
+      "title": "Critical Environment Industrial Control Systems Engineer",
+      "company": "Microsoft",
+      "location": "Charlotte, NC",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "Critical Facilities",
+        "Electrical",
+        "IT / Hardware"
+      ],
+      "pay": "$102,100–$202,200 / year",
+      "salaryMin": 102100,
+      "salaryMax": 202200,
+      "salarySortMax": 202200,
+      "postedAt": "2026-09-10T19:48:44.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556986820",
+      "active": true,
+      "demo": false,
+      "postedHours": 280,
+      "region": "southeast"
     },
     {
       "id": "microsoft-1970393556928879",
@@ -543,7 +567,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556928879",
       "active": true,
       "demo": false,
-      "postedHours": 303,
+      "postedHours": 326,
       "region": "southwest"
     },
     {
@@ -567,7 +591,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556928782",
       "active": true,
       "demo": false,
-      "postedHours": 1505,
+      "postedHours": 1528,
       "region": "texas"
     },
     {
@@ -592,33 +616,8 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556928892",
       "active": true,
       "demo": false,
-      "postedHours": 1505,
+      "postedHours": 1528,
       "region": "texas"
-    },
-    {
-      "id": "microsoft-1970393556986821",
-      "title": "Critical Environment Field Service Engineer",
-      "company": "Microsoft",
-      "location": "Chicago, IL",
-      "type": "entry-level",
-      "experience": "2-5-years",
-      "tags": [
-        "2–5 Years",
-        "Critical Facilities",
-        "Electrical",
-        "IT / Hardware"
-      ],
-      "pay": "$84,400–$168,800 / year",
-      "salaryMin": 84400,
-      "salaryMax": 168800,
-      "salarySortMax": 168800,
-      "postedAt": "2026-09-14T20:21:48.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556986821",
-      "active": true,
-      "demo": false,
-      "postedHours": 160,
-      "region": "midwest"
     },
     {
       "id": "microsoft-1970393556994841",
@@ -642,33 +641,8 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556994841",
       "active": true,
       "demo": false,
-      "postedHours": 142,
+      "postedHours": 165,
       "region": "texas"
-    },
-    {
-      "id": "microsoft-1970393556986820",
-      "title": "Critical Environment Industrial Control Systems Engineer",
-      "company": "Microsoft",
-      "location": "Charlotte, NC",
-      "type": "entry-level",
-      "experience": "0-2-years",
-      "tags": [
-        "0–2 Years",
-        "Critical Facilities",
-        "Electrical",
-        "IT / Hardware"
-      ],
-      "pay": "$102,100–$202,200 / year",
-      "salaryMin": 102100,
-      "salaryMax": 202200,
-      "salarySortMax": 202200,
-      "postedAt": "2026-09-10T19:48:44.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556986820",
-      "active": true,
-      "demo": false,
-      "postedHours": 257,
-      "region": "southeast"
     },
     {
       "id": "microsoft-1970393556990417",
@@ -692,7 +666,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556990417",
       "active": true,
       "demo": false,
-      "postedHours": 233,
+      "postedHours": 256,
       "region": "mid-atlantic"
     },
     {
@@ -717,32 +691,8 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556928877",
       "active": true,
       "demo": false,
-      "postedHours": 256,
+      "postedHours": 279,
       "region": "southwest"
-    },
-    {
-      "id": "microsoft-1970393556952670",
-      "title": "Critical Environment Mechanical Engineer",
-      "company": "Microsoft",
-      "location": "Atlanta, GA",
-      "type": "entry-level",
-      "experience": "0-2-years",
-      "tags": [
-        "0–2 Years",
-        "Critical Facilities",
-        "IT / Hardware"
-      ],
-      "pay": "$102,100–$202,200 / year",
-      "salaryMin": 102100,
-      "salaryMax": 202200,
-      "salarySortMax": 202200,
-      "postedAt": "2026-09-03T16:17:49.000Z",
-      "source": "Official Microsoft Careers",
-      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393556952670",
-      "active": true,
-      "demo": false,
-      "postedHours": 428,
-      "region": "southeast"
     },
     {
       "id": "microsoft-1970393557001882",
@@ -764,7 +714,7 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393557001882",
       "active": true,
       "demo": false,
-      "postedHours": 63,
+      "postedHours": 86,
       "region": "west"
     },
     {
@@ -787,8 +737,31 @@
       "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393557001448",
       "active": true,
       "demo": false,
-      "postedHours": 69,
+      "postedHours": 91,
       "region": "midwest"
+    },
+    {
+      "id": "microsoft-1970393557001769",
+      "title": "Logistics Technician",
+      "company": "Microsoft",
+      "location": "Ashburn, VA",
+      "type": "entry-level",
+      "experience": "0-2-years",
+      "tags": [
+        "0–2 Years",
+        "IT / Hardware"
+      ],
+      "pay": "$23.22–$32.36 / hr",
+      "salaryMin": 23.22,
+      "salaryMax": 32.36,
+      "salarySortMax": 67309,
+      "postedAt": "2026-09-21T19:44:15.000Z",
+      "source": "Official Microsoft Careers",
+      "sourceUrl": "https://apply.careers.microsoft.com/careers/job/1970393557001769",
+      "active": true,
+      "demo": false,
+      "postedHours": 16,
+      "region": "mid-atlantic"
     }
   ]
 }

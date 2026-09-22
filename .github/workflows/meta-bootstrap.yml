@@ -16,7 +16,6 @@ on:
       - 'scripts/reconcile-meta-status.mjs'
       - 'scripts/normalize-meta-compensation.mjs'
       - 'scripts/preserve-source-group.mjs'
-      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
 
 permissions:

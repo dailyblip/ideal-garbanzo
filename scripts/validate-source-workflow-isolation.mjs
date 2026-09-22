@@ -31,9 +31,9 @@ const sharedWriterQueue = new Set([
   '.github/workflows/t5-data-centers-bootstrap.yml'
 ]);
 
-// Source-specific writers in this set must never run destructive site-wide QA.
-// All shared-queue writers have completed this migration; Compass is also kept
-// here because its independent source refresh follows the same isolation rule.
+// Historical migration inventory retained for visibility. Live-QA isolation is
+// now enforced for every auto-discovered recurring source-feed writer below,
+// not only the writers that were migrated first.
 const liveQaIsolatedWriters = new Set([
   '.github/workflows/cloudhq-bootstrap.yml',
   '.github/workflows/cologix-bootstrap.yml',
@@ -163,7 +163,7 @@ for (const name of workflowNames.filter((name) => name.endsWith('.yml')).sort())
 
 // Discover recurring source-specific public-feed writers from what they actually
 // do rather than a hand-maintained list. New collectors and watchdogs therefore
-// inherit race, trigger-isolation and schedule checks automatically.
+// inherit race, trigger-isolation, live-QA isolation and schedule checks automatically.
 const feedWriters = [...workflowTexts.entries()]
   .filter(([path, text]) => path !== fullRefreshPath && isRecurringSourceFeedWriter(path, text))
   .map(([path]) => path);
@@ -193,8 +193,8 @@ for (const path of feedWriters) {
   if (sharedWriterQueue.has(path) && !/queue:\s*max\b/.test(text)) {
     violations.push(`${path}: shared-feed writer must use queue: max so pending employer refreshes are not replaced`);
   }
-  if (liveQaIsolatedWriters.has(path) && /scripts\/qa-site\.mjs/.test(text)) {
-    violations.push(`${path}: isolated source writer must not run site-wide live QA; destructive cross-employer pruning belongs to the full refresh/deploy pipeline`);
+  if (/scripts\/qa-site\.mjs/.test(text)) {
+    violations.push(`${path}: source-specific writer must not run site-wide live QA; destructive cross-employer pruning belongs to the full refresh/deploy pipeline`);
   }
 
   const crons = [...onBlock.matchAll(/cron:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
@@ -246,4 +246,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${feedWriters.length} auto-discovered recurring source-feed writers. New writer omissions and new exact UTC schedule collisions are blocked; ${knownCollisionGroups.size} pre-existing collision groups remain explicitly baselined for removal.`);
+console.log(`Source workflow isolation guard passed for ${feedWriters.length} auto-discovered recurring source-feed writers. Site-wide live QA is blocked in every source writer; ${liveQaIsolatedWriters.size} previously migrated writers remain in the historical inventory. New writer omissions and new exact UTC schedule collisions are blocked; ${knownCollisionGroups.size} pre-existing collision groups remain explicitly baselined for removal.`);

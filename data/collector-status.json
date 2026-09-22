@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-22T05:03:28.135Z",
-  "jobs": 717,
+  "updatedAt": "2026-09-22T05:15:25.676Z",
+  "jobs": 708,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 685,
+    "apprenticeship": 11,
     "internship": 11,
-    "trainee": 10,
-    "apprenticeship": 11
+    "trainee": 9,
+    "entry-level": 677
   },
   "countsByExperience": {
-    "2-5-years": 301,
     "0-2-years": 392,
-    "no-experience": 24
+    "no-experience": 24,
+    "2-5-years": 292
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3460,7 +3460,7 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 4,
+      "staleRemoved": 3,
       "qualifyingRoles": 1,
       "drops": {
         "non-us": 5,
@@ -3481,8 +3481,8 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-critical-facilities-engineer-trainee-san-jose-california-united-states"
         },
         {
-          "title": "SkillBridge Critical Facilities Engineer - Trainee",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
+          "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
         },
         {
           "title": "Data Center Customer Operations Intern",
@@ -3518,15 +3518,15 @@
       "listingComplete": true,
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
-      "candidateLinks": 6,
+      "candidateLinks": 7,
       "recoveredCandidates": 4,
-      "verifiedSeeded": 2,
+      "verifiedSeeded": 3,
       "broadListingCurrent": true,
       "broadListingEvidenceAdded": 4,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
-      "detailAttempted": 6,
-      "detailSucceeded": 6,
+      "detailAttempted": 7,
+      "detailSucceeded": 7,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
@@ -3534,13 +3534,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 2,
+        "unknownExperience": 4,
         "unusable": 0,
-        "verifiedMismatch": 2
+        "verifiedMismatch": 3
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-21T22:07:29.348Z"
+      "expiredVerifiedFallbackRoles": 3,
+      "verifiedFallbackExpiredAt": "2026-09-22T05:15:25.676Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -3554,7 +3554,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -3571,28 +3571,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T05:10:38.675Z",
+    "updatedAt": "2026-09-22T05:15:25.835Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 717,
+    "regionAssigned": 708,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 106,
-      "texas": 120,
-      "midwest": 139,
+      "midwest": 137,
+      "mid-atlantic": 125,
+      "texas": 116,
+      "southwest": 87,
+      "southeast": 105,
       "west": 113,
-      "southwest": 88,
-      "mid-atlantic": 126,
       "northeast": 24,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T05:10:38.747Z",
-    "before": 717,
-    "after": 717,
+    "checkedAt": "2026-09-22T05:15:25.904Z",
+    "before": 708,
+    "after": 708,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3607,7 +3607,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1231,
-    "currentJobs": 717,
+    "currentJobs": 708,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3615,8 +3615,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-22T05:10:38.807Z"
+    "firstSeenRecencyFallbackJobs": 109,
+    "updatedAt": "2026-09-22T05:15:25.962Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4328,23 +4328,23 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-21T22:07:29.348Z",
+    "checkedAt": "2026-09-22T05:15:25.676Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 4,
+    "expiredEarlyCareerFallbackRoles": 3,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-21T22:11:19.832Z",
+    "checkedAt": "2026-09-22T05:15:25.158Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -4352,52 +4352,31 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       }
     ],
     "errors": []

@@ -44,6 +44,7 @@ const liveQaIsolatedWriters = new Set([
   '.github/workflows/edgeconnex-bootstrap.yml',
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/major-workday-bootstrap.yml',
+  '.github/workflows/novva-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml'
 ]);
 

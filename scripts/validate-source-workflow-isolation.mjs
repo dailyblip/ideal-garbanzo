@@ -41,6 +41,7 @@ const liveQaIsolatedWriters = new Set([
   '.github/workflows/coreweave-bootstrap.yml',
   '.github/workflows/databank-bootstrap.yml',
   '.github/workflows/digital-realty-bootstrap.yml',
+  '.github/workflows/edgeconnex-bootstrap.yml',
   '.github/workflows/flexential-bootstrap.yml',
   '.github/workflows/switch-bootstrap.yml'
 ]);

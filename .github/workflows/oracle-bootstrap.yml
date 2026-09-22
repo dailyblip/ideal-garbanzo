@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/preserve-source-posted-hours.mjs'
       - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
@@ -35,8 +36,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate Oracle source-isolation helper
+        run: |
+          node --check scripts/preserve-source-posted-hours.mjs
+          node scripts/preserve-source-posted-hours.mjs --test
+      - name: Capture pre-Oracle public-feed state
+        run: cp data/jobs.json /tmp/oracle-jobs-baseline.json
       - name: Collect official Oracle Careers roles
         run: node scripts/collect-oracle-careers.mjs
+      - name: Restore non-Oracle freshness fields
+        run: node scripts/preserve-source-posted-hours.mjs Oracle /tmp/oracle-jobs-baseline.json
       - name: Persist Oracle source freshness evidence
         run: |
           node scripts/stamp-oracle-source-freshness.mjs --test
@@ -68,7 +77,9 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/oracle-jobs-baseline.json
             node scripts/collect-oracle-careers.mjs
+            node scripts/preserve-source-posted-hours.mjs Oracle /tmp/oracle-jobs-baseline.json
             node scripts/stamp-oracle-source-freshness.mjs
             node scripts/scrub-oracle-mission-fit.mjs
             node scripts/filter-mission-fit.mjs
@@ -88,10 +99,9 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            # The mission-fit gate can prune both the public feed and the shared
-            # major-employer snapshot, so publish every tracked data artifact it
-            # touched from the same fresh-main rebuild.
-            git add -u -- data/
+            # Publish only Oracle-owned feed artifacts plus the shared public-feed
+            # and history files that this source refresh intentionally updates.
+            git add data/jobs.json data/oracle-jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo "No Oracle Careers data changes."
               echo "changed=false" >> "$GITHUB_OUTPUT"

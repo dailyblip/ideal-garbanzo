@@ -191,8 +191,8 @@
       "structured data missing: https://compass-datacenters.breezy.hr/p/9f8cec332fbd-director-customer-management",
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "checkedAt": "2026-09-22T17:15:35.518Z",
-    "lastHealthyAt": "2026-09-22T17:15:35.518Z",
+    "checkedAt": "2026-09-22T21:38:41.183Z",
+    "lastHealthyAt": "2026-09-22T21:38:41.183Z",
     "listingComplete": true,
     "authoritativeSnapshot": true,
     "fallbackMaxAgeHours": 96,
@@ -2091,7 +2091,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T21:30:17.580Z",
+    "checkedAt": "2026-09-22T21:38:41.269Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2099,7 +2099,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T21:30:17.662Z",
+    "updatedAt": "2026-09-22T21:38:41.345Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 723,
@@ -2118,7 +2118,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T21:30:17.730Z",
+    "checkedAt": "2026-09-22T21:38:41.416Z",
     "before": 723,
     "after": 723,
     "removed": 0,
@@ -2144,7 +2144,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T21:30:17.787Z"
+    "updatedAt": "2026-09-22T21:38:41.606Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

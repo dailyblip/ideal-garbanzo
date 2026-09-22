@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-22T17:07:23.367Z",
-  "jobs": 728,
+  "updatedAt": "2026-09-22T17:09:26.231Z",
+  "jobs": 715,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 693,
-    "trainee": 13,
+    "apprenticeship": 11,
     "internship": 11,
-    "apprenticeship": 11
+    "trainee": 13,
+    "entry-level": 680
   },
   "countsByExperience": {
-    "0-2-years": 398,
-    "2-5-years": 302,
-    "no-experience": 28
+    "0-2-years": 393,
+    "no-experience": 28,
+    "2-5-years": 294
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -2004,20 +2004,24 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 26,
-      "detailAttempted": 26,
-      "detailSucceeded": 26,
+      "candidateLinks": 27,
+      "detailAttempted": 27,
+      "detailSucceeded": 27,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 2,
-      "qualifyingRoles": 1,
+      "staleRemoved": 4,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 5,
+        "non-us": 6,
         "title": 14,
-        "unknown-experience": 6
+        "unknown-experience": 7
       },
       "dropSamples": [
+        {
+          "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
+        },
         {
           "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
@@ -2046,18 +2050,11 @@
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-staff-security-engineer-security-platforms-automation-hybrid-dallas-texas-united-states"
         },
         {
-          "title": "Data Center Critical Facilities Engineer (Electrical) IV",
-          "listingLabel": "Data Center Critical Facilities Engineer (Electrical) IV",
+          "title": "Data Center Critical Facilities Engineer",
+          "listingLabel": "Data Center Critical Facilities Engineer",
           "pageTitle": "",
           "heading": "",
-          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-engineer-electrical-iv-secaucus-new-jersey-united-states"
-        },
-        {
-          "title": "Senior Supervisor, Data Center Critical Facilities",
-          "listingLabel": "Senior Supervisor, Data Center Critical Facilities",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/senior-supervisor-data-center-critical-facilities-dallas-texas-united-states-1c553df0-6438-4ffe-8a7e-968f7214b2af"
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-engineer-sunnyvale-california-united-states-98091de1-7e5b-4250-85cf-cc81a075ffb6"
         }
       ],
       "errors": []
@@ -2069,10 +2066,10 @@
       "listingPagesAttempted": 12,
       "listingPagesSucceeded": 12,
       "candidateLinks": 7,
-      "recoveredCandidates": 4,
-      "verifiedSeeded": 3,
+      "recoveredCandidates": 5,
+      "verifiedSeeded": 2,
       "broadListingCurrent": true,
-      "broadListingEvidenceAdded": 4,
+      "broadListingEvidenceAdded": 5,
       "verifiedFallbackUsed": 0,
       "verifiedAt": "2026-09-09",
       "detailAttempted": 7,
@@ -2084,13 +2081,13 @@
       "qualifyingRoles": 0,
       "drops": {
         "experience": 0,
-        "unknownExperience": 4,
+        "unknownExperience": 3,
         "unusable": 0,
-        "verifiedMismatch": 3
+        "verifiedMismatch": 2
       },
       "errors": [],
-      "expiredVerifiedFallbackRoles": 3,
-      "verifiedFallbackExpiredAt": "2026-09-22T11:56:56.749Z"
+      "expiredVerifiedFallbackRoles": 4,
+      "verifiedFallbackExpiredAt": "2026-09-22T17:09:26.231Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2104,7 +2101,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -2121,28 +2118,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T17:07:23.553Z",
+    "updatedAt": "2026-09-22T17:09:26.382Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 728,
+    "regionAssigned": 715,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 110,
-      "west": 116,
-      "texas": 122,
-      "midwest": 137,
-      "mid-atlantic": 137,
+      "midwest": 135,
+      "mid-atlantic": 133,
+      "texas": 119,
+      "southwest": 81,
+      "southeast": 108,
+      "west": 115,
       "northeast": 23,
-      "southwest": 82,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T17:07:23.635Z",
-    "before": 728,
-    "after": 728,
+    "checkedAt": "2026-09-22T17:09:26.443Z",
+    "before": 715,
+    "after": 715,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2157,7 +2154,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1258,
-    "currentJobs": 728,
+    "currentJobs": 715,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2166,7 +2163,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-22T17:07:23.822Z"
+    "updatedAt": "2026-09-22T17:09:26.496Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2879,76 +2876,55 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-22T11:56:56.749Z",
+    "checkedAt": "2026-09-22T17:09:26.231Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
-    "expiredEarlyCareerFallbackRoles": 3,
+    "expiredEarlyCareerFallbackRoles": 4,
     "policy": "A managed Equinix verified-fallback role must have its own successful official-source requisition check. A published direct-detail route additionally requires that exact seeded detail URL to have a live successful detail check; otherwise only the requisition-targeted official search route is eligible.",
     "removedRoles": []
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-22T17:06:57.865Z",
+    "checkedAt": "2026-09-22T17:09:25.497Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
-    "added": 1,
-    "removedManaged": 1,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
+    "added": 0,
+    "removedManaged": 0,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": false
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       }
     ],
     "errors": []

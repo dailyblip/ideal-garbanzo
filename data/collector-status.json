@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-22T12:49:00.700Z",
-  "jobs": 722,
+  "updatedAt": "2026-09-22T13:40:40.499Z",
+  "jobs": 723,
   "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
@@ -10,13 +10,13 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 687,
+    "entry-level": 688,
     "trainee": 13,
     "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 301,
+    "2-5-years": 302,
     "0-2-years": 393,
     "no-experience": 28
   },
@@ -3579,28 +3579,18 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T12:49:00.777Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-22T13:40:40.581Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T12:49:00.846Z",
+    "updatedAt": "2026-09-22T13:40:40.661Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 722,
+    "regionAssigned": 723,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3608,7 +3598,7 @@
       "west": 115,
       "texas": 122,
       "midwest": 137,
-      "southeast": 107,
+      "southeast": 108,
       "mid-atlantic": 134,
       "northeast": 23,
       "southwest": 83,
@@ -3616,9 +3606,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T12:49:00.914Z",
-    "before": 722,
-    "after": 722,
+    "checkedAt": "2026-09-22T13:40:40.735Z",
+    "before": 723,
+    "after": 723,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3632,17 +3622,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1255,
-    "currentJobs": 722,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1256,
+    "currentJobs": 723,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-22T12:49:01.442Z"
+    "firstSeenRecencyFallbackJobs": 111,
+    "updatedAt": "2026-09-22T13:40:40.866Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3781,7 +3771,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-22T07:57:10.523Z",
+    "checkedAt": "2026-09-22T13:40:40.500Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",
@@ -3790,11 +3780,11 @@
     "talentReefClientId": "14459",
     "talentReefBrand": null,
     "authoritativeSnapshot": true,
-    "listedJobs": 43,
-    "externalJobs": 43,
-    "usJobs": 43,
-    "candidateRoles": 29,
-    "qualifyingRoles": 15,
+    "listedJobs": 44,
+    "externalJobs": 44,
+    "usJobs": 44,
+    "candidateRoles": 30,
+    "qualifyingRoles": 16,
     "rejectedOutOfScopeTitle": 22,
     "rejectedOver5Years": 2,
     "rejectedUnknownExperience": 4,

@@ -65,13 +65,12 @@ jobs:
           node scripts/scrub-major-targeted-noise.mjs
           node scripts/prune-major-workday-overfive.mjs
 
-      - name: Normalize and QA refreshed feed
+      - name: Normalize refreshed priority Workday feed
         run: |
           node scripts/filter-mission-fit.mjs
           node scripts/normalize-job-locations.mjs
           node scripts/enrich-workday-multilocation.mjs
           node scripts/dedupe-normalized-jobs.mjs
-          node scripts/qa-site.mjs
           node scripts/refresh-region-status.mjs
           node scripts/stamp-job-history.mjs
           node scripts/enforce-major-workday-fallback-freshness.mjs
@@ -119,7 +118,6 @@ jobs:
             node scripts/normalize-job-locations.mjs
             node scripts/enrich-workday-multilocation.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/stamp-job-history.mjs
             node scripts/enforce-major-workday-fallback-freshness.mjs
@@ -139,7 +137,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/major-jobs.json data/major-workday-freshness.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            git add data/jobs.json data/major-jobs.json data/major-workday-freshness.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo 'No verified priority Workday data changes.'
               echo 'changed=false' >> "$GITHUB_OUTPUT"

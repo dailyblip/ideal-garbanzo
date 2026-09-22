@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T12:44:15.536Z",
+  "updatedAt": "2026-09-22T12:49:00.700Z",
   "jobs": 722,
   "sourcesAttempted": 21,
   "providers": {
@@ -3579,15 +3579,25 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T12:44:15.615Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-22T12:49:00.777Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "senior/executive title": 1
+    },
+    "removed": [
+      {
+        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
+        "company": "Prime Data Centers",
+        "title": "Data Center Business Systems Architect",
+        "location": "Dallas, TX; Denver, CO",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T12:44:15.692Z",
+    "updatedAt": "2026-09-22T12:49:00.846Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 722,
@@ -3606,7 +3616,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T12:44:15.763Z",
+    "checkedAt": "2026-09-22T12:49:00.914Z",
     "before": 722,
     "after": 722,
     "removed": 0,
@@ -3632,7 +3642,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 110,
-    "updatedAt": "2026-09-22T12:44:15.887Z"
+    "updatedAt": "2026-09-22T12:49:01.442Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4413,8 +4423,8 @@
     "samples": []
   },
   "primeDataCenters": {
-    "checkedAt": "2026-09-22T12:23:48.511Z",
-    "lastSuccessfulAt": "2026-09-22T12:23:48.511Z",
+    "checkedAt": "2026-09-22T12:49:00.700Z",
+    "lastSuccessfulAt": "2026-09-22T12:49:00.700Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://primedatacenters.com/careers/",

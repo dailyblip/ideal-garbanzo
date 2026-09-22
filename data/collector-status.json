@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-22T11:50:38.111Z",
-  "jobs": 724,
+  "updatedAt": "2026-09-22T11:56:56.749Z",
+  "jobs": 711,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "trainee": 12,
-    "entry-level": 690,
+    "apprenticeship": 11,
     "internship": 11,
-    "apprenticeship": 11
+    "trainee": 12,
+    "entry-level": 677
   },
   "countsByExperience": {
+    "0-2-years": 393,
     "no-experience": 27,
-    "2-5-years": 298,
-    "0-2-years": 399
+    "2-5-years": 291
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1978,7 +1978,7 @@
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
-      "staleRemoved": 3,
+      "staleRemoved": 2,
       "qualifyingRoles": 1,
       "drops": {
         "non-us": 5,
@@ -1986,10 +1986,6 @@
         "unknown-experience": 6
       },
       "dropSamples": [
-        {
-          "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
-          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
-        },
         {
           "title": "SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-technician-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-san-jose-california"
@@ -2001,6 +1997,10 @@
         {
           "title": "SkillBridge Data Center Customer Operations Technician - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-data-center-customer-operations-technician-trainee-ashburn-virginia-united-states-f8fff2b9-fbf0-4ac3-b7f9-da6e86f74bf6"
+        },
+        {
+          "title": "SkillBridge Critical Facilities Engineer - Trainee",
+          "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
         },
         {
           "title": "Data Center Customer Operations Intern",
@@ -2058,7 +2058,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 3,
-      "verifiedFallbackExpiredAt": "2026-09-22T05:15:25.676Z"
+      "verifiedFallbackExpiredAt": "2026-09-22T11:56:56.749Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2089,28 +2089,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T11:52:44.581Z",
+    "updatedAt": "2026-09-22T11:56:57.135Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 724,
+    "regionAssigned": 711,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "mid-atlantic": 135,
-      "west": 116,
+      "midwest": 135,
+      "mid-atlantic": 131,
+      "texas": 117,
+      "southwest": 84,
+      "southeast": 106,
+      "west": 114,
       "northeast": 23,
-      "southeast": 108,
-      "southwest": 85,
-      "midwest": 137,
-      "texas": 119,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T11:52:44.646Z",
-    "before": 724,
-    "after": 724,
+    "checkedAt": "2026-09-22T11:56:57.405Z",
+    "before": 711,
+    "after": 711,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2125,7 +2125,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1250,
-    "currentJobs": 724,
+    "currentJobs": 711,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2134,7 +2134,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 108,
-    "updatedAt": "2026-09-22T11:52:44.711Z"
+    "updatedAt": "2026-09-22T11:56:57.602Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2837,7 +2837,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-22T05:15:25.676Z",
+    "checkedAt": "2026-09-22T11:56:56.749Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
@@ -2847,12 +2847,12 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-22T05:21:03.452Z",
+    "checkedAt": "2026-09-22T11:56:55.451Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
     "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
@@ -2861,39 +2861,31 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 202,
+        "listed": false,
+        "detailOk": false,
         "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 202,
+        "listed": false,
+        "detailOk": false,
         "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 202,
+        "listed": false,
+        "detailOk": false,
         "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 202,
+        "listed": false,
+        "detailOk": false,
         "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "reason": "not-listed"
       }
     ],
     "errors": []

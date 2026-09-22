@@ -2122,7 +2122,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T17:02:54.364Z",
+    "checkedAt": "2026-09-22T17:03:51.434Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2130,7 +2130,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T17:02:54.445Z",
+    "updatedAt": "2026-09-22T17:03:51.510Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 728,
@@ -2149,7 +2149,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T17:02:54.518Z",
+    "checkedAt": "2026-09-22T17:03:51.588Z",
     "before": 728,
     "after": 728,
     "removed": 0,
@@ -2173,9 +2173,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 11,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-22T17:02:54.800Z"
+    "updatedAt": "2026-09-22T17:03:51.806Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2376,20 +2376,20 @@
     "careersUrl": "https://www.coreweave.com/careers",
     "sourceHealthy": true,
     "boardToken": "coreweave",
-    "sourceRoles": 295,
+    "sourceRoles": 292,
     "qualifyingRoles": 11,
     "preservedPrevious": 0,
     "drops": {
-      "title": 282,
+      "title": 279,
       "experience": 0,
       "location": 2
     },
     "errors": [],
-    "checkedAt": "2026-09-22T05:09:09.753Z",
-    "lastHealthyAt": "2026-09-22T05:09:09.753Z",
+    "checkedAt": "2026-09-22T17:03:51.347Z",
+    "lastHealthyAt": "2026-09-22T17:03:51.347Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-26T05:09:09.753Z",
+    "fallbackExpiresAt": "2026-09-26T17:03:51.347Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 11,

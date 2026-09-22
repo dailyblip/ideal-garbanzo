@@ -41,7 +41,8 @@ const liveQaIsolatedWriters = new Set([
   '.github/workflows/coreweave-bootstrap.yml',
   '.github/workflows/databank-bootstrap.yml',
   '.github/workflows/digital-realty-bootstrap.yml',
-  '.github/workflows/flexential-bootstrap.yml'
+  '.github/workflows/flexential-bootstrap.yml',
+  '.github/workflows/switch-bootstrap.yml'
 ]);
 
 // Retained as a compatibility contract for the stale-prune isolation validator.

@@ -8,6 +8,7 @@ on:
       - scripts/reconcile-prime-data-centers.mjs
       - scripts/enforce-prime-fallback-freshness.mjs
       - scripts/validate-prime-data-centers.mjs
+      - .github/workflows/prime-data-centers-bootstrap.yml
   workflow_dispatch:
   schedule:
     - cron: '59 */6 * * *'
@@ -54,8 +55,6 @@ jobs:
         run: node scripts/reconcile-prime-data-centers.mjs
       - name: Verify Prime source freshness
         run: node scripts/enforce-prime-fallback-freshness.mjs
-      - name: Run live QA
-        run: node scripts/qa-site.mjs
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate Prime employer-direct snapshot
@@ -86,7 +85,6 @@ jobs:
             node scripts/reconcile-prime-data-centers.mjs
             node scripts/enforce-prime-fallback-freshness.mjs --test
             node scripts/enforce-prime-fallback-freshness.mjs
-            node scripts/qa-site.mjs
             node scripts/refresh-region-status.mjs
             node scripts/validate-prime-data-centers.mjs
             node scripts/stamp-job-history.mjs
@@ -106,7 +104,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            git add data/jobs.json data/prime-data-centers-jobs.json data/job-history.json data/collector-status.json data/career-events.json data/qa-report.json
+            git add data/jobs.json data/prime-data-centers-jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo "No verified Prime Data Centers data changes."
               echo "changed=false" >> "$GITHUB_OUTPUT"

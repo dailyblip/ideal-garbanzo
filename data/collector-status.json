@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-22T12:05:04.068Z",
-  "jobs": 712,
+  "jobs": 713,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -12,11 +12,11 @@
     "trainee": 13,
     "apprenticeship": 11,
     "internship": 11,
-    "entry-level": 677
+    "entry-level": 678
   },
   "countsByExperience": {
     "0-2-years": 394,
-    "no-experience": 27,
+    "no-experience": 28,
     "2-5-years": 291
   },
   "errors": [],
@@ -138,8 +138,8 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-21T13:24:10.720Z",
-    "lastHealthyAt": "2026-09-21T13:24:10.720Z",
+    "checkedAt": "2026-09-22T12:05:19.541Z",
+    "lastHealthyAt": "2026-09-22T12:05:19.541Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
@@ -147,12 +147,12 @@
     "listingPagesAttempted": 19,
     "listingPagesSucceeded": 19,
     "listingComplete": true,
-    "listedTotal": 362,
-    "candidateRows": 13,
-    "detailAttempted": 13,
-    "detailSucceeded": 13,
-    "qualifyingRoles": 10,
-    "snapshotRoles": 10,
+    "listedTotal": 370,
+    "candidateRows": 14,
+    "detailAttempted": 14,
+    "detailSucceeded": 14,
+    "qualifyingRoles": 11,
+    "snapshotRoles": 11,
     "preservedPrevious": 0,
     "removedExpiredFallback": 0,
     "drops": {
@@ -166,12 +166,12 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-21T13:24:10.720Z",
-      "checkedAt": "2026-09-21T13:24:10.720Z",
-      "expiresAt": "2026-09-25T13:24:10.720Z",
+      "lastHealthyAt": "2026-09-22T12:05:19.541Z",
+      "checkedAt": "2026-09-22T12:05:19.541Z",
+      "expiresAt": "2026-09-26T12:05:19.541Z",
       "ageHours": 0,
       "maxAgeHours": 96,
-      "roles": 10,
+      "roles": 11,
       "policy": "Retain only the last fully verified Iron Mountain snapshot for at most 96 hours after official-source verification fails."
     },
     "errors": []
@@ -2081,7 +2081,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T12:02:01.490Z",
+    "checkedAt": "2026-09-22T12:05:36.414Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2089,10 +2089,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T12:02:01.577Z",
+    "updatedAt": "2026-09-22T12:05:36.476Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 712,
+    "regionAssigned": 713,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -2101,40 +2101,40 @@
       "midwest": 135,
       "mid-atlantic": 131,
       "texas": 117,
-      "southwest": 84,
+      "southwest": 85,
       "southeast": 106,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T12:02:01.660Z",
-    "before": 712,
-    "after": 712,
+    "checkedAt": "2026-09-22T12:05:36.535Z",
+    "before": 713,
+    "after": 713,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-22T10:04:52.728Z",
-    "publishedJobs": 708,
-    "removedJobs": 8,
+    "checkedAt": "2026-09-22T12:05:47.547Z",
+    "publishedJobs": 713,
+    "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1250,
-    "currentJobs": 712,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1251,
+    "currentJobs": 713,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 109,
-    "updatedAt": "2026-09-22T12:02:01.868Z"
+    "updatedAt": "2026-09-22T12:05:47.708Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

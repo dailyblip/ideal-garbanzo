@@ -1,85 +1,12 @@
 {
-  "checkedAt": "2026-09-22T10:04:52.728Z",
-  "jobsBefore": 716,
-  "jobsAfter": 708,
+  "checkedAt": "2026-09-22T12:05:47.547Z",
+  "jobsBefore": 713,
+  "jobsAfter": 713,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10552223",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10552223/engineering-operation-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10552223/engineering-operation-technician"
-    },
-    {
-      "id": "amazon-10538152",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician Night Shift",
-      "url": "https://www.amazon.jobs/en/jobs/10538152/data-center-technician-night-shift",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10538152/data-center-technician-night-shift"
-    },
-    {
-      "id": "amazon-10504890",
-      "company": "Amazon Web Services",
-      "title": "Data Center Network Deploy Technician, GND Deploy",
-      "url": "https://www.amazon.jobs/en/jobs/10504890/data-center-network-deploy-technician-gnd-deploy",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10504890/data-center-network-deploy-technician-gnd-deploy"
-    },
-    {
-      "id": "amazon-10499283",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician (AWS GovCloud Region)",
-      "url": "https://www.amazon.jobs/en/jobs/10499283/engineering-operations-technician-aws-govcloud-region",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10499283/engineering-operations-technician-aws-govcloud-region"
-    },
-    {
-      "id": "amazon-10435864",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10435864/data-center-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10435864/data-center-technician"
-    },
-    {
-      "id": "amazon-10433897",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician, AWS Data Center team",
-      "url": "https://www.amazon.jobs/en/jobs/10433897/data-center-technician-aws-data-center-team",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10433897/data-center-technician-aws-data-center-team"
-    },
-    {
-      "id": "amazon-10433704",
-      "company": "Amazon Web Services",
-      "title": "Install Technician, AWS Data Center team",
-      "url": "https://www.amazon.jobs/en/jobs/10433704/install-technician-aws-data-center-team",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10433704/install-technician-aws-data-center-team"
-    },
-    {
-      "id": "icims-tierpoint-2959",
-      "company": "TierPoint",
-      "title": "MEP Technician II",
-      "url": "https://careers-tierpoint.icims.com/jobs/2959/mep-technician-ii/job",
-      "state": "dead",
-      "status": 410,
-      "finalUrl": "https://careers-tierpoint.icims.com/jobs/2959/mep-technician-ii/job"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [
     {
@@ -209,17 +136,7 @@
       "finalUrl": "https://jobs.coresite.com/jobs/18130151-critical-operations-engineer-i-swing-de3"
     }
   ],
-  "transientJobLinks": [
-    {
-      "id": "greenhouse-flexential-4410620009",
-      "company": "Flexential",
-      "title": "Data Center Operations Technician III",
-      "url": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4410620009",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 7,
   "careerEventsAfter": 7,

@@ -8,6 +8,7 @@ on:
       - scripts/validate-flexential.mjs
       - scripts/enforce-flexential-fallback-freshness.mjs
       - scripts/validate-flexential-freshness.mjs
+      - .github/workflows/flexential-bootstrap.yml
   workflow_dispatch:
   schedule:
     - cron: '2 */12 * * *'

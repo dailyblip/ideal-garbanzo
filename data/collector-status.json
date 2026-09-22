@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-22T16:56:17.121Z",
-  "jobs": 729,
+  "updatedAt": "2026-09-22T16:56:45.844Z",
+  "jobs": 728,
   "sourcesAttempted": 34,
   "providers": {
     "lever": 7,
@@ -12,12 +12,12 @@
   },
   "countsByType": {
     "trainee": 13,
-    "entry-level": 694,
+    "entry-level": 693,
     "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 399,
+    "0-2-years": 398,
     "no-experience": 28,
     "2-5-years": 302
   },
@@ -1454,51 +1454,51 @@
         "query": "datacenter technician",
         "healthy": true,
         "pages": 3,
-        "reportedRows": 25,
-        "rows": 25
+        "reportedRows": 24,
+        "rows": 24
       },
       {
         "query": "critical environment technician",
         "healthy": true,
         "pages": 22,
-        "reportedRows": 220,
-        "rows": 220
+        "reportedRows": 219,
+        "rows": 219
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 26,
-        "reportedRows": 259,
-        "rows": 259
+        "pages": 27,
+        "reportedRows": 263,
+        "rows": 263
       },
       {
         "query": "inventory and asset technician",
         "healthy": true,
         "pages": 2,
-        "reportedRows": 17,
-        "rows": 17
+        "reportedRows": 18,
+        "rows": 18
       }
     ],
-    "candidateRows": 340,
-    "plausibleRows": 32,
-    "detailAttempts": 32,
-    "detailVerified": 32,
-    "currentQualifyingRoles": 31,
-    "qualifyingRoles": 31,
+    "candidateRows": 342,
+    "plausibleRows": 30,
+    "detailAttempts": 30,
+    "detailVerified": 30,
+    "currentQualifyingRoles": 30,
+    "qualifyingRoles": 30,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
       "irrelevant": 0,
-      "experience": 1,
+      "experience": 0,
       "detailFailure": 0
     },
     "legacyFallback": null,
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-22T11:33:52.362Z",
-      "expiresAt": "2026-09-26T11:33:52.362Z",
-      "roles": 31,
+      "verifiedAt": "2026-09-22T16:56:44.260Z",
+      "expiresAt": "2026-09-26T16:56:44.260Z",
+      "roles": 30,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
   },
@@ -2124,7 +2124,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T16:55:53.263Z",
+    "checkedAt": "2026-09-22T16:56:45.906Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2132,10 +2132,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-22T16:56:17.164Z",
+    "updatedAt": "2026-09-22T16:56:45.966Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 729,
+    "regionAssigned": 728,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -2144,16 +2144,16 @@
       "mid-atlantic": 137,
       "northeast": 23,
       "southeast": 109,
-      "southwest": 83,
+      "southwest": 82,
       "midwest": 137,
       "texas": 123,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-22T16:56:17.203Z",
-    "before": 729,
-    "after": 729,
+    "checkedAt": "2026-09-22T16:56:46.017Z",
+    "before": 728,
+    "after": 728,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2168,7 +2168,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1257,
-    "currentJobs": 729,
+    "currentJobs": 728,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2177,7 +2177,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 111,
-    "updatedAt": "2026-09-22T16:56:17.235Z"
+    "updatedAt": "2026-09-22T16:56:46.070Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

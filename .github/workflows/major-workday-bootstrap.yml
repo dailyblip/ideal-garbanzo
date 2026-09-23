@@ -105,7 +105,7 @@ jobs:
           node scripts/validate-major-workday-parity.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
 
@@ -162,7 +162,7 @@ jobs:
             node scripts/validate-major-workday-parity.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs
           }

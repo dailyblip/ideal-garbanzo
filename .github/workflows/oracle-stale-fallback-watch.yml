@@ -9,9 +9,7 @@ on:
     paths:
       - 'scripts/enforce-oracle-fallback-freshness.mjs'
       - 'scripts/preserve-source-group.mjs'
-      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
-      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/oracle-stale-fallback-watch.yml'
 
 permissions:

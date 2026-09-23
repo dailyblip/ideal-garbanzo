@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T12:53:48.546Z",
+  "updatedAt": "2026-09-23T12:56:11.856Z",
   "jobs": 715,
   "sourcesAttempted": 21,
   "providers": {
@@ -16,8 +16,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 286,
     "0-2-years": 401,
+    "2-5-years": 286,
     "no-experience": 28
   },
   "errors": [],
@@ -2919,26 +2919,26 @@
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 24,
-        "reportedRows": 231,
-        "rows": 231
+        "pages": 23,
+        "reportedRows": 227,
+        "rows": 227
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 29,
-        "reportedRows": 286,
-        "rows": 286
+        "pages": 28,
+        "reportedRows": 279,
+        "rows": 279
       },
       {
         "query": "inventory and asset technician",
         "healthy": true,
         "pages": 2,
-        "reportedRows": 16,
-        "rows": 16
+        "reportedRows": 15,
+        "rows": 15
       }
     ],
-    "candidateRows": 364,
+    "candidateRows": 357,
     "plausibleRows": 31,
     "detailAttempts": 31,
     "detailVerified": 31,
@@ -2955,8 +2955,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-23T04:47:43.509Z",
-      "expiresAt": "2026-09-27T04:47:43.509Z",
+      "verifiedAt": "2026-09-23T12:56:10.363Z",
+      "expiresAt": "2026-09-27T12:56:10.363Z",
       "roles": 31,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -3589,7 +3589,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T12:50:39.345Z",
+    "checkedAt": "2026-09-23T12:56:11.921Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3597,7 +3597,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T12:50:39.397Z",
+    "updatedAt": "2026-09-23T12:56:11.994Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 715,
@@ -3605,18 +3605,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 110,
       "midwest": 139,
       "southeast": 108,
       "texas": 121,
-      "southwest": 81,
+      "west": 110,
       "mid-atlantic": 135,
       "northeast": 20,
+      "southwest": 81,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T12:50:39.446Z",
+    "checkedAt": "2026-09-23T12:56:12.049Z",
     "before": 715,
     "after": 715,
     "removed": 0,
@@ -3634,8 +3634,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1280,
     "currentJobs": 715,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
+    "scopeCompany": "Microsoft",
+    "scopedJobs": 31,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3643,8 +3643,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-23T12:53:48.784Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-23T12:56:12.198Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

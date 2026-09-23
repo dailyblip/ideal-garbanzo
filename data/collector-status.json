@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-23T17:49:27.938Z",
-  "jobs": 701,
+  "updatedAt": "2026-09-23T17:55:08.398Z",
+  "jobs": 700,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -13,13 +13,13 @@
   },
   "countsByType": {
     "entry-level": 671,
-    "trainee": 13,
+    "trainee": 12,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 285,
-    "0-2-years": 388,
+    "0-2-years": 387,
     "no-experience": 28
   },
   "errors": [],
@@ -2384,25 +2384,18 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1296,
-    "currentJobs": 701,
-    "scopedJobs": 168,
+    "currentJobs": 700,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 3,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 168,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T17:54:07.370Z",
-    "scopeCompanies": [
-      "Vantage Data Centers",
-      "QTS Data Centers",
-      "CyrusOne",
-      "STACK Infrastructure",
-      "NTT Global Data Centers",
-      "Aligned Data Centers"
-    ]
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 3,
+    "updatedAt": "2026-09-23T17:55:08.683Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3133,15 +3126,15 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-23T17:26:56.249Z",
+    "checkedAt": "2026-09-23T17:55:08.398Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
     "qualifyingRoles": 1,
-    "added": 1,
-    "removedManaged": 0,
+    "added": 0,
+    "removedManaged": 1,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
     "checks": [
@@ -3149,19 +3142,22 @@
         "requisition": "JR-163301",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": false
+        "detailStatus": 202,
+        "published": false,
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-163300",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          2,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-158170",

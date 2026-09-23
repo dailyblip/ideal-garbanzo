@@ -7,7 +7,6 @@ on:
       - scripts/collect-t5-data-centers.mjs
       - scripts/validate-t5-data-centers.mjs
       - scripts/preserve-source-group.mjs
-      - scripts/stamp-job-history.mjs
       - .github/workflows/t5-data-centers-bootstrap.yml
   workflow_dispatch:
   schedule:

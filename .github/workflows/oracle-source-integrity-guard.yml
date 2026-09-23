@@ -6,14 +6,19 @@ on:
     paths:
       - 'data/oracle-jobs.json'
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/enforce-oracle-fallback-freshness.mjs'
       - 'scripts/preserve-source-posted-hours.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
       - 'scripts/validate-oracle-parity.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/oracle-bootstrap.yml'
       - '.github/workflows/oracle-stale-fallback-watch.yml'
       - '.github/workflows/oracle-source-integrity-guard.yml'
@@ -22,14 +27,19 @@ on:
     paths:
       - 'data/oracle-jobs.json'
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-oracle-careers.mjs'
+      - 'scripts/enforce-oracle-fallback-freshness.mjs'
       - 'scripts/preserve-source-posted-hours.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
       - 'scripts/validate-oracle-parity.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/oracle-bootstrap.yml'
       - '.github/workflows/oracle-stale-fallback-watch.yml'
       - '.github/workflows/oracle-source-integrity-guard.yml'
@@ -49,22 +59,61 @@ jobs:
       - name: Check Oracle collector and validator syntax
         run: |
           node --check scripts/collect-oracle-careers.mjs
+          node --check scripts/enforce-oracle-fallback-freshness.mjs
           node --check scripts/preserve-source-posted-hours.mjs
           node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
+          node --check scripts/stamp-oracle-source-freshness.mjs
           node --check scripts/scrub-oracle-mission-fit.mjs
+          node --check scripts/validate-job-history.mjs
           node --check scripts/validate-oracle-snapshot.mjs
           node --check scripts/validate-oracle-parity.mjs
+          node --check scripts/validate-source-workflow-isolation.mjs
       - name: Run Oracle source-isolation regressions
         run: |
           node scripts/preserve-source-posted-hours.mjs --test
           node scripts/preserve-source-group.mjs --test
+          node scripts/enforce-oracle-fallback-freshness.mjs --test
+      - name: Guard Oracle source-writer isolation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          bootstrap='.github/workflows/oracle-bootstrap.yml'
+          fallback='.github/workflows/oracle-stale-fallback-watch.yml'
+
+          grep -Fq 'cp data/jobs.json /tmp/oracle-jobs-baseline.json' "$bootstrap"
+          grep -Fq 'node scripts/preserve-source-posted-hours.mjs Oracle /tmp/oracle-jobs-baseline.json --full' "$bootstrap"
+          grep -Fq 'node scripts/preserve-source-group.mjs Oracle /tmp/oracle-jobs-baseline.json --verify' "$bootstrap"
+          grep -Fq 'node scripts/stamp-job-history.mjs --company Oracle' "$bootstrap"
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$bootstrap")" -lt 2 ]; then
+            echo '::error::Oracle refresh must allow unrelated employers to age during normal and race-safe history validation.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$bootstrap"; then
+            echo '::error::Oracle refresh must not require unrelated employers to have freshly rewritten postedHours.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*run:[[:space:]]+node scripts/stamp-job-history\.mjs[[:space:]]*$' "$bootstrap"; then
+            echo '::error::Oracle refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
+
+          grep -Fq 'cp data/jobs.json /tmp/oracle-freshness-baseline.json' "$fallback"
+          if [ "$(grep -Fc 'node scripts/preserve-source-group.mjs Oracle /tmp/oracle-freshness-baseline.json --verify' "$fallback")" -lt 2 ]; then
+            echo '::error::Oracle fallback enforcement must verify non-Oracle rows in normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$fallback")" -lt 2 ]; then
+            echo '::error::Oracle fallback enforcement must validate history without rewriting unrelated employer ages.'
+            exit 1
+          fi
       - name: Run Oracle experience policy regressions
         run: node scripts/scrub-oracle-mission-fit.mjs --test-experience-parser
       - name: Run Oracle parity regressions
         run: node scripts/validate-oracle-parity.mjs --test
       - name: Validate current Oracle publication state
         run: |
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-oracle-snapshot.mjs
           node scripts/validate-oracle-parity.mjs
           node scripts/validate-priority-employer-sources.mjs

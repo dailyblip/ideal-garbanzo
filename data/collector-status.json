@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T17:55:40.737Z",
+  "updatedAt": "2026-09-23T18:38:56.333Z",
   "jobs": 700,
   "sourcesAttempted": 27,
   "providers": {
@@ -2116,7 +2116,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T17:55:40.796Z",
+    "checkedAt": "2026-09-23T18:38:56.391Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2124,7 +2124,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T17:55:40.863Z",
+    "updatedAt": "2026-09-23T18:38:56.447Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 700,
@@ -2143,7 +2143,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T17:55:40.916Z",
+    "checkedAt": "2026-09-23T18:38:56.501Z",
     "before": 700,
     "after": 700,
     "removed": 0,
@@ -2161,8 +2161,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1296,
     "currentJobs": 700,
-    "scopeCompany": "Cologix",
-    "scopedJobs": 8,
+    "scopeCompany": "DataBank",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2170,8 +2170,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T17:55:41.077Z"
+    "firstSeenRecencyFallbackJobs": 15,
+    "updatedAt": "2026-09-23T18:38:56.764Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2328,7 +2328,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-23T13:52:11.699Z",
+    "checkedAt": "2026-09-23T18:38:56.333Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",
@@ -2337,13 +2337,13 @@
     "talentReefClientId": "14459",
     "talentReefBrand": null,
     "authoritativeSnapshot": true,
-    "listedJobs": 43,
+    "listedJobs": 44,
     "externalJobs": 43,
     "usJobs": 43,
-    "candidateRoles": 29,
+    "candidateRoles": 30,
     "qualifyingRoles": 15,
-    "rejectedOutOfScopeTitle": 22,
-    "rejectedOver5Years": 2,
+    "rejectedOutOfScopeTitle": 21,
+    "rejectedOver5Years": 3,
     "rejectedUnknownExperience": 4,
     "rejectedLocation": 0
   },

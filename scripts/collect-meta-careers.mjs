@@ -150,6 +150,94 @@ function parseEmbeddedCandidates(html) {
   return rows;
 }
 
+function findJobPostingObjects(node, out = [], seen = new Set(), depth = 0) {
+  if (!node || typeof node !== 'object' || seen.has(node) || depth > 16) return out;
+  seen.add(node);
+  if (Array.isArray(node)) {
+    for (const item of node) findJobPostingObjects(item, out, seen, depth + 1);
+    return out;
+  }
+
+  const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']];
+  if (types.some(type => /JobPosting/i.test(String(type || '')))) out.push(node);
+  for (const value of Object.values(node)) findJobPostingObjects(value, out, seen, depth + 1);
+  return out;
+}
+
+function structuredValueText(value) {
+  if (value == null) return '';
+  if (typeof value === 'string') return clean(value);
+  if (Array.isArray(value)) return clean(value.map(structuredValueText).join(' '));
+  if (typeof value === 'object') {
+    return clean([
+      value.name,
+      value.description,
+      value.value,
+      value.text
+    ].map(structuredValueText).join(' '));
+  }
+  return '';
+}
+
+function jobPostingLocations(value) {
+  const rows = Array.isArray(value) ? value : [value];
+  const locations = [];
+  for (const row of rows) {
+    if (!row || typeof row !== 'object') continue;
+    const address = row.address && typeof row.address === 'object' ? row.address : row;
+    const locality = clean(address.addressLocality || address.city || '');
+    const region = clean(address.addressRegion || address.region || '');
+    const country = structuredValueText(address.addressCountry);
+    const location = clean([locality, region].filter(Boolean).join(', '));
+    if (location) locations.push(country ? `${location}, ${country}` : location);
+  }
+  return locations;
+}
+
+function jobPostingId(posting) {
+  const identifier = posting?.identifier;
+  const candidates = [
+    typeof identifier === 'object' ? identifier?.value : identifier,
+    posting?.url,
+    posting?.sameAs
+  ];
+  for (const candidate of candidates) {
+    const direct = String(candidate || '').match(/\b(\d{6,})\b/)?.[1];
+    if (direct) return direct;
+  }
+  return '';
+}
+
+function parseJobPostingDetail(html, seedId = '') {
+  const postings = [];
+  for (const match of String(html || '').matchAll(/<script\b[^>]*type=["']application\/ld\+json[^"']*["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    const raw = match[1] || '';
+    if (!raw.trim()) continue;
+    try { findJobPostingObjects(JSON.parse(raw), postings); } catch {}
+  }
+  if (!postings.length) return { found: false, title: '', locations: [], detailText: '' };
+
+  const posting = postings.find(row => seedId && jobPostingId(row) === String(seedId)) || postings[0];
+  const title = clean(posting.title || posting.name || '');
+  const description = clean(posting.description || '');
+  const directRequirements = clean([
+    structuredValueText(posting.experienceRequirements),
+    structuredValueText(posting.qualifications)
+  ].filter(Boolean).join(' '));
+  const responsibilities = structuredValueText(posting.responsibilities);
+  const detailText = clean([
+    description,
+    directRequirements ? `Minimum Qualifications ${directRequirements}` : '',
+    responsibilities
+  ].filter(Boolean).join(' '));
+  return {
+    found: true,
+    title,
+    locations: jobPostingLocations(posting.jobLocation),
+    detailText
+  };
+}
+
 function parseSitemap(html) {
   const rows = [];
   const seen = new Set();
@@ -290,12 +378,14 @@ function addSample(list, value) {
 
 function extractDetail(html, seed, diagnostics) {
   const embedded = parseEmbeddedCandidates(html).find(row => row.id === seed.id) || {};
-  const title = clean(embedded.title || metaContent(html, 'og:title') || metaContent(html, 'twitter:title') || seed.title || '')
+  const jobPosting = parseJobPostingDetail(html, seed.id);
+  if (jobPosting.found) diagnostics.jobPostingJsonLd += 1;
+  const title = clean(embedded.title || jobPosting.title || metaContent(html, 'og:title') || metaContent(html, 'twitter:title') || seed.title || '')
     .replace(/\s*[|–—-]\s*Meta Careers\s*$/i, '')
     .trim();
   const description = clean(metaContent(html, 'og:description') || metaContent(html, 'description') || '');
   const pageText = clean(html);
-  const detailText = clean(`${description} ${pageText.slice(0, 40000)}`);
+  const detailText = clean(`${description} ${jobPosting.detailText} ${pageText.slice(0, 40000)}`);
   const teams = [...new Set([...(seed.teams || []), ...(embedded.teams || [])])];
   if (!title || !missionFit(title, detailText, teams)) {
     diagnostics.drops.titleOrContext += 1;
@@ -303,7 +393,7 @@ function extractDetail(html, seed, diagnostics) {
     return null;
   }
 
-  const locations = [...new Set([...(seed.locations || []), ...(embedded.locations || [])])];
+  const locations = [...new Set([...(seed.locations || []), ...(embedded.locations || []), ...(jobPosting.locations || [])])];
   const location = selectUsLocation(locations, detailText);
   if (!location) {
     diagnostics.drops.nonUsOrUnknownLocation += 1;
@@ -398,6 +488,21 @@ function runClassifierRegressionTests() {
   if (!missionFit('Critical Facility Associate', 'Data center operations with preventive maintenance and electrical systems.')) {
     throw new Error('Meta mission-fit classifier must include early-career Critical Facility Associate roles.');
   }
+
+  const structuredHtml = `<script type="application/ld+json">${JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    identifier: { value: '123456789' },
+    title: 'Critical Facility Engineer',
+    description: 'Minimum Qualifications 2 years of critical facilities experience. Preferred Qualifications 7 years of related experience.',
+    jobLocation: { address: { addressLocality: 'Henrico', addressRegion: 'VA', addressCountry: 'United States' } }
+  })}</script>`;
+  const structured = parseJobPostingDetail(structuredHtml, '123456789');
+  const structuredMinimum = parseMinimumQualifications(structured.detailText);
+  const structuredClassification = classify(structured.title, structuredMinimum, structured.detailText);
+  if (!structured.found || structured.locations[0] !== 'Henrico, VA, United States' || structuredClassification?.minYears !== 2) {
+    throw new Error('Meta collector must classify JobPosting JSON-LD minimum qualifications and U.S. location data.');
+  }
 }
 
 runClassifierRegressionTests();
@@ -415,6 +520,7 @@ const diagnostics = {
   sitemapJobs: 0,
   detailAttempted: 0,
   detailSucceeded: 0,
+  jobPostingJsonLd: 0,
   previousSnapshotCandidates: 0,
   previousSnapshotReverified: 0,
   verified: 0,

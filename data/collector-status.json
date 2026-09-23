@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-23T04:19:13.280Z",
+  "updatedAt": "2026-09-23T04:37:45.943Z",
   "jobs": 719,
-  "sourcesAttempted": 26,
+  "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1,
+    "oracleRecruitingCloud": 2,
     "googleCareers": 1,
     "workday": 6
   },
@@ -1869,33 +1869,33 @@
     "listingRows": 2231,
     "pagesAttempted": 13,
     "pagesSucceeded": 13,
-    "candidateRows": 95,
-    "detailAttempted": 95,
+    "candidateRows": 99,
+    "detailAttempted": 99,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
     "qualifyingRoles": 15,
     "drops": {
-      "title": 2136,
+      "title": 2132,
       "nonUs": 34,
-      "context": 12,
+      "context": 16,
       "experience": 29,
       "missingId": 0,
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-22T21:13:37.132Z",
-    "lastHealthyAt": "2026-09-22T21:13:37.132Z",
+    "checkedAt": "2026-09-23T04:37:45.943Z",
+    "lastHealthyAt": "2026-09-23T04:37:45.943Z",
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-22T21:13:37.132Z",
-      "checkedAt": "2026-09-22T21:13:37.132Z",
+      "lastHealthyAt": "2026-09-23T04:37:45.943Z",
+      "checkedAt": "2026-09-23T04:37:45.943Z",
       "maxAgeHours": 96,
       "ageHours": 0,
       "policy": "Retain the most recent verified Oracle snapshot for up to 96 hours when the official source is unavailable; fail closed after expiry."
     },
     "missionFitScrub": {
-      "checkedAt": "2026-09-22T21:13:38.011Z",
+      "checkedAt": "2026-09-23T04:37:46.804Z",
       "removedFromSnapshot": 4,
       "removedFromPublicFeed": 4,
       "experienceCandidates": 15,
@@ -2105,7 +2105,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T04:19:13.349Z",
+    "checkedAt": "2026-09-23T04:37:46.872Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2113,7 +2113,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T04:19:13.416Z",
+    "updatedAt": "2026-09-23T04:37:46.950Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 719,
@@ -2132,7 +2132,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T04:19:13.478Z",
+    "checkedAt": "2026-09-23T04:37:47.025Z",
     "before": 719,
     "after": 719,
     "removed": 0,
@@ -2150,15 +2150,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1274,
     "currentJobs": 719,
+    "scopeCompany": "Oracle",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 106,
-    "updatedAt": "2026-09-23T04:19:13.639Z"
+    "normalizedWorkdayPostingDatesThisRun": 15,
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-23T04:37:47.152Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

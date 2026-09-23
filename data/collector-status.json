@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T22:43:06.516Z",
+  "updatedAt": "2026-09-23T23:10:17.787Z",
   "jobs": 697,
   "sourcesAttempted": 20,
   "providers": {
@@ -10,8 +10,8 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 667,
+    "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
@@ -3616,7 +3616,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T22:24:35.723Z",
+    "checkedAt": "2026-09-23T23:10:17.836Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3624,15 +3624,15 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T22:24:35.773Z",
+    "updatedAt": "2026-09-23T23:10:17.884Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 696,
+    "regionAssigned": 697,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 105,
+      "west": 106,
       "mid-atlantic": 135,
       "southwest": 81,
       "midwest": 136,
@@ -3643,9 +3643,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T22:24:35.821Z",
-    "before": 696,
-    "after": 696,
+    "checkedAt": "2026-09-23T23:10:17.929Z",
+    "before": 697,
+    "after": 697,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3661,8 +3661,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1296,
     "currentJobs": 697,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
+    "scopeCompany": "DataBank",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3670,8 +3670,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-23T22:43:06.752Z"
+    "firstSeenRecencyFallbackJobs": 15,
+    "updatedAt": "2026-09-23T23:10:18.156Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3818,7 +3818,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-23T18:38:56.333Z",
+    "checkedAt": "2026-09-23T23:10:17.787Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

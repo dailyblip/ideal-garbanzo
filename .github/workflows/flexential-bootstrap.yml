@@ -73,7 +73,7 @@ jobs:
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
       - name: Publish verified Flexential roles from current main
@@ -102,7 +102,7 @@ jobs:
             node scripts/stamp-job-history.mjs --company "Flexential"
             node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs
           }

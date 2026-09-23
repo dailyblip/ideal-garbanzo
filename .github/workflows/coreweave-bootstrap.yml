@@ -7,6 +7,7 @@ on:
       - scripts/collect-coreweave-careers.mjs
       - scripts/enforce-coreweave-fallback-freshness.mjs
       - scripts/validate-coreweave.mjs
+      - scripts/preserve-source-group.mjs
       - data/coreweave-source-evidence.json
       - .github/workflows/coreweave-bootstrap.yml
       - .github/workflows/coreweave-source-integrity-guard.yml
@@ -43,6 +44,11 @@ jobs:
           node scripts/enforce-coreweave-fallback-freshness.mjs --test
           node --check scripts/validate-coreweave.mjs
           node scripts/validate-coreweave.mjs --test
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before CoreWeave refresh
+        run: cp data/jobs.json /tmp/coreweave-public-before.json
       - name: Collect official CoreWeave careers roles
         run: node scripts/collect-coreweave-careers.mjs
       - name: Enforce verified fallback freshness
@@ -53,14 +59,20 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply CoreWeave source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "CoreWeave" /tmp/coreweave-public-before.json
+          node scripts/preserve-source-group.mjs "CoreWeave" /tmp/coreweave-public-before.json --verify
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate CoreWeave employer-direct snapshot
         run: |
           node scripts/enforce-coreweave-fallback-freshness.mjs --check
           node scripts/validate-coreweave.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
+      - name: Track CoreWeave first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "CoreWeave"
+      - name: Verify non-CoreWeave rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "CoreWeave" /tmp/coreweave-public-before.json --verify
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
@@ -78,15 +90,19 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/coreweave-public-before.json
             node scripts/collect-coreweave-careers.mjs
             node scripts/enforce-coreweave-fallback-freshness.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "CoreWeave" /tmp/coreweave-public-before.json
+            node scripts/preserve-source-group.mjs "CoreWeave" /tmp/coreweave-public-before.json --verify
             node scripts/refresh-region-status.mjs
             node scripts/enforce-coreweave-fallback-freshness.mjs --check
             node scripts/validate-coreweave.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "CoreWeave"
+            node scripts/preserve-source-group.mjs "CoreWeave" /tmp/coreweave-public-before.json --verify
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-homepage-contract.mjs

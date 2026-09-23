@@ -14,21 +14,50 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, 'utf8'));
 }
 
-function freshnessDecision({ verifiedAt, declaredExpiresAt, nowMs, sourceHealthy }) {
+function parseMinimumRemainingHours(argv) {
+  const prefix = '--minimum-remaining-hours=';
+  const raw = argv.find(arg => arg.startsWith(prefix));
+  if (!raw) return 0;
+  const value = Number(raw.slice(prefix.length));
+  if (!Number.isFinite(value) || value < 0 || value > 24) {
+    throw new Error('--minimum-remaining-hours must be a number from 0 through 24.');
+  }
+  return value;
+}
+
+function freshnessDecision({ verifiedAt, declaredExpiresAt, nowMs, sourceHealthy, minimumRemainingHours = 0 }) {
   const verifiedMs = Date.parse(String(verifiedAt || ''));
   if (!Number.isFinite(verifiedMs)) {
-    return { expired: !sourceHealthy, hardExpiresMs: null, effectiveExpiresMs: null, shouldTrimExpiry: false, ageHours: null };
+    return {
+      expired: !sourceHealthy,
+      hardExpiresMs: null,
+      effectiveExpiresMs: null,
+      originalEffectiveExpiresMs: null,
+      shouldTrimExpiry: false,
+      retiringEarly: false,
+      ageHours: null
+    };
   }
 
   const hardExpiresMs = verifiedMs + MAX_FALLBACK_AGE_MS;
   const declaredMs = Date.parse(String(declaredExpiresAt || ''));
   const validDeclared = Number.isFinite(declaredMs) && declaredMs > verifiedMs;
-  const effectiveExpiresMs = validDeclared ? Math.min(declaredMs, hardExpiresMs) : hardExpiresMs;
+  const originalEffectiveExpiresMs = validDeclared ? Math.min(declaredMs, hardExpiresMs) : hardExpiresMs;
+  const minimumRemainingMs = minimumRemainingHours * 60 * 60 * 1000;
+  const retiringEarly = !sourceHealthy
+    && minimumRemainingMs > 0
+    && nowMs < originalEffectiveExpiresMs
+    && originalEffectiveExpiresMs <= nowMs + minimumRemainingMs;
+  const retiredExpiresMs = retiringEarly ? Math.max(verifiedMs + 1, nowMs - 1000) : null;
+  const effectiveExpiresMs = retiredExpiresMs ?? originalEffectiveExpiresMs;
+
   return {
-    expired: !sourceHealthy && nowMs >= effectiveExpiresMs,
+    expired: !sourceHealthy && (nowMs >= originalEffectiveExpiresMs || retiringEarly),
     hardExpiresMs,
     effectiveExpiresMs,
-    shouldTrimExpiry: !validDeclared || declaredMs > hardExpiresMs,
+    originalEffectiveExpiresMs,
+    shouldTrimExpiry: !validDeclared || declaredMs > hardExpiresMs || retiringEarly,
+    retiringEarly,
     ageHours: Math.max(0, (nowMs - verifiedMs) / 36e5)
   };
 }
@@ -56,9 +85,35 @@ function runSelfTest() {
     verifiedAt: '2026-09-01T12:00:00Z',
     declaredExpiresAt: '2026-09-08T12:00:00Z',
     nowMs: now,
-    sourceHealthy: true
+    sourceHealthy: true,
+    minimumRemainingHours: 7
   });
   if (healthy.expired) throw new Error('Healthy direct CoreSite source was incorrectly pruned by fallback policy.');
+
+  const coverageGap = freshnessDecision({
+    verifiedAt: '2026-09-06T18:30:00Z',
+    declaredExpiresAt: '2026-09-13T18:30:00Z',
+    nowMs: now,
+    sourceHealthy: false,
+    minimumRemainingHours: 7
+  });
+  if (!coverageGap.expired || !coverageGap.retiringEarly || !coverageGap.shouldTrimExpiry) {
+    throw new Error('CoreSite fallback was not retired before the next watchdog coverage gap.');
+  }
+  if (!(coverageGap.effectiveExpiresMs < now && coverageGap.effectiveExpiresMs > Date.parse('2026-09-06T18:30:00Z'))) {
+    throw new Error('Early-retired CoreSite fallback did not receive a safe inactive expiry.');
+  }
+
+  const enoughCoverage = freshnessDecision({
+    verifiedAt: '2026-09-06T20:00:00Z',
+    declaredExpiresAt: '2026-09-13T20:00:00Z',
+    nowMs: now,
+    sourceHealthy: false,
+    minimumRemainingHours: 7
+  });
+  if (enoughCoverage.expired || enoughCoverage.retiringEarly) {
+    throw new Error('CoreSite fallback with enough watchdog coverage was retired too early.');
+  }
 
   const missing = freshnessDecision({
     verifiedAt: null,
@@ -76,6 +131,7 @@ if (process.argv.includes('--test')) {
   process.exit(0);
 }
 
+const minimumRemainingHours = parseMinimumRemainingHours(process.argv.slice(2));
 const [jobs, fallback, status] = await Promise.all([
   readJson(JOBS_PATH),
   readJson(FALLBACK_PATH),
@@ -93,13 +149,17 @@ const decision = freshnessDecision({
   verifiedAt: fallback.verifiedAt,
   declaredExpiresAt: fallback.expiresAt,
   nowMs,
-  sourceHealthy
+  sourceHealthy,
+  minimumRemainingHours
 });
 
 let fallbackChanged = false;
 let statusChanged = false;
 let jobsChanged = false;
 const effectiveExpiresAt = decision.effectiveExpiresMs ? new Date(decision.effectiveExpiresMs).toISOString() : null;
+const originalEffectiveExpiresAt = decision.originalEffectiveExpiresMs
+  ? new Date(decision.originalEffectiveExpiresMs).toISOString()
+  : null;
 
 if (decision.shouldTrimExpiry && effectiveExpiresAt) {
   fallback.expiresAt = effectiveExpiresAt;
@@ -140,7 +200,10 @@ if (decision.expired) {
     verifiedFallback: {
       ...(status?.coreSite?.verifiedFallback || {}),
       active: false,
-      expired: true,
+      expired: !decision.retiringEarly,
+      retiredEarly: decision.retiringEarly,
+      retiredBeforeOriginalExpiryAt: decision.retiringEarly ? originalEffectiveExpiresAt : null,
+      minimumRemainingHours: decision.retiringEarly ? minimumRemainingHours : 0,
       verifiedAt: clean(fallback.verifiedAt) || null,
       expiresAt: effectiveExpiresAt,
       checkedAt,
@@ -148,7 +211,9 @@ if (decision.expired) {
       expiredAgeHours: decision.ageHours === null ? null : Math.round(decision.ageHours * 10) / 10,
       roles: 0,
       rolesRemoved: removedPublic,
-      policy: 'CoreSite fallback roles may remain published for at most 96 hours after their last official verification.'
+      policy: decision.retiringEarly
+        ? `CoreSite fallback retired early because it could not remain verified for the next ${minimumRemainingHours}-hour watchdog coverage window.`
+        : 'CoreSite fallback roles may remain published for at most 96 hours after their last official verification.'
     }
   };
   statusChanged = true;
@@ -158,7 +223,9 @@ if (fallbackChanged) await writeFile(FALLBACK_PATH, JSON.stringify(fallback, nul
 if (jobsChanged) await writeFile(JOBS_PATH, JSON.stringify(jobs, null, 2) + '\n');
 if (statusChanged) await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
-if (decision.expired) {
+if (decision.retiringEarly) {
+  console.warn(`CoreSite fallback had less than ${minimumRemainingHours} hours of verified life remaining; public roles were retired before the next watchdog coverage gap.`);
+} else if (decision.expired) {
   console.warn(`CoreSite fallback exceeded the ${MAX_FALLBACK_AGE_HOURS}-hour verification window; stale public roles were removed.`);
 } else if (decision.shouldTrimExpiry) {
   console.log(`CoreSite fallback expiry capped at ${effectiveExpiresAt} (${MAX_FALLBACK_AGE_HOURS} hours after verification).`);

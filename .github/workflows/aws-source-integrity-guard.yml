@@ -7,10 +7,12 @@ on:
       - 'data/amazon-jobs.json'
       - 'data/jobs.json'
       - 'data/collector-status.json'
+      - 'data/job-history.json'
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/enforce-amazon-fallback-freshness.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-amazon-parity.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/aws-detail-recovery.yml'
@@ -22,10 +24,12 @@ on:
       - 'data/amazon-jobs.json'
       - 'data/jobs.json'
       - 'data/collector-status.json'
+      - 'data/job-history.json'
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/enforce-amazon-fallback-freshness.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-amazon-parity.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/aws-detail-recovery.yml'
@@ -50,6 +54,7 @@ jobs:
           node --check scripts/enforce-amazon-fallback-freshness.mjs
           node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
           node --check scripts/validate-amazon-parity.mjs
       - name: Guard AWS refresh cadence, source boundary and writer safety
         run: |
@@ -58,6 +63,11 @@ jobs:
           grep -Fq 'node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify' .github/workflows/aws-detail-recovery.yml
           grep -Fq 'node scripts/stamp-job-history.mjs --company "Amazon Web Services"' .github/workflows/aws-detail-recovery.yml
           grep -Fq 'cp /tmp/aws-status-after-collect.json data/collector-status.json' .github/workflows/aws-detail-recovery.yml
+          test "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' .github/workflows/aws-detail-recovery.yml)" -eq 2
+          if grep -Eq 'node scripts/validate-job-history\.mjs[[:space:]]*$' .github/workflows/aws-detail-recovery.yml; then
+            echo "::error::AWS source refresh must allow unrelated clock-derived history aging."
+            exit 1
+          fi
           node scripts/validate-source-workflow-isolation.mjs
       - name: Run AWS source regressions
         run: |
@@ -67,5 +77,6 @@ jobs:
           node scripts/validate-amazon-parity.mjs --test
       - name: Validate current AWS publication state
         run: |
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-amazon-parity.mjs
           node scripts/validate-priority-employer-sources.mjs

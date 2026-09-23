@@ -78,7 +78,7 @@ jobs:
         run: |
           node scripts/validate.mjs
           node scripts/validate-promotions.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-priority-employer-sources.mjs
@@ -119,7 +119,7 @@ jobs:
             node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify
             node scripts/validate.mjs
             node scripts/validate-promotions.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-mailing-list.mjs
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-priority-employer-sources.mjs

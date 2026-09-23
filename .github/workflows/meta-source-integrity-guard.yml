@@ -6,15 +6,20 @@ on:
     paths:
       - 'data/meta-jobs.json'
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/meta-fetch-policy.mjs'
       - 'scripts/guard-meta-detail-collapse.mjs'
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/prune-meta-overfive.mjs'
+      - 'scripts/reconcile-meta-status.mjs'
+      - 'scripts/normalize-meta-compensation.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - 'scripts/enforce-meta-fallback-freshness.mjs'
       - '.github/workflows/meta-bootstrap.yml'
       - '.github/workflows/meta-stale-fallback-watch.yml'
@@ -24,15 +29,20 @@ on:
     paths:
       - 'data/meta-jobs.json'
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/meta-fetch-policy.mjs'
       - 'scripts/guard-meta-detail-collapse.mjs'
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/prune-meta-overfive.mjs'
+      - 'scripts/reconcile-meta-status.mjs'
+      - 'scripts/normalize-meta-compensation.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-meta-snapshot.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - 'scripts/enforce-meta-fallback-freshness.mjs'
       - '.github/workflows/meta-bootstrap.yml'
       - '.github/workflows/meta-stale-fallback-watch.yml'
@@ -51,17 +61,42 @@ jobs:
         with:
           node-version: 22
       - name: Verify Meta exact requisition parity, source isolation and failover
+        shell: bash
         run: |
+          set -euo pipefail
+          workflow=.github/workflows/meta-bootstrap.yml
           node --check scripts/meta-fetch-policy.mjs
           node --check scripts/guard-meta-detail-collapse.mjs
           node scripts/guard-meta-detail-collapse.mjs --test
           node --check scripts/prune-meta-overfive.mjs
           node scripts/prune-meta-overfive.mjs --test
+          node --check scripts/reconcile-meta-status.mjs
+          node scripts/reconcile-meta-status.mjs --test
+          node --check scripts/normalize-meta-compensation.mjs
+          node scripts/normalize-meta-compensation.mjs --test
           node --check scripts/preserve-source-group.mjs
           node scripts/preserve-source-group.mjs --test
           node --check scripts/stamp-job-history.mjs
-          grep -q "preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json" .github/workflows/meta-bootstrap.yml
-          grep -q "stamp-job-history.mjs --company Meta" .github/workflows/meta-bootstrap.yml
+          node --check scripts/validate-job-history.mjs
+          node --check scripts/validate-source-workflow-isolation.mjs
+          grep -Fq -- "- 'scripts/enforce-meta-fallback-freshness.mjs'" "$workflow"
+          grep -Fq -- "- 'scripts/reconcile-meta-status.mjs'" "$workflow"
+          grep -Fq 'preserve-source-group.mjs Meta /tmp/meta-jobs-public-before.json' "$workflow"
+          grep -Fq 'stamp-job-history.mjs --company Meta' "$workflow"
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$workflow")" -lt 2 ]; then
+            echo '::error::Meta source refresh must allow unrelated employers to age during both normal and race-safe history validation.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Meta source refresh must not require unrelated employers to have freshly rewritten postedHours.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*(run:[[:space:]]+)?node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Meta source refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-source-workflow-isolation.mjs
           node --check scripts/validate-meta-snapshot.mjs
           node scripts/validate-meta-snapshot.mjs --test
           node scripts/validate-meta-snapshot.mjs

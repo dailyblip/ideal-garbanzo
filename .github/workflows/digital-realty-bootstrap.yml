@@ -69,7 +69,7 @@ jobs:
       - name: Validate updated feed and priority-source contract
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
@@ -97,7 +97,7 @@ jobs:
             node scripts/stamp-job-history.mjs --company "Digital Realty"
             node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs

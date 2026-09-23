@@ -8,6 +8,7 @@ on:
       - 'scripts/validate-cologix.mjs'
       - 'scripts/validate-cologix-publication-state.mjs'
       - 'scripts/enforce-cologix-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - '.github/workflows/cologix-bootstrap.yml'
   workflow_dispatch:
   schedule:
@@ -34,17 +35,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate collector and preservation contract
+      - name: Validate collector, preservation and source-isolation contract
         run: |
           node --check scripts/collect-cologix.mjs
           node --check scripts/validate-cologix.mjs
           node --check scripts/validate-cologix-publication-state.mjs
           node --check scripts/enforce-cologix-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node scripts/collect-cologix.mjs --test-classifier
           node scripts/validate-cologix.mjs --test
           node scripts/validate-cologix-publication-state.mjs --test
           node scripts/enforce-cologix-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
           node scripts/collect-jobs.mjs --test-preservation
+      - name: Preserve public-feed boundary before Cologix refresh
+        run: cp data/jobs.json /tmp/cologix-public-before.json
       - name: Enforce Cologix snapshot freshness before collection
         run: node scripts/enforce-cologix-fallback-freshness.mjs
       - name: Collect official Cologix Lever roles
@@ -55,16 +61,22 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply Cologix source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Cologix" /tmp/cologix-public-before.json
+          node scripts/preserve-source-group.mjs "Cologix" /tmp/cologix-public-before.json --verify
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
+      - name: Track Cologix first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "Cologix"
+      - name: Verify non-Cologix rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Cologix" /tmp/cologix-public-before.json --verify
       - name: Validate Cologix publication state
         run: node scripts/validate-cologix-publication-state.mjs
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
       - name: Publish verified Cologix roles from current main
@@ -78,21 +90,28 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/cologix-public-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
             node scripts/collect-cologix.mjs --test-classifier
             node scripts/validate-cologix.mjs --test
             node scripts/validate-cologix-publication-state.mjs --test
             node scripts/enforce-cologix-fallback-freshness.mjs --test
+            node scripts/preserve-source-group.mjs --test
             node scripts/collect-jobs.mjs --test-preservation
             node scripts/enforce-cologix-fallback-freshness.mjs
             node scripts/collect-cologix.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "Cologix" /tmp/cologix-public-before.json
+            node scripts/preserve-source-group.mjs "Cologix" /tmp/cologix-public-before.json --verify
             node scripts/refresh-region-status.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "Cologix"
+            node scripts/preserve-source-group.mjs "Cologix" /tmp/cologix-public-before.json --verify
             node scripts/validate-cologix-publication-state.mjs
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs
           }

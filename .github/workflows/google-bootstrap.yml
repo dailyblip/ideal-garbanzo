@@ -31,6 +31,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -38,6 +39,13 @@ jobs:
         run: node scripts/collect-google-careers-fresh.mjs --self-test
       - name: Test Google snapshot identity policy
         run: node scripts/validate-google-snapshot.mjs --test
+      - name: Test Google source-boundary helpers
+        run: |
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before Google refresh
+        run: cp data/jobs.json /tmp/google-public-before.json
       - name: Collect official Google Careers roles
         run: node scripts/collect-google-careers-fresh.mjs
       - name: Confirm collector merged the Google snapshot
@@ -61,8 +69,14 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Persist first-seen dates for weekly alerts
-        run: node scripts/stamp-job-history.mjs
+      - name: Reapply Google source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json
+          node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify
+      - name: Track Google first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "Google"
+      - name: Verify non-Google rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify
       - name: Validate refreshed feed and Google parity
         run: |
           node scripts/validate.mjs
@@ -71,6 +85,7 @@ jobs:
           node scripts/validate-google-snapshot.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish Google snapshot from current main
         id: publish
         shell: bash
@@ -98,6 +113,9 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/google-public-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
             node scripts/collect-google-careers-fresh.mjs --self-test
             node scripts/validate-google-snapshot.mjs --test
             node scripts/collect-google-careers-fresh.mjs
@@ -105,13 +123,17 @@ jobs:
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json
+            node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify
+            node scripts/stamp-job-history.mjs --company "Google"
+            node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-google-freshness.mjs
             node scripts/validate-google-snapshot.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main
@@ -121,8 +143,7 @@ jobs:
           fi
 
           for attempt in 1 2 3; do
-            # filter-mission-fit.mjs may also prune the shared major Workday snapshot.
-            git add data/google-jobs.json data/jobs.json data/major-jobs.json data/job-history.json data/collector-status.json
+            git add data/google-jobs.json data/jobs.json data/job-history.json data/collector-status.json
             if git diff --cached --quiet; then
               echo "No Google Careers data changes."
               echo "changed=false" >> "$GITHUB_OUTPUT"

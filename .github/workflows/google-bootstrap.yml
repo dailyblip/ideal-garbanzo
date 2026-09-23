@@ -44,8 +44,10 @@ jobs:
           node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
           node scripts/preserve-source-group.mjs --test
-      - name: Preserve public-feed boundary before Google refresh
-        run: cp data/jobs.json /tmp/google-public-before.json
+      - name: Preserve shared boundaries before Google refresh
+        run: |
+          cp data/jobs.json /tmp/google-public-before.json
+          cp data/major-jobs.json /tmp/google-major-before.json
       - name: Collect official Google Careers roles
         run: node scripts/collect-google-careers-fresh.mjs
       - name: Confirm collector merged the Google snapshot
@@ -63,6 +65,8 @@ jobs:
           }
           console.log(`Google collector merge: ${publicGoogle.length}/${snapshot.length} roles present; fallbackExpired=${Boolean(status.googleCareers?.fallbackExpired)}.`);
           NODE
+      - name: Preserve Google collector status before shared transforms
+        run: cp data/collector-status.json /tmp/google-status-after-collect.json
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations and regions
@@ -72,7 +76,11 @@ jobs:
       - name: Reapply Google source boundary after shared transforms
         run: |
           node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json
+          cp /tmp/google-major-before.json data/major-jobs.json
+          cp /tmp/google-status-after-collect.json data/collector-status.json
           node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify
+          cmp -s data/major-jobs.json /tmp/google-major-before.json
+          cmp -s data/collector-status.json /tmp/google-status-after-collect.json
       - name: Track Google first-seen dates
         run: node scripts/stamp-job-history.mjs --company "Google"
       - name: Verify non-Google rows remain unchanged after history stamping
@@ -114,17 +122,23 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             cp data/jobs.json /tmp/google-public-before.json
+            cp data/major-jobs.json /tmp/google-major-before.json
             node --check scripts/preserve-source-group.mjs
             node --check scripts/stamp-job-history.mjs
             node scripts/collect-google-careers-fresh.mjs --self-test
             node scripts/validate-google-snapshot.mjs --test
             node scripts/collect-google-careers-fresh.mjs
             verify_google_merge
+            cp data/collector-status.json /tmp/google-status-after-collect.json
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json
+            cp /tmp/google-major-before.json data/major-jobs.json
+            cp /tmp/google-status-after-collect.json data/collector-status.json
             node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify
+            cmp -s data/major-jobs.json /tmp/google-major-before.json
+            cmp -s data/collector-status.json /tmp/google-status-after-collect.json
             node scripts/stamp-job-history.mjs --company "Google"
             node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify
             node scripts/validate.mjs

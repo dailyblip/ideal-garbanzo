@@ -6,11 +6,15 @@ on:
     paths:
       - 'data/digital-realty-jobs.json'
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-digital-realty.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-digital-realty-parity.mjs'
       - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/digital-realty-bootstrap.yml'
       - '.github/workflows/digital-realty-source-integrity-guard.yml'
@@ -19,11 +23,15 @@ on:
     paths:
       - 'data/digital-realty-jobs.json'
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-digital-realty.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - 'scripts/validate-digital-realty-parity.mjs'
       - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/digital-realty-bootstrap.yml'
       - '.github/workflows/digital-realty-source-integrity-guard.yml'
@@ -46,10 +54,35 @@ jobs:
           node --check scripts/validate-digital-realty.mjs
           node --check scripts/validate-digital-realty-parity.mjs
           node --check scripts/enforce-digital-realty-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
       - name: Guard Digital Realty refresh cadence and source-writer safety
         run: |
-          grep -Fq "cron: '19 */6 * * *'" .github/workflows/digital-realty-bootstrap.yml
-          grep -Fq 'group: careers-source-writers' .github/workflows/digital-realty-bootstrap.yml
+          workflow=.github/workflows/digital-realty-bootstrap.yml
+          grep -Fq "cron: '19 */6 * * *'" "$workflow"
+          grep -Fq 'group: careers-source-writers' "$workflow"
+          if [ "$(grep -Fc 'node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-public-before.json --verify' "$workflow")" -lt 2 ]; then
+            echo '::error::Digital Realty refresh must verify the non-Digital Realty boundary in both normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/stamp-job-history.mjs --company "Digital Realty"' "$workflow")" -lt 2 ]; then
+            echo '::error::Digital Realty refresh must keep first-seen history stamping scoped to Digital Realty in both normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$workflow")" -lt 2 ]; then
+            echo '::error::Digital Realty source refresh must allow unrelated employers to age during both normal and race-safe history validation.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Digital Realty source refresh must not require unrelated employers to have freshly rewritten postedHours.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*(run:[[:space:]]+)?node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Digital Realty source refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
+          node scripts/preserve-source-group.mjs --test
           node scripts/validate-source-workflow-isolation.mjs
       - name: Run Digital Realty integrity and freshness regressions
         run: |
@@ -58,6 +91,7 @@ jobs:
           node scripts/enforce-digital-realty-fallback-freshness.mjs --test
       - name: Validate current Digital Realty publication state
         run: |
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-digital-realty.mjs
           node scripts/validate-digital-realty-parity.mjs
           node scripts/validate-priority-employer-sources.mjs

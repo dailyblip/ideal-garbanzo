@@ -6,9 +6,12 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/switch-jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-switch-careers.mjs'
       - 'scripts/validate-switch-careers.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - '.github/workflows/switch-bootstrap.yml'
       - '.github/workflows/switch-source-integrity-guard.yml'
   pull_request:
@@ -16,9 +19,12 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/switch-jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-switch-careers.mjs'
       - 'scripts/validate-switch-careers.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - '.github/workflows/switch-bootstrap.yml'
       - '.github/workflows/switch-source-integrity-guard.yml'
   workflow_dispatch:
@@ -39,9 +45,33 @@ jobs:
           node --check scripts/collect-switch-careers.mjs
           node --check scripts/validate-switch-careers.mjs
           node scripts/collect-switch-careers.mjs --test-classifier
+      - name: Test Switch source-boundary helpers
+        run: |
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Guard Switch refresh isolation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow='.github/workflows/switch-bootstrap.yml'
+          grep -Fq 'cp data/jobs.json /tmp/switch-public-before.json' "$workflow"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Switch" /tmp/switch-public-before.json' "$workflow"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Switch" /tmp/switch-public-before.json --verify' "$workflow"
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Switch"' "$workflow"
+          grep -Fq 'node scripts/validate-job-history.mjs --allow-aging' "$workflow"
+          if grep -Eq '^[[:space:]]*run:[[:space:]]+node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Switch source refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Switch source refresh must allow unrelated postedHours aging during history validation.'
+            exit 1
+          fi
       - name: Verify Switch authoritative snapshot and public-feed parity
         run: node scripts/validate-switch-careers.mjs
       - name: Verify employer-direct publication and homepage contract
         run: |
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs

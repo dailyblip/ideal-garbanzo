@@ -7,6 +7,35 @@ const DEFINITIVELY_CLOSED = new Set([404, 410]);
 const CONCURRENCY = 5;
 const TIMEOUT_MS = 20000;
 
+// These employers are maintained by dedicated authoritative source snapshots or
+// provider-specific publication guards. Their refresh workflows own stale-role
+// removal so this generic URL checker cannot create public/snapshot drift.
+const AUTHORITATIVE_REFRESH_COMPANIES = new Set([
+  'Amazon Web Services',
+  'Google',
+  'Microsoft',
+  'Meta',
+  'Oracle',
+  'Equinix',
+  'Digital Realty',
+  'Iron Mountain',
+  'Cologix',
+  'Flexential',
+  'T5 Data Centers',
+  'Stream Data Centers',
+  'Switch',
+  'DataBank',
+  'TierPoint',
+  'Sabey Data Centers',
+  'Novva Data Centers',
+  'Vantage Data Centers',
+  'QTS Data Centers',
+  'CyrusOne',
+  'STACK Infrastructure',
+  'NTT Global Data Centers',
+  'Aligned Data Centers'
+]);
+
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 
 async function readJson(path, fallback) {
@@ -14,7 +43,7 @@ async function readJson(path, fallback) {
   catch { return fallback; }
 }
 
-function isCandidate(job) {
+function isWithinEarlyCareerScope(job) {
   if (!job || job.demo === true || job.active === false) return false;
   if (!TARGET_EXPERIENCE_BANDS.has(clean(job.experience))) return false;
   try {
@@ -23,6 +52,14 @@ function isCandidate(job) {
   } catch {
     return false;
   }
+}
+
+function isAuthoritativeRefreshOwned(job) {
+  return AUTHORITATIVE_REFRESH_COMPANIES.has(clean(job?.company));
+}
+
+function isCandidate(job) {
+  return isWithinEarlyCareerScope(job) && !isAuthoritativeRefreshOwned(job);
 }
 
 function classifyResult(result) {
@@ -51,10 +88,8 @@ function hasActiveEquinixFallbackVerification(job, status, nowMs = Date.now()) {
 
 function classifyJobResult(job, result, status, nowMs = Date.now()) {
   const outcome = classifyResult(result);
-  // Equinix is known to return false 404s to GitHub-hosted requests. Its
-  // managed fallback independently verifies current roles and expires quickly.
-  // Do not let the generic stale-link pass contradict that fresher provider-
-  // specific verification while it is still active and internally complete.
+  // Keep this provider-level safeguard for direct regression coverage even
+  // though Equinix is normally excluded from the generic stale-prune scope.
   if (outcome === 'closed' && hasActiveEquinixFallbackVerification(job, status, nowMs)) {
     return 'verified-retained';
   }
@@ -122,6 +157,7 @@ function runSelfTest() {
     { id:'timeout', type:'entry-level', experience:'2-5-years', sourceUrl:'https://example.com/e', active:true, demo:false },
     { id:'healthy', type:'entry-level', experience:'2-5-years', sourceUrl:'https://example.com/f', active:true, demo:false },
     { id:'unsupported-experience', type:'entry-level', experience:'6-plus-years', sourceUrl:'https://example.com/g', active:true, demo:false },
+    { id:'authoritative-microsoft', company:'Microsoft', type:'entry-level', experience:'0-2-years', sourceUrl:'https://apply.careers.microsoft.com/careers/job/123', active:true, demo:false },
     { id:'equinix-verified-test', company:'Equinix', source:'Equinix official careers (verified fallback)', type:'internship', experience:'no-experience', sourceUrl:'https://careers.equinix.com/jobs/test', active:true, demo:false }
   ];
   const now = Date.parse('2026-09-08T12:00:00Z');
@@ -152,19 +188,25 @@ function runSelfTest() {
   if (!removedIds.has('gone-404') || !removedIds.has('gone-410') || removed.length !== 2) {
     throw new Error('404/410 roles were not pruned exactly as expected');
   }
-  for (const id of ['blocked-403','server-503','timeout','healthy','unsupported-experience','equinix-verified-test']) {
-    if (!keptIds.has(id)) throw new Error(`non-definitive or actively provider-verified result was incorrectly pruned: ${id}`);
+  for (const id of ['blocked-403','server-503','timeout','healthy','unsupported-experience','authoritative-microsoft','equinix-verified-test']) {
+    if (!keptIds.has(id)) throw new Error(`non-definitive or source-owned result was incorrectly pruned: ${id}`);
   }
   if (checks.find(check => check.id === 'equinix-verified-test')?.outcome !== 'verified-retained') {
     throw new Error('active Equinix provider verification did not override a generic false 404');
   }
-  for (const id of ['gone-404','gone-410','blocked-403','server-503','timeout','healthy','equinix-verified-test']) {
-    if (!isCandidate(jobs.find(job => job.id === id))) throw new Error(`supported 0–5-year role was not selected for stale checking: ${id}`);
+  for (const id of ['gone-404','gone-410','blocked-403','server-503','timeout','healthy']) {
+    if (!isCandidate(jobs.find(job => job.id === id))) throw new Error(`supported non-source-owned 0–5-year role was not selected for stale checking: ${id}`);
   }
   if (isCandidate(jobs.find(job => job.id === 'unsupported-experience'))) {
     throw new Error('unsupported experience band became a 0–5-year stale-prune candidate');
   }
-  console.log('Published 0–5-year stale-link pruning policy passed regression tests.');
+  for (const id of ['authoritative-microsoft','equinix-verified-test']) {
+    const job = jobs.find(candidate => candidate.id === id);
+    if (!isWithinEarlyCareerScope(job) || isCandidate(job)) {
+      throw new Error(`authoritative source-owned early-career role was not excluded from generic stale pruning: ${id}`);
+    }
+  }
+  console.log('Published 0–5-year stale-link pruning policy passed regression tests, including authoritative source ownership.');
 }
 
 if (process.argv.includes('--test')) {
@@ -174,6 +216,7 @@ if (process.argv.includes('--test')) {
 
 const jobs = await readJson(JOBS_PATH, []);
 const status = await readJson(STATUS_PATH, {});
+const sourceOwnedSkipped = jobs.filter(job => isWithinEarlyCareerScope(job) && isAuthoritativeRefreshOwned(job));
 const candidates = jobs.filter(isCandidate);
 const checkedAt = new Date().toISOString();
 const checkedAtMs = Date.parse(checkedAt);
@@ -203,8 +246,10 @@ const nextStatus = {
   jobs: kept.length,
   earlyCareerStalePrune: {
     checkedAt,
-    scope: 'all published 0-5-year roles',
+    scope: 'published 0-5-year roles not owned by an authoritative source refresh',
     candidates: candidates.length,
+    authoritativeSourceOwnedSkipped: sourceOwnedSkipped.length,
+    authoritativeSourceOwnedCompanies: [...new Set(sourceOwnedSkipped.map(job => clean(job.company)).filter(Boolean))].sort(),
     open: counts.open,
     definitivelyClosed: counts.closed,
     transientRetained: counts.transient,
@@ -215,12 +260,12 @@ const nextStatus = {
       title: clean(job.title),
       sourceUrl: clean(job.sourceUrl)
     })),
-    policy: 'Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass.'
+    policy: 'Recheck published no-experience, 0-2-year and 2-5-year roles that are not controlled by an authoritative source refresh. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects and network failures. Authoritative snapshot/provider workflows own stale removal for their employers so generic pruning cannot create source/publication drift.'
   }
 };
 
 if (removed.length) await writeFile(JOBS_PATH, JSON.stringify(kept, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(nextStatus, null, 2) + '\n');
 
-console.log(`Checked ${candidates.length} published 0–5-year employer URLs: ${counts.open} reachable, ${counts.closed} definitively closed, ${counts.transient} transient/blocked retained, ${counts['verified-retained']} retained by active provider verification.`);
+console.log(`Checked ${candidates.length} published 0–5-year employer URLs: ${counts.open} reachable, ${counts.closed} definitively closed, ${counts.transient} transient/blocked retained, ${counts['verified-retained']} retained by active provider verification; skipped ${sourceOwnedSkipped.length} authoritative source-owned role(s).`);
 if (removed.length) console.log(`Removed ${removed.length} definitively closed 0–5-year role(s).`);

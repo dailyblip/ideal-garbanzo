@@ -8,6 +8,7 @@ on:
       - 'scripts/validate-databank.mjs'
       - 'scripts/validate-databank-publication-state.mjs'
       - 'scripts/enforce-databank-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - '.github/workflows/databank-bootstrap.yml'
   workflow_dispatch:
   schedule:
@@ -34,17 +35,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate DataBank collector and preservation contract
+      - name: Validate DataBank collector and source-isolation contract
         run: |
           node --check scripts/collect-databank.mjs
           node --check scripts/validate-databank.mjs
           node --check scripts/validate-databank-publication-state.mjs
           node --check scripts/enforce-databank-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
           node scripts/collect-databank.mjs --test-classifier
           node scripts/validate-databank.mjs --test
           node scripts/validate-databank-publication-state.mjs --test
           node scripts/enforce-databank-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
           node scripts/collect-jobs.mjs --test-preservation
+      - name: Preserve public-feed boundary before DataBank refresh
+        run: cp data/jobs.json /tmp/databank-public-before.json
       - name: Enforce DataBank snapshot freshness before collection
         run: node scripts/enforce-databank-fallback-freshness.mjs
       - name: Collect official DataBank TalentReef roles
@@ -55,16 +62,22 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply DataBank source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json
+          node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json --verify
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
       - name: Validate DataBank publication state
         run: node scripts/validate-databank-publication-state.mjs
+      - name: Track DataBank first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "DataBank"
+      - name: Verify non-DataBank rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json --verify
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
       - name: Publish verified DataBank roles from current main
@@ -78,23 +91,31 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/databank-public-before.json
             node --check scripts/validate-databank-publication-state.mjs
             node --check scripts/enforce-databank-fallback-freshness.mjs
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
+            node --check scripts/validate-job-history.mjs
             node scripts/collect-databank.mjs --test-classifier
             node scripts/validate-databank.mjs --test
             node scripts/validate-databank-publication-state.mjs --test
             node scripts/enforce-databank-fallback-freshness.mjs --test
+            node scripts/preserve-source-group.mjs --test
             node scripts/collect-jobs.mjs --test-preservation
             node scripts/enforce-databank-fallback-freshness.mjs
             node scripts/collect-databank.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json
+            node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json --verify
             node scripts/refresh-region-status.mjs
-            node scripts/stamp-job-history.mjs
             node scripts/validate-databank-publication-state.mjs
+            node scripts/stamp-job-history.mjs --company "DataBank"
+            node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs
           }

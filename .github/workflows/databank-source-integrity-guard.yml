@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/databank-jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-databank.mjs'
       - 'scripts/validate-databank.mjs'
@@ -15,6 +16,10 @@ on:
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/normalize-display-copy.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/databank-bootstrap.yml'
       - '.github/workflows/databank-stale-fallback-watch.yml'
       - '.github/workflows/pages.yml'
@@ -24,6 +29,7 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/databank-jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-databank.mjs'
       - 'scripts/validate-databank.mjs'
@@ -33,6 +39,10 @@ on:
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/normalize-display-copy.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/databank-bootstrap.yml'
       - '.github/workflows/databank-stale-fallback-watch.yml'
       - '.github/workflows/pages.yml'
@@ -50,17 +60,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Verify DataBank collector and integrity regressions
+      - name: Verify DataBank collector, preservation and integrity regressions
         run: |
           node --check scripts/collect-databank.mjs
           node --check scripts/validate-databank.mjs
           node --check scripts/validate-databank-publication-state.mjs
           node --check scripts/enforce-databank-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
+          node --check scripts/validate-source-workflow-isolation.mjs
           node scripts/collect-databank.mjs --test-classifier
           node scripts/validate-databank.mjs --test
           node scripts/validate-databank-publication-state.mjs --test
           node scripts/enforce-databank-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
           node scripts/collect-jobs.mjs --test-preservation
+      - name: Preserve non-DataBank public-feed boundary
+        run: cp data/jobs.json /tmp/databank-public-before.json
       - name: Enforce DataBank snapshot freshness
         run: node scripts/enforce-databank-fallback-freshness.mjs
       - name: Re-run publication transforms
@@ -69,5 +86,17 @@ jobs:
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
+      - name: Reapply and verify DataBank source boundary
+        run: |
+          node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json
+          node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json --verify
+      - name: Track only DataBank first-seen history
+        run: node scripts/stamp-job-history.mjs --company "DataBank"
+      - name: Verify history stamping preserved non-DataBank rows
+        run: node scripts/preserve-source-group.mjs "DataBank" /tmp/databank-public-before.json --verify
+      - name: Validate feed history and workflow isolation
+        run: |
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Validate DataBank authoritative-public state
         run: node scripts/validate-databank-publication-state.mjs

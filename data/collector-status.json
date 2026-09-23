@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T01:50:15.699Z",
+  "updatedAt": "2026-09-23T03:49:21.018Z",
   "jobs": 720,
   "sourcesAttempted": 20,
   "providers": {
@@ -3592,7 +3592,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-22T23:45:29.892Z",
+    "checkedAt": "2026-09-23T03:49:21.096Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3600,10 +3600,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T00:51:30.812Z",
+    "updatedAt": "2026-09-23T03:49:21.171Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 721,
+    "regionAssigned": 720,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3612,16 +3612,16 @@
       "texas": 122,
       "southwest": 81,
       "midwest": 138,
-      "west": 115,
+      "west": 114,
       "mid-atlantic": 132,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T00:51:30.884Z",
-    "before": 721,
-    "after": 721,
+    "checkedAt": "2026-09-23T03:49:21.242Z",
+    "before": 720,
+    "after": 720,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3637,8 +3637,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1274,
     "currentJobs": 720,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 3,
+    "scopeCompany": "Flexential",
+    "scopedJobs": 2,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3646,8 +3646,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 3,
-    "updatedAt": "2026-09-23T01:50:15.954Z"
+    "firstSeenRecencyFallbackJobs": 2,
+    "updatedAt": "2026-09-23T03:49:21.625Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3742,7 +3742,7 @@
     "rejectedUnknownExperience": 0
   },
   "flexential": {
-    "checkedAt": "2026-09-22T23:45:29.833Z",
+    "checkedAt": "2026-09-23T03:49:21.018Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",

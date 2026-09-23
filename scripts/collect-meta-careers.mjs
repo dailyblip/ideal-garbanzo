@@ -230,10 +230,14 @@ function parseJobPostingDetail(html, seedId = '') {
     directRequirements ? `Minimum Qualifications ${directRequirements}` : '',
     responsibilities
   ].filter(Boolean).join(' '));
+  const locations = [...new Set([
+    ...jobPostingLocations(posting.jobLocation),
+    ...jobPostingLocations(posting.applicantLocationRequirements)
+  ])];
   return {
     found: true,
     title,
-    locations: jobPostingLocations(posting.jobLocation),
+    locations,
     detailText
   };
 }
@@ -502,6 +506,19 @@ function runClassifierRegressionTests() {
   const structuredClassification = classify(structured.title, structuredMinimum, structured.detailText);
   if (!structured.found || structured.locations[0] !== 'Henrico, VA, United States' || structuredClassification?.minYears !== 2) {
     throw new Error('Meta collector must classify JobPosting JSON-LD minimum qualifications and U.S. location data.');
+  }
+
+  const applicantLocationHtml = `<script type="application/ld+json">${JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    identifier: { value: '987654321' },
+    title: 'Critical Facility Associate',
+    description: 'Minimum Qualifications 1 year of critical facilities experience.',
+    applicantLocationRequirements: { address: { addressLocality: 'Temple', addressRegion: 'TX', addressCountry: 'United States' } }
+  })}</script>`;
+  const applicantLocation = parseJobPostingDetail(applicantLocationHtml, '987654321');
+  if (!applicantLocation.found || applicantLocation.locations[0] !== 'Temple, TX, United States') {
+    throw new Error('Meta collector must accept U.S. JobPosting applicantLocationRequirements when jobLocation is absent.');
   }
 }
 

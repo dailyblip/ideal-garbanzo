@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-23T22:05:41.447Z",
-  "jobs": 697,
+  "updatedAt": "2026-09-23T22:24:35.673Z",
+  "jobs": 696,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,13 +10,13 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 668,
+    "entry-level": 667,
     "trainee": 12,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 283,
+    "2-5-years": 282,
     "0-2-years": 386,
     "no-experience": 28
   },
@@ -3616,28 +3616,18 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T22:05:41.529Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-23T22:24:35.723Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T22:05:41.612Z",
+    "updatedAt": "2026-09-23T22:24:35.773Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 697,
+    "regionAssigned": 696,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3645,7 +3635,7 @@
       "west": 105,
       "mid-atlantic": 135,
       "southwest": 81,
-      "midwest": 137,
+      "midwest": 136,
       "southeast": 107,
       "texas": 113,
       "northeast": 18,
@@ -3653,9 +3643,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T22:05:41.696Z",
-    "before": 697,
-    "after": 697,
+    "checkedAt": "2026-09-23T22:24:35.821Z",
+    "before": 696,
+    "after": 696,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3670,7 +3660,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1296,
-    "currentJobs": 697,
+    "currentJobs": 696,
+    "scopeCompany": "Cologix",
+    "scopedJobs": 7,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3678,8 +3670,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 89,
-    "updatedAt": "2026-09-23T22:05:42.312Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-23T22:24:35.986Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3755,17 +3747,17 @@
     "policy": "Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-23T17:55:40.737Z",
+    "checkedAt": "2026-09-23T22:24:35.673Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",
     "officialLeverBoard": "https://jobs.lever.co/cologix",
     "api": "https://api.lever.co/v0/postings/cologix?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 27,
-    "usJobs": 19,
-    "candidateRoles": 10,
-    "qualifyingRoles": 8,
+    "listedJobs": 26,
+    "usJobs": 18,
+    "candidateRoles": 9,
+    "qualifyingRoles": 7,
     "rejectedOutOfScopeTitle": 9,
     "rejectedSeniorTitle": 0,
     "rejectedOver5Years": 0,

@@ -12,6 +12,8 @@ on:
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/validate-google-freshness.mjs'
       - 'scripts/validate-google-snapshot.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/google-bootstrap.yml'
       - '.github/workflows/google-stale-fallback-watch.yml'
@@ -27,6 +29,8 @@ on:
       - 'scripts/enforce-google-fallback-freshness.mjs'
       - 'scripts/validate-google-freshness.mjs'
       - 'scripts/validate-google-snapshot.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/google-bootstrap.yml'
       - '.github/workflows/google-stale-fallback-watch.yml'
@@ -51,6 +55,28 @@ jobs:
           node --check scripts/enforce-google-fallback-freshness.mjs
           node --check scripts/validate-google-freshness.mjs
           node --check scripts/validate-google-snapshot.mjs
+      - name: Test Google source-boundary helpers
+        run: |
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Guard Google refresh isolation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow='.github/workflows/google-bootstrap.yml'
+          grep -Fq 'cp data/jobs.json /tmp/google-public-before.json' "$workflow"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json' "$workflow"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify' "$workflow"
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Google"' "$workflow"
+          if grep -Eq '^[[:space:]]*run:[[:space:]]+node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Google source refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
+          if grep -Fq 'git add data/google-jobs.json data/jobs.json data/major-jobs.json' "$workflow"; then
+            echo '::error::Google source refresh must not publish shared major-jobs mutations.'
+            exit 1
+          fi
       - name: Guard Google refresh cadence and source-writer safety
         run: |
           grep -Fq "cron: '47 */6 * * *'" .github/workflows/google-bootstrap.yml

@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-23T12:56:11.856Z",
+  "updatedAt": "2026-09-23T13:48:12.077Z",
   "jobs": 715,
-  "sourcesAttempted": 21,
+  "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1,
+    "oracleRecruitingCloud": 2,
     "googleCareers": 2
   },
   "countsByType": {
@@ -16,8 +16,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 401,
     "2-5-years": 286,
+    "0-2-years": 401,
     "no-experience": 28
   },
   "errors": [],
@@ -3416,15 +3416,15 @@
     "detailFailures": 0,
     "preservedPrevious": 0,
     "qualifyingRoles": 16,
-    "lastHealthyAt": "2026-09-23T11:43:49.993Z",
-    "snapshotVerifiedAt": "2026-09-23T11:43:49.993Z",
+    "lastHealthyAt": "2026-09-23T13:48:08.990Z",
+    "snapshotVerifiedAt": "2026-09-23T13:48:08.990Z",
     "snapshotMaxAgeHours": 96,
     "fallbackUsed": false,
     "fallbackFresh": false,
     "fallbackExpired": false,
     "fallbackAgeHours": null,
     "drops": {
-      "title": 127,
+      "title": 126,
       "nonUs": 28,
       "context": 0,
       "experience": 2,
@@ -3589,7 +3589,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T12:56:11.921Z",
+    "checkedAt": "2026-09-23T13:48:12.147Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3597,7 +3597,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T12:56:11.994Z",
+    "updatedAt": "2026-09-23T13:48:12.220Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 715,
@@ -3605,18 +3605,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "west": 110,
       "midwest": 139,
       "southeast": 108,
       "texas": 121,
-      "west": 110,
+      "southwest": 81,
       "mid-atlantic": 135,
       "northeast": 20,
-      "southwest": 81,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T12:56:12.049Z",
+    "checkedAt": "2026-09-23T13:48:12.290Z",
     "before": 715,
     "after": 715,
     "removed": 0,
@@ -3634,17 +3634,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1280,
     "currentJobs": 715,
-    "scopeCompany": "Microsoft",
-    "scopedJobs": 31,
+    "scopeCompany": "Digital Realty",
+    "scopedJobs": 16,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 16,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T12:56:12.198Z"
+    "updatedAt": "2026-09-23T13:48:12.582Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

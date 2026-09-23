@@ -9,14 +9,14 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 672,
+    "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 388,
     "2-5-years": 286,
+    "0-2-years": 388,
     "no-experience": 28
   },
   "errors": [],
@@ -106,8 +106,8 @@
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
     "sourceHealthy": true,
-    "checkedAt": "2026-09-23T12:06:28.430Z",
-    "lastHealthyAt": "2026-09-23T12:06:28.430Z",
+    "checkedAt": "2026-09-23T17:27:13.095Z",
+    "lastHealthyAt": "2026-09-23T17:27:13.095Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -2103,7 +2103,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T17:26:24.925Z",
+    "checkedAt": "2026-09-23T17:27:13.171Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2111,15 +2111,15 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T17:26:25.005Z",
+    "updatedAt": "2026-09-23T17:27:13.246Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 701,
+    "regionAssigned": 702,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 105,
+      "west": 106,
       "midwest": 136,
       "mid-atlantic": 135,
       "southwest": 82,
@@ -2130,9 +2130,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T17:26:25.080Z",
-    "before": 701,
-    "after": 701,
+    "checkedAt": "2026-09-23T17:27:13.317Z",
+    "before": 702,
+    "after": 702,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2148,8 +2148,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1292,
     "currentJobs": 702,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2157,8 +2155,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-23T17:26:56.516Z"
+    "firstSeenRecencyFallbackJobs": 92,
+    "updatedAt": "2026-09-23T17:27:13.493Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T06:57:41.578Z",
+  "updatedAt": "2026-09-23T06:58:29.400Z",
   "jobs": 717,
   "sourcesAttempted": 20,
   "providers": {
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 687,
     "trainee": 13,
+    "entry-level": 687,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 288,
     "0-2-years": 401,
+    "2-5-years": 288,
     "no-experience": 28
   },
   "errors": [],
@@ -3636,7 +3636,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1279,
-    "currentJobs": 731,
+    "currentJobs": 717,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3644,8 +3646,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 107,
-    "updatedAt": "2026-09-23T06:13:45.882Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-23T06:58:29.754Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4356,13 +4358,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-23T05:47:31.542Z",
+    "checkedAt": "2026-09-23T06:58:29.400Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "qualifyingRoles": 3,
     "added": 1,
     "removedManaged": 1,
     "removedKnownOverExperience": 0,
@@ -4407,15 +4409,10 @@
         "requisition": "JR-811161",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "detailStatus": 202,
+        "published": false,
+        "reason": "identity-drift",
+        "heading": ""
       }
     ],
     "errors": []

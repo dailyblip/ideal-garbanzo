@@ -9,6 +9,7 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-oracle-careers.mjs'
       - 'scripts/preserve-source-posted-hours.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
@@ -24,6 +25,7 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-oracle-careers.mjs'
       - 'scripts/preserve-source-posted-hours.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
@@ -48,12 +50,15 @@ jobs:
         run: |
           node --check scripts/collect-oracle-careers.mjs
           node --check scripts/preserve-source-posted-hours.mjs
+          node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
           node --check scripts/scrub-oracle-mission-fit.mjs
           node --check scripts/validate-oracle-snapshot.mjs
           node --check scripts/validate-oracle-parity.mjs
-      - name: Run Oracle source-isolation regression
-        run: node scripts/preserve-source-posted-hours.mjs --test
+      - name: Run Oracle source-isolation regressions
+        run: |
+          node scripts/preserve-source-posted-hours.mjs --test
+          node scripts/preserve-source-group.mjs --test
       - name: Run Oracle experience policy regressions
         run: node scripts/scrub-oracle-mission-fit.mjs --test-experience-parser
       - name: Run Oracle parity regressions
@@ -63,19 +68,16 @@ jobs:
           node scripts/validate-oracle-snapshot.mjs
           node scripts/validate-oracle-parity.mjs
           node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Prove Oracle history stamping leaves other employers untouched
         run: |
           cp data/jobs.json /tmp/oracle-scope-baseline.json
           node scripts/stamp-job-history.mjs --company Oracle
           node scripts/validate-job-history.mjs --allow-aging
+          node scripts/preserve-source-group.mjs Oracle /tmp/oracle-scope-baseline.json --verify
           node --input-type=module <<'NODE'
           import { readFile } from 'node:fs/promises';
-          const before = JSON.parse(await readFile('/tmp/oracle-scope-baseline.json', 'utf8'));
           const after = JSON.parse(await readFile('data/jobs.json', 'utf8'));
-          const others = jobs => jobs.filter(job => job.company !== 'Oracle');
-          if (JSON.stringify(others(before)) !== JSON.stringify(others(after))) {
-            throw new Error('Oracle-scoped history stamping changed non-Oracle jobs.');
-          }
           const oracleCount = after.filter(job => job.company === 'Oracle').length;
           if (!oracleCount) throw new Error('Oracle-scoped history regression requires published Oracle roles.');
           console.log(`Oracle history scope regression passed with ${oracleCount} Oracle roles; non-Oracle jobs unchanged.`);

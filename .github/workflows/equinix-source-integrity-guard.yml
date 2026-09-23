@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/apply-equinix-verified-fallback.mjs'
       - 'scripts/collect-equinix-current-skillbridge.mjs'
@@ -17,6 +18,7 @@ on:
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/recover-equinix-rendered-details.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-equinix-publication-state.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
@@ -29,6 +31,7 @@ on:
     branches: [main]
     paths:
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/apply-equinix-verified-fallback.mjs'
       - 'scripts/collect-equinix-current-skillbridge.mjs'
@@ -41,6 +44,7 @@ on:
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/recover-equinix-rendered-details.mjs'
       - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-equinix-publication-state.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
@@ -76,6 +80,7 @@ jobs:
           node --check scripts/enforce-equinix-verified-evidence.mjs
           node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
           node --check scripts/validate-equinix-publication-state.mjs
           node scripts/collect-equinix-v2.mjs --test-experience-parser
           node scripts/enforce-equinix-fallback-freshness.mjs --test
@@ -83,7 +88,9 @@ jobs:
           node scripts/preserve-source-group.mjs --test
           node scripts/validate-equinix-publication-state.mjs --test
       - name: Guard Equinix refresh cadence, source boundary and writer safety
+        shell: bash
         run: |
+          set -euo pipefail
           grep -Fq "cron: '31 */6 * * *'" .github/workflows/equinix-bootstrap.yml
           grep -Fq 'group: careers-source-writers' .github/workflows/equinix-bootstrap.yml
           grep -Fq 'node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify' .github/workflows/equinix-bootstrap.yml
@@ -92,6 +99,16 @@ jobs:
           grep -Fq 'node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify' .github/workflows/equinix-current-skillbridge.yml
           grep -Fq 'node scripts/stamp-job-history.mjs --company "Equinix"' .github/workflows/equinix-current-skillbridge.yml
           grep -Fq 'cp /tmp/equinix-status-after-collect.json data/collector-status.json' .github/workflows/equinix-current-skillbridge.yml
+          for workflow in .github/workflows/equinix-bootstrap.yml .github/workflows/equinix-current-skillbridge.yml; do
+            if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$workflow")" -lt 2 ]; then
+              echo "::error::$workflow must allow unrelated employers to age during both normal and race-safe Equinix history validation."
+              exit 1
+            fi
+            if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$workflow"; then
+              echo "::error::$workflow must not require unrelated employers to have freshly rewritten postedHours."
+              exit 1
+            fi
+          done
           node scripts/validate-source-workflow-isolation.mjs
       - name: Fail closed if Equinix publication needs cleanup
         run: |
@@ -101,5 +118,6 @@ jobs:
           git diff --exit-code -- data/jobs.json data/collector-status.json
       - name: Validate Equinix public-role contract
         run: |
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-direct-role-links.mjs

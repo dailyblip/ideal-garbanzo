@@ -59,6 +59,7 @@ jobs:
       - name: Guard AWS refresh cadence, source boundary and writer safety
         run: |
           grep -Fq "cron: '13 */6 * * *'" .github/workflows/aws-detail-recovery.yml
+          grep -Fq "- '.github/workflows/aws-detail-recovery.yml'" .github/workflows/aws-detail-recovery.yml
           grep -Fq 'group: aws-detail-recovery' .github/workflows/aws-detail-recovery.yml
           grep -Fq 'node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify' .github/workflows/aws-detail-recovery.yml
           grep -Fq 'node scripts/stamp-job-history.mjs --company "Amazon Web Services"' .github/workflows/aws-detail-recovery.yml

@@ -13,8 +13,10 @@ on:
       - 'scripts/collect-equinix.mjs'
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/recover-equinix-rendered-details.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-equinix-publication-state.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
@@ -35,8 +37,10 @@ on:
       - 'scripts/collect-equinix.mjs'
       - 'scripts/enforce-equinix-fallback-freshness.mjs'
       - 'scripts/enforce-equinix-verified-evidence.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/promote-equinix-direct-clicks.mjs'
       - 'scripts/recover-equinix-rendered-details.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-equinix-publication-state.mjs'
       - 'scripts/validate-priority-employer-sources.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
@@ -70,15 +74,24 @@ jobs:
           node --check scripts/collect-equinix-v2.mjs
           node --check scripts/enforce-equinix-fallback-freshness.mjs
           node --check scripts/enforce-equinix-verified-evidence.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node --check scripts/validate-equinix-publication-state.mjs
           node scripts/collect-equinix-v2.mjs --test-experience-parser
           node scripts/enforce-equinix-fallback-freshness.mjs --test
           node scripts/enforce-equinix-verified-evidence.mjs --test
+          node scripts/preserve-source-group.mjs --test
           node scripts/validate-equinix-publication-state.mjs --test
-      - name: Guard Equinix refresh cadence and source-writer safety
+      - name: Guard Equinix refresh cadence, source boundary and writer safety
         run: |
           grep -Fq "cron: '31 */6 * * *'" .github/workflows/equinix-bootstrap.yml
           grep -Fq 'group: careers-source-writers' .github/workflows/equinix-bootstrap.yml
+          grep -Fq 'node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify' .github/workflows/equinix-bootstrap.yml
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Equinix"' .github/workflows/equinix-bootstrap.yml
+          grep -Fq 'cp /tmp/equinix-status-after-collect.json data/collector-status.json' .github/workflows/equinix-bootstrap.yml
+          grep -Fq 'node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify' .github/workflows/equinix-current-skillbridge.yml
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Equinix"' .github/workflows/equinix-current-skillbridge.yml
+          grep -Fq 'cp /tmp/equinix-status-after-collect.json data/collector-status.json' .github/workflows/equinix-current-skillbridge.yml
           node scripts/validate-source-workflow-isolation.mjs
       - name: Fail closed if Equinix publication needs cleanup
         run: |

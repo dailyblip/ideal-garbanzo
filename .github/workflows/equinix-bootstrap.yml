@@ -39,6 +39,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Test Equinix source-boundary helpers
+        run: |
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before Equinix refresh
+        run: cp data/jobs.json /tmp/equinix-public-before.json
       - name: Collect official Equinix careers roles
         run: node scripts/collect-equinix-v2.mjs
       - name: Add Equinix US early-career roles
@@ -63,18 +70,29 @@ jobs:
         run: |
           node scripts/enforce-equinix-fallback-freshness.mjs --test
           node scripts/enforce-equinix-fallback-freshness.mjs
+      - name: Preserve Equinix collector status before shared transforms
+        run: cp data/collector-status.json /tmp/equinix-status-after-collect.json
       - name: Normalize locations and regions
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Persist first-seen dates for weekly alerts
-        run: node scripts/stamp-job-history.mjs
+      - name: Reapply Equinix source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json
+          cp /tmp/equinix-status-after-collect.json data/collector-status.json
+          node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify
+          cmp -s data/collector-status.json /tmp/equinix-status-after-collect.json
+      - name: Persist Equinix first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs --company "Equinix"
+      - name: Verify non-Equinix rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify
       - name: Validate refreshed feed and employer-direct source
         run: |
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish Equinix data from current main
         id: publish
         shell: bash
@@ -86,6 +104,9 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/equinix-public-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
             node scripts/collect-equinix-v2.mjs
             node scripts/collect-equinix-early.mjs
             node scripts/collect-equinix-current-skillbridge.mjs --test
@@ -98,13 +119,20 @@ jobs:
             node scripts/enforce-equinix-verified-evidence.mjs
             node scripts/enforce-equinix-fallback-freshness.mjs --test
             node scripts/enforce-equinix-fallback-freshness.mjs
+            cp data/collector-status.json /tmp/equinix-status-after-collect.json
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json
+            cp /tmp/equinix-status-after-collect.json data/collector-status.json
+            node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify
+            cmp -s data/collector-status.json /tmp/equinix-status-after-collect.json
+            node scripts/stamp-job-history.mjs --company "Equinix"
+            node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main

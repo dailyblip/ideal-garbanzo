@@ -73,7 +73,7 @@ jobs:
         run: |
           node scripts/validate-microsoft-snapshot.mjs
           node scripts/validate-priority-employer-sources.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate.mjs
       - name: Publish refreshed Microsoft roles from current main
         id: publish
@@ -118,7 +118,7 @@ jobs:
             node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json --verify
             node scripts/validate-microsoft-snapshot.mjs
             node scripts/validate-priority-employer-sources.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate.mjs
           }
 

@@ -66,7 +66,11 @@ jobs:
           set -euo pipefail
           workflow='.github/workflows/google-bootstrap.yml'
           grep -Fq 'cp data/jobs.json /tmp/google-public-before.json' "$workflow"
+          grep -Fq 'cp data/major-jobs.json /tmp/google-major-before.json' "$workflow"
+          grep -Fq 'cp data/collector-status.json /tmp/google-status-after-collect.json' "$workflow"
           grep -Fq 'node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json' "$workflow"
+          grep -Fq 'cp /tmp/google-major-before.json data/major-jobs.json' "$workflow"
+          grep -Fq 'cp /tmp/google-status-after-collect.json data/collector-status.json' "$workflow"
           grep -Fq 'node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify' "$workflow"
           grep -Fq 'node scripts/stamp-job-history.mjs --company "Google"' "$workflow"
           if grep -Eq '^[[:space:]]*run:[[:space:]]+node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then

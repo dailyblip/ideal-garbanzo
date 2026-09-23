@@ -9,6 +9,7 @@ on:
     paths:
       - 'scripts/collect-oracle-careers.mjs'
       - 'scripts/preserve-source-posted-hours.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/scrub-oracle-mission-fit.mjs'
       - 'scripts/validate-oracle-snapshot.mjs'
@@ -36,11 +37,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate Oracle source-isolation helper
+      - name: Validate Oracle source-isolation helpers
         run: |
           node --check scripts/preserve-source-posted-hours.mjs
+          node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
           node scripts/preserve-source-posted-hours.mjs --test
+          node scripts/preserve-source-group.mjs --test
       - name: Capture pre-Oracle public-feed state
         run: cp data/jobs.json /tmp/oracle-jobs-baseline.json
       - name: Collect official Oracle Careers roles
@@ -59,16 +62,21 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
-      - name: Reapply Oracle source boundary after shared transforms
-        run: node scripts/preserve-source-posted-hours.mjs Oracle /tmp/oracle-jobs-baseline.json --full
+      - name: Reapply and verify Oracle source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-posted-hours.mjs Oracle /tmp/oracle-jobs-baseline.json --full
+          node scripts/preserve-source-group.mjs Oracle /tmp/oracle-jobs-baseline.json --verify
       - name: Persist Oracle first-seen dates for weekly alerts
         run: node scripts/stamp-job-history.mjs --company Oracle
+      - name: Verify non-Oracle rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs Oracle /tmp/oracle-jobs-baseline.json --verify
       - name: Validate refreshed feed
         run: |
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-oracle-snapshot.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish Oracle snapshot from current main
         id: publish
         shell: bash
@@ -81,6 +89,11 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             cp data/jobs.json /tmp/oracle-jobs-baseline.json
+            node --check scripts/preserve-source-posted-hours.mjs
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
+            node scripts/preserve-source-posted-hours.mjs --test
+            node scripts/preserve-source-group.mjs --test
             node scripts/collect-oracle-careers.mjs
             node scripts/preserve-source-posted-hours.mjs Oracle /tmp/oracle-jobs-baseline.json
             node scripts/stamp-oracle-source-freshness.mjs
@@ -89,11 +102,14 @@ jobs:
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/preserve-source-posted-hours.mjs Oracle /tmp/oracle-jobs-baseline.json --full
+            node scripts/preserve-source-group.mjs Oracle /tmp/oracle-jobs-baseline.json --verify
             node scripts/stamp-job-history.mjs --company Oracle
+            node scripts/preserve-source-group.mjs Oracle /tmp/oracle-jobs-baseline.json --verify
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-oracle-snapshot.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main

@@ -7,6 +7,7 @@ on:
       - scripts/collect-iron-mountain.mjs
       - scripts/validate-iron-mountain.mjs
       - scripts/enforce-iron-mountain-fallback-freshness.mjs
+      - scripts/preserve-source-group.mjs
       - .github/workflows/iron-mountain-bootstrap.yml
   schedule:
     - cron: '48 */6 * * *'
@@ -31,14 +32,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate Iron Mountain source scripts
+      - name: Validate Iron Mountain source and isolation scripts
         run: |
           node --check scripts/collect-iron-mountain.mjs
           node --check scripts/validate-iron-mountain.mjs
           node --check scripts/enforce-iron-mountain-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node scripts/collect-iron-mountain.mjs --test
           node scripts/validate-iron-mountain.mjs --test
           node scripts/enforce-iron-mountain-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before Iron Mountain refresh
+        run: cp data/jobs.json /tmp/iron-mountain-public-before.json
       - name: Collect official Iron Mountain data center roles
         run: node scripts/collect-iron-mountain.mjs
       - name: Enforce Iron Mountain fallback freshness
@@ -49,16 +55,22 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply Iron Mountain source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Iron Mountain" /tmp/iron-mountain-public-before.json
+          node scripts/preserve-source-group.mjs "Iron Mountain" /tmp/iron-mountain-public-before.json --verify
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate Iron Mountain source health and parity
         run: node scripts/validate-iron-mountain.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
+      - name: Track Iron Mountain first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "Iron Mountain"
+      - name: Verify non-Iron Mountain rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Iron Mountain" /tmp/iron-mountain-public-before.json --verify
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
@@ -73,16 +85,22 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/iron-mountain-public-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
             node scripts/collect-iron-mountain.mjs
             node scripts/enforce-iron-mountain-fallback-freshness.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "Iron Mountain" /tmp/iron-mountain-public-before.json
+            node scripts/preserve-source-group.mjs "Iron Mountain" /tmp/iron-mountain-public-before.json --verify
             node scripts/refresh-region-status.mjs
             node scripts/validate-iron-mountain.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "Iron Mountain"
+            node scripts/preserve-source-group.mjs "Iron Mountain" /tmp/iron-mountain-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs

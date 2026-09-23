@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-23T06:13:45.541Z",
-  "jobs": 731,
+  "updatedAt": "2026-09-23T06:57:41.578Z",
+  "jobs": 717,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 696,
+    "entry-level": 687,
     "trainee": 13,
-    "internship": 11,
+    "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 300,
-    "0-2-years": 403,
+    "2-5-years": 288,
+    "0-2-years": 401,
     "no-experience": 28
   },
   "errors": [],
@@ -3435,7 +3435,7 @@
   "coreSite": {
     "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
     "sourceHealthy": false,
-    "qualifyingRoles": 14,
+    "qualifyingRoles": 0,
     "diagnostics": {
       "listingPagesAttempted": 1,
       "listingPagesSucceeded": 0,
@@ -3457,13 +3457,22 @@
       "listing page 1: 403 https://jobs.coresite.com/search/data-center-operations/jobs/in"
     ],
     "verifiedFallback": {
-      "active": true,
+      "active": false,
       "verifiedAt": "2026-09-19T06:41:23Z",
-      "expiresAt": "2026-09-23T06:41:23Z",
-      "roles": 14,
+      "expiresAt": "2026-09-23T06:41:23.000Z",
+      "roles": 0,
       "classificationCorrections": 0,
       "officialSource": "https://jobs.coresite.com/search/data-center-operations/jobs/in",
-      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; retained roles were re-verified against CoreSite's official current Data Center Operations listing and employer job-detail pages on September 19, 2026. Roles no longer present in the official current listing were removed."
+      "reason": "CoreSite blocks GitHub-hosted collectors with HTTP 403; retained roles were re-verified against CoreSite's official current Data Center Operations listing and employer job-detail pages on September 19, 2026. Roles no longer present in the official current listing were removed.",
+      "expired": true,
+      "retiredEarly": false,
+      "retiredBeforeOriginalExpiryAt": null,
+      "minimumRemainingHours": 0,
+      "checkedAt": "2026-09-23T06:57:41.578Z",
+      "maxAgeHours": 96,
+      "expiredAgeHours": 96.3,
+      "rolesRemoved": 0,
+      "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
   },
   "priorityEmployerExpansion": {

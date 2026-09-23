@@ -7,8 +7,6 @@ on:
       - 'scripts/collect-google-careers.mjs'
       - 'scripts/collect-google-careers-fresh.mjs'
       - 'scripts/validate-google-snapshot.mjs'
-      - 'scripts/preserve-source-group.mjs'
-      - 'scripts/stamp-job-history.mjs'
       - '.github/workflows/google-bootstrap.yml'
   workflow_dispatch:
   schedule:

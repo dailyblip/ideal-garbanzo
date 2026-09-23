@@ -97,6 +97,7 @@ jobs:
             cp data/jobs.json /tmp/aws-public-before.json
             node --check scripts/preserve-source-group.mjs
             node --check scripts/stamp-job-history.mjs
+            node --check scripts/collect-amazon-datacenter.mjs
             node scripts/collect-amazon-datacenter.mjs
             node --check scripts/recover-amazon-details.mjs
             node scripts/recover-amazon-details.mjs

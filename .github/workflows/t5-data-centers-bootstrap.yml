@@ -6,6 +6,8 @@ on:
     paths:
       - scripts/collect-t5-data-centers.mjs
       - scripts/validate-t5-data-centers.mjs
+      - scripts/preserve-source-group.mjs
+      - scripts/stamp-job-history.mjs
       - .github/workflows/t5-data-centers-bootstrap.yml
   workflow_dispatch:
   schedule:
@@ -35,11 +37,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate collector and classifier
+      - name: Validate collector, classifier and source-isolation contract
         run: |
           node --check scripts/collect-t5-data-centers.mjs
           node --check scripts/validate-t5-data-centers.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node scripts/collect-t5-data-centers.mjs --test-classifier
+          node scripts/validate-t5-data-centers.mjs --test
+          node scripts/preserve-source-group.mjs --test
+          node scripts/collect-jobs.mjs --test-preservation
+      - name: Preserve public-feed boundary before T5 refresh
+        run: cp data/jobs.json /tmp/t5-public-before.json
       - name: Collect official T5 Lever roles
         run: node scripts/collect-t5-data-centers.mjs
       - name: Enforce mission-fit role families
@@ -48,17 +57,24 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply T5 source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json
+          node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json --verify
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate T5 employer-direct snapshot
         run: node scripts/validate-t5-data-centers.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
+      - name: Track T5 first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "T5 Data Centers"
+      - name: Verify non-T5 rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json --verify
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish verified T5 roles from current main
         id: commit
         shell: bash
@@ -70,17 +86,27 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/t5-public-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
             node scripts/collect-t5-data-centers.mjs --test-classifier
+            node scripts/validate-t5-data-centers.mjs --test
+            node scripts/preserve-source-group.mjs --test
+            node scripts/collect-jobs.mjs --test-preservation
             node scripts/collect-t5-data-centers.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json
+            node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json --verify
             node scripts/refresh-region-status.mjs
             node scripts/validate-t5-data-centers.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "T5 Data Centers"
+            node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main

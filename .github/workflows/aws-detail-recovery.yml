@@ -32,6 +32,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Test AWS source-boundary helpers
+        run: |
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before AWS refresh
+        run: cp data/jobs.json /tmp/aws-public-before.json
       - name: Refresh official AWS data center roles
         run: |
           node --check scripts/collect-amazon-datacenter.mjs
@@ -48,16 +55,25 @@ jobs:
         run: |
           node scripts/enforce-amazon-fallback-freshness.mjs --test
           node scripts/enforce-amazon-fallback-freshness.mjs
+      - name: Preserve AWS collector status before shared transforms
+        run: cp data/collector-status.json /tmp/aws-status-after-collect.json
       - name: Normalize recovered feed
         run: |
           node scripts/filter-mission-fit.mjs
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
+      - name: Reapply AWS source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json
+          cp /tmp/aws-status-after-collect.json data/collector-status.json
+          node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify
+          cmp -s data/collector-status.json /tmp/aws-status-after-collect.json
       - name: Refresh post-recovery tracking
         run: |
           node scripts/refresh-region-status.mjs
-          node scripts/stamp-job-history.mjs
+          node scripts/stamp-job-history.mjs --company "Amazon Web Services"
+          node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify
       - name: Validate recovered feed
         run: |
           node scripts/validate.mjs
@@ -66,6 +82,7 @@ jobs:
           node scripts/validate-mailing-list.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish verified AWS recovery from current main
         id: publish
         shell: bash
@@ -77,7 +94,9 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
-            node --check scripts/collect-amazon-datacenter.mjs
+            cp data/jobs.json /tmp/aws-public-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
             node scripts/collect-amazon-datacenter.mjs
             node --check scripts/recover-amazon-details.mjs
             node scripts/recover-amazon-details.mjs
@@ -85,18 +104,25 @@ jobs:
             node scripts/stamp-amazon-source-verification.mjs
             node scripts/enforce-amazon-fallback-freshness.mjs --test
             node scripts/enforce-amazon-fallback-freshness.mjs
+            cp data/collector-status.json /tmp/aws-status-after-collect.json
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
             node scripts/normalize-display-copy.mjs
+            node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json
+            cp /tmp/aws-status-after-collect.json data/collector-status.json
+            node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify
+            cmp -s data/collector-status.json /tmp/aws-status-after-collect.json
             node scripts/refresh-region-status.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "Amazon Web Services"
+            node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify
             node scripts/validate.mjs
             node scripts/validate-promotions.mjs
             node scripts/validate-job-history.mjs
             node scripts/validate-mailing-list.mjs
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main

@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-23T17:26:56.249Z",
-  "jobs": 702,
+  "jobs": 703,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,7 +9,7 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 672,
+    "entry-level": 673,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
@@ -17,7 +17,7 @@
   "countsByExperience": {
     "2-5-years": 286,
     "0-2-years": 388,
-    "no-experience": 28
+    "no-experience": 29
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -130,8 +130,8 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-23T12:17:17.304Z",
-    "lastHealthyAt": "2026-09-23T12:17:17.304Z",
+    "checkedAt": "2026-09-23T17:29:39.624Z",
+    "lastHealthyAt": "2026-09-23T17:29:39.624Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
@@ -139,12 +139,12 @@
     "listingPagesAttempted": 19,
     "listingPagesSucceeded": 19,
     "listingComplete": true,
-    "listedTotal": 371,
-    "candidateRows": 14,
-    "detailAttempted": 14,
-    "detailSucceeded": 14,
-    "qualifyingRoles": 11,
-    "snapshotRoles": 11,
+    "listedTotal": 374,
+    "candidateRows": 15,
+    "detailAttempted": 15,
+    "detailSucceeded": 15,
+    "qualifyingRoles": 12,
+    "snapshotRoles": 12,
     "preservedPrevious": 0,
     "removedExpiredFallback": 0,
     "drops": {
@@ -158,12 +158,12 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-23T12:17:17.304Z",
-      "checkedAt": "2026-09-23T12:17:17.304Z",
-      "expiresAt": "2026-09-27T12:17:17.304Z",
+      "lastHealthyAt": "2026-09-23T17:29:39.624Z",
+      "checkedAt": "2026-09-23T17:29:39.624Z",
+      "expiresAt": "2026-09-27T17:29:39.624Z",
       "ageHours": 0,
       "maxAgeHours": 96,
-      "roles": 11,
+      "roles": 12,
       "policy": "Retain only the last fully verified Iron Mountain snapshot for at most 96 hours after official-source verification fails."
     },
     "errors": []
@@ -2103,7 +2103,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T17:27:13.171Z",
+    "checkedAt": "2026-09-23T17:29:56.500Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2111,10 +2111,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T17:27:13.246Z",
+    "updatedAt": "2026-09-23T17:29:56.579Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 702,
+    "regionAssigned": 703,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -2123,16 +2123,16 @@
       "midwest": 136,
       "mid-atlantic": 135,
       "southwest": 82,
-      "southeast": 106,
+      "southeast": 107,
       "texas": 118,
       "northeast": 18,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T17:27:13.317Z",
-    "before": 702,
-    "after": 702,
+    "checkedAt": "2026-09-23T17:29:56.656Z",
+    "before": 703,
+    "after": 703,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2146,17 +2146,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1292,
-    "currentJobs": 702,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1293,
+    "currentJobs": 703,
+    "scopeCompany": "Iron Mountain",
+    "scopedJobs": 12,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 92,
-    "updatedAt": "2026-09-23T17:27:13.493Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-23T17:29:56.961Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

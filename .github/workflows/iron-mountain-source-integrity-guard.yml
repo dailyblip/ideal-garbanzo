@@ -6,10 +6,13 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/iron-mountain-jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-iron-mountain.mjs'
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/enforce-iron-mountain-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - '.github/workflows/iron-mountain-bootstrap.yml'
       - '.github/workflows/iron-mountain-source-integrity-guard.yml'
       - '.github/workflows/iron-mountain-stale-fallback-watch.yml'
@@ -18,10 +21,13 @@ on:
     paths:
       - 'data/jobs.json'
       - 'data/iron-mountain-jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-iron-mountain.mjs'
       - 'scripts/validate-iron-mountain.mjs'
       - 'scripts/enforce-iron-mountain-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - '.github/workflows/iron-mountain-bootstrap.yml'
       - '.github/workflows/iron-mountain-source-integrity-guard.yml'
       - '.github/workflows/iron-mountain-stale-fallback-watch.yml'
@@ -38,16 +44,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Check Iron Mountain source scripts
+      - name: Check Iron Mountain source and isolation scripts
         run: |
           node --check scripts/collect-iron-mountain.mjs
           node --check scripts/validate-iron-mountain.mjs
           node --check scripts/enforce-iron-mountain-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node scripts/collect-iron-mountain.mjs --test
           node scripts/validate-iron-mountain.mjs --test
           node scripts/enforce-iron-mountain-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
       - name: Verify Iron Mountain protected snapshot and public-feed parity
         run: node scripts/validate-iron-mountain.mjs
+      - name: Prove Iron Mountain history stamping leaves other employers untouched
+        run: |
+          cp data/jobs.json /tmp/iron-mountain-scope-baseline.json
+          node scripts/stamp-job-history.mjs --company "Iron Mountain"
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/preserve-source-group.mjs "Iron Mountain" /tmp/iron-mountain-scope-baseline.json --verify
       - name: Verify employer-direct publication and homepage contract
         run: |
           node scripts/validate-priority-employer-sources.mjs

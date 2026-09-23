@@ -7,8 +7,6 @@ on:
       - scripts/collect-cloudhq-careers.mjs
       - scripts/validate-cloudhq.mjs
       - scripts/preserve-source-group.mjs
-      - scripts/stamp-job-history.mjs
-      - scripts/validate-job-history.mjs
       - .github/workflows/cloudhq-bootstrap.yml
   workflow_dispatch:
   schedule:

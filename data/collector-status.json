@@ -1,23 +1,23 @@
 {
-  "updatedAt": "2026-09-23T16:46:49.228Z",
-  "jobs": 719,
-  "sourcesAttempted": 28,
+  "updatedAt": "2026-09-23T16:48:23.523Z",
+  "jobs": 720,
+  "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 2,
+    "oracleRecruitingCloud": 3,
     "googleCareers": 2,
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 689,
+    "entry-level": 690,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 286,
+    "2-5-years": 287,
     "0-2-years": 405,
     "no-experience": 28
   },
@@ -1865,17 +1865,17 @@
     "site": "jobsearch",
     "sourceHealthy": true,
     "listingComplete": true,
-    "totalOpenRoles": 2228,
-    "listingRows": 2225,
+    "totalOpenRoles": 2270,
+    "listingRows": 2267,
     "pagesAttempted": 13,
     "pagesSucceeded": 13,
-    "candidateRows": 98,
-    "detailAttempted": 98,
+    "candidateRows": 99,
+    "detailAttempted": 99,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
-    "qualifyingRoles": 15,
+    "qualifyingRoles": 16,
     "drops": {
-      "title": 2127,
+      "title": 2168,
       "nonUs": 33,
       "context": 16,
       "experience": 29,
@@ -1883,23 +1883,23 @@
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-23T11:25:26.867Z",
-    "lastHealthyAt": "2026-09-23T11:25:26.867Z",
+    "checkedAt": "2026-09-23T16:48:23.523Z",
+    "lastHealthyAt": "2026-09-23T16:48:23.523Z",
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-23T11:25:26.867Z",
-      "checkedAt": "2026-09-23T11:25:26.867Z",
+      "lastHealthyAt": "2026-09-23T16:48:23.523Z",
+      "checkedAt": "2026-09-23T16:48:23.523Z",
       "maxAgeHours": 96,
       "ageHours": 0,
       "policy": "Retain the most recent verified Oracle snapshot for up to 96 hours when the official source is unavailable; fail closed after expiry."
     },
     "missionFitScrub": {
-      "checkedAt": "2026-09-23T11:25:27.804Z",
+      "checkedAt": "2026-09-23T16:48:24.778Z",
       "removedFromSnapshot": 4,
       "removedFromPublicFeed": 4,
-      "experienceCandidates": 15,
-      "experienceChecked": 15,
+      "experienceCandidates": 16,
+      "experienceChecked": 16,
       "experienceFetchFailures": 0,
       "removed": [
         {
@@ -2111,7 +2111,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T16:46:08.666Z",
+    "checkedAt": "2026-09-23T16:48:24.849Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2119,10 +2119,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T16:46:08.872Z",
+    "updatedAt": "2026-09-23T16:48:24.925Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 719,
+    "regionAssigned": 720,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -2130,7 +2130,7 @@
       "west": 111,
       "midwest": 139,
       "southeast": 107,
-      "mid-atlantic": 139,
+      "mid-atlantic": 140,
       "southwest": 82,
       "texas": 120,
       "northeast": 20,
@@ -2138,9 +2138,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T16:46:09.035Z",
-    "before": 719,
-    "after": 719,
+    "checkedAt": "2026-09-23T16:48:24.994Z",
+    "before": 720,
+    "after": 720,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2154,19 +2154,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1290,
-    "currentJobs": 719,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1291,
+    "currentJobs": 720,
+    "scopeCompany": "Oracle",
+    "scopedJobs": 16,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-23T16:46:49.580Z"
+    "normalizedWorkdayPostingDatesThisRun": 16,
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-23T16:48:25.187Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 687,
+    "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 401,
     "2-5-years": 288,
+    "0-2-years": 401,
     "no-experience": 28
   },
   "errors": [],
@@ -3592,7 +3592,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T08:48:59.614Z",
+    "checkedAt": "2026-09-23T08:51:15.159Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3600,7 +3600,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T08:48:59.691Z",
+    "updatedAt": "2026-09-23T08:51:15.237Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 717,
@@ -3619,7 +3619,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T08:48:59.765Z",
+    "checkedAt": "2026-09-23T08:51:15.307Z",
     "before": 717,
     "after": 717,
     "removed": 0,
@@ -3637,8 +3637,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1279,
     "currentJobs": 717,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3646,8 +3644,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-23T08:49:44.754Z"
+    "firstSeenRecencyFallbackJobs": 93,
+    "updatedAt": "2026-09-23T08:51:15.484Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4319,8 +4317,8 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-22T19:17:08.710Z",
-    "lastHealthyAt": "2026-09-22T19:17:08.710Z",
+    "checkedAt": "2026-09-23T08:51:14.085Z",
+    "lastHealthyAt": "2026-09-23T08:51:14.085Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

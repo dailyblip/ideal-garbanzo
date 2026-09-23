@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-23T13:52:11.699Z",
-  "jobs": 715,
+  "updatedAt": "2026-09-23T14:45:39.386Z",
+  "jobs": 701,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
@@ -10,15 +10,15 @@
     "googleCareers": 2
   },
   "countsByType": {
-    "entry-level": 685,
-    "trainee": 13,
+    "apprenticeship": 11,
     "internship": 6,
-    "apprenticeship": 11
+    "trainee": 13,
+    "entry-level": 671
   },
   "countsByExperience": {
-    "2-5-years": 286,
-    "0-2-years": 401,
-    "no-experience": 28
+    "0-2-years": 395,
+    "no-experience": 28,
+    "2-5-years": 278
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3566,7 +3566,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-23T11:57:09.888Z"
+      "verifiedFallbackExpiredAt": "2026-09-23T14:45:39.386Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -3634,8 +3634,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1280,
     "currentJobs": 715,
-    "scopeCompany": "DataBank",
-    "scopedJobs": 15,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3643,8 +3643,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 15,
-    "updatedAt": "2026-09-23T13:52:12.287Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-23T14:45:39.814Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4345,7 +4345,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-23T11:57:09.888Z",
+    "checkedAt": "2026-09-23T14:45:39.386Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
@@ -4355,13 +4355,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-23T12:53:48.546Z",
+    "checkedAt": "2026-09-23T14:45:38.638Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -4369,52 +4369,31 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       }
     ],
     "errors": []

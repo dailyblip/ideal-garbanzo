@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/t5-data-centers-jobs.json'
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-t5-data-centers.mjs'
       - 'scripts/validate-t5-data-centers.mjs'
@@ -13,6 +14,10 @@ on:
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/normalize-display-copy.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/t5-data-centers-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/t5-source-integrity-guard.yml'
@@ -21,6 +26,7 @@ on:
     paths:
       - 'data/t5-data-centers-jobs.json'
       - 'data/jobs.json'
+      - 'data/job-history.json'
       - 'data/collector-status.json'
       - 'scripts/collect-t5-data-centers.mjs'
       - 'scripts/validate-t5-data-centers.mjs'
@@ -28,6 +34,10 @@ on:
       - 'scripts/normalize-job-locations.mjs'
       - 'scripts/dedupe-normalized-jobs.mjs'
       - 'scripts/normalize-display-copy.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
+      - 'scripts/validate-job-history.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/t5-data-centers-bootstrap.yml'
       - '.github/workflows/pages.yml'
       - '.github/workflows/t5-source-integrity-guard.yml'
@@ -44,19 +54,39 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Check T5 collector and integrity validator
+      - name: Check T5 collector, preservation and integrity validators
         run: |
           node --check scripts/collect-t5-data-centers.mjs
           node --check scripts/validate-t5-data-centers.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
+          node --check scripts/validate-source-workflow-isolation.mjs
       - name: Run T5 fail-closed regression tests
         run: |
           node scripts/collect-t5-data-centers.mjs --test-classifier
           node scripts/validate-t5-data-centers.mjs --test
+          node scripts/preserve-source-group.mjs --test
+          node scripts/collect-jobs.mjs --test-preservation
+      - name: Preserve non-T5 public-feed boundary
+        run: cp data/jobs.json /tmp/t5-public-before.json
       - name: Re-run publication transforms
         run: |
           node scripts/filter-mission-fit.mjs
           node scripts/normalize-job-locations.mjs
           node scripts/dedupe-normalized-jobs.mjs
           node scripts/normalize-display-copy.mjs
+      - name: Reapply and verify T5 source boundary
+        run: |
+          node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json
+          node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json --verify
+      - name: Track only T5 first-seen history
+        run: node scripts/stamp-job-history.mjs --company "T5 Data Centers"
+      - name: Verify history stamping preserved non-T5 rows
+        run: node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-public-before.json --verify
+      - name: Validate feed history and workflow isolation
+        run: |
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Validate exact T5 authoritative-public parity
         run: node scripts/validate-t5-data-centers.mjs

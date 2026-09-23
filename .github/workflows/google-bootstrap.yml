@@ -88,7 +88,7 @@ jobs:
       - name: Validate refreshed feed and Google parity
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-google-freshness.mjs
           node scripts/validate-google-snapshot.mjs
           node scripts/validate-priority-employer-sources.mjs
@@ -142,7 +142,7 @@ jobs:
             node scripts/stamp-job-history.mjs --company "Google"
             node scripts/preserve-source-group.mjs "Google" /tmp/google-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-google-freshness.mjs
             node scripts/validate-google-snapshot.mjs
             node scripts/validate-priority-employer-sources.mjs

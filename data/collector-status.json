@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T05:47:31.542Z",
+  "updatedAt": "2026-09-23T06:13:45.541Z",
   "jobs": 731,
   "sourcesAttempted": 20,
   "providers": {
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 696,
+    "trainee": 13,
     "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 403,
     "2-5-years": 300,
+    "0-2-years": 403,
     "no-experience": 28
   },
   "errors": [],
@@ -3583,7 +3583,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T05:46:40.891Z",
+    "checkedAt": "2026-09-23T06:13:45.617Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3591,7 +3591,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T05:46:40.974Z",
+    "updatedAt": "2026-09-23T06:13:45.690Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 731,
@@ -3610,7 +3610,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T05:46:41.049Z",
+    "checkedAt": "2026-09-23T06:13:45.758Z",
     "before": 731,
     "after": 731,
     "removed": 0,
@@ -3628,8 +3628,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1279,
     "currentJobs": 731,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3637,8 +3635,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-23T05:47:31.858Z"
+    "firstSeenRecencyFallbackJobs": 107,
+    "updatedAt": "2026-09-23T06:13:45.882Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3704,7 +3702,7 @@
     "policy": "Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-22T22:21:09.731Z",
+    "checkedAt": "2026-09-23T06:13:45.541Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

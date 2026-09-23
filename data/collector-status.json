@@ -1,11 +1,12 @@
 {
-  "updatedAt": "2026-09-23T04:47:49.308Z",
+  "updatedAt": "2026-09-23T04:49:37.658Z",
   "jobs": 730,
-  "sourcesAttempted": 18,
+  "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
-    "ashby": 5
+    "ashby": 5,
+    "oracleRecruitingCloud": 1
   },
   "countsByType": {
     "entry-level": 696,
@@ -1935,15 +1936,15 @@
     "detailFailures": 0,
     "preservedPrevious": 0,
     "qualifyingRoles": 16,
-    "lastHealthyAt": "2026-09-22T21:23:05.690Z",
-    "snapshotVerifiedAt": "2026-09-22T21:23:05.690Z",
+    "lastHealthyAt": "2026-09-23T04:49:35.043Z",
+    "snapshotVerifiedAt": "2026-09-23T04:49:35.043Z",
     "snapshotMaxAgeHours": 96,
     "fallbackUsed": false,
     "fallbackFresh": false,
     "fallbackExpired": false,
     "fallbackAgeHours": null,
     "drops": {
-      "title": 129,
+      "title": 127,
       "nonUs": 29,
       "context": 0,
       "experience": 2,
@@ -2102,7 +2103,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T04:47:49.372Z",
+    "checkedAt": "2026-09-23T04:49:37.729Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2110,7 +2111,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T04:47:49.435Z",
+    "updatedAt": "2026-09-23T04:49:37.805Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 730,
@@ -2122,14 +2123,14 @@
       "southeast": 111,
       "west": 117,
       "texas": 121,
+      "southwest": 80,
       "mid-atlantic": 137,
       "northeast": 22,
-      "southwest": 80,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T04:47:49.489Z",
+    "checkedAt": "2026-09-23T04:49:37.875Z",
     "before": 730,
     "after": 730,
     "removed": 0,
@@ -2147,17 +2148,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1279,
     "currentJobs": 730,
-    "scopeCompany": "Microsoft",
-    "scopedJobs": 31,
-    "newJobsThisRun": 1,
+    "scopeCompany": "Digital Realty",
+    "scopedJobs": 16,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 16,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T04:47:49.642Z"
+    "updatedAt": "2026-09-23T04:49:38.160Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

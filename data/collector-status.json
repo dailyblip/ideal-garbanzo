@@ -1,23 +1,24 @@
 {
-  "updatedAt": "2026-09-23T17:30:04.147Z",
-  "jobs": 703,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-23T17:34:36.613Z",
+  "jobs": 701,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "icims": 1
   },
   "countsByType": {
-    "entry-level": 673,
+    "entry-level": 671,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 286,
+    "2-5-years": 285,
     "0-2-years": 388,
-    "no-experience": 29
+    "no-experience": 28
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -31,12 +32,12 @@
     "officialSource": "https://www.tierpoint.com/about-us/careers/",
     "boardUrl": "https://careers-tierpoint.icims.com/jobs/search?hashed=-626007049&ss=1",
     "sourceHealthy": true,
-    "qualifyingRoles": 11,
+    "qualifyingRoles": 9,
     "usedPreviousSnapshot": false,
     "listing": {
       "pagesAttempted": 2,
       "pagesSucceeded": 2,
-      "candidateLinks": 17
+      "candidateLinks": 15
     },
     "drops": {
       "parse": 3,
@@ -44,9 +45,9 @@
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
-        "title": "Supervisor, Data Center Operations",
-        "location": "Breinigsville, PA",
+        "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
+        "title": "Senior Client Executive",
+        "location": "Marlborough, MA",
         "reason": "classification"
       },
       {
@@ -55,9 +56,9 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
-        "title": "Senior Client Executive",
-        "location": "Marlborough, MA",
+        "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
+        "title": "Supervisor, Data Center Operations",
+        "location": "Breinigsville, PA",
         "reason": "classification"
       },
       {
@@ -66,9 +67,10 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3015/sr-automation-engineer/job",
-        "title": "Sr Automation Engineer",
-        "location": ""
+        "url": "https://careers-tierpoint.icims.com/jobs/3010/manager%2c-accounting/job",
+        "title": "Manager, Accounting",
+        "location": "Saint Louis, MO",
+        "reason": "classification"
       }
     ]
   },
@@ -2103,7 +2105,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T17:29:56.500Z",
+    "checkedAt": "2026-09-23T17:34:36.686Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2111,28 +2113,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T17:29:56.579Z",
+    "updatedAt": "2026-09-23T17:34:36.756Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 703,
+    "regionAssigned": 701,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "southwest": 82,
       "west": 106,
       "midwest": 136,
       "mid-atlantic": 135,
-      "southwest": 82,
       "southeast": 107,
-      "texas": 118,
+      "texas": 116,
       "northeast": 18,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T17:29:56.656Z",
-    "before": 703,
-    "after": 703,
+    "checkedAt": "2026-09-23T17:34:36.822Z",
+    "before": 701,
+    "after": 701,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2147,18 +2149,16 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1293,
-    "currentJobs": 703,
-    "scopeCompany": "Iron Mountain",
-    "scopedJobs": 12,
-    "newJobsThisRun": 1,
+    "currentJobs": 701,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T17:29:56.961Z"
+    "firstSeenRecencyFallbackJobs": 90,
+    "updatedAt": "2026-09-23T17:34:36.877Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

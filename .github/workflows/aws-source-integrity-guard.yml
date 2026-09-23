@@ -9,6 +9,8 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-amazon-parity.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/aws-detail-recovery.yml'
@@ -22,6 +24,8 @@ on:
       - 'data/collector-status.json'
       - 'scripts/collect-amazon-datacenter.mjs'
       - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
+      - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-amazon-parity.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/aws-detail-recovery.yml'
@@ -44,16 +48,22 @@ jobs:
         run: |
           node --check scripts/collect-amazon-datacenter.mjs
           node --check scripts/enforce-amazon-fallback-freshness.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node --check scripts/validate-amazon-parity.mjs
-      - name: Guard AWS refresh cadence and source-writer safety
+      - name: Guard AWS refresh cadence, source boundary and writer safety
         run: |
           grep -Fq "cron: '13 */6 * * *'" .github/workflows/aws-detail-recovery.yml
           grep -Fq 'group: aws-detail-recovery' .github/workflows/aws-detail-recovery.yml
+          grep -Fq 'node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify' .github/workflows/aws-detail-recovery.yml
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Amazon Web Services"' .github/workflows/aws-detail-recovery.yml
+          grep -Fq 'cp /tmp/aws-status-after-collect.json data/collector-status.json' .github/workflows/aws-detail-recovery.yml
           node scripts/validate-source-workflow-isolation.mjs
       - name: Run AWS source regressions
         run: |
           node scripts/collect-amazon-datacenter.mjs --test-experience-parser
           node scripts/enforce-amazon-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
           node scripts/validate-amazon-parity.mjs --test
       - name: Validate current AWS publication state
         run: |

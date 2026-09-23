@@ -16,6 +16,7 @@ on:
       - 'scripts/sync-publication-counts.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
       - 'scripts/validate-major-workday-parity.mjs'
+      - 'scripts/validate-major-workday-requisition-integrity.mjs'
       - '.github/workflows/major-workday-bootstrap.yml'
   workflow_dispatch:
   schedule:
@@ -61,6 +62,7 @@ jobs:
           node --check scripts/sync-publication-counts.mjs
           node --check scripts/validate-major-workday-freshness-state.mjs
           node --check scripts/validate-major-workday-parity.mjs
+          node --check scripts/validate-major-workday-requisition-integrity.mjs
           node scripts/collect-major-jobs.mjs --test-experience-parser
           node scripts/collect-major-workday-stable.mjs --test
           node scripts/recover-major-workday-targeted.mjs --test
@@ -103,6 +105,7 @@ jobs:
         run: |
           node scripts/validate-major-workday-freshness-state.mjs
           node scripts/validate-major-workday-parity.mjs
+          node scripts/validate-major-workday-requisition-integrity.mjs
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate.mjs
           node scripts/validate-job-history.mjs --allow-aging
@@ -133,6 +136,7 @@ jobs:
             node --check scripts/sync-publication-counts.mjs
             node --check scripts/validate-major-workday-freshness-state.mjs
             node --check scripts/validate-major-workday-parity.mjs
+            node --check scripts/validate-major-workday-requisition-integrity.mjs
             node scripts/collect-major-jobs.mjs --test-experience-parser
             node scripts/collect-major-workday-stable.mjs --test
             node scripts/recover-major-workday-targeted.mjs --test
@@ -160,6 +164,7 @@ jobs:
             node scripts/preserve-source-group.mjs "$PRIORITY_WORKDAY_COMPANIES" /tmp/major-workday-baseline.json --verify
             node scripts/validate-major-workday-freshness-state.mjs
             node scripts/validate-major-workday-parity.mjs
+            node scripts/validate-major-workday-requisition-integrity.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate.mjs
             node scripts/validate-job-history.mjs --allow-aging

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-23T18:38:56.333Z",
-  "jobs": 700,
+  "updatedAt": "2026-09-23T18:54:19.305Z",
+  "jobs": 701,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -12,14 +12,14 @@
     "workday": 6
   },
   "countsByType": {
+    "trainee": 13,
     "entry-level": 671,
-    "trainee": 12,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
+    "0-2-years": 388,
     "2-5-years": 285,
-    "0-2-years": 387,
     "no-experience": 28
   },
   "errors": [],
@@ -2160,9 +2160,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1296,
-    "currentJobs": 700,
-    "scopeCompany": "DataBank",
-    "scopedJobs": 15,
+    "currentJobs": 701,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2170,8 +2170,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 15,
-    "updatedAt": "2026-09-23T18:38:56.764Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-23T18:54:19.628Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2902,15 +2902,15 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-23T17:55:08.398Z",
+    "checkedAt": "2026-09-23T18:54:19.305Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
-    "qualifyingRoles": 1,
-    "added": 0,
-    "removedManaged": 1,
+    "qualifyingRoles": 4,
+    "added": 1,
+    "removedManaged": 0,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
     "checks": [
@@ -2918,10 +2918,10 @@
         "requisition": "JR-163301",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [],
+        "alreadyPublishedByOtherCollector": false
       },
       {
         "requisition": "JR-163300",
@@ -2939,19 +2939,29 @@
         "requisition": "JR-158170",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-811161",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       }
     ],
     "errors": []

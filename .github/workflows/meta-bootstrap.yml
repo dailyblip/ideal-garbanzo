@@ -11,6 +11,7 @@ on:
       - 'scripts/collect-meta-careers.mjs'
       - 'scripts/meta-fetch-policy.mjs'
       - 'scripts/guard-meta-detail-collapse.mjs'
+      - 'scripts/enforce-meta-fallback-freshness.mjs'
       - 'scripts/recover-meta-structured.mjs'
       - 'scripts/prune-meta-overfive.mjs'
       - 'scripts/reconcile-meta-status.mjs'

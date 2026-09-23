@@ -42,8 +42,8 @@ jobs:
         run: node scripts/reverify-coresite-fallback.mjs
       - name: Apply freshly verified CoreSite fallback
         run: node scripts/apply-coresite-verified-fallback.mjs
-      - name: Enforce CoreSite fallback freshness
-        run: node scripts/enforce-coresite-fallback-freshness.mjs
+      - name: Enforce CoreSite fallback freshness through next watchdog window
+        run: node scripts/enforce-coresite-fallback-freshness.mjs --minimum-remaining-hours=7
       - name: Validate CoreSite fallback state
         run: node scripts/validate-coresite-fallback.mjs
       - name: Validate published feed after enforcement
@@ -65,7 +65,7 @@ jobs:
             node scripts/enforce-coresite-fallback-freshness.mjs --test
             node scripts/reverify-coresite-fallback.mjs
             node scripts/apply-coresite-verified-fallback.mjs
-            node scripts/enforce-coresite-fallback-freshness.mjs
+            node scripts/enforce-coresite-fallback-freshness.mjs --minimum-remaining-hours=7
             node scripts/validate-coresite-fallback.mjs
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs

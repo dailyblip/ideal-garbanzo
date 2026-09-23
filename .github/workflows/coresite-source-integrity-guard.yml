@@ -14,6 +14,7 @@ on:
       - 'data/jobs.json'
       - 'data/collector-status.json'
       - 'data/coresite-verified-fallback.json'
+      - '.github/workflows/coresite-stale-fallback-watch.yml'
       - '.github/workflows/coresite-source-integrity-guard.yml'
       - '.github/workflows/pages.yml'
   pull_request:
@@ -29,6 +30,7 @@ on:
       - 'data/jobs.json'
       - 'data/collector-status.json'
       - 'data/coresite-verified-fallback.json'
+      - '.github/workflows/coresite-stale-fallback-watch.yml'
       - '.github/workflows/coresite-source-integrity-guard.yml'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -62,6 +64,16 @@ jobs:
         run: node scripts/reverify-coresite-fallback.mjs --test
       - name: Validate CoreSite freshness regression
         run: node scripts/enforce-coresite-fallback-freshness.mjs --test
+      - name: Guard watchdog coverage horizon
+        shell: bash
+        run: |
+          set -euo pipefail
+          watchdog='.github/workflows/coresite-stale-fallback-watch.yml'
+          count=$(grep -Fc 'node scripts/enforce-coresite-fallback-freshness.mjs --minimum-remaining-hours=7' "$watchdog")
+          if [ "$count" -ne 2 ]; then
+            echo '::error::CoreSite watchdog must enforce a seven-hour remaining-validity horizon in both normal and rebuild paths.'
+            exit 1
+          fi
       - name: Validate CoreSite source-integrity regressions
         run: node scripts/validate-coresite-source-integrity.mjs --test
       - name: Validate current CoreSite publication state

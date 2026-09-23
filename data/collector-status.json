@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T11:43:52.943Z",
+  "updatedAt": "2026-09-23T11:47:44.820Z",
   "jobs": 716,
   "sourcesAttempted": 19,
   "providers": {
@@ -9,14 +9,14 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 686,
     "trainee": 13,
+    "entry-level": 686,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 287,
     "0-2-years": 401,
+    "2-5-years": 287,
     "no-experience": 28
   },
   "errors": [],
@@ -2148,17 +2148,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1279,
     "currentJobs": 716,
-    "scopeCompany": "CoreWeave",
-    "scopedJobs": 11,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 11,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T11:46:18.811Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-23T11:47:45.166Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2869,7 +2869,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-23T09:47:20.202Z",
+    "checkedAt": "2026-09-23T11:47:44.820Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

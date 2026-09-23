@@ -1,13 +1,33 @@
 import { readFile } from 'node:fs/promises';
 
 const stalePrunePath = '.github/workflows/early-career-stale-prune.yml';
+const stalePruneScriptPath = 'scripts/prune-closed-early-career.mjs';
 const sourceGuardPath = 'scripts/validate-source-workflow-isolation.mjs';
+const priorityGuardPath = 'scripts/validate-priority-employer-sources.mjs';
 const violations = [];
 
 function workflowPathsFromSet(source, name) {
   const match = source.match(new RegExp(`const ${name} = new Set\\(\\[([\\s\\S]*?)\\]\\);`));
   if (!match) throw new Error(`Could not find ${name} in ${sourceGuardPath}`);
   return [...match[1].matchAll(/['"](\.github\/workflows\/[^'"]+\.yml)['"]/g)].map((entry) => entry[1]);
+}
+
+function companiesFromSet(source, name, path) {
+  const match = source.match(new RegExp(`const ${name} = new Set\\(\\[([\\s\\S]*?)\\]\\);`));
+  if (!match) throw new Error(`Could not find ${name} in ${path}`);
+  return [...match[1].matchAll(/['"]([^'"]+)['"]/g)].map((entry) => entry[1]);
+}
+
+function companiesFromArray(source, name, path) {
+  const match = source.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
+  if (!match) throw new Error(`Could not find ${name} in ${path}`);
+  return [...match[1].matchAll(/['"]([^'"]+)['"]/g)].map((entry) => entry[1]);
+}
+
+function companiesFromSnapshotConfig(source) {
+  const match = source.match(/const protectedSnapshots = \[([\s\S]*?)\];/);
+  if (!match) throw new Error(`Could not find protectedSnapshots in ${priorityGuardPath}`);
+  return [...match[1].matchAll(/company:\s*['"]([^'"]+)['"]/g)].map((entry) => entry[1]);
 }
 
 function expandCronField(field, min, max) {
@@ -92,6 +112,24 @@ if (!/cancel-in-progress:\s*false\b/.test(staleText)) {
   violations.push(`${stalePrunePath}: stale-prune must not cancel an in-progress run`);
 }
 
+const stalePruneScript = await readFile(stalePruneScriptPath, 'utf8');
+const priorityGuard = await readFile(priorityGuardPath, 'utf8');
+const authoritativeRefreshCompanies = new Set(companiesFromSet(stalePruneScript, 'AUTHORITATIVE_REFRESH_COMPANIES', stalePruneScriptPath));
+const requiredSourceOwnedCompanies = new Set([
+  ...companiesFromSnapshotConfig(priorityGuard),
+  ...companiesFromArray(priorityGuard, 'protectedMajorWorkdayCompanies', priorityGuardPath),
+  'Equinix'
+]);
+
+for (const company of requiredSourceOwnedCompanies) {
+  if (!authoritativeRefreshCompanies.has(company)) {
+    violations.push(`${stalePruneScriptPath}: ${company} is protected by authoritative source state but is missing from AUTHORITATIVE_REFRESH_COMPANIES`);
+  }
+}
+if (!stalePruneScript.includes('!isAuthoritativeRefreshOwned(job)')) {
+  violations.push(`${stalePruneScriptPath}: generic stale-prune candidates must exclude authoritative source-owned roles`);
+}
+
 const slots = new Map();
 for (const path of primaryWriters) {
   const text = path === stalePrunePath ? staleText : await readFile(path, 'utf8');
@@ -124,4 +162,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} stale-prune isolation regression(s).`);
 }
 
-console.log(`Stale-prune isolation guard passed: ${stalePrunePath} uses fresh-main retry publication and has no exact UTC collision with ${primaryWriters.size - 1} scheduled employer feed writers.`);
+console.log(`Stale-prune isolation guard passed: ${stalePrunePath} uses fresh-main retry publication, excludes ${requiredSourceOwnedCompanies.size} authoritative source-owned employers, and has no exact UTC collision with ${primaryWriters.size - 1} scheduled employer feed writers.`);

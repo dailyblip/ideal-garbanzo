@@ -34,11 +34,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate collector and classifier
+      - name: Validate collector, classifier and source-isolation helpers
         run: |
           node --check scripts/collect-switch-careers.mjs
           node --check scripts/validate-switch-careers.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
           node scripts/collect-switch-careers.mjs --test-classifier
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before Switch refresh
+        run: cp data/jobs.json /tmp/switch-public-before.json
       - name: Collect official Switch current openings
         run: node scripts/collect-switch-careers.mjs
       - name: Enforce mission-fit role families
@@ -47,16 +52,22 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply Switch source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Switch" /tmp/switch-public-before.json
+          node scripts/preserve-source-group.mjs "Switch" /tmp/switch-public-before.json --verify
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate Switch employer-direct snapshot
         run: node scripts/validate-switch-careers.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
+      - name: Track Switch first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "Switch"
+      - name: Verify non-Switch rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Switch" /tmp/switch-public-before.json --verify
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
       - name: Publish verified Switch roles from current main
@@ -70,15 +81,23 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/switch-public-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
+            node scripts/collect-switch-careers.mjs --test-classifier
+            node scripts/preserve-source-group.mjs --test
             node scripts/collect-switch-careers.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "Switch" /tmp/switch-public-before.json
+            node scripts/preserve-source-group.mjs "Switch" /tmp/switch-public-before.json --verify
             node scripts/refresh-region-status.mjs
             node scripts/validate-switch-careers.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "Switch"
+            node scripts/preserve-source-group.mjs "Switch" /tmp/switch-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs
           }

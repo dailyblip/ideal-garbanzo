@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T17:07:38.860Z",
+  "updatedAt": "2026-09-23T17:20:35.708Z",
   "jobs": 702,
   "sourcesAttempted": 19,
   "providers": {
@@ -2100,7 +2100,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T17:17:06.784Z",
+    "checkedAt": "2026-09-23T17:20:35.776Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2108,7 +2108,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T17:17:06.850Z",
+    "updatedAt": "2026-09-23T17:20:35.837Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 702,
@@ -2116,10 +2116,10 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southwest": 82,
       "west": 106,
       "midwest": 136,
       "mid-atlantic": 135,
+      "southwest": 82,
       "southeast": 106,
       "texas": 118,
       "northeast": 18,
@@ -2127,7 +2127,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T17:17:06.910Z",
+    "checkedAt": "2026-09-23T17:20:35.891Z",
     "before": 702,
     "after": 702,
     "removed": 0,
@@ -2145,8 +2145,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1292,
     "currentJobs": 702,
-    "scopeCompany": "Sabey Data Centers",
-    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2154,8 +2152,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T17:17:07.070Z"
+    "firstSeenRecencyFallbackJobs": 92,
+    "updatedAt": "2026-09-23T17:20:36.036Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2295,18 +2293,18 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-23T04:57:46.745Z",
+    "checkedAt": "2026-09-23T17:20:35.708Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",
     "officialWorkableBoard": "https://apply.workable.com/stream-dc/",
     "api": "https://www.workable.com/api/accounts/stream-dc?details=true",
     "authoritativeSnapshot": true,
-    "listedJobs": 9,
-    "usJobs": 9,
+    "listedJobs": 11,
+    "usJobs": 11,
     "candidateRoles": 6,
     "qualifyingRoles": 5,
-    "rejectedOutOfScopeTitle": 3,
+    "rejectedOutOfScopeTitle": 5,
     "rejectedSeniorTitle": 1,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0

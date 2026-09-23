@@ -9,14 +9,14 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 696,
+    "trainee": 13,
     "internship": 11,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 300,
     "0-2-years": 403,
+    "2-5-years": 300,
     "no-experience": 28
   },
   "errors": [],
@@ -2103,7 +2103,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T04:50:50.115Z",
+    "checkedAt": "2026-09-23T04:52:37.364Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2111,17 +2111,17 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T04:50:50.177Z",
+    "updatedAt": "2026-09-23T04:52:37.440Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 730,
+    "regionAssigned": 731,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "midwest": 141,
       "southeast": 111,
-      "west": 117,
+      "west": 118,
       "texas": 121,
       "southwest": 80,
       "mid-atlantic": 137,
@@ -2130,9 +2130,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T04:50:50.236Z",
-    "before": 730,
-    "after": 730,
+    "checkedAt": "2026-09-23T04:52:37.508Z",
+    "before": 731,
+    "after": 731,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2148,8 +2148,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1279,
     "currentJobs": 731,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2157,8 +2155,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-23T04:51:33.727Z"
+    "firstSeenRecencyFallbackJobs": 107,
+    "updatedAt": "2026-09-23T04:52:37.762Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2332,11 +2330,11 @@
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-22T17:02:54.270Z",
-    "lastHealthyAt": "2026-09-22T17:02:54.270Z",
+    "checkedAt": "2026-09-23T04:52:37.280Z",
+    "lastHealthyAt": "2026-09-23T04:52:37.280Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-26T17:02:54.270Z",
+    "fallbackExpiresAt": "2026-09-27T04:52:37.280Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 2,

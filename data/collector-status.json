@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-23T15:49:06.607Z",
-  "jobs": 722,
+  "updatedAt": "2026-09-23T15:50:20.022Z",
+  "jobs": 717,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
@@ -10,15 +10,15 @@
     "googleCareers": 2
   },
   "countsByType": {
-    "entry-level": 692,
+    "entry-level": 687,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 406,
-    "no-experience": 28,
-    "2-5-years": 288
+    "2-5-years": 286,
+    "0-2-years": 403,
+    "no-experience": 28
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -3634,17 +3634,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1288,
     "currentJobs": 717,
-    "scopeCompany": "Amazon Web Services",
-    "scopedJobs": 252,
-    "newJobsThisRun": 8,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 8,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T15:49:07.276Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-23T15:50:20.313Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4357,7 +4357,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-23T15:45:33.438Z",
+    "checkedAt": "2026-09-23T15:50:20.022Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

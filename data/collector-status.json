@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-23T16:48:23.523Z",
-  "jobs": 720,
+  "updatedAt": "2026-09-23T16:53:02.220Z",
+  "jobs": 707,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 690,
+    "entry-level": 677,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 287,
-    "0-2-years": 405,
-    "no-experience": 28
+    "0-2-years": 391,
+    "no-experience": 28,
+    "2-5-years": 288
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1384,7 +1384,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1331
+        "rows": 1333
       },
       {
         "query": "engineering operations technician",
@@ -1399,28 +1399,28 @@
         "rows": 19
       }
     ],
-    "candidateRows": 3740,
+    "candidateRows": 3742,
     "uniqueCandidates": 1170,
     "freshQualifyingRoles": 30,
     "preservedPreviousRoles": 0,
     "qualifyingRoles": 30,
     "drops": {
       "nonUs": 301,
-      "title": 552,
+      "title": 551,
       "context": 0,
       "experience": 2,
-      "unknownExperience": 285,
+      "unknownExperience": 286,
       "invalidUrl": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-23T15:49:06.700Z",
-    "lastHealthyAt": "2026-09-23T15:49:06.700Z",
+    "checkedAt": "2026-09-23T16:53:02.308Z",
+    "lastHealthyAt": "2026-09-23T16:53:02.308Z",
     "fallbackMaxAgeHours": 96,
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-23T15:49:06.700Z",
-      "checkedAt": "2026-09-23T15:49:06.700Z",
+      "lastHealthyAt": "2026-09-23T16:53:02.308Z",
+      "checkedAt": "2026-09-23T16:53:02.308Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     }
@@ -2122,18 +2122,18 @@
     "updatedAt": "2026-09-23T16:48:24.925Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 720,
+    "regionAssigned": 702,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 111,
-      "midwest": 139,
-      "southeast": 107,
-      "mid-atlantic": 140,
+      "west": 106,
+      "midwest": 136,
+      "southeast": 106,
+      "mid-atlantic": 135,
       "southwest": 82,
-      "texas": 120,
-      "northeast": 20,
+      "texas": 118,
+      "northeast": 18,
       "nationwide": 1
     }
   },
@@ -2154,19 +2154,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1291,
-    "currentJobs": 720,
-    "scopeCompany": "Oracle",
-    "scopedJobs": 16,
+    "trackedJobs": 1292,
+    "currentJobs": 702,
+    "scopeCompany": "Amazon Web Services",
+    "scopedJobs": 234,
     "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 16,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-23T16:48:25.187Z"
+    "updatedAt": "2026-09-23T16:53:02.826Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2180,7 +2180,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1331
+        "rows": 1333
       },
       {
         "query": "engineering operations technician",
@@ -2195,23 +2195,41 @@
         "rows": 19
       }
     ],
-    "rawRows": 3740,
-    "missionFitUsCandidates": 1297,
-    "uniquePublishIdentities": 308,
-    "duplicatesSkippedBeforeHydration": 989,
+    "rawRows": 3742,
+    "missionFitUsCandidates": 1301,
+    "uniquePublishIdentities": 309,
+    "duplicatesSkippedBeforeHydration": 992,
     "reusedVerified": 29,
-    "detailCandidates": 279,
-    "detailAttempted": 279,
-    "detailSucceeded": 278,
-    "detailRecovered": 228,
-    "detailFetchFailed": 1,
-    "detailUnknownExperience": 39,
+    "detailCandidates": 280,
+    "detailAttempted": 280,
+    "detailSucceeded": 261,
+    "detailRecovered": 210,
+    "detailFetchFailed": 19,
+    "detailUnknownExperience": 40,
     "detailOverFiveYears": 11,
     "invalidUrls": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 257,
+    "qualifyingRoles": 239,
     "detailErrorSamples": [
-      "https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo"
+      "https://www.amazon.jobs/en/jobs/10476300/data-center-technician-west-region-military-veterans-encouraged: 503 https://www.amazon.jobs/en/jobs/10476300/data-center-technician-west-region-military-veterans-encouraged",
+      "https://www.amazon.jobs/en/jobs/10471727/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10471727/data-center-technician",
+      "https://www.amazon.jobs/en/jobs/10465592/data-center-technician-night-role: 503 https://www.amazon.jobs/en/jobs/10465592/data-center-technician-night-role",
+      "https://www.amazon.jobs/en/jobs/10459011/data-center-technician-adc-infraops-dco: 503 https://www.amazon.jobs/en/jobs/10459011/data-center-technician-adc-infraops-dco",
+      "https://www.amazon.jobs/en/jobs/10444674/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10444674/data-center-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10429244/data-center-technician-aws: 503 https://www.amazon.jobs/en/jobs/10429244/data-center-technician-aws",
+      "https://www.amazon.jobs/en/jobs/10422806/data-center-engineering-operations-technician-ii-cmh58: 503 https://www.amazon.jobs/en/jobs/10422806/data-center-engineering-operations-technician-ii-cmh58",
+      "https://www.amazon.jobs/en/jobs/10401649/engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/10401649/engineering-operations-technician-dceo",
+      "https://www.amazon.jobs/en/jobs/10393997/engineering-operations-tech-aws-cleared-jobs: 503 https://www.amazon.jobs/en/jobs/10393997/engineering-operations-tech-aws-cleared-jobs",
+      "https://www.amazon.jobs/en/jobs/10386352/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10386352/data-center-technician",
+      "https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician",
+      "https://www.amazon.jobs/en/jobs/3205652/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3205652/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3195725/data-center-engineering-operations-technician: 503 https://www.amazon.jobs/en/jobs/3195725/data-center-engineering-operations-technician",
+      "https://www.amazon.jobs/en/jobs/3185829/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/3185829/engineering-operation-technician",
+      "https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia",
+      "https://www.amazon.jobs/en/jobs/3150709/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150709/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3150687/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150687/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo",
+      "https://www.amazon.jobs/en/jobs/10405513/project-engineer-data-center-construction: 503 https://www.amazon.jobs/en/jobs/10405513/project-engineer-data-center-construction"
     ],
     "errors": []
   },

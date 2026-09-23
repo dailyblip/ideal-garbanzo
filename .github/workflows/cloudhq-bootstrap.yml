@@ -6,6 +6,9 @@ on:
     paths:
       - scripts/collect-cloudhq-careers.mjs
       - scripts/validate-cloudhq.mjs
+      - scripts/preserve-source-group.mjs
+      - scripts/stamp-job-history.mjs
+      - scripts/validate-job-history.mjs
       - .github/workflows/cloudhq-bootstrap.yml
   workflow_dispatch:
   schedule:
@@ -32,29 +35,50 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate CloudHQ collector and fallback policy
+      - name: Validate CloudHQ collector and source-isolation contract
         run: |
           node --check scripts/collect-cloudhq-careers.mjs
           node scripts/collect-cloudhq-careers.mjs --test-freshness
           node --check scripts/validate-cloudhq.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
+          node scripts/preserve-source-group.mjs --test
+          node scripts/collect-jobs.mjs --test-preservation
+      - name: Preserve shared boundaries before CloudHQ refresh
+        run: |
+          cp data/jobs.json /tmp/cloudhq-public-before.json
+          cp data/major-jobs.json /tmp/cloudhq-major-before.json
       - name: Collect official CloudHQ Paylocity roles
         run: node scripts/collect-cloudhq-careers.mjs
+      - name: Preserve CloudHQ collector status before shared transforms
+        run: cp data/collector-status.json /tmp/cloudhq-status-after-collect.json
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations and regions
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply CloudHQ source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "CloudHQ" /tmp/cloudhq-public-before.json
+          cp /tmp/cloudhq-major-before.json data/major-jobs.json
+          cp /tmp/cloudhq-status-after-collect.json data/collector-status.json
+          node scripts/preserve-source-group.mjs "CloudHQ" /tmp/cloudhq-public-before.json --verify
+          cmp -s data/major-jobs.json /tmp/cloudhq-major-before.json
+          cmp -s data/collector-status.json /tmp/cloudhq-status-after-collect.json
       - name: Refresh regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Validate CloudHQ employer-direct snapshot
         run: node scripts/validate-cloudhq.mjs
-      - name: Track first-seen dates
-        run: node scripts/stamp-job-history.mjs
+      - name: Track CloudHQ first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "CloudHQ"
+      - name: Verify non-CloudHQ rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "CloudHQ" /tmp/cloudhq-public-before.json --verify
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
       - name: Commit verified CloudHQ roles
@@ -68,15 +92,31 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/cloudhq-public-before.json
+            cp data/major-jobs.json /tmp/cloudhq-major-before.json
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
+            node --check scripts/validate-job-history.mjs
+            node scripts/collect-cloudhq-careers.mjs --test-freshness
+            node scripts/preserve-source-group.mjs --test
+            node scripts/collect-jobs.mjs --test-preservation
             node scripts/collect-cloudhq-careers.mjs
+            cp data/collector-status.json /tmp/cloudhq-status-after-collect.json
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "CloudHQ" /tmp/cloudhq-public-before.json
+            cp /tmp/cloudhq-major-before.json data/major-jobs.json
+            cp /tmp/cloudhq-status-after-collect.json data/collector-status.json
+            node scripts/preserve-source-group.mjs "CloudHQ" /tmp/cloudhq-public-before.json --verify
+            cmp -s data/major-jobs.json /tmp/cloudhq-major-before.json
+            cmp -s data/collector-status.json /tmp/cloudhq-status-after-collect.json
             node scripts/refresh-region-status.mjs
             node scripts/validate-cloudhq.mjs
-            node scripts/stamp-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "CloudHQ"
+            node scripts/preserve-source-group.mjs "CloudHQ" /tmp/cloudhq-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs
           }

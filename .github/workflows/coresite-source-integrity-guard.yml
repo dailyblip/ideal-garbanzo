@@ -76,6 +76,9 @@ jobs:
           fi
       - name: Validate CoreSite source-integrity regressions
         run: node scripts/validate-coresite-source-integrity.mjs --test
+      - name: Exercise fail-closed cleanup against current PR fixture
+        if: github.event_name == 'pull_request'
+        run: node scripts/enforce-coresite-fallback-freshness.mjs --minimum-remaining-hours=7
       - name: Validate current CoreSite publication state
         run: |
           node scripts/validate-coresite-source-integrity.mjs

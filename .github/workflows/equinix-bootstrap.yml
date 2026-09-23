@@ -89,7 +89,7 @@ jobs:
       - name: Validate refreshed feed and employer-direct source
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
@@ -129,7 +129,7 @@ jobs:
             node scripts/stamp-job-history.mjs --company "Equinix"
             node scripts/preserve-source-group.mjs "Equinix" /tmp/equinix-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs

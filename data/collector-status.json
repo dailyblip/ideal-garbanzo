@@ -9,14 +9,14 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 686,
+    "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 401,
     "2-5-years": 287,
+    "0-2-years": 401,
     "no-experience": 28
   },
   "errors": [],
@@ -96,7 +96,7 @@
     ],
     "snapshotRoles": 0,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-23T05:46:40.820Z",
+    "snapshotVerifiedAt": "2026-09-23T11:52:29.765Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
     "snapshotAgeHours": 0,
@@ -2103,7 +2103,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T11:46:18.314Z",
+    "checkedAt": "2026-09-23T11:52:29.844Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2111,7 +2111,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T11:46:18.390Z",
+    "updatedAt": "2026-09-23T11:52:29.933Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 716,
@@ -2130,7 +2130,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T11:46:18.464Z",
+    "checkedAt": "2026-09-23T11:52:30.002Z",
     "before": 716,
     "after": 716,
     "removed": 0,
@@ -2148,8 +2148,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1279,
     "currentJobs": 716,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
+    "scopeCompany": "Sabey Data Centers",
+    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2157,8 +2157,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-23T11:47:45.166Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-23T11:52:30.179Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

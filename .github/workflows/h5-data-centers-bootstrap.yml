@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/stamp-h5-source-verification.mjs'
       - 'scripts/validate-h5-data-centers.mjs'
       - '.github/workflows/h5-data-centers-bootstrap.yml'
       - '.github/workflows/h5-source-integrity-guard.yml'
@@ -36,6 +37,7 @@ jobs:
       - name: Validate H5 collector and source-isolation contract
         run: |
           node --check scripts/collect-h5-data-centers.mjs
+          node --check scripts/stamp-h5-source-verification.mjs
           node --check scripts/validate-h5-data-centers.mjs
           node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
@@ -46,6 +48,8 @@ jobs:
         run: cp data/jobs.json /tmp/h5-public-before.json
       - name: Collect official H5 Data Centers roles
         run: node scripts/collect-h5-data-centers.mjs
+      - name: Stamp H5 source verification evidence
+        run: node scripts/stamp-h5-source-verification.mjs
       - name: Enforce mission-fit roles
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize locations
@@ -82,6 +86,7 @@ jobs:
             git reset --hard origin/main
             cp data/jobs.json /tmp/h5-public-before.json
             node --check scripts/collect-h5-data-centers.mjs
+            node --check scripts/stamp-h5-source-verification.mjs
             node --check scripts/validate-h5-data-centers.mjs
             node --check scripts/preserve-source-group.mjs
             node --check scripts/stamp-job-history.mjs
@@ -89,6 +94,7 @@ jobs:
             node scripts/validate-h5-data-centers.mjs --static-only
             node scripts/preserve-source-group.mjs --test
             node scripts/collect-h5-data-centers.mjs
+            node scripts/stamp-h5-source-verification.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs

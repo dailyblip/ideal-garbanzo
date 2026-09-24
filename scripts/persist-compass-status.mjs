@@ -9,7 +9,7 @@ const SNAPSHOT_PATH = 'data/compass-jobs.json';
 const MAX_FALLBACK_AGE_HOURS = 96;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
-const clearlyExcludedSlug = /(?:^|-)(?:senior|sr|lead|principal|staff|manager|director|vice-president|vp|chief|head-of|supervisor|architect|security|sales|finance|marketing)(?:-|$)/i;
+const clearlyExcludedSlug = /(?:^|-)(?:senior|sr|lead|principal|staff|manager|director|vice-president|vp|chief|head-of|supervisor|architect|security|sales|finance|marketing|front-office)(?:-|$)/i;
 
 async function readJson(path, fallback) {
   try { return JSON.parse(await readFile(path, 'utf8')); }

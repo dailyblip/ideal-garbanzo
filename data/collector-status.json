@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-24T07:01:33.819Z",
-  "jobs": 665,
+  "updatedAt": "2026-09-24T07:06:11.211Z",
+  "jobs": 671,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
@@ -11,14 +11,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 635,
+    "entry-level": 641,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 357,
-    "2-5-years": 280,
+    "2-5-years": 286,
     "no-experience": 28
   },
   "errors": [],
@@ -3595,7 +3595,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T07:00:44.163Z",
+    "checkedAt": "2026-09-24T07:06:11.277Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3603,28 +3603,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T07:00:44.240Z",
+    "updatedAt": "2026-09-24T07:06:11.346Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 665,
+    "regionAssigned": 671,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 103,
-      "northeast": 18,
-      "west": 107,
-      "mid-atlantic": 132,
+      "northeast": 20,
+      "west": 108,
+      "mid-atlantic": 134,
       "southwest": 71,
-      "midwest": 128,
+      "midwest": 129,
       "texas": 105,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T07:00:44.312Z",
-    "before": 665,
-    "after": 665,
+    "checkedAt": "2026-09-24T07:06:11.413Z",
+    "before": 671,
+    "after": 671,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3638,19 +3638,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1312,
-    "currentJobs": 665,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1318,
+    "currentJobs": 671,
+    "scopeCompany": "Csquare",
+    "scopedJobs": 6,
+    "newJobsThisRun": 6,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 6,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T07:01:34.150Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-24T07:06:11.683Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4596,8 +4596,8 @@
     ]
   },
   "csquare": {
-    "checkedAt": "2026-09-24T07:00:44.086Z",
-    "lastSuccessfulAt": "2026-09-24T07:00:44.086Z",
+    "checkedAt": "2026-09-24T07:06:11.211Z",
+    "lastSuccessfulAt": "2026-09-24T07:06:11.211Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "authoritativeSnapshot": true,
@@ -4607,11 +4607,11 @@
     "listedRoles": 15,
     "candidateRoles": 10,
     "detailVerified": 10,
-    "qualifyingRoles": 0,
+    "qualifyingRoles": 6,
     "rejectedOutOfScope": 5,
     "rejectedSeniorOrCommercial": 3,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 1,
-    "rejectedNonUs": 6
+    "rejectedNonUs": 0
   }
 }

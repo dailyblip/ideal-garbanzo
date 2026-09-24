@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T06:23:42.213Z",
+  "updatedAt": "2026-09-24T07:00:44.086Z",
   "jobs": 665,
   "sourcesAttempted": 22,
   "providers": {
@@ -3595,7 +3595,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T06:23:42.288Z",
+    "checkedAt": "2026-09-24T07:00:44.163Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3603,7 +3603,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T06:23:42.365Z",
+    "updatedAt": "2026-09-24T07:00:44.240Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 665,
@@ -3622,7 +3622,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T06:23:42.435Z",
+    "checkedAt": "2026-09-24T07:00:44.312Z",
     "before": 665,
     "after": 665,
     "removed": 0,
@@ -3640,8 +3640,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1312,
     "currentJobs": 665,
-    "scopeCompany": "Cologix",
-    "scopedJobs": 7,
+    "scopeCompany": "Csquare",
+    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3650,7 +3650,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T06:23:42.670Z"
+    "updatedAt": "2026-09-24T07:00:44.626Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4594,5 +4594,24 @@
         "reason": "no normalized US location"
       }
     ]
+  },
+  "csquare": {
+    "checkedAt": "2026-09-24T07:00:44.086Z",
+    "lastSuccessfulAt": "2026-09-24T07:00:44.086Z",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "authoritativeSnapshot": true,
+    "officialCareerPage": "https://www.csquare.com/careers",
+    "officialBoard": "https://recruiting.ultipro.com/CYX1000CYXT/JobBoard/6ce3c532-60ea-4691-8e59-5f0a86be31a9",
+    "api": "https://recruiting.ultipro.com/CYX1000CYXT/JobBoard/6ce3c532-60ea-4691-8e59-5f0a86be31a9/JobBoardView/LoadSearchResults",
+    "listedRoles": 15,
+    "candidateRoles": 10,
+    "detailVerified": 10,
+    "qualifyingRoles": 0,
+    "rejectedOutOfScope": 5,
+    "rejectedSeniorOrCommercial": 3,
+    "rejectedOver5Years": 0,
+    "rejectedUnknownExperience": 1,
+    "rejectedNonUs": 6
   }
 }

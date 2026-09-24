@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-24T17:03:58.895Z",
-  "jobs": 720,
+  "updatedAt": "2026-09-24T17:07:06.398Z",
+  "jobs": 723,
   "sourcesAttempted": 28,
   "providers": {
     "lever": 7,
@@ -12,15 +12,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 690,
-    "trainee": 13,
+    "entry-level": 694,
+    "trainee": 12,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 412,
-    "2-5-years": 280,
-    "no-experience": 28
+    "0-2-years": 415,
+    "no-experience": 27,
+    "2-5-years": 281
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1396,43 +1396,43 @@
       },
       {
         "query": "data center technician",
-        "rows": 1332
+        "rows": 1326
       },
       {
         "query": "engineering operations technician",
-        "rows": 383
+        "rows": 382
       },
       {
         "query": "work based learning data center",
-        "rows": 5
+        "rows": 4
       },
       {
         "query": "project engineer data center",
         "rows": 18
       }
     ],
-    "candidateRows": 3738,
-    "uniqueCandidates": 1165,
-    "freshQualifyingRoles": 29,
+    "candidateRows": 3730,
+    "uniqueCandidates": 1156,
+    "freshQualifyingRoles": 27,
     "preservedPreviousRoles": 0,
-    "qualifyingRoles": 29,
+    "qualifyingRoles": 27,
     "drops": {
-      "nonUs": 307,
-      "title": 546,
+      "nonUs": 304,
+      "title": 543,
       "context": 0,
       "experience": 2,
-      "unknownExperience": 281,
+      "unknownExperience": 280,
       "invalidUrl": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-24T11:40:05.880Z",
-    "lastHealthyAt": "2026-09-24T11:40:05.880Z",
+    "checkedAt": "2026-09-24T17:07:06.481Z",
+    "lastHealthyAt": "2026-09-24T17:07:06.481Z",
     "fallbackMaxAgeHours": 96,
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-24T11:40:05.880Z",
-      "checkedAt": "2026-09-24T11:40:05.880Z",
+      "lastHealthyAt": "2026-09-24T17:07:06.481Z",
+      "checkedAt": "2026-09-24T17:07:06.481Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     }
@@ -2137,17 +2137,17 @@
     "updatedAt": "2026-09-24T17:03:59.925Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 720,
+    "regionAssigned": 718,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 110,
       "northeast": 24,
-      "west": 114,
+      "west": 113,
       "mid-atlantic": 143,
       "southwest": 79,
-      "midwest": 135,
+      "midwest": 134,
       "texas": 114,
       "nationwide": 1
     }
@@ -2169,19 +2169,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1324,
-    "currentJobs": 720,
-    "scopeCompany": "Oracle",
-    "scopedJobs": 12,
-    "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "trackedJobs": 1326,
+    "currentJobs": 718,
+    "scopeCompany": "Amazon Web Services",
+    "scopedJobs": 249,
+    "newJobsThisRun": 2,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 12,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T17:04:00.225Z"
+    "updatedAt": "2026-09-24T17:07:06.974Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2195,36 +2195,36 @@
       },
       {
         "query": "data center technician",
-        "rows": 1334
+        "rows": 1326
       },
       {
         "query": "engineering operations technician",
-        "rows": 383
+        "rows": 382
       },
       {
         "query": "work based learning data center",
-        "rows": 5
+        "rows": 4
       },
       {
         "query": "project engineer data center",
         "rows": 18
       }
     ],
-    "rawRows": 3740,
+    "rawRows": 3730,
     "missionFitUsCandidates": 1292,
-    "uniquePublishIdentities": 304,
-    "duplicatesSkippedBeforeHydration": 988,
-    "reusedVerified": 28,
-    "detailCandidates": 276,
-    "detailAttempted": 276,
-    "detailSucceeded": 276,
+    "uniquePublishIdentities": 301,
+    "duplicatesSkippedBeforeHydration": 991,
+    "reusedVerified": 26,
+    "detailCandidates": 275,
+    "detailAttempted": 275,
+    "detailSucceeded": 275,
     "detailRecovered": 228,
     "detailFetchFailed": 0,
-    "detailUnknownExperience": 38,
+    "detailUnknownExperience": 37,
     "detailOverFiveYears": 10,
     "invalidUrls": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 256,
+    "qualifyingRoles": 254,
     "detailErrorSamples": [],
     "errors": []
   },

@@ -33,11 +33,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate H5 collector contract
+      - name: Validate H5 collector and source-isolation contract
         run: |
           node --check scripts/collect-h5-data-centers.mjs
           node --check scripts/validate-h5-data-centers.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
           node scripts/validate-h5-data-centers.mjs --static-only
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before H5 refresh
+        run: cp data/jobs.json /tmp/h5-public-before.json
       - name: Collect official H5 Data Centers roles
         run: node scripts/collect-h5-data-centers.mjs
       - name: Enforce mission-fit roles
@@ -46,13 +52,19 @@ jobs:
         run: node scripts/normalize-job-locations.mjs
       - name: Deduplicate jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply H5 source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "H5 Data Centers" /tmp/h5-public-before.json
+          node scripts/preserve-source-group.mjs "H5 Data Centers" /tmp/h5-public-before.json --verify
       - name: Validate H5 snapshot and publication parity
         run: node scripts/validate-h5-data-centers.mjs
-      - name: Persist first-seen dates for weekly alerts
-        run: node scripts/stamp-job-history.mjs
+      - name: Persist H5 first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs --company "H5 Data Centers"
+      - name: Verify non-H5 rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "H5 Data Centers" /tmp/h5-public-before.json --verify
       - name: Validate updated public feed
         run: |
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-source-workflow-isolation.mjs
           node scripts/validate-homepage-contract.mjs
@@ -68,14 +80,24 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/h5-public-before.json
+            node --check scripts/collect-h5-data-centers.mjs
+            node --check scripts/validate-h5-data-centers.mjs
+            node --check scripts/preserve-source-group.mjs
+            node --check scripts/stamp-job-history.mjs
+            node --check scripts/validate-job-history.mjs
             node scripts/validate-h5-data-centers.mjs --static-only
+            node scripts/preserve-source-group.mjs --test
             node scripts/collect-h5-data-centers.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "H5 Data Centers" /tmp/h5-public-before.json
+            node scripts/preserve-source-group.mjs "H5 Data Centers" /tmp/h5-public-before.json --verify
             node scripts/validate-h5-data-centers.mjs
-            node scripts/stamp-job-history.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/stamp-job-history.mjs --company "H5 Data Centers"
+            node scripts/preserve-source-group.mjs "H5 Data Centers" /tmp/h5-public-before.json --verify
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-priority-employer-sources.mjs
             node scripts/validate-source-workflow-isolation.mjs
             node scripts/validate-homepage-contract.mjs

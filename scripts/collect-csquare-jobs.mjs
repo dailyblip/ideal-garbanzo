@@ -149,9 +149,14 @@ function collectStrings(value, out = []) {
 function firstScalar(object, keys) {
   if (!object || typeof object !== 'object') return '';
   for (const [key, value] of Object.entries(object)) {
-    if (keys.includes(key.toLowerCase()) && ['string','number'].includes(typeof value)) {
+    if (!keys.includes(key.toLowerCase())) continue;
+    if (['string','number'].includes(typeof value)) {
       const text = clean(value);
       if (text) return text;
+    }
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      const nested = firstScalar(value, ['code','name','value']);
+      if (nested) return nested;
     }
   }
   return '';
@@ -311,7 +316,7 @@ function runClassifierTests() {
 }
 
 function runDetailParserTest() {
-  const fixture = `<html><script>new US.Opportunity.CandidateOpportunityDetail({"Title":"Operations Technician 1","Description":"Support {critical} data center systems","Locations":[{"City":"Irvine","State":"CA","Country":"USA"}]});</script></html>`;
+  const fixture = `<html><script>new US.Opportunity.CandidateOpportunityDetail({"Title":"Operations Technician 1","Description":"Support {critical} data center systems","Locations":[{"Address":{"City":"Irvine","State":{"Code":"CA","Name":"California"},"Country":{"Code":"USA","Name":"United States"}}}]});</script></html>`;
   const payload = extractCandidatePayload(fixture);
   if (payload.Title !== 'Operations Technician 1' || normalizeLocation(payload, {}) !== 'Irvine, CA') throw new Error('Csquare UKG detail parser regression');
   console.log('Csquare UKG detail parser regression passed.');

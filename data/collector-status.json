@@ -1,21 +1,22 @@
 {
-  "updatedAt": "2026-09-24T04:57:35.118Z",
-  "jobs": 654,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-24T04:57:50.543Z",
+  "jobs": 666,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "adp": 1
   },
   "countsByType": {
-    "entry-level": 624,
+    "entry-level": 636,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 346,
+    "0-2-years": 358,
     "2-5-years": 280,
     "no-experience": 28
   },
@@ -2116,7 +2117,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T04:57:35.163Z",
+    "checkedAt": "2026-09-24T04:57:50.620Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2124,28 +2125,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T04:57:35.211Z",
+    "updatedAt": "2026-09-24T04:57:50.694Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 654,
+    "regionAssigned": 666,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 101,
-      "midwest": 126,
+      "southeast": 103,
+      "northeast": 18,
+      "midwest": 129,
       "southwest": 71,
-      "west": 105,
-      "mid-atlantic": 130,
-      "texas": 104,
-      "northeast": 16,
+      "west": 107,
+      "mid-atlantic": 132,
+      "texas": 105,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T04:57:35.256Z",
-    "before": 654,
-    "after": 654,
+    "checkedAt": "2026-09-24T04:57:50.761Z",
+    "before": 666,
+    "after": 666,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2159,19 +2160,17 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1300,
-    "currentJobs": 654,
-    "scopeCompany": "Digital Realty",
-    "scopedJobs": 16,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1312,
+    "currentJobs": 666,
+    "newJobsThisRun": 12,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 12,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 16,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T04:57:35.473Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 90,
+    "updatedAt": "2026-09-24T04:57:50.871Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3082,6 +3081,37 @@
         ],
         "requirementSource": "jobposting-jsonld",
         "sourceUrl": "https://www.metacareers.com/profile/job_details/1070865265322507/"
+      }
+    ]
+  },
+  "h5DataCenters": {
+    "officialSource": "https://h5datacenters.com/data-center-careers.html",
+    "boardUrl": "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?cid=82492f85-be81-40ce-8d7b-b3a16956630b&ccId=19000101_000001&lang=en_US&locale=en_US",
+    "sourceHealthy": true,
+    "qualifyingRoles": 12,
+    "usedPreviousSnapshot": false,
+    "listing": {
+      "advertised": 34,
+      "fetched": 35,
+      "drift": 1
+    },
+    "drops": {
+      "missingDetailId": 0,
+      "detailFetch": 0,
+      "nonUs": 1,
+      "classification": 22
+    },
+    "samples": [
+      {
+        "itemId": "9201150824280_1",
+        "title": "Sales Director",
+        "locations": [
+          {
+            "name": "Chicago",
+            "country": ""
+          }
+        ],
+        "reason": "no normalized US location"
       }
     ]
   }

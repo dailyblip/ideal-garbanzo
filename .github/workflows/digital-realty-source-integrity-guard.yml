@@ -17,6 +17,7 @@ on:
       - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/digital-realty-bootstrap.yml'
+      - '.github/workflows/digital-realty-stale-fallback-watch.yml'
       - '.github/workflows/digital-realty-source-integrity-guard.yml'
   pull_request:
     branches: [main]
@@ -34,6 +35,7 @@ on:
       - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/digital-realty-bootstrap.yml'
+      - '.github/workflows/digital-realty-stale-fallback-watch.yml'
       - '.github/workflows/digital-realty-source-integrity-guard.yml'
   workflow_dispatch:
 
@@ -84,6 +86,24 @@ jobs:
           fi
           node scripts/preserve-source-group.mjs --test
           node scripts/validate-source-workflow-isolation.mjs
+      - name: Guard Digital Realty fallback source isolation
+        run: |
+          workflow=.github/workflows/digital-realty-stale-fallback-watch.yml
+          grep -Fq "cron: '29 */6 * * *'" "$workflow"
+          grep -Fq "scripts/preserve-source-group.mjs" "$workflow"
+          grep -Fq 'cp data/jobs.json /tmp/digital-realty-freshness-baseline.json' "$workflow"
+          if [ "$(grep -Fc 'node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-freshness-baseline.json --verify' "$workflow")" -lt 2 ]; then
+            echo '::error::Digital Realty fallback cleanup must verify the non-Digital Realty boundary in both normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$workflow")" -lt 2 ]; then
+            echo '::error::Digital Realty fallback cleanup must tolerate unrelated job-history aging in both normal and race-safe paths.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::Digital Realty fallback cleanup must not require unrelated employers to have freshly rewritten postedHours.'
+            exit 1
+          fi
       - name: Run Digital Realty integrity and freshness regressions
         run: |
           node scripts/validate-digital-realty-parity.mjs --test

@@ -9,10 +9,6 @@ on:
     paths:
       - 'scripts/collect-h5-data-centers.mjs'
       - 'scripts/validate-h5-data-centers.mjs'
-      - 'scripts/preserve-source-group.mjs'
-      - 'scripts/stamp-job-history.mjs'
-      - 'scripts/validate-job-history.mjs'
-      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/h5-data-centers-bootstrap.yml'
       - '.github/workflows/h5-source-integrity-guard.yml'
 

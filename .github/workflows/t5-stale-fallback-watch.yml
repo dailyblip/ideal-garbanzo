@@ -9,7 +9,7 @@ on:
       - .github/workflows/t5-stale-fallback-watch.yml
   workflow_dispatch:
   schedule:
-    - cron: '53 3,9,15,21 * * *'
+    - cron: '54 3,9,15,21 * * *'
 
 permissions:
   contents: write

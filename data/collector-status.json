@@ -191,16 +191,16 @@
     },
     "errors": [
       "structured data missing: https://compass-datacenters.breezy.hr/p/9f8cec332fbd-director-customer-management",
-      "structured data missing: https://compass-datacenters.breezy.hr/p/aa1861edfdf2-front-office-coordinator",
       "structured data missing: https://compass-datacenters.breezy.hr/p/8d9eb7fd1955-financial-analyst-finance-rotation-program",
-      "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
+      "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director",
+      "structured data missing: https://compass-datacenters.breezy.hr/p/aa1861edfdf2-front-office-coordinator"
     ],
-    "checkedAt": "2026-09-23T21:45:17.284Z",
+    "checkedAt": "2026-09-24T05:20:14.696Z",
     "lastHealthyAt": "2026-09-23T17:26:24.838Z",
     "listingComplete": false,
     "authoritativeSnapshot": false,
     "fallbackMaxAgeHours": 96,
-    "fallbackAgeHours": 4.3,
+    "fallbackAgeHours": 11.9,
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 0,
@@ -2105,7 +2105,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T05:08:01.944Z",
+    "checkedAt": "2026-09-24T05:20:14.780Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2113,7 +2113,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T05:08:02.030Z",
+    "updatedAt": "2026-09-24T05:20:14.866Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 665,
@@ -2132,7 +2132,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T05:08:02.110Z",
+    "checkedAt": "2026-09-24T05:20:14.939Z",
     "before": 665,
     "after": 665,
     "removed": 0,
@@ -2150,8 +2150,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1312,
     "currentJobs": 665,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2159,8 +2157,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T05:16:17.797Z"
+    "firstSeenRecencyFallbackJobs": 89,
+    "updatedAt": "2026-09-24T05:20:15.129Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-24T05:01:36.145Z",
-  "jobs": 666,
+  "jobs": 665,
   "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
@@ -10,13 +10,13 @@
     "adp": 2
   },
   "countsByType": {
-    "entry-level": 636,
+    "entry-level": 635,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 358,
+    "0-2-years": 357,
     "2-5-years": 280,
     "no-experience": 28
   },
@@ -1520,7 +1520,7 @@
   "metaCareers": {
     "officialSource": "https://www.metacareers.com/jobsearch/",
     "sourceHealthy": false,
-    "qualifyingRoles": 9,
+    "qualifyingRoles": 8,
     "diagnostics": {
       "searchPagesAttempted": 2,
       "searchPagesSucceeded": 2,
@@ -2405,14 +2405,14 @@
   "metaFallbackFreshness": {
     "active": false,
     "expired": false,
-    "lastHealthyAt": "2026-09-23T04:53:38.742Z",
-    "checkedAt": "2026-09-23T04:53:38.742Z",
+    "lastHealthyAt": "2026-09-24T05:03:11.394Z",
+    "checkedAt": "2026-09-24T05:03:11.394Z",
     "maxAgeHours": 96,
     "healthStampIntervalHours": 24,
     "sitemapUrl": "https://www.metacareers.com/jobsearch/sitemap.xml",
-    "sitemapJobs": 995,
-    "staleSnapshotRolesRemoved": 0,
-    "stalePublicRolesRemoved": 0,
+    "sitemapJobs": 1009,
+    "staleSnapshotRolesRemoved": 1,
+    "stalePublicRolesRemoved": 1,
     "policy": "Verify Meta role liveness against the official Meta Careers sitemap. If that source cannot be verified, retain the last verified snapshot for at most 96 hours."
   },
   "genericFallbackFreshness": {

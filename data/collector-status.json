@@ -1,14 +1,15 @@
 {
-  "updatedAt": "2026-09-24T17:53:49.531Z",
+  "updatedAt": "2026-09-24T18:23:49.009Z",
   "jobs": 716,
-  "sourcesAttempted": 21,
+  "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
     "icims": 1,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "adp": 1
   },
   "countsByType": {
     "entry-level": 687,
@@ -3574,7 +3575,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T17:53:49.594Z",
+    "checkedAt": "2026-09-24T18:23:49.085Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3582,7 +3583,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T17:53:49.659Z",
+    "updatedAt": "2026-09-24T18:23:49.167Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 716,
@@ -3591,17 +3592,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 109,
-      "west": 112,
       "texas": 114,
+      "west": 112,
       "mid-atlantic": 143,
       "northeast": 24,
-      "southwest": 79,
       "midwest": 134,
+      "southwest": 79,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T17:53:49.719Z",
+    "checkedAt": "2026-09-24T18:23:49.241Z",
     "before": 716,
     "after": 716,
     "removed": 0,
@@ -3619,8 +3620,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1326,
     "currentJobs": 716,
-    "scopeCompany": "Cologix",
-    "scopedJobs": 7,
+    "scopeCompany": "H5 Data Centers",
+    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3629,7 +3630,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T17:53:49.912Z"
+    "updatedAt": "2026-09-24T18:23:49.492Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4547,9 +4548,9 @@
         "reason": "no normalized US location"
       }
     ],
-    "checkedAt": "2026-09-24T12:49:49.704Z",
-    "lastSuccessfulAt": "2026-09-24T12:49:49.704Z",
-    "lastHealthyAt": "2026-09-24T12:49:49.704Z"
+    "checkedAt": "2026-09-24T18:23:49.009Z",
+    "lastSuccessfulAt": "2026-09-24T18:23:49.009Z",
+    "lastHealthyAt": "2026-09-24T18:23:49.009Z"
   },
   "csquare": {
     "checkedAt": "2026-09-24T07:06:11.211Z",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T13:48:26.168Z",
+  "updatedAt": "2026-09-24T14:54:55.646Z",
   "jobs": 724,
   "sourcesAttempted": 21,
   "providers": {
@@ -225,7 +225,7 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-24T05:52:56.489Z",
+    "checkedAt": "2026-09-24T14:54:55.646Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3598,7 +3598,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T13:48:26.232Z",
+    "checkedAt": "2026-09-24T14:54:55.733Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3606,7 +3606,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T13:48:26.297Z",
+    "updatedAt": "2026-09-24T14:54:55.814Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 724,
@@ -3625,7 +3625,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T13:48:26.355Z",
+    "checkedAt": "2026-09-24T14:54:55.891Z",
     "before": 724,
     "after": 724,
     "removed": 0,
@@ -3643,8 +3643,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1322,
     "currentJobs": 724,
-    "scopeCompany": "DataBank",
-    "scopedJobs": 15,
+    "scopeCompany": "T5 Data Centers",
+    "scopedJobs": 22,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3652,8 +3652,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 15,
-    "updatedAt": "2026-09-24T13:48:26.635Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-24T14:54:56.211Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

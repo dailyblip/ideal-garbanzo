@@ -1,22 +1,23 @@
 {
-  "updatedAt": "2026-09-24T12:19:02.289Z",
-  "jobs": 725,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-24T12:19:11.509Z",
+  "jobs": 723,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 696,
+    "entry-level": 694,
     "trainee": 12,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 413,
-    "2-5-years": 284,
+    "2-5-years": 282,
     "no-experience": 28
   },
   "errors": [],
@@ -2962,14 +2963,14 @@
     "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 48,
-    "qualifyingRoles": 47,
+    "candidateRows": 46,
+    "qualifyingRoles": 45,
     "diagnostics": {
-      "canonicalLinks": 68,
-      "missionFitLinks": 48,
-      "uniqueCandidates": 48,
-      "detailAttempted": 48,
-      "detailVerified": 47,
+      "canonicalLinks": 64,
+      "missionFitLinks": 46,
+      "uniqueCandidates": 46,
+      "detailAttempted": 46,
+      "detailVerified": 45,
       "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
@@ -2979,8 +2980,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-24T05:36:08.980Z",
-    "freshnessCheckedAt": "2026-09-24T05:36:08.980Z",
+    "lastHealthyAt": "2026-09-24T12:19:11.516Z",
+    "freshnessCheckedAt": "2026-09-24T12:19:11.516Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -3630,19 +3631,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1320,
-    "currentJobs": 725,
-    "scopeCompany": "Iron Mountain",
-    "scopedJobs": 12,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1322,
+    "currentJobs": 723,
+    "scopeCompany": "Google",
+    "scopedJobs": 45,
+    "newJobsThisRun": 2,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T12:18:45.928Z"
+    "firstSeenRecencyFallbackJobs": 45,
+    "updatedAt": "2026-09-24T12:19:11.829Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

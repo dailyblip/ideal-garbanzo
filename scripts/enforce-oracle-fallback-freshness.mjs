@@ -24,19 +24,18 @@ function isHealthyOracleStatus(status = {}) {
   return status?.sourceHealthy === true && status?.listingComplete === true;
 }
 
-function freshnessDecision({ sourceHealthy, lastHealthyAt, nowMs, maxAgeHours = MAX_FALLBACK_AGE_HOURS }) {
-  if (sourceHealthy) {
-    return { active: false, expired: false, ageHours: 0 };
+function freshnessDecision({ lastHealthyAt, nowMs, hasPublishedRoles, maxAgeHours = MAX_FALLBACK_AGE_HOURS }) {
+  if (!hasPublishedRoles) {
+    return { expired: false, ageHours: 0 };
   }
 
   const lastHealthyMs = Date.parse(String(lastHealthyAt || ''));
   if (!Number.isFinite(lastHealthyMs)) {
-    return { active: true, expired: true, ageHours: null };
+    return { expired: true, ageHours: null };
   }
 
   const ageHours = Math.max(0, (nowMs - lastHealthyMs) / 36e5);
   return {
-    active: true,
     expired: ageHours >= maxAgeHours,
     ageHours
   };
@@ -95,19 +94,23 @@ function findLastHealthyOracleCheck() {
 
 function runSelfTest() {
   const now = Date.parse('2026-09-10T12:00:00Z');
-  const healthy = freshnessDecision({ sourceHealthy: true, lastHealthyAt: '2026-09-01T00:00:00Z', nowMs: now });
-  if (healthy.active || healthy.expired || healthy.ageHours !== 0) throw new Error('healthy Oracle source incorrectly entered fallback mode');
 
-  const freshFallback = freshnessDecision({ sourceHealthy: false, lastHealthyAt: '2026-09-06T13:00:00Z', nowMs: now });
-  if (!freshFallback.active || freshFallback.expired) throw new Error('Oracle fallback expired before 96 hours');
+  const fresh = freshnessDecision({ lastHealthyAt: '2026-09-06T12:00:01Z', nowMs: now, hasPublishedRoles: true });
+  if (fresh.expired) throw new Error('Oracle verification expired before 96 hours');
 
-  const boundary = freshnessDecision({ sourceHealthy: false, lastHealthyAt: '2026-09-06T12:00:00Z', nowMs: now });
-  if (!boundary.expired) throw new Error('Oracle fallback did not expire at the 96-hour boundary');
+  const boundary = freshnessDecision({ lastHealthyAt: '2026-09-06T12:00:00Z', nowMs: now, hasPublishedRoles: true });
+  if (!boundary.expired) throw new Error('Oracle verification did not expire at the 96-hour boundary');
 
-  const unknown = freshnessDecision({ sourceHealthy: false, lastHealthyAt: null, nowMs: now });
-  if (!unknown.expired) throw new Error('Oracle fallback without healthy-source evidence was not failed closed');
+  const staleHealthyFlag = freshnessDecision({ lastHealthyAt: '2026-09-01T00:00:00Z', nowMs: now, hasPublishedRoles: true });
+  if (!staleHealthyFlag.expired) throw new Error('stale Oracle verification was incorrectly kept alive by previously healthy status');
 
-  console.log('Oracle fallback freshness regression tests passed.');
+  const unknown = freshnessDecision({ lastHealthyAt: null, nowMs: now, hasPublishedRoles: true });
+  if (!unknown.expired) throw new Error('Oracle roles without healthy-source evidence were not failed closed');
+
+  const empty = freshnessDecision({ lastHealthyAt: null, nowMs: now, hasPublishedRoles: false });
+  if (empty.expired) throw new Error('empty Oracle feed incorrectly entered expiry');
+
+  console.log('Oracle verification freshness regression tests passed, including silent-refresh failure expiry.');
 }
 
 if (process.argv.includes('--test')) {
@@ -123,25 +126,35 @@ if (!Array.isArray(snapshot)) throw new Error(`${SNAPSHOT_PATH} must contain an 
 if (!status || typeof status !== 'object' || Array.isArray(status)) throw new Error(`${STATUS_PATH} must contain an object`);
 
 const oracleStatus = status.oracleCareers || {};
-if (isHealthyOracleStatus(oracleStatus)) {
-  console.log('Oracle employer source is healthy; stale-fallback enforcement is not active.');
-  process.exit(0);
-}
-
+const oracleJobsBefore = jobs.filter(job => clean(job?.company) === COMPANY).length;
+const oracleSnapshotBefore = snapshot.filter(job => clean(job?.company) === COMPANY).length;
+const hasPublishedRoles = oracleJobsBefore > 0 || oracleSnapshotBefore > 0;
 const priorFreshness = oracleStatus.fallbackFreshness || {};
-const lastHealthyAt = clean(priorFreshness.lastHealthyAt) || findLastHealthyOracleCheck();
+const lastHealthyAt = clean(priorFreshness.lastHealthyAt || oracleStatus.lastHealthyAt) || findLastHealthyOracleCheck();
 const nowMs = Date.now();
 const checkedAt = new Date(nowMs).toISOString();
-const decision = freshnessDecision({ sourceHealthy: false, lastHealthyAt, nowMs });
+const decision = freshnessDecision({ lastHealthyAt, nowMs, hasPublishedRoles });
 const roundedAgeHours = decision.ageHours === null ? null : Math.round(decision.ageHours * 10) / 10;
+const sourceHealthy = isHealthyOracleStatus(oracleStatus);
 
 if (!decision.expired) {
+  if (!hasPublishedRoles) {
+    console.log('No Oracle roles are currently published; stale-verification enforcement is not active.');
+    process.exit(0);
+  }
+
+  if (sourceHealthy) {
+    console.log(`Oracle verification is ${roundedAgeHours} hours old and inside the ${MAX_FALLBACK_AGE_HOURS}-hour maximum.`);
+    process.exit(0);
+  }
+
   const nextFreshness = {
     active: true,
     expired: false,
     lastHealthyAt,
     checkedAt,
     maxAgeHours: MAX_FALLBACK_AGE_HOURS,
+    ageHours: roundedAgeHours,
     policy: 'Retain the last verified Oracle employer-direct snapshot for at most 96 hours after the last evidenced healthy source check.'
   };
 
@@ -160,11 +173,10 @@ if (!decision.expired) {
   process.exit(0);
 }
 
-const oracleJobsBefore = jobs.filter(job => clean(job?.company) === COMPANY).length;
-const oracleSnapshotBefore = snapshot.filter(job => clean(job?.company) === COMPANY).length;
 const prunedJobs = jobs.filter(job => clean(job?.company) !== COMPANY);
 const prunedSnapshot = snapshot.filter(job => clean(job?.company) !== COMPANY);
 
+status.updatedAt = checkedAt;
 status.jobs = prunedJobs.length;
 if (status.countsByType && typeof status.countsByType === 'object') {
   status.countsByType = prunedJobs.reduce((acc, job) => {
@@ -182,16 +194,19 @@ if (status.countsByExperience && typeof status.countsByExperience === 'object') 
 }
 status.oracleCareers = {
   ...oracleStatus,
+  sourceHealthy: false,
+  listingComplete: false,
   qualifyingRoles: 0,
+  preservedFromPrevious: 0,
   fallbackFreshness: {
     active: false,
     expired: true,
     lastHealthyAt: lastHealthyAt || null,
     checkedAt,
     maxAgeHours: MAX_FALLBACK_AGE_HOURS,
-    expiredAgeHours: roundedAgeHours,
+    ageHours: roundedAgeHours,
     rolesRemoved: Math.max(oracleJobsBefore, oracleSnapshotBefore),
-    policy: 'Oracle fallback exceeded 96 hours without an evidenced healthy official-source check, so retained Oracle roles were removed until the source recovers.'
+    policy: 'Oracle verification exceeded 96 hours without a new evidenced healthy official-source check, so Oracle roles were removed until verification recovers.'
   }
 };
 
@@ -199,4 +214,4 @@ await writeFile(JOBS_PATH, JSON.stringify(prunedJobs, null, 2) + '\n');
 await writeFile(SNAPSHOT_PATH, JSON.stringify(prunedSnapshot, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify(status, null, 2) + '\n');
 
-console.warn(`Expired Oracle fallback after ${roundedAgeHours ?? 'unknown'} hours without a healthy source check; removed ${oracleJobsBefore} public role(s) and ${oracleSnapshotBefore} snapshot role(s).`);
+console.warn(`Expired Oracle verification after ${roundedAgeHours ?? 'unknown'} hours; removed ${oracleJobsBefore} public role(s) and ${oracleSnapshotBefore} snapshot role(s) pending a healthy official-source refresh.`);

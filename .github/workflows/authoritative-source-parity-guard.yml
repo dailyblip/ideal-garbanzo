@@ -1,0 +1,73 @@
+name: Authoritative source publication parity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/csquare-jobs.json'
+      - 'data/h5-data-centers-jobs.json'
+      - 'data/coreweave-jobs.json'
+      - 'data/coreweave-source-evidence.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-csquare-jobs.mjs'
+      - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/collect-coreweave-careers.mjs'
+      - 'scripts/validate-csquare.mjs'
+      - 'scripts/validate-h5-data-centers.mjs'
+      - 'scripts/validate-coreweave.mjs'
+      - '.github/workflows/authoritative-source-parity-guard.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/jobs.json'
+      - 'data/csquare-jobs.json'
+      - 'data/h5-data-centers-jobs.json'
+      - 'data/coreweave-jobs.json'
+      - 'data/coreweave-source-evidence.json'
+      - 'data/collector-status.json'
+      - 'scripts/collect-csquare-jobs.mjs'
+      - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/collect-coreweave-careers.mjs'
+      - 'scripts/validate-csquare.mjs'
+      - 'scripts/validate-h5-data-centers.mjs'
+      - 'scripts/validate-coreweave.mjs'
+      - '.github/workflows/authoritative-source-parity-guard.yml'
+  # Employer refreshes often publish with the default Actions token, so their
+  # commits do not recursively trigger another push workflow. This hourly pass
+  # catches any shared-feed/snapshot drift without introducing a mutating bot.
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: authoritative-source-parity-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate dedicated source contracts
+        run: |
+          set -euo pipefail
+          node --check scripts/collect-csquare-jobs.mjs
+          node --check scripts/collect-h5-data-centers.mjs
+          node --check scripts/collect-coreweave-careers.mjs
+          node scripts/validate-csquare.mjs --static-only
+          node scripts/validate-h5-data-centers.mjs --static-only
+          node scripts/validate-coreweave.mjs --test
+      - name: Verify authoritative snapshot publication parity
+        run: |
+          set -euo pipefail
+          node scripts/validate-csquare.mjs
+          node scripts/validate-h5-data-centers.mjs
+          node scripts/validate-coreweave.mjs

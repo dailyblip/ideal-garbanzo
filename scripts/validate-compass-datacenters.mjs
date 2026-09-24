@@ -12,7 +12,7 @@ const MAX_HEALTHY_EVIDENCE_AGE_HOURS = 30;
 const allowedTypes = new Set(['internship', 'apprenticeship', 'trainee', 'entry-level']);
 const allowedExperience = new Set(['no-experience', '0-2-years', '2-5-years']);
 const bannedSenior = /\b(?:senior|sr\.?|lead|principal|staff|manager|director|vice president|vp|chief|head of|supervisor|architect)\b/i;
-const clearlyExcludedSlug = /(?:^|-)(?:senior|sr|lead|principal|staff|manager|director|vice-president|vp|chief|head-of|supervisor|architect|security|sales|finance|marketing)(?:-|$)/i;
+const clearlyExcludedSlug = /(?:^|-)(?:senior|sr|lead|principal|staff|manager|director|vice-president|vp|chief|head-of|supervisor|architect|security|sales|finance|marketing|front-office)(?:-|$)/i;
 const parityFields = ['type', 'experience', 'source', 'sourceUrl', 'active', 'demo'];
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();

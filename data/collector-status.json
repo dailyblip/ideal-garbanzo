@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T14:54:55.646Z",
+  "updatedAt": "2026-09-24T14:55:24.988Z",
   "jobs": 724,
   "sourcesAttempted": 21,
   "providers": {
@@ -11,14 +11,14 @@
     "adp": 1
   },
   "countsByType": {
-    "entry-level": 694,
     "trainee": 13,
+    "entry-level": 694,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 413,
     "2-5-years": 283,
+    "0-2-years": 413,
     "no-experience": 28
   },
   "errors": [],
@@ -3643,8 +3643,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1322,
     "currentJobs": 724,
-    "scopeCompany": "T5 Data Centers",
-    "scopedJobs": 22,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3652,8 +3652,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T14:54:56.211Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-24T14:55:25.538Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4364,7 +4364,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-24T13:48:09.446Z",
+    "checkedAt": "2026-09-24T14:55:24.988Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

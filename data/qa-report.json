@@ -1,12 +1,22 @@
 {
-  "checkedAt": "2026-09-24T05:48:32.807Z",
-  "jobsBefore": 665,
-  "jobsAfter": 665,
+  "checkedAt": "2026-09-24T09:45:07.113Z",
+  "jobsBefore": 671,
+  "jobsAfter": 670,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10542353",
+      "company": "Amazon Web Services",
+      "title": "Data Engineer II, Data Engineer,Data Center Capacity Delivery",
+      "url": "https://www.amazon.jobs/en/jobs/10542353/data-engineer-ii-data-engineer-data-center-capacity-delivery",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10542353/data-engineer-ii-data-engineer-data-center-capacity-delivery"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

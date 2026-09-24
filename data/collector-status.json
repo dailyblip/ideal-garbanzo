@@ -1,13 +1,14 @@
 {
-  "updatedAt": "2026-09-24T12:48:07.358Z",
+  "updatedAt": "2026-09-24T12:49:49.704Z",
   "jobs": 723,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "adp": 1
   },
   "countsByType": {
     "entry-level": 694,
@@ -16,8 +17,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 413,
     "2-5-years": 282,
+    "0-2-years": 413,
     "no-experience": 28
   },
   "errors": [],
@@ -3597,7 +3598,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T12:48:07.437Z",
+    "checkedAt": "2026-09-24T12:49:49.774Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3605,7 +3606,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T12:48:07.520Z",
+    "updatedAt": "2026-09-24T12:49:49.853Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 723,
@@ -3613,18 +3614,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "texas": 115,
       "southeast": 111,
       "northeast": 24,
+      "midwest": 137,
+      "southwest": 79,
       "west": 113,
       "mid-atlantic": 143,
-      "southwest": 79,
-      "midwest": 137,
-      "texas": 115,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T12:48:07.596Z",
+    "checkedAt": "2026-09-24T12:49:49.927Z",
     "before": 723,
     "after": 723,
     "removed": 0,
@@ -3642,8 +3643,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1322,
     "currentJobs": 723,
-    "scopeCompany": "Cologix",
-    "scopedJobs": 7,
+    "scopeCompany": "H5 Data Centers",
+    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3652,7 +3653,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T12:48:07.862Z"
+    "updatedAt": "2026-09-24T12:49:50.163Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4568,7 +4569,10 @@
         ],
         "reason": "no normalized US location"
       }
-    ]
+    ],
+    "checkedAt": "2026-09-24T12:49:49.704Z",
+    "lastSuccessfulAt": "2026-09-24T12:49:49.704Z",
+    "lastHealthyAt": "2026-09-24T12:49:49.704Z"
   },
   "csquare": {
     "checkedAt": "2026-09-24T07:06:11.211Z",

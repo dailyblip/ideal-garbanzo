@@ -14,10 +14,13 @@ on:
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - 'scripts/apply-microsoft-verified-publish.mjs'
+      - 'scripts/enforce-microsoft-fallback-freshness.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-job-history.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/microsoft-bootstrap.yml'
+      - '.github/workflows/microsoft-stale-fallback-watch.yml'
       - '.github/workflows/microsoft-source-integrity-guard.yml'
   push:
     branches: [main]
@@ -32,10 +35,13 @@ on:
       - 'scripts/persist-microsoft-snapshot.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - 'scripts/apply-microsoft-verified-publish.mjs'
+      - 'scripts/enforce-microsoft-fallback-freshness.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-job-history.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/microsoft-bootstrap.yml'
+      - '.github/workflows/microsoft-stale-fallback-watch.yml'
       - '.github/workflows/microsoft-source-integrity-guard.yml'
   workflow_dispatch:
 
@@ -60,32 +66,62 @@ jobs:
           node scripts/run-microsoft-datacenter.mjs --test-rate-limit-policy
       - name: Test Microsoft source-boundary helpers
         run: |
+          node --check scripts/enforce-microsoft-fallback-freshness.mjs
           node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
           node --check scripts/validate-job-history.mjs
+          node --check scripts/validate-source-workflow-isolation.mjs
+          node scripts/enforce-microsoft-fallback-freshness.mjs --test
           node scripts/preserve-source-group.mjs --test
       - name: Guard Microsoft refresh isolation contract
         shell: bash
         run: |
           set -euo pipefail
-          workflow='.github/workflows/microsoft-bootstrap.yml'
-          grep -Fq 'cp data/jobs.json /tmp/microsoft-public-before.json' "$workflow"
-          grep -Fq 'node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json' "$workflow"
-          grep -Fq 'node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json --verify' "$workflow"
-          grep -Fq 'node scripts/stamp-job-history.mjs --company "Microsoft"' "$workflow"
-          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$workflow")" -lt 2 ]; then
+          bootstrap='.github/workflows/microsoft-bootstrap.yml'
+          fallback='.github/workflows/microsoft-stale-fallback-watch.yml'
+
+          grep -Fq 'cp data/jobs.json /tmp/microsoft-public-before.json' "$bootstrap"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json' "$bootstrap"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-public-before.json --verify' "$bootstrap"
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Microsoft"' "$bootstrap"
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$bootstrap")" -lt 2 ]; then
             echo '::error::Microsoft source refresh must allow unrelated employers to age during both normal and race-safe history validation.'
             exit 1
           fi
-          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$workflow"; then
+          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$bootstrap"; then
             echo '::error::Microsoft source refresh must not require unrelated employers to have freshly rewritten postedHours.'
             exit 1
           fi
-          if grep -Eq '^[[:space:]]*run:[[:space:]]+node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then
+          if grep -Eq '^[[:space:]]*run:[[:space:]]+node scripts/stamp-job-history\.mjs[[:space:]]*$' "$bootstrap"; then
             echo '::error::Microsoft source refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
+
+          grep -Fq 'cp data/jobs.json /tmp/microsoft-freshness-baseline.json' "$fallback"
+          if [ "$(grep -Fc 'node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-freshness-baseline.json --verify' "$fallback")" -lt 2 ]; then
+            echo '::error::Microsoft fallback enforcement must verify non-Microsoft rows in normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$fallback")" -lt 2 ]; then
+            echo '::error::Microsoft fallback enforcement must validate history without rewriting unrelated employer ages.'
             exit 1
           fi
       - name: Validate Microsoft employer-direct snapshot and public feed
         run: |
           node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-source-workflow-isolation.mjs
+      - name: Prove Microsoft history stamping leaves other employers untouched
+        run: |
+          cp data/jobs.json /tmp/microsoft-scope-baseline.json
+          node scripts/stamp-job-history.mjs --company "Microsoft"
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-scope-baseline.json --verify
+          node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          const after = JSON.parse(await readFile('data/jobs.json', 'utf8'));
+          const microsoftCount = after.filter(job => job.company === 'Microsoft').length;
+          if (!microsoftCount) throw new Error('Microsoft-scoped history regression requires published Microsoft roles.');
+          console.log(`Microsoft history scope regression passed with ${microsoftCount} Microsoft roles; non-Microsoft jobs unchanged.`);
+          NODE

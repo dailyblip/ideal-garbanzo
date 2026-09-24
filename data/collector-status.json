@@ -10,8 +10,8 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 667,
+    "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
@@ -3616,7 +3616,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-23T23:10:17.836Z",
+    "checkedAt": "2026-09-24T01:42:49.857Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3624,7 +3624,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-23T23:10:17.884Z",
+    "updatedAt": "2026-09-24T01:42:49.927Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 697,
@@ -3643,7 +3643,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-23T23:10:17.929Z",
+    "checkedAt": "2026-09-24T01:42:49.995Z",
     "before": 697,
     "after": 697,
     "removed": 0,
@@ -3661,17 +3661,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1296,
     "currentJobs": 697,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
+    "scopeCompany": "CoreWeave",
+    "scopedJobs": 11,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T00:51:21.868Z"
+    "normalizedWorkdayPostingDatesThisRun": 11,
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-24T01:42:50.237Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3870,20 +3870,20 @@
     "careersUrl": "https://www.coreweave.com/careers",
     "sourceHealthy": true,
     "boardToken": "coreweave",
-    "sourceRoles": 303,
+    "sourceRoles": 300,
     "qualifyingRoles": 11,
     "preservedPrevious": 0,
     "drops": {
-      "title": 290,
+      "title": 287,
       "experience": 0,
       "location": 2
     },
     "errors": [],
-    "checkedAt": "2026-09-23T17:14:05.802Z",
-    "lastHealthyAt": "2026-09-23T17:14:05.802Z",
+    "checkedAt": "2026-09-24T01:42:49.777Z",
+    "lastHealthyAt": "2026-09-24T01:42:49.777Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-27T17:14:05.802Z",
+    "fallbackExpiresAt": "2026-09-28T01:42:49.777Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 11,

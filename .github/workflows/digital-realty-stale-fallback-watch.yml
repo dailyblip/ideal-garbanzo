@@ -9,6 +9,7 @@ on:
     paths:
       - 'scripts/collect-digital-realty.mjs'
       - 'scripts/enforce-digital-realty-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/validate-digital-realty.mjs'
       - '.github/workflows/digital-realty-stale-fallback-watch.yml'
 
@@ -32,12 +33,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Test Digital Realty fallback age policy
-        run: node scripts/enforce-digital-realty-fallback-freshness.mjs --test
+      - name: Test Digital Realty fallback age policy and source boundary
+        run: |
+          node scripts/enforce-digital-realty-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
+      - name: Capture pre-enforcement public-feed state
+        run: cp data/jobs.json /tmp/digital-realty-freshness-baseline.json
       - name: Enforce Digital Realty fallback freshness
         run: node scripts/enforce-digital-realty-fallback-freshness.mjs
+      - name: Verify Digital Realty fallback enforcement stayed source-scoped
+        run: node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-freshness-baseline.json --verify
       - name: Validate Digital Realty source state
-        run: node scripts/validate-digital-realty.mjs
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-digital-realty.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish Digital Realty freshness state from current main
         id: commit
         shell: bash
@@ -49,9 +60,15 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/digital-realty-freshness-baseline.json
             node scripts/enforce-digital-realty-fallback-freshness.mjs --test
+            node scripts/preserve-source-group.mjs --test
             node scripts/enforce-digital-realty-fallback-freshness.mjs
+            node scripts/preserve-source-group.mjs "Digital Realty" /tmp/digital-realty-freshness-baseline.json --verify
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-digital-realty.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main

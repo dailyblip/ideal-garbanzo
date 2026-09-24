@@ -4,23 +4,29 @@ on:
   pull_request:
     paths:
       - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/stamp-h5-source-verification.mjs'
+      - 'scripts/enforce-h5-fallback-freshness.mjs'
       - 'scripts/validate-h5-data-centers.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/h5-data-centers-bootstrap.yml'
+      - '.github/workflows/h5-stale-fallback-watch.yml'
       - '.github/workflows/h5-source-integrity-guard.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/stamp-h5-source-verification.mjs'
+      - 'scripts/enforce-h5-fallback-freshness.mjs'
       - 'scripts/validate-h5-data-centers.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history.mjs'
       - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/h5-data-centers-bootstrap.yml'
+      - '.github/workflows/h5-stale-fallback-watch.yml'
       - '.github/workflows/h5-source-integrity-guard.yml'
 
 permissions:
@@ -37,12 +43,15 @@ jobs:
       - name: Validate collector syntax and fail-closed contract
         run: |
           node --check scripts/collect-h5-data-centers.mjs
+          node --check scripts/stamp-h5-source-verification.mjs
+          node --check scripts/enforce-h5-fallback-freshness.mjs
           node --check scripts/validate-h5-data-centers.mjs
           node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
           node --check scripts/validate-job-history.mjs
           node --check scripts/validate-source-workflow-isolation.mjs
           node scripts/validate-h5-data-centers.mjs --static-only
+          node scripts/enforce-h5-fallback-freshness.mjs --test
           node scripts/preserve-source-group.mjs --test
       - name: Guard H5 refresh isolation and history contract
         shell: bash
@@ -50,6 +59,10 @@ jobs:
           set -euo pipefail
           workflow='.github/workflows/h5-data-centers-bootstrap.yml'
           grep -Fq 'cp data/jobs.json /tmp/h5-public-before.json' "$workflow"
+          if [ "$(grep -Fc 'node scripts/stamp-h5-source-verification.mjs' "$workflow")" -lt 2 ]; then
+            echo '::error::H5 refresh must stamp source-specific successful verification evidence in normal and race-safe paths.'
+            exit 1
+          fi
           if [ "$(grep -Fc 'node scripts/preserve-source-group.mjs "H5 Data Centers" /tmp/h5-public-before.json --verify' "$workflow")" -lt 3 ]; then
             echo '::error::H5 refresh must verify the non-H5 public-feed boundary in normal and race-safe paths.'
             exit 1
@@ -68,6 +81,27 @@ jobs:
           fi
           if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$workflow"; then
             echo '::error::H5 refresh must not require unrelated employers to have freshly rewritten postedHours.'
+            exit 1
+          fi
+          node scripts/validate-source-workflow-isolation.mjs
+      - name: Guard H5 stale-fallback isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow='.github/workflows/h5-stale-fallback-watch.yml'
+          grep -Fq "cron: '47 1,7,13,19 * * *'" "$workflow"
+          grep -Fq 'node scripts/enforce-h5-fallback-freshness.mjs --test' "$workflow"
+          grep -Fq 'node scripts/validate-h5-data-centers.mjs --static-only' "$workflow"
+          if grep -Eq '^[[:space:]]+push:' "$workflow"; then
+            echo '::error::H5 stale fallback watch must not race the post-merge H5 source-verification refresh on push.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/preserve-source-group.mjs "H5 Data Centers" /tmp/h5-stale-public-before.json --verify' "$workflow")" -lt 4 ]; then
+            echo '::error::H5 stale fallback cleanup must verify the non-H5 boundary in normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/stamp-job-history.mjs --company "H5 Data Centers"' "$workflow")" -lt 2 ]; then
+            echo '::error::H5 stale fallback cleanup must keep history stamping scoped to H5 Data Centers.'
             exit 1
           fi
           node scripts/validate-source-workflow-isolation.mjs

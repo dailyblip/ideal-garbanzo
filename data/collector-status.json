@@ -10,14 +10,14 @@
     "adp": 2
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 636,
+    "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 280,
     "0-2-years": 358,
+    "2-5-years": 280,
     "no-experience": 28
   },
   "errors": [],
@@ -2117,7 +2117,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T05:01:16.882Z",
+    "checkedAt": "2026-09-24T05:01:53.613Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2125,7 +2125,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T05:01:16.962Z",
+    "updatedAt": "2026-09-24T05:01:53.675Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 666,
@@ -2144,7 +2144,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T05:01:17.037Z",
+    "checkedAt": "2026-09-24T05:01:53.728Z",
     "before": 666,
     "after": 666,
     "removed": 0,
@@ -2162,8 +2162,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1312,
     "currentJobs": 666,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2171,8 +2169,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T05:01:36.415Z"
+    "firstSeenRecencyFallbackJobs": 90,
+    "updatedAt": "2026-09-24T05:01:53.927Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2367,11 +2365,11 @@
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-23T17:12:38.772Z",
-    "lastHealthyAt": "2026-09-23T17:12:38.772Z",
+    "checkedAt": "2026-09-24T05:01:53.545Z",
+    "lastHealthyAt": "2026-09-24T05:01:53.545Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-27T17:12:38.772Z",
+    "fallbackExpiresAt": "2026-09-28T05:01:53.545Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 2,

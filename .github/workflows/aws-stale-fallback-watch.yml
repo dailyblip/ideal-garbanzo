@@ -10,7 +10,6 @@ on:
       - 'scripts/enforce-amazon-fallback-freshness.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
-      - 'scripts/validate-job-history.mjs'
       - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/aws-stale-fallback-watch.yml'
 

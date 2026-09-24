@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T17:52:34.166Z",
+  "updatedAt": "2026-09-24T17:53:49.531Z",
   "jobs": 716,
   "sourcesAttempted": 21,
   "providers": {
@@ -3574,25 +3574,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T17:52:34.246Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-24T17:53:49.594Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T17:52:34.333Z",
+    "updatedAt": "2026-09-24T17:53:49.659Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 716,
@@ -3611,7 +3601,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T17:52:34.395Z",
+    "checkedAt": "2026-09-24T17:53:49.719Z",
     "before": 716,
     "after": 716,
     "removed": 0,
@@ -3629,6 +3619,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1326,
     "currentJobs": 716,
+    "scopeCompany": "Cologix",
+    "scopedJobs": 7,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3636,8 +3628,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-24T17:52:34.901Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-24T17:53:49.912Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3703,18 +3695,18 @@
     "policy": "Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-24T12:48:07.358Z",
+    "checkedAt": "2026-09-24T17:53:49.531Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",
     "officialLeverBoard": "https://jobs.lever.co/cologix",
     "api": "https://api.lever.co/v0/postings/cologix?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 26,
-    "usJobs": 18,
+    "listedJobs": 23,
+    "usJobs": 17,
     "candidateRoles": 9,
     "qualifyingRoles": 7,
-    "rejectedOutOfScopeTitle": 9,
+    "rejectedOutOfScopeTitle": 8,
     "rejectedSeniorTitle": 0,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0

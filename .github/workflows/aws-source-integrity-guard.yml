@@ -56,17 +56,38 @@ jobs:
           node --check scripts/stamp-job-history.mjs
           node --check scripts/validate-job-history.mjs
           node --check scripts/validate-amazon-parity.mjs
+          node --check scripts/validate-source-workflow-isolation.mjs
       - name: Guard AWS refresh cadence, source boundary and writer safety
+        shell: bash
         run: |
-          grep -Fq "cron: '13 */6 * * *'" .github/workflows/aws-detail-recovery.yml
-          grep -Fq -- "- '.github/workflows/aws-detail-recovery.yml'" .github/workflows/aws-detail-recovery.yml
-          grep -Fq 'group: aws-detail-recovery' .github/workflows/aws-detail-recovery.yml
-          grep -Fq 'node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify' .github/workflows/aws-detail-recovery.yml
-          grep -Fq 'node scripts/stamp-job-history.mjs --company "Amazon Web Services"' .github/workflows/aws-detail-recovery.yml
-          grep -Fq 'cp /tmp/aws-status-after-collect.json data/collector-status.json' .github/workflows/aws-detail-recovery.yml
-          test "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' .github/workflows/aws-detail-recovery.yml)" -eq 2
-          if grep -Eq 'node scripts/validate-job-history\.mjs[[:space:]]*$' .github/workflows/aws-detail-recovery.yml; then
+          set -euo pipefail
+          refresh='.github/workflows/aws-detail-recovery.yml'
+          fallback='.github/workflows/aws-stale-fallback-watch.yml'
+
+          grep -Fq "cron: '13 */6 * * *'" "$refresh"
+          grep -Fq -- "- '.github/workflows/aws-detail-recovery.yml'" "$refresh"
+          grep -Fq 'group: aws-detail-recovery' "$refresh"
+          grep -Fq 'node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-public-before.json --verify' "$refresh"
+          grep -Fq 'node scripts/stamp-job-history.mjs --company "Amazon Web Services"' "$refresh"
+          grep -Fq 'cp /tmp/aws-status-after-collect.json data/collector-status.json' "$refresh"
+          test "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$refresh")" -eq 2
+          if grep -Eq 'node scripts/validate-job-history\.mjs[[:space:]]*$' "$refresh"; then
             echo "::error::AWS source refresh must allow unrelated clock-derived history aging."
+            exit 1
+          fi
+
+          grep -Fq "cron: '18 */6 * * *'" "$fallback"
+          grep -Fq 'cp data/jobs.json /tmp/aws-freshness-baseline.json' "$fallback"
+          if [ "$(grep -Fc 'node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-freshness-baseline.json --verify' "$fallback")" -lt 2 ]; then
+            echo '::error::AWS fallback cleanup must verify the non-AWS public-feed boundary in both normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$fallback")" -lt 2 ]; then
+            echo '::error::AWS fallback cleanup must tolerate unrelated job-history aging in both normal and race-safe paths.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$fallback"; then
+            echo '::error::AWS fallback cleanup must not require unrelated employers to have freshly rewritten postedHours.'
             exit 1
           fi
           node scripts/validate-source-workflow-isolation.mjs

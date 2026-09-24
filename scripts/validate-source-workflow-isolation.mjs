@@ -2,6 +2,8 @@ import { readdir, readFile } from 'node:fs/promises';
 
 const workflowDir = '.github/workflows';
 const fullRefreshPath = '.github/workflows/pages.yml';
+const majorWorkdayFallbackPath = '.github/workflows/major-workday-stale-fallback-watch.yml';
+const majorWorkdayFreshnessScriptPath = 'scripts/enforce-major-workday-fallback-freshness.mjs';
 
 const sharedPipelinePaths = [
   'data/jobs.json',
@@ -154,6 +156,11 @@ function isRecurringSourceFeedWriter(path, text) {
     && /git\s+push\s+origin\s+HEAD:main/.test(text);
 }
 
+function sourceCompaniesFromMajorWorkdayScript(text) {
+  const block = text.match(/const boards = \[([\s\S]*?)\n\];/)?.[1] || '';
+  return [...block.matchAll(/company:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
+}
+
 const workflowNames = await readdir(workflowDir);
 const workflowTexts = new Map();
 for (const name of workflowNames.filter((name) => name.endsWith('.yml')).sort()) {
@@ -213,6 +220,33 @@ for (const path of feedWriters) {
   }
 }
 
+// The shared major-Workday watchdog owns six employer groups in one write. Keep
+// its public-feed mutation boundary explicit so expiry for one operator cannot
+// silently rewrite unrelated employers while aging or pruning the shared feed.
+const majorWorkdayFallbackText = workflowTexts.get(majorWorkdayFallbackPath) || '';
+const majorWorkdayFreshnessScript = await readFile(majorWorkdayFreshnessScriptPath, 'utf8');
+const majorWorkdaySourceCompanies = sourceCompaniesFromMajorWorkdayScript(majorWorkdayFreshnessScript);
+const configuredGroup = majorWorkdayFallbackText.match(/MAJOR_WORKDAY_COMPANIES=['"]([^'"]+)['"]/)?.[1]
+  ?.split('|')
+  .map((company) => company.trim())
+  .filter(Boolean) || [];
+if (!majorWorkdaySourceCompanies.length) {
+  violations.push(`${majorWorkdayFreshnessScriptPath}: could not discover the priority Workday source-company list`);
+} else if (JSON.stringify(configuredGroup) !== JSON.stringify(majorWorkdaySourceCompanies)) {
+  violations.push(`${majorWorkdayFallbackPath}: MAJOR_WORKDAY_COMPANIES must exactly match the freshness enforcer source-company order`);
+}
+for (const marker of [
+  'node scripts/preserve-source-group.mjs --test',
+  'cp data/jobs.json /tmp/major-workday-freshness-baseline.json',
+  'node scripts/preserve-source-group.mjs "$MAJOR_WORKDAY_COMPANIES" /tmp/major-workday-freshness-baseline.json --verify',
+  'node scripts/validate-job-history.mjs --allow-aging',
+  'node scripts/validate-source-workflow-isolation.mjs'
+]) {
+  if (!majorWorkdayFallbackText.includes(marker)) {
+    violations.push(`${majorWorkdayFallbackPath}: major Workday stale cleanup boundary is missing ${marker}`);
+  }
+}
+
 const seenKnownCollisionGroups = new Set();
 for (const [slot, paths] of scheduleSlots) {
   if (paths.size <= 1) continue;
@@ -246,4 +280,4 @@ if (violations.length) {
   throw new Error(`Blocked ${violations.length} source-workflow isolation regression(s).`);
 }
 
-console.log(`Source workflow isolation guard passed for ${feedWriters.length} auto-discovered recurring source-feed writers. Site-wide live QA is blocked in every source writer; ${liveQaIsolatedWriters.size} previously migrated writers remain in the historical inventory. New writer omissions and new exact UTC schedule collisions are blocked; ${knownCollisionGroups.size} pre-existing collision groups remain explicitly baselined for removal.`);
+console.log(`Source workflow isolation guard passed for ${feedWriters.length} auto-discovered recurring source-feed writers. Site-wide live QA is blocked in every source writer; ${liveQaIsolatedWriters.size} previously migrated writers remain in the historical inventory. New writer omissions and new exact UTC schedule collisions are blocked; ${knownCollisionGroups.size} pre-existing collision groups remain explicitly baselined for removal. Major Workday stale cleanup is source-group isolated across ${majorWorkdaySourceCompanies.length} employers.`);

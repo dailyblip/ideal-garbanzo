@@ -1,22 +1,23 @@
 {
-  "updatedAt": "2026-09-24T17:34:44.797Z",
-  "jobs": 717,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-24T17:38:14.402Z",
+  "jobs": 716,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "icims": 1
   },
   "countsByType": {
-    "entry-level": 688,
+    "entry-level": 687,
     "trainee": 12,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 411,
-    "2-5-years": 279,
+    "2-5-years": 278,
     "no-experience": 27
   },
   "errors": [],
@@ -31,16 +32,16 @@
     "officialSource": "https://www.tierpoint.com/about-us/careers/",
     "boardUrl": "https://careers-tierpoint.icims.com/jobs/search?hashed=-626007049&ss=1",
     "sourceHealthy": true,
-    "qualifyingRoles": 9,
+    "qualifyingRoles": 8,
     "usedPreviousSnapshot": false,
     "listing": {
       "pagesAttempted": 2,
       "pagesSucceeded": 2,
-      "candidateLinks": 15
+      "candidateLinks": 14
     },
     "drops": {
-      "parse": 3,
-      "classification": 3
+      "parse": 2,
+      "classification": 4
     },
     "samples": [
       {
@@ -48,11 +49,6 @@
         "title": "Senior Client Executive",
         "location": "Marlborough, MA",
         "reason": "classification"
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3044/cloud-engineer-ii/job",
-        "title": "Cloud Engineer II",
-        "location": ""
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
@@ -66,9 +62,14 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3010/manager%2c-accounting/job",
-        "title": "Manager, Accounting",
-        "location": "Saint Louis, MO",
+        "url": "https://careers-tierpoint.icims.com/jobs/3015/sr-automation-engineer/job",
+        "title": "Sr Automation Engineer",
+        "location": ""
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3021/eoc-support-analyst/job",
+        "title": "EOC Support Analyst",
+        "location": "Norristown | US-MO-Saint Louis, PA",
         "reason": "classification"
       }
     ]
@@ -2108,7 +2109,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T17:35:09.888Z",
+    "checkedAt": "2026-09-24T17:38:14.481Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2116,28 +2117,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T17:35:09.949Z",
+    "updatedAt": "2026-09-24T17:38:14.559Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 717,
+    "regionAssigned": 716,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 110,
-      "west": 112,
+      "southeast": 109,
       "texas": 114,
+      "west": 112,
       "mid-atlantic": 143,
       "northeast": 24,
-      "southwest": 79,
       "midwest": 134,
+      "southwest": 79,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T17:35:10.002Z",
-    "before": 717,
-    "after": 717,
+    "checkedAt": "2026-09-24T17:38:14.635Z",
+    "before": 716,
+    "after": 716,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2152,9 +2153,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1326,
-    "currentJobs": 717,
-    "scopeCompany": "Iron Mountain",
-    "scopedJobs": 12,
+    "currentJobs": 716,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2162,8 +2161,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T17:35:10.232Z"
+    "firstSeenRecencyFallbackJobs": 86,
+    "updatedAt": "2026-09-24T17:38:14.699Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T12:50:37.898Z",
+  "updatedAt": "2026-09-24T13:48:09.446Z",
   "jobs": 724,
   "sourcesAttempted": 21,
   "providers": {
@@ -3653,7 +3653,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T12:50:38.237Z"
+    "updatedAt": "2026-09-24T13:48:09.759Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4364,7 +4364,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-24T12:50:37.898Z",
+    "checkedAt": "2026-09-24T13:48:09.446Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
@@ -4372,7 +4372,7 @@
     "detailChecksPassed": 4,
     "qualifyingRoles": 4,
     "added": 1,
-    "removedManaged": 0,
+    "removedManaged": 1,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
     "checks": [

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T07:47:29.295Z",
+  "updatedAt": "2026-09-24T07:49:25.566Z",
   "jobs": 671,
   "sourcesAttempted": 22,
   "providers": {
@@ -3595,7 +3595,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T07:06:11.277Z",
+    "checkedAt": "2026-09-24T07:49:25.648Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3603,7 +3603,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T07:06:11.346Z",
+    "updatedAt": "2026-09-24T07:49:25.730Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 671,
@@ -3622,7 +3622,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T07:06:11.413Z",
+    "checkedAt": "2026-09-24T07:49:25.808Z",
     "before": 671,
     "after": 671,
     "removed": 0,
@@ -3640,8 +3640,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1318,
     "currentJobs": 671,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
+    "scopeCompany": "DataBank",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3649,8 +3649,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T07:47:29.571Z"
+    "firstSeenRecencyFallbackJobs": 15,
+    "updatedAt": "2026-09-24T07:49:26.171Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3808,7 +3808,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-23T23:10:17.787Z",
+    "checkedAt": "2026-09-24T07:49:25.566Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

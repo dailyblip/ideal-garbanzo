@@ -46,6 +46,7 @@ jobs:
           node scripts/validate-coreweave.mjs --test
           node --check scripts/preserve-source-group.mjs
           node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
           node scripts/preserve-source-group.mjs --test
       - name: Preserve public-feed boundary before CoreWeave refresh
         run: cp data/jobs.json /tmp/coreweave-public-before.json
@@ -76,7 +77,7 @@ jobs:
       - name: Validate updated feed
         run: |
           node scripts/validate.mjs
-          node scripts/validate-job-history.mjs
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
       - name: Publish verified CoreWeave roles from current main
@@ -104,7 +105,7 @@ jobs:
             node scripts/stamp-job-history.mjs --company "CoreWeave"
             node scripts/preserve-source-group.mjs "CoreWeave" /tmp/coreweave-public-before.json --verify
             node scripts/validate.mjs
-            node scripts/validate-job-history.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs
           }

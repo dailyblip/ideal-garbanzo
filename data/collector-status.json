@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T18:23:49.009Z",
+  "updatedAt": "2026-09-24T18:41:00.890Z",
   "jobs": 716,
   "sourcesAttempted": 22,
   "providers": {
@@ -3575,7 +3575,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T18:23:49.085Z",
+    "checkedAt": "2026-09-24T18:41:00.983Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3583,7 +3583,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T18:23:49.167Z",
+    "updatedAt": "2026-09-24T18:41:01.070Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 716,
@@ -3592,17 +3592,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 109,
-      "texas": 114,
       "west": 112,
+      "texas": 114,
       "mid-atlantic": 143,
       "northeast": 24,
-      "midwest": 134,
       "southwest": 79,
+      "midwest": 134,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T18:23:49.241Z",
+    "checkedAt": "2026-09-24T18:41:01.153Z",
     "before": 716,
     "after": 716,
     "removed": 0,
@@ -3620,8 +3620,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1326,
     "currentJobs": 716,
-    "scopeCompany": "H5 Data Centers",
-    "scopedJobs": 12,
+    "scopeCompany": "DataBank",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3629,8 +3629,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T18:23:49.492Z"
+    "firstSeenRecencyFallbackJobs": 15,
+    "updatedAt": "2026-09-24T18:41:01.546Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3767,7 +3767,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-24T13:48:26.169Z",
+    "checkedAt": "2026-09-24T18:41:00.891Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

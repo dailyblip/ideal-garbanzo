@@ -69,9 +69,13 @@ function locationParts(item) {
     country: clean(value?.address?.countryCode?.codeValue).toUpperCase()
   })).filter(value => value.name);
 }
+function isUsCountry(value) {
+  const country = clean(value).toUpperCase().replace(/[.]/g, '');
+  return !country || ['US', 'USA', 'UNITED STATES', 'UNITED STATES OF AMERICA'].includes(country);
+}
 function normalizeLocation(raw) {
   let value = clean(raw).replace(/^H5 Data Centers\s*[-–—:]\s*/i, '');
-  value = value.replace(/,?\s*United States$/i, '').trim();
+  value = value.replace(/,?\s*(?:United States(?: of America)?|USA?)$/i, '').trim();
   const code = value.match(/\b([A-Z]{2})\b(?=\s*$)/)?.[1];
   if (code && stateCodes.has(code)) return value;
   for (const [name, state] of [...stateNames.entries()].sort((a,b) => b[0].length - a[0].length)) {
@@ -82,7 +86,7 @@ function normalizeLocation(raw) {
 }
 function firstUsLocation(item) {
   for (const loc of locationParts(item)) {
-    if (loc.country && loc.country !== 'US') continue;
+    if (!isUsCountry(loc.country)) continue;
     const normalized = normalizeLocation(loc.name);
     if (normalized) return normalized;
   }
@@ -238,6 +242,7 @@ try {
       const location = firstUsLocation(item);
       if (!location) {
         drops.nonUs += 1;
+        if (samples.length < 8) samples.push({ itemId, title, locations: locationParts(item), reason: 'no normalized US location' });
         return null;
       }
       const classification = classify(title, description);
@@ -264,7 +269,7 @@ try {
     snapshot.push(...found.filter(Boolean));
   }
   snapshot = dedupe(snapshot);
-  if (listing.total > 0 && !snapshot.length) throw new Error(`ADP exposed ${listing.total} roles but zero mission-fit 0–5 year roles; drops=${JSON.stringify(drops)}`);
+  if (listing.total > 0 && !snapshot.length) throw new Error(`ADP exposed ${listing.total} roles but zero mission-fit 0–5 year roles; drops=${JSON.stringify(drops)} samples=${JSON.stringify(samples)}`);
 } catch (sourceError) {
   sourceHealthy = false;
   error = sourceError.message;

@@ -1,23 +1,23 @@
 {
-  "updatedAt": "2026-09-24T04:58:14.928Z",
+  "updatedAt": "2026-09-24T05:01:16.802Z",
   "jobs": 666,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
-    "adp": 1
+    "adp": 2
   },
   "countsByType": {
-    "trainee": 13,
     "entry-level": 636,
+    "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 280,
     "0-2-years": 358,
+    "2-5-years": 280,
     "no-experience": 28
   },
   "errors": [],
@@ -2117,7 +2117,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T04:57:50.620Z",
+    "checkedAt": "2026-09-24T05:01:16.882Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2125,7 +2125,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T04:57:50.694Z",
+    "updatedAt": "2026-09-24T05:01:16.962Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 666,
@@ -2144,7 +2144,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T04:57:50.761Z",
+    "checkedAt": "2026-09-24T05:01:17.037Z",
     "before": 666,
     "after": 666,
     "removed": 0,
@@ -2162,17 +2162,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1312,
     "currentJobs": 666,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 0,
+    "changedJobsThisRun": 11,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T04:58:15.285Z"
+    "firstSeenRecencyFallbackJobs": 90,
+    "updatedAt": "2026-09-24T05:01:17.161Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

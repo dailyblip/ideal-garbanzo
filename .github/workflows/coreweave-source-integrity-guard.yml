@@ -7,9 +7,14 @@ on:
       - scripts/collect-coreweave-careers.mjs
       - scripts/enforce-coreweave-fallback-freshness.mjs
       - scripts/validate-coreweave.mjs
+      - scripts/preserve-source-group.mjs
+      - scripts/stamp-job-history.mjs
+      - scripts/validate-job-history.mjs
+      - scripts/validate-source-workflow-isolation.mjs
       - data/coreweave-jobs.json
       - data/coreweave-source-evidence.json
       - data/jobs.json
+      - data/job-history.json
       - data/collector-status.json
       - .github/workflows/coreweave-source-integrity-guard.yml
       - .github/workflows/coreweave-bootstrap.yml
@@ -19,9 +24,14 @@ on:
       - scripts/collect-coreweave-careers.mjs
       - scripts/enforce-coreweave-fallback-freshness.mjs
       - scripts/validate-coreweave.mjs
+      - scripts/preserve-source-group.mjs
+      - scripts/stamp-job-history.mjs
+      - scripts/validate-job-history.mjs
+      - scripts/validate-source-workflow-isolation.mjs
       - data/coreweave-jobs.json
       - data/coreweave-source-evidence.json
       - data/jobs.json
+      - data/job-history.json
       - data/collector-status.json
       - .github/workflows/coreweave-source-integrity-guard.yml
       - .github/workflows/coreweave-bootstrap.yml
@@ -38,15 +48,54 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate CoreWeave source and history helpers
+        run: |
+          node --check scripts/collect-coreweave-careers.mjs
+          node --check scripts/enforce-coreweave-fallback-freshness.mjs
+          node --check scripts/validate-coreweave.mjs
+          node --check scripts/preserve-source-group.mjs
+          node --check scripts/stamp-job-history.mjs
+          node --check scripts/validate-job-history.mjs
+          node --check scripts/validate-source-workflow-isolation.mjs
+          node scripts/preserve-source-group.mjs --test
       - name: Validate fallback policy regressions
         run: node scripts/enforce-coreweave-fallback-freshness.mjs --test
       - name: Validate requisition identity regressions
         run: node scripts/validate-coreweave.mjs --test
+      - name: Guard CoreWeave refresh isolation and history contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow='.github/workflows/coreweave-bootstrap.yml'
+          grep -Fq 'cp data/jobs.json /tmp/coreweave-public-before.json' "$workflow"
+          if [ "$(grep -Fc 'node scripts/preserve-source-group.mjs "CoreWeave" /tmp/coreweave-public-before.json --verify' "$workflow")" -lt 2 ]; then
+            echo '::error::CoreWeave refresh must verify the non-CoreWeave boundary in both normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/stamp-job-history.mjs --company "CoreWeave"' "$workflow")" -lt 2 ]; then
+            echo '::error::CoreWeave refresh must keep first-seen history stamping scoped to CoreWeave in both normal and race-safe paths.'
+            exit 1
+          fi
+          if [ "$(grep -Fc 'node scripts/validate-job-history.mjs --allow-aging' "$workflow")" -lt 2 ]; then
+            echo '::error::CoreWeave refresh must allow unrelated employers to age during both normal and race-safe history validation.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*node scripts/validate-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::CoreWeave refresh must not require unrelated employers to have freshly rewritten postedHours.'
+            exit 1
+          fi
+          if grep -Eq '^[[:space:]]*(run:[[:space:]]+)?node scripts/stamp-job-history\.mjs[[:space:]]*$' "$workflow"; then
+            echo '::error::CoreWeave refresh must not run unscoped job-history stamping.'
+            exit 1
+          fi
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Validate committed fallback freshness
         run: node scripts/enforce-coreweave-fallback-freshness.mjs --check
       - name: Validate verified snapshot and public-feed parity
         run: node scripts/validate-coreweave.mjs
       - name: Validate shared employer-direct contracts
         run: |
+          node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-direct-role-links.mjs
+          node scripts/validate-source-workflow-isolation.mjs

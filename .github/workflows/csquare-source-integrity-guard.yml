@@ -1,0 +1,43 @@
+name: Csquare source integrity guard
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/collect-csquare-jobs.mjs'
+      - 'scripts/validate-csquare.mjs'
+      - 'data/csquare-jobs.json'
+      - '.github/workflows/csquare-bootstrap.yml'
+      - '.github/workflows/csquare-source-integrity-guard.yml'
+      - 'package.json'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-csquare-jobs.mjs'
+      - 'scripts/validate-csquare.mjs'
+      - 'data/csquare-jobs.json'
+      - '.github/workflows/csquare-bootstrap.yml'
+      - '.github/workflows/csquare-source-integrity-guard.yml'
+      - 'package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Csquare source contract
+        run: |
+          node --check scripts/collect-csquare-jobs.mjs
+          node --check scripts/validate-csquare.mjs
+          node scripts/collect-csquare-jobs.mjs --test-classifier
+          node scripts/collect-csquare-jobs.mjs --test-detail-parser
+          node scripts/validate-csquare.mjs --static-only
+          node scripts/validate-csquare.mjs
+          node scripts/validate-source-workflow-isolation.mjs
+          node scripts/validate-homepage-contract.mjs

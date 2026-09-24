@@ -1,0 +1,139 @@
+name: Refresh Csquare employer-direct roles
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '53 16 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-csquare-jobs.mjs'
+      - 'scripts/validate-csquare.mjs'
+      - '.github/workflows/csquare-bootstrap.yml'
+      - '.github/workflows/csquare-source-integrity-guard.yml'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: careers-source-writers
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Csquare collector contract
+        run: |
+          node --check scripts/collect-csquare-jobs.mjs
+          node --check scripts/validate-csquare.mjs
+          node scripts/collect-csquare-jobs.mjs --test-classifier
+          node scripts/collect-csquare-jobs.mjs --test-detail-parser
+          node scripts/validate-csquare.mjs --static-only
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before Csquare refresh
+        run: cp data/jobs.json /tmp/csquare-public-before.json
+      - name: Collect official Csquare UKG roles
+        run: node scripts/collect-csquare-jobs.mjs
+      - name: Enforce mission-fit roles
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize locations and regions
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate normalized jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reapply Csquare source boundary after shared transforms
+        run: |
+          node scripts/preserve-source-group.mjs "Csquare" /tmp/csquare-public-before.json
+          node scripts/preserve-source-group.mjs "Csquare" /tmp/csquare-public-before.json --verify
+      - name: Refresh regional coverage
+        run: node scripts/refresh-region-status.mjs
+      - name: Validate Csquare snapshot and publication parity
+        run: node scripts/validate-csquare.mjs
+      - name: Track Csquare first-seen dates
+        run: node scripts/stamp-job-history.mjs --company "Csquare"
+      - name: Verify non-Csquare rows remain unchanged after history stamping
+        run: node scripts/preserve-source-group.mjs "Csquare" /tmp/csquare-public-before.json --verify
+      - name: Validate updated public feed
+        run: |
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-source-workflow-isolation.mjs
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate.mjs
+      - name: Commit verified Csquare snapshot
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            cp data/jobs.json /tmp/csquare-public-before.json
+            node --check scripts/collect-csquare-jobs.mjs
+            node --check scripts/validate-csquare.mjs
+            node scripts/collect-csquare-jobs.mjs --test-classifier
+            node scripts/collect-csquare-jobs.mjs --test-detail-parser
+            node scripts/validate-csquare.mjs --static-only
+            node scripts/preserve-source-group.mjs --test
+            node scripts/collect-csquare-jobs.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/preserve-source-group.mjs "Csquare" /tmp/csquare-public-before.json
+            node scripts/preserve-source-group.mjs "Csquare" /tmp/csquare-public-before.json --verify
+            node scripts/refresh-region-status.mjs
+            node scripts/validate-csquare.mjs
+            node scripts/stamp-job-history.mjs --company "Csquare"
+            node scripts/preserve-source-group.mjs "Csquare" /tmp/csquare-public-before.json --verify
+            node scripts/validate-job-history.mjs --allow-aging
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-source-workflow-isolation.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during Csquare refresh; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/csquare-jobs.json data/job-history.json data/collector-status.json data/major-jobs.json
+            if git diff --cached --quiet; then
+              echo "No Csquare data or job-history changes."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh verified Csquare jobs and history"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during Csquare publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified Csquare data after three attempts."
+          exit 1
+      - name: Deploy committed Csquare data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

@@ -1,0 +1,37 @@
+name: H5 Data Centers source integrity guard
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/validate-h5-data-centers.mjs'
+      - '.github/workflows/h5-data-centers-bootstrap.yml'
+      - '.github/workflows/h5-source-integrity-guard.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/validate-h5-data-centers.mjs'
+      - '.github/workflows/h5-data-centers-bootstrap.yml'
+      - '.github/workflows/h5-source-integrity-guard.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate collector syntax and fail-closed contract
+        run: |
+          node --check scripts/collect-h5-data-centers.mjs
+          node --check scripts/validate-h5-data-centers.mjs
+          node scripts/validate-h5-data-centers.mjs --static-only
+      - name: Validate workflow isolation
+        run: node scripts/validate-source-workflow-isolation.mjs
+      - name: Protect approved homepage contract
+        run: node scripts/validate-homepage-contract.mjs

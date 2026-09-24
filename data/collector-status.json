@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T05:50:23.452Z",
+  "updatedAt": "2026-09-24T05:52:56.489Z",
   "jobs": 665,
   "sourcesAttempted": 22,
   "providers": {
@@ -225,7 +225,7 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-23T17:45:34.930Z",
+    "checkedAt": "2026-09-24T05:52:56.489Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3595,7 +3595,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T05:49:41.811Z",
+    "checkedAt": "2026-09-24T05:52:56.573Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3603,7 +3603,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T05:49:41.899Z",
+    "updatedAt": "2026-09-24T05:52:56.653Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 665,
@@ -3622,7 +3622,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T05:49:41.979Z",
+    "checkedAt": "2026-09-24T05:52:56.726Z",
     "before": 665,
     "after": 665,
     "removed": 0,
@@ -3640,8 +3640,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1312,
     "currentJobs": 665,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
+    "scopeCompany": "T5 Data Centers",
+    "scopedJobs": 22,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3649,8 +3649,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T05:50:23.792Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-24T05:52:57.047Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-24T12:49:49.704Z",
-  "jobs": 723,
+  "updatedAt": "2026-09-24T12:50:37.898Z",
+  "jobs": 724,
   "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
@@ -11,13 +11,13 @@
     "adp": 1
   },
   "countsByType": {
+    "trainee": 13,
     "entry-level": 694,
-    "trainee": 12,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 282,
+    "2-5-years": 283,
     "0-2-years": 413,
     "no-experience": 28
   },
@@ -3642,9 +3642,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1322,
-    "currentJobs": 723,
-    "scopeCompany": "H5 Data Centers",
-    "scopedJobs": 12,
+    "currentJobs": 724,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3652,8 +3652,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T12:49:50.163Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-24T12:50:38.237Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4364,14 +4364,14 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-24T12:10:21.607Z",
+    "checkedAt": "2026-09-24T12:50:37.898Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
-    "qualifyingRoles": 1,
-    "added": 0,
+    "qualifyingRoles": 4,
+    "added": 1,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
     "policy": "Publish only source-verified U.S. Equinix SkillBridge data-center roles that remain on the live official internship listing and whose current official detail page confirms the exact requisition, job family, and a 0–5-year requirement. Missing, drifted, unreachable, or >5-year roles fail closed.",
@@ -4380,19 +4380,22 @@
         "requisition": "JR-163301",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-163300",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          2,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": false
       },
       {
         "requisition": "JR-158170",
@@ -4412,10 +4415,15 @@
         "requisition": "JR-811161",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       }
     ],
     "errors": []

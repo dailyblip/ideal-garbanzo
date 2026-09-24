@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T04:44:56.587Z",
+  "updatedAt": "2026-09-24T04:50:43.311Z",
   "jobs": 654,
   "sourcesAttempted": 27,
   "providers": {
@@ -11,14 +11,14 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 624,
     "trainee": 13,
+    "entry-level": 624,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 346,
     "2-5-years": 280,
+    "0-2-years": 346,
     "no-experience": 28
   },
   "errors": [],
@@ -2163,8 +2163,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1300,
     "currentJobs": 654,
-    "scopeCompany": "Microsoft",
-    "scopedJobs": 31,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2172,8 +2172,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-24T04:44:56.894Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-24T04:50:43.578Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2905,7 +2905,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-24T03:44:45.931Z",
+    "checkedAt": "2026-09-24T04:50:43.311Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

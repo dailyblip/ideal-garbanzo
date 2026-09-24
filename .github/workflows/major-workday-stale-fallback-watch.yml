@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/enforce-major-workday-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/validate-major-workday-freshness-state.mjs'
       - '.github/workflows/major-workday-stale-fallback-watch.yml'
   schedule:
@@ -31,10 +32,11 @@ jobs:
         with:
           node-version: 22
 
-      - name: Test stale-fallback policy
+      - name: Test stale-fallback policy and source boundary
         run: |
           node --check scripts/enforce-major-workday-fallback-freshness.mjs
           node scripts/enforce-major-workday-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
 
       - name: Verify sources and enforce expiry
         id: enforce
@@ -43,11 +45,14 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          MAJOR_WORKDAY_COMPANIES='Vantage Data Centers|QTS Data Centers|CyrusOne|STACK Infrastructure|NTT Global Data Centers|Aligned Data Centers'
 
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/major-workday-freshness-baseline.json
             node scripts/enforce-major-workday-fallback-freshness.mjs
+            node scripts/preserve-source-group.mjs "$MAJOR_WORKDAY_COMPANIES" /tmp/major-workday-freshness-baseline.json --verify
           }
 
           for attempt in 1 2 3; do
@@ -72,6 +77,8 @@ jobs:
 
             node scripts/enforce-major-workday-fallback-freshness.mjs --validate
             node scripts/validate-major-workday-freshness-state.mjs
+            node scripts/validate-job-history.mjs --allow-aging
+            node scripts/validate-source-workflow-isolation.mjs
             if [ "$roles_changed" = true ]; then
               node scripts/validate.mjs
               node scripts/validate-priority-employer-sources.mjs

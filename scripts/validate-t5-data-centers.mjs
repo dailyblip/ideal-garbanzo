@@ -8,6 +8,7 @@ const BOARD_HOST = 'jobs.lever.co';
 const BOARD_SLUG = 't5datacenters';
 const BOARD_ROOT = `https://${BOARD_HOST}/${BOARD_SLUG}/`;
 const LEVER_UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const MAX_FALLBACK_AGE_HOURS = 96;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -46,10 +47,39 @@ function isT5Job(job = {}) {
   }
 }
 
+function validateExpiredFallback(snapshot, jobs, t5Status, failures) {
+  const snapshotJobs = Array.isArray(snapshot) ? snapshot : [];
+  const publicT5Jobs = (Array.isArray(jobs) ? jobs : []).filter(isT5Job);
+
+  if (snapshotJobs.length !== 0) failures.push('collector-status: expired T5 fallback must clear the authoritative snapshot.');
+  if (publicT5Jobs.length !== 0) failures.push('collector-status: expired T5 fallback must remove every public T5 role.');
+  if (t5Status?.sourceHealthy !== false) failures.push('collector-status: expired T5 fallback must mark sourceHealthy false.');
+  if (t5Status?.listingComplete !== false) failures.push('collector-status: expired T5 fallback must mark listingComplete false.');
+  if (t5Status?.authoritativeSnapshot !== false) failures.push('collector-status: expired T5 fallback must mark authoritativeSnapshot false.');
+  if (Number(t5Status?.qualifyingRoles) !== 0) failures.push('collector-status: expired T5 fallback must report zero qualifyingRoles.');
+  if (Number(t5Status?.fallbackMaxAgeHours) !== MAX_FALLBACK_AGE_HOURS) {
+    failures.push(`collector-status: expired T5 fallback must use the ${MAX_FALLBACK_AGE_HOURS}-hour maximum.`);
+  }
+  if (!Number.isFinite(Date.parse(clean(t5Status?.lastHealthyAt)))) {
+    failures.push('collector-status: expired T5 fallback must preserve the last successful verification timestamp.');
+  }
+  if (t5Status?.fallbackFreshness?.expired !== true) {
+    failures.push('collector-status: expired T5 fallback must record fallbackFreshness.expired true.');
+  }
+}
+
 function validateState(snapshot, jobs, status) {
   const failures = [];
-  if (!Array.isArray(snapshot) || snapshot.length === 0) failures.push('T5 snapshot must be a non-empty array.');
+  if (!Array.isArray(snapshot)) failures.push('T5 snapshot must contain an array.');
   if (!Array.isArray(jobs)) failures.push('jobs.json must contain an array.');
+
+  const t5Status = status?.t5DataCenters;
+  if (t5Status?.fallbackExpired === true) {
+    validateExpiredFallback(snapshot, jobs, t5Status, failures);
+    return failures;
+  }
+
+  if (!Array.isArray(snapshot) || snapshot.length === 0) failures.push('T5 snapshot must be a non-empty array.');
 
   const authoritative = new Map();
   const urls = new Set();
@@ -118,7 +148,6 @@ function validateState(snapshot, jobs, status) {
     failures.push(`public T5 requisition count ${publicT5Jobs.length} does not match authoritative snapshot ${authoritative.size}.`);
   }
 
-  const t5Status = status?.t5DataCenters;
   if (!t5Status || t5Status.sourceHealthy !== true) failures.push('collector-status: t5DataCenters.sourceHealthy must be true.');
   if (!t5Status || t5Status.listingComplete !== true) failures.push('collector-status: t5DataCenters.listingComplete must be true.');
   if (!t5Status || t5Status.authoritativeSnapshot !== true) failures.push('collector-status: t5DataCenters.authoritativeSnapshot must be true.');
@@ -143,13 +172,30 @@ if (process.argv.includes('--test')) {
     demo: false
   };
   const healthy = { t5DataCenters: { sourceHealthy: true, listingComplete: true, authoritativeSnapshot: true, qualifyingRoles: 1 } };
+  const expired = {
+    t5DataCenters: {
+      sourceHealthy: false,
+      listingComplete: false,
+      authoritativeSnapshot: false,
+      qualifyingRoles: 0,
+      fallbackExpired: true,
+      fallbackMaxAgeHours: MAX_FALLBACK_AGE_HOURS,
+      lastHealthyAt: '2026-09-20T12:00:00Z',
+      fallbackFreshness: { expired: true }
+    }
+  };
   const regressions = [
     ['canonical pair accepted', [base], [base], healthy, true],
     ['mismatched id/url rejected', [{ ...base, id: 'lever-t5-35219eee-b456-4bd9-a9db-b0637a778dee' }], [base], healthy, false],
     ['wrong board rejected', [{ ...base, sourceUrl: 'https://jobs.lever.co/example/290bc834-72f8-4134-bfad-5ed5fb1c2ef5' }], [base], healthy, false],
     ['missing public requisition rejected', [base], [], healthy, false],
     ['unexpected public requisition rejected', [base], [base, { ...base, id: 'lever-t5-35219eee-b456-4bd9-a9db-b0637a778dee', sourceUrl: `${BOARD_ROOT}35219eee-b456-4bd9-a9db-b0637a778dee`, location: 'Albuquerque, NM' }], healthy, false],
-    ['field drift rejected', [base], [{ ...base, experience: '0-2-years' }], healthy, false]
+    ['field drift rejected', [base], [{ ...base, experience: '0-2-years' }], healthy, false],
+    ['expired fallback accepted', [], [], expired, true],
+    ['expired fallback with public role rejected', [], [base], expired, false],
+    ['expired fallback with snapshot rejected', [base], [], expired, false],
+    ['expired fallback missing last healthy timestamp rejected', [], [], { t5DataCenters: { ...expired.t5DataCenters, lastHealthyAt: null } }, false],
+    ['empty snapshot without explicit expiry rejected', [], [], healthy, false]
   ];
   const testFailures = [];
   for (const [name, snapshot, jobs, status, shouldPass] of regressions) {
@@ -175,4 +221,8 @@ if (failures.length) {
 }
 
 const publicCount = jobs.filter(isT5Job).length;
-console.log(`T5 validation passed: ${snapshot.length} authoritative requisition(s) match ${publicCount} public employer-direct card(s) exactly.`);
+if (status?.t5DataCenters?.fallbackExpired === true) {
+  console.log('T5 validation passed: stale fallback is explicitly expired and no T5 roles remain published.');
+} else {
+  console.log(`T5 validation passed: ${snapshot.length} authoritative requisition(s) match ${publicCount} public employer-direct card(s) exactly.`);
+}

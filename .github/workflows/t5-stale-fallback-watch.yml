@@ -1,0 +1,131 @@
+name: T5 Data Centers stale fallback watch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/enforce-t5-fallback-freshness.mjs
+      - scripts/validate-t5-data-centers.mjs
+      - .github/workflows/t5-stale-fallback-watch.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '54 3,9,15,21 * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: careers-source-writers
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate T5 freshness enforcement
+        run: |
+          node --check scripts/enforce-t5-fallback-freshness.mjs
+          node --check scripts/validate-t5-data-centers.mjs
+          node scripts/enforce-t5-fallback-freshness.mjs --test
+          node scripts/validate-t5-data-centers.mjs --test
+          node scripts/preserve-source-group.mjs --test
+      - name: Preserve public-feed boundary before T5 freshness check
+        run: cp data/jobs.json /tmp/t5-stale-public-before.json
+      - name: Enforce 96-hour T5 fallback limit
+        id: enforce
+        shell: bash
+        run: |
+          set -euo pipefail
+          before="$(git status --porcelain -- data/jobs.json data/t5-data-centers-jobs.json data/collector-status.json)"
+          node scripts/enforce-t5-fallback-freshness.mjs
+          after="$(git status --porcelain -- data/jobs.json data/t5-data-centers-jobs.json data/collector-status.json)"
+          if [ "$before" = "$after" ]; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Rebuild source-scoped state after expiry
+        if: steps.enforce.outputs.changed == 'true'
+        run: |
+          node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-stale-public-before.json
+          node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-stale-public-before.json --verify
+          node scripts/refresh-region-status.mjs
+          node scripts/stamp-job-history.mjs --company "T5 Data Centers"
+          node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-stale-public-before.json --verify
+          node scripts/validate-t5-data-centers.mjs
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-source-workflow-isolation.mjs
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate.mjs
+      - name: Publish stale T5 removal from current main
+        if: steps.enforce.outputs.changed == 'true'
+        id: publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            cp data/jobs.json /tmp/t5-stale-public-before.json
+            node --check scripts/enforce-t5-fallback-freshness.mjs
+            node scripts/enforce-t5-fallback-freshness.mjs --test
+            node scripts/validate-t5-data-centers.mjs --test
+            node scripts/preserve-source-group.mjs --test
+            node scripts/enforce-t5-fallback-freshness.mjs
+            node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-stale-public-before.json
+            node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-stale-public-before.json --verify
+            node scripts/refresh-region-status.mjs
+            node scripts/stamp-job-history.mjs --company "T5 Data Centers"
+            node scripts/preserve-source-group.mjs "T5 Data Centers" /tmp/t5-stale-public-before.json --verify
+            node scripts/validate-t5-data-centers.mjs
+            node scripts/validate-job-history.mjs --allow-aging
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-source-workflow-isolation.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo 'Main moved during T5 fallback enforcement; rebuilding from latest main.'
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/t5-data-centers-jobs.json data/job-history.json data/collector-status.json
+            if git diff --cached --quiet; then
+              echo 'No stale T5 state remains to publish.'
+              echo 'changed=false' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git commit -m 'Remove expired T5 Data Centers fallback roles'
+            if git push origin HEAD:main; then
+              echo 'changed=true' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "Main moved during T5 fallback publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo '::error::Could not publish T5 fallback expiry after three fresh-main rebuilds.'
+          exit 1
+      - name: Deploy committed stale-role removal
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

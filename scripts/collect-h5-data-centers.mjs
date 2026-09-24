@@ -73,9 +73,22 @@ function isUsCountry(value) {
   const country = clean(value).toUpperCase().replace(/[.]/g, '');
   return !country || ['US', 'USA', 'UNITED STATES', 'UNITED STATES OF AMERICA'].includes(country);
 }
+function displayCity(value) {
+  const city = clean(value);
+  if (!city || city !== city.toUpperCase()) return city;
+  return city.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase());
+}
 function normalizeLocation(raw) {
   let value = clean(raw).replace(/^H5 Data Centers\s*[-–—:]\s*/i, '');
   value = value.replace(/,?\s*(?:United States(?: of America)?|USA?)$/i, '').trim();
+
+  // ADP can repeat its site label before the actual city/state address, e.g.
+  // "Lockport, NY, Lockport, NY". The trailing city/state pair is authoritative.
+  const trailingCityState = value.match(/(?:^|,\s*)([^,]+),\s*([A-Z]{2})\s*$/);
+  if (trailingCityState && stateCodes.has(trailingCityState[2])) {
+    return `${displayCity(trailingCityState[1])}, ${trailingCityState[2]}`;
+  }
+
   const code = value.match(/\b([A-Z]{2})\b(?=\s*$)/)?.[1];
   if (code && stateCodes.has(code)) return value;
   for (const [name, state] of [...stateNames.entries()].sort((a,b) => b[0].length - a[0].length)) {
@@ -91,6 +104,16 @@ function firstUsLocation(item) {
     if (normalized) return normalized;
   }
   return '';
+}
+for (const [raw, expected] of [
+  ['Lockport, NY, Lockport, NY', 'Lockport, NY'],
+  ['SAN ANTONIO, TX, San Antonio, TX', 'San Antonio, TX'],
+  ['Buffallo, NY II, Buffalo, NY', 'Buffalo, NY'],
+  ['ATLANTA, GA', 'Atlanta, GA'],
+  ['Quincy, WA', 'Quincy, WA']
+]) {
+  const actual = normalizeLocation(raw);
+  if (actual !== expected) throw new Error(`H5 location regression: expected ${expected}, got ${actual}`);
 }
 function requiredYears(text) {
   const required = String(text).split(/\b(?:preferred|nice to have|bonus)\b/i)[0];

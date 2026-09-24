@@ -8,7 +8,10 @@ on:
     branches: [main]
     paths:
       - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/validate-amazon-snapshot.mjs'
+      - 'scripts/validate-job-history.mjs'
+      - 'scripts/validate-source-workflow-isolation.mjs'
       - '.github/workflows/aws-stale-fallback-watch.yml'
 
 permissions:
@@ -31,12 +34,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Test AWS fallback age policy
-        run: node scripts/enforce-amazon-fallback-freshness.mjs --test
+      - name: Test AWS fallback age policy and source boundary
+        run: |
+          node scripts/enforce-amazon-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
+      - name: Capture pre-enforcement public-feed state
+        run: cp data/jobs.json /tmp/aws-freshness-baseline.json
       - name: Enforce AWS fallback freshness
         run: node scripts/enforce-amazon-fallback-freshness.mjs
-      - name: Validate AWS snapshot state
-        run: node scripts/validate-amazon-snapshot.mjs
+      - name: Verify AWS fallback enforcement stayed source-scoped
+        run: node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-freshness-baseline.json --verify
+      - name: Validate AWS snapshot and shared publication state
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-amazon-snapshot.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish AWS freshness state from current main
         id: commit
         shell: bash
@@ -48,9 +61,15 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/aws-freshness-baseline.json
             node scripts/enforce-amazon-fallback-freshness.mjs --test
+            node scripts/preserve-source-group.mjs --test
             node scripts/enforce-amazon-fallback-freshness.mjs
+            node scripts/preserve-source-group.mjs "Amazon Web Services" /tmp/aws-freshness-baseline.json --verify
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-amazon-snapshot.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main

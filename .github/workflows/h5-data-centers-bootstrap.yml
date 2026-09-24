@@ -1,0 +1,116 @@
+name: Refresh H5 Data Centers employer-direct feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '11 14 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/validate-h5-data-centers.mjs'
+      - '.github/workflows/h5-data-centers-bootstrap.yml'
+      - '.github/workflows/h5-source-integrity-guard.yml'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: careers-source-writers
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate H5 collector contract
+        run: |
+          node --check scripts/collect-h5-data-centers.mjs
+          node --check scripts/validate-h5-data-centers.mjs
+          node scripts/validate-h5-data-centers.mjs --static-only
+      - name: Collect official H5 Data Centers roles
+        run: node scripts/collect-h5-data-centers.mjs
+      - name: Enforce mission-fit roles
+        run: node scripts/filter-mission-fit.mjs
+      - name: Normalize locations
+        run: node scripts/normalize-job-locations.mjs
+      - name: Deduplicate jobs
+        run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Validate H5 snapshot and publication parity
+        run: node scripts/validate-h5-data-centers.mjs
+      - name: Persist first-seen dates for weekly alerts
+        run: node scripts/stamp-job-history.mjs
+      - name: Validate updated public feed
+        run: |
+          node scripts/validate-job-history.mjs
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-source-workflow-isolation.mjs
+          node scripts/validate-homepage-contract.mjs
+          node scripts/validate.mjs
+      - name: Commit verified H5 Data Centers snapshot
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rebuild_from_latest_main() {
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/validate-h5-data-centers.mjs --static-only
+            node scripts/collect-h5-data-centers.mjs
+            node scripts/filter-mission-fit.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/validate-h5-data-centers.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-source-workflow-isolation.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate.mjs
+          }
+
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Main moved during H5 refresh; rebuilding from latest main."
+            rebuild_from_latest_main
+          fi
+
+          for attempt in 1 2 3; do
+            git add data/jobs.json data/h5-data-centers-jobs.json data/job-history.json data/collector-status.json data/major-jobs.json
+            if git diff --cached --quiet; then
+              echo "No H5 Data Centers data or job-history changes."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh verified H5 Data Centers jobs and history"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main moved during H5 publish attempt ${attempt}; rebuilding before retry."
+            sleep $((attempt * 2))
+            rebuild_from_latest_main
+          done
+
+          echo "::error::Could not publish verified H5 Data Centers data after three attempts."
+          exit 1
+      - name: Deploy committed H5 Data Centers data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main -f deploy_only=true

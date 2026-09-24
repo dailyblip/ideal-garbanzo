@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-24T05:16:17.484Z",
-  "jobs": 651,
+  "jobs": 665,
   "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
@@ -10,15 +10,15 @@
     "adp": 2
   },
   "countsByType": {
-    "apprenticeship": 11,
-    "internship": 6,
+    "entry-level": 635,
     "trainee": 13,
-    "entry-level": 621
+    "internship": 6,
+    "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 351,
-    "no-experience": 28,
-    "2-5-years": 272
+    "0-2-years": 357,
+    "2-5-years": 280,
+    "no-experience": 28
   },
   "errors": [],
   "sourceFailurePreservation": {

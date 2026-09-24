@@ -11,6 +11,7 @@ if (!Array.isArray(events)) throw new Error('career-events.json must contain an 
 
 const today = new Date();
 const todayIso = today.toISOString().slice(0, 10);
+const todayMs = Date.parse(`${todayIso}T00:00:00Z`);
 const maxVerificationAgeMs = 7 * 24 * 60 * 60 * 1000;
 const allowedAudiences = new Set([
   'students',
@@ -59,9 +60,13 @@ for (const event of events) {
   }
 
   if (!isValidIsoDate(event.verifiedAt)) throw new Error(`Career event has invalid verifiedAt: ${event.id}`);
-  const verifiedAt = new Date(`${event.verifiedAt}T00:00:00Z`);
-  if (verifiedAt.getTime() > today.getTime()) throw new Error(`Career event verifiedAt cannot be in the future: ${event.id}`);
-  if (today.getTime() - verifiedAt.getTime() > maxVerificationAgeMs) {
+  const verifiedAtMs = Date.parse(`${event.verifiedAt}T00:00:00Z`);
+  // Freshness is date-based throughout the event refresh pipeline. Compare UTC
+  // midnights here too so an event verified exactly seven calendar days ago does
+  // not become invalid a few minutes after midnight while refresh still treats it
+  // as seven days old. On the eighth UTC day, the publication gate fails closed.
+  if (verifiedAtMs > todayMs) throw new Error(`Career event verifiedAt cannot be in the future: ${event.id}`);
+  if (todayMs - verifiedAtMs > maxVerificationAgeMs) {
     throw new Error(`Career event verification is older than 7 days: ${event.id}`);
   }
 

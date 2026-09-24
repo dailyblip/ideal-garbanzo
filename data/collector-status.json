@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-09-24T07:49:25.566Z",
+  "updatedAt": "2026-09-24T08:43:20.950Z",
   "jobs": 671,
-  "sourcesAttempted": 22,
+  "sourcesAttempted": 23,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
-    "adp": 2,
+    "adp": 3,
     "googleCareers": 1
   },
   "countsByType": {
@@ -3595,7 +3595,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T07:49:25.648Z",
+    "checkedAt": "2026-09-24T08:43:21.018Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3603,7 +3603,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T07:49:25.730Z",
+    "updatedAt": "2026-09-24T08:43:21.083Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 671,
@@ -3613,16 +3613,16 @@
     "countsByRegion": {
       "southeast": 103,
       "northeast": 20,
+      "midwest": 129,
+      "southwest": 71,
       "west": 108,
       "mid-atlantic": 134,
-      "southwest": 71,
-      "midwest": 129,
       "texas": 105,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T07:49:25.808Z",
+    "checkedAt": "2026-09-24T08:43:21.141Z",
     "before": 671,
     "after": 671,
     "removed": 0,
@@ -3640,8 +3640,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1318,
     "currentJobs": 671,
-    "scopeCompany": "DataBank",
-    "scopedJobs": 15,
+    "scopeCompany": "H5 Data Centers",
+    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3649,8 +3649,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 15,
-    "updatedAt": "2026-09-24T07:49:26.171Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-24T08:43:21.338Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

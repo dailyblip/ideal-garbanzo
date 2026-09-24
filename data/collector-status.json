@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T03:27:43.538Z",
+  "updatedAt": "2026-09-24T03:44:45.931Z",
   "jobs": 696,
   "sourcesAttempted": 26,
   "providers": {
@@ -11,8 +11,8 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 666,
     "trainee": 13,
+    "entry-level": 666,
     "internship": 6,
     "apprenticeship": 11
   },
@@ -2174,8 +2174,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1296,
     "currentJobs": 696,
-    "scopeCompany": "Flexential",
-    "scopedJobs": 2,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2183,8 +2183,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 2,
-    "updatedAt": "2026-09-24T03:27:43.957Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-24T03:44:46.206Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2905,7 +2905,7 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-24T02:45:21.226Z",
+    "checkedAt": "2026-09-24T03:44:45.931Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,

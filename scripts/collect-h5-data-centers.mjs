@@ -205,13 +205,15 @@ const priorStatus = await json(STATUS, {});
 let snapshot = [];
 let sourceHealthy = true;
 let error = '';
-let listingStats = { advertised: 0, fetched: 0 };
+let listingStats = { advertised: 0, fetched: 0, drift: 0 };
 const drops = { missingDetailId: 0, detailFetch: 0, nonUs: 0, classification: 0 };
 const samples = [];
 try {
   const listing = await collectListing();
-  listingStats = { advertised: listing.total, fetched: listing.rows.length };
-  if (listing.total > 0 && listing.rows.length !== listing.total) throw new Error(`ADP listing parity mismatch ${listing.rows.length}/${listing.total}`);
+  listingStats = { advertised: listing.total, fetched: listing.rows.length, drift: listing.rows.length - listing.total };
+  // ADP's total can lag a just-opened role by one response. More rows than the
+  // advertised count are safe to inspect; fewer rows would mean an incomplete crawl.
+  if (listing.total > listing.rows.length) throw new Error(`ADP listing parity mismatch ${listing.rows.length}/${listing.total}`);
   for (let offset = 0; offset < listing.rows.length; offset += 6) {
     const batch = listing.rows.slice(offset, offset + 6);
     const found = await Promise.all(batch.map(async item => {

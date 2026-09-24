@@ -10,6 +10,7 @@ on:
       - 'scripts/enforce-microsoft-fallback-freshness.mjs'
       - 'scripts/apply-microsoft-verified-fallback.mjs'
       - 'scripts/persist-microsoft-snapshot.mjs'
+      - 'scripts/preserve-source-group.mjs'
       - 'scripts/validate-microsoft-snapshot.mjs'
       - '.github/workflows/microsoft-stale-fallback-watch.yml'
 
@@ -33,12 +34,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Test Microsoft fallback age policy
-        run: node scripts/enforce-microsoft-fallback-freshness.mjs --test
+      - name: Test Microsoft fallback age policy and source boundary
+        run: |
+          node scripts/enforce-microsoft-fallback-freshness.mjs --test
+          node scripts/preserve-source-group.mjs --test
+      - name: Capture pre-enforcement public-feed state
+        run: cp data/jobs.json /tmp/microsoft-freshness-baseline.json
       - name: Enforce Microsoft fallback freshness
         run: node scripts/enforce-microsoft-fallback-freshness.mjs
-      - name: Validate Microsoft snapshot state
-        run: node scripts/validate-microsoft-snapshot.mjs
+      - name: Verify Microsoft fallback enforcement stayed source-scoped
+        run: node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-freshness-baseline.json --verify
+      - name: Validate Microsoft snapshot and shared publication state
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate-job-history.mjs --allow-aging
+          node scripts/validate-microsoft-snapshot.mjs
+          node scripts/validate-source-workflow-isolation.mjs
       - name: Publish Microsoft freshness state from current main
         id: commit
         shell: bash
@@ -50,9 +61,15 @@ jobs:
           rebuild_from_latest_main() {
             git fetch origin main
             git reset --hard origin/main
+            cp data/jobs.json /tmp/microsoft-freshness-baseline.json
             node scripts/enforce-microsoft-fallback-freshness.mjs --test
+            node scripts/preserve-source-group.mjs --test
             node scripts/enforce-microsoft-fallback-freshness.mjs
+            node scripts/preserve-source-group.mjs "Microsoft" /tmp/microsoft-freshness-baseline.json --verify
+            node scripts/validate.mjs
+            node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-microsoft-snapshot.mjs
+            node scripts/validate-source-workflow-isolation.mjs
           }
 
           git fetch origin main

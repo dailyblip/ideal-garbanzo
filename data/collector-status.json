@@ -3613,10 +3613,10 @@
     "countsByRegion": {
       "southeast": 103,
       "northeast": 20,
-      "midwest": 129,
-      "southwest": 71,
       "west": 108,
       "mid-atlantic": 134,
+      "southwest": 71,
+      "midwest": 129,
       "texas": 105,
       "nationwide": 1
     }
@@ -3640,8 +3640,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1318,
     "currentJobs": 671,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
+    "scopeCompany": "CloudHQ",
+    "scopedJobs": 1,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3649,8 +3649,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-24T08:44:15.204Z"
+    "firstSeenRecencyFallbackJobs": 1,
+    "updatedAt": "2026-09-24T08:46:53.492Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4343,8 +4343,8 @@
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."
   },
   "cloudHqCareers": {
-    "checkedAt": "2026-09-23T19:15:14.927Z",
-    "lastHealthyAt": "2026-09-23T19:15:14.927Z",
+    "checkedAt": "2026-09-24T08:46:52.331Z",
+    "lastHealthyAt": "2026-09-24T08:46:52.331Z",
     "officialCareers": "https://cloudhq.com/careers/",
     "boardUrl": "https://recruiting.paylocity.com/recruiting/jobs/All/d38e9867-3cd9-4254-b3ff-46e251ca1eee/CloudHQ-LLC",
     "feedUrl": "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/d38e9867-3cd9-4254-b3ff-46e251ca1eee",

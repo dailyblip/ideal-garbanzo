@@ -427,128 +427,15 @@
       }
     },
     "reconciliation": {
-      "checkedAt": "2026-09-24T11:09:49.726Z",
-      "rawJobs": 231,
-      "publishedUsJobs": 182,
-      "nonUsRemoved": 28,
-      "unresolvedLocationRemoved": 4,
-      "siteCodeLocationsResolved": 26,
-      "siteCodeLocationSamples": [
-        {
-          "company": "CyrusOne",
-          "title": "Critical Environments Operator III",
-          "before": "DFW3",
-          "after": "Allen, TX"
-        },
-        {
-          "company": "CyrusOne",
-          "title": "Critical Environments Operator III",
-          "before": "NVA5",
-          "after": "Sterling, VA"
-        },
-        {
-          "company": "CyrusOne",
-          "title": "Critical Environments Operator I",
-          "before": "NVA1",
-          "after": "Sterling, VA"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Critical Facilities Maintenance Technician",
-          "before": "PDX-01",
-          "after": "Hillsboro, OR"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Critical Facilities Technician",
-          "before": "DFW01_02",
-          "after": "Plano, TX"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Critical Facilities Technician",
-          "before": "ORD-03",
-          "after": "Elk Grove Village, IL"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Critical Facilities Technician",
-          "before": "PDX-01",
-          "after": "Hillsboro, OR"
-        },
-        {
-          "company": "Aligned Data Centers",
-          "title": "Critical Facilities Technician",
-          "before": "DFW-04",
-          "after": "Plano, TX"
-        }
-      ],
-      "nonUsSamples": [
-        {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facilities Technician, NA",
-          "location": "Montreal, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Electrical Technician, NA",
-          "location": "Montreal, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Reliability Engineer Specialist, Mechanical, APAC",
-          "location": "Cyberjaya, Malaysia"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facility Engineer, JHB",
-          "location": "Johor, Malaysia"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "HVAC Technician, NA",
-          "location": "Montreal, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Stationary Mechanical Technician, NA",
-          "location": "Montreal, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facilities Technician",
-          "location": "Zurich, Switzerland"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facilities Engineer, Japan",
-          "location": "Osaka, Japan"
-        }
-      ],
-      "unresolvedLocationSamples": [
-        {
-          "company": "Vantage Data Centers",
-          "title": "Electrical Technician, NA",
-          "location": "Quebec City, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "HVAC Technician, NA",
-          "location": "Quebec City, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Stationary Mechanical Technician, NA",
-          "location": "Quebec City, Quebec"
-        },
-        {
-          "company": "Vantage Data Centers",
-          "title": "Critical Facilities Technician",
-          "location": "DUB11"
-        }
-      ],
-      "missionFitRemoved": 3,
-      "missionFitPreservedParityMode": "coverage"
+      "checkedAt": "2026-09-24T12:17:57.815Z",
+      "rawJobs": 183,
+      "publishedUsJobs": 183,
+      "nonUsRemoved": 0,
+      "unresolvedLocationRemoved": 0,
+      "siteCodeLocationsResolved": 0,
+      "siteCodeLocationSamples": [],
+      "nonUsSamples": [],
+      "unresolvedLocationSamples": []
     },
     "fallbackFreshness": {
       "maxAgeHours": 96,
@@ -608,10 +495,1674 @@
       "STACK Infrastructure": 6,
       "NTT Global Data Centers": 20,
       "Aligned Data Centers": 35
+    },
+    "roleEvidence": {
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/Critical-Operations-Technician-I_R2026-2164-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/Critical-Operations-Technician-I_R2026-2164-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Critical-Operations-Technician-I_R2026-2130-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Critical-Operations-Technician-I_R2026-2130-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician-I-20_R2026-2146": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I-20",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician-I-20_R2026-2146",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Critical-Environment-Engineer_R2026-2113": {
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Critical-Environment-Engineer_R2026-2113",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Allen-TX/Critical-Environments-Operator-IV_R0007925": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Allen-TX/Critical-Environments-Operator-IV_R0007925",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Lebanon-OH/Critical-Environments-Operator-IV_JLL267310-1": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Lebanon-OH/Critical-Environments-Operator-IV_JLL267310-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/Data-Center-Technician-L1_JR102087": {
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/Data-Center-Technician-L1_JR102087",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician-I-21_R2026-2085": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I-21",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician-I-21_R2026-2085",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Phoenix-Arizona/Critical-Facilities-Engineer_R23169": {
+        "company": "Vantage Data Centers",
+        "title": "Critical Facilities Engineer, NA",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Phoenix-Arizona/Critical-Facilities-Engineer_R23169",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Hillsboro-OR/Critical-Environment-Engineer-1_R2026-0982-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Hillsboro-OR/Critical-Environment-Engineer-1_R2026-0982-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Operator-IV_R0006938-1": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Operator-IV_R0006938-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Technician-III_R0007220": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Technician-III_R0007220",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Development-Project-Engineer--Data-Center-Construction-_R2026-2119": {
+        "company": "QTS Data Centers",
+        "title": "Development Project Engineer (Data Center Construction)",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Development-Project-Engineer--Data-Center-Construction-_R2026-2119",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Manassas-VA/Critical-Operations-Technician-I_R2026-2108": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Manassas-VA/Critical-Operations-Technician-I_R2026-2108",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Ashburn-VA/OSC-Facilities-Support-Engineer-I_R2026-2105": {
+        "company": "QTS Data Centers",
+        "title": "OSC Facilities Support Engineer I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Ashburn-VA/OSC-Facilities-Support-Engineer-I_R2026-2105",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Facilities-Operations-Analyst_R2026-2069-2": {
+        "company": "QTS Data Centers",
+        "title": "Facilities Operations Analyst",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Facilities-Operations-Analyst_R2026-2069-2",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Lebanon-OH/MARC--Monitoring--Analysis--Response--and-Communication--Technician_R0007921-1": {
+        "company": "CyrusOne",
+        "title": "MARC (Monitoring, Analysis, Response, and Communication) Technician",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Lebanon-OH/MARC--Monitoring--Analysis--Response--and-Communication--Technician_R0007921-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/DFW3/Critical-Environments-Operator-III_JLL267318-1": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/DFW3/Critical-Environments-Operator-III_JLL267318-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator-II_R0008067-1": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator II",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator-II_R0008067-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator-I_R0008066": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator I",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator-I_R0008066",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Norwalk-CT/Critical-Environments-Operator-IV_R0008064": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Norwalk-CT/Critical-Environments-Operator-IV_R0008064",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/Mansfield-TX/Critical-Facilities-Technician_JR101199": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/Mansfield-TX/Critical-Facilities-Technician_JR101199",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Richardson-TX/Critical-Environments-Operator-II_R0008051": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator II",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Richardson-TX/Critical-Environments-Operator-II_R0008051",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator-II_R0008044": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator II",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator-II_R0008044",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/NVA5/Critical-Environments-Operator-III_R0007691": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/NVA5/Critical-Environments-Operator-III_R0007691",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/San-Antonio-Texas/Critical-Facilities-Engineer--NA_R24643": {
+        "company": "Vantage Data Centers",
+        "title": "Critical Facilities Engineer, NA",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/San-Antonio-Texas/Critical-Facilities-Engineer--NA_R24643",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-TX-Turkey-1-DC1/Critical-Operations-Technician-I_R2026-2072-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-TX-Turkey-1-DC1/Critical-Operations-Technician-I_R2026-2072-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/Data-Center-Technician-L1_JR102055": {
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/Data-Center-Technician-L1_JR102055",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Santa-Clara-California/Operations-Asset-Specialist--NA_R21019": {
+        "company": "Vantage Data Centers",
+        "title": "Operations Asset Specialist, NA",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Santa-Clara-California/Operations-Asset-Specialist--NA_R21019",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Plano-TX/Critical-Operations-Technician_JR00128": {
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Technician II",
+        "sourceUrl": "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Plano-TX/Critical-Operations-Technician_JR00128",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Ashburn-VA/Critical-Operations-Technician-I_R2026-2048": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Ashburn-VA/Critical-Operations-Technician-I_R2026-2048",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-KS-Overland-Park-College/Mechanical-Engineer--Onsite-Generation_R2026-2012": {
+        "company": "QTS Data Centers",
+        "title": "Mechanical Engineer, Onsite Generation",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-KS-Overland-Park-College/Mechanical-Engineer--Onsite-Generation_R2026-2012",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator-III_R0007750-1": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator-III_R0007750-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PDX-01/Critical-Facilities-Maintenance-Technician_JR101177": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PDX-01/Critical-Facilities-Maintenance-Technician_JR101177",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW01_02/Critical-Facilities-Technician_JR101176": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW01_02/Critical-Facilities-Technician_JR101176",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Manassas-VA/Critical-Operations-Technician-I--Night-Shift-_JR00365": {
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Technician I (Night Shift)",
+        "sourceUrl": "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Manassas-VA/Critical-Operations-Technician-I--Night-Shift-_JR00365",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Santa-Clara-California/Critical-Facilities-Engineer--NA--Electrical-_R21712": {
+        "company": "Vantage Data Centers",
+        "title": "Critical Facilities Engineer, NA",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Santa-Clara-California/Critical-Facilities-Engineer--NA--Electrical-_R21712",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/York-SC/Development-Specialist--Data-Center-Construction-_R2026-2011-1": {
+        "company": "QTS Data Centers",
+        "title": "Development Specialist (Data Center Construction)",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/York-SC/Development-Specialist--Data-Center-Construction-_R2026-2011-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Atlanta-GA/Summer-2027-Internship--Facilities-Engineering-and-Commissioning_R2026-1971": {
+        "company": "QTS Data Centers",
+        "title": "Summer 2027 Internship: Facilities Engineering and Commissioning",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Atlanta-GA/Summer-2027-Internship--Facilities-Engineering-and-Commissioning_R2026-1971",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Wood-Dale-IL/Service-Delivery-Technician-II_R0007998": {
+        "company": "CyrusOne",
+        "title": "Service Delivery Technician I",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Wood-Dale-IL/Service-Delivery-Technician-II_R0007998",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Aurora-IL/Critical-Environments-Operator--Level-1-4-_R0007657": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Aurora-IL/Critical-Environments-Operator--Level-1-4-_R0007657",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Mesa-Arizona/XMLNAME-1139---Data-Center-Technician-L2_JR101999": {
+        "company": "NTT Global Data Centers",
+        "title": "1139 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Mesa-Arizona/XMLNAME-1139---Data-Center-Technician-L2_JR101999",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Controls-Field-Engineer_R0007837": {
+        "company": "CyrusOne",
+        "title": "Controls Field Engineer",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Controls-Field-Engineer_R0007837",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Virginia-United-States-of-America/XMLNAME-914---Data-Center-Technician-L2_JR101240": {
+        "company": "NTT Global Data Centers",
+        "title": "914 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Virginia-United-States-of-America/XMLNAME-914---Data-Center-Technician-L2_JR101240",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/New-Albany-Ohio/Critical-Facilities-Engineer--NA_R21351-1": {
+        "company": "Vantage Data Centers",
+        "title": "Critical Facilities Engineer, NA",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/New-Albany-Ohio/Critical-Facilities-Engineer--NA_R21351-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator-IV_R0007368": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator-IV_R0007368",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Operator-II_R0008016": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator II",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Operator-II_R0008016",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Operator-I_R0008015-1": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator I",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/New-Albany-OH/Critical-Environments-Operator-I_R0008015-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Elk-Grove-Village-IL/Apprentice-Critical-Operations-Technician_JR00363": {
+        "company": "STACK Infrastructure",
+        "title": "Apprentice Critical Operations Technician",
+        "sourceUrl": "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Elk-Grove-Village-IL/Apprentice-Critical-Operations-Technician_JR00363",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-03/Critical-Facilities-Technician_JR101166": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-03/Critical-Facilities-Technician_JR101166",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PDX-01/Critical-Facilities-Technician_JR101165": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PDX-01/Critical-Facilities-Technician_JR101165",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Service-Delivery-Technician-II_R0007940": {
+        "company": "CyrusOne",
+        "title": "Service Delivery Technician II",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Service-Delivery-Technician-II_R0007940",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/San-Jose-CA/Critical-Operations-Technician_JR00233": {
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Technician",
+        "sourceUrl": "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/San-Jose-CA/Critical-Operations-Technician_JR00233",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Sterling-Virginia/Critical-Facilities-Engineer--NA--Data-Center-_R24221": {
+        "company": "Vantage Data Centers",
+        "title": "Critical Facilities Engineer, NA (Data Center)",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Sterling-Virginia/Critical-Facilities-Engineer--NA--Data-Center-_R24221",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Reno-Nevada/Critical-Facilities-Engineers--NA---Electrical-Mechanical-_R24281": {
+        "company": "Vantage Data Centers",
+        "title": "Critical Facilities Engineers, NA (Electrical/Mechanical)",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Reno-Nevada/Critical-Facilities-Engineers--NA---Electrical-Mechanical-_R24281",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Santa-Clara-California/Automation---Controls-Technician--NA_R23566": {
+        "company": "Vantage Data Centers",
+        "title": "Automation & Controls Technician, NA",
+        "sourceUrl": "https://vantagedc.wd1.myworkdayjobs.com/en-US/Vantage/job/Santa-Clara-California/Automation---Controls-Technician--NA_R23566",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/New-Albany-OH/Critical-Operations-Technician-I_R2026-1841": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/New-Albany-OH/Critical-Operations-Technician-I_R2026-1841",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Commissioning-Engineer-II--Mechanical-_R2026-1859-1": {
+        "company": "QTS Data Centers",
+        "title": "Commissioning Engineer II (Mechanical)",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Commissioning-Engineer-II--Mechanical-_R2026-1859-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/NVA1/Critical-Environments-Operator-I_JLL260543-1": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator I",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/NVA1/Critical-Environments-Operator-I_JLL260543-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-06/Critical-Facilities-Technician_JR101160": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-06/Critical-Facilities-Technician_JR101160",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Hillsboro-OR/Operations-Technician-II_JR00221": {
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Technician II",
+        "sourceUrl": "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Hillsboro-OR/Operations-Technician-II_JR00221",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Commissioning-Engineer-II_R2026-1951": {
+        "company": "QTS Data Centers",
+        "title": "Commissioning Engineer II",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Commissioning-Engineer-II_R2026-1951",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-07/Critical-Facilities-Maintenance-Technician_JR101158": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-07/Critical-Facilities-Maintenance-Technician_JR101158",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Critical-Environment-Engineer_R2026-1395-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Critical-Environment-Engineer_R2026-1395-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Ashburn-VA/Critical-Environments-Operator-II_R0007970": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator II",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Ashburn-VA/Critical-Environments-Operator-II_R0007970",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/Commissioning-Engineer-II_R2026-1920": {
+        "company": "QTS Data Centers",
+        "title": "Commissioning Engineer II",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Richmond-VA/Commissioning-Engineer-II_R2026-1920",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Irving-TX/Summer-2027-Internship--Internal-Data-Center-Infrastructure-Projects_R2026-1906": {
+        "company": "QTS Data Centers",
+        "title": "Summer 2027 Internship: Internal Data Center Infrastructure Projects",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Irving-TX/Summer-2027-Internship--Internal-Data-Center-Infrastructure-Projects_R2026-1906",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Data-Center-Infrastructure-Management--DCIM-_R2026-1892": {
+        "company": "QTS Data Centers",
+        "title": "Summer 2027 Internship: Data Center Infrastructure Management (DCIM)",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Summer-2027-Internship--Data-Center-Infrastructure-Management--DCIM-_R2026-1892",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Ashburn-VA/Critical-Environments-Operator-III_R0007951": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Ashburn-VA/Critical-Environments-Operator-III_R0007951",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/Data-Center-Technician-L2_R-138957": {
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/Data-Center-Technician-L2_R-138957",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Critical-Operations-Technician-I_R2026-1880-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I (Nights)",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Critical-Operations-Technician-I_R2026-1880-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator-IV_R0007860": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator-IV_R0007860",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Houston-TX/Critical-Environments-Operator--Level-1-4-_R0007763": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Houston-TX/Critical-Environments-Operator--Level-1-4-_R0007763",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1684---Facility-Technician_JR101939": {
+        "company": "NTT Global Data Centers",
+        "title": "1684 - Facility Technician",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1684---Facility-Technician_JR101939",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Sacramento-CA/XMLNAME-1012---Data-Center-Technician-L1_JR101974": {
+        "company": "NTT Global Data Centers",
+        "title": "1012 - Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Sacramento-CA/XMLNAME-1012---Data-Center-Technician-L1_JR101974",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-01/Facility-Technician_JR101149": {
+        "company": "Aligned Data Centers",
+        "title": "Facility Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-01/Facility-Technician_JR101149",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-03/Critical-Facilities-Maintenance-Technician_JR101148": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-03/Critical-Facilities-Maintenance-Technician_JR101148",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Glendale-AZ/QTS-Commissioning-Team_R2026-1883-1": {
+        "company": "QTS Data Centers",
+        "title": "QTS Commissioning Team",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Glendale-AZ/QTS-Commissioning-Team_R2026-1883-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Ashburn-VA/Critical-Environments-Operator-IV_R0007346": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Ashburn-VA/Critical-Environments-Operator-IV_R0007346",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Denver-CO/Commissioning-Engineer-II_R2026-1861": {
+        "company": "QTS Data Centers",
+        "title": "Commissioning Engineer II",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Denver-CO/Commissioning-Engineer-II_R2026-1861",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Commissioning-Engineer-II_R2026-1858-1": {
+        "company": "QTS Data Centers",
+        "title": "Commissioning Engineer II",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Commissioning-Engineer-II_R2026-1858-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Council-Bluffs-IA/Critical-Environments-Operator--Level-1-4-_R0007668": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Council-Bluffs-IA/Critical-Environments-Operator--Level-1-4-_R0007668",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Austin-TX/Critical-Environments-Operator--Level-1-4-_R0007762": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Austin-TX/Critical-Environments-Operator--Level-1-4-_R0007762",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Durham-NC/Critical-Environments-Operator--Level-1-4-_R0007628": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Durham-NC/Critical-Environments-Operator--Level-1-4-_R0007628",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator--Level-1-4-_R0007526": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator--Level-1-4-_R0007526",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Houston-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007617": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Houston-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007617",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/York-SC/Commissioning-Engineer-II_R2026-1843-1": {
+        "company": "QTS Data Centers",
+        "title": "Commissioning Engineer II",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/York-SC/Commissioning-Engineer-II_R2026-1843-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Chicago-IL/Critical-Operations-Technician-I_R2026-1824-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Chicago-IL/Critical-Operations-Technician-I_R2026-1824-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Critical-Operations-Technician-I_R2026-1839-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Critical-Operations-Technician-I_R2026-1839-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Service-Delivery-Technician--Level-1-3-_R0007923": {
+        "company": "CyrusOne",
+        "title": "Service Delivery Technician (Level 1-3)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Service-Delivery-Technician--Level-1-3-_R0007923",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Durham-NC/Critical-Environments-Operator-II_JLL260551": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator II",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Durham-NC/Critical-Environments-Operator-II_JLL260551",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007618": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007618",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator--Level-1-4-_R0007527": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator--Level-1-4-_R0007527",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Cincinnati-OH/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007608": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Cincinnati-OH/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007608",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-03/Critical-Facilities-Technician_JR101087": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-03/Critical-Facilities-Technician_JR101087",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-03/Critical-Facilities-Technician_JR100431": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-03/Critical-Facilities-Technician_JR100431",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1127---Data-Center-Technician-L2_JR101912": {
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1127---Data-Center-Technician-L2_JR101912",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-06/Critical-Facilities-Maintenance-Technician_JR101115": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-06/Critical-Facilities-Maintenance-Technician_JR101115",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-06/Critical-Facilities-Technician_JR101108": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-06/Critical-Facilities-Technician_JR101108",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Wilmer-TX/Critical-Operations-Technician-I--Days-_R2026-0038-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Wilmer-TX/Critical-Operations-Technician-I--Days-_R2026-0038-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Technical-Operations-Trainer_R2026-1668-1": {
+        "company": "QTS Data Centers",
+        "title": "Technical Operations Trainer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Technical-Operations-Trainer_R2026-1668-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-04/Facilities-Technician_JR101094-1": {
+        "company": "Aligned Data Centers",
+        "title": "Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-04/Facilities-Technician_JR101094-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-03/Critical-Facilities-Maintenance-Technician_JR101091": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-03/Critical-Facilities-Maintenance-Technician_JR101091",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-03/Facilities-Technician_JR101089": {
+        "company": "Aligned Data Centers",
+        "title": "Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-03/Facilities-Technician_JR101089",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-02/Facilities-Technician_JR101086": {
+        "company": "Aligned Data Centers",
+        "title": "Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-02/Facilities-Technician_JR101086",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-01/Critical-Facilities-Technician_JR101084": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-01/Critical-Facilities-Technician_JR101084",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/SLC-02/Critical-Facilities-Technician_JR100928": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/SLC-02/Critical-Facilities-Technician_JR100928",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator-III_R0007582": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator-III_R0007582",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/Conesville-OH/Critical-Facilities-Maintenance-Technician_JR101077": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/Conesville-OH/Critical-Facilities-Maintenance-Technician_JR101077",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/Conesville-OH/Critical-Facilities-Technician_JR101074": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/Conesville-OH/Critical-Facilities-Technician_JR101074",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/NEO-01/Critical-Facilities-Maintenance-Technician_JR100970": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/NEO-01/Critical-Facilities-Maintenance-Technician_JR100970",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/NEO-01/Critical-Facilities-Technician_JR100971": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/NEO-01/Critical-Facilities-Technician_JR100971",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician-I-6_R2026-1758": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I-6",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician-I-6_R2026-1758",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/OSC-Facilities-Support-Engineer-I_R2026-1751": {
+        "company": "QTS Data Centers",
+        "title": "OSC Facilities Support Engineer I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/OSC-Facilities-Support-Engineer-I_R2026-1751",
+        "firstUnverifiedAt": "2026-09-24T12:17:47.913Z",
+        "lastState": "transient",
+        "lastStatus": 403,
+        "lastError": null
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator--Level-1-4-_R0007529": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator--Level-1-4-_R0007529",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-5174---Data-Center-Technician-L2_JR101129": {
+        "company": "NTT Global Data Centers",
+        "title": "5174 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-5174---Data-Center-Technician-L2_JR101129",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator--Level-1-4-_R0007415": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Critical-Environments-Operator--Level-1-4-_R0007415",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Critical-Operations-Technician-I--Nights-_R2026-1744-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I (Nights)",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Eagle-Mountain-UT/Critical-Operations-Technician-I--Nights-_R2026-1744-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician-I_R2026-1638-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician I",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician-I_R2026-1638-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician_R2026-1599-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Operations Technician",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Cedar-Rapids-IA/Critical-Operations-Technician_R2026-1599-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-GA-Atlanta-Suwanee-1-DC1/Regional-Data-Center-Controls-Quality-Engineer_R2026-0768-1": {
+        "company": "QTS Data Centers",
+        "title": "Regional Data Center Controls Quality Engineer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-GA-Atlanta-Suwanee-1-DC1/Regional-Data-Center-Controls-Quality-Engineer_R2026-0768-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-VA-Manassas-1-DC1/Critical-Environment-Engineer_R2026-1093-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-VA-Manassas-1-DC1/Critical-Environment-Engineer_R2026-1093-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Fayetteville-GA/Development-Project-Engineer--Data-Center-Construction-MEPR-_R2026-1101": {
+        "company": "QTS Data Centers",
+        "title": "Development Project Engineer (Data Center Construction MEPR)",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Fayetteville-GA/Development-Project-Engineer--Data-Center-Construction-MEPR-_R2026-1101",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-VA-Ashburn-1-DC1/Critical-Environment-Engineer_R2026-0917-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-VA-Ashburn-1-DC1/Critical-Environment-Engineer_R2026-0917-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Critical-Environment-Engineer_R2026-0983-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Suwanee-GA/Critical-Environment-Engineer_R2026-0983-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Lebanon-OH/MARC-Technician_R0007831": {
+        "company": "CyrusOne",
+        "title": "MARC Technician",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Lebanon-OH/MARC-Technician_R0007831",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/San-Antonio-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007619": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/San-Antonio-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007619",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Durham-NC/Critical-Environments-Operator-IV_JLL260549": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Durham-NC/Critical-Environments-Operator-IV_JLL260549",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Fort-Worth-TX/Critical-Environments-Operator-III_R0007173": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Fort-Worth-TX/Critical-Environments-Operator-III_R0007173",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Quincy-WA/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007616": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Quincy-WA/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007616",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007615": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Chandler-AZ/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007615",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007614": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Sterling-VA/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007614",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Council-Bluffs-IA/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007613": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Council-Bluffs-IA/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007613",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Wappingers-Falls-NY/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007612": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Wappingers-Falls-NY/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007612",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Durham-NC/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007611": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Durham-NC/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007611",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Austin-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007610": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4) - NIGHT SHIFT",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Austin-TX/Critical-Environments-Operator--Level-1-4----NIGHT-SHIFT_R0007610",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Cincinnati-OH/Critical-Environments-Operator--Level-1-4-_R0007528": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator (Level 1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Cincinnati-OH/Critical-Environments-Operator--Level-1-4-_R0007528",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/San-Antonio-TX/Critical-Environment-Operator-Level--1-4-_R0007589": {
+        "company": "CyrusOne",
+        "title": "Critical Environment Operator Level (1-4)",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/San-Antonio-TX/Critical-Environment-Operator-Level--1-4-_R0007589",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Aurora-IL/Service-Delivery-Technician-III_R0006871": {
+        "company": "CyrusOne",
+        "title": "Service Delivery Technician III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Aurora-IL/Service-Delivery-Technician-III_R0006871",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Fort-Worth-TX/Critical-Environments-Operator-I_R0007175": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Technician I",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Fort-Worth-TX/Critical-Environments-Operator-I_R0007175",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator-IV_R0006920-7": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator IV",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator-IV_R0006920-7",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator-III_R0006416": {
+        "company": "CyrusOne",
+        "title": "Critical Environments Operator III",
+        "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Carrollton-TX/Critical-Environments-Operator-III_R0006416",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Elk-Grove-Village-IL/Critical-Operations-Technician_JR00277": {
+        "company": "STACK Infrastructure",
+        "title": "Critical Operations Technician",
+        "sourceUrl": "https://stackinfra.wd108.myworkdayjobs.com/en-US/STACK_AMER/job/Elk-Grove-Village-IL/Critical-Operations-Technician_JR00277",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/Data-Center-Technician-L1_JR101198": {
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/Data-Center-Technician-L1_JR101198",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-5155---Data-Center-IT-Infrastructure-Technician_JR101533": {
+        "company": "NTT Global Data Centers",
+        "title": "5155 - Data Center IT Infrastructure Technician",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-5155---Data-Center-IT-Infrastructure-Technician_JR101533",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-5177---Facility-Technician_JR101848": {
+        "company": "NTT Global Data Centers",
+        "title": "5177 - Facility Technician",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-5177---Facility-Technician_JR101848",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Sacramento-CA/XMLNAME-968---Data-Center-Technician-L2_JR101839": {
+        "company": "NTT Global Data Centers",
+        "title": "968 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Sacramento-CA/XMLNAME-968---Data-Center-Technician-L2_JR101839",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/XMLNAME-2227---Data-Center-Technician-L2_JR100436": {
+        "company": "NTT Global Data Centers",
+        "title": "2227 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/XMLNAME-2227---Data-Center-Technician-L2_JR100436",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101540": {
+        "company": "NTT Global Data Centers",
+        "title": "DoW SkillBridge Data Center Technician Apprentice",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101540",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Gainesville-Virginia/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101541": {
+        "company": "NTT Global Data Centers",
+        "title": "DoW SkillBridge Data Center Technician Apprentice",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Gainesville-Virginia/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101541",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101543": {
+        "company": "NTT Global Data Centers",
+        "title": "DoW SkillBridge Data Center Technician Apprentice",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101543",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Mesa-Arizona/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101538": {
+        "company": "NTT Global Data Centers",
+        "title": "DoW SkillBridge Data Center Technician Apprentice",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Mesa-Arizona/DoW-SkillBridge-Data-Center-Technician-Apprentice_JR101538",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Sacramento-CA/XMLNAME-1652---Facilities-Technician_JR101082": {
+        "company": "NTT Global Data Centers",
+        "title": "1652 - Facilities Technician",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Sacramento-CA/XMLNAME-1652---Facilities-Technician_JR101082",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-1062---Data-Center-Technician-L2_JR101252-1": {
+        "company": "NTT Global Data Centers",
+        "title": "1062 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-1062---Data-Center-Technician-L2_JR101252-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-01/Critical-Facilities-Technician_JR100737": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/ORD-01/Critical-Facilities-Technician_JR100737",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW01_02/Mechanical-Engineer_JR100941-1": {
+        "company": "Aligned Data Centers",
+        "title": "Mechanical Engineer",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW01_02/Mechanical-Engineer_JR100941-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/SLC-04/Critical-Facilities-Technician_JR101015": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/SLC-04/Critical-Facilities-Technician_JR101015",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-02/Critical-Facilities-Technician_JR101013": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-02/Critical-Facilities-Technician_JR101013",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/Mansfield-TX/Critical-Facility-Maintenance-Technician_JR100955": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facility Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/Mansfield-TX/Critical-Facility-Maintenance-Technician_JR100955",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW-04/Critical-Facility-Maintenance-Technician_JR100954": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facility Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW-04/Critical-Facility-Maintenance-Technician_JR100954",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW01_02/Associate-Mechanical-Engineer_JR100945": {
+        "company": "Aligned Data Centers",
+        "title": "Associate Mechanical Engineer",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW01_02/Associate-Mechanical-Engineer_JR100945",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW01_02/Associate-Electrical-Engineer_JR100944": {
+        "company": "Aligned Data Centers",
+        "title": "Associate Electrical Engineer",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/DFW01_02/Associate-Electrical-Engineer_JR100944",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-02/Critical-Facilities-Maintenance-Technician_JR100936": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Maintenance Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/IAD-02/Critical-Facilities-Maintenance-Technician_JR100936",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-07/Electrical-Engineer_JR100905": {
+        "company": "Aligned Data Centers",
+        "title": "Electrical Engineer",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-07/Electrical-Engineer_JR100905",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-13/Critical-Facilities-Technician_JR100891": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-13/Critical-Facilities-Technician_JR100891",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-07/Critical-Facilities-Technician_JR100832": {
+        "company": "Aligned Data Centers",
+        "title": "Critical Facilities Technician",
+        "sourceUrl": "https://aligneddc.wd12.myworkdayjobs.com/en-US/aligneddc/job/PHX-07/Critical-Facilities-Technician_JR100832",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-GA-Atlanta-Suwanee-1-DC1/Regional-Data-Center-Controls-Quality-Engineer--CBQE-_R2026-0881-2": {
+        "company": "QTS Data Centers",
+        "title": "Regional Data Center Controls Quality Engineer (CBQE)",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-GA-Atlanta-Suwanee-1-DC1/Regional-Data-Center-Controls-Quality-Engineer--CBQE-_R2026-0881-2",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-OR-Hillsboro-1-DC1/Critical-Environment-Engineer_R2026-0893-1": {
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/US-OR-Hillsboro-1-DC1/Critical-Environment-Engineer_R2026-0893-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-5175---Data-Center-Technician-L2_JR101473": {
+        "company": "NTT Global Data Centers",
+        "title": "5175 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-5175---Data-Center-Technician-L2_JR101473",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1171---Data-Center-Technician-L2_JR101677": {
+        "company": "NTT Global Data Centers",
+        "title": "1171 - Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1171---Data-Center-Technician-L2_JR101677",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Mesa-Arizona/XMLNAME-1046---Data-Center-Technician-L2_JR101981": {
+        "company": "NTT Global Data Centers",
+        "title": "1046 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Mesa-Arizona/XMLNAME-1046---Data-Center-Technician-L2_JR101981",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-1107---Data-Center-Technician-L1_JR101968": {
+        "company": "NTT Global Data Centers",
+        "title": "1107 - Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-1107---Data-Center-Technician-L1_JR101968",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1185---Data-Center-Technician-L2_JR101861": {
+        "company": "NTT Global Data Centers",
+        "title": "1185 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Hillsboro-Oregon/XMLNAME-1185---Data-Center-Technician-L2_JR101861",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-1113---Data-Center-Technician-L2_JR101929": {
+        "company": "NTT Global Data Centers",
+        "title": "1113 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-1113---Data-Center-Technician-L2_JR101929",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-1143---Data-Center-Technician-L1_JR101847": {
+        "company": "NTT Global Data Centers",
+        "title": "1143 - Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-1143---Data-Center-Technician-L1_JR101847",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-3592---Data-Center-IT-Infrastructure-Technician_JR101799": {
+        "company": "NTT Global Data Centers",
+        "title": "3592 - Data Center IT Infrastructure Technician",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-3592---Data-Center-IT-Infrastructure-Technician_JR101799",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/XMLNAME-1120---Data-Center-Technician-L2_JR101821": {
+        "company": "NTT Global Data Centers",
+        "title": "1120 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/XMLNAME-1120---Data-Center-Technician-L2_JR101821",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-989---Data-Center-Technician-L1_JR101681": {
+        "company": "NTT Global Data Centers",
+        "title": "989 - Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-989---Data-Center-Technician-L1_JR101681",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-955---Data-Center-Technician-L1_JR101746": {
+        "company": "NTT Global Data Centers",
+        "title": "955 - Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-955---Data-Center-Technician-L1_JR101746",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/XMLNAME-1162---Data-Center-Technician-L2_JR101755": {
+        "company": "NTT Global Data Centers",
+        "title": "1162 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/XMLNAME-1162---Data-Center-Technician-L2_JR101755",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-919---Data-Center-Technician-L1_JR101610": {
+        "company": "NTT Global Data Centers",
+        "title": "919 - Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-919---Data-Center-Technician-L1_JR101610",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/XMLNAME-5203---Data-Center-Technician-L2_JR100547": {
+        "company": "NTT Global Data Centers",
+        "title": "5203 - Data Center Technician L2",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Garland-Texas/XMLNAME-5203---Data-Center-Technician-L2_JR100547",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      },
+      "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-5166---Data-Center-Technician-L1_JR100813-1": {
+        "company": "NTT Global Data Centers",
+        "title": "5166 - Data Center Technician L1",
+        "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Chicago-Illinois/XMLNAME-5166---Data-Center-Technician-L1_JR100813-1",
+        "lastVerifiedAt": "2026-09-24T12:17:47.913Z",
+        "firstUnverifiedAt": null,
+        "lastState": "live",
+        "lastStatus": 200
+      }
+    },
+    "closedRolePrune": {
+      "checkedAt": "2026-09-24T12:17:47.913Z",
+      "officialRoleUrlsChecked": 183,
+      "liveVerified": 182,
+      "removed": 0,
+      "closedRemoved": 0,
+      "staleEvidenceRemoved": 0,
+      "removedClosedByCompany": {},
+      "removedStaleEvidenceByCompany": {},
+      "transientKept": 1,
+      "removedRoles": [],
+      "maxPerRoleEvidenceAgeHours": 96,
+      "healthyStampIntervalHours": 20,
+      "policy": "Remove priority Workday roles immediately on official HTTP 404/410. For transient detail failures, each role must regain its own successful official detail verification within 96 hours; a newly tracked role gets one bounded grace window instead of being removed on its first transient check. Aggregate employer health cannot indefinitely protect an unverified role."
     }
   },
   "majorTargetedRecovery": {
-    "checkedAt": "2026-09-24T11:12:42.274Z",
+    "checkedAt": "2026-09-24T12:16:56.938Z",
     "officialOnly": true,
     "additiveOnly": true,
     "searchPaginationPolicy": "paginate-to-reported-total",
@@ -723,16 +2274,16 @@
         "queriesAttempted": 10,
         "queriesSucceeded": 10,
         "queriesIncomplete": 0,
-        "candidates": 68,
-        "qualifyingRoles": 43,
+        "candidates": 67,
+        "qualifyingRoles": 42,
         "additions": 0,
         "queryStats": [
           {
             "searchText": "data center",
             "healthy": true,
             "complete": true,
-            "rows": 278,
-            "reportedTotal": 278,
+            "rows": 277,
+            "reportedTotal": 277,
             "pagesAttempted": 14,
             "pagesSucceeded": 14
           },
@@ -740,8 +2291,8 @@
             "searchText": "critical facilities",
             "healthy": true,
             "complete": true,
-            "rows": 151,
-            "reportedTotal": 151,
+            "rows": 150,
+            "reportedTotal": 150,
             "pagesAttempted": 8,
             "pagesSucceeded": 8
           },
@@ -749,8 +2300,8 @@
             "searchText": "critical environment",
             "healthy": true,
             "complete": true,
-            "rows": 184,
-            "reportedTotal": 184,
+            "rows": 183,
+            "reportedTotal": 183,
             "pagesAttempted": 10,
             "pagesSucceeded": 10
           },
@@ -758,8 +2309,8 @@
             "searchText": "critical operations",
             "healthy": true,
             "complete": true,
-            "rows": 210,
-            "reportedTotal": 210,
+            "rows": 209,
+            "reportedTotal": 209,
             "pagesAttempted": 11,
             "pagesSucceeded": 11
           },
@@ -767,8 +2318,8 @@
             "searchText": "mechanical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 78,
-            "reportedTotal": 78,
+            "rows": 77,
+            "reportedTotal": 77,
             "pagesAttempted": 4,
             "pagesSucceeded": 4
           },
@@ -776,8 +2327,8 @@
             "searchText": "electrical engineer",
             "healthy": true,
             "complete": true,
-            "rows": 91,
-            "reportedTotal": 91,
+            "rows": 90,
+            "reportedTotal": 90,
             "pagesAttempted": 5,
             "pagesSucceeded": 5
           },
@@ -826,7 +2377,7 @@
         "queriesIncomplete": 0,
         "candidates": 73,
         "qualifyingRoles": 46,
-        "additions": 0,
+        "additions": 1,
         "queryStats": [
           {
             "searchText": "data center",
@@ -1052,8 +2603,8 @@
             "searchText": "critical environment",
             "healthy": true,
             "complete": true,
-            "rows": 159,
-            "reportedTotal": 159,
+            "rows": 160,
+            "reportedTotal": 160,
             "pagesAttempted": 8,
             "pagesSucceeded": 8
           },
@@ -1226,86 +2777,14 @@
       }
     },
     "publicationScrub": {
-      "checkedAt": "2026-09-24T11:12:42.327Z",
-      "removed": 13,
+      "checkedAt": "2026-09-24T12:16:57.023Z",
+      "removed": 1,
       "removedRoles": [
-        {
-          "company": "NTT Global Data Centers",
-          "title": "3574 - Associate Service Desk Technician",
-          "location": "Ashburn, Virginia",
-          "sourceUrl": "https://nttglobaldatacenters.wd501.myworkdayjobs.com/en-US/External/job/Ashburn-Virgina/XMLNAME-3574---Associate-Service-Desk-Technician_JR101763"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Accounts Payable",
-          "location": "Overland Park, KS",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Accounts-Payable_R2026-2016"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Tableau Analytics and Business Intelligence",
-          "location": "Overland Park, KS",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Tableau-Analytics-and-Business-Intelligence_R2026-2090"
-        },
         {
           "company": "CyrusOne",
           "title": "Data Center Security Technician",
           "location": "Whitney, TX",
           "sourceUrl": "https://cyrusone.wd1.myworkdayjobs.com/en-US/CyrusOneCareerPortal/job/Whitney-TX/Data-Center-Security-Technician_R0008059"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Learning Operations Analyst",
-          "location": "Duluth, GA",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Summer-2027-Internship---Learning-Operations-Analyst_R2026-2076"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Photo and Video Marketing Production",
-          "location": "Overland Park, KS",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Photo-and-Video-Marketing-Production_R2026-2015"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Technology Optimization Project Management",
-          "location": "Phoenix, AZ",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Phoenix-AZ/Summer-2027-Internship--Technology-Optimization-Project-Management_R2026-2023"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Learning and Development Programs Administrator",
-          "location": "Duluth, GA",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Duluth-GA/Summer-2027-Internship--Learning-and-Development-Programs-Administrator_R2026-2017"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Construction Development Project Engineer Intern",
-          "location": "York, SC",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/York-SC/Summer-2027-Internship--Construction-Development-Project-Engineer-Intern_R2026-1968"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Construction Project Engineer",
-          "location": "Fayetteville, GA",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Fayetteville-GA/Summer-2027-Internship--Construction-Project-Engineer_R2026-1967"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Corporate Accounting",
-          "location": "Overland Park, KS",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Corporate-Accounting_R2026-1901"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Legal Assistant",
-          "location": "Overland Park, KS",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Overland-Park-KS/Summer-2027-Internship--Legal-Assistant_R2026-1969"
-        },
-        {
-          "company": "QTS Data Centers",
-          "title": "Summer 2027 Internship: Construction Project Development",
-          "location": "Manassas, VA",
-          "sourceUrl": "https://qtsdatacenters.wd5.myworkdayjobs.com/en-US/QTS/job/Manassas-VA/Summer-2027-Internship---Construction-Project-Development_R2026-1903"
         }
       ],
       "policy": "Reject corporate title families and generic program roles without a clear infrastructure/operations title signal before publication."
@@ -2108,7 +3587,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-24T12:10:38.963Z",
+    "checkedAt": "2026-09-24T12:17:57.980Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2116,9 +3595,50 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-24T12:10:39.047Z",
-    "changed": 0,
-    "samples": [],
+    "updatedAt": "2026-09-24T12:17:58.047Z",
+    "changed": 11,
+    "samples": [
+      {
+        "id": "workday-qtsdatacenters-R2026-0881",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-1093",
+        "before": "US VA Manassas 1 DC1",
+        "after": "Manassas, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0917",
+        "before": "US VA Ashburn 1 DC1",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0893",
+        "before": "US OR Hillsboro 1 DC1",
+        "after": "Hillsboro, OR"
+      },
+      {
+        "id": "workday-qtsdatacenters-R2026-0768",
+        "before": "US GA Atlanta Suwanee 1 DC1",
+        "after": "Suwanee, GA"
+      },
+      {
+        "id": "workday-aligneddc-JR101086",
+        "before": "IAD-02",
+        "after": "Ashburn, VA"
+      },
+      {
+        "id": "workday-aligneddc-JR100970",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      },
+      {
+        "id": "workday-aligneddc-JR100971",
+        "before": "NEO-01",
+        "after": "Sandusky, OH"
+      }
+    ],
     "regionAssigned": 725,
     "regionMissing": 0,
     "coveragePct": 100,
@@ -2126,21 +3646,158 @@
     "countsByRegion": {
       "southeast": 112,
       "northeast": 24,
-      "midwest": 137,
+      "mid-atlantic": 144,
       "southwest": 79,
       "west": 113,
-      "mid-atlantic": 144,
+      "midwest": 137,
       "texas": 115,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-24T12:10:39.125Z",
-    "before": 725,
+    "checkedAt": "2026-09-24T12:17:58.113Z",
+    "before": 742,
     "after": 725,
-    "removed": 0,
+    "removed": 17,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101677",
+        "keptId": "workday-nttglobaldatacenters-JR102055",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101981",
+        "keptId": "workday-nttglobaldatacenters-JR101999",
+        "company": "NTT Global Data Centers",
+        "title": "1139 - Data Center Technician L2",
+        "location": "Mesa, Arizona"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101968",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0893",
+        "keptId": "workday-qtsdatacenters-R2026-0982",
+        "company": "QTS Data Centers",
+        "title": "Critical Environment Engineer",
+        "location": "Hillsboro, OR"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-qtsdatacenters-R2026-0881",
+        "keptId": "workday-qtsdatacenters-R2026-0768",
+        "company": "QTS Data Centers",
+        "title": "Regional Data Center Controls Quality Engineer",
+        "location": "Suwanee, GA"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101929",
+        "keptId": "workday-nttglobaldatacenters-JR101473",
+        "company": "NTT Global Data Centers",
+        "title": "5175 - Data Center Technician L2",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101861",
+        "keptId": "workday-nttglobaldatacenters-JR101912",
+        "company": "NTT Global Data Centers",
+        "title": "1127 - Data Center Technician L2",
+        "location": "Hillsboro, Oregon"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101799",
+        "keptId": "workday-nttglobaldatacenters-JR101533",
+        "company": "NTT Global Data Centers",
+        "title": "5155 - Data Center IT Infrastructure Technician",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101847",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101681",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101746",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101821",
+        "keptId": "workday-nttglobaldatacenters-JR101755",
+        "company": "NTT Global Data Centers",
+        "title": "1162 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101610",
+        "keptId": "workday-nttglobaldatacenters-R-138957",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Ashburn, Virginia"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101473",
+        "keptId": "workday-nttglobaldatacenters-JR101129",
+        "company": "NTT Global Data Centers",
+        "title": "5174 - Data Center Technician L2",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR101755",
+        "keptId": "workday-nttglobaldatacenters-JR100547",
+        "company": "NTT Global Data Centers",
+        "title": "5203 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR100813",
+        "keptId": "workday-nttglobaldatacenters-JR101198",
+        "company": "NTT Global Data Centers",
+        "title": "Data Center Technician L1",
+        "location": "Chicago, Illinois"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "workday-nttglobaldatacenters-JR100547",
+        "keptId": "workday-nttglobaldatacenters-JR100436",
+        "company": "NTT Global Data Centers",
+        "title": "2227 - Data Center Technician L2",
+        "location": "Garland, Texas"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-24T09:45:07.113Z",
@@ -2159,9 +3816,9 @@
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 166,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-24T12:10:39.322Z"
+    "updatedAt": "2026-09-24T12:17:58.219Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3014,13 +4671,15 @@
     "policy": "Publish only seeded early-career Meta data-center requisitions that remain in the official Meta Careers sitemap and whose official JobPosting structured data proves the expected title, U.S. location, and explicit early-career fit. Preserve a previously verified seeded role only while its requisition remains live in the official sitemap."
   },
   "majorExperienceBoundary": {
-    "checkedAt": "2026-09-24T11:12:42.364Z",
+    "checkedAt": "2026-09-24T12:16:57.068Z",
     "policy": "required experience must not be strictly greater than five years",
-    "checked": 186,
+    "checked": 183,
     "pruned": 0,
     "prunedRoles": [],
-    "detailErrors": 0,
-    "errors": []
+    "detailErrors": 1,
+    "errors": [
+      "QTS Data Centers — OSC Facilities Support Engineer I: 403 https://qtsdatacenters.wd5.myworkdayjobs.com/wday/cxs/qtsdatacenters/QTS/job/Suwanee-GA/OSC-Facilities-Support-Engineer-I_R2026-1751"
+    ]
   },
   "metaExperienceCeiling": {
     "checkedAt": "2026-09-21T02:55:30.393Z",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T05:02:21.312Z",
+  "updatedAt": "2026-09-25T05:09:55.717Z",
   "jobs": 710,
   "sourcesAttempted": 19,
   "providers": {
@@ -15,8 +15,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 281,
     "0-2-years": 402,
+    "2-5-years": 281,
     "no-experience": 27
   },
   "errors": [],
@@ -2118,7 +2118,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T05:07:44.573Z",
+    "checkedAt": "2026-09-25T05:09:55.814Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2126,7 +2126,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T05:07:44.628Z",
+    "updatedAt": "2026-09-25T05:09:55.896Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -2134,10 +2134,10 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 108,
       "west": 111,
-      "midwest": 131,
+      "southeast": 108,
       "texas": 118,
+      "midwest": 131,
       "mid-atlantic": 140,
       "southwest": 78,
       "northeast": 23,
@@ -2145,7 +2145,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T05:07:44.680Z",
+    "checkedAt": "2026-09-25T05:09:55.972Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -2163,8 +2163,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1337,
     "currentJobs": 710,
-    "scopeCompany": "Sabey Data Centers",
-    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2172,8 +2170,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T05:07:44.808Z"
+    "firstSeenRecencyFallbackJobs": 86,
+    "updatedAt": "2026-09-25T05:09:56.171Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2306,7 +2304,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-24T17:25:37.820Z",
+    "checkedAt": "2026-09-25T05:09:55.717Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

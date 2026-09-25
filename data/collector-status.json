@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T22:04:01.841Z",
+  "updatedAt": "2026-09-25T22:04:26.296Z",
   "jobs": 699,
   "sourcesAttempted": 20,
   "providers": {
@@ -3591,66 +3591,35 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T22:03:43.389Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-25T22:04:26.438Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "senior/executive title": 1
+    },
+    "removed": [
+      {
+        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
+        "company": "Prime Data Centers",
+        "title": "Data Center Business Systems Architect",
+        "location": "Dallas, TX; Denver, CO",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T22:03:43.454Z",
-    "changed": 11,
-    "samples": [
-      {
-        "id": "workday-qtsdatacenters-R2026-0881",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-1093",
-        "before": "US VA Manassas 1 DC1",
-        "after": "Manassas, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0917",
-        "before": "US VA Ashburn 1 DC1",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0893",
-        "before": "US OR Hillsboro 1 DC1",
-        "after": "Hillsboro, OR"
-      },
-      {
-        "id": "workday-qtsdatacenters-R2026-0768",
-        "before": "US GA Atlanta Suwanee 1 DC1",
-        "after": "Suwanee, GA"
-      },
-      {
-        "id": "workday-aligneddc-JR101086",
-        "before": "IAD-02",
-        "after": "Ashburn, VA"
-      },
-      {
-        "id": "workday-aligneddc-JR100970",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      },
-      {
-        "id": "workday-aligneddc-JR100971",
-        "before": "NEO-01",
-        "after": "Sandusky, OH"
-      }
-    ],
-    "regionAssigned": 700,
+    "updatedAt": "2026-09-25T22:04:26.870Z",
+    "changed": 0,
+    "samples": [],
+    "regionAssigned": 699,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "midwest": 129,
-      "texas": 118,
       "southeast": 107,
+      "midwest": 128,
+      "texas": 118,
       "west": 111,
       "mid-atlantic": 134,
       "southwest": 78,
@@ -3659,157 +3628,12 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T22:03:43.513Z",
-    "before": 718,
-    "after": 700,
-    "removed": 18,
+    "checkedAt": "2026-09-25T22:04:27.219Z",
+    "before": 699,
+    "after": 699,
+    "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
-    "examples": [
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101473",
-        "keptId": "workday-nttglobaldatacenters-JR102117",
-        "company": "NTT Global Data Centers",
-        "title": "956 - Data Center technician L2",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101677",
-        "keptId": "workday-nttglobaldatacenters-JR102055",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101981",
-        "keptId": "workday-nttglobaldatacenters-JR101999",
-        "company": "NTT Global Data Centers",
-        "title": "1139 - Data Center Technician L2",
-        "location": "Mesa, Arizona"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101968",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0893",
-        "keptId": "workday-qtsdatacenters-R2026-0982",
-        "company": "QTS Data Centers",
-        "title": "Critical Environment Engineer",
-        "location": "Hillsboro, OR"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-qtsdatacenters-R2026-0881",
-        "keptId": "workday-qtsdatacenters-R2026-0768",
-        "company": "QTS Data Centers",
-        "title": "Regional Data Center Controls Quality Engineer",
-        "location": "Suwanee, GA"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101929",
-        "keptId": "workday-nttglobaldatacenters-JR102117",
-        "company": "NTT Global Data Centers",
-        "title": "956 - Data Center technician L2",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101861",
-        "keptId": "workday-nttglobaldatacenters-JR101912",
-        "company": "NTT Global Data Centers",
-        "title": "1127 - Data Center Technician L2",
-        "location": "Hillsboro, Oregon"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101799",
-        "keptId": "workday-nttglobaldatacenters-JR101533",
-        "company": "NTT Global Data Centers",
-        "title": "5155 - Data Center IT Infrastructure Technician",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101847",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101681",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101746",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101821",
-        "keptId": "workday-nttglobaldatacenters-JR101755",
-        "company": "NTT Global Data Centers",
-        "title": "1162 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101610",
-        "keptId": "workday-nttglobaldatacenters-R-138957",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Ashburn, Virginia"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR102117",
-        "keptId": "workday-nttglobaldatacenters-JR101129",
-        "company": "NTT Global Data Centers",
-        "title": "5174 - Data Center Technician L2",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR101755",
-        "keptId": "workday-nttglobaldatacenters-JR100547",
-        "company": "NTT Global Data Centers",
-        "title": "5203 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR100813",
-        "keptId": "workday-nttglobaldatacenters-JR101198",
-        "company": "NTT Global Data Centers",
-        "title": "Data Center Technician L1",
-        "location": "Chicago, Illinois"
-      },
-      {
-        "reason": "same-company-title-location",
-        "removedId": "workday-nttglobaldatacenters-JR100547",
-        "keptId": "workday-nttglobaldatacenters-JR100436",
-        "company": "NTT Global Data Centers",
-        "title": "2227 - Data Center Technician L2",
-        "location": "Garland, Texas"
-      }
-    ]
+    "examples": []
   },
   "postQa": {
     "checkedAt": "2026-09-25T10:03:31.913Z",
@@ -3822,8 +3646,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1350,
     "currentJobs": 699,
-    "scopeCompany": "Google",
-    "scopedJobs": 45,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3831,8 +3653,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 45,
-    "updatedAt": "2026-09-25T22:04:02.375Z"
+    "firstSeenRecencyFallbackJobs": 85,
+    "updatedAt": "2026-09-25T22:04:28.456Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4655,15 +4477,15 @@
     "samples": []
   },
   "primeDataCenters": {
-    "checkedAt": "2026-09-25T17:50:12.364Z",
-    "lastSuccessfulAt": "2026-09-25T17:50:12.364Z",
+    "checkedAt": "2026-09-25T22:04:26.296Z",
+    "lastSuccessfulAt": "2026-09-25T22:04:26.296Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://primedatacenters.com/careers/",
     "officialRipplingBoard": "https://ats.rippling.com/prime-data-centers/jobs",
     "api": "https://api.rippling.com/platform/api/ats/v1/board/prime-data-centers/jobs",
     "authoritativeSnapshot": true,
-    "listedRows": 81,
+    "listedRows": 88,
     "uniqueJobs": 60,
     "candidateRoles": 34,
     "detailVerified": 34,

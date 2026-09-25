@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T17:50:12.364Z",
+  "updatedAt": "2026-09-25T18:00:54.335Z",
   "jobs": 712,
   "sourcesAttempted": 21,
   "providers": {
@@ -3533,25 +3533,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T17:50:12.450Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-25T18:00:54.419Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T17:50:12.532Z",
+    "updatedAt": "2026-09-25T18:00:54.499Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 712,
@@ -3570,7 +3560,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T17:50:12.610Z",
+    "checkedAt": "2026-09-25T18:00:54.578Z",
     "before": 712,
     "after": 712,
     "removed": 0,
@@ -3588,6 +3578,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1344,
     "currentJobs": 712,
+    "scopeCompany": "Cologix",
+    "scopedJobs": 7,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3595,8 +3587,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-25T17:50:13.255Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-25T18:00:54.838Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3693,18 +3685,18 @@
     "policy": "Recheck published no-experience, 0-2-year and 2-5-year roles that are not controlled by an authoritative source refresh. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects and network failures. Authoritative snapshot/provider workflows own stale removal for their employers so generic pruning cannot create source/publication drift."
   },
   "cologix": {
-    "checkedAt": "2026-09-25T12:51:24.385Z",
+    "checkedAt": "2026-09-25T18:00:54.335Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",
     "officialLeverBoard": "https://jobs.lever.co/cologix",
     "api": "https://api.lever.co/v0/postings/cologix?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 22,
-    "usJobs": 16,
+    "listedJobs": 24,
+    "usJobs": 17,
     "candidateRoles": 9,
     "qualifyingRoles": 7,
-    "rejectedOutOfScopeTitle": 7,
+    "rejectedOutOfScopeTitle": 8,
     "rejectedSeniorTitle": 0,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0

@@ -97,21 +97,12 @@
     ],
     "snapshotRoles": 0,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-25T12:00:21.868Z",
+    "snapshotVerifiedAt": "2026-09-25T17:21:27.709Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
     "snapshotAgeHours": 0,
     "normalizedTitles": 0,
-    "removedExpiredFallback": 0,
-    "fallbackFreshness": {
-      "active": false,
-      "expired": false,
-      "lastHealthyAt": "2026-09-25T12:00:21.868Z",
-      "checkedAt": "2026-09-25T12:28:36.549Z",
-      "expiresAt": null,
-      "maxAgeHours": 96,
-      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
-    }
+    "removedExpiredFallback": 0
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
@@ -2095,7 +2086,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T17:19:22.323Z",
+    "checkedAt": "2026-09-25T17:21:27.781Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2103,10 +2094,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T17:19:22.405Z",
+    "updatedAt": "2026-09-25T17:21:27.865Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 711,
+    "regionAssigned": 710,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -2114,7 +2105,7 @@
       "west": 113,
       "texas": 118,
       "mid-atlantic": 137,
-      "southwest": 78,
+      "southwest": 77,
       "southeast": 109,
       "midwest": 131,
       "northeast": 24,
@@ -2122,9 +2113,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T17:19:22.492Z",
-    "before": 711,
-    "after": 711,
+    "checkedAt": "2026-09-25T17:21:27.951Z",
+    "before": 710,
+    "after": 710,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2139,18 +2130,18 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1342,
-    "currentJobs": 711,
-    "scopeCompany": "CoreWeave",
-    "scopedJobs": 11,
+    "currentJobs": 710,
+    "scopeCompany": "Sabey Data Centers",
+    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 11,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T17:19:22.852Z"
+    "updatedAt": "2026-09-25T17:21:28.136Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

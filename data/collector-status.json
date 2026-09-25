@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-25T16:58:17.579Z",
+  "updatedAt": "2026-09-25T17:03:51.432Z",
   "jobs": 712,
-  "sourcesAttempted": 26,
+  "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1,
+    "oracleRecruitingCloud": 2,
     "googleCareers": 1,
     "workday": 6
   },
@@ -21,7 +21,9 @@
     "2-5-years": 280,
     "no-experience": 26
   },
-  "errors": [],
+  "errors": [
+    "Oracle Careers: jobsearch: Unexpected token '<', \"<html><hea\"... is not valid JSON | CX_1: Unexpected token '<', \"<html><hea\"... is not valid JSON"
+  ],
   "sourceFailurePreservation": {
     "checkedAt": "2026-09-25T11:53:37.797Z",
     "failedSources": [],
@@ -1879,71 +1881,39 @@
   "oracleCareers": {
     "officialSource": "https://careers.oracle.com/",
     "boardUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch",
-    "site": "jobsearch",
-    "sourceHealthy": true,
-    "listingComplete": true,
-    "totalOpenRoles": 2250,
-    "listingRows": 2247,
-    "pagesAttempted": 13,
-    "pagesSucceeded": 13,
-    "candidateRows": 101,
-    "detailAttempted": 101,
+    "site": null,
+    "sourceHealthy": false,
+    "listingComplete": false,
+    "totalOpenRoles": null,
+    "listingRows": 0,
+    "pagesAttempted": 0,
+    "pagesSucceeded": 0,
+    "candidateRows": 0,
+    "detailAttempted": 0,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
     "qualifyingRoles": 12,
     "drops": {
-      "title": 2146,
-      "nonUs": 31,
-      "context": 16,
-      "experience": 37,
+      "title": 0,
+      "nonUs": 0,
+      "context": 0,
+      "experience": 0,
       "missingId": 0,
       "fetch": 0
     },
-    "errors": [],
-    "checkedAt": "2026-09-25T11:44:55.474Z",
+    "errors": [
+      "jobsearch: Unexpected token '<', \"<html><hea\"... is not valid JSON | CX_1: Unexpected token '<', \"<html><hea\"... is not valid JSON"
+    ],
+    "checkedAt": "2026-09-25T17:03:51.432Z",
     "lastHealthyAt": "2026-09-25T11:44:55.474Z",
     "fallbackFreshness": {
-      "active": false,
+      "active": true,
       "expired": false,
       "lastHealthyAt": "2026-09-25T11:44:55.474Z",
-      "checkedAt": "2026-09-25T11:44:55.474Z",
+      "checkedAt": "2026-09-25T17:03:51.432Z",
       "maxAgeHours": 96,
-      "ageHours": 0,
+      "ageHours": 5.315543888888889,
       "policy": "Retain the most recent verified Oracle snapshot for up to 96 hours when the official source is unavailable; fail closed after expiry."
-    },
-    "missionFitScrub": {
-      "checkedAt": "2026-09-25T11:44:56.691Z",
-      "removedFromSnapshot": 4,
-      "removedFromPublicFeed": 4,
-      "experienceCandidates": 12,
-      "experienceChecked": 12,
-      "experienceFetchFailures": 0,
-      "removed": [
-        {
-          "id": "oracle-careers-341015",
-          "title": "Talent Sourcer (Contract) – Data Center Recruiting (North America)",
-          "location": "United States",
-          "reason": "non-operational role family"
-        },
-        {
-          "id": "oracle-careers-343898",
-          "title": "Data Center Construction Cost Estimator (Nashville, TN)",
-          "location": "Nashville, TN, United States",
-          "reason": "non-operational role family"
-        },
-        {
-          "id": "oracle-careers-342953",
-          "title": "Data Center Business Operations Business Analyst",
-          "location": "Nashville, TN, United States",
-          "reason": "non-operational role family"
-        },
-        {
-          "id": "oracle-careers-334333",
-          "title": "OCI Software Engineer Intern - OVIP",
-          "location": "Austin, TX, United States",
-          "reason": "non-operational role family"
-        }
-      ]
     }
   },
   "digitalRealty": {
@@ -2129,7 +2099,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T16:58:17.658Z",
+    "checkedAt": "2026-09-25T17:03:51.981Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2137,7 +2107,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T16:58:17.738Z",
+    "updatedAt": "2026-09-25T17:03:52.059Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 712,
@@ -2156,7 +2126,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T16:58:17.826Z",
+    "checkedAt": "2026-09-25T17:03:52.133Z",
     "before": 712,
     "after": 712,
     "removed": 0,
@@ -2174,17 +2144,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1339,
     "currentJobs": 712,
-    "scopeCompany": "Switch",
-    "scopedJobs": 19,
-    "newJobsThisRun": 1,
+    "scopeCompany": "Oracle",
+    "scopedJobs": 12,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 12,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T16:58:18.152Z"
+    "updatedAt": "2026-09-25T17:03:52.316Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

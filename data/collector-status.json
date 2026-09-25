@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T05:54:09.957Z",
+  "updatedAt": "2026-09-25T06:18:30.810Z",
   "jobs": 710,
   "sourcesAttempted": 20,
   "providers": {
@@ -3585,25 +3585,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T05:54:10.195Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-25T06:18:30.897Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T05:54:10.317Z",
+    "updatedAt": "2026-09-25T06:18:30.981Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -3622,7 +3612,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T05:54:10.382Z",
+    "checkedAt": "2026-09-25T06:18:31.060Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -3640,6 +3630,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1337,
     "currentJobs": 710,
+    "scopeCompany": "Cologix",
+    "scopedJobs": 7,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3647,8 +3639,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-25T05:54:10.945Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-25T06:18:31.325Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3727,7 +3719,7 @@
     "policy": "Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
   },
   "cologix": {
-    "checkedAt": "2026-09-24T22:35:35.168Z",
+    "checkedAt": "2026-09-25T06:18:30.810Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",

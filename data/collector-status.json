@@ -1,12 +1,13 @@
 {
-  "updatedAt": "2026-09-25T17:34:44.773Z",
+  "updatedAt": "2026-09-25T17:37:37.883Z",
   "jobs": 710,
-  "sourcesAttempted": 19,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "icims": 1
   },
   "countsByType": {
     "entry-level": 680,
@@ -36,23 +37,17 @@
     "listing": {
       "pagesAttempted": 2,
       "pagesSucceeded": 2,
-      "candidateLinks": 14
+      "candidateLinks": 13
     },
     "drops": {
       "parse": 2,
-      "classification": 4
+      "classification": 3
     },
     "samples": [
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
         "title": "Senior Client Executive",
         "location": "Marlborough, MA",
-        "reason": "classification"
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3042/supervisor%2c-data-center-operations/job",
-        "title": "Supervisor, Data Center Operations",
-        "location": "Breinigsville, PA",
         "reason": "classification"
       },
       {
@@ -64,6 +59,12 @@
         "url": "https://careers-tierpoint.icims.com/jobs/3015/sr-automation-engineer/job",
         "title": "Sr Automation Engineer",
         "location": ""
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3010/manager%2c-accounting/job",
+        "title": "Manager, Accounting",
+        "location": "Saint Louis, MO",
+        "reason": "classification"
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3021/eoc-support-analyst/job",
@@ -2086,7 +2087,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T17:36:51.690Z",
+    "checkedAt": "2026-09-25T17:37:37.966Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2094,7 +2095,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T17:36:51.771Z",
+    "updatedAt": "2026-09-25T17:37:38.051Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -2113,7 +2114,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T17:36:51.848Z",
+    "checkedAt": "2026-09-25T17:37:38.131Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -2131,8 +2132,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1342,
     "currentJobs": 710,
-    "scopeCompany": "Iron Mountain",
-    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2140,8 +2139,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T17:36:52.165Z"
+    "firstSeenRecencyFallbackJobs": 84,
+    "updatedAt": "2026-09-25T17:37:38.198Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

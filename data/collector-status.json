@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-25T21:32:24.281Z",
-  "jobs": 707,
+  "updatedAt": "2026-09-25T21:35:16.873Z",
+  "jobs": 701,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 676,
+    "entry-level": 670,
     "trainee": 14,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 398,
-    "no-experience": 26,
-    "2-5-years": 283
+    "0-2-years": 394,
+    "2-5-years": 281,
+    "no-experience": 26
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1461,15 +1461,15 @@
         "query": "critical environment technician",
         "healthy": true,
         "pages": 24,
-        "reportedRows": 232,
-        "rows": 232
+        "reportedRows": 234,
+        "rows": 234
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 29,
-        "reportedRows": 282,
-        "rows": 282
+        "reportedRows": 289,
+        "rows": 289
       },
       {
         "query": "inventory and asset technician",
@@ -1479,12 +1479,12 @@
         "rows": 12
       }
     ],
-    "candidateRows": 365,
-    "plausibleRows": 31,
-    "detailAttempts": 31,
-    "detailVerified": 31,
-    "currentQualifyingRoles": 31,
-    "qualifyingRoles": 31,
+    "candidateRows": 370,
+    "plausibleRows": 30,
+    "detailAttempts": 30,
+    "detailVerified": 30,
+    "currentQualifyingRoles": 30,
+    "qualifyingRoles": 30,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -1496,9 +1496,9 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-25T17:08:48.298Z",
-      "expiresAt": "2026-09-29T17:08:48.298Z",
-      "roles": 31,
+      "verifiedAt": "2026-09-25T21:35:14.932Z",
+      "expiresAt": "2026-09-29T21:35:14.932Z",
+      "roles": 30,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
   },
@@ -2131,7 +2131,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T21:29:36.283Z",
+    "checkedAt": "2026-09-25T21:35:16.930Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2139,28 +2139,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T21:29:36.342Z",
+    "updatedAt": "2026-09-25T21:35:16.985Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 702,
+    "regionAssigned": 701,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "texas": 118,
       "west": 111,
-      "mid-atlantic": 135,
+      "mid-atlantic": 134,
       "southwest": 78,
       "southeast": 108,
-      "midwest": 129,
       "northeast": 22,
+      "midwest": 129,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T21:29:36.393Z",
-    "before": 714,
-    "after": 714,
+    "checkedAt": "2026-09-25T21:35:17.034Z",
+    "before": 701,
+    "after": 701,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2175,18 +2175,18 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1350,
-    "currentJobs": 702,
-    "scopeCompany": "Amazon Web Services",
-    "scopedJobs": 234,
-    "newJobsThisRun": 1,
-    "changedJobsThisRun": 2,
-    "migratedEntriesThisRun": 1,
+    "currentJobs": 701,
+    "scopeCompany": "Microsoft",
+    "scopedJobs": 30,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 0,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T21:32:25.025Z"
+    "updatedAt": "2026-09-25T21:35:17.166Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T06:18:30.810Z",
+  "updatedAt": "2026-09-25T08:11:20.919Z",
   "jobs": 710,
   "sourcesAttempted": 20,
   "providers": {
@@ -3585,7 +3585,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T06:18:30.897Z",
+    "checkedAt": "2026-09-25T08:11:20.998Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3593,7 +3593,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T06:18:30.981Z",
+    "updatedAt": "2026-09-25T08:11:21.080Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -3612,7 +3612,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T06:18:31.060Z",
+    "checkedAt": "2026-09-25T08:11:21.155Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -3630,8 +3630,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1337,
     "currentJobs": 710,
-    "scopeCompany": "Cologix",
-    "scopedJobs": 7,
+    "scopeCompany": "DataBank",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3639,8 +3639,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T06:18:31.325Z"
+    "firstSeenRecencyFallbackJobs": 15,
+    "updatedAt": "2026-09-25T08:11:21.526Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3790,7 +3790,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-24T23:28:59.305Z",
+    "checkedAt": "2026-09-25T08:11:20.919Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

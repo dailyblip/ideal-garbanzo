@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-25T17:07:00.123Z",
-  "jobs": 718,
+  "updatedAt": "2026-09-25T17:08:49.746Z",
+  "jobs": 712,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 688,
+    "entry-level": 682,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 409,
-    "no-experience": 26,
-    "2-5-years": 283
+    "0-2-years": 405,
+    "2-5-years": 281,
+    "no-experience": 26
   },
   "errors": [
     "Oracle Careers: jobsearch: Unexpected token '<', \"<html><hea\"... is not valid JSON | CX_1: Unexpected token '<', \"<html><hea\"... is not valid JSON"
@@ -1454,22 +1454,22 @@
         "query": "datacenter technician",
         "healthy": true,
         "pages": 3,
-        "reportedRows": 28,
-        "rows": 28
+        "reportedRows": 27,
+        "rows": 27
       },
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 23,
-        "reportedRows": 230,
-        "rows": 230
+        "pages": 24,
+        "reportedRows": 232,
+        "rows": 232
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 29,
-        "reportedRows": 281,
-        "rows": 281
+        "reportedRows": 282,
+        "rows": 282
       },
       {
         "query": "inventory and asset technician",
@@ -1479,12 +1479,12 @@
         "rows": 12
       }
     ],
-    "candidateRows": 364,
-    "plausibleRows": 32,
-    "detailAttempts": 32,
-    "detailVerified": 32,
-    "currentQualifyingRoles": 32,
-    "qualifyingRoles": 32,
+    "candidateRows": 365,
+    "plausibleRows": 31,
+    "detailAttempts": 31,
+    "detailVerified": 31,
+    "currentQualifyingRoles": 31,
+    "qualifyingRoles": 31,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -1496,9 +1496,9 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-25T11:48:50.518Z",
-      "expiresAt": "2026-09-29T11:48:50.518Z",
-      "roles": 32,
+      "verifiedAt": "2026-09-25T17:08:48.298Z",
+      "expiresAt": "2026-09-29T17:08:48.298Z",
+      "roles": 31,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
   },
@@ -2099,7 +2099,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T17:03:51.981Z",
+    "checkedAt": "2026-09-25T17:08:49.818Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2107,26 +2107,26 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T17:03:52.059Z",
+    "updatedAt": "2026-09-25T17:08:49.887Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 713,
+    "regionAssigned": 712,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "west": 113,
-      "southeast": 110,
+      "southeast": 109,
       "texas": 119,
-      "midwest": 131,
       "southwest": 78,
       "northeast": 24,
       "mid-atlantic": 137,
+      "midwest": 131,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T17:03:52.133Z",
+    "checkedAt": "2026-09-25T17:08:49.944Z",
     "before": 712,
     "after": 712,
     "removed": 0,
@@ -2143,18 +2143,18 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1342,
-    "currentJobs": 713,
-    "scopeCompany": "Amazon Web Services",
-    "scopedJobs": 246,
-    "newJobsThisRun": 3,
+    "currentJobs": 712,
+    "scopeCompany": "Microsoft",
+    "scopedJobs": 31,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 3,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T17:07:00.570Z"
+    "updatedAt": "2026-09-25T17:08:50.088Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

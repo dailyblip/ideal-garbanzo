@@ -4142,7 +4142,7 @@
     "sourceUrl": "https://jobs.ashbyhq.com/fluidstack/f0256ec7-0405-49c5-a6ec-c9657f2c4252",
     "active": true,
     "demo": false,
-    "postedHours": 255,
+    "postedHours": 256,
     "region": "southeast",
     "firstSeenAt": "2026-09-15T20:49:32.953Z",
     "lastChangedAt": "2026-09-15T20:49:32.953Z"
@@ -7634,7 +7634,7 @@
     "salaryMax": 22,
     "salarySortMax": 45760,
     "postedAt": "2026-08-27T19:52:00.000Z",
-    "postedHours": 681,
+    "postedHours": 682,
     "source": "Employer career site",
     "sourceUrl": "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?cid=82492f85-be81-40ce-8d7b-b3a16956630b&ccId=19000101_000001&lang=en_US&jobId=9201236316544_1&source=CC2",
     "active": true,
@@ -13708,7 +13708,7 @@
     "salaryMax": 28,
     "salarySortMax": 58240,
     "postedAt": "2026-05-20T19:52:00.000Z",
-    "postedHours": 3057,
+    "postedHours": 3058,
     "source": "Employer career site",
     "sourceUrl": "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?cid=82492f85-be81-40ce-8d7b-b3a16956630b&ccId=19000101_000001&lang=en_US&jobId=9201201379858_1&source=CC2",
     "active": true,
@@ -16842,6 +16842,33 @@
     "lastChangedAt": "2026-09-24T05:01:17.161Z"
   },
   {
+    "id": "equinix-skillbridge-current-jr-163301",
+    "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
+    "company": "Equinix",
+    "location": "San Jose, CA; Englewood, CO; Miami, FL; Atlanta, GA; Chicago, IL; Secaucus, NJ; Dallas, TX; Ashburn, VA; Seattle, WA",
+    "type": "trainee",
+    "experience": "0-2-years",
+    "tags": [
+      "Trainee",
+      "0–2 Years",
+      "SkillBridge",
+      "Critical Facilities"
+    ],
+    "pay": "",
+    "salaryMin": null,
+    "salaryMax": null,
+    "salarySortMax": null,
+    "postedAt": null,
+    "postedHours": 180,
+    "source": "Equinix official current SkillBridge",
+    "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ",
+    "active": true,
+    "demo": false,
+    "region": "west",
+    "firstSeenAt": "2026-09-17T17:15:12.225Z",
+    "lastChangedAt": "2026-09-17T17:15:12.225Z"
+  },
+  {
     "id": "icims-tierpoint-3057",
     "title": "MEP Technician II",
     "company": "TierPoint",
@@ -18411,32 +18438,5 @@
     "region": "texas",
     "firstSeenAt": "2026-09-05T23:46:50.400Z",
     "lastChangedAt": "2026-09-06T19:37:23.802Z"
-  },
-  {
-    "id": "equinix-skillbridge-current-jr-163301",
-    "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
-    "company": "Equinix",
-    "location": "San Jose, CA; Englewood, CO; Miami, FL; Atlanta, GA; Chicago, IL; Secaucus, NJ; Dallas, TX; Ashburn, VA; Seattle, WA",
-    "type": "trainee",
-    "experience": "0-2-years",
-    "tags": [
-      "Trainee",
-      "0–2 Years",
-      "SkillBridge",
-      "Critical Facilities"
-    ],
-    "pay": "",
-    "salaryMin": null,
-    "salaryMax": null,
-    "salarySortMax": null,
-    "postedAt": null,
-    "postedHours": 180,
-    "source": "Equinix official current SkillBridge",
-    "sourceUrl": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ",
-    "active": true,
-    "demo": false,
-    "region": "west",
-    "firstSeenAt": "2026-09-17T17:15:12.225Z",
-    "lastChangedAt": "2026-09-17T17:15:12.225Z"
   }
 ]

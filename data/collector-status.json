@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T17:16:06.934Z",
+  "updatedAt": "2026-09-25T17:24:13.591Z",
   "jobs": 710,
   "sourcesAttempted": 19,
   "providers": {
@@ -2086,7 +2086,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T17:21:27.781Z",
+    "checkedAt": "2026-09-25T17:24:13.714Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2094,7 +2094,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T17:21:27.865Z",
+    "updatedAt": "2026-09-25T17:24:13.801Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -2113,7 +2113,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T17:21:27.951Z",
+    "checkedAt": "2026-09-25T17:24:13.885Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -2131,8 +2131,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1342,
     "currentJobs": 710,
-    "scopeCompany": "Sabey Data Centers",
-    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2140,8 +2138,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T17:21:28.136Z"
+    "firstSeenRecencyFallbackJobs": 84,
+    "updatedAt": "2026-09-25T17:24:14.092Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2292,7 +2290,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-25T05:09:55.717Z",
+    "checkedAt": "2026-09-25T17:24:13.591Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

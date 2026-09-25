@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-25T05:13:19.639Z",
-  "jobs": 694,
+  "jobs": 709,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "apprenticeship": 11,
-    "internship": 6,
+    "entry-level": 680,
     "trainee": 12,
-    "entry-level": 665
+    "internship": 6,
+    "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 395,
-    "no-experience": 27,
-    "2-5-years": 272
+    "0-2-years": 401,
+    "2-5-years": 281,
+    "no-experience": 27
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -192,8 +192,8 @@
       "structured data missing: https://compass-datacenters.breezy.hr/p/9f8cec332fbd-director-customer-management",
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "checkedAt": "2026-09-24T21:46:25.204Z",
-    "lastHealthyAt": "2026-09-24T21:46:25.204Z",
+    "checkedAt": "2026-09-25T05:21:19.522Z",
+    "lastHealthyAt": "2026-09-25T05:21:19.522Z",
     "listingComplete": true,
     "authoritativeSnapshot": true,
     "fallbackMaxAgeHours": 96,
@@ -2121,7 +2121,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T05:09:55.814Z",
+    "checkedAt": "2026-09-25T05:21:19.604Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2129,15 +2129,15 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T05:09:55.896Z",
+    "updatedAt": "2026-09-25T05:21:19.683Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 710,
+    "regionAssigned": 709,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 111,
+      "west": 110,
       "southeast": 108,
       "texas": 118,
       "midwest": 131,
@@ -2148,9 +2148,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T05:09:55.972Z",
-    "before": 710,
-    "after": 710,
+    "checkedAt": "2026-09-25T05:21:19.759Z",
+    "before": 709,
+    "after": 709,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2166,8 +2166,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1337,
     "currentJobs": 709,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 3,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2175,8 +2173,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 3,
-    "updatedAt": "2026-09-25T05:13:20.040Z"
+    "firstSeenRecencyFallbackJobs": 85,
+    "updatedAt": "2026-09-25T05:21:19.954Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

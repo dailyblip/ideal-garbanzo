@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-25T17:08:49.746Z",
-  "jobs": 712,
+  "updatedAt": "2026-09-25T17:13:24.281Z",
+  "jobs": 711,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,14 +11,14 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 682,
+    "entry-level": 681,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 405,
-    "2-5-years": 281,
+    "2-5-years": 280,
     "no-experience": 26
   },
   "errors": [
@@ -2107,28 +2107,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T17:08:49.887Z",
+    "updatedAt": "2026-09-25T17:13:34.816Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 712,
+    "regionAssigned": 711,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "west": 113,
       "southeast": 109,
-      "texas": 119,
+      "texas": 118,
+      "midwest": 131,
       "southwest": 78,
       "northeast": 24,
       "mid-atlantic": 137,
-      "midwest": 131,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T17:08:49.944Z",
-    "before": 712,
-    "after": 712,
+    "checkedAt": "2026-09-25T17:13:34.869Z",
+    "before": 711,
+    "after": 711,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2143,9 +2143,7 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1342,
-    "currentJobs": 712,
-    "scopeCompany": "Microsoft",
-    "scopedJobs": 31,
+    "currentJobs": 711,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2153,8 +2151,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T17:08:50.088Z"
+    "firstSeenRecencyFallbackJobs": 85,
+    "updatedAt": "2026-09-25T17:13:34.964Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2208,22 +2206,47 @@
     "errors": []
   },
   "earlyCareerStalePrune": {
-    "checkedAt": "2026-09-22T11:40:57.182Z",
-    "scope": "all published 0-5-year roles",
-    "candidates": 707,
-    "open": 692,
+    "checkedAt": "2026-09-25T17:13:24.281Z",
+    "scope": "published 0-5-year roles not owned by an authoritative source refresh",
+    "candidates": 97,
+    "authoritativeSourceOwnedSkipped": 615,
+    "authoritativeSourceOwnedCompanies": [
+      "Aligned Data Centers",
+      "Amazon Web Services",
+      "Cologix",
+      "CyrusOne",
+      "DataBank",
+      "Digital Realty",
+      "Equinix",
+      "Flexential",
+      "Google",
+      "Iron Mountain",
+      "Meta",
+      "Microsoft",
+      "NTT Global Data Centers",
+      "Novva Data Centers",
+      "Oracle",
+      "QTS Data Centers",
+      "STACK Infrastructure",
+      "Stream Data Centers",
+      "Switch",
+      "T5 Data Centers",
+      "TierPoint",
+      "Vantage Data Centers"
+    ],
+    "open": 96,
     "definitivelyClosed": 1,
-    "transientRetained": 14,
+    "transientRetained": 0,
     "providerVerifiedRetained": 0,
     "removed": [
       {
-        "id": "amazon-10539556",
-        "company": "Amazon Web Services",
-        "title": "Engineering Operations Technician",
-        "sourceUrl": "https://www.amazon.jobs/en/jobs/10539556/engineering-operations-technician"
+        "id": "lever-lightedge-572330d1-551e-4d19-a251-6878821d498a",
+        "company": "LightEdge Solutions",
+        "title": "Data Center Operations Tier 1 Technician",
+        "sourceUrl": "https://jobs.lever.co/lightedge/572330d1-551e-4d19-a251-6878821d498a"
       }
     ],
-    "policy": "Recheck every published no-experience, 0-2-year and 2-5-year role. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects, network failures, and short-lived employer-specific records backed by an active complete verification pass."
+    "policy": "Recheck published no-experience, 0-2-year and 2-5-year roles that are not controlled by an authoritative source refresh. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects and network failures. Authoritative snapshot/provider workflows own stale removal for their employers so generic pruning cannot create source/publication drift."
   },
   "cologix": {
     "checkedAt": "2026-09-25T12:51:24.385Z",

@@ -1,14 +1,15 @@
 {
-  "updatedAt": "2026-09-25T18:00:54.335Z",
+  "updatedAt": "2026-09-25T18:32:12.554Z",
   "jobs": 712,
-  "sourcesAttempted": 21,
+  "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
     "icims": 1,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "adp": 1
   },
   "countsByType": {
     "entry-level": 682,
@@ -3533,7 +3534,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T18:00:54.419Z",
+    "checkedAt": "2026-09-25T18:32:12.629Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3541,7 +3542,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T18:00:54.499Z",
+    "updatedAt": "2026-09-25T18:32:12.710Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 712,
@@ -3549,9 +3550,9 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "mid-atlantic": 139,
       "texas": 118,
       "west": 113,
-      "mid-atlantic": 139,
       "southwest": 77,
       "southeast": 109,
       "midwest": 131,
@@ -3560,7 +3561,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T18:00:54.578Z",
+    "checkedAt": "2026-09-25T18:32:12.789Z",
     "before": 712,
     "after": 712,
     "removed": 0,
@@ -3578,8 +3579,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1344,
     "currentJobs": 712,
-    "scopeCompany": "Cologix",
-    "scopedJobs": 7,
+    "scopeCompany": "H5 Data Centers",
+    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3588,7 +3589,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T18:00:54.838Z"
+    "updatedAt": "2026-09-25T18:32:13.029Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4537,9 +4538,9 @@
         "reason": "no normalized US location"
       }
     ],
-    "checkedAt": "2026-09-24T18:23:49.009Z",
-    "lastSuccessfulAt": "2026-09-24T18:23:49.009Z",
-    "lastHealthyAt": "2026-09-24T18:23:49.009Z"
+    "checkedAt": "2026-09-25T18:32:12.554Z",
+    "lastSuccessfulAt": "2026-09-25T18:32:12.554Z",
+    "lastHealthyAt": "2026-09-25T18:32:12.554Z"
   },
   "csquare": {
     "checkedAt": "2026-09-24T20:11:30.990Z",

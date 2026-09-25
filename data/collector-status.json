@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T05:28:17.744Z",
+  "updatedAt": "2026-09-25T05:29:31.772Z",
   "jobs": 710,
   "sourcesAttempted": 19,
   "providers": {
@@ -1996,7 +1996,7 @@
       "retiredEarly": false,
       "retiredBeforeOriginalExpiryAt": null,
       "minimumRemainingHours": 0,
-      "checkedAt": "2026-09-25T05:28:17.744Z",
+      "checkedAt": "2026-09-25T05:29:31.772Z",
       "maxAgeHours": 96,
       "expiredAgeHours": 142.8,
       "rolesRemoved": 0,
@@ -2129,7 +2129,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T05:27:43.133Z",
+    "updatedAt": "2026-09-25T05:29:31.855Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -2148,7 +2148,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T05:27:43.207Z",
+    "checkedAt": "2026-09-25T05:29:31.916Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -2156,9 +2156,9 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-24T09:45:07.113Z",
-    "publishedJobs": 670,
-    "removedJobs": 1,
+    "checkedAt": "2026-09-25T05:29:53.039Z",
+    "publishedJobs": 710,
+    "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
   },
@@ -2166,8 +2166,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1337,
     "currentJobs": 710,
-    "scopeCompany": "Iron Mountain",
-    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2175,8 +2173,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T05:27:43.520Z"
+    "firstSeenRecencyFallbackJobs": 86,
+    "updatedAt": "2026-09-25T05:29:53.296Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

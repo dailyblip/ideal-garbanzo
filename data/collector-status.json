@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T03:44:56.637Z",
+  "updatedAt": "2026-09-25T04:27:25.138Z",
   "jobs": 709,
   "sourcesAttempted": 26,
   "providers": {
@@ -2129,7 +2129,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T03:44:56.692Z",
+    "checkedAt": "2026-09-25T04:27:25.216Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2137,7 +2137,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T03:44:56.747Z",
+    "updatedAt": "2026-09-25T04:27:25.295Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 709,
@@ -2156,7 +2156,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T03:44:56.798Z",
+    "checkedAt": "2026-09-25T04:27:25.376Z",
     "before": 709,
     "after": 709,
     "removed": 0,
@@ -2174,8 +2174,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1330,
     "currentJobs": 709,
-    "scopeCompany": "Flexential",
-    "scopedJobs": 2,
+    "scopeCompany": "Switch",
+    "scopedJobs": 20,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2183,8 +2183,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 2,
-    "updatedAt": "2026-09-25T03:44:57.058Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-25T04:27:25.680Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2290,17 +2290,17 @@
     "rejectedInvalidUrl": 0
   },
   "switchCareers": {
-    "checkedAt": "2026-09-24T16:55:50.064Z",
+    "checkedAt": "2026-09-25T04:27:25.138Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.switch.com/careers/",
     "officialJobBoard": "https://switchltd.hrmdirect.com/employment/job-openings.php?jbsrc=1014&search=true&sort=pa",
     "officialRssFeed": "https://switchltd.hrmdirect.com/employment/rss.php?search=true&dept=-1&city=-1&state=-1",
     "authoritativeSnapshot": true,
-    "listedJobs": 91,
+    "listedJobs": 94,
     "candidateRoles": 26,
     "qualifyingRoles": 20,
-    "rejectedOutOfScopeTitle": 65,
+    "rejectedOutOfScopeTitle": 68,
     "rejectedSeniorTitle": 0,
     "rejectedMissingDataCenterContext": 0,
     "rejectedDetailTitleMismatch": 2,

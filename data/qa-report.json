@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-25T05:29:53.039Z",
+  "checkedAt": "2026-09-25T10:03:31.913Z",
   "jobsBefore": 710,
   "jobsAfter": 710,
   "demoJobsRemoved": [],
@@ -9,7 +9,35 @@
   "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "gh-xai-5245782007",
+      "company": "xAI",
+      "title": "Medium Voltage Electrician (Service & Repair)",
+      "url": "https://job-boards.greenhouse.io/xai/jobs/5245782007",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "gh-elementcritical-4691807005",
+      "company": "Element Critical",
+      "title": "Data Center Controls Engineer",
+      "url": "https://job-boards.greenhouse.io/elementcritical/jobs/4691807005",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "greenhouse-flexential-4401183009",
+      "company": "Flexential",
+      "title": "Critical Infrastructure Engineer II",
+      "url": "https://job-boards.greenhouse.io/flexentialcorp/jobs/4401183009",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 7,
   "careerEventsAfter": 7,

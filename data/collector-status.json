@@ -131,8 +131,8 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-25T12:19:41.461Z",
-    "lastHealthyAt": "2026-09-25T12:19:41.461Z",
+    "checkedAt": "2026-09-25T17:36:35.649Z",
+    "lastHealthyAt": "2026-09-25T17:36:35.649Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
@@ -140,7 +140,7 @@
     "listingPagesAttempted": 18,
     "listingPagesSucceeded": 18,
     "listingComplete": true,
-    "listedTotal": 358,
+    "listedTotal": 356,
     "candidateRows": 15,
     "detailAttempted": 15,
     "detailSucceeded": 15,
@@ -159,9 +159,9 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-25T12:19:41.461Z",
-      "checkedAt": "2026-09-25T12:19:41.461Z",
-      "expiresAt": "2026-09-29T12:19:41.461Z",
+      "lastHealthyAt": "2026-09-25T17:36:35.649Z",
+      "checkedAt": "2026-09-25T17:36:35.649Z",
+      "expiresAt": "2026-09-29T17:36:35.649Z",
       "ageHours": 0,
       "maxAgeHours": 96,
       "roles": 12,
@@ -2086,7 +2086,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T17:31:40.857Z",
+    "checkedAt": "2026-09-25T17:36:51.690Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2094,7 +2094,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T17:31:40.940Z",
+    "updatedAt": "2026-09-25T17:36:51.771Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -2113,7 +2113,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T17:31:41.018Z",
+    "checkedAt": "2026-09-25T17:36:51.848Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -2131,6 +2131,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1342,
     "currentJobs": 710,
+    "scopeCompany": "Iron Mountain",
+    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2138,8 +2140,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 84,
-    "updatedAt": "2026-09-25T17:31:41.219Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-25T17:36:52.165Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

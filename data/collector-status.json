@@ -2127,7 +2127,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T05:02:21.385Z",
+    "checkedAt": "2026-09-25T05:05:23.426Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2135,7 +2135,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T05:02:21.463Z",
+    "updatedAt": "2026-09-25T05:05:23.510Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -2154,7 +2154,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T05:02:21.542Z",
+    "checkedAt": "2026-09-25T05:05:23.586Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -2172,17 +2172,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1337,
     "currentJobs": 710,
-    "scopeCompany": "Digital Realty",
-    "scopedJobs": 16,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 16,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T05:02:21.849Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 86,
+    "updatedAt": "2026-09-25T05:05:23.863Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2369,11 +2367,11 @@
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-24T17:18:26.375Z",
-    "lastHealthyAt": "2026-09-24T17:18:26.375Z",
+    "checkedAt": "2026-09-25T05:05:23.337Z",
+    "lastHealthyAt": "2026-09-25T05:05:23.337Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-09-28T17:18:26.375Z",
+    "fallbackExpiresAt": "2026-09-29T05:05:23.337Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 2,

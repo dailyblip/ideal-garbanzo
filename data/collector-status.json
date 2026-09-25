@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-25T18:54:28.018Z",
-  "jobs": 712,
+  "updatedAt": "2026-09-25T20:09:33.880Z",
+  "jobs": 711,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
@@ -12,14 +12,14 @@
     "adp": 1
   },
   "countsByType": {
-    "entry-level": 682,
+    "entry-level": 681,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 406,
-    "2-5-years": 280,
+    "2-5-years": 279,
     "no-experience": 26
   },
   "errors": [],
@@ -3534,7 +3534,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T18:54:28.198Z",
+    "checkedAt": "2026-09-25T20:09:33.959Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3542,10 +3542,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T18:54:28.282Z",
+    "updatedAt": "2026-09-25T20:09:34.039Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 712,
+    "regionAssigned": 711,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3556,14 +3556,14 @@
       "southwest": 77,
       "southeast": 109,
       "midwest": 131,
-      "northeast": 24,
+      "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T18:54:28.361Z",
-    "before": 712,
-    "after": 712,
+    "checkedAt": "2026-09-25T20:09:34.116Z",
+    "before": 711,
+    "after": 711,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3578,9 +3578,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1344,
-    "currentJobs": 712,
-    "scopeCompany": "CloudHQ",
-    "scopedJobs": 1,
+    "currentJobs": 711,
+    "scopeCompany": "Csquare",
+    "scopedJobs": 5,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3588,8 +3588,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 1,
-    "updatedAt": "2026-09-25T19:35:17.800Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-25T20:09:34.435Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4543,19 +4543,19 @@
     "lastHealthyAt": "2026-09-25T18:32:12.554Z"
   },
   "csquare": {
-    "checkedAt": "2026-09-24T20:11:30.990Z",
-    "lastSuccessfulAt": "2026-09-24T20:11:30.990Z",
+    "checkedAt": "2026-09-25T20:09:33.880Z",
+    "lastSuccessfulAt": "2026-09-25T20:09:33.880Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "authoritativeSnapshot": true,
     "officialCareerPage": "https://www.csquare.com/careers",
     "officialBoard": "https://recruiting.ultipro.com/CYX1000CYXT/JobBoard/6ce3c532-60ea-4691-8e59-5f0a86be31a9",
     "api": "https://recruiting.ultipro.com/CYX1000CYXT/JobBoard/6ce3c532-60ea-4691-8e59-5f0a86be31a9/JobBoardView/LoadSearchResults",
-    "listedRoles": 15,
-    "candidateRoles": 10,
-    "detailVerified": 10,
-    "qualifyingRoles": 6,
-    "rejectedOutOfScope": 5,
+    "listedRoles": 13,
+    "candidateRoles": 9,
+    "detailVerified": 9,
+    "qualifyingRoles": 5,
+    "rejectedOutOfScope": 4,
     "rejectedSeniorOrCommercial": 3,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 1,

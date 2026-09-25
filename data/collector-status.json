@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-25T11:46:04.364Z",
-  "jobs": 722,
+  "updatedAt": "2026-09-25T11:48:52.157Z",
+  "jobs": 716,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 692,
+    "entry-level": 686,
     "trainee": 13,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 411,
-    "no-experience": 27,
-    "2-5-years": 284
+    "0-2-years": 407,
+    "2-5-years": 282,
+    "no-experience": 27
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1458,31 +1458,31 @@
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 24,
-        "reportedRows": 240,
-        "rows": 240
+        "pages": 23,
+        "reportedRows": 230,
+        "rows": 230
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 29,
-        "reportedRows": 285,
-        "rows": 285
+        "reportedRows": 281,
+        "rows": 281
       },
       {
         "query": "inventory and asset technician",
         "healthy": true,
         "pages": 2,
-        "reportedRows": 13,
-        "rows": 13
+        "reportedRows": 12,
+        "rows": 12
       }
     ],
-    "candidateRows": 374,
-    "plausibleRows": 33,
-    "detailAttempts": 33,
-    "detailVerified": 33,
-    "currentQualifyingRoles": 33,
-    "qualifyingRoles": 33,
+    "candidateRows": 364,
+    "plausibleRows": 32,
+    "detailAttempts": 32,
+    "detailVerified": 32,
+    "currentQualifyingRoles": 32,
+    "qualifyingRoles": 32,
     "retainedPrevious": false,
     "drops": {
       "nonUs": 0,
@@ -1494,9 +1494,9 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-25T04:54:13.904Z",
-      "expiresAt": "2026-09-29T04:54:13.904Z",
-      "roles": 33,
+      "verifiedAt": "2026-09-25T11:48:50.518Z",
+      "expiresAt": "2026-09-29T11:48:50.518Z",
+      "roles": 32,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
   },
@@ -2132,7 +2132,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T11:44:56.766Z",
+    "checkedAt": "2026-09-25T11:48:52.226Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2140,28 +2140,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T11:44:56.848Z",
+    "updatedAt": "2026-09-25T11:48:52.293Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 717,
+    "regionAssigned": 716,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 112,
+      "west": 111,
       "southeast": 109,
       "texas": 119,
-      "midwest": 133,
       "mid-atlantic": 140,
       "southwest": 79,
       "northeast": 24,
+      "midwest": 133,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T11:44:56.924Z",
-    "before": 710,
-    "after": 710,
+    "checkedAt": "2026-09-25T11:48:52.351Z",
+    "before": 716,
+    "after": 716,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2176,9 +2176,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1337,
-    "currentJobs": 717,
-    "scopeCompany": "Amazon Web Services",
-    "scopedJobs": 245,
+    "currentJobs": 716,
+    "scopeCompany": "Microsoft",
+    "scopedJobs": 32,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2187,7 +2187,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T11:46:04.840Z"
+    "updatedAt": "2026-09-25T11:48:52.501Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

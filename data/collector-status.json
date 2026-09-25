@@ -97,21 +97,12 @@
     ],
     "snapshotRoles": 0,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-25T05:07:44.523Z",
+    "snapshotVerifiedAt": "2026-09-25T12:00:21.868Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
     "snapshotAgeHours": 0,
     "normalizedTitles": 0,
-    "removedExpiredFallback": 0,
-    "fallbackFreshness": {
-      "active": false,
-      "expired": false,
-      "lastHealthyAt": "2026-09-25T05:07:44.523Z",
-      "checkedAt": "2026-09-25T05:39:31.344Z",
-      "expiresAt": null,
-      "maxAgeHours": 96,
-      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
-    }
+    "removedExpiredFallback": 0
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
@@ -2130,7 +2121,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-25T11:55:23.498Z",
+    "checkedAt": "2026-09-25T12:00:21.946Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2138,7 +2129,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-25T11:55:23.581Z",
+    "updatedAt": "2026-09-25T12:00:22.031Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 716,
@@ -2157,7 +2148,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-25T11:55:23.663Z",
+    "checkedAt": "2026-09-25T12:00:22.109Z",
     "before": 716,
     "after": 716,
     "removed": 0,
@@ -2175,17 +2166,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1337,
     "currentJobs": 716,
-    "scopeCompany": "Digital Realty",
-    "scopedJobs": 16,
+    "scopeCompany": "Sabey Data Centers",
+    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 16,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-25T11:55:23.983Z"
+    "updatedAt": "2026-09-25T12:00:22.301Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

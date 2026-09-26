@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-26T16:54:38.968Z",
+  "updatedAt": "2026-09-26T16:54:55.266Z",
   "jobs": 710,
   "sourcesAttempted": 21,
   "providers": {
@@ -221,7 +221,7 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-26T05:53:08.362Z",
+    "checkedAt": "2026-09-26T16:54:55.266Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3583,25 +3583,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-26T16:54:39.050Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-26T16:54:55.344Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-26T16:54:39.138Z",
+    "updatedAt": "2026-09-26T16:54:55.415Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -3620,7 +3610,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-26T16:54:39.223Z",
+    "checkedAt": "2026-09-26T16:54:55.479Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -3638,6 +3628,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1354,
     "currentJobs": 710,
+    "scopeCompany": "T5 Data Centers",
+    "scopedJobs": 22,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3645,8 +3637,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-26T16:54:39.820Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-26T16:54:55.767Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

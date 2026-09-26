@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-26T16:49:11.143Z",
+  "updatedAt": "2026-09-26T16:49:16.325Z",
   "jobs": 710,
   "sourcesAttempted": 20,
   "providers": {
@@ -3013,13 +3013,13 @@
   "primeFallbackFreshness": {
     "active": false,
     "expired": false,
-    "lastHealthyAt": "2026-09-25T12:35:48.563Z",
-    "checkedAt": "2026-09-25T12:35:48.563Z",
+    "lastHealthyAt": "2026-09-26T16:49:16.325Z",
+    "checkedAt": "2026-09-26T16:49:16.325Z",
     "maxAgeHours": 96,
     "healthStampIntervalHours": 24,
     "boardUrl": "https://api.rippling.com/platform/api/ats/v1/board/prime-data-centers/jobs",
-    "boardRows": 77,
-    "canonicalBoardJobs": 57,
+    "boardRows": 88,
+    "canonicalBoardJobs": 60,
     "staleSnapshotRolesRemoved": 0,
     "stalePublicRolesRemoved": 0,
     "policy": "Verify Prime role liveness against the official Rippling board. If that source cannot be verified, retain the last verified employer-direct snapshot for at most 96 hours."

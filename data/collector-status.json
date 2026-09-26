@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-26T05:48:20.469Z",
+  "updatedAt": "2026-09-26T05:53:08.362Z",
   "jobs": 708,
   "sourcesAttempted": 20,
   "providers": {
@@ -220,18 +220,18 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-25T17:49:48.763Z",
+    "checkedAt": "2026-09-26T05:53:08.362Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
     "officialLeverBoard": "https://jobs.lever.co/t5datacenters",
     "api": "https://api.lever.co/v0/postings/t5datacenters?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 95,
-    "usJobs": 85,
+    "listedJobs": 96,
+    "usJobs": 86,
     "candidateRoles": 29,
     "qualifyingRoles": 22,
-    "rejectedOutOfScopeTitle": 56,
+    "rejectedOutOfScopeTitle": 57,
     "rejectedSeniorTitle": 4,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 3
@@ -3596,7 +3596,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-26T05:43:02.989Z",
+    "checkedAt": "2026-09-26T05:53:08.433Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3604,7 +3604,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-26T05:48:20.546Z",
+    "updatedAt": "2026-09-26T05:53:08.498Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3623,7 +3623,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-26T05:48:20.602Z",
+    "checkedAt": "2026-09-26T05:53:08.556Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3641,6 +3641,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1354,
     "currentJobs": 708,
+    "scopeCompany": "T5 Data Centers",
+    "scopedJobs": 22,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3648,8 +3650,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-26T05:48:42.163Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-26T05:53:08.805Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

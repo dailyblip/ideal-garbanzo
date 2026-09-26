@@ -131,8 +131,8 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-26T05:34:32.109Z",
-    "lastHealthyAt": "2026-09-26T05:34:32.109Z",
+    "checkedAt": "2026-09-26T11:51:39.329Z",
+    "lastHealthyAt": "2026-09-26T11:51:39.329Z",
     "transportHealthy": true,
     "sourceHealthy": true,
     "authoritativeSnapshot": true,
@@ -159,9 +159,9 @@
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-26T05:34:32.109Z",
-      "checkedAt": "2026-09-26T05:34:32.109Z",
-      "expiresAt": "2026-09-30T05:34:32.109Z",
+      "lastHealthyAt": "2026-09-26T11:51:39.329Z",
+      "checkedAt": "2026-09-26T11:51:39.329Z",
+      "expiresAt": "2026-09-30T11:51:39.329Z",
       "ageHours": 0,
       "maxAgeHours": 96,
       "roles": 12,
@@ -2118,7 +2118,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-26T11:44:58.675Z",
+    "checkedAt": "2026-09-26T11:51:54.256Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2126,7 +2126,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-26T11:44:58.738Z",
+    "updatedAt": "2026-09-26T11:51:54.316Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 704,
@@ -2145,7 +2145,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-26T11:44:58.798Z",
+    "checkedAt": "2026-09-26T11:51:54.371Z",
     "before": 704,
     "after": 704,
     "removed": 0,
@@ -2163,8 +2163,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1354,
     "currentJobs": 704,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
+    "scopeCompany": "Iron Mountain",
+    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2172,8 +2172,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-26T11:45:20.629Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-26T11:51:54.606Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

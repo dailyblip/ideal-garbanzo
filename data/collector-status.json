@@ -1,14 +1,15 @@
 {
-  "updatedAt": "2026-09-26T17:19:19.742Z",
+  "updatedAt": "2026-09-26T17:43:58.950Z",
   "jobs": 710,
-  "sourcesAttempted": 21,
+  "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
     "icims": 1,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "adp": 1
   },
   "countsByType": {
     "entry-level": 679,
@@ -3583,7 +3584,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-26T17:19:19.823Z",
+    "checkedAt": "2026-09-26T17:43:59.011Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3591,7 +3592,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-26T17:19:19.904Z",
+    "updatedAt": "2026-09-26T17:43:59.078Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -3601,16 +3602,16 @@
     "countsByRegion": {
       "west": 112,
       "southeast": 109,
+      "mid-atlantic": 136,
       "midwest": 130,
       "texas": 121,
-      "mid-atlantic": 136,
       "southwest": 78,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-26T17:19:19.992Z",
+    "checkedAt": "2026-09-26T17:43:59.139Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -3628,8 +3629,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1354,
     "currentJobs": 710,
-    "scopeCompany": "Cologix",
-    "scopedJobs": 7,
+    "scopeCompany": "H5 Data Centers",
+    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3638,7 +3639,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-26T17:19:20.272Z"
+    "updatedAt": "2026-09-26T17:43:59.339Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4555,8 +4556,8 @@
     "qualifyingRoles": 12,
     "usedPreviousSnapshot": false,
     "listing": {
-      "advertised": 34,
-      "fetched": 35,
+      "advertised": 35,
+      "fetched": 36,
       "drift": 1
     },
     "drops": {
@@ -4578,9 +4579,9 @@
         "reason": "no normalized US location"
       }
     ],
-    "checkedAt": "2026-09-25T18:32:12.554Z",
-    "lastSuccessfulAt": "2026-09-25T18:32:12.554Z",
-    "lastHealthyAt": "2026-09-25T18:32:12.554Z"
+    "checkedAt": "2026-09-26T17:43:58.950Z",
+    "lastSuccessfulAt": "2026-09-26T17:43:58.950Z",
+    "lastHealthyAt": "2026-09-26T17:43:58.950Z"
   },
   "csquare": {
     "checkedAt": "2026-09-25T20:09:33.880Z",

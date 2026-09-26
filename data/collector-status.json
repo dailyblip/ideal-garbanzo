@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-26T21:05:57.924Z",
-  "jobs": 704,
+  "updatedAt": "2026-09-26T21:12:20.678Z",
+  "jobs": 700,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 673,
+    "entry-level": 669,
     "trainee": 14,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 397,
-    "no-experience": 26,
-    "2-5-years": 281
+    "2-5-years": 279,
+    "0-2-years": 395,
+    "no-experience": 26
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1496,8 +1496,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-26T16:23:12.565Z",
-      "expiresAt": "2026-09-30T16:23:12.565Z",
+      "verifiedAt": "2026-09-26T21:12:18.759Z",
+      "expiresAt": "2026-09-30T21:12:18.759Z",
       "roles": 27,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -2131,7 +2131,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-26T21:03:12.417Z",
+    "checkedAt": "2026-09-26T21:12:20.746Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2139,7 +2139,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-26T21:03:12.501Z",
+    "updatedAt": "2026-09-26T21:12:20.807Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 700,
@@ -2147,10 +2147,10 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "west": 110,
       "southeast": 109,
       "midwest": 128,
       "texas": 117,
+      "west": 110,
       "mid-atlantic": 134,
       "southwest": 78,
       "northeast": 23,
@@ -2158,9 +2158,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-26T21:03:12.579Z",
-    "before": 710,
-    "after": 710,
+    "checkedAt": "2026-09-26T21:12:20.865Z",
+    "before": 700,
+    "after": 700,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -2176,17 +2176,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1355,
     "currentJobs": 700,
-    "scopeCompany": "Amazon Web Services",
-    "scopedJobs": 241,
-    "newJobsThisRun": 1,
+    "scopeCompany": "Microsoft",
+    "scopedJobs": 27,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-26T21:05:58.613Z"
+    "updatedAt": "2026-09-26T21:12:21.008Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

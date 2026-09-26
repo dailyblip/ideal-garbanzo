@@ -229,6 +229,11 @@ function employerContext(list) {
   return employers.length ? ` Current openings represented on this page include ${esc(readableNames(employers))}.` : '';
 }
 
+function isElectricianTradeJob(job) {
+  const title = clean(job?.title);
+  return /\belectrician\b|\belectrical\s+(?:technician|maintenance|specialist|operator|apprentice)\b|\b(?:facilities|maintenance|critical facilities)\b.{0,40}\belectrical\b/i.test(title);
+}
+
 function jobLocationSchema(location) {
   const value = clean(location);
   if (/remote/i.test(value)) return {'@type':'Place','address':{'@type':'PostalAddress','addressCountry':'US'}};
@@ -274,7 +279,7 @@ async function generateJobPages() {
       <p>${esc(description)}</p>
       <a class="seo-apply" href="${esc(job.sourceUrl)}" rel="nofollow noopener" target="_blank">View & apply on employer site →</a>
       <p class="seo-source">Listing source: employer career site. We link directly to the employer so applicants can verify the current posting.</p></article>
-      <aside class="seo-related"><h2>Explore more opportunities</h2><a href="${baseUrl}/no-experience/">Data center jobs with no experience</a><a href="${baseUrl}/trainee-jobs/">Data center trainee jobs</a><a href="${baseUrl}/apprenticeships/">Data center apprenticeships</a><a href="${baseUrl}/internships/">Data center internships</a><a href="${baseUrl}/entry-level/">Entry-level data center jobs</a><a href="${baseUrl}/career-events/">Data center hiring events</a><a href="${baseUrl}/jobs/">All data center jobs</a></aside>
+      <aside class="seo-related"><h2>Explore more opportunities</h2><a href="${baseUrl}/no-experience/">Data center jobs with no experience</a><a href="${baseUrl}/trainee-jobs/">Data center trainee jobs</a><a href="${baseUrl}/apprenticeships/">Data center apprenticeships</a><a href="${baseUrl}/internships/">Data center internships</a><a href="${baseUrl}/data-center-electrician-jobs/">Data center electrician jobs</a><a href="${baseUrl}/entry-level/">Entry-level data center jobs</a><a href="${baseUrl}/career-events/">Data center hiring events</a><a href="${baseUrl}/jobs/">All data center jobs</a></aside>
     </main>${footer()}</body></html>`;
     await writeHtml(`jobs/${jobSlug(job)}/index.html`,html);
     urls.push(canonical);
@@ -287,6 +292,7 @@ await rm('apprenticeships',{recursive:true,force:true});
 await rm('internships',{recursive:true,force:true});
 await rm('entry-level',{recursive:true,force:true});
 await rm('no-experience',{recursive:true,force:true});
+await rm('data-center-electrician-jobs',{recursive:true,force:true});
 await rm('trainee-jobs',{recursive:true,force:true});
 await rm('career-events',{recursive:true,force:true});
 
@@ -302,6 +308,7 @@ urls.push(...await generateListing({
     ['Data center jobs with no experience', `${baseUrl}/no-experience/`],
     ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
     ['Data center apprenticeships', `${baseUrl}/apprenticeships/`],
+    ['Data center electrician jobs', `${baseUrl}/data-center-electrician-jobs/`],
     ['Data center hiring events', `${baseUrl}/career-events/`]
   ]
 }));
@@ -319,6 +326,7 @@ urls.push(...await generateListing({
     ['How to get a data center apprenticeship', `${baseUrl}/how-to-get-a-data-center-apprenticeship/`],
     ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
     ['Jobs with no experience required', `${baseUrl}/no-experience/`],
+    ['Data center electrician jobs', `${baseUrl}/data-center-electrician-jobs/`],
     ['Entry-level data center jobs', `${baseUrl}/entry-level/`]
   ]
 }));
@@ -363,7 +371,27 @@ urls.push(...await generateListing({
   relatedLinks:[
     ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
     ['Data center apprenticeships', `${baseUrl}/apprenticeships/`],
+    ['Data center electrician jobs', `${baseUrl}/data-center-electrician-jobs/`],
     ['Entry-level jobs with 0–2 years', `${baseUrl}/entry-level/`],
+    ['How to get a job at a data center', `${baseUrl}/how-to-get-a-data-center-job/`]
+  ]
+}));
+urls.push(...await generateListing({
+  root:'data-center-electrician-jobs',
+  title:'Data Center Electrician Jobs | Electrical & Skilled Trades',
+  h1:'Data center electrician jobs',
+  description:'Browse current employer-direct data center electrician jobs and electrical skilled-trades roles, including apprenticeships and facilities technician openings.',
+  intro:'Current electrician and closely related electrical skilled-trades openings supporting data center power, facilities, maintenance and critical infrastructure.',
+  filter:isElectricianTradeJob,
+  contextHtml:list=>{
+    const apprenticeCount = list.filter(job => job.type === 'apprenticeship' || /\bapprentice\b/i.test(clean(job.title))).length;
+    const earlyCount = list.filter(job => job.experience === 'no-experience' || job.experience === '0-2-years').length;
+    return `<section class="guide-section" aria-labelledby="electrician-search-heading"><span class="seo-kicker">ELECTRICAL & SKILLED TRADES</span><h2 id="electrician-search-heading">Electrical careers that keep data centers running</h2><p>This page focuses on electrician, electrical technician, electrical maintenance, facilities-electrical and electrical apprenticeship roles from employer career sites. We exclude unrelated electrical jobs that are not tied to data center infrastructure.${employerContext(list)}</p><div class="guide-stats"><div><strong>${list.length}</strong><span>current electrical openings</span></div><div><strong>${earlyCount}</strong><span>no-experience or 0–2 year roles</span></div><div><strong>${apprenticeCount}</strong><span>apprentice openings</span></div><div><strong>0–5</strong><span>years maximum experience target</span></div></div><p>Many data center electrical jobs involve power distribution, switchgear, UPS systems, generators, controls or facilities maintenance. Requirements vary, so review the employer posting for licenses, certifications, shift schedules and safety qualifications.</p></section>`;
+  },
+  relatedLinks:[
+    ['Data center apprenticeships', `${baseUrl}/apprenticeships/`],
+    ['Jobs with no experience required', `${baseUrl}/no-experience/`],
+    ['Entry-level data center jobs', `${baseUrl}/entry-level/`],
     ['How to get a job at a data center', `${baseUrl}/how-to-get-a-data-center-job/`]
   ]
 }));

@@ -174,6 +174,20 @@ for (const contract of listingContracts) {
     requireOk(html.includes(`<strong>${electricianApprenticeCount}</strong><span>apprentice openings</span>`), 'Electrician page apprentice count does not match the feed.');
   }
 
+  if (contract.path === 'no-experience/index.html') {
+    const noExperienceEmployerCount = new Set(jobs.filter(job => job.experience === 'no-experience').map(job => clean(job.company)).filter(Boolean)).size;
+    requireOk(html.includes('id="no-experience-heading"'), 'No-experience page is missing its current-inventory explainer.');
+    requireOk(html.includes('id="no-experience-list"'), 'No-experience page is missing its jump-target opening list.');
+    requireOk(html.includes(`<strong>${jobs.filter(job => job.experience === 'no-experience').length}</strong><span>current no-experience openings</span>`), 'No-experience proof count does not match the current feed.');
+    requireOk(html.includes(`<strong>${noExperienceEmployerCount}</strong><span>employers represented</span>`), 'No-experience employer proof count does not match the current feed.');
+  }
+
+  if (contract.path === 'entry-level/index.html') {
+    requireOk(html.includes('id="entry-level-proof-heading"'), 'Entry-level page is missing its current-inventory proof section.');
+    requireOk(html.includes('current entry-level openings'), 'Entry-level page is missing its current-opening proof count.');
+    requireOk(html.includes('employers represented'), 'Entry-level page is missing employer coverage proof.');
+  }
+
   if (contract.path === 'internships/index.html') {
     requireOk(pageTitle(html).includes('Verified Employer Openings'), 'Internship title must preserve the employer-verification click-through signal.');
     requireOk(description.includes('verified employer listings'), 'Internship meta description must preserve direct verified-employer apply language.');

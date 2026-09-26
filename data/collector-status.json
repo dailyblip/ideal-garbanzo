@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-26T17:43:58.950Z",
+  "updatedAt": "2026-09-26T18:02:41.808Z",
   "jobs": 710,
   "sourcesAttempted": 22,
   "providers": {
@@ -3584,7 +3584,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-26T17:43:59.011Z",
+    "checkedAt": "2026-09-26T18:02:41.886Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3592,7 +3592,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-26T17:43:59.078Z",
+    "updatedAt": "2026-09-26T18:02:41.965Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -3602,16 +3602,16 @@
     "countsByRegion": {
       "west": 112,
       "southeast": 109,
-      "mid-atlantic": 136,
       "midwest": 130,
       "texas": 121,
+      "mid-atlantic": 136,
       "southwest": 78,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-26T17:43:59.139Z",
+    "checkedAt": "2026-09-26T18:02:42.039Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -3629,8 +3629,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1354,
     "currentJobs": 710,
-    "scopeCompany": "H5 Data Centers",
-    "scopedJobs": 12,
+    "scopeCompany": "DataBank",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3638,8 +3638,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-26T17:43:59.339Z"
+    "firstSeenRecencyFallbackJobs": 15,
+    "updatedAt": "2026-09-26T18:02:42.414Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3803,7 +3803,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-26T13:23:35.800Z",
+    "checkedAt": "2026-09-26T18:02:41.808Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

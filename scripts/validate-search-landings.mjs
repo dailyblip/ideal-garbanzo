@@ -166,7 +166,7 @@ for (const contract of listingContracts) {
   }
 
   if (contract.path === 'data-center-electrician-jobs/index.html') {
-    requireOk(pageTitle(html).includes('Electrical & Skilled Trades'), 'Electrician landing title must preserve the skilled-trades search signal.');
+    requireOk(pageTitle(html).includes('Electrical Skilled Trades'), 'Electrician landing title must preserve the skilled-trades search signal.');
     requireOk(description.includes('employer-direct') && description.includes('electrical skilled-trades'), 'Electrician meta description must preserve employer-direct skilled-trades language.');
     requireOk(html.includes('id="electrician-search-heading"'), 'Electrician landing is missing its explanatory scope section.');
     requireOk(html.includes(`<strong>${electricianJobs.length}</strong><span>current electrical openings</span>`), 'Electrician page current-opening count does not match the feed.');

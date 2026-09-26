@@ -378,7 +378,7 @@ urls.push(...await generateListing({
 }));
 urls.push(...await generateListing({
   root:'data-center-electrician-jobs',
-  title:'Data Center Electrician Jobs | Electrical & Skilled Trades',
+  title:'Data Center Electrician Jobs | Electrical Skilled Trades',
   h1:'Data center electrician jobs',
   description:'Browse current employer-direct data center electrician jobs and electrical skilled-trades roles, including apprenticeships and facilities technician openings.',
   intro:'Current electrician and closely related electrical skilled-trades openings supporting data center power, facilities, maintenance and critical infrastructure.',

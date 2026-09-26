@@ -23,6 +23,10 @@ const apprenticeshipEmployerCount = new Set(apprenticeshipJobs.map(job => clean(
 const apprenticeshipNoExperienceCount = apprenticeshipJobs.filter(job => job.experience === 'no-experience').length;
 const internshipJobs = jobs.filter(job => job.type === 'internship');
 const internshipEmployerCount = new Set(internshipJobs.map(job => clean(job.company)).filter(Boolean)).size;
+const isElectricianTradeJob = job => /\belectrician\b|\belectrical\s+(?:technician|maintenance|specialist|operator|apprentice)\b|\b(?:facilities|maintenance|critical facilities)\b.{0,40}\belectrical\b/i.test(clean(job?.title));
+const electricianJobs = jobs.filter(isElectricianTradeJob);
+const electricianEarlyCount = electricianJobs.filter(job => job.experience === 'no-experience' || job.experience === '0-2-years').length;
+const electricianApprenticeCount = electricianJobs.filter(job => job.type === 'apprenticeship' || /\bapprentice\b/i.test(clean(job.title))).length;
 
 const stateNames = {
   AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming',DC:'District of Columbia'
@@ -86,6 +90,15 @@ const listingContracts = [
     count: jobs.filter(job => job.experience === 'no-experience').length,
     countLabel: 'current opportunities',
     links: ['/trainee-jobs/', '/apprenticeships/', '/entry-level/', '/how-to-get-a-data-center-job/']
+  },
+  {
+    path: 'data-center-electrician-jobs/index.html',
+    url: `${baseUrl}/data-center-electrician-jobs/`,
+    h1: 'Data center electrician jobs',
+    title: 'Data Center Electrician Jobs',
+    count: electricianJobs.length,
+    countLabel: 'current opportunities',
+    links: ['/apprenticeships/', '/no-experience/', '/entry-level/', '/how-to-get-a-data-center-job/']
   },
   {
     path: 'trainee-jobs/index.html',
@@ -152,6 +165,15 @@ for (const contract of listingContracts) {
     requireOk(html.includes('id="apprenticeships-list"'), 'Apprenticeship opening list is missing the jump-target anchor.');
   }
 
+  if (contract.path === 'data-center-electrician-jobs/index.html') {
+    requireOk(pageTitle(html).includes('Electrical Skilled Trades'), 'Electrician landing title must preserve the skilled-trades search signal.');
+    requireOk(description.includes('employer-direct') && description.includes('electrical skilled-trades'), 'Electrician meta description must preserve employer-direct skilled-trades language.');
+    requireOk(html.includes('id="electrician-search-heading"'), 'Electrician landing is missing its explanatory scope section.');
+    requireOk(html.includes(`<strong>${electricianJobs.length}</strong><span>current electrical openings</span>`), 'Electrician page current-opening count does not match the feed.');
+    requireOk(html.includes(`<strong>${electricianEarlyCount}</strong><span>no-experience or 0–2 year roles</span>`), 'Electrician page early-career count does not match the feed.');
+    requireOk(html.includes(`<strong>${electricianApprenticeCount}</strong><span>apprentice openings</span>`), 'Electrician page apprentice count does not match the feed.');
+  }
+
   if (contract.path === 'internships/index.html') {
     requireOk(pageTitle(html).includes('Verified Employer Openings'), 'Internship title must preserve the employer-verification click-through signal.');
     requireOk(description.includes('verified employer listings'), 'Internship meta description must preserve direct verified-employer apply language.');
@@ -215,4 +237,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Search landing validation passed: ${jobs.length} jobs, ${apprenticeshipJobs.length} apprenticeship roles from ${apprenticeshipEmployerCount} employers (${apprenticeshipNoExperienceCount} no-experience), ${internshipJobs.length} internships from ${internshipEmployerCount} employers across ${internshipStateCount} states, ${jobs.filter(job => job.type === 'trainee').length} trainee roles, ${jobs.filter(job => job.experience === 'no-experience').length} no-experience roles, and ${activeEvents.length} upcoming verified events.`);
+console.log(`Search landing validation passed: ${jobs.length} jobs, ${apprenticeshipJobs.length} apprenticeship roles from ${apprenticeshipEmployerCount} employers (${apprenticeshipNoExperienceCount} no-experience), ${internshipJobs.length} internships from ${internshipEmployerCount} employers across ${internshipStateCount} states, ${electricianJobs.length} electrician/skilled-trades roles, ${jobs.filter(job => job.type === 'trainee').length} trainee roles, ${jobs.filter(job => job.experience === 'no-experience').length} no-experience roles, and ${activeEvents.length} upcoming verified events.`);

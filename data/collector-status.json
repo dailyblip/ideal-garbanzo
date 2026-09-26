@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T23:34:55.168Z",
+  "updatedAt": "2026-09-26T02:48:18.130Z",
   "jobs": 699,
   "sourcesAttempted": 20,
   "providers": {
@@ -3636,8 +3636,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1350,
     "currentJobs": 699,
-    "scopeCompany": "DataBank",
-    "scopedJobs": 15,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3645,8 +3645,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 15,
-    "updatedAt": "2026-09-25T23:34:55.795Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-26T02:48:18.499Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4398,13 +4398,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-25T21:48:55.862Z",
+    "checkedAt": "2026-09-26T02:48:18.130Z",
     "listingHealthy": true,
     "listingStatus": 200,
     "rolesExpected": 4,
     "rolesListed": 4,
     "detailChecksPassed": 4,
-    "qualifyingRoles": 3,
+    "qualifyingRoles": 4,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -4449,10 +4449,15 @@
         "requisition": "JR-811161",
         "listed": true,
         "detailOk": true,
-        "detailStatus": 202,
-        "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       }
     ],
     "errors": []

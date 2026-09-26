@@ -167,6 +167,9 @@ for (const entry of detailDirs) {
   requireOk(html.includes(`<link rel="canonical" href="${baseUrl}/jobs/`), `Job page ${entry.name} has a noncanonical URL.`);
   requireOk(html.includes('class="seo-role-overview"'), `Job page ${entry.name} is missing its plain-language role overview.`);
   requireOk(html.includes('id="role-overview-heading"'), `Job page ${entry.name} role overview is missing an accessible heading.`);
+  requireOk(html.includes('class="seo-applicant-guide'), `Job page ${entry.name} is missing applicant decision support.`);
+  requireOk(html.includes('id="applicant-guide-heading"'), `Job page ${entry.name} applicant decision support is missing an accessible heading.`);
+  requireOk(/BEFORE YOU APPLY/i.test(html), `Job page ${entry.name} is missing the pre-application guidance label.`);
   const match = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i);
   if (!match) {
     errors.push(`Job page ${entry.name} is missing JSON-LD.`);

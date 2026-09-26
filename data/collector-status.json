@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-26T07:59:57.481Z",
+  "updatedAt": "2026-09-26T09:44:27.212Z",
   "jobs": 708,
   "sourcesAttempted": 20,
   "providers": {
@@ -3475,9 +3475,9 @@
       "retiredEarly": false,
       "retiredBeforeOriginalExpiryAt": null,
       "minimumRemainingHours": 0,
-      "checkedAt": "2026-09-26T05:48:20.469Z",
+      "checkedAt": "2026-09-26T09:44:27.212Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 167.1,
+      "expiredAgeHours": 171.1,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3604,7 +3604,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-26T07:59:57.619Z",
+    "updatedAt": "2026-09-26T09:44:27.297Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3623,7 +3623,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-26T07:59:57.680Z",
+    "checkedAt": "2026-09-26T09:44:27.357Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3631,7 +3631,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-26T05:48:41.784Z",
+    "checkedAt": "2026-09-26T09:44:51.846Z",
     "publishedJobs": 708,
     "removedJobs": 0,
     "activeCareerEvents": 7,
@@ -3641,8 +3641,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1354,
     "currentJobs": 708,
-    "scopeCompany": "CloudHQ",
-    "scopedJobs": 1,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3650,8 +3648,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 1,
-    "updatedAt": "2026-09-26T08:50:51.804Z"
+    "firstSeenRecencyFallbackJobs": 85,
+    "updatedAt": "2026-09-26T09:44:52.079Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

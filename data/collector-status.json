@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-26T05:15:47.940Z",
-  "jobs": 708,
+  "updatedAt": "2026-09-26T05:17:58.781Z",
+  "jobs": 693,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 677,
-    "trainee": 14,
+    "apprenticeship": 11,
     "internship": 6,
-    "apprenticeship": 11
+    "trainee": 14,
+    "entry-level": 662
   },
   "countsByExperience": {
-    "0-2-years": 405,
-    "2-5-years": 277,
-    "no-experience": 26
+    "0-2-years": 399,
+    "no-experience": 26,
+    "2-5-years": 268
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -2018,21 +2018,13 @@
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 4,
-      "qualifyingRoles": 0,
+      "qualifyingRoles": 1,
       "drops": {
-        "context": 1,
         "non-us": 6,
         "title": 15,
         "unknown-experience": 9
       },
       "dropSamples": [
-        {
-          "title": "SkillBridge, Application Security Engineer - Trainee",
-          "listingLabel": "SkillBridge, Application Security Engineer - Trainee",
-          "pageTitle": "",
-          "heading": "",
-          "url": "https://careers.equinix.com/jobs/skillbridge-application-security-engineer-trainee-dallas-texas-united-states"
-        },
         {
           "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
@@ -2063,6 +2055,13 @@
           "pageTitle": "",
           "heading": "",
           "url": "https://careers.equinix.com/jobs/skillbridge-military-transition-program-staff-security-engineer-security-platforms-automation-hybrid-dallas-texas-united-states"
+        },
+        {
+          "title": "Data Center Critical Facilities Engineer",
+          "listingLabel": "Data Center Critical Facilities Engineer",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/data-center-critical-facilities-engineer-englewood-colorado-united-states"
         }
       ],
       "errors": []
@@ -2095,7 +2094,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-25T21:45:13.202Z"
+      "verifiedFallbackExpiredAt": "2026-09-26T05:17:58.781Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2109,7 +2108,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 0,
+    "removedBroadEarly": 1,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -2163,6 +2162,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1354,
     "currentJobs": 708,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2170,8 +2171,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-26T05:15:48.319Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-26T05:17:59.224Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2901,7 +2902,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-25T21:45:13.202Z",
+    "checkedAt": "2026-09-26T05:17:58.781Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
@@ -2911,13 +2912,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-26T03:17:32.428Z",
+    "checkedAt": "2026-09-26T05:17:58.276Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2925,52 +2926,31 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       }
     ],
     "errors": []

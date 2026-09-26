@@ -115,6 +115,11 @@ function earlyRank(job) {
   return t * 10 + e;
 }
 
+function isElectricianTradeJob(job) {
+  const title = clean(job?.title);
+  return /\belectrician\b|\belectrical\s+(?:technician|maintenance|specialist|operator|apprentice)\b|\b(?:facilities|maintenance|critical facilities)\b.{0,40}\belectrical\b/i.test(title);
+}
+
 function pagePath(root, page) {
   if (page === 1) return `${baseUrl}/${root}/`;
   return `${baseUrl}/${root}/page/${page}/`;
@@ -140,6 +145,7 @@ function sitemapLastmods() {
     ['internships', job => job.type === 'internship'],
     ['entry-level', job => job.experience === 'no-experience' || job.experience === '0-2-years'],
     ['no-experience', job => job.experience === 'no-experience'],
+    ['data-center-electrician-jobs', isElectricianTradeJob],
     ['trainee-jobs', job => job.type === 'trainee']
   ];
 

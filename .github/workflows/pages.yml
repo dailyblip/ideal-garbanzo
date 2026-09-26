@@ -342,6 +342,7 @@ jobs:
           node scripts/validate-accessibility.mjs
           node scripts/validate-technical-seo.mjs
           node scripts/validate-google-analytics.mjs
+          node scripts/validate-search-landings.mjs
           node scripts/validate-discovery-landings.mjs
           expected_jobs=$(node -e "console.log(require('./data/jobs.json').length)")
           generated_jobs=$(find jobs -mindepth 2 -maxdepth 2 -type f -name index.html | wc -l)
@@ -354,6 +355,8 @@ jobs:
           test -s apprenticeships/index.html
           test -s internships/index.html
           test -s entry-level/index.html
+          test -s no-experience/index.html
+          test -s data-center-electrician-jobs/index.html
           test -s career-events/index.html
           test -s how-to-get-a-data-center-job/index.html
           test -s how-to-get-a-data-center-apprenticeship/index.html
@@ -365,6 +368,7 @@ jobs:
           grep -Fq 'How to get a data center internship' how-to-get-a-data-center-internship/index.html
           grep -Fq '/locations/' sitemap.xml
           grep -Fq '/companies/' sitemap.xml
+          grep -Fq '/data-center-electrician-jobs/' sitemap.xml
           grep -Fq '/how-to-get-a-data-center-job/' sitemap.xml
           grep -Fq '/how-to-get-a-data-center-apprenticeship/' sitemap.xml
           grep -Fq '/how-to-get-a-data-center-internship/' sitemap.xml

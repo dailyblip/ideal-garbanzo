@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-26T16:34:00.297Z",
-  "jobs": 710,
+  "updatedAt": "2026-09-26T16:35:13.379Z",
+  "jobs": 695,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 679,
-    "trainee": 14,
+    "apprenticeship": 11,
     "internship": 6,
-    "apprenticeship": 11
+    "trainee": 14,
+    "entry-level": 664
   },
   "countsByExperience": {
-    "0-2-years": 406,
-    "2-5-years": 278,
-    "no-experience": 26
+    "0-2-years": 400,
+    "no-experience": 26,
+    "2-5-years": 269
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -2095,7 +2095,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-26T11:40:58.159Z"
+      "verifiedFallbackExpiredAt": "2026-09-26T16:35:13.379Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -2163,6 +2163,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1354,
     "currentJobs": 710,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2170,8 +2172,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 85,
-    "updatedAt": "2026-09-26T16:34:00.743Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-26T16:35:13.817Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2899,7 +2901,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-26T11:40:58.159Z",
+    "checkedAt": "2026-09-26T16:35:13.379Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
@@ -2909,13 +2911,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-26T11:45:20.374Z",
+    "checkedAt": "2026-09-26T16:35:12.843Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 3,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2923,47 +2925,31 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 202,
+        "listed": false,
+        "detailOk": false,
         "published": false,
-        "reason": "identity-drift",
-        "heading": ""
+        "reason": "not-listed"
       }
     ],
     "errors": []

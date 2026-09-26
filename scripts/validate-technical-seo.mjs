@@ -68,6 +68,7 @@ const requiredUrls = [
   `${baseUrl}/internships/`,
   `${baseUrl}/entry-level/`,
   `${baseUrl}/no-experience/`,
+  `${baseUrl}/data-center-electrician-jobs/`,
   `${baseUrl}/career-events/`,
   `${baseUrl}/employers/`,
   `${baseUrl}/locations/`,

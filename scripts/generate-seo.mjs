@@ -354,6 +354,12 @@ urls.push(...await generateListing({
   description:'Browse entry-level data center jobs for no-experience and 0–2 year candidates, including technicians, operators and critical-facilities roles.',
   intro:'Beginner-friendly openings for first-time applicants and workers with up to two years of relevant experience.',
   filter:job=>job.experience==='no-experience' || job.experience==='0-2-years',
+  contextHtml:list=>{
+    const employerCount = new Set(list.map(job => clean(job.company)).filter(Boolean)).size;
+    const noExperienceCount = list.filter(job => job.experience === 'no-experience').length;
+    const trainingCount = list.filter(job => job.type === 'apprenticeship' || job.type === 'trainee' || job.type === 'internship').length;
+    return `<section class="guide-section" aria-labelledby="entry-level-proof-heading"><span class="seo-kicker">CURRENT EARLY-CAREER INVENTORY</span><h2 id="entry-level-proof-heading">Start with openings that match your experience</h2><p>This page combines verified roles requiring no prior data center experience with openings asking for up to two years of relevant experience. That can include internships, apprenticeships, trainee programs, technicians, facilities roles and other hands-on infrastructure work.${employerContext(list)}</p><div class="guide-stats"><div><strong>${list.length}</strong><span>current entry-level openings</span></div><div><strong>${noExperienceCount}</strong><span>no-experience openings</span></div><div><strong>${trainingCount}</strong><span>intern, apprentice or trainee roles</span></div><div><strong>${employerCount}</strong><span>employers represented</span></div></div></section>`;
+  },
   relatedLinks:[
     ['Jobs with no experience required', `${baseUrl}/no-experience/`],
     ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
@@ -367,7 +373,13 @@ urls.push(...await generateListing({
   description:'Browse current employer-direct data center jobs with no experience required, including trainee, apprentice and beginner technician openings.',
   intro:'Current beginner-friendly openings whose published minimum qualifications do not require prior data center industry experience.',
   filter:job=>job.experience==='no-experience',
-  contextHtml:list=>`<section class="guide-section" aria-labelledby="no-experience-heading"><span class="seo-kicker">HOW WE FILTER</span><h2 id="no-experience-heading">What “no experience required” means here</h2><p>We use the employer's published minimum qualifications to identify openings that do not require prior data center experience. A role may still require a high school diploma, shift availability, basic technical ability, a driver's license, safety training or another clearly stated qualification.${employerContext(list)}</p><p>Always read the official employer posting before applying. “No experience required” does not mean every applicant automatically qualifies.</p></section>`,
+  contextHtml:list=>{
+    const employerCount = new Set(list.map(job => clean(job.company)).filter(Boolean)).size;
+    const apprenticeTraineeCount = list.filter(job => job.type === 'apprenticeship' || job.type === 'trainee').length;
+    const technicianCount = list.filter(job => /\btechnician\b|\btech\s*(?:i|1)\b/i.test(clean(job.title))).length;
+    return `<section class="guide-section" aria-labelledby="no-experience-heading"><span class="seo-kicker">CURRENT BEGINNER INVENTORY</span><h2 id="no-experience-heading">Data center jobs that do not require prior industry experience</h2><p>We use the employer's published minimum qualifications to identify openings that do not require prior data center experience. A role may still require a high school diploma, shift availability, basic technical ability, a driver's license, safety training or another clearly stated qualification.${employerContext(list)}</p><div class="guide-stats"><div><strong>${list.length}</strong><span>current no-experience openings</span></div><div><strong>${employerCount}</strong><span>employers represented</span></div><div><strong>${technicianCount}</strong><span>technician openings</span></div><div><strong>${apprenticeTraineeCount}</strong><span>apprentice or trainee roles</span></div></div><h3>What to check before you apply</h3><p>“No experience required” refers to prior data center experience, not necessarily zero qualifications. Check the official posting for education, trade credentials, driver's-license requirements, shift schedules, physical requirements and safety expectations.</p><div class="guide-actions"><a class="seo-apply" href="#no-experience-list">View current openings ↓</a><a class="guide-secondary" href="${baseUrl}/how-to-get-a-data-center-job/">Beginner career roadmap →</a></div></section>`;
+  },
+  listId:'no-experience-list',
   relatedLinks:[
     ['Data center trainee jobs', `${baseUrl}/trainee-jobs/`],
     ['Data center apprenticeships', `${baseUrl}/apprenticeships/`],

@@ -208,6 +208,25 @@ function overviewHtml(job, overview) {
   return `<section class="seo-role-overview" aria-labelledby="role-overview-heading"><h2 id="role-overview-heading">At a glance</h2><p>${esc(overview)}</p><ul><li><strong>Opportunity:</strong> ${esc(opportunity)}</li><li><strong>Experience:</strong> ${esc(experience)}</li>${focus.length ? `<li><strong>Focus:</strong> ${esc(readableList(focus))}</li>` : ''}</ul></section>`;
 }
 
+function applicantGuideHtml(job) {
+  const focus = focusAreas(job);
+  const pay = clean(job.pay);
+  const hasPay = pay && pay.toLowerCase() !== 'pay not listed';
+  const pathLinks = [];
+  if (job.type === 'apprenticeship') pathLinks.push(['More apprenticeships', '/apprenticeships/']);
+  if (job.type === 'internship') pathLinks.push(['More internships', '/internships/']);
+  if (job.type === 'trainee') pathLinks.push(['More trainee programs', '/trainee-jobs/']);
+  if (job.experience === 'no-experience') pathLinks.push(['More no-experience jobs', '/no-experience/']);
+  if (job.experience === 'no-experience' || job.experience === '0-2-years') pathLinks.push(['More entry-level jobs', '/entry-level/']);
+  if (/\belectric/i.test(clean(job.title)) || focus.some(tag => /electrical/i.test(tag))) pathLinks.push(['Data center electrician jobs', '/data-center-electrician-jobs/']);
+  if (/\btechnician\b|\btech\s*(?:i|1)\b/i.test(clean(job.title))) pathLinks.push(['Entry-level technician jobs', '/data-center-technician-jobs/']);
+  pathLinks.push(['How to get a data center job', '/how-to-get-a-data-center-job/']);
+
+  const uniqueLinks = [...new Map(pathLinks.map(([label,href]) => [href,[label,href]])).values()].slice(0,4);
+  const sourceLabel = clean(job.source) || 'Employer career site';
+  return `<section class="seo-applicant-guide guide-section" aria-labelledby="applicant-guide-heading"><span class="seo-kicker">BEFORE YOU APPLY</span><h2 id="applicant-guide-heading">Is this role worth a closer look?</h2><p>We include this opening because it matches the site's data center infrastructure mission and published experience range. Use this page to compare the basics, then verify the complete requirements on the employer's own posting.</p><ul><li><strong>Experience signal:</strong> ${esc(experienceLabels[job.experience] || job.experience || 'See employer posting')}</li><li><strong>Location:</strong> ${esc(job.location)}</li>${focus.length ? `<li><strong>Work areas:</strong> ${esc(readableList(focus))}</li>` : ''}${hasPay ? `<li><strong>Listed compensation:</strong> ${esc(pay)}</li>` : '<li><strong>Compensation:</strong> Not listed in our verified feed; check the employer posting.</li>'}<li><strong>Source:</strong> ${esc(sourceLabel)}</li></ul><p class="seo-source">Check licenses, certifications, shift requirements, physical requirements and any degree or trade prerequisites on the official posting before applying.</p><div class="guide-actions">${uniqueLinks.map(([label,href]) => `<a class="guide-secondary" href="${baseUrl}${href}">${esc(label)} →</a>`).join('')}</div></section>`;
+}
+
 function jobsBrowserHtml() {
   return `<section class="jobs-browser" data-jobs-browser aria-labelledby="jobs-tools-heading">
     <div class="jobs-tools-head"><div><span class="seo-kicker">FIND THE RIGHT OPENING</span><h2 id="jobs-tools-heading">Search and filter jobs</h2></div><button class="jobs-reset" id="jobs-reset" type="button">Reset</button></div>
@@ -371,12 +390,20 @@ for (const job of jobs) {
     html = `${html.slice(0, markerIndex)}${overviewHtml(job, overview)}\n      ${html.slice(markerIndex)}`;
   }
 
+  if (!html.includes('class="seo-applicant-guide"')) {
+    const applyMarker = '<a class="seo-apply"';
+    const markerIndex = html.indexOf(applyMarker);
+    if (markerIndex < 0) throw new Error(`Job page ${path} is missing the employer apply link marker for applicant guidance.`);
+    html = `${html.slice(0, markerIndex)}${applicantGuideHtml(job)}\n      ${html.slice(markerIndex)}`;
+  }
+
   if (!html.includes('/data-center-technician-jobs/')) {
     const relatedMarker = '<aside class="seo-related"><h2>Explore more opportunities</h2>';
     html = html.replace(relatedMarker, `${relatedMarker}<a href="${baseUrl}/data-center-technician-jobs/">Entry-level data center technician jobs</a>`);
   }
 
   if (!html.includes(esc(overview))) throw new Error(`Job page ${path} did not receive the plain-language role overview.`);
+  if (!html.includes('id="applicant-guide-heading"')) throw new Error(`Job page ${path} did not receive applicant decision support.`);
   enrichedJobPages += 1;
   await writeFile(path, html);
 }
@@ -416,4 +443,4 @@ if (!sitemap.includes(`<loc>${employerUrl}</loc>`)) {
 await writeFile('sitemap.xml', sitemap);
 await writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}/sitemap.xml\n`);
 
-console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context; ${structuredDateCount}/${jobs.length} JobPosting pages received datePosted evidence; ${enhancedLocations}/${jobs.length} received structured location data; ${technicianPages.length} technician search pages generated; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap; jobs search/filter/sort controls enabled.`);
+console.log(`SEO hardening complete: ${enrichedJobPages}/${jobs.length} job pages received plain-language role context and applicant decision support; ${structuredDateCount}/${jobs.length} JobPosting pages received datePosted evidence; ${enhancedLocations}/${jobs.length} received structured location data; ${technicianPages.length} technician search pages generated; ${correctedLastmods} sitemap URLs use meaningful change dates; employer page included in sitemap; jobs search/filter/sort controls enabled.`);

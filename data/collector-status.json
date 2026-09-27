@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T17:09:31.186Z",
+  "updatedAt": "2026-09-27T17:16:02.968Z",
   "jobs": 699,
   "sourcesAttempted": 19,
   "providers": {
@@ -2215,6 +2215,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1358,
     "currentJobs": 699,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 3,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2222,8 +2224,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-27T17:15:48.806Z"
+    "firstSeenRecencyFallbackJobs": 3,
+    "updatedAt": "2026-09-27T17:16:03.235Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2975,13 +2977,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-27T17:09:30.353Z",
+    "checkedAt": "2026-09-27T17:16:02.968Z",
     "listingHealthy": true,
-    "listingStatus": 202,
+    "listingStatus": 200,
     "rolesExpected": 4,
-    "rolesListed": 0,
-    "detailChecksPassed": 0,
-    "qualifyingRoles": 0,
+    "rolesListed": 4,
+    "detailChecksPassed": 4,
+    "qualifyingRoles": 2,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2989,31 +2991,47 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": false,
-        "detailOk": false,
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 202,
         "published": false,
-        "reason": "not-listed"
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-163300",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          2,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       },
       {
         "requisition": "JR-158170",
-        "listed": false,
-        "detailOk": false,
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 202,
         "published": false,
-        "reason": "not-listed"
+        "reason": "identity-drift",
+        "heading": ""
       },
       {
         "requisition": "JR-811161",
-        "listed": false,
-        "detailOk": false,
-        "published": false,
-        "reason": "not-listed"
+        "listed": true,
+        "detailOk": true,
+        "detailStatus": 200,
+        "published": true,
+        "years": [
+          1,
+          4,
+          1,
+          4
+        ],
+        "alreadyPublishedByOtherCollector": true
       }
     ],
     "errors": []

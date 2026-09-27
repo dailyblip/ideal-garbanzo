@@ -1,12 +1,13 @@
 {
-  "updatedAt": "2026-09-27T17:19:17.959Z",
+  "updatedAt": "2026-09-27T17:21:11.370Z",
   "jobs": 699,
-  "sourcesAttempted": 19,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "icims": 1
   },
   "countsByType": {
     "entry-level": 669,
@@ -15,8 +16,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 281,
     "0-2-years": 392,
+    "2-5-years": 281,
     "no-experience": 26
   },
   "errors": [],
@@ -49,15 +50,15 @@
         "location": ""
       },
       {
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
+        "location": ""
+      },
+      {
         "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
         "title": "Senior Client Executive",
         "location": "Marlborough, MA",
         "reason": "classification"
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
-        "location": ""
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3010/manager%2c-accounting/job",
@@ -2170,7 +2171,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-27T17:19:39.277Z",
+    "checkedAt": "2026-09-27T17:21:11.449Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2178,7 +2179,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-27T17:19:39.324Z",
+    "updatedAt": "2026-09-27T17:21:11.528Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 699,
@@ -2186,18 +2187,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "texas": 118,
+      "southeast": 110,
       "mid-atlantic": 134,
       "west": 107,
-      "southeast": 110,
       "midwest": 129,
-      "texas": 118,
       "southwest": 77,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-27T17:19:39.365Z",
+    "checkedAt": "2026-09-27T17:21:11.603Z",
     "before": 699,
     "after": 699,
     "removed": 0,
@@ -2215,8 +2216,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1358,
     "currentJobs": 699,
-    "scopeCompany": "Iron Mountain",
-    "scopedJobs": 12,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2224,8 +2223,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-27T17:19:39.543Z"
+    "firstSeenRecencyFallbackJobs": 88,
+    "updatedAt": "2026-09-27T17:21:11.667Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

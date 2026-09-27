@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T05:23:15.507Z",
+  "updatedAt": "2026-09-27T05:30:21.361Z",
   "jobs": 706,
   "sourcesAttempted": 19,
   "providers": {
@@ -1996,9 +1996,9 @@
       "retiredEarly": false,
       "retiredBeforeOriginalExpiryAt": null,
       "minimumRemainingHours": 0,
-      "checkedAt": "2026-09-26T21:37:29.986Z",
+      "checkedAt": "2026-09-27T05:30:21.361Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 182.9,
+      "expiredAgeHours": 190.8,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -2126,7 +2126,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-27T05:28:35.641Z",
+    "updatedAt": "2026-09-27T05:30:21.437Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 706,
@@ -2145,7 +2145,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-27T05:28:35.715Z",
+    "checkedAt": "2026-09-27T05:30:21.492Z",
     "before": 706,
     "after": 706,
     "removed": 0,
@@ -2153,8 +2153,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-26T09:44:51.846Z",
-    "publishedJobs": 708,
+    "checkedAt": "2026-09-27T05:30:40.670Z",
+    "publishedJobs": 706,
     "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
@@ -2163,8 +2163,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1355,
     "currentJobs": 706,
-    "scopeCompany": "Sabey Data Centers",
-    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2172,8 +2170,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-27T05:28:35.898Z"
+    "firstSeenRecencyFallbackJobs": 85,
+    "updatedAt": "2026-09-27T05:30:40.894Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

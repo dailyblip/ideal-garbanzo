@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T17:32:03.047Z",
+  "updatedAt": "2026-09-27T17:33:12.981Z",
   "jobs": 699,
   "sourcesAttempted": 21,
   "providers": {
@@ -3635,15 +3635,25 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-27T17:32:03.285Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-27T17:33:13.070Z",
+    "removedCount": 1,
+    "removedByReason": {
+      "senior/executive title": 1
+    },
+    "removed": [
+      {
+        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
+        "company": "Prime Data Centers",
+        "title": "Data Center Business Systems Architect",
+        "location": "Dallas, TX; Denver, CO",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-27T17:32:03.342Z",
+    "updatedAt": "2026-09-27T17:33:13.156Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 699,
@@ -3653,16 +3663,16 @@
     "countsByRegion": {
       "mid-atlantic": 134,
       "west": 107,
+      "southeast": 110,
       "midwest": 129,
       "texas": 118,
-      "southeast": 110,
       "southwest": 77,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-27T17:32:03.393Z",
+    "checkedAt": "2026-09-27T17:33:13.237Z",
     "before": 699,
     "after": 699,
     "removed": 0,
@@ -3680,8 +3690,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1358,
     "currentJobs": 699,
-    "scopeCompany": "T5 Data Centers",
-    "scopedJobs": 22,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3689,8 +3697,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-27T17:32:03.616Z"
+    "firstSeenRecencyFallbackJobs": 88,
+    "updatedAt": "2026-09-27T17:33:13.866Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4513,8 +4521,8 @@
     "samples": []
   },
   "primeDataCenters": {
-    "checkedAt": "2026-09-27T12:48:49.075Z",
-    "lastSuccessfulAt": "2026-09-27T12:48:49.075Z",
+    "checkedAt": "2026-09-27T17:33:12.981Z",
+    "lastSuccessfulAt": "2026-09-27T17:33:12.981Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://primedatacenters.com/careers/",

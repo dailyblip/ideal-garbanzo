@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T06:01:56.567Z",
+  "updatedAt": "2026-09-27T06:02:30.521Z",
   "jobs": 710,
   "sourcesAttempted": 21,
   "providers": {
@@ -3631,7 +3631,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-27T06:01:56.754Z",
+    "updatedAt": "2026-09-27T06:02:30.605Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -3650,7 +3650,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-27T06:01:56.829Z",
+    "checkedAt": "2026-09-27T06:02:30.666Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -3668,17 +3668,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1358,
     "currentJobs": 710,
-    "scopeCompany": "Meta",
-    "scopedJobs": 11,
-    "newJobsThisRun": 3,
-    "changedJobsThisRun": 6,
-    "migratedEntriesThisRun": 3,
+    "newJobsThisRun": 0,
+    "changedJobsThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 11,
-    "updatedAt": "2026-09-27T06:01:57.016Z"
+    "firstSeenRecencyFallbackJobs": 89,
+    "updatedAt": "2026-09-27T06:02:30.768Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4546,9 +4544,9 @@
     "policy": "Verify Prime role liveness against the official Rippling board. If that source cannot be verified, retain the last verified employer-direct snapshot for at most 96 hours."
   },
   "metaCurrentEntryLevelRecovery": {
-    "checkedAt": "2026-09-21T02:55:59.996Z",
+    "checkedAt": "2026-09-27T06:02:30.521Z",
     "officialSource": "https://www.metacareers.com/jobsearch/sitemap.xml",
-    "sitemapJobs": 988,
+    "sitemapJobs": 1018,
     "targetRoleIds": [
       "meta-931982199496426",
       "meta-2435616253932563",

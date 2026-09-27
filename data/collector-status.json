@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T18:18:55.075Z",
+  "updatedAt": "2026-09-27T18:39:35.942Z",
   "jobs": 699,
   "sourcesAttempted": 22,
   "providers": {
@@ -18,8 +18,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 392,
     "2-5-years": 281,
+    "0-2-years": 392,
     "no-experience": 26
   },
   "errors": [],
@@ -3636,7 +3636,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-27T18:18:55.148Z",
+    "checkedAt": "2026-09-27T18:39:36.014Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3644,7 +3644,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-27T18:18:55.230Z",
+    "updatedAt": "2026-09-27T18:39:36.091Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 699,
@@ -3652,18 +3652,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "texas": 118,
-      "southeast": 110,
       "mid-atlantic": 134,
       "west": 107,
+      "southeast": 110,
       "midwest": 129,
+      "texas": 118,
       "southwest": 77,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-27T18:18:55.307Z",
+    "checkedAt": "2026-09-27T18:39:36.166Z",
     "before": 699,
     "after": 699,
     "removed": 0,
@@ -3681,8 +3681,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1358,
     "currentJobs": 699,
-    "scopeCompany": "H5 Data Centers",
-    "scopedJobs": 12,
+    "scopeCompany": "DataBank",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3690,8 +3690,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-27T18:18:55.551Z"
+    "firstSeenRecencyFallbackJobs": 15,
+    "updatedAt": "2026-09-27T18:39:36.505Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3869,7 +3869,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-27T14:18:36.822Z",
+    "checkedAt": "2026-09-27T18:39:35.942Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",

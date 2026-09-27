@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-27T16:54:24.720Z",
-  "jobs": 713,
+  "updatedAt": "2026-09-27T16:56:06.791Z",
+  "jobs": 703,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 682,
+    "entry-level": 672,
     "trainee": 14,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 282,
-    "0-2-years": 405,
-    "no-experience": 26
+    "0-2-years": 394,
+    "no-experience": 26,
+    "2-5-years": 283
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1430,14 +1430,14 @@
       "invalidUrl": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-27T11:58:20.414Z",
-    "lastHealthyAt": "2026-09-27T11:58:20.414Z",
+    "checkedAt": "2026-09-27T16:56:06.889Z",
+    "lastHealthyAt": "2026-09-27T16:56:06.889Z",
     "fallbackMaxAgeHours": 96,
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-27T11:58:20.414Z",
-      "checkedAt": "2026-09-27T11:58:20.414Z",
+      "lastHealthyAt": "2026-09-27T16:56:06.889Z",
+      "checkedAt": "2026-09-27T16:56:06.889Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     }
@@ -2189,17 +2189,17 @@
     "updatedAt": "2026-09-27T16:54:25.846Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 713,
+    "regionAssigned": 700,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "mid-atlantic": 137,
-      "west": 112,
-      "southeast": 111,
-      "midwest": 131,
-      "texas": 120,
-      "southwest": 78,
+      "mid-atlantic": 134,
+      "west": 108,
+      "southeast": 110,
+      "midwest": 129,
+      "texas": 118,
+      "southwest": 77,
       "northeast": 23,
       "nationwide": 1
     }
@@ -2222,18 +2222,18 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1358,
-    "currentJobs": 713,
-    "scopeCompany": "Oracle",
-    "scopedJobs": 13,
+    "currentJobs": 700,
+    "scopeCompany": "Amazon Web Services",
+    "scopedJobs": 240,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 13,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-27T16:54:26.113Z"
+    "updatedAt": "2026-09-27T16:56:07.473Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2269,15 +2269,31 @@
     "reusedVerified": 26,
     "detailCandidates": 278,
     "detailAttempted": 278,
-    "detailSucceeded": 278,
-    "detailRecovered": 232,
-    "detailFetchFailed": 0,
+    "detailSucceeded": 263,
+    "detailRecovered": 217,
+    "detailFetchFailed": 15,
     "detailUnknownExperience": 35,
     "detailOverFiveYears": 11,
     "invalidUrls": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 258,
-    "detailErrorSamples": [],
+    "qualifyingRoles": 243,
+    "detailErrorSamples": [
+      "https://www.amazon.jobs/en/jobs/10479164/engineering-operations-technician-data-center-engineering-operations-dceo: 503 https://www.amazon.jobs/en/jobs/10479164/engineering-operations-technician-data-center-engineering-operations-dceo",
+      "https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10459296/data-center-operations-technician: 503 https://www.amazon.jobs/en/jobs/10459296/data-center-operations-technician",
+      "https://www.amazon.jobs/en/jobs/10448901/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10448901/data-center-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10430644/data-center-technician-human-resources: 503 https://www.amazon.jobs/en/jobs/10430644/data-center-technician-human-resources",
+      "https://www.amazon.jobs/en/jobs/10427682/data-center-technician-human-resources: 503 https://www.amazon.jobs/en/jobs/10427682/data-center-technician-human-resources",
+      "https://www.amazon.jobs/en/jobs/10403224/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/10403224/engineering-operation-technician",
+      "https://www.amazon.jobs/en/jobs/10386444/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10386444/data-center-technician",
+      "https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician",
+      "https://www.amazon.jobs/en/jobs/3188272/data-center-technician-night-shift-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3188272/data-center-technician-night-shift-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3150709/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150709/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3150687/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150687/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3167926/data-center-engineering-operations-technician-dcc-communities-amazon-web-services: 503 https://www.amazon.jobs/en/jobs/3167926/data-center-engineering-operations-technician-dcc-communities-amazon-web-services",
+      "https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo",
+      "https://www.amazon.jobs/en/jobs/10405513/project-engineer-data-center-construction: 503 https://www.amazon.jobs/en/jobs/10405513/project-engineer-data-center-construction"
+    ],
     "errors": []
   },
   "earlyCareerStalePrune": {

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-27T05:10:36.777Z",
-  "jobs": 700,
+  "updatedAt": "2026-09-27T05:14:09.346Z",
+  "jobs": 712,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 669,
+    "entry-level": 681,
     "trainee": 14,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 279,
-    "0-2-years": 395,
-    "no-experience": 26
+    "0-2-years": 405,
+    "no-experience": 26,
+    "2-5-years": 281
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1430,14 +1430,14 @@
       "invalidUrl": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-26T21:05:58.026Z",
-    "lastHealthyAt": "2026-09-26T21:05:58.026Z",
+    "checkedAt": "2026-09-27T05:14:09.429Z",
+    "lastHealthyAt": "2026-09-27T05:14:09.429Z",
     "fallbackMaxAgeHours": 96,
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-26T21:05:58.026Z",
-      "checkedAt": "2026-09-26T21:05:58.026Z",
+      "lastHealthyAt": "2026-09-27T05:14:09.429Z",
+      "checkedAt": "2026-09-27T05:14:09.429Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     }
@@ -2140,16 +2140,16 @@
     "updatedAt": "2026-09-27T05:10:37.861Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 700,
+    "regionAssigned": 707,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "mid-atlantic": 134,
+      "mid-atlantic": 137,
       "west": 110,
-      "southeast": 109,
-      "midwest": 128,
-      "texas": 117,
+      "southeast": 108,
+      "midwest": 130,
+      "texas": 120,
       "southwest": 78,
       "northeast": 23,
       "nationwide": 1
@@ -2173,18 +2173,18 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1355,
-    "currentJobs": 700,
-    "scopeCompany": "Oracle",
-    "scopedJobs": 13,
+    "currentJobs": 707,
+    "scopeCompany": "Amazon Web Services",
+    "scopedJobs": 248,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 13,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-27T05:10:38.028Z"
+    "updatedAt": "2026-09-27T05:14:09.912Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2220,29 +2220,21 @@
     "reusedVerified": 26,
     "detailCandidates": 277,
     "detailAttempted": 277,
-    "detailSucceeded": 263,
-    "detailRecovered": 219,
-    "detailFetchFailed": 14,
+    "detailSucceeded": 271,
+    "detailRecovered": 227,
+    "detailFetchFailed": 6,
     "detailUnknownExperience": 33,
     "detailOverFiveYears": 11,
     "invalidUrls": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 245,
+    "qualifyingRoles": 253,
     "detailErrorSamples": [
-      "https://www.amazon.jobs/en/jobs/10482544/engineering-operation-technician-night-role: 503 https://www.amazon.jobs/en/jobs/10482544/engineering-operation-technician-night-role",
-      "https://www.amazon.jobs/en/jobs/10479164/engineering-operations-technician-data-center-engineering-operations-dceo: 503 https://www.amazon.jobs/en/jobs/10479164/engineering-operations-technician-data-center-engineering-operations-dceo",
-      "https://www.amazon.jobs/en/jobs/10476304/engineering-operation-technician-southeast-region-military-veterans-encouraged: 503 https://www.amazon.jobs/en/jobs/10476304/engineering-operation-technician-southeast-region-military-veterans-encouraged",
-      "https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10461591/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10461591/data-center-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10459296/data-center-operations-technician: 503 https://www.amazon.jobs/en/jobs/10459296/data-center-operations-technician",
-      "https://www.amazon.jobs/en/jobs/10437606/data-center-technician-adc-infraops-dco-tech: 503 https://www.amazon.jobs/en/jobs/10437606/data-center-technician-adc-infraops-dco-tech",
-      "https://www.amazon.jobs/en/jobs/10430644/data-center-technician-human-resources: 503 https://www.amazon.jobs/en/jobs/10430644/data-center-technician-human-resources",
-      "https://www.amazon.jobs/en/jobs/10408193/data-center-technician-maf-hiring-event-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10408193/data-center-technician-maf-hiring-event-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10403224/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/10403224/engineering-operation-technician",
-      "https://www.amazon.jobs/en/jobs/3206031/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3206031/engineering-operations-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician",
-      "https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3163925/data-center-engineering-operations-technician-northern-virginia",
-      "https://www.amazon.jobs/en/jobs/3150687/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150687/engineering-operations-technician-dcc-communities"
+      "https://www.amazon.jobs/en/jobs/10411544/cleared-engineering-operations-technician-adc-infraops-dceo-adc-infraops-dceo: 503 https://www.amazon.jobs/en/jobs/10411544/cleared-engineering-operations-technician-adc-infraops-dceo-adc-infraops-dceo",
+      "https://www.amazon.jobs/en/jobs/10382445/data-center-engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10382445/data-center-engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3188272/data-center-technician-night-shift-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3188272/data-center-technician-night-shift-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/3150769/data-center-engineering-operations-technician-dceo",
+      "https://www.amazon.jobs/en/jobs/10433505/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10433505/engineering-operations-technician-dcc-communities"
     ],
     "errors": []
   },

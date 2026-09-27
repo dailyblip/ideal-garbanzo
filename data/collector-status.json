@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T06:02:30.521Z",
+  "updatedAt": "2026-09-27T06:17:53.952Z",
   "jobs": 710,
   "sourcesAttempted": 21,
   "providers": {
@@ -221,7 +221,7 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-26T16:54:55.266Z",
+    "checkedAt": "2026-09-27T06:17:53.952Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3632,7 +3632,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-27T05:52:21.081Z",
+    "checkedAt": "2026-09-27T06:17:54.042Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3640,7 +3640,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-27T06:02:30.605Z",
+    "updatedAt": "2026-09-27T06:17:54.132Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -3659,7 +3659,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-27T06:02:30.666Z",
+    "checkedAt": "2026-09-27T06:17:54.215Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -3677,15 +3677,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1358,
     "currentJobs": 710,
+    "scopeCompany": "T5 Data Centers",
+    "scopedJobs": 22,
     "newJobsThisRun": 0,
-    "changedJobsThisRun": 1,
+    "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 89,
-    "updatedAt": "2026-09-27T06:02:30.768Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-27T06:17:54.566Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

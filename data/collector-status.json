@@ -3285,7 +3285,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T19:31:01.990Z",
+    "checkedAt": "2026-09-28T19:43:07.286Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3293,7 +3293,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T19:31:02.076Z",
+    "updatedAt": "2026-09-28T19:43:07.369Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3312,7 +3312,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T19:31:02.157Z",
+    "checkedAt": "2026-09-28T19:43:07.448Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3330,8 +3330,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1363,
     "currentJobs": 708,
-    "scopeCompany": "Switch",
-    "scopedJobs": 17,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3339,8 +3337,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-28T19:31:02.494Z"
+    "firstSeenRecencyFallbackJobs": 86,
+    "updatedAt": "2026-09-28T19:43:07.735Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3539,11 +3537,11 @@
       "fetch": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-28T05:33:44.113Z",
-    "lastHealthyAt": "2026-09-28T05:33:44.113Z",
+    "checkedAt": "2026-09-28T19:43:07.194Z",
+    "lastHealthyAt": "2026-09-28T19:43:07.194Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-10-02T05:33:44.113Z",
+    "fallbackExpiresAt": "2026-10-02T19:43:07.194Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 2,

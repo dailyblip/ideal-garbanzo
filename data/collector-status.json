@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T15:00:09.804Z",
+  "updatedAt": "2026-09-28T15:41:57.884Z",
   "jobs": 708,
   "sourcesAttempted": 20,
   "providers": {
@@ -16,8 +16,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 278,
-    "0-2-years": 404,
+    "2-5-years": 279,
+    "0-2-years": 403,
     "no-experience": 26
   },
   "errors": [],
@@ -3285,25 +3285,15 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T15:00:09.883Z",
-    "removedCount": 1,
-    "removedByReason": {
-      "senior/executive title": 1
-    },
-    "removed": [
-      {
-        "id": "rippling-prime-4f94893a-506e-4403-a00a-7c2604ce8e2b",
-        "company": "Prime Data Centers",
-        "title": "Data Center Business Systems Architect",
-        "location": "Dallas, TX; Denver, CO",
-        "reason": "senior/executive title"
-      }
-    ],
+    "checkedAt": "2026-09-28T15:41:57.954Z",
+    "removedCount": 0,
+    "removedByReason": {},
+    "removed": [],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T15:00:09.965Z",
+    "updatedAt": "2026-09-28T15:41:58.021Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3322,7 +3312,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T15:00:10.039Z",
+    "checkedAt": "2026-09-28T15:41:58.085Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3338,17 +3328,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1362,
+    "trackedJobs": 1363,
     "currentJobs": 708,
-    "newJobsThisRun": 0,
+    "scopeCompany": "Cologix",
+    "scopedJobs": 7,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-28T15:00:10.607Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-28T15:41:58.295Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3439,16 +3431,16 @@
     "policy": "Recheck published no-experience, 0-2-year and 2-5-year roles that are not controlled by an authoritative source refresh. Remove only URLs returning HTTP 404 or 410; preserve blocks, rate limits, server errors, redirects and network failures. Authoritative snapshot/provider workflows own stale removal for their employers so generic pruning cannot create source/publication drift."
   },
   "cologix": {
-    "checkedAt": "2026-09-28T07:11:59.240Z",
+    "checkedAt": "2026-09-28T15:41:57.884Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://cologix.com/about-us/careers/",
     "officialLeverBoard": "https://jobs.lever.co/cologix",
     "api": "https://api.lever.co/v0/postings/cologix?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 24,
-    "usJobs": 17,
-    "candidateRoles": 9,
+    "listedJobs": 23,
+    "usJobs": 16,
+    "candidateRoles": 8,
     "qualifyingRoles": 7,
     "rejectedOutOfScopeTitle": 8,
     "rejectedSeniorTitle": 0,

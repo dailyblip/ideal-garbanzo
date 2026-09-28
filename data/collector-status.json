@@ -1,13 +1,14 @@
 {
-  "updatedAt": "2026-09-28T05:59:03.385Z",
+  "updatedAt": "2026-09-28T06:05:19.213Z",
   "jobs": 713,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
-    "metaCareers": 1
+    "metaCareers": 1,
+    "googleCareers": 1
   },
   "countsByType": {
     "entry-level": 682,
@@ -2969,8 +2970,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-27T21:45:53.123Z",
-    "freshnessCheckedAt": "2026-09-27T21:45:53.123Z",
+    "lastHealthyAt": "2026-09-28T06:05:19.221Z",
+    "freshnessCheckedAt": "2026-09-28T06:05:19.221Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -3509,15 +3510,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1360,
     "currentJobs": 713,
+    "scopeCompany": "Google",
+    "scopedJobs": 45,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 164,
-    "firstSeenRecencyFallbackJobs": 89,
-    "updatedAt": "2026-09-28T06:04:59.637Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 45,
+    "updatedAt": "2026-09-28T06:05:19.778Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

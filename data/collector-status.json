@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T15:41:57.884Z",
+  "updatedAt": "2026-09-28T19:19:29.930Z",
   "jobs": 708,
   "sourcesAttempted": 20,
   "providers": {
@@ -3285,7 +3285,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T15:41:57.954Z",
+    "checkedAt": "2026-09-28T19:19:30.001Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3293,7 +3293,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T15:41:58.021Z",
+    "updatedAt": "2026-09-28T19:19:30.072Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3312,7 +3312,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T15:41:58.085Z",
+    "checkedAt": "2026-09-28T19:19:30.159Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3330,17 +3330,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1363,
     "currentJobs": 708,
-    "scopeCompany": "Cologix",
-    "scopedJobs": 7,
-    "newJobsThisRun": 1,
+    "scopeCompany": "Flexential",
+    "scopedJobs": 2,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-28T15:41:58.295Z"
+    "firstSeenRecencyFallbackJobs": 2,
+    "updatedAt": "2026-09-28T19:19:30.479Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3448,17 +3448,17 @@
     "rejectedUnknownExperience": 0
   },
   "flexential": {
-    "checkedAt": "2026-09-28T04:00:58.980Z",
+    "checkedAt": "2026-09-28T19:19:29.930Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",
     "officialGreenhouseBoard": "https://job-boards.greenhouse.io/flexentialcorp",
     "api": "https://boards-api.greenhouse.io/v1/boards/flexentialcorp/jobs?content=true",
     "authoritativeSnapshot": true,
-    "listedJobs": 25,
+    "listedJobs": 22,
     "missionCandidates": 2,
     "qualifyingRoles": 2,
-    "rejectedOutOfScopeTitle": 22,
+    "rejectedOutOfScopeTitle": 19,
     "rejectedExcludedTitle": 1,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0,

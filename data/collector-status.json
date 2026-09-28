@@ -192,8 +192,8 @@
       "structured data missing: https://compass-datacenters.breezy.hr/p/9f8cec332fbd-director-customer-management",
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "checkedAt": "2026-09-28T14:26:05.888Z",
-    "lastHealthyAt": "2026-09-28T14:26:05.888Z",
+    "checkedAt": "2026-09-28T23:29:18.816Z",
+    "lastHealthyAt": "2026-09-28T23:29:18.816Z",
     "listingComplete": true,
     "authoritativeSnapshot": true,
     "fallbackMaxAgeHours": 96,
@@ -1805,7 +1805,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T23:23:42.096Z",
+    "checkedAt": "2026-09-28T23:29:18.882Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1813,7 +1813,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T23:23:42.181Z",
+    "updatedAt": "2026-09-28T23:29:18.942Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 709,
@@ -1832,7 +1832,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T23:23:42.258Z",
+    "checkedAt": "2026-09-28T23:29:18.995Z",
     "before": 709,
     "after": 709,
     "removed": 0,
@@ -1850,8 +1850,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1367,
     "currentJobs": 709,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1859,8 +1857,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-28T23:29:11.799Z"
+    "firstSeenRecencyFallbackJobs": 87,
+    "updatedAt": "2026-09-28T23:29:19.130Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

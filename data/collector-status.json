@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-28T23:14:08.923Z",
-  "jobs": 714,
+  "updatedAt": "2026-09-28T23:17:29.598Z",
+  "jobs": 709,
   "sourcesAttempted": 29,
   "providers": {
     "lever": 7,
@@ -13,15 +13,15 @@
     "workday": 6
   },
   "countsByType": {
+    "entry-level": 678,
     "trainee": 14,
-    "entry-level": 683,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "no-experience": 26,
-    "0-2-years": 407,
-    "2-5-years": 281
+    "2-5-years": 279,
+    "0-2-years": 404,
+    "no-experience": 26
   },
   "errors": [
     "Oracle Careers: jobsearch: incomplete listing (duplicate page before reaching reported total (2196/2199)) | CX_1: incomplete listing (duplicate page before reaching reported total (2196/2199))"
@@ -1472,22 +1472,22 @@
         "query": "datacenter technician",
         "healthy": true,
         "pages": 3,
-        "reportedRows": 24,
-        "rows": 24
+        "reportedRows": 26,
+        "rows": 26
       },
       {
         "query": "critical environment technician",
         "healthy": true,
-        "pages": 21,
-        "reportedRows": 207,
-        "rows": 207
+        "pages": 22,
+        "reportedRows": 213,
+        "rows": 213
       },
       {
         "query": "critical environment field service engineer",
         "healthy": true,
-        "pages": 27,
-        "reportedRows": 268,
-        "rows": 268
+        "pages": 28,
+        "reportedRows": 273,
+        "rows": 273
       },
       {
         "query": "inventory and asset technician",
@@ -1497,7 +1497,7 @@
         "rows": 7
       }
     ],
-    "candidateRows": 337,
+    "candidateRows": 340,
     "plausibleRows": 24,
     "detailAttempts": 24,
     "detailVerified": 24,
@@ -1514,8 +1514,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-28T13:49:21.592Z",
-      "expiresAt": "2026-10-02T13:49:21.592Z",
+      "verifiedAt": "2026-09-28T23:17:28.119Z",
+      "expiresAt": "2026-10-02T23:17:28.119Z",
       "roles": 24,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -1821,7 +1821,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T23:13:30.999Z",
+    "checkedAt": "2026-09-28T23:17:29.659Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1829,7 +1829,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T23:13:31.069Z",
+    "updatedAt": "2026-09-28T23:17:29.719Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 709,
@@ -1848,7 +1848,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T23:13:31.131Z",
+    "checkedAt": "2026-09-28T23:17:29.773Z",
     "before": 709,
     "after": 709,
     "removed": 0,
@@ -1866,8 +1866,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1367,
     "currentJobs": 709,
-    "scopeCompany": "Amazon Web Services",
-    "scopedJobs": 252,
+    "scopeCompany": "Microsoft",
+    "scopedJobs": 24,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1876,7 +1876,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-28T23:14:09.831Z"
+    "updatedAt": "2026-09-28T23:17:29.914Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-28T13:44:08.423Z",
-  "jobs": 713,
+  "updatedAt": "2026-09-28T13:46:55.040Z",
+  "jobs": 717,
   "sourcesAttempted": 28,
   "providers": {
     "lever": 7,
@@ -12,15 +12,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 682,
+    "entry-level": 686,
     "trainee": 14,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 282,
-    "0-2-years": 405,
-    "no-experience": 26
+    "0-2-years": 408,
+    "no-experience": 26,
+    "2-5-years": 283
   },
   "errors": [
     "Meta Careers: Retained previous Meta snapshot because no current qualifying details could be verified."
@@ -1404,7 +1404,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1295
+        "rows": 1299
       },
       {
         "query": "engineering operations technician",
@@ -1419,28 +1419,28 @@
         "rows": 17
       }
     ],
-    "candidateRows": 3699,
-    "uniqueCandidates": 1178,
-    "freshQualifyingRoles": 27,
+    "candidateRows": 3703,
+    "uniqueCandidates": 1173,
+    "freshQualifyingRoles": 26,
     "preservedPreviousRoles": 0,
-    "qualifyingRoles": 27,
+    "qualifyingRoles": 26,
     "drops": {
-      "nonUs": 313,
-      "title": 553,
+      "nonUs": 312,
+      "title": 551,
       "context": 0,
       "experience": 3,
-      "unknownExperience": 282,
+      "unknownExperience": 281,
       "invalidUrl": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-28T05:17:35.044Z",
-    "lastHealthyAt": "2026-09-28T05:17:35.044Z",
+    "checkedAt": "2026-09-28T13:46:55.140Z",
+    "lastHealthyAt": "2026-09-28T13:46:55.140Z",
     "fallbackMaxAgeHours": 96,
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-28T05:17:35.044Z",
-      "checkedAt": "2026-09-28T05:17:35.044Z",
+      "lastHealthyAt": "2026-09-28T13:46:55.140Z",
+      "checkedAt": "2026-09-28T13:46:55.140Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     }
@@ -1846,17 +1846,17 @@
     "updatedAt": "2026-09-28T13:44:09.527Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 713,
+    "regionAssigned": 712,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 111,
+      "southeast": 112,
       "west": 112,
       "mid-atlantic": 137,
-      "midwest": 131,
+      "midwest": 130,
       "texas": 120,
-      "southwest": 78,
+      "southwest": 77,
       "northeast": 23,
       "nationwide": 1
     }
@@ -1878,19 +1878,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1360,
-    "currentJobs": 713,
-    "scopeCompany": "Oracle",
-    "scopedJobs": 13,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1362,
+    "currentJobs": 712,
+    "scopeCompany": "Amazon Web Services",
+    "scopedJobs": 252,
+    "newJobsThisRun": 2,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 13,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-28T13:44:09.794Z"
+    "updatedAt": "2026-09-28T13:46:55.730Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1904,7 +1904,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1295
+        "rows": 1299
       },
       {
         "query": "engineering operations technician",
@@ -1919,21 +1919,21 @@
         "rows": 17
       }
     ],
-    "rawRows": 3699,
-    "missionFitUsCandidates": 1264,
-    "uniquePublishIdentities": 304,
-    "duplicatesSkippedBeforeHydration": 960,
-    "reusedVerified": 26,
-    "detailCandidates": 278,
-    "detailAttempted": 278,
-    "detailSucceeded": 278,
+    "rawRows": 3703,
+    "missionFitUsCandidates": 1263,
+    "uniquePublishIdentities": 302,
+    "duplicatesSkippedBeforeHydration": 961,
+    "reusedVerified": 25,
+    "detailCandidates": 277,
+    "detailAttempted": 277,
+    "detailSucceeded": 277,
     "detailRecovered": 232,
     "detailFetchFailed": 0,
-    "detailUnknownExperience": 35,
+    "detailUnknownExperience": 34,
     "detailOverFiveYears": 11,
     "invalidUrls": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 258,
+    "qualifyingRoles": 257,
     "detailErrorSamples": [],
     "errors": []
   },

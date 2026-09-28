@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-28T13:46:55.040Z",
-  "jobs": 717,
+  "updatedAt": "2026-09-28T13:49:23.556Z",
+  "jobs": 712,
   "sourcesAttempted": 28,
   "providers": {
     "lever": 7,
@@ -12,15 +12,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 686,
+    "entry-level": 681,
     "trainee": 14,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 408,
-    "no-experience": 26,
-    "2-5-years": 283
+    "2-5-years": 281,
+    "0-2-years": 405,
+    "no-experience": 26
   },
   "errors": [
     "Meta Careers: Retained previous Meta snapshot because no current qualifying details could be verified."
@@ -1469,8 +1469,8 @@
         "query": "critical environment field service engineer",
         "healthy": true,
         "pages": 27,
-        "reportedRows": 267,
-        "rows": 267
+        "reportedRows": 268,
+        "rows": 268
       },
       {
         "query": "inventory and asset technician",
@@ -1497,8 +1497,8 @@
     "errors": [],
     "snapshotFallback": {
       "active": false,
-      "verifiedAt": "2026-09-28T05:23:08.778Z",
-      "expiresAt": "2026-10-02T05:23:08.778Z",
+      "verifiedAt": "2026-09-28T13:49:21.592Z",
+      "expiresAt": "2026-10-02T13:49:21.592Z",
       "roles": 24,
       "reason": "Fresh employer-direct Microsoft refresh superseded zero-collapse recovery."
     }
@@ -1835,7 +1835,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T13:44:09.443Z",
+    "checkedAt": "2026-09-28T13:49:23.625Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1843,7 +1843,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T13:44:09.527Z",
+    "updatedAt": "2026-09-28T13:49:23.691Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 712,
@@ -1862,9 +1862,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T13:44:09.602Z",
-    "before": 713,
-    "after": 713,
+    "checkedAt": "2026-09-28T13:49:23.751Z",
+    "before": 712,
+    "after": 712,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -1880,17 +1880,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1362,
     "currentJobs": 712,
-    "scopeCompany": "Amazon Web Services",
-    "scopedJobs": 252,
-    "newJobsThisRun": 2,
+    "scopeCompany": "Microsoft",
+    "scopedJobs": 24,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 2,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-28T13:46:55.730Z"
+    "updatedAt": "2026-09-28T13:49:23.908Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

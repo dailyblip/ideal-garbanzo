@@ -1,13 +1,14 @@
 {
-  "updatedAt": "2026-09-28T19:46:11.598Z",
+  "updatedAt": "2026-09-28T19:54:22.575Z",
   "jobs": 708,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "icims": 1
   },
   "countsByType": {
     "entry-level": 677,
@@ -45,6 +46,12 @@
     },
     "samples": [
       {
+        "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
+        "title": "Senior Client Executive",
+        "location": "Marlborough, MA",
+        "reason": "classification"
+      },
+      {
         "url": "https://careers-tierpoint.icims.com/jobs/3060/website-%26-seo-aeo-manager/job",
         "title": "Website & SEO/AEO Manager",
         "location": ""
@@ -53,12 +60,6 @@
         "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
         "title": "Sr Revenue Assurance Analyst",
         "location": ""
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
-        "title": "Senior Client Executive",
-        "location": "Marlborough, MA",
-        "reason": "classification"
       },
       {
         "url": "https://careers-tierpoint.icims.com/jobs/3010/manager%2c-accounting/job",
@@ -3285,7 +3286,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T19:46:11.700Z",
+    "checkedAt": "2026-09-28T19:54:22.642Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3293,7 +3294,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T19:46:11.784Z",
+    "updatedAt": "2026-09-28T19:54:22.709Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3303,16 +3304,16 @@
     "countsByRegion": {
       "southeast": 112,
       "west": 112,
+      "texas": 120,
       "mid-atlantic": 137,
       "midwest": 128,
-      "texas": 120,
       "southwest": 76,
       "northeast": 22,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T19:46:11.869Z",
+    "checkedAt": "2026-09-28T19:54:22.777Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3338,7 +3339,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 86,
-    "updatedAt": "2026-09-28T19:46:12.076Z"
+    "updatedAt": "2026-09-28T19:54:22.836Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

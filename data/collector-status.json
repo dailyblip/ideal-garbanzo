@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T06:05:48.856Z",
+  "updatedAt": "2026-09-28T06:20:42.481Z",
   "jobs": 713,
   "sourcesAttempted": 21,
   "providers": {
@@ -223,7 +223,7 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-27T17:32:03.047Z",
+    "checkedAt": "2026-09-28T06:20:42.481Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
@@ -3288,7 +3288,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T06:04:59.422Z",
+    "checkedAt": "2026-09-28T06:20:42.554Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3296,7 +3296,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T06:05:48.944Z",
+    "updatedAt": "2026-09-28T06:20:42.622Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 713,
@@ -3315,7 +3315,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T06:05:49.001Z",
+    "checkedAt": "2026-09-28T06:20:42.686Z",
     "before": 713,
     "after": 713,
     "removed": 0,
@@ -3333,6 +3333,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1360,
     "currentJobs": 713,
+    "scopeCompany": "T5 Data Centers",
+    "scopedJobs": 22,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3340,8 +3342,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 89,
-    "updatedAt": "2026-09-28T06:05:49.094Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-28T06:20:42.958Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

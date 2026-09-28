@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T05:29:38.069Z",
+  "updatedAt": "2026-09-28T05:40:46.406Z",
   "jobs": 713,
   "sourcesAttempted": 19,
   "providers": {
@@ -2167,7 +2167,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T05:36:15.240Z",
+    "checkedAt": "2026-09-28T05:40:46.504Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2175,7 +2175,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T05:36:15.301Z",
+    "updatedAt": "2026-09-28T05:40:46.585Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 713,
@@ -2185,16 +2185,16 @@
     "countsByRegion": {
       "southeast": 111,
       "west": 112,
-      "texas": 120,
       "mid-atlantic": 137,
       "midwest": 131,
+      "texas": 120,
       "southwest": 78,
       "northeast": 23,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T05:36:15.357Z",
+    "checkedAt": "2026-09-28T05:40:46.661Z",
     "before": 713,
     "after": 713,
     "removed": 0,
@@ -2212,8 +2212,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1360,
     "currentJobs": 713,
-    "scopeCompany": "Sabey Data Centers",
-    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -2221,8 +2219,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-28T05:36:15.489Z"
+    "firstSeenRecencyFallbackJobs": 89,
+    "updatedAt": "2026-09-28T05:40:46.856Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2367,7 +2365,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-27T17:07:20.131Z",
+    "checkedAt": "2026-09-28T05:40:46.406Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

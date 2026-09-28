@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-28T05:14:28.747Z",
-  "jobs": 713,
+  "updatedAt": "2026-09-28T05:17:34.948Z",
+  "jobs": 718,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,15 +11,15 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 682,
+    "entry-level": 687,
     "trainee": 14,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 282,
-    "0-2-years": 405,
-    "no-experience": 26
+    "0-2-years": 408,
+    "no-experience": 26,
+    "2-5-years": 284
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1401,7 +1401,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1294
+        "rows": 1295
       },
       {
         "query": "engineering operations technician",
@@ -1416,13 +1416,13 @@
         "rows": 17
       }
     ],
-    "candidateRows": 3698,
-    "uniqueCandidates": 1175,
+    "candidateRows": 3699,
+    "uniqueCandidates": 1178,
     "freshQualifyingRoles": 27,
     "preservedPreviousRoles": 0,
     "qualifyingRoles": 27,
     "drops": {
-      "nonUs": 310,
+      "nonUs": 313,
       "title": 553,
       "context": 0,
       "experience": 3,
@@ -1430,14 +1430,14 @@
       "invalidUrl": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-27T21:18:39.960Z",
-    "lastHealthyAt": "2026-09-27T21:18:39.960Z",
+    "checkedAt": "2026-09-28T05:17:35.044Z",
+    "lastHealthyAt": "2026-09-28T05:17:35.044Z",
     "fallbackMaxAgeHours": 96,
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-27T21:18:39.960Z",
-      "checkedAt": "2026-09-27T21:18:39.960Z",
+      "lastHealthyAt": "2026-09-28T05:17:35.044Z",
+      "checkedAt": "2026-09-28T05:17:35.044Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     }
@@ -2221,19 +2221,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1358,
+    "trackedJobs": 1360,
     "currentJobs": 713,
-    "scopeCompany": "Oracle",
-    "scopedJobs": 13,
-    "newJobsThisRun": 0,
+    "scopeCompany": "Amazon Web Services",
+    "scopedJobs": 253,
+    "newJobsThisRun": 2,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 2,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 13,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-28T05:14:30.169Z"
+    "updatedAt": "2026-09-28T05:17:35.633Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2247,7 +2247,7 @@
       },
       {
         "query": "data center technician",
-        "rows": 1294
+        "rows": 1295
       },
       {
         "query": "engineering operations technician",
@@ -2262,10 +2262,10 @@
         "rows": 17
       }
     ],
-    "rawRows": 3698,
-    "missionFitUsCandidates": 1265,
+    "rawRows": 3699,
+    "missionFitUsCandidates": 1264,
     "uniquePublishIdentities": 304,
-    "duplicatesSkippedBeforeHydration": 961,
+    "duplicatesSkippedBeforeHydration": 960,
     "reusedVerified": 26,
     "detailCandidates": 278,
     "detailAttempted": 278,

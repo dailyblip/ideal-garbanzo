@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T08:58:10.567Z",
+  "updatedAt": "2026-09-28T11:31:09.825Z",
   "jobs": 713,
   "sourcesAttempted": 21,
   "providers": {
@@ -3166,9 +3166,9 @@
       "retiredEarly": false,
       "retiredBeforeOriginalExpiryAt": null,
       "minimumRemainingHours": 0,
-      "checkedAt": "2026-09-28T05:57:07.434Z",
+      "checkedAt": "2026-09-28T11:31:09.825Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 215.3,
+      "expiredAgeHours": 220.8,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3296,7 +3296,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T08:58:10.734Z",
+    "updatedAt": "2026-09-28T11:31:09.881Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 713,
@@ -3315,7 +3315,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T08:58:10.810Z",
+    "checkedAt": "2026-09-28T11:31:09.920Z",
     "before": 713,
     "after": 713,
     "removed": 0,
@@ -3323,8 +3323,8 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-27T10:24:14.905Z",
-    "publishedJobs": 710,
+    "checkedAt": "2026-09-28T11:31:35.075Z",
+    "publishedJobs": 713,
     "removedJobs": 0,
     "activeCareerEvents": 7,
     "providerVerifiedRetained": 0
@@ -3333,8 +3333,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1360,
     "currentJobs": 713,
-    "scopeCompany": "CloudHQ",
-    "scopedJobs": 1,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3342,8 +3340,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 1,
-    "updatedAt": "2026-09-28T10:11:46.343Z"
+    "firstSeenRecencyFallbackJobs": 89,
+    "updatedAt": "2026-09-28T11:31:35.254Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

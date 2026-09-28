@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T19:31:01.904Z",
+  "updatedAt": "2026-09-28T19:46:11.598Z",
   "jobs": 708,
   "sourcesAttempted": 20,
   "providers": {
@@ -3285,7 +3285,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-28T19:43:25.486Z",
+    "checkedAt": "2026-09-28T19:46:11.700Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3293,7 +3293,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-28T19:43:25.565Z",
+    "updatedAt": "2026-09-28T19:46:11.784Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 708,
@@ -3312,7 +3312,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-28T19:43:25.646Z",
+    "checkedAt": "2026-09-28T19:46:11.869Z",
     "before": 708,
     "after": 708,
     "removed": 0,
@@ -3330,17 +3330,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1363,
     "currentJobs": 708,
-    "scopeCompany": "CoreWeave",
-    "scopedJobs": 11,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 11,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-28T19:43:25.999Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 86,
+    "updatedAt": "2026-09-28T19:46:12.076Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3485,7 +3483,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-28T05:40:46.406Z",
+    "checkedAt": "2026-09-28T19:46:11.598Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

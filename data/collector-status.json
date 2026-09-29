@@ -106,27 +106,29 @@
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
-    "sourceHealthy": true,
-    "checkedAt": "2026-09-28T23:29:33.585Z",
+    "sourceHealthy": false,
+    "checkedAt": "2026-09-29T06:10:35.590Z",
     "lastHealthyAt": "2026-09-28T23:29:33.585Z",
     "fallbackMaxAgeHours": 96,
-    "fallbackAgeHours": 0,
+    "fallbackAgeHours": 6.7,
     "fallbackExpired": false,
-    "usedPreviousSnapshot": false,
+    "usedPreviousSnapshot": true,
     "fallbackPolicy": "Retain the last fully verified Novva snapshot for at most 96 hours after official-source failure; then remove Novva roles until fresh verification succeeds.",
     "candidateLinks": 1,
-    "detailSucceeded": 1,
-    "qualifyingRoles": 1,
-    "preservedPrevious": 0,
+    "detailSucceeded": 0,
+    "qualifyingRoles": 0,
+    "preservedPrevious": 1,
     "removedExpiredFallback": 0,
     "drops": {
       "inactive": 0,
       "titleOrContext": 0,
       "experience": 0,
       "location": 0,
-      "fetch": 0
+      "fetch": 1
     },
-    "errors": []
+    "errors": [
+      "job page: 404 https://www.novva.com/portfolio/command-center-operator-utah/"
+    ]
   },
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
@@ -1829,7 +1831,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T06:09:31.960Z",
+    "checkedAt": "2026-09-29T06:10:35.720Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1837,7 +1839,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T06:09:32.058Z",
+    "updatedAt": "2026-09-29T06:10:35.791Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 707,
@@ -1856,7 +1858,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T06:09:32.134Z",
+    "checkedAt": "2026-09-29T06:10:35.857Z",
     "before": 707,
     "after": 707,
     "removed": 0,
@@ -1874,8 +1876,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1376,
     "currentJobs": 707,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1883,8 +1883,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-29T06:09:40.940Z"
+    "firstSeenRecencyFallbackJobs": 88,
+    "updatedAt": "2026-09-29T06:10:36.022Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

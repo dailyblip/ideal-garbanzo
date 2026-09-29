@@ -107,10 +107,10 @@
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
     "sourceHealthy": false,
-    "checkedAt": "2026-09-29T06:10:35.590Z",
+    "checkedAt": "2026-09-29T13:18:34.198Z",
     "lastHealthyAt": "2026-09-28T23:29:33.585Z",
     "fallbackMaxAgeHours": 96,
-    "fallbackAgeHours": 6.7,
+    "fallbackAgeHours": 13.8,
     "fallbackExpired": false,
     "usedPreviousSnapshot": true,
     "fallbackPolicy": "Retain the last fully verified Novva snapshot for at most 96 hours after official-source failure; then remove Novva roles until fresh verification succeeds.",
@@ -1800,7 +1800,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T13:17:58.018Z",
+    "checkedAt": "2026-09-29T13:18:34.343Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1808,7 +1808,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T13:17:58.098Z",
+    "updatedAt": "2026-09-29T13:18:34.425Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 706,
@@ -1827,7 +1827,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T13:17:58.176Z",
+    "checkedAt": "2026-09-29T13:18:34.500Z",
     "before": 706,
     "after": 706,
     "removed": 0,
@@ -1845,8 +1845,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1378,
     "currentJobs": 706,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1854,8 +1852,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-29T13:18:14.479Z"
+    "firstSeenRecencyFallbackJobs": 89,
+    "updatedAt": "2026-09-29T13:18:34.698Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

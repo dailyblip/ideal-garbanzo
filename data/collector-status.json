@@ -1,31 +1,26 @@
 {
-  "updatedAt": "2026-09-29T22:17:30.826Z",
-  "jobs": 672,
-  "sourcesAttempted": 29,
+  "updatedAt": "2026-09-29T22:18:04.624Z",
+  "jobs": 673,
+  "sourcesAttempted": 18,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
-    "ashby": 5,
-    "oracleRecruitingCloud": 2,
-    "googleCareers": 1,
-    "icims": 1,
-    "adp": 1,
-    "workday": 6
+    "ashby": 5
   },
   "countsByType": {
-    "entry-level": 645,
+    "entry-level": 646,
     "trainee": 10,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 370,
+    "0-2-years": 371,
     "2-5-years": 277,
     "no-experience": 25
   },
   "errors": [],
   "sourceFailurePreservation": {
-    "checkedAt": "2026-09-29T12:56:49.624Z",
+    "checkedAt": "2026-09-29T22:18:04.635Z",
     "failedSources": [],
     "preservedJobs": 0,
     "preservedByCompany": {},
@@ -1844,39 +1839,185 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T22:17:30.887Z",
-    "removedCount": 0,
-    "removedByReason": {},
-    "removed": [],
+    "checkedAt": "2026-09-29T22:18:05.420Z",
+    "removedCount": 15,
+    "removedByReason": {
+      "non-mission role family": 9,
+      "non-US location": 2,
+      "senior/executive title": 4
+    },
+    "removed": [
+      {
+        "id": "ashby-crusoe-99dca91fae591b",
+        "company": "Crusoe",
+        "title": "Assembly Technician",
+        "location": "Arvada, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "gh-xai-5169675007",
+        "company": "xAI",
+        "title": "Network Operations Technician (SpaceXAI / Starlink)",
+        "location": "Dublin, Ireland",
+        "reason": "non-US location"
+      },
+      {
+        "id": "gh-xai-5211587007",
+        "company": "xAI",
+        "title": "Site Reliability Engineer, Data Center - Memphis",
+        "location": "Southaven, MS; Memphis, TN",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-fluidstack-f2990eac8950ce",
+        "company": "Fluidstack",
+        "title": "Staff Electrical Operator",
+        "location": "Abernathy, TX; River Bend, LA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "ashby-lambda-ebee6943394494",
+        "company": "Lambda",
+        "title": "Staff Electrical Engineer - Medium Voltage",
+        "location": "San Francisco Office (Fremont St)",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "ashby-gimlet-eb9a94c8bab714",
+        "company": "Gimlet Labs",
+        "title": "Legal Intern",
+        "location": "San Francisco, CA",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-55e8ca08729b80",
+        "company": "Crusoe",
+        "title": "Quality Technician - Electrical Inspector",
+        "location": "Brighton, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-316d2a228cba07",
+        "company": "Crusoe",
+        "title": "Material Planner (Electrical)",
+        "location": "Arvada, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-129b9fd8c0d03e",
+        "company": "Crusoe",
+        "title": "Material Planner (Mechanical)",
+        "location": "Arvada, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "lever-serverfarm-f3e2904a-ad06-45f7-9cbc-a25d9c540656",
+        "company": "Serverfarm",
+        "title": "Data Center Technician",
+        "location": "Toronto, ON",
+        "reason": "non-US location"
+      },
+      {
+        "id": "ashby-crusoe-70b01f17d09a8b",
+        "company": "Crusoe",
+        "title": "CNC Operator",
+        "location": "Tulsa, OK - US (1)",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-ab810e7251cc10",
+        "company": "Crusoe",
+        "title": "Assembly Technician",
+        "location": "Brighton, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-crusoe-8d30086e281f80",
+        "company": "Crusoe",
+        "title": "Project Controls Analyst",
+        "location": "Denver, CO - US",
+        "reason": "non-mission role family"
+      },
+      {
+        "id": "ashby-fluidstack-229040aff58cbe",
+        "company": "Fluidstack",
+        "title": "Mechanical Engineer, R&D Team Lead",
+        "location": "Austin, TX; New York, NY; San Francisco, CA; Los Angeles; CA; Seattle, WA",
+        "reason": "senior/executive title"
+      },
+      {
+        "id": "ashby-fluidstack-1c8a562e2c11fd",
+        "company": "Fluidstack",
+        "title": "Production Engineer, Facilities Team Lead",
+        "location": "San Francisco, CA; New York, NY; Austin, TX; Seattle, WA",
+        "reason": "senior/executive title"
+      }
+    ],
     "majorSnapshotRemovedCount": 0,
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T22:17:30.949Z",
-    "changed": 0,
-    "samples": [],
-    "regionAssigned": 672,
-    "regionMissing": 0,
-    "coveragePct": 100,
-    "missingSamples": [],
+    "updatedAt": "2026-09-29T22:18:05.521Z",
+    "changed": 1,
+    "samples": [
+      {
+        "id": "ashby-lambda-0bdbbcbdc49122",
+        "before": "San Jose Office (Zanker)",
+        "after": "San Jose, CA"
+      }
+    ],
+    "regionAssigned": 675,
+    "regionMissing": 2,
+    "coveragePct": 99.7,
+    "missingSamples": [
+      {
+        "id": "lever-serverfarm-acbcb1c3-0a33-4fcf-8083-215a7ed6d184",
+        "company": "Serverfarm",
+        "location": "AMS1",
+        "sourceUrl": "https://jobs.lever.co/serverfarm/acbcb1c3-0a33-4fcf-8083-215a7ed6d184"
+      },
+      {
+        "id": "ashby-lambda-8308606de297f6",
+        "company": "Lambda",
+        "location": "Querétaro, Mexico - Data Center",
+        "sourceUrl": "https://jobs.ashbyhq.com/lambda/fd09a16d-a8cf-4bc6-87b0-04f072e8f9db"
+      }
+    ],
     "countsByRegion": {
+      "southeast": 112,
       "midwest": 130,
+      "west": 102,
       "texas": 115,
       "mid-atlantic": 126,
-      "southeast": 109,
-      "west": 102,
       "southwest": 70,
       "northeast": 19,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T22:17:31.003Z",
-    "before": 672,
-    "after": 672,
-    "removed": 0,
+    "checkedAt": "2026-09-29T22:18:05.661Z",
+    "before": 675,
+    "after": 673,
+    "removed": 2,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
-    "examples": []
+    "examples": [
+      {
+        "reason": "same-company-title-location",
+        "removedId": "gh-xai-4538639007",
+        "keptId": "gh-xai-5227699007",
+        "company": "xAI",
+        "title": "Facilities Operations Technician",
+        "location": "Southaven, MS; Memphis, TN"
+      },
+      {
+        "reason": "same-company-title-location",
+        "removedId": "gh-xai-5219754007",
+        "keptId": "gh-xai-5127519007",
+        "company": "xAI",
+        "title": "Mechanical Commissioning Technician - Memphis",
+        "location": "Southaven, MS; Memphis, TN"
+      }
+    ]
   },
   "postQa": {
     "checkedAt": "2026-09-28T11:31:35.075Z",
@@ -1887,10 +2028,8 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1398,
-    "currentJobs": 672,
-    "scopeCompany": "Microsoft",
-    "scopedJobs": 22,
+    "trackedJobs": 1399,
+    "currentJobs": 673,
     "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 1,
@@ -1898,8 +2037,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-29T22:17:31.152Z"
+    "firstSeenRecencyFallbackJobs": 86,
+    "updatedAt": "2026-09-29T22:18:05.708Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2186,8 +2325,8 @@
     ],
     "sources": {
       "Serverfarm": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2195,8 +2334,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "LightEdge Solutions": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2204,8 +2343,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "ECL": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2213,8 +2352,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Hive": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2222,8 +2361,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "CAI": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2231,8 +2370,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "xAI": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2240,8 +2379,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Element Critical": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2249,8 +2388,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Lambda": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2258,8 +2397,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Crusoe": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2267,8 +2406,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Fluidstack": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2276,8 +2415,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Gimlet Labs": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2285,8 +2424,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "TensorWave": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2294,8 +2433,8 @@
         "reason": "latest-source-fetch-healthy"
       },
       "Lightning AI": {
-        "lastHealthyAt": "2026-09-29T12:56:49.611Z",
-        "latestScanAt": "2026-09-29T12:56:49.611Z",
+        "lastHealthyAt": "2026-09-29T22:18:04.624Z",
+        "latestScanAt": "2026-09-29T22:18:04.624Z",
         "sourceHealthyAtLatestScan": true,
         "fallbackActive": false,
         "expired": false,
@@ -2352,14 +2491,14 @@
       "company": "T5 Data Centers",
       "provider": "lever",
       "sourceHealthy": true,
-      "qualifyingRoles": 8,
+      "qualifyingRoles": 9,
       "error": ""
     },
     {
       "company": "xAI",
       "provider": "greenhouse",
       "sourceHealthy": true,
-      "qualifyingRoles": 38,
+      "qualifyingRoles": 39,
       "error": ""
     },
     {
@@ -2373,14 +2512,14 @@
       "company": "CoreWeave",
       "provider": "greenhouse",
       "sourceHealthy": true,
-      "qualifyingRoles": 17,
+      "qualifyingRoles": 16,
       "error": ""
     },
     {
       "company": "Flexential",
       "provider": "greenhouse",
       "sourceHealthy": true,
-      "qualifyingRoles": 1,
+      "qualifyingRoles": 2,
       "error": ""
     },
     {
@@ -2415,7 +2554,7 @@
       "company": "Fluidstack",
       "provider": "ashby",
       "sourceHealthy": true,
-      "qualifyingRoles": 7,
+      "qualifyingRoles": 8,
       "error": ""
     },
     {
@@ -2434,8 +2573,8 @@
     }
   ],
   "genericDirectSources": {
-    "updatedAt": "2026-09-29T12:56:49.611Z",
-    "jobs": 104,
+    "updatedAt": "2026-09-29T22:18:04.624Z",
+    "jobs": 107,
     "sourcesAttempted": 18,
     "providers": {
       "lever": 7,
@@ -2443,13 +2582,13 @@
       "ashby": 5
     },
     "countsByType": {
-      "entry-level": 101,
+      "entry-level": 104,
       "internship": 2,
       "apprenticeship": 1
     },
     "countsByExperience": {
-      "2-5-years": 47,
-      "0-2-years": 57
+      "0-2-years": 58,
+      "2-5-years": 49
     },
     "sourceDiagnostics": [
       {
@@ -2498,14 +2637,14 @@
         "company": "T5 Data Centers",
         "provider": "lever",
         "sourceHealthy": true,
-        "qualifyingRoles": 8,
+        "qualifyingRoles": 9,
         "error": ""
       },
       {
         "company": "xAI",
         "provider": "greenhouse",
         "sourceHealthy": true,
-        "qualifyingRoles": 38,
+        "qualifyingRoles": 39,
         "error": ""
       },
       {
@@ -2519,14 +2658,14 @@
         "company": "CoreWeave",
         "provider": "greenhouse",
         "sourceHealthy": true,
-        "qualifyingRoles": 17,
+        "qualifyingRoles": 16,
         "error": ""
       },
       {
         "company": "Flexential",
         "provider": "greenhouse",
         "sourceHealthy": true,
-        "qualifyingRoles": 1,
+        "qualifyingRoles": 2,
         "error": ""
       },
       {
@@ -2561,7 +2700,7 @@
         "company": "Fluidstack",
         "provider": "ashby",
         "sourceHealthy": true,
-        "qualifyingRoles": 7,
+        "qualifyingRoles": 8,
         "error": ""
       },
       {
@@ -2580,11 +2719,11 @@
       }
     ],
     "errors": [],
-    "ashbyExperienceReconciledAt": "2026-09-29T12:56:50.303Z",
+    "ashbyExperienceReconciledAt": "2026-09-29T22:18:05.215Z",
     "ashbyExperienceRemoved": 0
   },
   "authoritativeSnapshotOverlay": {
-    "checkedAt": "2026-09-29T12:56:49.624Z",
+    "checkedAt": "2026-09-29T22:18:04.635Z",
     "restoredByCompany": {
       "Cologix": 7,
       "EdgeConneX": 2
@@ -2592,7 +2731,7 @@
     "policy": "Dedicated employer-direct snapshots replace overlapping generic ATS results before later publication gates."
   },
   "genericDedicatedOverlapProtection": {
-    "checkedAt": "2026-09-29T12:56:49.709Z",
+    "checkedAt": "2026-09-29T22:18:04.712Z",
     "companies": [
       "Cologix",
       "T5 Data Centers",
@@ -2602,16 +2741,16 @@
     ],
     "restoredByCompany": {
       "Cologix": 7,
-      "T5 Data Centers": 22,
+      "T5 Data Centers": 23,
       "CoreWeave": 11,
       "Flexential": 2,
       "EdgeConneX": 2
     },
     "genericResultsSuppressedByCompany": {
       "Cologix": 7,
-      "T5 Data Centers": 8,
-      "CoreWeave": 17,
-      "Flexential": 1,
+      "T5 Data Centers": 9,
+      "CoreWeave": 16,
+      "Flexential": 2,
       "EdgeConneX": 2
     },
     "policy": "The six-hour shared ATS refresh may verify overlapping boards, but published roles for employers with stronger dedicated collectors remain exactly as they were before the generic refresh."

@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-29T05:59:50.750Z",
-  "jobs": 692,
+  "jobs": 707,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "apprenticeship": 11,
-    "internship": 6,
+    "entry-level": 680,
     "trainee": 10,
-    "entry-level": 665
+    "internship": 6,
+    "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 394,
-    "no-experience": 25,
-    "2-5-years": 273
+    "2-5-years": 282,
+    "0-2-years": 400,
+    "no-experience": 25
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -192,8 +192,8 @@
       "structured data missing: https://compass-datacenters.breezy.hr/p/9f8cec332fbd-director-customer-management",
       "structured data missing: https://compass-datacenters.breezy.hr/p/5ea9b2e30946-operations-resilience-director"
     ],
-    "checkedAt": "2026-09-28T23:29:18.816Z",
-    "lastHealthyAt": "2026-09-28T23:29:18.816Z",
+    "checkedAt": "2026-09-29T06:09:31.873Z",
+    "lastHealthyAt": "2026-09-29T06:09:31.873Z",
     "listingComplete": true,
     "authoritativeSnapshot": true,
     "fallbackMaxAgeHours": 96,
@@ -1829,7 +1829,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T05:58:09.673Z",
+    "checkedAt": "2026-09-29T06:09:31.960Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1837,7 +1837,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T05:58:09.760Z",
+    "updatedAt": "2026-09-29T06:09:32.058Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 707,
@@ -1856,7 +1856,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T05:58:09.855Z",
+    "checkedAt": "2026-09-29T06:09:32.134Z",
     "before": 707,
     "after": 707,
     "removed": 0,
@@ -1874,8 +1874,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1376,
     "currentJobs": 707,
-    "scopeCompany": "Equinix",
-    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1883,8 +1881,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 4,
-    "updatedAt": "2026-09-29T05:59:51.206Z"
+    "firstSeenRecencyFallbackJobs": 88,
+    "updatedAt": "2026-09-29T06:09:32.346Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

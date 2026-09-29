@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T05:48:27.373Z",
+  "updatedAt": "2026-09-29T05:58:09.570Z",
   "jobs": 707,
   "sourcesAttempted": 19,
   "providers": {
@@ -1825,7 +1825,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T05:54:36.855Z",
+    "checkedAt": "2026-09-29T05:58:09.673Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1833,7 +1833,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T05:54:36.936Z",
+    "updatedAt": "2026-09-29T05:58:09.760Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 707,
@@ -1842,17 +1842,17 @@
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 115,
-      "texas": 119,
       "west": 110,
       "mid-atlantic": 138,
       "midwest": 129,
+      "texas": 119,
       "southwest": 74,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T05:54:37.009Z",
+    "checkedAt": "2026-09-29T05:58:09.855Z",
     "before": 707,
     "after": 707,
     "removed": 0,
@@ -1870,8 +1870,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1376,
     "currentJobs": 707,
-    "scopeCompany": "Sabey Data Centers",
-    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1879,8 +1877,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-29T05:54:37.196Z"
+    "firstSeenRecencyFallbackJobs": 88,
+    "updatedAt": "2026-09-29T05:58:10.083Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2025,7 +2023,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-28T19:46:11.598Z",
+    "checkedAt": "2026-09-29T05:58:09.570Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

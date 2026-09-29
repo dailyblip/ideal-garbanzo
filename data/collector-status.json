@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-29T18:22:54.427Z",
-  "jobs": 705,
+  "updatedAt": "2026-09-29T18:28:19.565Z",
+  "jobs": 706,
   "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
@@ -11,13 +11,13 @@
     "icims": 1
   },
   "countsByType": {
-    "entry-level": 678,
+    "entry-level": 679,
     "trainee": 10,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 399,
+    "0-2-years": 400,
     "2-5-years": 281,
     "no-experience": 25
   },
@@ -223,18 +223,18 @@
     "fallbackPolicy": "Retain the last fully verified Compass snapshot for at most 96 hours after official-source failure; then remove Compass roles until fresh verification succeeds."
   },
   "t5DataCenters": {
-    "checkedAt": "2026-09-29T06:36:14.447Z",
+    "checkedAt": "2026-09-29T18:28:19.565Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://t5datacenters.com/careers/",
     "officialLeverBoard": "https://jobs.lever.co/t5datacenters",
     "api": "https://api.lever.co/v0/postings/t5datacenters?mode=json",
     "authoritativeSnapshot": true,
-    "listedJobs": 95,
-    "usJobs": 85,
-    "candidateRoles": 29,
-    "qualifyingRoles": 22,
-    "rejectedOutOfScopeTitle": 56,
+    "listedJobs": 97,
+    "usJobs": 87,
+    "candidateRoles": 30,
+    "qualifyingRoles": 23,
+    "rejectedOutOfScopeTitle": 57,
     "rejectedSeniorTitle": 4,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 3
@@ -3269,7 +3269,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T18:22:54.549Z",
+    "checkedAt": "2026-09-29T18:28:19.647Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3277,10 +3277,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T18:22:55.166Z",
+    "updatedAt": "2026-09-29T18:28:19.778Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 705,
+    "regionAssigned": 706,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3288,7 +3288,7 @@
       "midwest": 130,
       "texas": 119,
       "mid-atlantic": 138,
-      "southeast": 114,
+      "southeast": 115,
       "west": 109,
       "southwest": 73,
       "northeast": 21,
@@ -3296,9 +3296,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T18:22:55.515Z",
-    "before": 705,
-    "after": 705,
+    "checkedAt": "2026-09-29T18:28:19.847Z",
+    "before": 706,
+    "after": 706,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3312,17 +3312,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1380,
-    "currentJobs": 705,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1381,
+    "currentJobs": 706,
+    "scopeCompany": "T5 Data Centers",
+    "scopedJobs": 23,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-29T18:22:55.577Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-29T18:28:20.208Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

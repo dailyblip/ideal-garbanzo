@@ -1,14 +1,15 @@
 {
-  "updatedAt": "2026-09-29T18:28:19.565Z",
+  "updatedAt": "2026-09-29T19:22:03.446Z",
   "jobs": 706,
-  "sourcesAttempted": 21,
+  "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
     "googleCareers": 1,
-    "icims": 1
+    "icims": 1,
+    "adp": 1
   },
   "countsByType": {
     "entry-level": 679,
@@ -3269,7 +3270,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T18:28:19.647Z",
+    "checkedAt": "2026-09-29T19:22:03.519Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3277,7 +3278,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T18:28:19.778Z",
+    "updatedAt": "2026-09-29T19:22:03.600Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 706,
@@ -3296,7 +3297,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T18:28:19.847Z",
+    "checkedAt": "2026-09-29T19:22:03.684Z",
     "before": 706,
     "after": 706,
     "removed": 0,
@@ -3314,17 +3315,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1381,
     "currentJobs": 706,
-    "scopeCompany": "T5 Data Centers",
-    "scopedJobs": 23,
-    "newJobsThisRun": 1,
+    "scopeCompany": "H5 Data Centers",
+    "scopedJobs": 12,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-29T18:28:20.208Z"
+    "updatedAt": "2026-09-29T19:22:03.923Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4262,9 +4263,9 @@
         "reason": "no normalized US location"
       }
     ],
-    "checkedAt": "2026-09-28T20:31:21.804Z",
-    "lastSuccessfulAt": "2026-09-28T20:31:21.804Z",
-    "lastHealthyAt": "2026-09-28T20:31:21.804Z"
+    "checkedAt": "2026-09-29T19:22:03.446Z",
+    "lastSuccessfulAt": "2026-09-29T19:22:03.446Z",
+    "lastHealthyAt": "2026-09-29T19:22:03.446Z"
   },
   "csquare": {
     "checkedAt": "2026-09-28T22:17:56.204Z",

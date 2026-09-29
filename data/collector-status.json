@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-29T19:22:03.446Z",
-  "jobs": 706,
+  "updatedAt": "2026-09-29T19:39:28.697Z",
+  "jobs": 704,
   "sourcesAttempted": 22,
   "providers": {
     "lever": 7,
@@ -12,14 +12,14 @@
     "adp": 1
   },
   "countsByType": {
-    "entry-level": 679,
+    "entry-level": 677,
     "trainee": 10,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 400,
-    "2-5-years": 281,
+    "2-5-years": 279,
     "no-experience": 25
   },
   "errors": [],
@@ -3270,7 +3270,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T19:22:03.519Z",
+    "checkedAt": "2026-09-29T19:39:28.775Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3278,10 +3278,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T19:22:03.600Z",
+    "updatedAt": "2026-09-29T19:39:28.853Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 706,
+    "regionAssigned": 704,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3289,17 +3289,17 @@
       "midwest": 130,
       "texas": 119,
       "mid-atlantic": 138,
-      "southeast": 115,
-      "west": 109,
+      "southeast": 114,
+      "west": 108,
       "southwest": 73,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T19:22:03.684Z",
-    "before": 706,
-    "after": 706,
+    "checkedAt": "2026-09-29T19:39:28.931Z",
+    "before": 704,
+    "after": 704,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3314,9 +3314,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1381,
-    "currentJobs": 706,
-    "scopeCompany": "H5 Data Centers",
-    "scopedJobs": 12,
+    "currentJobs": 704,
+    "scopeCompany": "DataBank",
+    "scopedJobs": 15,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3324,8 +3324,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-29T19:22:03.923Z"
+    "firstSeenRecencyFallbackJobs": 15,
+    "updatedAt": "2026-09-29T19:39:29.278Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3487,7 +3487,7 @@
     "rejectedUnknownExperience": 0
   },
   "databank": {
-    "checkedAt": "2026-09-29T09:03:45.096Z",
+    "checkedAt": "2026-09-29T19:39:28.697Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.databank.com/about-databank/careers-at-databank/",
@@ -3499,9 +3499,9 @@
     "listedJobs": 49,
     "externalJobs": 48,
     "usJobs": 48,
-    "candidateRoles": 32,
-    "qualifyingRoles": 17,
-    "rejectedOutOfScopeTitle": 24,
+    "candidateRoles": 31,
+    "qualifyingRoles": 15,
+    "rejectedOutOfScopeTitle": 26,
     "rejectedOver5Years": 3,
     "rejectedUnknownExperience": 4,
     "rejectedLocation": 0

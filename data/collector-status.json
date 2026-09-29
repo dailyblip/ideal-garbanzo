@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-09-29T22:19:48.251Z",
-  "jobs": 672,
+  "jobs": 674,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,14 +9,14 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 645,
+    "entry-level": 647,
     "trainee": 10,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 371,
-    "2-5-years": 276,
+    "2-5-years": 278,
     "no-experience": 25
   },
   "errors": [],
@@ -80,9 +80,9 @@
     "listingMethod": "official-recruiter-board",
     "usedRecruiterBoardFallback": true,
     "recruiterBoardComplete": true,
-    "candidateLinks": 0,
-    "detailSucceeded": 0,
-    "qualifyingRoles": 0,
+    "candidateLinks": 2,
+    "detailSucceeded": 2,
+    "qualifyingRoles": 2,
     "preservedPrevious": 0,
     "drops": {
       "stale": 0,
@@ -95,23 +95,14 @@
     "errors": [
       "official listing: 403 https://sabey.com/about/careers"
     ],
-    "snapshotRoles": 0,
+    "snapshotRoles": 2,
     "snapshotRestored": 0,
-    "snapshotVerifiedAt": "2026-09-29T13:08:48.518Z",
+    "snapshotVerifiedAt": "2026-09-29T22:26:09.801Z",
     "snapshotFresh": true,
     "snapshotMaxAgeHours": 96,
     "snapshotAgeHours": 0,
-    "normalizedTitles": 0,
-    "removedExpiredFallback": 0,
-    "fallbackFreshness": {
-      "active": false,
-      "expired": false,
-      "lastHealthyAt": "2026-09-29T13:08:48.518Z",
-      "checkedAt": "2026-09-29T13:36:57.671Z",
-      "expiresAt": null,
-      "maxAgeHours": 96,
-      "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
-    }
+    "normalizedTitles": 2,
+    "removedExpiredFallback": 0
   },
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
@@ -1840,7 +1831,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T22:19:48.317Z",
+    "checkedAt": "2026-09-29T22:26:09.883Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1848,10 +1839,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T22:19:48.388Z",
+    "updatedAt": "2026-09-29T22:26:09.966Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 672,
+    "regionAssigned": 674,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -1859,7 +1850,7 @@
       "southeast": 110,
       "midwest": 129,
       "west": 102,
-      "texas": 115,
+      "texas": 117,
       "mid-atlantic": 126,
       "southwest": 70,
       "northeast": 19,
@@ -1867,9 +1858,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T22:19:48.451Z",
-    "before": 672,
-    "after": 672,
+    "checkedAt": "2026-09-29T22:26:10.042Z",
+    "before": 674,
+    "after": 674,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -1884,18 +1875,18 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1399,
-    "currentJobs": 672,
-    "scopeCompany": "Digital Realty",
-    "scopedJobs": 14,
+    "currentJobs": 674,
+    "scopeCompany": "Sabey Data Centers",
+    "scopedJobs": 2,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 14,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-29T22:19:48.730Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 2,
+    "updatedAt": "2026-09-29T22:26:10.230Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

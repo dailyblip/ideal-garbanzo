@@ -1,24 +1,24 @@
 {
-  "updatedAt": "2026-09-29T05:17:31.874Z",
-  "jobs": 709,
-  "sourcesAttempted": 26,
+  "updatedAt": "2026-09-29T05:36:02.423Z",
+  "jobs": 705,
+  "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1,
+    "oracleRecruitingCloud": 2,
     "googleCareers": 1,
     "workday": 6
   },
   "countsByType": {
     "entry-level": 678,
-    "trainee": 14,
+    "trainee": 10,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "2-5-years": 280,
-    "0-2-years": 404,
+    "0-2-years": 400,
     "no-experience": 25
   },
   "errors": [],
@@ -1598,40 +1598,71 @@
   "oracleCareers": {
     "officialSource": "https://careers.oracle.com/",
     "boardUrl": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch",
-    "site": null,
-    "sourceHealthy": false,
-    "listingComplete": false,
-    "totalOpenRoles": null,
-    "listingRows": 0,
-    "pagesAttempted": 0,
-    "pagesSucceeded": 0,
-    "incompleteReason": "jobsearch: incomplete listing (duplicate page before reaching reported total (2196/2199)) | CX_1: incomplete listing (duplicate page before reaching reported total (2196/2199))",
-    "candidateRows": 0,
-    "detailAttempted": 0,
+    "site": "jobsearch",
+    "sourceHealthy": true,
+    "listingComplete": true,
+    "totalOpenRoles": 2205,
+    "listingRows": 2201,
+    "pagesAttempted": 13,
+    "pagesSucceeded": 13,
+    "candidateRows": 94,
+    "detailAttempted": 94,
     "detailFailed": 0,
     "preservedFromPrevious": 0,
-    "qualifyingRoles": 13,
+    "qualifyingRoles": 9,
     "drops": {
-      "title": 0,
-      "nonUs": 0,
-      "context": 0,
-      "experience": 0,
+      "title": 2107,
+      "nonUs": 28,
+      "context": 13,
+      "experience": 39,
       "missingId": 0,
       "fetch": 0
     },
-    "errors": [
-      "jobsearch: incomplete listing (duplicate page before reaching reported total (2196/2199)) | CX_1: incomplete listing (duplicate page before reaching reported total (2196/2199))"
-    ],
-    "checkedAt": "2026-09-28T23:13:29.870Z",
-    "lastHealthyAt": "2026-09-28T13:44:08.423Z",
+    "errors": [],
+    "checkedAt": "2026-09-29T05:36:02.423Z",
+    "lastHealthyAt": "2026-09-29T05:36:02.423Z",
     "fallbackFreshness": {
-      "active": true,
+      "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-28T13:44:08.423Z",
-      "checkedAt": "2026-09-28T23:13:29.870Z",
+      "lastHealthyAt": "2026-09-29T05:36:02.423Z",
+      "checkedAt": "2026-09-29T05:36:02.423Z",
       "maxAgeHours": 96,
-      "ageHours": 9.489290833333333,
+      "ageHours": 0,
       "policy": "Retain the most recent verified Oracle snapshot for up to 96 hours when the official source is unavailable; fail closed after expiry."
+    },
+    "missionFitScrub": {
+      "checkedAt": "2026-09-29T05:36:03.096Z",
+      "removedFromSnapshot": 4,
+      "removedFromPublicFeed": 4,
+      "experienceCandidates": 9,
+      "experienceChecked": 9,
+      "experienceFetchFailures": 0,
+      "removed": [
+        {
+          "id": "oracle-careers-341015",
+          "title": "Talent Sourcer (Contract) – Data Center Recruiting (North America)",
+          "location": "United States",
+          "reason": "non-operational role family"
+        },
+        {
+          "id": "oracle-careers-343898",
+          "title": "Data Center Construction Cost Estimator (Nashville, TN)",
+          "location": "Nashville, TN, United States",
+          "reason": "non-operational role family"
+        },
+        {
+          "id": "oracle-careers-342953",
+          "title": "Data Center Business Operations Business Analyst",
+          "location": "Nashville, TN, United States",
+          "reason": "non-operational role family"
+        },
+        {
+          "id": "oracle-careers-334333",
+          "title": "OCI Software Engineer Intern - OVIP",
+          "location": "Austin, TX, United States",
+          "reason": "non-operational role family"
+        }
+      ]
     }
   },
   "digitalRealty": {
@@ -1816,7 +1847,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T05:17:31.941Z",
+    "checkedAt": "2026-09-29T05:36:03.157Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1824,28 +1855,28 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T05:17:32.007Z",
+    "updatedAt": "2026-09-29T05:36:03.227Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 709,
+    "regionAssigned": 705,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 115,
       "west": 111,
-      "mid-atlantic": 138,
+      "mid-atlantic": 136,
       "midwest": 127,
-      "texas": 121,
+      "texas": 119,
       "southwest": 75,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T05:17:32.069Z",
-    "before": 709,
-    "after": 709,
+    "checkedAt": "2026-09-29T05:36:03.287Z",
+    "before": 705,
+    "after": 705,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -1860,18 +1891,18 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1368,
-    "currentJobs": 709,
-    "scopeCompany": "Switch",
-    "scopedJobs": 17,
+    "currentJobs": 705,
+    "scopeCompany": "Oracle",
+    "scopedJobs": 9,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
+    "normalizedWorkdayPostingDatesThisRun": 9,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-29T05:17:32.349Z"
+    "updatedAt": "2026-09-29T05:36:03.447Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

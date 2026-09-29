@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-29T05:58:09.570Z",
-  "jobs": 707,
+  "updatedAt": "2026-09-29T05:59:50.750Z",
+  "jobs": 692,
   "sourcesAttempted": 19,
   "providers": {
     "lever": 7,
@@ -9,15 +9,15 @@
     "oracleRecruitingCloud": 1
   },
   "countsByType": {
-    "entry-level": 680,
-    "trainee": 10,
+    "apprenticeship": 11,
     "internship": 6,
-    "apprenticeship": 11
+    "trainee": 10,
+    "entry-level": 665
   },
   "countsByExperience": {
-    "2-5-years": 282,
-    "0-2-years": 400,
-    "no-experience": 25
+    "0-2-years": 394,
+    "no-experience": 25,
+    "2-5-years": 273
   },
   "errors": [],
   "sourceFailurePreservation": {
@@ -1719,20 +1719,28 @@
       "authoritative": true,
       "listingPagesAttempted": 7,
       "listingPagesSucceeded": 7,
-      "candidateLinks": 30,
-      "detailAttempted": 30,
-      "detailSucceeded": 30,
+      "candidateLinks": 29,
+      "detailAttempted": 29,
+      "detailSucceeded": 29,
       "detailFailed": 0,
       "preservedOnFailure": 0,
       "fallbackRetained": 0,
       "staleRemoved": 4,
-      "qualifyingRoles": 1,
+      "qualifyingRoles": 0,
       "drops": {
-        "non-us": 6,
+        "context": 1,
+        "non-us": 5,
         "title": 14,
         "unknown-experience": 9
       },
       "dropSamples": [
+        {
+          "title": "SkillBridge, Application Security Engineer - Trainee",
+          "listingLabel": "SkillBridge, Application Security Engineer - Trainee",
+          "pageTitle": "",
+          "heading": "",
+          "url": "https://careers.equinix.com/jobs/skillbridge-application-security-engineer-trainee-dallas-texas-united-states"
+        },
         {
           "title": "SkillBridge - Critical Facilities Engineer - Trainee (Cohort Q1' 2027)",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-cohort-q1-2027-dallas-texas-united-states-ashburn-virginia-atlanta-georgia-chicago-illinois-englewood-colorado-miami-florida-san-jose-californ"
@@ -1752,10 +1760,6 @@
         {
           "title": "SkillBridge Critical Facilities Engineer - Trainee",
           "url": "https://careers.equinix.com/jobs/skillbridge-critical-facilities-engineer-trainee-dallas-texas-united-states"
-        },
-        {
-          "title": "Data Center Customer Operations Intern",
-          "url": "https://careers.equinix.com/jobs/data-center-customer-operations-intern-frankfurt-germany-16ca2da0-8300-4ef7-be6e-9d396b4f2719"
         },
         {
           "title": "SkillBridge Military Transition Program – Staff Security Engineer (Security Platforms & Automation) - Hybrid",
@@ -1802,7 +1806,7 @@
       },
       "errors": [],
       "expiredVerifiedFallbackRoles": 4,
-      "verifiedFallbackExpiredAt": "2026-09-28T23:26:37.960Z"
+      "verifiedFallbackExpiredAt": "2026-09-29T05:59:50.750Z"
     }
   },
   "equinixVerifiedFallback": {
@@ -1816,7 +1820,7 @@
     "verifiedWindowFallbacksUsed": 0,
     "searchClickFallbacksUsed": 0,
     "removedManaged": 0,
-    "removedBroadEarly": 1,
+    "removedBroadEarly": 0,
     "removedKnownOverExperience": 0,
     "added": 0,
     "retainedManaged": 0,
@@ -1870,6 +1874,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1376,
     "currentJobs": 707,
+    "scopeCompany": "Equinix",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1877,8 +1883,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-29T05:58:10.083Z"
+    "firstSeenRecencyFallbackJobs": 4,
+    "updatedAt": "2026-09-29T05:59:51.206Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2604,7 +2610,7 @@
     "errors": []
   },
   "equinixVerifiedEvidenceGuard": {
-    "checkedAt": "2026-09-28T23:26:37.960Z",
+    "checkedAt": "2026-09-29T05:59:50.750Z",
     "managedBefore": 0,
     "removed": 0,
     "retained": 0,
@@ -2614,13 +2620,13 @@
   },
   "equinixCurrentSkillbridge": {
     "officialSource": "https://careers.equinix.com/internships",
-    "checkedAt": "2026-09-28T23:29:11.445Z",
+    "checkedAt": "2026-09-29T05:59:50.196Z",
     "listingHealthy": true,
-    "listingStatus": 200,
+    "listingStatus": 202,
     "rolesExpected": 4,
-    "rolesListed": 4,
-    "detailChecksPassed": 4,
-    "qualifyingRoles": 4,
+    "rolesListed": 0,
+    "detailChecksPassed": 0,
+    "qualifyingRoles": 0,
     "added": 0,
     "removedManaged": 0,
     "removedKnownOverExperience": 0,
@@ -2628,52 +2634,31 @@
     "checks": [
       {
         "requisition": "JR-163301",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-163300",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          2,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-158170",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       },
       {
         "requisition": "JR-811161",
-        "listed": true,
-        "detailOk": true,
-        "detailStatus": 200,
-        "published": true,
-        "years": [
-          1,
-          4,
-          1,
-          4
-        ],
-        "alreadyPublishedByOtherCollector": true
+        "listed": false,
+        "detailOk": false,
+        "published": false,
+        "reason": "not-listed"
       }
     ],
     "errors": []

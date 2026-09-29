@@ -3268,7 +3268,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T18:08:12.836Z",
+    "checkedAt": "2026-09-29T18:08:29.861Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3276,7 +3276,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T18:08:12.916Z",
+    "updatedAt": "2026-09-29T18:08:29.937Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 705,
@@ -3295,7 +3295,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T18:08:12.992Z",
+    "checkedAt": "2026-09-29T18:08:30.001Z",
     "before": 705,
     "after": 705,
     "removed": 0,
@@ -3313,15 +3313,17 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1379,
     "currentJobs": 705,
+    "scopeCompany": "CoreWeave",
+    "scopedJobs": 11,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-29T18:08:13.265Z"
+    "normalizedWorkdayPostingDatesThisRun": 11,
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-29T18:08:30.325Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3535,20 +3537,20 @@
     "careersUrl": "https://www.coreweave.com/careers",
     "sourceHealthy": true,
     "boardToken": "coreweave",
-    "sourceRoles": 307,
+    "sourceRoles": 311,
     "qualifyingRoles": 11,
     "preservedPrevious": 0,
     "drops": {
-      "title": 294,
+      "title": 298,
       "experience": 0,
       "location": 2
     },
     "errors": [],
-    "checkedAt": "2026-09-29T05:52:23.002Z",
-    "lastHealthyAt": "2026-09-29T05:52:23.002Z",
+    "checkedAt": "2026-09-29T18:08:29.786Z",
+    "lastHealthyAt": "2026-09-29T18:08:29.786Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
-    "fallbackExpiresAt": "2026-10-03T05:52:23.002Z",
+    "fallbackExpiresAt": "2026-10-03T18:08:29.786Z",
     "fallbackExpired": false,
     "usedPreviousSnapshot": false,
     "publishedRoles": 11,

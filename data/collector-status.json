@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T19:39:28.697Z",
+  "updatedAt": "2026-09-29T21:05:32.241Z",
   "jobs": 704,
   "sourcesAttempted": 22,
   "providers": {
@@ -3270,7 +3270,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T19:39:28.775Z",
+    "checkedAt": "2026-09-29T21:05:32.306Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3278,7 +3278,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T19:39:28.853Z",
+    "updatedAt": "2026-09-29T21:05:32.372Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 704,
@@ -3297,7 +3297,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T19:39:28.931Z",
+    "checkedAt": "2026-09-29T21:05:32.433Z",
     "before": 704,
     "after": 704,
     "removed": 0,
@@ -3315,8 +3315,8 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1381,
     "currentJobs": 704,
-    "scopeCompany": "CloudHQ",
-    "scopedJobs": 1,
+    "scopeCompany": "Csquare",
+    "scopedJobs": 4,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3324,8 +3324,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 1,
-    "updatedAt": "2026-09-29T20:15:49.421Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-09-29T21:05:32.688Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -4268,8 +4268,8 @@
     "lastHealthyAt": "2026-09-29T19:22:03.446Z"
   },
   "csquare": {
-    "checkedAt": "2026-09-28T22:17:56.204Z",
-    "lastSuccessfulAt": "2026-09-28T22:17:56.204Z",
+    "checkedAt": "2026-09-29T21:05:32.241Z",
+    "lastSuccessfulAt": "2026-09-29T21:05:32.241Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "authoritativeSnapshot": true,

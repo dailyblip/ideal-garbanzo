@@ -1,22 +1,23 @@
 {
-  "updatedAt": "2026-09-29T13:23:33.309Z",
-  "jobs": 706,
-  "sourcesAttempted": 19,
+  "updatedAt": "2026-09-29T13:30:38.390Z",
+  "jobs": 705,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 679,
+    "entry-level": 678,
     "trainee": 10,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 399,
-    "2-5-years": 282,
+    "2-5-years": 281,
     "no-experience": 25
   },
   "errors": [],
@@ -2960,14 +2961,14 @@
     "listingComplete": true,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
-    "candidateRows": 44,
-    "qualifyingRoles": 43,
+    "candidateRows": 43,
+    "qualifyingRoles": 42,
     "diagnostics": {
-      "canonicalLinks": 63,
-      "missionFitLinks": 44,
-      "uniqueCandidates": 44,
-      "detailAttempted": 44,
-      "detailVerified": 43,
+      "canonicalLinks": 62,
+      "missionFitLinks": 43,
+      "uniqueCandidates": 43,
+      "detailAttempted": 43,
+      "detailVerified": 42,
       "preservedFromPrevious": 0,
       "detailDrops": {
         "stale": 0,
@@ -2977,8 +2978,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-29T06:23:31.773Z",
-    "freshnessCheckedAt": "2026-09-29T06:23:31.773Z",
+    "lastHealthyAt": "2026-09-29T13:30:38.399Z",
+    "freshnessCheckedAt": "2026-09-29T13:30:38.399Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -3487,17 +3488,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1378,
-    "currentJobs": 706,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1379,
+    "currentJobs": 705,
+    "scopeCompany": "Google",
+    "scopedJobs": 42,
+    "newJobsThisRun": 1,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 1,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 165,
-    "firstSeenRecencyFallbackJobs": 89,
-    "updatedAt": "2026-09-29T13:30:18.942Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 42,
+    "updatedAt": "2026-09-29T13:30:38.966Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

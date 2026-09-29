@@ -1,13 +1,14 @@
 {
-  "updatedAt": "2026-09-29T18:11:21.686Z",
+  "updatedAt": "2026-09-29T18:22:54.427Z",
   "jobs": 705,
-  "sourcesAttempted": 20,
+  "sourcesAttempted": 21,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
     "oracleRecruitingCloud": 1,
-    "googleCareers": 1
+    "googleCareers": 1,
+    "icims": 1
   },
   "countsByType": {
     "entry-level": 678,
@@ -37,17 +38,17 @@
     "listing": {
       "pagesAttempted": 2,
       "pagesSucceeded": 2,
-      "candidateLinks": 13
+      "candidateLinks": 14
     },
     "drops": {
       "parse": 2,
-      "classification": 3
+      "classification": 4
     },
     "samples": [
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
-        "title": "Senior Client Executive",
-        "location": "Marlborough, MA",
+        "url": "https://careers-tierpoint.icims.com/jobs/3061/manager%2c-data-center-operations/job",
+        "title": "Manager, Data Center Operations",
+        "location": "Papillion, NE",
         "reason": "classification"
       },
       {
@@ -56,14 +57,9 @@
         "location": ""
       },
       {
-        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
-        "title": "Sr Revenue Assurance Analyst",
-        "location": ""
-      },
-      {
-        "url": "https://careers-tierpoint.icims.com/jobs/3010/manager%2c-accounting/job",
-        "title": "Manager, Accounting",
-        "location": "Saint Louis, MO",
+        "url": "https://careers-tierpoint.icims.com/jobs/3059/senior-client-executive/job",
+        "title": "Senior Client Executive",
+        "location": "Marlborough, MA",
         "reason": "classification"
       },
       {
@@ -71,6 +67,11 @@
         "title": "EOC Support Analyst",
         "location": "Norristown | US-MO-Saint Louis, PA",
         "reason": "classification"
+      },
+      {
+        "url": "https://careers-tierpoint.icims.com/jobs/3039/sr-revenue-assurance-analyst/job",
+        "title": "Sr Revenue Assurance Analyst",
+        "location": ""
       }
     ]
   },
@@ -3268,7 +3269,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-29T18:11:21.774Z",
+    "checkedAt": "2026-09-29T18:22:54.549Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3276,7 +3277,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-29T18:11:21.860Z",
+    "updatedAt": "2026-09-29T18:22:55.166Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 705,
@@ -3284,18 +3285,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
+      "midwest": 130,
+      "texas": 119,
       "mid-atlantic": 138,
       "southeast": 114,
       "west": 109,
-      "midwest": 130,
-      "texas": 119,
       "southwest": 73,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-29T18:11:21.949Z",
+    "checkedAt": "2026-09-29T18:22:55.515Z",
     "before": 705,
     "after": 705,
     "removed": 0,
@@ -3313,15 +3314,15 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1380,
     "currentJobs": 705,
-    "newJobsThisRun": 1,
+    "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 1,
+    "migratedEntriesThisRun": 0,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-29T18:11:22.157Z"
+    "updatedAt": "2026-09-29T18:22:55.577Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

@@ -1,12 +1,13 @@
 {
-  "updatedAt": "2026-09-29T22:41:29.259Z",
+  "updatedAt": "2026-09-29T22:52:17.615Z",
   "jobs": 674,
-  "sourcesAttempted": 19,
+  "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
     "greenhouse": 6,
     "ashby": 5,
-    "oracleRecruitingCloud": 1
+    "oracleRecruitingCloud": 1,
+    "googleCareers": 1
   },
   "countsByType": {
     "entry-level": 647,
@@ -15,8 +16,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 278,
-    "0-2-years": 371,
+    "2-5-years": 280,
+    "0-2-years": 369,
     "no-experience": 25
   },
   "errors": [],
@@ -2963,7 +2964,7 @@
     "candidateRows": 43,
     "qualifyingRoles": 42,
     "diagnostics": {
-      "canonicalLinks": 62,
+      "canonicalLinks": 60,
       "missionFitLinks": 43,
       "uniqueCandidates": 43,
       "detailAttempted": 43,
@@ -2977,8 +2978,8 @@
       }
     },
     "errors": [],
-    "lastHealthyAt": "2026-09-29T13:30:38.399Z",
-    "freshnessCheckedAt": "2026-09-29T13:30:38.399Z",
+    "lastHealthyAt": "2026-09-29T22:52:17.622Z",
+    "freshnessCheckedAt": "2026-09-29T22:52:17.622Z",
     "fallbackMaxAgeHours": 96,
     "fallbackAgeHours": 0,
     "fallbackExpired": false,
@@ -3510,17 +3511,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1399,
+    "trackedJobs": 1402,
     "currentJobs": 674,
-    "newJobsThisRun": 0,
+    "scopeCompany": "Google",
+    "scopedJobs": 42,
+    "newJobsThisRun": 3,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 3,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 165,
-    "firstSeenRecencyFallbackJobs": 88,
-    "updatedAt": "2026-09-29T22:51:59.677Z"
+    "normalizedWorkdayPostingDatesThisRun": 0,
+    "firstSeenRecencyFallbackJobs": 42,
+    "updatedAt": "2026-09-29T22:52:18.127Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

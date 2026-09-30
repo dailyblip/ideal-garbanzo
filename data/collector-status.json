@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-30T05:37:58.324Z",
+  "updatedAt": "2026-09-30T05:47:29.991Z",
   "jobs": 694,
   "sourcesAttempted": 19,
   "providers": {
@@ -15,8 +15,8 @@
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "2-5-years": 281,
     "0-2-years": 388,
+    "2-5-years": 281,
     "no-experience": 25
   },
   "errors": [],
@@ -1831,7 +1831,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-09-30T05:44:53.125Z",
+    "checkedAt": "2026-09-30T05:47:30.095Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -1839,7 +1839,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-30T05:44:53.210Z",
+    "updatedAt": "2026-09-30T05:47:30.177Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 694,
@@ -1847,18 +1847,18 @@
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southwest": 74,
-      "texas": 117,
       "southeast": 114,
-      "midwest": 131,
       "west": 105,
+      "midwest": 131,
       "mid-atlantic": 131,
+      "texas": 117,
+      "southwest": 74,
       "northeast": 21,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-30T05:44:53.284Z",
+    "checkedAt": "2026-09-30T05:47:30.252Z",
     "before": 694,
     "after": 694,
     "removed": 0,
@@ -1876,8 +1876,6 @@
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1408,
     "currentJobs": 694,
-    "scopeCompany": "Sabey Data Centers",
-    "scopedJobs": 2,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -1885,8 +1883,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 2,
-    "updatedAt": "2026-09-30T05:44:53.468Z"
+    "firstSeenRecencyFallbackJobs": 89,
+    "updatedAt": "2026-09-30T05:47:30.456Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2046,7 +2044,7 @@
     "detailErrors": []
   },
   "streamDataCenters": {
-    "checkedAt": "2026-09-29T18:11:21.686Z",
+    "checkedAt": "2026-09-30T05:47:29.991Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.streamdatacenters.com/company/careers/",

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-30T05:24:18.580Z",
-  "jobs": 675,
+  "updatedAt": "2026-09-30T05:27:25.765Z",
+  "jobs": 699,
   "sourcesAttempted": 27,
   "providers": {
     "lever": 7,
@@ -11,14 +11,14 @@
     "workday": 6
   },
   "countsByType": {
-    "entry-level": 648,
+    "entry-level": 672,
     "trainee": 10,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 369,
-    "2-5-years": 281,
+    "2-5-years": 283,
+    "0-2-years": 391,
     "no-experience": 25
   },
   "errors": [],
@@ -1408,11 +1408,11 @@
       },
       {
         "query": "data center technician",
-        "rows": 1284
+        "rows": 1288
       },
       {
         "query": "engineering operations technician",
-        "rows": 383
+        "rows": 384
       },
       {
         "query": "work based learning data center",
@@ -1423,28 +1423,28 @@
         "rows": 18
       }
     ],
-    "candidateRows": 3689,
-    "uniqueCandidates": 1192,
+    "candidateRows": 3694,
+    "uniqueCandidates": 1194,
     "freshQualifyingRoles": 27,
     "preservedPreviousRoles": 0,
     "qualifyingRoles": 27,
     "drops": {
-      "nonUs": 316,
-      "title": 563,
+      "nonUs": 319,
+      "title": 560,
       "context": 0,
       "experience": 3,
-      "unknownExperience": 283,
+      "unknownExperience": 285,
       "invalidUrl": 0
     },
     "errors": [],
-    "checkedAt": "2026-09-29T22:12:17.916Z",
-    "lastHealthyAt": "2026-09-29T22:12:17.916Z",
+    "checkedAt": "2026-09-30T05:27:25.850Z",
+    "lastHealthyAt": "2026-09-30T05:27:25.850Z",
     "fallbackMaxAgeHours": 96,
     "fallbackFreshness": {
       "active": false,
       "expired": false,
-      "lastHealthyAt": "2026-09-29T22:12:17.916Z",
-      "checkedAt": "2026-09-29T22:12:17.916Z",
+      "lastHealthyAt": "2026-09-30T05:27:25.850Z",
+      "checkedAt": "2026-09-30T05:27:25.850Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     }
@@ -1853,18 +1853,18 @@
     "updatedAt": "2026-09-30T05:24:19.428Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 675,
+    "regionAssigned": 694,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 110,
-      "west": 102,
-      "midwest": 129,
-      "mid-atlantic": 126,
+      "southeast": 114,
+      "west": 105,
+      "midwest": 131,
+      "mid-atlantic": 131,
       "texas": 117,
-      "southwest": 71,
-      "northeast": 19,
+      "southwest": 74,
+      "northeast": 21,
       "nationwide": 1
     }
   },
@@ -1885,19 +1885,19 @@
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
-    "trackedJobs": 1405,
-    "currentJobs": 675,
-    "scopeCompany": "Oracle",
-    "scopedJobs": 9,
-    "newJobsThisRun": 0,
+    "trackedJobs": 1408,
+    "currentJobs": 694,
+    "scopeCompany": "Amazon Web Services",
+    "scopedJobs": 241,
+    "newJobsThisRun": 3,
     "changedJobsThisRun": 0,
-    "migratedEntriesThisRun": 0,
+    "migratedEntriesThisRun": 3,
     "seededExistingThisRun": 0,
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
-    "normalizedWorkdayPostingDatesThisRun": 9,
+    "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-09-30T05:24:19.616Z"
+    "updatedAt": "2026-09-30T05:27:26.386Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -1911,11 +1911,11 @@
       },
       {
         "query": "data center technician",
-        "rows": 1284
+        "rows": 1288
       },
       {
         "query": "engineering operations technician",
-        "rows": 383
+        "rows": 384
       },
       {
         "query": "work based learning data center",
@@ -1926,42 +1926,36 @@
         "rows": 18
       }
     ],
-    "rawRows": 3689,
-    "missionFitUsCandidates": 1245,
-    "uniquePublishIdentities": 303,
-    "duplicatesSkippedBeforeHydration": 942,
+    "rawRows": 3694,
+    "missionFitUsCandidates": 1249,
+    "uniquePublishIdentities": 305,
+    "duplicatesSkippedBeforeHydration": 944,
     "reusedVerified": 26,
-    "detailCandidates": 277,
-    "detailAttempted": 277,
-    "detailSucceeded": 245,
-    "detailRecovered": 199,
-    "detailFetchFailed": 32,
-    "detailUnknownExperience": 35,
+    "detailCandidates": 279,
+    "detailAttempted": 279,
+    "detailSucceeded": 265,
+    "detailRecovered": 220,
+    "detailFetchFailed": 14,
+    "detailUnknownExperience": 34,
     "detailOverFiveYears": 11,
     "invalidUrls": 0,
     "preservedPrevious": 0,
-    "qualifyingRoles": 225,
+    "qualifyingRoles": 246,
     "detailErrorSamples": [
-      "https://www.amazon.jobs/en/jobs/10490822/engineering-operations-technician: 503 https://www.amazon.jobs/en/jobs/10490822/engineering-operations-technician",
-      "https://www.amazon.jobs/en/jobs/10476301/data-center-technician-west-region-military-veterans-encouraged: 503 https://www.amazon.jobs/en/jobs/10476301/data-center-technician-west-region-military-veterans-encouraged",
-      "https://www.amazon.jobs/en/jobs/10468414/engineering-operation-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10468414/engineering-operation-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10471743/data-center-technician-night-role: 503 https://www.amazon.jobs/en/jobs/10471743/data-center-technician-night-role",
+      "https://www.amazon.jobs/en/jobs/10482544/engineering-operation-technician-night-role: 503 https://www.amazon.jobs/en/jobs/10482544/engineering-operation-technician-night-role",
+      "https://www.amazon.jobs/en/jobs/10476323/engineering-operation-technician-west-region-military-veterans-encouraged: 503 https://www.amazon.jobs/en/jobs/10476323/engineering-operation-technician-west-region-military-veterans-encouraged",
+      "https://www.amazon.jobs/en/jobs/10461591/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10461591/data-center-technician-dcc-communities",
       "https://www.amazon.jobs/en/jobs/10445982/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10445982/data-center-technician",
-      "https://www.amazon.jobs/en/jobs/10448901/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10448901/data-center-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10461587/data-center-technician-night-shift-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10461587/data-center-technician-night-shift-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10437606/data-center-technician-adc-infraops-dco-tech: 503 https://www.amazon.jobs/en/jobs/10437606/data-center-technician-adc-infraops-dco-tech",
       "https://www.amazon.jobs/en/jobs/10423701/data-center-operations-tech-iv: 503 https://www.amazon.jobs/en/jobs/10423701/data-center-operations-tech-iv",
-      "https://www.amazon.jobs/en/jobs/10430644/data-center-technician-human-resources: 503 https://www.amazon.jobs/en/jobs/10430644/data-center-technician-human-resources",
-      "https://www.amazon.jobs/en/jobs/10430657/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10430657/data-center-technician",
-      "https://www.amazon.jobs/en/jobs/10427682/data-center-technician-human-resources: 503 https://www.amazon.jobs/en/jobs/10427682/data-center-technician-human-resources",
-      "https://www.amazon.jobs/en/jobs/10431677/engineering-operations-technician: 503 https://www.amazon.jobs/en/jobs/10431677/engineering-operations-technician",
-      "https://www.amazon.jobs/en/jobs/10385269/data-center-technician-aws-opportunity-for-military-community: 503 https://www.amazon.jobs/en/jobs/10385269/data-center-technician-aws-opportunity-for-military-community",
-      "https://www.amazon.jobs/en/jobs/10401649/engineering-operations-technician-dceo: 503 https://www.amazon.jobs/en/jobs/10401649/engineering-operations-technician-dceo",
-      "https://www.amazon.jobs/en/jobs/10404079/engineering-operations-technician-pdx54: 503 https://www.amazon.jobs/en/jobs/10404079/engineering-operations-technician-pdx54",
-      "https://www.amazon.jobs/en/jobs/10386352/data-center-technician: 503 https://www.amazon.jobs/en/jobs/10386352/data-center-technician",
-      "https://www.amazon.jobs/en/jobs/10407069/data-center-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10407069/data-center-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10408193/data-center-technician-maf-hiring-event-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10408193/data-center-technician-maf-hiring-event-dcc-communities",
       "https://www.amazon.jobs/en/jobs/3205652/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3205652/engineering-operations-technician-dcc-communities",
-      "https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician: 503 https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician"
+      "https://www.amazon.jobs/en/jobs/10385269/data-center-technician-aws-opportunity-for-military-community: 503 https://www.amazon.jobs/en/jobs/10385269/data-center-technician-aws-opportunity-for-military-community",
+      "https://www.amazon.jobs/en/jobs/3150687/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150687/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia: 503 https://www.amazon.jobs/en/jobs/3146880/data-center-engineering-operations-technician-northern-virginia",
+      "https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3168292/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/3150709/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/3150709/engineering-operations-technician-dcc-communities",
+      "https://www.amazon.jobs/en/jobs/10433505/engineering-operations-technician-dcc-communities: 503 https://www.amazon.jobs/en/jobs/10433505/engineering-operations-technician-dcc-communities"
     ],
     "errors": []
   },

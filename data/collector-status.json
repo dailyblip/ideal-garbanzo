@@ -3596,14 +3596,14 @@
   "metaFallbackFreshness": {
     "active": false,
     "expired": false,
-    "lastHealthyAt": "2026-10-02T05:52:38.715Z",
-    "checkedAt": "2026-10-02T05:52:38.715Z",
+    "lastHealthyAt": "2026-10-03T11:49:14.619Z",
+    "checkedAt": "2026-10-03T11:49:14.619Z",
     "maxAgeHours": 96,
     "healthStampIntervalHours": 24,
     "sitemapUrl": "https://www.metacareers.com/jobsearch/sitemap.xml",
-    "sitemapJobs": 1063,
-    "staleSnapshotRolesRemoved": 4,
-    "stalePublicRolesRemoved": 4,
+    "sitemapJobs": 1070,
+    "staleSnapshotRolesRemoved": 0,
+    "stalePublicRolesRemoved": 0,
     "policy": "Verify Meta role liveness against the official Meta Careers sitemap. If that source cannot be verified, retain the last verified snapshot for at most 96 hours."
   },
   "genericFallbackFreshness": {

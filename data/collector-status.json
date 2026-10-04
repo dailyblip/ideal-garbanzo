@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-04T06:24:55.061Z",
-  "jobs": 648,
+  "updatedAt": "2026-10-04T06:25:46.063Z",
+  "jobs": 637,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,15 +10,15 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 621,
+    "entry-level": 612,
     "trainee": 10,
-    "internship": 6,
+    "internship": 4,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 373,
     "2-5-years": 250,
-    "no-experience": 25
+    "no-experience": 14
   },
   "errors": [
     "Google Careers fallback freshness: removed 42 stale role(s); last healthy verification is 96.3h old."
@@ -145,11 +145,11 @@
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
     "boardUrl": "https://ironmountain.wd5.myworkdayjobs.com/en-US/iron-mountain-jobs",
-    "checkedAt": "2026-09-30T06:01:25.279Z",
+    "checkedAt": "2026-10-04T06:25:46.063Z",
     "lastHealthyAt": "2026-09-30T06:01:25.279Z",
     "transportHealthy": true,
-    "sourceHealthy": true,
-    "authoritativeSnapshot": true,
+    "sourceHealthy": false,
+    "authoritativeSnapshot": false,
     "usedPreviousSnapshot": false,
     "listingPagesAttempted": 18,
     "listingPagesSucceeded": 18,
@@ -158,10 +158,10 @@
     "candidateRows": 13,
     "detailAttempted": 13,
     "detailSucceeded": 13,
-    "qualifyingRoles": 11,
-    "snapshotRoles": 11,
+    "qualifyingRoles": 0,
+    "snapshotRoles": 0,
     "preservedPrevious": 0,
-    "removedExpiredFallback": 0,
+    "removedExpiredFallback": 11,
     "drops": {
       "titleOrContext": 0,
       "nonUs": 2,
@@ -172,13 +172,13 @@
     },
     "fallbackFreshness": {
       "active": false,
-      "expired": false,
+      "expired": true,
       "lastHealthyAt": "2026-09-30T06:01:25.279Z",
-      "checkedAt": "2026-09-30T06:01:25.279Z",
+      "checkedAt": "2026-10-04T06:25:46.063Z",
       "expiresAt": "2026-10-04T06:01:25.279Z",
-      "ageHours": 0,
+      "ageHours": 96.4,
       "maxAgeHours": 96,
-      "roles": 11,
+      "roles": 0,
       "policy": "Retain only the last fully verified Iron Mountain snapshot for at most 96 hours after official-source verification fails."
     },
     "errors": []

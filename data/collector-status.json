@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-04T06:25:46.063Z",
-  "jobs": 637,
+  "updatedAt": "2026-10-04T06:33:24.255Z",
+  "jobs": 635,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 612,
+    "entry-level": 610,
     "trainee": 10,
     "internship": 4,
     "apprenticeship": 11
   },
   "countsByExperience": {
     "0-2-years": 373,
-    "2-5-years": 250,
+    "2-5-years": 248,
     "no-experience": 14
   },
   "errors": [
@@ -79,13 +79,13 @@
   "sabeyCareers": {
     "officialSource": "https://sabey.com/about/careers",
     "recruiterBoard": "https://careers2-anothersource.icims.com/jobs/search?hashed=-625979185&ss=1",
-    "sourceHealthy": true,
+    "sourceHealthy": false,
     "listingMethod": "official-recruiter-board",
     "usedRecruiterBoardFallback": true,
     "recruiterBoardComplete": true,
     "candidateLinks": 2,
     "detailSucceeded": 2,
-    "qualifyingRoles": 2,
+    "qualifyingRoles": 0,
     "preservedPrevious": 0,
     "drops": {
       "stale": 0,
@@ -98,21 +98,23 @@
     "errors": [
       "official listing: 403 https://sabey.com/about/careers"
     ],
-    "snapshotRoles": 2,
+    "snapshotRoles": 0,
     "snapshotRestored": 0,
     "snapshotVerifiedAt": "2026-09-30T05:44:53.045Z",
-    "snapshotFresh": true,
+    "snapshotFresh": false,
     "snapshotMaxAgeHours": 96,
     "snapshotAgeHours": 88.2,
     "normalizedTitles": 2,
-    "removedExpiredFallback": 0,
+    "removedExpiredFallback": 2,
     "fallbackFreshness": {
       "active": false,
-      "expired": false,
+      "expired": true,
       "lastHealthyAt": "2026-09-30T05:44:53.045Z",
-      "checkedAt": "2026-10-03T21:56:13.189Z",
+      "checkedAt": "2026-10-04T06:33:24.255Z",
       "expiresAt": "2026-10-04T05:44:53.045Z",
       "maxAgeHours": 96,
+      "expiredAgeHours": 96.8,
+      "rolesRemoved": 2,
       "policy": "Sabey employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
     }
   },

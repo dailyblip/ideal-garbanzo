@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-03T21:49:33.287Z",
-  "jobs": 690,
+  "updatedAt": "2026-10-04T06:23:08.188Z",
+  "jobs": 648,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,17 +10,19 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 663,
+    "entry-level": 621,
     "trainee": 10,
     "internship": 6,
     "apprenticeship": 11
   },
   "countsByExperience": {
-    "0-2-years": 384,
-    "2-5-years": 281,
+    "0-2-years": 373,
+    "2-5-years": 250,
     "no-experience": 25
   },
-  "errors": [],
+  "errors": [
+    "Google Careers fallback freshness: removed 42 stale role(s); last healthy verification is 96.3h old."
+  ],
   "sourceFailurePreservation": {
     "checkedAt": "2026-09-30T05:35:35.739Z",
     "failedSources": [],
@@ -2957,12 +2959,12 @@
   },
   "googleCareers": {
     "officialSource": "https://www.google.com/about/careers/applications/jobs/results/",
-    "sourceHealthy": true,
-    "listingComplete": true,
+    "sourceHealthy": false,
+    "listingComplete": false,
     "pagesAttempted": 4,
     "pagesSucceeded": 4,
     "candidateRows": 43,
-    "qualifyingRoles": 42,
+    "qualifyingRoles": 0,
     "diagnostics": {
       "canonicalLinks": 60,
       "missionFitLinks": 43,
@@ -2979,12 +2981,14 @@
     },
     "errors": [],
     "lastHealthyAt": "2026-09-30T06:07:43.632Z",
-    "freshnessCheckedAt": "2026-09-30T06:07:43.632Z",
+    "freshnessCheckedAt": "2026-10-04T06:23:08.188Z",
     "fallbackMaxAgeHours": 96,
-    "fallbackAgeHours": 0,
-    "fallbackExpired": false,
+    "fallbackAgeHours": 96.3,
+    "fallbackExpired": true,
     "usedPreviousSnapshot": false,
-    "staleRolesRemoved": 0
+    "staleRolesRemoved": 42,
+    "fallbackExpiresAt": "2026-10-04T06:07:43.632Z",
+    "freshnessPolicy": "Google employer-direct roles may remain published for at most 96 hours after the last successful official Google Careers verification."
   },
   "metaCareers": {
     "officialSource": "https://www.metacareers.com/jobsearch/",

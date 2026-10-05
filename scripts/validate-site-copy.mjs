@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
@@ -68,4 +69,4 @@ console.log(`Site copy check passed across ${new Set(files).size} user-facing fi
 // Run after SEO and guide generation so every deployable HTML page is checked,
 // not only the authored homepage. Keep this dependency-free so accessibility
 // regressions cannot be skipped because a browser-test package failed to install.
-await import('./validate-accessibility.mjs');
+await runValidator(new URL('./validate-accessibility.mjs', import.meta.url));

@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { access, readFile } from 'node:fs/promises';
 
 const config = JSON.parse(await readFile('data/mailing-list.json', 'utf8'));
@@ -168,7 +169,7 @@ for (const forbidden of ['subscriber.metadata', 'subscriber.tags', 'resolveButto
 await assertMissing('.github/workflows/weekly-digest.yml');
 await assertMissing('scripts/send-weekly-digest.mjs');
 
-await import('./validate-alert-job-detail-parity.mjs');
-await import('./validate-alert-signup-parity.mjs');
+await runValidator(new URL('./validate-alert-job-detail-parity.mjs', import.meta.url));
+await runValidator(new URL('./validate-alert-signup-parity.mjs', import.meta.url));
 
 console.log(`Mailing-list validation passed for Buttondown newsletter ${config.username}: shared provider redirects, one free-tier-compatible Monday digest pipeline with ${scheduleMatches.length} redundant scheduler runs, tracked Data Center Careers job links, employer-diverse early-career-first selection and a configured subscriber portal.`);

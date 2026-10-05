@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile } from 'node:fs/promises';
 
 const status = JSON.parse(await readFile('data/collector-status.json', 'utf8'));
@@ -81,97 +82,98 @@ console.log(`Priority source diagnostics present for all ${prioritySources.lengt
 // Dedicated hyperscaler/operator snapshots can outlive the source workflow that
 // created them. Validate freshness at deployment too so another healthy source
 // cannot keep stale retained roles deployable past their verification window.
-await import('./validate-dedicated-fallback-freshness.mjs');
+await runValidator(new URL('./validate-dedicated-fallback-freshness.mjs', import.meta.url));
 
 // AWS is a primary early-career source and can publish from a bounded verified
 // fallback during Amazon Jobs outages. Reuse the established source guard here so
 // every standard validation/deployment enforces requisition identity, mission fit,
 // dedupe, source-state evidence, and protected snapshot/public-feed retention.
-await import('./validate-amazon-parity.mjs');
+await runValidator(new URL('./validate-amazon-parity.mjs', import.meta.url));
 
 // Google and Oracle also publish from authoritative employer-direct snapshots.
 // Run their dedicated integrity guards in every standard validation/deployment so
 // canonical requisition URLs, 0-5-year scope, senior-role exclusion, bounded
 // fallback evidence, and protected snapshot/public-feed parity fail closed.
-await import('./validate-google-snapshot.mjs');
-await import('./validate-oracle-snapshot.mjs');
+await runValidator(new URL('./validate-google-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-oracle-snapshot.mjs', import.meta.url));
 
 // Digital Realty and CloudHQ publish authoritative employer-direct snapshots.
 // Enforce canonical direct URLs, audience-fit metadata, source-health evidence,
 // bounded fallback state, and snapshot/public-feed parity on every deployment.
-await import('./validate-digital-realty.mjs');
-await import('./validate-cloudhq.mjs');
+await runValidator(new URL('./validate-digital-realty.mjs', import.meta.url));
+await runValidator(new URL('./validate-cloudhq.mjs', import.meta.url));
 
 // Deployment already invokes this strategic-source diagnostic guard. Keep the
 // six major Workday operators fail-closed here as well so a stale or malformed
 // fallback state cannot remain deployable merely because an old sourceHealthy
 // boolean is still present in collector-status.json.
-await import('./validate-major-workday-freshness-state.mjs');
+await runValidator(new URL('./validate-major-workday-freshness-state.mjs', import.meta.url));
 
 // CoreSite is a major colocation operator and its verified fallback can outlive
 // the workflow that produced it. Enforce both its direct-source state and fallback
 // parity during every deployment, not only when CoreSite-specific files change.
-await import('./validate-coresite-source-integrity.mjs');
-await import('./validate-coresite-fallback.mjs');
+await runValidator(new URL('./validate-coresite-source-integrity.mjs', import.meta.url));
+await runValidator(new URL('./validate-coresite-fallback.mjs', import.meta.url));
 
 // DataBank publishes from an authoritative employer-direct TalentReef snapshot.
 // Enforce exact source/public parity on every deployment so stale or drifted
 // DataBank requisitions cannot remain deployable between collector refreshes.
-await import('./validate-databank.mjs');
+await runValidator(new URL('./validate-databank.mjs', import.meta.url));
 
 // Iron Mountain and Novva publish from protected employer-direct snapshots that
 // can remain active through bounded source outages. Enforce canonical direct URLs,
 // 0-5-year mission fit, fallback freshness, and snapshot/public parity on deploy.
-await import('./validate-iron-mountain.mjs');
-await import('./validate-novva.mjs');
+await runValidator(new URL('./validate-iron-mountain.mjs', import.meta.url));
+await runValidator(new URL('./validate-novva.mjs', import.meta.url));
 
 // Flexential and Cologix also have bounded employer-direct fallback windows. The
 // shared freshness guard above protects degraded snapshots; when their sources are
 // healthy, additionally require exact direct-link, audience-fit, and public parity.
 if (status.flexential?.sourceHealthy === true) {
-  await import('./validate-flexential.mjs');
+  await runValidator(new URL('./validate-flexential.mjs', import.meta.url));
 }
 if (status.cologix?.sourceHealthy === true) {
-  await import('./validate-cologix.mjs');
+  await runValidator(new URL('./validate-cologix.mjs', import.meta.url));
 }
 
 // Switch and T5 publish authoritative employer-direct requisition snapshots with
 // no retained degraded publication path. Validate canonical requisition identity,
 // 0-5-year scope, senior-role exclusion, regional metadata, and feed parity here.
-await import('./validate-switch-careers.mjs');
-await import('./validate-t5-data-centers.mjs');
+await runValidator(new URL('./validate-switch-careers.mjs', import.meta.url));
+await runValidator(new URL('./validate-t5-data-centers.mjs', import.meta.url));
 
 // TierPoint currently publishes from an authoritative iCIMS snapshot. Guard its
 // exact requisition/public parity and refuse degraded deployments that would rely
 // on the collector's historical unbounded previous-snapshot retention behavior.
-await import('./validate-tierpoint.mjs');
+await runValidator(new URL('./validate-tierpoint.mjs', import.meta.url));
 
 // Crusoe is a comparable operator with employer-direct Ashby inventory in the
 // public feed. Enforce official-board provenance, 0-5-year scope, senior-role
 // exclusion, retention protection, and fresh source/fallback evidence on deploy.
-await import('./validate-crusoe.mjs');
+await runValidator(new URL('./validate-crusoe.mjs', import.meta.url));
 
 // Sabey publishes from a verified employer-recruiter iCIMS snapshot when its
 // official careers page is unavailable. Enforce verified-host URLs, freshness,
 // supported audience metadata, and exact snapshot/public-feed parity on deploy.
-await import('./validate-sabey-snapshot.mjs');
+await runValidator(new URL('./validate-sabey-snapshot.mjs', import.meta.url));
 
 // Prime and CoreWeave are comparable large operators with authoritative direct
 // snapshots. Run their source-health, freshness, audience-fit, direct-link, and
 // public-feed parity checks through the same standard deployment path.
-await import('./validate-prime-data-centers.mjs');
-await import('./validate-coreweave.mjs');
+await runValidator(new URL('./validate-prime-data-centers.mjs', import.meta.url));
+await runValidator(new URL('./validate-coreweave.mjs', import.meta.url));
 
 // Comparable operators are also part of the mission-critical source backbone.
 // Validate their direct-source integrity and snapshot/public-feed parity whenever
 // the shared priority diagnostic guard runs.
-await import('./validate-compass-datacenters.mjs');
-await import('./validate-stream-data-centers.mjs');
-await import('./validate-edgeconnex-snapshot.mjs');
-await import('./validate-edgeconnex.mjs');
+await runValidator(new URL('./validate-compass-datacenters.mjs', import.meta.url));
+await runValidator(new URL('./validate-stream-data-centers.mjs', import.meta.url));
+await runValidator(new URL('./validate-edgeconnex-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-edgeconnex.mjs', import.meta.url));
 
 // Regional filtering is part of the user-facing product contract. Run its
 // authoritative state-market and beginner-pathway coverage checks through this
 // shared guard so standard validation and Pages deployment both fail closed if
 // a priority employer silently loses a market or receives the wrong region tag.
-await import('./validate-priority-region-coverage.mjs');
+await runValidator(new URL('./validate-h5-data-centers.mjs', import.meta.url));
+await runValidator(new URL('./validate-priority-region-coverage.mjs', import.meta.url));

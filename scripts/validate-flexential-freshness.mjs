@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
@@ -79,4 +80,4 @@ if (publishedCount === 0) {
 // Crusoe shares the generic ATS ingestion path but is now treated as a protected
 // comparable infrastructure operator. Keep its official-source and freshness
 // checks in the same deployment freshness chain so stale or misrouted roles fail closed.
-await import('./validate-crusoe.mjs');
+await runValidator(new URL('./validate-crusoe.mjs', import.meta.url));

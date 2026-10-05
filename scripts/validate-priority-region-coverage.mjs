@@ -1,4 +1,6 @@
 import { readFile } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import { oraclePublicationEligible } from './oracle-publication-policy.mjs';
 
 const JOBS_PATH = 'data/jobs.json';
 const MAJOR_PATH = 'data/major-jobs.json';
@@ -173,7 +175,7 @@ for (const [job, expected] of entryPathRegressionCases) {
   }
 }
 
-const jobs = await readJobs(JOBS_PATH);
+const jobs = process.argv.includes('--test') ? [] : await readJobs(JOBS_PATH);
 const violations = [];
 
 function requireStateCoverage(company, snapshotJobs, publicJobs, context) {
@@ -219,9 +221,32 @@ function requireRegionalCoverage(company, snapshotJobs, publicJobs, context) {
   requireCorrectRegionAssignments(company, publicJobs, context);
 }
 
+function eligibleSnapshotJobs(company, records) {
+  return company === 'Oracle' ? records.filter(oraclePublicationEligible) : records;
+}
+
+if (process.argv.includes('--test')) {
+  const technician = { company: 'Oracle', title: 'Data Center Technician', location: 'Nashville, TN', region: 'southeast', type: 'entry-level', experience: '0-2-years' };
+  const excluded = { ...technician, title: 'Data Center Construction Cost Estimator' };
+  requireRegionalCoverage('Oracle', eligibleSnapshotJobs('Oracle', [excluded]), [], 'fixture');
+  assert.equal(violations.length, 0, 'intentionally non-operational discovery must not create required public markets');
+  requireRegionalCoverage('Oracle', eligibleSnapshotJobs('Oracle', [technician]), [], 'fixture');
+  assert(violations.some(issue => issue.includes('state market')), 'a missing legitimate Oracle market must still fail');
+  assert(violations.some(issue => issue.includes('beginner-accessible')), 'a missing legitimate beginner pathway must still fail');
+  violations.length = 0;
+  requireRegionalCoverage('Oracle', [technician], [{ ...technician, experience: '2-5-years' }], 'fixture');
+  assert(violations.some(issue => issue.includes('beginner-accessible')), 'mid-career coverage cannot replace a beginner pathway');
+  violations.length = 0;
+  requireRegionalCoverage('Oracle', [technician], [{ ...technician, region: 'west' }], 'fixture');
+  assert(violations.some(issue => issue.includes('state/region assignment')), 'wrong regional routing must still fail');
+  assert.equal(eligibleSnapshotJobs('Microsoft', [excluded]).length, 1, 'Oracle exclusions must not relax other source contracts');
+  console.log('Priority regional eligibility regressions passed: legitimate markets, beginner paths, and routing remain protected.');
+  process.exit(0);
+}
+
 for (const { company, path } of protectedSnapshots) {
   const snapshotJobs = await readJobs(path);
-  const ownedSnapshotJobs = snapshotJobs.filter(job => String(job?.company || '').trim() === company);
+  const ownedSnapshotJobs = eligibleSnapshotJobs(company, snapshotJobs.filter(job => String(job?.company || '').trim() === company));
   const publicJobs = jobs.filter(job => String(job?.company || '').trim() === company);
   requireRegionalCoverage(company, ownedSnapshotJobs, publicJobs, 'dedicated snapshot');
 }

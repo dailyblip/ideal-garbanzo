@@ -18,7 +18,7 @@ async function readJson(path, fallback) {
 export function freshnessDecision({ verifiedAt, nowMs, hasPublishedRoles }) {
   if (!hasPublishedRoles) return { expired: false, ageHours: 0, expiresAt: null };
   const verifiedMs = Date.parse(String(verifiedAt || ''));
-  if (!Number.isFinite(verifiedMs)) return { expired: true, ageHours: null, expiresAt: null };
+  if (!Number.isFinite(verifiedMs) || verifiedMs > nowMs) return { expired: true, ageHours: null, expiresAt: null };
   const expiresAt = verifiedMs + MAX_FALLBACK_AGE_MS;
   return {
     expired: nowMs >= expiresAt,
@@ -35,6 +35,8 @@ function runSelfTest() {
   if (!boundary.expired) throw new Error('H5 fallback did not expire at 96 hours');
   const missing = freshnessDecision({ verifiedAt: null, nowMs: now, hasPublishedRoles: true });
   if (!missing.expired) throw new Error('H5 roles without successful verification evidence did not fail closed');
+  const future = freshnessDecision({ verifiedAt: '2026-09-10T12:00:01Z', nowMs: now, hasPublishedRoles: true });
+  if (!future.expired) throw new Error('H5 roles with future verification evidence did not fail closed');
   const empty = freshnessDecision({ verifiedAt: null, nowMs: now, hasPublishedRoles: false });
   if (empty.expired) throw new Error('Empty H5 feed incorrectly entered expiry');
   console.log('H5 fallback freshness regression tests passed.');
@@ -56,8 +58,10 @@ const publicJobs = jobs.filter(job => clean(job?.company) === COMPANY);
 const snapshotJobs = snapshot.filter(job => clean(job?.company) === COMPANY);
 const hasPublishedRoles = publicJobs.length > 0 || snapshotJobs.length > 0;
 const source = status[SOURCE_KEY] || {};
-const verifiedAt = clean(source.lastSuccessfulAt || source.lastHealthyAt);
 const nowMs = Date.now();
+const candidateVerifiedAt = clean(source.lastSuccessfulAt || source.lastHealthyAt);
+const candidateVerifiedMs = Date.parse(candidateVerifiedAt);
+const verifiedAt = Number.isFinite(candidateVerifiedMs) && candidateVerifiedMs <= nowMs ? candidateVerifiedAt : null;
 const decision = freshnessDecision({ verifiedAt, nowMs, hasPublishedRoles });
 
 if (!decision.expired) {
@@ -91,7 +95,8 @@ status[SOURCE_KEY] = {
   sourceHealthy: false,
   qualifyingRoles: 0,
   usedPreviousSnapshot: false,
-  checkedAt,
+  // Keep the collector-owned attempt time; the enforcement check is recorded
+  // separately below and is not a new official-source verification.
   lastSuccessfulAt: verifiedAt || null,
   lastHealthyAt: verifiedAt || null,
   fallbackFreshness: {

@@ -36,6 +36,11 @@ for (const [collector, evidence] of [
   ['recover-amazon-details', 'stamp-amazon-source-verification'],
   ['collect-oracle-careers', 'stamp-oracle-source-freshness'],
   ['collect-microsoft-datacenter', 'persist-microsoft-snapshot'],
+  ['collect-meta-careers', 'guard-meta-detail-collapse'],
+  ['recover-meta-structured', 'prune-meta-overfive'],
+  ['prune-meta-overfive', 'reconcile-meta-status'],
+  ['apply-equinix-verified-fallback', 'enforce-equinix-verified-evidence'],
+  ['reconcile-prime-data-centers', 'enforce-prime-fallback-freshness'],
   ['qa-site', 'reconcile-qa-dead-snapshots']
 ]) {
   assert.equal(initial.indexOf(`scripts/${evidence}.mjs`), initial.indexOf(`scripts/${collector}.mjs`) + 1,
@@ -58,6 +63,7 @@ assert(initial.includes('scripts/validate.mjs'), 'Full aggregate validation cann
 const deploy = workflow.split('\n  deploy:')[1];
 assert(deploy.includes('node scripts/validate-data-freshness.mjs'), 'Deployment must retain strict global freshness validation');
 assert(deploy.includes('Verify custom-domain deployment'), 'Deployment must verify the actual custom domain');
+assert(deploy.includes('Live jobs feed differs from the validated deployment artifact'), 'Deployment must compare actual live jobs with the validated artifact');
 console.log(`Full refresh contract passed: ${requiredCollectors.length} collector entrypoints; ${initial.length} identical normal/retry commands; source evidence and QA reconciliation precede strict publication gates.`);
 
 const nightly = await readFile('.github/workflows/nightly-qa.yml', 'utf8');

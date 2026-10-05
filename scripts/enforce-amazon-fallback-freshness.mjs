@@ -145,7 +145,11 @@ if (!hasPreservedFallback(amazonStatus)) {
 }
 
 const priorFreshness = amazonStatus.fallbackFreshness || {};
-const lastHealthyAt = clean(priorFreshness.lastHealthyAt) || findLastHealthyAmazonCheck();
+// Honor an explicit missing anchor from the source-verification stamp. Only
+// entirely unstamped legacy diagnostics may consult historical evidence.
+const lastHealthyAt = Object.hasOwn(priorFreshness, 'lastHealthyAt')
+  ? clean(priorFreshness.lastHealthyAt)
+  : (Object.hasOwn(amazonStatus, 'lastHealthyAt') ? clean(amazonStatus.lastHealthyAt) : findLastHealthyAmazonCheck());
 const nowMs = Date.now();
 const checkedAt = new Date(nowMs).toISOString();
 const decision = freshnessDecision({ fallbackActive: true, lastHealthyAt, nowMs });

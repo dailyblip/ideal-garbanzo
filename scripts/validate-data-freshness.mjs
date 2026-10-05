@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -289,5 +290,5 @@ for (const fallback of genericFallbackAges) {
   console.warn(`Generic ATS fallback freshness: ${fallback.company} preserving ${fallback.count} role(s), last verified ${fallback.ageHours.toFixed(1)}h ago (limit ${MAX_GENERIC_FALLBACK_AGE_HOURS}h; history ${fallback.sha.slice(0, 8)}).`);
 }
 
-await import('./validate-flexential-freshness.mjs');
-await import('./validate-novva.mjs');
+await runValidator(new URL('./validate-flexential-freshness.mjs', import.meta.url));
+await runValidator(new URL('./validate-novva.mjs', import.meta.url));

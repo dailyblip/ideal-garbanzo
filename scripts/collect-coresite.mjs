@@ -11,6 +11,8 @@ const LISTING_PATHS = [
 ];
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
+const FALLBACK_PATH = 'data/coresite-verified-fallback.json';
+const MAX_FALLBACK_AGE_HOURS = 96;
 const MAX_PAGES = 5;
 const BATCH_SIZE = 6;
 
@@ -242,7 +244,12 @@ async function scanListing(listingPath) {
         if (!seeds.has(row.id)) { seeds.set(row.id, row); added += 1; }
       }
       if (listedTotal && seeds.size >= listedTotal) { reachedEnd = true; break; }
-      if (page > 1 && added === 0) { reachedEnd = true; break; }
+      if (page > 1 && added === 0) {
+        // A repeated page cannot prove completeness when the employer reports
+        // more requisitions than we actually retrieved.
+        reachedEnd = listedTotal === null;
+        break;
+      }
     } catch (fetchError) {
       listingFailed = true;
       error = fetchError.message;
@@ -268,6 +275,7 @@ const previousJobs = await committedJobs();
 const previousSnapshot = previousJobs.filter(job => job.company === COMPANY || /(^|\.)jobs\.coresite\.com\//i.test(String(job.sourceUrl || '')));
 const previousById = new Map(previousSnapshot.map(job => [String(job.id || '').replace(/^coresite-/, ''), job]));
 const status = await readJson(STATUS_PATH, {});
+const priorFallback = await readJson(FALLBACK_PATH, null);
 const errors = [];
 const diagnostics = {
   listingPagesAttempted: 0,
@@ -306,7 +314,7 @@ for (const listingPath of LISTING_PATHS) {
 if (!selectedListing) selectedListing = partialListing;
 
 const seeds = selectedListing?.seeds || new Map();
-const sourceHealthy = selectedListing?.sourceHealthy === true;
+const listingHealthy = selectedListing?.sourceHealthy === true;
 const activeListingPath = selectedListing?.listingPath || LISTING_PATHS[0];
 if (selectedListing) {
   diagnostics.listingPagesAttempted = selectedListing.pagesAttempted;
@@ -360,7 +368,7 @@ for (let i = 0; i < detailSeeds.length; i += BATCH_SIZE) {
 }
 
 let nextSnapshot;
-if (!sourceHealthy) {
+if (!listingHealthy) {
   nextSnapshot = previousSnapshot;
 } else if (!diagnostics.listingComplete) {
   nextSnapshot = dedupe([...verified, ...previousSnapshot]);
@@ -373,10 +381,68 @@ const merged = dedupe([...withoutCoreSite, ...nextSnapshot]);
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
 
+// Only the completed source check can renew verification evidence. A partial
+// listing, failed detail request, or retained unverified role is not healthy,
+// even when it produced some publishable records. Never borrow global updatedAt.
+const checkedAt = new Date().toISOString();
+const checkedAtMs = Date.parse(checkedAt);
+const sourceHealthy = listingHealthy && diagnostics.listingComplete
+  && diagnostics.detailAttempted === diagnostics.candidateRows
+  && diagnostics.detailAttempted === diagnostics.detailSucceeded
+  && diagnostics.preservedOnFailure === 0;
+const priorLastHealthyAt = status.coreSite?.lastHealthyAt;
+const priorLastHealthyMs = Date.parse(priorLastHealthyAt);
+const lastHealthyAt = sourceHealthy ? checkedAt
+  : (Number.isFinite(priorLastHealthyMs) && priorLastHealthyMs <= checkedAtMs ? priorLastHealthyAt : null);
+const fallbackUpdated = sourceHealthy && nextSnapshot.length > 0;
+let nextFallback = priorFallback;
+let fallbackRetired = false;
+
+if (fallbackUpdated) {
+  nextFallback = {
+    verifiedAt: checkedAt,
+    expiresAt: new Date(checkedAtMs + MAX_FALLBACK_AGE_HOURS * 36e5).toISOString(),
+    officialSource: `${ORIGIN}${activeListingPath}`,
+    reason: 'Qualifying roles were verified by a complete official CoreSite listing scan and successful retrieval of every listed job-detail page, with no retained failed-detail roles.',
+    jobs: nextSnapshot,
+    reverification: {
+      method: 'complete-official-careers-listing-and-detail-pages',
+      collector: 'scripts/collect-coresite.mjs',
+      checkedAt,
+      expiresAfterHours: MAX_FALLBACK_AGE_HOURS,
+      diagnostics
+    }
+  };
+} else if (sourceHealthy && priorFallback?.jobs?.length) {
+  // The consumer requires a nonempty wrapper, so retain its original jobs and
+  // verification anchor but retire it after a successful zero-qualifying scan.
+  // Otherwise a later outage could resurrect roles this scan just removed.
+  const verifiedMs = Date.parse(priorFallback.verifiedAt);
+  const expiresMs = Date.parse(priorFallback.expiresAt);
+  const retiredExpiresMs = Math.min(expiresMs, checkedAtMs - 1);
+  if (!Number.isFinite(verifiedMs) || !Number.isFinite(retiredExpiresMs) || retiredExpiresMs <= verifiedMs) {
+    throw new Error('CoreSite zero-result scan cannot safely retire fallback with invalid or non-past verification timestamps.');
+  }
+  nextFallback = {
+    ...priorFallback,
+    expiresAt: new Date(retiredExpiresMs).toISOString(),
+    retirement: {
+      checkedAt,
+      reason: 'complete-official-scan-found-no-qualifying-roles',
+      originalExpiresAt: priorFallback.expiresAt,
+      diagnostics
+    }
+  };
+  fallbackRetired = true;
+}
+if (fallbackUpdated || fallbackRetired) {
+  await writeFile(FALLBACK_PATH, JSON.stringify(nextFallback, null, 2) + '\n');
+}
+
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify({
   ...status,
-  updatedAt: new Date().toISOString(),
+  updatedAt: checkedAt,
   jobs: merged.length,
   countsByType,
   countsByExperience,
@@ -384,7 +450,17 @@ await writeFile(STATUS_PATH, JSON.stringify({
     officialSource: `${ORIGIN}${activeListingPath}`,
     sourceCandidates: LISTING_PATHS.map(path => `${ORIGIN}${path}`),
     sourceHealthy,
+    checkedAt,
+    lastHealthyAt,
     qualifyingRoles: nextSnapshot.length,
+    fallbackPersistence: {
+      updated: fallbackUpdated || fallbackRetired,
+      reason: fallbackUpdated ? 'complete-source-verification'
+        : fallbackRetired ? 'zero-qualifying-roles-retired-prior-fallback'
+        : sourceHealthy ? 'no-qualifying-roles' : 'incomplete-source-verification',
+      verifiedAt: nextFallback?.verifiedAt || null,
+      expiresAt: nextFallback?.expiresAt || null
+    },
     diagnostics,
     errors
   },
@@ -395,4 +471,6 @@ await writeFile(STATUS_PATH, JSON.stringify({
 }, null, 2) + '\n');
 
 const sourceMode = activeListingPath === LISTING_PATHS[0] ? 'targeted' : 'official-root-fallback';
-console.log(`CoreSite: ${nextSnapshot.length} qualifying roles; ${diagnostics.candidateRows} listed; source ${sourceHealthy ? (diagnostics.listingComplete ? `healthy/complete (${sourceMode})` : `healthy/partial (${sourceMode})`) : 'unavailable'}; preserved ${diagnostics.preservedOnFailure}.`);
+const sourceState = sourceHealthy ? `healthy/complete (${sourceMode})`
+  : listingHealthy ? `degraded/incomplete-verification (${sourceMode})` : 'unavailable';
+console.log(`CoreSite: ${nextSnapshot.length} qualifying roles; ${diagnostics.candidateRows} listed; source ${sourceState}; preserved ${diagnostics.preservedOnFailure}.`);

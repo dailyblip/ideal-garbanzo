@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-05T15:10:41.455Z",
+  "updatedAt": "2026-10-05T15:22:28.619Z",
   "jobs": 710,
   "sourcesAttempted": 29,
   "providers": {
@@ -310,22 +310,24 @@
         "qualifyingRoles": 25,
         "usedPreviousSnapshot": false,
         "fallbackFreshness": {
-          "sourceHealthy": true,
-          "active": false,
+          "sourceHealthy": false,
+          "active": true,
           "expired": false,
-          "checkedAt": "2026-10-05T06:01:21.337Z",
+          "checkedAt": "2026-10-05T15:06:01.271Z",
           "roles": 8,
           "maxAgeHours": 96,
-          "listingComplete": true,
-          "detailHealthy": true,
-          "detailAttempted": 3,
-          "detailSucceeded": 3,
-          "reportedRows": 177,
-          "uniqueRows": 177,
+          "listingComplete": false,
+          "detailHealthy": false,
+          "detailAttempted": 0,
+          "detailSucceeded": 0,
+          "reportedRows": 178,
+          "uniqueRows": 176,
           "pagesAttempted": 9,
           "pagesSucceeded": 9,
           "lastHealthyAt": "2026-10-05T06:01:21.337Z",
-          "expiresAt": "2026-10-09T06:01:21.337Z"
+          "expiresAt": "2026-10-09T06:01:21.337Z",
+          "ageHours": 9.1,
+          "reason": "short page returned 17 rows at 177/178"
         }
       },
       "QTS Data Centers": {
@@ -611,16 +613,17 @@
       "summaries": [
         {
           "company": "Vantage Data Centers",
-          "state": "healthy",
+          "state": "fallback",
           "roles": 8,
-          "reportedRows": 177,
-          "detailVerified": "3/3"
+          "expiresAt": "2026-10-09T06:01:21.337Z",
+          "listingComplete": false,
+          "detailVerified": "0/0"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 34,
-          "reportedRows": 277,
+          "reportedRows": 275,
           "detailVerified": "3/3"
         },
         {
@@ -641,7 +644,7 @@
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 22,
-          "reportedRows": 229,
+          "reportedRows": 230,
           "detailVerified": "3/3"
         },
         {
@@ -2179,7 +2182,7 @@
     "checks": []
   },
   "missionFit": {
-    "checkedAt": "2026-10-05T15:10:41.539Z",
+    "checkedAt": "2026-10-05T15:22:28.687Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -2187,7 +2190,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-10-05T15:10:41.637Z",
+    "updatedAt": "2026-10-05T15:22:28.766Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 710,
@@ -2206,7 +2209,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-10-05T15:10:41.824Z",
+    "checkedAt": "2026-10-05T15:22:28.907Z",
     "before": 710,
     "after": 710,
     "removed": 0,
@@ -2232,7 +2235,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 113,
-    "updatedAt": "2026-10-05T15:10:42.052Z"
+    "updatedAt": "2026-10-05T15:22:29.113Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -2485,7 +2488,33 @@
     "sitemapJobs": 1067,
     "staleSnapshotRolesRemoved": 0,
     "stalePublicRolesRemoved": 0,
-    "policy": "Verify Meta role liveness against the official Meta Careers sitemap. If that source cannot be verified, retain the last verified snapshot for at most 96 hours."
+    "policy": "Verify Meta role liveness against the official Meta Careers sitemap. If that source cannot be verified, retain the last verified snapshot for at most 96 hours.",
+    "latestSubsetVerification": {
+      "sourceCommit": "63602d212a0403339fe537eb2172395a47d14d5c",
+      "jobIds": [
+        "meta-1050865923976384",
+        "meta-1435494154152569",
+        "meta-1690022942358388",
+        "meta-1713216779808487",
+        "meta-2781256275574469",
+        "meta-2787411734955554",
+        "meta-744914351191839"
+      ],
+      "verification": {
+        "active": false,
+        "expired": false,
+        "lastHealthyAt": "2026-10-05T14:57:52.348Z",
+        "checkedAt": "2026-10-05T14:57:52.348Z",
+        "maxAgeHours": 96,
+        "healthStampIntervalHours": 24,
+        "sitemapUrl": "https://www.metacareers.com/jobsearch/sitemap.xml",
+        "sitemapJobs": 1075,
+        "staleSnapshotRolesRemoved": 0,
+        "stalePublicRolesRemoved": 0,
+        "policy": "Verify Meta role liveness against the official Meta Careers sitemap. If that source cannot be verified, retain the last verified snapshot for at most 96 hours."
+      },
+      "scope": "The main-branch sitemap check applies only to these seven roles. It does not renew the full candidate snapshot anchor."
+    }
   },
   "genericFallbackFreshness": {
     "maxAgeHours": 96,
@@ -3039,7 +3068,7 @@
     "errors": []
   },
   "multiLocationRegions": {
-    "checkedAt": "2026-10-05T15:10:41.725Z",
+    "checkedAt": "2026-10-05T15:22:28.830Z",
     "candidates": 0,
     "hydrated": 0,
     "retainedExisting": 0,

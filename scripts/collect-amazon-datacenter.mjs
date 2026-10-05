@@ -396,16 +396,30 @@ for (const job of merged) {
 
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
+const checkedAt = new Date().toISOString();
+// Keep the last completed verification anchor until the final AWS stage stamps
+// its own result. A later failed detail pass must not inherit a new healthy time
+// merely because this earlier, narrower raw scan succeeded.
+const priorAmazon = status.amazonDatacenter || {};
+const lastHealthyAt = Object.hasOwn(priorAmazon, 'lastHealthyAt')
+  ? priorAmazon.lastHealthyAt
+  : (priorAmazon.fallbackFreshness?.lastHealthyAt ?? null);
+const latestAttemptAt = priorAmazon.latestAttemptAt ??
+  (['raw-collection', 'detail-recovery'].includes(priorAmazon.attemptSource) ? priorAmazon.checkedAt : null);
 
 await writeFile('data/amazon-jobs.json', JSON.stringify(snapshot, null, 2) + '\n');
 await writeFile('data/jobs.json', JSON.stringify(merged, null, 2) + '\n');
 await writeFile('data/collector-status.json', JSON.stringify({
   ...status,
-  updatedAt:new Date().toISOString(),
+  updatedAt:checkedAt,
   jobs:merged.length,
   countsByType,
   countsByExperience,
   amazonDatacenter:{
+    attemptSource:'raw-collection',
+    checkedAt,
+    lastHealthyAt,
+    latestAttemptAt,
     officialSource:'https://www.amazon.jobs/content/en/teams/amazon-web-services/data-centers',
     searchSource:'https://www.amazon.jobs/en/search',
     sourceHealthy,

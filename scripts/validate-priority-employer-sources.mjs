@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
@@ -316,15 +317,15 @@ if (violations.length) {
 // Reuse strict employer-specific ledgers here so priority sources cannot deploy
 // when their authoritative snapshot, public feed, fallback freshness, or exact
 // per-role evidence drifts even if a source-specific workflow has not run recently.
-await import('./validate-amazon-snapshot.mjs');
-await import('./validate-amazon-parity.mjs');
-await import('./validate-google-freshness.mjs');
-await import('./validate-google-snapshot.mjs');
-await import('./validate-microsoft-snapshot.mjs');
-await import('./validate-meta-snapshot.mjs');
-await import('./validate-oracle-snapshot.mjs');
-await import('./validate-oracle-parity.mjs');
-await import('./validate-equinix-publication-state.mjs');
+await runValidator(new URL('./validate-amazon-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-amazon-parity.mjs', import.meta.url));
+await runValidator(new URL('./validate-google-freshness.mjs', import.meta.url));
+await runValidator(new URL('./validate-google-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-microsoft-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-meta-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-oracle-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-oracle-parity.mjs', import.meta.url));
+await runValidator(new URL('./validate-equinix-publication-state.mjs', import.meta.url));
 
 const summary = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([company, count]) => `${company}=${count}`).join(', ');
 console.log(`Priority employer source guard passed. ${summary}`);

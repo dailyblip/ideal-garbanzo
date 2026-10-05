@@ -37,6 +37,10 @@ freshness validation. Source-owned verification timestamps must come from the
 successful source check, never a later global status update. Google uses its
 freshness wrapper; AWS and Oracle stamp evidence immediately after collection.
 Existing 96-hour fallback limits remain enforced before publication.
+Complete healthy CoreSite scans persist durable verification evidence so a later
+blocked runner can use the same bounded fallback. Failed retries cannot renew it.
+Nested validation entrypoints run in isolated Node processes so an empty source
+returning success cannot skip later aggregate checks.
 
 Live QA removes only positively confirmed closed job URLs. The reconciliation
 step applies those same closures to the owning snapshots and inventory counters
@@ -47,6 +51,11 @@ Focused offline regression checks:
 
 ```sh
 node scripts/validate-full-refresh-contract.mjs
+node scripts/test-validator-isolation.mjs
+node scripts/test-amazon-source-verification.mjs
+node scripts/test-coresite-collector-persistence.mjs
+node scripts/test-h5-source-verification.mjs
+node scripts/test-microsoft-collector-fallback.mjs
 node scripts/test-google-collector-freshness.mjs
 node scripts/stamp-oracle-source-freshness.mjs --test
 node scripts/reconcile-qa-dead-snapshots.mjs --test

@@ -53,6 +53,7 @@ const sources = [
     evidence: status => [status.oracleCareers?.fallbackFreshness, oraclePublishedRefreshEvidence()] },
   { company: 'Digital Realty', snapshot: 'data/digital-realty-jobs.json', diagnostic: status => status.digitalRealty },
   { company: 'Flexential', snapshot: 'data/flexential-jobs.json', diagnostic: status => status.flexential },
+  { company: 'H5 Data Centers', snapshot: 'data/h5-data-centers-jobs.json', diagnostic: status => status.h5DataCenters },
   { company: 'Cologix', snapshot: 'data/cologix-jobs.json', diagnostic: status => status.cologix }
 ];
 

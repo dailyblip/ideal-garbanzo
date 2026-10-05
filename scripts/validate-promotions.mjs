@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile } from 'node:fs/promises';
 
 const products = JSON.parse(await readFile('data/employer-products.json', 'utf8'));
@@ -115,12 +116,12 @@ for (const label of ['Highlighted Job', 'Spotlight Position']) {
 // Every deployment path already invokes promotion validation. Chain the free
 // standard-listing contract here so deploy-only and bot-driven main builds cannot
 // bypass the same employer-submission rules that PR CI enforces.
-await import('./validate-employer-submissions.mjs');
+await runValidator(new URL('./validate-employer-submissions.mjs', import.meta.url));
 
 // The homepage runtime owns promotion timing, tier precedence, and fail-closed
 // handling for malformed records. Keep that behavior deployment-gated anywhere
 // promotion validation runs, not only in the promotion-specific PR workflow.
-await import('./test-promotion-runtime-contract.mjs');
+await runValidator(new URL('./test-promotion-runtime-contract.mjs', import.meta.url));
 
 if (lifecycleStale) {
   console.warn(`Promotion lifecycle warning: ${lifecycleStale} expired/orphaned record(s) await cleanup.`);

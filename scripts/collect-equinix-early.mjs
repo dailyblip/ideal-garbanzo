@@ -360,6 +360,37 @@ function dedupe(jobs) {
   return out;
 }
 
+// Only Equinix rows belong to this collector. Its program-specific title
+// canonicalizer must never collapse another employer's site/clearance variants.
+function mergeOwnedEarlyRoles(managedNext, current) {
+  const unmanaged = current.filter(job => !isManagedEarly(job));
+  return [
+    ...dedupe([...managedNext, ...unmanaged.filter(job => job?.company === 'Equinix')]),
+    ...unmanaged.filter(job => job?.company !== 'Equinix')
+  ];
+}
+
+if (process.argv.includes('--test-source-isolation')) {
+  const unrelated = [
+    { id: 'ms-phoenix', company: 'Microsoft', title: 'Data Center Technician', location: 'Phoenix, AZ', sourceUrl: 'https://apply.careers.microsoft.com/careers/job/1970393557004833' },
+    { id: 'ms-phoenix-east', company: 'Microsoft', title: 'Data Center Technician - Phoenix East', location: 'Phoenix, AZ', sourceUrl: 'https://apply.careers.microsoft.com/careers/job/1970393557022496' },
+    { id: 'ms-cheyenne', company: 'Microsoft', title: 'Critical Environment Technician', location: 'Cheyenne, WY', sourceUrl: 'https://apply.careers.microsoft.com/careers/job/1970393557006923' },
+    { id: 'ms-cheyenne-secret', company: 'Microsoft', title: 'Critical Environment Technician - CTJ - Top Secret', location: 'Cheyenne, WY', sourceUrl: 'https://apply.careers.microsoft.com/careers/job/1970393556995580' }
+  ];
+  const managed = { id: 'equinix-early-new', company: 'Equinix', title: 'SkillBridge Trainee', location: 'Dallas, TX', sourceUrl: 'https://careers.equinix.com/jobs/current-role' };
+  const oldManaged = { ...managed, id: 'equinix-early-old', sourceUrl: 'https://careers.equinix.com/jobs/old-role' };
+  const broadAlias = { ...managed, id: 'equinix-broad-alias' };
+  const merged = mergeOwnedEarlyRoles([managed], [...unrelated, oldManaged, broadAlias]);
+  if (JSON.stringify(merged.filter(job => job.company !== 'Equinix')) !== JSON.stringify(unrelated)) {
+    throw new Error('Equinix early-career source isolation regression: distinct Microsoft site/clearance roles were changed or lost.');
+  }
+  if (merged.filter(job => job.company === 'Equinix').length !== 1 || !merged.some(job => job.id === managed.id)) {
+    throw new Error('Equinix early-career source isolation regression: managed replacement and true Equinix duplicate handling changed.');
+  }
+  console.log('Equinix early-career source isolation regression passed: Microsoft site/clearance variants survive unchanged.');
+  process.exit(0);
+}
+
 const current = JSON.parse(await readFile('data/jobs.json','utf8'));
 let status = {};
 try { status = JSON.parse(await readFile('data/collector-status.json','utf8')); } catch {}
@@ -472,9 +503,7 @@ const fallbackRetained = listingComplete ? [] : previousEarly.filter(job => {
 const managedNext = dedupe([...found, ...preservedOnFailure, ...fallbackRetained]);
 const managedNextUrls = new Set(managedNext.map(job => clean(job.sourceUrl)));
 const staleRemoved = listingComplete ? previousEarly.filter(job => !managedNextUrls.has(clean(job.sourceUrl))).length : 0;
-const currentWithoutManagedEarly = current.filter(job => !isManagedEarly(job));
-
-let merged = dedupe([...managedNext,...currentWithoutManagedEarly]);
+let merged = mergeOwnedEarlyRoles(managedNext, current);
 const rank = job => ({apprenticeship:0,internship:1,trainee:2,'entry-level':3}[job.type]??4)*10 + ({'no-experience':0,'0-2-years':1,'2-5-years':3}[job.experience]??2);
 merged.sort((a,b)=>rank(a)-rank(b)||(a.postedHours??9999)-(b.postedHours??9999));
 const countsByType = merged.reduce((a,j)=>(a[j.type]=(a[j.type]||0)+1,a),{});

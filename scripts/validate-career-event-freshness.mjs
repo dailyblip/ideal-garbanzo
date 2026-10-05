@@ -1,10 +1,11 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile } from 'node:fs/promises';
 import { isValidIsoDate } from './career-event-evidence.mjs';
 
 // Keep organizer-page evidence matching deployment-gated as well as refresh-gated.
 // A regression here could otherwise let stale, rescheduled, or cancelled events
 // retain fresh verification dates during the next event refresh.
-await import('./test-career-event-evidence.mjs');
+await runValidator(new URL('./test-career-event-evidence.mjs', import.meta.url));
 
 const events = JSON.parse(await readFile('data/career-events.json', 'utf8'));
 if (!Array.isArray(events)) throw new Error('career-events.json must contain an array');

@@ -267,22 +267,24 @@
         "qualifyingRoles": 26,
         "usedPreviousSnapshot": false,
         "fallbackFreshness": {
-          "sourceHealthy": true,
-          "active": false,
+          "sourceHealthy": false,
+          "active": true,
           "expired": false,
-          "checkedAt": "2026-10-05T06:01:21.337Z",
+          "checkedAt": "2026-10-05T15:06:01.271Z",
           "roles": 9,
           "maxAgeHours": 96,
-          "listingComplete": true,
-          "detailHealthy": true,
-          "detailAttempted": 3,
-          "detailSucceeded": 3,
-          "reportedRows": 177,
-          "uniqueRows": 177,
+          "listingComplete": false,
+          "detailHealthy": false,
+          "detailAttempted": 0,
+          "detailSucceeded": 0,
+          "reportedRows": 178,
+          "uniqueRows": 176,
           "pagesAttempted": 9,
           "pagesSucceeded": 9,
           "lastHealthyAt": "2026-10-05T06:01:21.337Z",
-          "expiresAt": "2026-10-09T06:01:21.337Z"
+          "expiresAt": "2026-10-09T06:01:21.337Z",
+          "ageHours": 9.1,
+          "reason": "short page returned 17 rows at 177/178"
         },
         "publishedRoles": 9,
         "publicationFilteredRoles": 17
@@ -457,16 +459,17 @@
       "summaries": [
         {
           "company": "Vantage Data Centers",
-          "state": "healthy",
+          "state": "fallback",
           "roles": 9,
-          "reportedRows": 177,
-          "detailVerified": "3/3"
+          "expiresAt": "2026-10-09T06:01:21.337Z",
+          "listingComplete": false,
+          "detailVerified": "0/0"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 277,
+          "reportedRows": 275,
           "detailVerified": "3/3"
         },
         {
@@ -487,7 +490,7 @@
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 22,
-          "reportedRows": 229,
+          "reportedRows": 230,
           "detailVerified": "3/3"
         },
         {

@@ -1,194 +1,236 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const QA_REPORT_PATH = 'data/qa-report.json';
 const STATUS_PATH = 'data/collector-status.json';
 const MAX_REPORT_AGE_MS = 2 * 60 * 60 * 1000;
-
-const SOURCES = [
-  {
-    company: 'Amazon Web Services',
-    snapshotPath: 'data/amazon-jobs.json',
-    statusKey: 'amazonDatacenter',
-    identity: amazonRequisitionId,
-    policy: 'Nightly QA-confirmed 404/410 or generic-career redirects are removed from the preserved AWS snapshot so stale roles do not return during an active source fallback.'
-  },
-  {
-    company: 'TierPoint',
-    snapshotPath: 'data/tierpoint-jobs.json',
-    statusKey: 'tierPoint',
-    identity: tierPointRequisitionId,
-    policy: 'Nightly QA-confirmed dead TierPoint detail links are removed from the authoritative iCIMS snapshot so stale roles do not return after live QA removes them from the public feed.'
-  }
-];
-
+const POLICY = 'Remove only same-employer snapshot requisitions positively confirmed dead by the current fresh live QA report. Preserve unrelated roles, source health, and original verification/expiry evidence.';
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+const numeric = value => value !== null && value !== '' && value !== undefined && Number.isFinite(Number(value));
 
-function amazonRequisitionId(record = {}) {
-  const idMatch = clean(record?.id).match(/^amazon-(\d+)$/i);
-  if (idMatch) return idMatch[1];
+// Explicit ownership prevents a public-feed absence, provider outage, or another
+// employer's matching ID from retiring unverified roles. Shared Workday sources
+// remain in major-jobs; no competing dedicated writer is introduced.
+export const SOURCES = [
+  ['Amazon Web Services', 'amazon', 'amazonDatacenter'],
+  ['TierPoint', 'tierpoint', 'tierPoint'],
+  ['Google', 'google', 'googleCareers'],
+  ['Microsoft', 'microsoft', 'microsoftDatacenter'],
+  ['Meta', 'meta', 'metaCareers'],
+  ['Oracle', 'oracle', 'oracleCareers'],
+  ['Digital Realty', 'digital-realty', 'digitalRealty'],
+  ['Iron Mountain', 'iron-mountain', 'ironMountain'],
+  ['Cologix', 'cologix', 'cologix'],
+  ['Flexential', 'flexential', 'flexential'],
+  ['T5 Data Centers', 't5-data-centers', 't5DataCenters'],
+  ['Stream Data Centers', 'stream-data-centers', 'streamDataCenters'],
+  ['Switch', 'switch', 'switchCareers'],
+  ['DataBank', 'databank', 'databank'],
+  ['Sabey Data Centers', 'sabey', 'sabeyCareers'],
+  ['Novva Data Centers', 'novva', 'novvaCareers'],
+  ['Compass Datacenters', 'compass', 'compass'],
+  ['CloudHQ', 'cloudhq', 'cloudHqCareers'],
+  ['CoreWeave', 'coreweave', 'coreWeaveCareers'],
+  ['EdgeConneX', 'edgeconnex', 'edgeconnexCareers'],
+  ['Prime Data Centers', 'prime-data-centers', 'primeDataCenters'],
+  ['H5 Data Centers', 'h5-data-centers', 'h5DataCenters'],
+  ['Csquare', 'csquare', 'csquare']
+].map(([company, slug, statusKey]) => ({ company, snapshotPath: `data/${slug}-jobs.json`, statusKey }));
+SOURCES.push({ company: 'CoreSite', snapshotPath: 'data/coresite-verified-fallback.json', statusKey: 'coreSite' });
+for (const company of ['Vantage Data Centers', 'QTS Data Centers', 'CyrusOne', 'STACK Infrastructure', 'NTT Global Data Centers', 'Aligned Data Centers']) {
+  SOURCES.push({ company, snapshotPath: 'data/major-jobs.json', major: true });
+}
 
+const SIDECARS = {
+  'Compass Datacenters': 'data/compass-status.json',
+  CoreWeave: 'data/coreweave-source-evidence.json',
+  EdgeConneX: 'data/edgeconnex-source-evidence.json'
+};
+export const OWNED_PATHS = [...new Set([
+  STATUS_PATH, ...SOURCES.map(source => source.snapshotPath), ...Object.values(SIDECARS), 'data/major-workday-freshness.json'
+])];
+
+function sourceUrl(record = {}) {
+  return clean(record.sourceUrl || record.url);
+}
+
+function canonicalUrl(record = {}) {
   try {
-    const parsed = new URL(clean(record?.sourceUrl || record?.url));
-    if (!['amazon.jobs', 'www.amazon.jobs'].includes(parsed.hostname.toLowerCase())) return '';
-    return parsed.pathname.match(/^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?jobs\/(\d+)\b/i)?.[1] || '';
+    const url = new URL(sourceUrl(record));
+    if (!['https:', 'http:'].includes(url.protocol)) return '';
+    url.hash = '';
+    // Keep all query parameters: req, jobId, gh_jid and opportunityId identify
+    // different openings even when the host and path are identical.
+    return url.href;
   } catch {
     return '';
   }
 }
 
-function tierPointRequisitionId(record = {}) {
-  const idMatch = clean(record?.id).match(/^icims-tierpoint-(\d+)$/i);
-  if (idMatch) return idMatch[1];
-
-  try {
-    const parsed = new URL(clean(record?.sourceUrl || record?.url));
-    if (parsed.protocol !== 'https:' || parsed.hostname.toLowerCase() !== 'careers-tierpoint.icims.com') return '';
-    return parsed.pathname.match(/^\/jobs\/(\d+)\/[^/]+\/job\/?$/i)?.[1] || '';
-  } catch {
+export function identity(record = {}, source) {
+  const rawUrl = sourceUrl(record);
+  // Existing AWS/iCIMS ownership supports canonical requisitions across title
+  // slug or locale changes. A supplied URL takes priority over a conflicting ID.
+  if (source.company === 'Amazon Web Services' || source.company === 'TierPoint') {
+    const amazon = source.company === 'Amazon Web Services';
+    if (!rawUrl) return clean(record.id).match(amazon ? /^amazon-(\d+)$/i : /^icims-tierpoint-(\d+)$/i)?.[1] || '';
+    try {
+      const url = new URL(rawUrl);
+      if (!['http:', 'https:'].includes(url.protocol)) return '';
+      if (amazon && ['amazon.jobs', 'www.amazon.jobs'].includes(url.hostname.toLowerCase())) {
+        return url.pathname.match(/^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?jobs\/(\d+)\b/i)?.[1] || '';
+      }
+      if (!amazon && url.hostname.toLowerCase() === 'careers-tierpoint.icims.com') {
+        return url.pathname.match(/^\/jobs\/(\d+)\/[^/]+\/job\/?$/i)?.[1] || '';
+      }
+    } catch {}
     return '';
   }
+  // Exact checked URL is the authoritative evidence for other providers. Never
+  // use title/location similarity or an ID alone to guess that a role closed.
+  return canonicalUrl(record);
 }
 
-function reportIsCurrent(report = {}, status = {}, nowMs = Date.now()) {
+export function reportIsCurrent(report = {}, status = {}, nowMs = Date.now()) {
   const checkedAt = clean(report?.checkedAt);
   if (!checkedAt || checkedAt !== clean(status?.postQa?.checkedAt)) return false;
   const checkedAtMs = Date.parse(checkedAt);
-  if (!Number.isFinite(checkedAtMs)) return false;
   const ageMs = nowMs - checkedAtMs;
-  return ageMs >= 0 && ageMs <= MAX_REPORT_AGE_MS;
+  return Number.isFinite(checkedAtMs) && ageMs >= 0 && ageMs <= MAX_REPORT_AGE_MS;
 }
 
-function reconcileSnapshot({ snapshot = [], report = {}, status = {}, source, nowMs = Date.now() }) {
-  if (!Array.isArray(snapshot)) throw new Error(`${source.company} snapshot must be an array.`);
+export function confirmedDead(check) {
+  if (clean(check?.state) !== 'dead') return false;
+  const status = Number(check?.status);
+  if (status === 404 || status === 410) return true;
+  return status >= 200 && status < 400
+    && check?.reason === 'redirected-to-generic-career-page'
+    && Boolean(canonicalUrl({ url: check.finalUrl }))
+    && canonicalUrl({ url: check.finalUrl }) !== canonicalUrl(check);
+}
+
+export function snapshotJobs(snapshot, source) {
+  if (Array.isArray(snapshot)) return snapshot;
+  if (isObject(snapshot) && Array.isArray(snapshot.jobs)) return snapshot.jobs;
+  throw new Error(`${source.company} snapshot must be an array or an object with a jobs array.`);
+}
+
+export function reconcileSnapshot({ snapshot = [], report = {}, status = {}, source, nowMs = Date.now() }) {
+  const jobs = snapshotJobs(snapshot, source);
   if (!reportIsCurrent(report, status, nowMs)) {
-    return { kept: snapshot, removed: [], skipped: true, reason: 'QA report does not match the current fresh post-QA status.' };
+    return { kept: jobs, removed: [], skipped: true, reason: 'QA report does not match the current fresh post-QA status.' };
   }
-
   const deadIds = new Set((Array.isArray(report?.deadJobLinksRemoved) ? report.deadJobLinksRemoved : [])
-    .filter(check => clean(check?.company) === source.company && clean(check?.state) === 'dead')
-    .map(source.identity)
-    .filter(Boolean));
-
-  if (!deadIds.size) return { kept: snapshot, removed: [], skipped: false, reason: 'No confirmed-dead links.' };
-
-  const kept = [];
-  const removed = [];
-  for (const job of snapshot) {
-    const id = source.identity(job);
+    .filter(check => clean(check?.company) === source.company && confirmedDead(check))
+    .map(check => identity(check, source)).filter(Boolean));
+  const kept = [], removed = [];
+  for (const job of jobs) {
+    const id = identity(job, source);
     if (clean(job?.company) === source.company && id && deadIds.has(id)) removed.push(job);
     else kept.push(job);
   }
-
-  return { kept, removed, skipped: false, reason: '' };
+  return { kept, removed, skipped: false, reason: removed.length ? '' : 'No confirmed-dead snapshot roles.' };
 }
 
-function applySourceStatus(status, source, retainedCount, removed, checkedAt) {
-  const diagnostic = status?.[source.statusKey];
-  if (!diagnostic || typeof diagnostic !== 'object' || Array.isArray(diagnostic)) return;
-
-  if (Number.isFinite(Number(diagnostic.qualifyingRoles))) diagnostic.qualifyingRoles = retainedCount;
-  if (source.statusKey === 'amazonDatacenter' && Number.isFinite(Number(diagnostic.preservedPreviousRoles)) && Number(diagnostic.preservedPreviousRoles) > 0) {
-    diagnostic.preservedPreviousRoles = Math.min(Number(diagnostic.preservedPreviousRoles), retainedCount);
+export function applyDiagnostic(diagnostic, source, retainedCount, removed, checkedAt, checks = []) {
+  if (!isObject(diagnostic)) return;
+  // Clamp old collection counters rather than manufacturing freshly discovered
+  // roles during a fallback. Inventory counters follow the retained snapshot.
+  for (const key of ['qualifyingRoles', 'preservedPrevious', 'preservedPreviousRoles', 'preservedFromPrevious', 'currentQualifyingRoles', 'freshQualifyingRoles', 'snapshotRestored']) {
+    if (numeric(diagnostic[key])) diagnostic[key] = Math.min(Number(diagnostic[key]), retainedCount);
+  }
+  for (const key of ['snapshotRoles', 'publishedRoles']) {
+    if (numeric(diagnostic[key])) diagnostic[key] = retainedCount;
+  }
+  for (const key of ['snapshotFallback', 'verifiedFallback', 'fallbackFreshness']) {
+    const fallback = diagnostic[key];
+    if (isObject(fallback) && numeric(fallback.roles)) fallback.roles = Math.min(Number(fallback.roles), retainedCount);
   }
   diagnostic.qaDeadSnapshotReconciliation = {
     checkedAt,
     removedRoles: removed.length,
-    removedRequisitionIds: removed.map(source.identity).filter(Boolean),
-    policy: source.policy
+    removedRequisitionIds: removed.map(job => clean(job.id) || identity(job, source)),
+    removedUrls: removed.map(sourceUrl).filter(Boolean),
+    retainedRoles: retainedCount,
+    confirmedDeadChecks: checks.filter(check => clean(check.company) === source.company && confirmedDead(check)
+      && removed.some(job => identity(job, source) === identity(check, source)))
+      .map(({ id, company, url, state, status, reason, finalUrl }) => ({ id, company, url, state, status, ...(reason ? { reason } : {}), ...(finalUrl ? { finalUrl } : {}) })),
+    policy: POLICY
   };
 }
 
-function assert(condition, message) {
-  if (!condition) throw new Error(`QA snapshot reconciliation regression: ${message}`);
-}
-
-function sampleAmazon(number) {
-  return {
-    id: `amazon-${number}`,
-    company: 'Amazon Web Services',
-    sourceUrl: `https://www.amazon.jobs/en/jobs/${number}/data-center-technician`
-  };
-}
-
-function sampleTierPoint(number) {
-  return {
-    id: `icims-tierpoint-${number}`,
-    company: 'TierPoint',
-    sourceUrl: `https://careers-tierpoint.icims.com/jobs/${number}/mep-technician-ii/job`
-  };
-}
-
-function runTests() {
-  const checkedAt = '2026-09-22T09:40:00.000Z';
-  const nowMs = Date.parse('2026-09-22T09:41:00.000Z');
-  const status = {
-    postQa: { checkedAt },
-    amazonDatacenter: { qualifyingRoles: 3, preservedPreviousRoles: 3 },
-    tierPoint: { qualifyingRoles: 3, sourceHealthy: true }
-  };
-  const amazon = SOURCES[0];
-  const tierPoint = SOURCES[1];
-  const report = {
-    checkedAt,
-    deadJobLinksRemoved: [
-      { ...sampleAmazon(1002), state: 'dead', status: 404, url: sampleAmazon(1002).sourceUrl },
-      { id: '', company: 'Amazon Web Services', state: 'dead', status: 410, url: sampleAmazon(1003).sourceUrl },
-      { ...sampleTierPoint(2959), state: 'dead', status: 404, url: sampleTierPoint(2959).sourceUrl },
-      { id: 'other-1', company: 'Other Employer', state: 'dead', status: 404, url: 'https://example.com/jobs/1' }
-    ]
-  };
-
-  let result = reconcileSnapshot({ snapshot: [sampleAmazon(1001), sampleAmazon(1002), sampleAmazon(1003)], report, status, source: amazon, nowMs });
-  assert(result.removed.length === 2 && result.kept.length === 1, 'current QA dead-link evidence must prune matching AWS snapshot roles.');
-  assert(amazonRequisitionId(result.kept[0]) === '1001', 'unflagged AWS role must remain.');
-  const awsStatus = structuredClone(status);
-  applySourceStatus(awsStatus, amazon, result.kept.length, result.removed, checkedAt);
-  assert(awsStatus.amazonDatacenter.qualifyingRoles === 1, 'AWS qualifying count must follow the reconciled snapshot.');
-  assert(awsStatus.amazonDatacenter.preservedPreviousRoles === 1, 'AWS preserved fallback count must follow the reconciled snapshot.');
-
-  result = reconcileSnapshot({ snapshot: [sampleTierPoint(3057), sampleTierPoint(2962), sampleTierPoint(2959)], report, status, source: tierPoint, nowMs });
-  assert(result.removed.length === 1 && result.kept.length === 2, 'current QA dead-link evidence must prune matching TierPoint snapshot roles.');
-  assert(tierPointRequisitionId(result.removed[0]) === '2959', 'TierPoint URL/id identity must target the confirmed-dead requisition only.');
-  const tierPointStatus = structuredClone(status);
-  applySourceStatus(tierPointStatus, tierPoint, result.kept.length, result.removed, checkedAt);
-  assert(tierPointStatus.tierPoint.qualifyingRoles === 2, 'TierPoint qualifying count must follow the reconciled snapshot.');
-  assert(tierPointStatus.tierPoint.sourceHealthy === true, 'Nightly detail-link reconciliation must not invent a new listing-source health state.');
-
-  result = reconcileSnapshot({ snapshot: [sampleAmazon(1001)], report: { ...report, checkedAt: '2026-09-22T06:00:00.000Z' }, status, source: amazon, nowMs });
-  assert(result.skipped && result.removed.length === 0, 'mismatched QA report/status timestamps must never prune a snapshot.');
-  result = reconcileSnapshot({ snapshot: [sampleTierPoint(2959)], report, status, source: tierPoint, nowMs: Date.parse('2026-09-22T12:01:00.000Z') });
-  assert(result.skipped && result.removed.length === 0, 'stale QA reports must never prune a snapshot.');
-
-  console.log('QA dead-snapshot reconciliation regression tests passed for AWS and TierPoint.');
-}
-
-if (process.argv.includes('--test')) {
-  runTests();
-  process.exit(0);
-}
-
-const report = JSON.parse(await readFile(QA_REPORT_PATH, 'utf8'));
-const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
-let changed = false;
-const summaries = [];
-
-for (const source of SOURCES) {
-  const snapshot = JSON.parse(await readFile(source.snapshotPath, 'utf8'));
-  const result = reconcileSnapshot({ snapshot, report, status, source });
-  if (result.skipped) {
-    summaries.push(`${source.company}: skipped (${result.reason})`);
-    continue;
+export async function reconcileFiles({ root = '.', nowMs = Date.now() } = {}) {
+  const documents = new Map();
+  const changedPaths = new Set();
+  const summaries = [];
+  let majorWasReconciled;
+  async function read(path) {
+    if (!documents.has(path)) documents.set(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
+    return documents.get(path);
   }
-  if (!result.removed.length) {
-    summaries.push(`${source.company}: no confirmed-dead snapshot roles`);
-    continue;
+  const report = await read(QA_REPORT_PATH);
+  const status = await read(STATUS_PATH);
+  if (!reportIsCurrent(report, status, nowMs)) {
+    return { changedPaths: [], summaries: ['skipped (QA report does not match the current fresh post-QA status)'] };
   }
 
-  applySourceStatus(status, source, result.kept.length, result.removed, report.checkedAt);
-  await writeFile(source.snapshotPath, `${JSON.stringify(result.kept, null, 2)}\n`);
-  changed = true;
-  summaries.push(`${source.company}: removed ${result.removed.length}; ${result.kept.length} authoritative role(s) remain`);
+  for (const source of SOURCES) {
+    const snapshot = await read(source.snapshotPath);
+    const before = snapshotJobs(snapshot, source);
+    const result = reconcileSnapshot({ snapshot, report, status, source, nowMs });
+    if (!result.removed.length) continue;
+    const retainedCount = result.kept.filter(job => clean(job.company) === source.company).length;
+    documents.set(source.snapshotPath, Array.isArray(snapshot) ? result.kept : { ...snapshot, jobs: result.kept });
+    changedPaths.add(source.snapshotPath);
+    const diagnostic = source.major ? status.majorSources?.employerDiagnostics?.[source.company] : status[source.statusKey];
+    applyDiagnostic(diagnostic, source, retainedCount, result.removed, report.checkedAt, report.deadJobLinksRemoved);
+    if (source.company === 'Amazon Web Services') {
+      applyDiagnostic(status.amazonDetailRecovery, source, retainedCount, result.removed, report.checkedAt, report.deadJobLinksRemoved);
+    }
+    changedPaths.add(STATUS_PATH);
+
+    if (SIDECARS[source.company]) {
+      const path = SIDECARS[source.company];
+      applyDiagnostic(await read(path), source, retainedCount, result.removed, report.checkedAt, report.deadJobLinksRemoved);
+      changedPaths.add(path);
+    }
+    if (source.major) {
+      const major = status.majorSources;
+      // Keep exact-parity mode only when it was already established. Do not
+      // promote a partial/additive snapshot to full reconciliation implicitly.
+      if (majorWasReconciled === undefined) {
+        majorWasReconciled = numeric(major?.reconciliation?.publishedUsJobs) && Number(major.reconciliation.publishedUsJobs) === before.length;
+      }
+      if (majorWasReconciled) major.reconciliation.publishedUsJobs = result.kept.length;
+      if (numeric(major?.publishedJobs)) major.publishedJobs = Math.max(0, Number(major.publishedJobs) - result.removed.length);
+      for (const summary of major?.fallbackFreshness?.summaries || []) {
+        if (summary.company === source.company && numeric(summary.roles)) summary.roles = Math.min(Number(summary.roles), retainedCount);
+      }
+      const path = 'data/major-workday-freshness.json';
+      const durable = (await read(path))?.employers?.[source.company];
+      if (isObject(durable) && numeric(durable.roles)) durable.roles = Math.min(Number(durable.roles), retainedCount);
+      changedPaths.add(path);
+    }
+    summaries.push(`${source.company}: removed ${result.removed.length}; ${retainedCount} authoritative role(s) remain`);
+  }
+  // Read and validate every affected snapshot/sidecar before writing any file.
+  for (const path of changedPaths) await writeFile(resolve(root, path), `${JSON.stringify(documents.get(path), null, 2)}\n`);
+  return { changedPaths: [...changedPaths], summaries: summaries.length ? summaries : ['no confirmed-dead snapshot roles'] };
 }
 
-if (changed) await writeFile(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`);
-console.log(`QA snapshot reconciliation: ${summaries.join(' | ')}`);
+async function main() {
+  if (process.argv.includes('--list-paths')) {
+    console.log(OWNED_PATHS.join('\n'));
+  } else if (process.argv.includes('--test')) {
+    await import('./test-qa-dead-snapshots.mjs');
+  } else {
+    const { summaries } = await reconcileFiles();
+    console.log(`QA snapshot reconciliation: ${summaries.join(' | ')}`);
+  }
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch(error => { console.error(error); process.exitCode = 1; });
+}

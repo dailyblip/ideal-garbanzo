@@ -28,36 +28,37 @@ function validIso(value) {
 }
 
 function priorHealthyAnchor(status) {
-  const explicit = validIso(status?.googleCareers?.lastHealthyAt);
-  if (explicit) return explicit;
-  if (status?.googleCareers?.sourceHealthy === true) {
-    return validIso(status?.googleCareers?.freshnessCheckedAt)
-      || validIso(status?.googleCareers?.checkedAt)
-      || validIso(status?.updatedAt);
-  }
-  return null;
+  // Global updatedAt and freshnessCheckedAt can advance without a successful
+  // Google verification. Only the collector-owned healthy anchor is evidence.
+  return validIso(status?.googleCareers?.lastHealthyAt);
 }
 
-function fallbackState({ sourceHealthy, lastHealthyAt, now = Date.now() }) {
-  if (sourceHealthy) return { ageHours: 0, expired: false };
+function fallbackState({ lastHealthyAt, now = Date.now() }) {
   const timestamp = Date.parse(String(lastHealthyAt || ''));
   if (!Number.isFinite(timestamp)) return { ageHours: null, expired: true };
   const ageHours = Math.max(0, (now - timestamp) / 36e5);
-  return { ageHours: Number(ageHours.toFixed(1)), expired: ageHours > MAX_FALLBACK_AGE_HOURS };
+  return { ageHours: Number(ageHours.toFixed(1)), expired: ageHours >= MAX_FALLBACK_AGE_HOURS };
 }
 
 function runSelfTest() {
-  const healthy = fallbackState({ sourceHealthy: true, lastHealthyAt: '2026-09-01T00:00:00.000Z', now: Date.parse('2026-09-10T00:00:00.000Z') });
-  if (healthy.expired || healthy.ageHours !== 0) throw new Error('healthy source must reset fallback age');
+  const healthy = fallbackState({ lastHealthyAt: '2026-09-10T00:00:00.000Z', now: Date.parse('2026-09-10T00:00:00.000Z') });
+  if (healthy.expired || healthy.ageHours !== 0) throw new Error('newly verified source must reset fallback age');
 
-  const withinWindow = fallbackState({ sourceHealthy: false, lastHealthyAt: '2026-09-06T01:00:00.000Z', now: Date.parse('2026-09-10T00:00:00.000Z') });
+  const withinWindow = fallbackState({ lastHealthyAt: '2026-09-06T01:00:00.000Z', now: Date.parse('2026-09-10T00:00:00.000Z') });
   if (withinWindow.expired || withinWindow.ageHours !== 95) throw new Error('95-hour fallback should remain publishable');
 
-  const expired = fallbackState({ sourceHealthy: false, lastHealthyAt: '2026-09-05T23:00:00.000Z', now: Date.parse('2026-09-10T00:00:00.000Z') });
+  const expired = fallbackState({ lastHealthyAt: '2026-09-05T23:00:00.000Z', now: Date.parse('2026-09-10T00:00:00.000Z') });
   if (!expired.expired || expired.ageHours !== 97) throw new Error('97-hour fallback should expire');
 
-  const missingAnchor = fallbackState({ sourceHealthy: false, lastHealthyAt: null, now: Date.now() });
+  const boundary = fallbackState({ lastHealthyAt: '2026-09-06T00:00:00.000Z', now: Date.parse('2026-09-10T00:00:00.000Z') });
+  if (!boundary.expired || boundary.ageHours !== 96) throw new Error('fallback must expire exactly at 96 hours');
+
+  const missingAnchor = fallbackState({ lastHealthyAt: null, now: Date.now() });
   if (!missingAnchor.expired || missingAnchor.ageHours !== null) throw new Error('unanchored fallback must fail closed');
+
+  if (priorHealthyAnchor({ updatedAt: '2026-09-10T00:00:00Z', googleCareers: { sourceHealthy: true, freshnessCheckedAt: '2026-09-10T00:00:00Z' } }) !== null) {
+    throw new Error('unrelated updates and freshness checks must not fabricate a healthy anchor');
+  }
 
   console.log('Google Careers fallback freshness self-test passed.');
 }
@@ -89,8 +90,8 @@ if (!Array.isArray(snapshot)) snapshot = [];
 
 const checkedAt = new Date().toISOString();
 const sourceHealthy = collectorError ? false : status?.googleCareers?.sourceHealthy === true;
-const lastHealthyAt = sourceHealthy ? checkedAt : previousHealthyAt;
-const freshness = fallbackState({ sourceHealthy, lastHealthyAt, now: Date.parse(checkedAt) });
+const lastHealthyAt = sourceHealthy ? priorHealthyAnchor(status) : previousHealthyAt;
+const freshness = fallbackState({ lastHealthyAt, now: Date.parse(checkedAt) });
 const snapshotRolesBeforeExpiry = snapshot.length;
 let staleRolesRemoved = 0;
 
@@ -126,7 +127,9 @@ status = {
     freshnessCheckedAt: checkedAt,
     fallbackMaxAgeHours: MAX_FALLBACK_AGE_HOURS,
     fallbackAgeHours: freshness.ageHours,
+    fallbackExpiresAt: lastHealthyAt ? new Date(Date.parse(lastHealthyAt) + MAX_FALLBACK_AGE_HOURS * 36e5).toISOString() : null,
     fallbackExpired: freshness.expired,
+    qualifyingRoles: snapshot.length,
     usedPreviousSnapshot: !sourceHealthy && !freshness.expired && snapshotRolesBeforeExpiry > 0,
     staleRolesRemoved,
     errors: currentErrors

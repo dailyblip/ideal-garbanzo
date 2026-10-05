@@ -6,6 +6,14 @@ on:
     paths:
       - '.github/workflows/*.yml'
       - 'scripts/validate-source-workflow-isolation.mjs'
+      - 'scripts/validate-full-refresh-contract.mjs'
+      - 'scripts/test-google-collector-freshness.mjs'
+      - 'scripts/collect-google-careers.mjs'
+      - 'scripts/collect-google-careers-fresh.mjs'
+      - 'scripts/reconcile-qa-dead-snapshots.mjs'
+      - 'scripts/test-qa-dead-snapshots.mjs'
+      - 'scripts/validate-novva.mjs'
+      - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/validate-source-deploy-dispatch.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history-group.mjs'
@@ -14,6 +22,14 @@ on:
     paths:
       - '.github/workflows/*.yml'
       - 'scripts/validate-source-workflow-isolation.mjs'
+      - 'scripts/validate-full-refresh-contract.mjs'
+      - 'scripts/test-google-collector-freshness.mjs'
+      - 'scripts/collect-google-careers.mjs'
+      - 'scripts/collect-google-careers-fresh.mjs'
+      - 'scripts/reconcile-qa-dead-snapshots.mjs'
+      - 'scripts/test-qa-dead-snapshots.mjs'
+      - 'scripts/validate-novva.mjs'
+      - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/validate-source-deploy-dispatch.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history-group.mjs'
@@ -31,6 +47,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate complete publication refresh contract
+        run: node scripts/validate-full-refresh-contract.mjs
+      - name: Test collector freshness and QA snapshot reconciliation
+        run: |
+          node scripts/test-google-collector-freshness.mjs
+          node scripts/reconcile-qa-dead-snapshots.mjs --test
+          node scripts/stamp-oracle-source-freshness.mjs --test
+          node scripts/validate-novva.mjs --test-freshness
       - name: Validate source workflow trigger isolation
         run: node scripts/validate-source-workflow-isolation.mjs
       - name: Validate source refresh deploy dispatch

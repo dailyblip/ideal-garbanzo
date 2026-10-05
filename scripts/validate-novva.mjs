@@ -1,9 +1,12 @@
 import { readFile } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import { confirmedDead } from './reconcile-qa-dead-snapshots.mjs';
 
 const COMPANY = 'Novva Data Centers';
 const PUBLIC_PATH = 'data/jobs.json';
 const SNAPSHOT_PATH = 'data/novva-jobs.json';
 const STATUS_PATH = 'data/collector-status.json';
+const QA_REPORT_PATH = 'data/qa-report.json';
 const MAX_FALLBACK_AGE_HOURS = 96;
 const MAX_HEALTHY_EVIDENCE_AGE_HOURS = 30;
 const MAX_HEALTHY_EVIDENCE_AGE_MS = MAX_HEALTHY_EVIDENCE_AGE_HOURS * 60 * 60 * 1000;
@@ -27,6 +30,72 @@ function healthyEvidenceState(verifiedAt, nowMs = Date.now()) {
   return { fresh: ageMs < MAX_HEALTHY_EVIDENCE_AGE_MS, ageHours: ageMs / 3_600_000 };
 }
 
+// A genuinely closed last requisition leaves an empty source even during an
+// otherwise-valid fallback window. That is a terminal closure state, not new
+// source-health verification and not a fabricated fallback expiry.
+function qaConfirmedEmptyState({ snapshot, publicJobs, source, report, nowMs = Date.now() }) {
+  if (!Array.isArray(snapshot) || snapshot.length || !Array.isArray(publicJobs) || publicJobs.length) return false;
+  if (source?.sourceHealthy !== false || source.qualifyingRoles !== 0 || source.preservedPrevious !== 0) return false;
+  for (const key of ['publishedRoles', 'snapshotRoles']) {
+    if (source[key] !== undefined && source[key] !== 0) return false;
+  }
+  const audit = source.qaDeadSnapshotReconciliation;
+  const removed = audit?.removedRoles;
+  const auditMs = Date.parse(clean(audit?.checkedAt));
+  if (!Number.isInteger(removed) || removed <= 0 || audit.retainedRoles !== 0 || !Number.isFinite(auditMs) || auditMs > nowMs) return false;
+  for (const key of ['removedUrls', 'removedRequisitionIds', 'confirmedDeadChecks']) {
+    if (!Array.isArray(audit[key]) || audit[key].length !== removed) return false;
+  }
+  if (new Set(audit.removedUrls).size !== removed || new Set(audit.removedRequisitionIds).size !== removed) return false;
+  const checks = audit.confirmedDeadChecks;
+  if (!checks.every(check => {
+    const canonical = canonicalNovvaRole({ sourceUrl: check.url });
+    return check.company === COMPANY && confirmedDead(check) && canonical
+      && canonical.id === check.id && audit.removedRequisitionIds.includes(check.id) && audit.removedUrls.includes(check.url);
+  })) return false;
+  if (new Set(checks.map(check => check.url)).size !== removed) return false;
+  // While the originating report is still current, independently corroborate
+  // every tombstone. Later QA runs naturally omit already-removed jobs, so the
+  // persisted positive checks remain evidence after that report is replaced.
+  if (report?.checkedAt === audit.checkedAt) {
+    if (!Array.isArray(report.deadJobLinksRemoved)) return false;
+    if (!checks.every(check => report.deadJobLinksRemoved.some(candidate =>
+      candidate.company === COMPANY && candidate.id === check.id && candidate.url === check.url
+      && confirmedDead(candidate) && candidate.status === check.status && candidate.reason === check.reason
+    ))) return false;
+  }
+  return true;
+}
+
+function runQaEmptySelfTest() {
+  const checkedAt = '2026-10-04T05:10:00.000Z';
+  const nowMs = Date.parse('2026-10-04T05:11:00.000Z');
+  const check = { id: 'novva-command-center-operator-utah', company: COMPANY, url: 'https://www.novva.com/portfolio/command-center-operator-utah/', state: 'dead', status: 404 };
+  const source = {
+    sourceHealthy: false, qualifyingRoles: 0, preservedPrevious: 0,
+    qaDeadSnapshotReconciliation: { checkedAt, removedRoles: 1, retainedRoles: 0, removedUrls: [check.url], removedRequisitionIds: [check.id], confirmedDeadChecks: [check] }
+  };
+  const fixture = { snapshot: [], publicJobs: [], source, report: { checkedAt, deadJobLinksRemoved: [check] }, nowMs };
+  assert(qaConfirmedEmptyState(fixture), 'QA-confirmed empty Novva fallback must be publishable');
+  assert(qaConfirmedEmptyState({ ...fixture, report: { checkedAt: '2026-10-05T05:10:00.000Z', deadJobLinksRemoved: [] } }), 'later QA must preserve existing closure evidence');
+  const reject = mutate => { const value = structuredClone(fixture); mutate(value); assert.equal(qaConfirmedEmptyState(value), false); };
+  reject(value => { value.snapshot = [{ id: check.id }]; });
+  reject(value => { value.publicJobs = [{ id: check.id }]; });
+  reject(value => { value.source.qualifyingRoles = 1; });
+  reject(value => { value.source.preservedPrevious = 1; });
+  reject(value => { value.source.sourceHealthy = true; });
+  reject(value => { value.source.qaDeadSnapshotReconciliation.retainedRoles = 1; });
+  reject(value => { value.source.qaDeadSnapshotReconciliation.removedRoles = 2; });
+  reject(value => { value.source.qaDeadSnapshotReconciliation.checkedAt = 'invalid'; });
+  reject(value => { value.source.qaDeadSnapshotReconciliation.checkedAt = '2026-10-06T05:10:00.000Z'; });
+  reject(value => { value.source.qaDeadSnapshotReconciliation.confirmedDeadChecks[0].status = 503; });
+  reject(value => { value.source.qaDeadSnapshotReconciliation.confirmedDeadChecks[0].state = 'transient'; });
+  reject(value => { value.source.qaDeadSnapshotReconciliation.confirmedDeadChecks[0].url = 'https://unrelated.example/jobs/1'; });
+  reject(value => { value.source.qaDeadSnapshotReconciliation.confirmedDeadChecks[0].id = 'novva-another-role'; });
+  reject(value => { value.report.deadJobLinksRemoved = []; });
+  console.log('Novva QA-confirmed empty-state regression tests passed.');
+}
+
 function runFreshnessSelfTest() {
   const nowMs = Date.parse('2026-09-16T12:00:00.000Z');
   const fresh = healthyEvidenceState('2026-09-15T06:00:01.000Z', nowMs);
@@ -42,6 +111,7 @@ function runFreshnessSelfTest() {
 
 if (process.argv.includes('--test-freshness')) {
   runFreshnessSelfTest();
+  runQaEmptySelfTest();
   process.exit(0);
 }
 
@@ -49,6 +119,9 @@ const jobs = JSON.parse(await readFile(PUBLIC_PATH, 'utf8'));
 const snapshot = JSON.parse(await readFile(SNAPSHOT_PATH, 'utf8'));
 const status = JSON.parse(await readFile(STATUS_PATH, 'utf8'));
 const source = status?.novvaCareers;
+let report;
+try { report = JSON.parse(await readFile(QA_REPORT_PATH, 'utf8')); }
+catch (error) { if (error.code !== 'ENOENT') throw error; }
 const errors = [];
 const requireOk = (condition, message) => { if (!condition) errors.push(message); };
 
@@ -57,6 +130,7 @@ requireOk(Array.isArray(snapshot), 'Novva snapshot must contain an array.');
 requireOk(source && typeof source === 'object', 'Novva collector status is missing.');
 
 const publicJobs = Array.isArray(jobs) ? jobs.filter(job => job?.company === COMPANY) : [];
+const qaConfirmedEmpty = qaConfirmedEmptyState({ snapshot, publicJobs, source, report });
 
 if (source) {
   requireOk(String(source.officialSource || '') === 'https://www.novva.com/careers/', 'Novva official careers source changed unexpectedly.');
@@ -90,7 +164,7 @@ if (source) {
       requireOk(publicJobs.length === 0, `Novva fallback is expired but ${publicJobs.length} public role(s) remain.`);
       requireOk(Number(source.preservedPrevious || 0) === 0, 'Novva expired fallback must not report preserved roles.');
       requireOk(source.usedPreviousSnapshot !== true, 'Novva expired fallback must not be marked as using the previous snapshot.');
-    } else {
+    } else if (!qaConfirmedEmpty) {
       requireOk(Number.isFinite(lastHealthyMs), 'Novva fallback has no valid lastHealthyAt verification anchor.');
       requireOk(computedAgeHours < MAX_FALLBACK_AGE_HOURS, `Novva fallback is ${computedAgeHours.toFixed(1)} hours old, beyond the ${MAX_FALLBACK_AGE_HOURS}-hour publication window.`);
       requireOk(snapshot.length > 0, 'Novva source is unhealthy and there is no verified snapshot to preserve.');
@@ -179,5 +253,7 @@ const mode = source?.sourceHealthy === true
   ? 'live source'
   : source?.fallbackExpired === true
     ? 'expired fail-closed state'
-    : 'preserved verified snapshot';
+    : qaConfirmedEmpty
+      ? 'QA-confirmed empty source state'
+      : 'preserved verified snapshot';
 console.log(`Novva Data Centers source validation passed: ${publicJobs.length} published employer-direct role(s) match the ${mode}.`);

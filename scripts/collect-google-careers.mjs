@@ -391,13 +391,21 @@ for (const job of merged) {
 const countsByType = merged.reduce((acc, job) => { acc[job.type] = (acc[job.type] || 0) + 1; return acc; }, {});
 const countsByExperience = merged.reduce((acc, job) => { acc[job.experience] = (acc[job.experience] || 0) + 1; return acc; }, {});
 const cleanGlobalErrors = (priorStatus.errors || []).filter(error => !String(error).startsWith('Google Careers:'));
-const freshDetailHealthy = sourceHealthy && diagnostics.detailVerified > 0;
+// A current listing does not re-verify the requirements of a retained role.
+// Do not renew the shared snapshot anchor while any failed-detail fallback is
+// still published, even when other roles were verified during this scan.
+const freshDetailHealthy = sourceHealthy && diagnostics.detailVerified > 0
+  && diagnostics.preservedFromPrevious === 0;
+const checkedAt = new Date().toISOString();
+const priorHealthyMs = Date.parse(String(priorStatus.googleCareers?.lastHealthyAt || ''));
+const lastHealthyAt = freshDetailHealthy ? checkedAt
+  : (Number.isFinite(priorHealthyMs) ? new Date(priorHealthyMs).toISOString() : null);
 
 await writeFile(SNAPSHOT_PATH, JSON.stringify(snapshot, null, 2) + '\n');
 await writeFile(JOBS_PATH, JSON.stringify(merged, null, 2) + '\n');
 await writeFile(STATUS_PATH, JSON.stringify({
   ...priorStatus,
-  updatedAt: new Date().toISOString(),
+  updatedAt: checkedAt,
   jobs: merged.length,
   sourcesAttempted: Number(priorStatus.sourcesAttempted || 0) + 1,
   providers: {
@@ -409,6 +417,8 @@ await writeFile(STATUS_PATH, JSON.stringify({
   googleCareers: {
     officialSource: SEARCH_BASE,
     sourceHealthy: freshDetailHealthy,
+    checkedAt,
+    lastHealthyAt,
     listingComplete: sourceHealthy,
     pagesAttempted,
     pagesSucceeded,

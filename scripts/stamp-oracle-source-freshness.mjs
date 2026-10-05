@@ -24,6 +24,13 @@ function readStatusAtCommit(sha) {
   catch { return null; }
 }
 
+function hasHealthyVerification(oracle = {}) {
+  // Listing completeness alone cannot refresh the requirements verification
+  // of roles retained after failed detail requests.
+  return oracle?.sourceHealthy === true && oracle?.listingComplete === true
+    && Number(oracle?.preservedFromPrevious || 0) === 0;
+}
+
 function legacySnapshotEvidence() {
   const history = gitText(['log', '-40', '--format=%H%x09%cI', '--', SNAPSHOT_PATH]);
   if (!history) return null;
@@ -32,7 +39,7 @@ function legacySnapshotEvidence() {
     const [sha, committedAt] = line.split('\t');
     if (!sha || !committedAt) continue;
     const oracle = readStatusAtCommit(sha)?.oracleCareers;
-    if (oracle?.sourceHealthy === true && oracle?.listingComplete === true) return committedAt;
+    if (hasHealthyVerification(oracle)) return committedAt;
   }
   return null;
 }
@@ -63,6 +70,11 @@ function freshnessState({ sourceHealthy, checkedAt, priorLastHealthyAt, legacyLa
 
 function runTests() {
   const checkedAt = '2026-09-22T10:00:00.000Z';
+  const healthyOracle = { sourceHealthy: true, listingComplete: true, preservedFromPrevious: 0 };
+  const partialOracle = { ...healthyOracle, preservedFromPrevious: 1 };
+  if (!hasHealthyVerification(healthyOracle)) throw new Error('Complete fresh Oracle verification must be healthy.');
+  if (hasHealthyVerification(partialOracle)) throw new Error('Retained failed-detail Oracle roles must not renew the healthy anchor.');
+  if (hasHealthyVerification({ ...healthyOracle, listingComplete: false })) throw new Error('Incomplete Oracle listing must not renew the healthy anchor.');
 
   let state = freshnessState({ sourceHealthy: true, checkedAt, priorLastHealthyAt: null, legacyLastHealthyAt: null, retainedRoles: 15 });
   if (state.lastHealthyAt !== checkedAt || state.active || state.expired) throw new Error('Healthy Oracle source must stamp the current verification time and disable fallback.');
@@ -78,6 +90,14 @@ function runTests() {
 
   state = freshnessState({ sourceHealthy: false, checkedAt, priorLastHealthyAt: null, legacyLastHealthyAt: null, retainedRoles: 15 });
   if (state.active || !state.expired) throw new Error('Oracle fallback without trustworthy healthy-source evidence must fail closed.');
+
+  const priorLastHealthyAt = '2026-09-21T10:01:00.000Z';
+  state = freshnessState({ sourceHealthy: hasHealthyVerification(partialOracle), checkedAt, priorLastHealthyAt, legacyLastHealthyAt: checkedAt, retainedRoles: 15 });
+  if (state.lastHealthyAt !== priorLastHealthyAt || !state.active || state.expired) {
+    throw new Error('Oracle partial detail verification must preserve the previous successful anchor inside the fallback window.');
+  }
+  state = freshnessState({ sourceHealthy: hasHealthyVerification(partialOracle), checkedAt, priorLastHealthyAt: '2026-09-18T10:00:00.000Z', legacyLastHealthyAt: checkedAt, retainedRoles: 15 });
+  if (!state.expired || state.active) throw new Error('Oracle partial detail verification must expire at the existing 96-hour boundary.');
 
   console.log('Oracle source freshness stamp regression tests passed.');
 }
@@ -105,7 +125,7 @@ if (committedStatusRaw) {
 }
 
 const checkedAt = new Date().toISOString();
-const sourceHealthy = oracle.sourceHealthy === true && oracle.listingComplete === true;
+const sourceHealthy = hasHealthyVerification(oracle);
 const priorLastHealthyAt = clean(
   oracle.lastHealthyAt ||
   oracle.fallbackFreshness?.lastHealthyAt ||
@@ -132,6 +152,7 @@ if (!sourceHealthy && state.expired && snapshot.length > 0) {
 
 status.oracleCareers = {
   ...oracle,
+  sourceHealthy,
   checkedAt,
   lastHealthyAt: state.lastHealthyAt,
   qualifyingRoles: nextSnapshot.length,

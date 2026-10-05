@@ -60,6 +60,12 @@ jobs:
         run: node scripts/collect-early-career.mjs
       - name: Add official AWS data center roles
         run: node scripts/collect-amazon-datacenter.mjs
+      - name: Recover source-verified AWS requirements
+        run: node scripts/recover-amazon-details.mjs
+      - name: Stamp current AWS verification and enforce fallback expiry
+        run: |
+          node scripts/stamp-amazon-source-verification.mjs
+          node scripts/enforce-amazon-fallback-freshness.mjs
       - name: Restore fresh Microsoft snapshot before direct refresh
         run: node scripts/apply-microsoft-verified-fallback.mjs
       - name: Add official Microsoft datacenter roles
@@ -67,13 +73,26 @@ jobs:
       - name: Persist freshly verified Microsoft snapshot
         run: node scripts/persist-microsoft-snapshot.mjs
       - name: Add official Google Careers roles
-        run: node scripts/collect-google-careers.mjs
+        run: node scripts/collect-google-careers-fresh.mjs
+      - name: Preserve Meta fallback boundary before direct refresh
+        run: |
+          cp data/meta-jobs.json /tmp/meta-jobs-before.json
+          cp data/jobs.json /tmp/meta-jobs-public-before.json
       - name: Add official Meta Careers roles
         run: node scripts/collect-meta-careers.mjs
+      - name: Guard Meta detail-verification collapse
+        run: node scripts/guard-meta-detail-collapse.mjs
       - name: Recover Meta requirements from structured data
         run: node scripts/recover-meta-structured.mjs
+      - name: Enforce verified Meta requirements and inventory status
+        run: |
+          node scripts/prune-meta-overfive.mjs
+          node scripts/reconcile-meta-status.mjs
+          node scripts/normalize-meta-compensation.mjs
       - name: Add official Oracle Careers roles
         run: node scripts/collect-oracle-careers.mjs
+      - name: Stamp current Oracle verification and enforce fallback expiry
+        run: node scripts/stamp-oracle-source-freshness.mjs
       - name: Add official Digital Realty roles
         run: node scripts/collect-digital-realty.mjs
       - name: Add official CoreSite operations roles
@@ -84,8 +103,47 @@ jobs:
         run: node scripts/collect-equinix-v2.mjs
       - name: Add Equinix US early-career roles
         run: node scripts/collect-equinix-early.mjs
+      - name: Verify current Equinix SkillBridge roles
+        run: node scripts/collect-equinix-current-skillbridge.mjs
       - name: Restore source-verified Equinix roles when rendered requirements are unavailable
         run: node scripts/apply-equinix-verified-fallback.mjs
+      - name: Reconcile exact Equinix fallback evidence
+        run: node scripts/enforce-equinix-verified-evidence.mjs
+      - name: Refresh all remaining authoritative employer snapshots
+        run: |
+          node scripts/collect-flexential.mjs
+          node scripts/collect-cologix.mjs
+          node scripts/collect-databank.mjs
+          node scripts/collect-cloudhq-careers.mjs
+          node scripts/collect-coreweave-careers.mjs
+          node scripts/collect-edgeconnex-careers.mjs
+          node scripts/collect-h5-data-centers.mjs
+          node scripts/collect-csquare-jobs.mjs
+          node scripts/collect-prime-data-centers.mjs
+          node scripts/collect-stream-data-centers.mjs
+          node scripts/collect-switch-careers.mjs
+      - name: Enforce verified fallback windows before publication
+        run: |
+          node scripts/enforce-generic-fallback-freshness.mjs
+          node scripts/enforce-major-workday-fallback-freshness.mjs
+          node scripts/enforce-google-fallback-freshness.mjs
+          node scripts/enforce-microsoft-fallback-freshness.mjs
+          node scripts/enforce-meta-fallback-freshness.mjs
+          node scripts/enforce-digital-realty-fallback-freshness.mjs
+          node scripts/enforce-flexential-fallback-freshness.mjs
+          node scripts/enforce-cologix-fallback-freshness.mjs
+          node scripts/enforce-databank-fallback-freshness.mjs
+          node scripts/enforce-cloudhq-fallback-freshness.mjs
+          node scripts/enforce-coreweave-fallback-freshness.mjs
+          node scripts/enforce-edgeconnex-fallback-freshness.mjs
+          node scripts/enforce-h5-fallback-freshness.mjs
+          node scripts/enforce-csquare-fallback-freshness.mjs
+          node scripts/enforce-sabey-fallback-freshness.mjs
+          node scripts/enforce-novva-fallback-freshness.mjs
+          node scripts/enforce-iron-mountain-fallback-freshness.mjs
+          node scripts/enforce-t5-fallback-freshness.mjs
+          node scripts/enforce-coresite-fallback-freshness.mjs
+          node scripts/enforce-equinix-fallback-freshness.mjs
       - name: Enforce mission-fit role families
         run: node scripts/filter-mission-fit.mjs
       - name: Normalize job locations
@@ -94,10 +152,16 @@ jobs:
         run: node scripts/enrich-workday-multilocation.mjs
       - name: Deduplicate normalized jobs
         run: node scripts/dedupe-normalized-jobs.mjs
+      - name: Reconcile Prime publication scope and compensation
+        run: |
+          node scripts/reconcile-prime-data-centers.mjs
+          node scripts/enforce-prime-fallback-freshness.mjs
       - name: Normalize display copy punctuation
         run: node scripts/normalize-display-copy.mjs
       - name: Run live link, duplicate, and career-event QA
         run: node scripts/qa-site.mjs
+      - name: Reconcile confirmed-dead source snapshots after live QA
+        run: node scripts/reconcile-qa-dead-snapshots.mjs
       - name: Refresh post-QA regional coverage
         run: node scripts/refresh-region-status.mjs
       - name: Guard against refresh regressions
@@ -149,25 +213,71 @@ jobs:
             node scripts/scrub-major-targeted-noise.mjs
             node scripts/collect-early-career.mjs
             node scripts/collect-amazon-datacenter.mjs
+            node scripts/recover-amazon-details.mjs
+            node scripts/stamp-amazon-source-verification.mjs
+            node scripts/enforce-amazon-fallback-freshness.mjs
             node scripts/apply-microsoft-verified-fallback.mjs
             node scripts/collect-microsoft-datacenter.mjs
             node scripts/persist-microsoft-snapshot.mjs
-            node scripts/collect-google-careers.mjs
+            node scripts/collect-google-careers-fresh.mjs
+            cp data/meta-jobs.json /tmp/meta-jobs-before.json
+            cp data/jobs.json /tmp/meta-jobs-public-before.json
             node scripts/collect-meta-careers.mjs
+            node scripts/guard-meta-detail-collapse.mjs
             node scripts/recover-meta-structured.mjs
+            node scripts/prune-meta-overfive.mjs
+            node scripts/reconcile-meta-status.mjs
+            node scripts/normalize-meta-compensation.mjs
             node scripts/collect-oracle-careers.mjs
+            node scripts/stamp-oracle-source-freshness.mjs
             node scripts/collect-digital-realty.mjs
             node scripts/collect-coresite.mjs
             node scripts/apply-coresite-verified-fallback.mjs
             node scripts/collect-equinix-v2.mjs
             node scripts/collect-equinix-early.mjs
+            node scripts/collect-equinix-current-skillbridge.mjs
             node scripts/apply-equinix-verified-fallback.mjs
+            node scripts/enforce-equinix-verified-evidence.mjs
+            node scripts/collect-flexential.mjs
+            node scripts/collect-cologix.mjs
+            node scripts/collect-databank.mjs
+            node scripts/collect-cloudhq-careers.mjs
+            node scripts/collect-coreweave-careers.mjs
+            node scripts/collect-edgeconnex-careers.mjs
+            node scripts/collect-h5-data-centers.mjs
+            node scripts/collect-csquare-jobs.mjs
+            node scripts/collect-prime-data-centers.mjs
+            node scripts/collect-stream-data-centers.mjs
+            node scripts/collect-switch-careers.mjs
+            node scripts/enforce-generic-fallback-freshness.mjs
+            node scripts/enforce-major-workday-fallback-freshness.mjs
+            node scripts/enforce-google-fallback-freshness.mjs
+            node scripts/enforce-microsoft-fallback-freshness.mjs
+            node scripts/enforce-meta-fallback-freshness.mjs
+            node scripts/enforce-digital-realty-fallback-freshness.mjs
+            node scripts/enforce-flexential-fallback-freshness.mjs
+            node scripts/enforce-cologix-fallback-freshness.mjs
+            node scripts/enforce-databank-fallback-freshness.mjs
+            node scripts/enforce-cloudhq-fallback-freshness.mjs
+            node scripts/enforce-coreweave-fallback-freshness.mjs
+            node scripts/enforce-edgeconnex-fallback-freshness.mjs
+            node scripts/enforce-h5-fallback-freshness.mjs
+            node scripts/enforce-csquare-fallback-freshness.mjs
+            node scripts/enforce-sabey-fallback-freshness.mjs
+            node scripts/enforce-novva-fallback-freshness.mjs
+            node scripts/enforce-iron-mountain-fallback-freshness.mjs
+            node scripts/enforce-t5-fallback-freshness.mjs
+            node scripts/enforce-coresite-fallback-freshness.mjs
+            node scripts/enforce-equinix-fallback-freshness.mjs
             node scripts/filter-mission-fit.mjs
             node scripts/normalize-job-locations.mjs
             node scripts/enrich-workday-multilocation.mjs
             node scripts/dedupe-normalized-jobs.mjs
+            node scripts/reconcile-prime-data-centers.mjs
+            node scripts/enforce-prime-fallback-freshness.mjs
             node scripts/normalize-display-copy.mjs
             node scripts/qa-site.mjs
+            node scripts/reconcile-qa-dead-snapshots.mjs
             node scripts/refresh-region-status.mjs
             node scripts/validate-refresh-health.mjs
             node scripts/stamp-job-history.mjs
@@ -446,7 +556,7 @@ jobs:
           test -s /tmp/styles.css
 
           curl "${curl_args[@]}" "${base}/data/jobs.json?deploy=${cache_key}" -o /tmp/jobs.json
-          node -e "const jobs=require('/tmp/jobs.json'); if (!Array.isArray(jobs) || jobs.length === 0) process.exit(1);"
+          node -e "const jobs=require('/tmp/jobs.json'); const expected=require('./data/jobs.json'); if (!Array.isArray(jobs) || jobs.length === 0) throw new Error('Live jobs feed is empty'); if (JSON.stringify(jobs) !== JSON.stringify(expected)) throw new Error('Live jobs feed differs from the validated deployment artifact'); console.log('Verified all ' + jobs.length + ' live job records against the validated artifact');"
 
           echo "Custom-domain smoke test passed for ${base} at revision ${expected_sha:0:8}."
       - name: Validate live indexability after deployment

@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile } from 'node:fs/promises';
 
 const JOBS_PATH = 'data/jobs.json';
@@ -205,14 +206,14 @@ for (const company of officialHosts.keys()) {
 
 // Requisition identity is validated separately so display normalization can
 // evolve without weakening the authoritative Workday ID and URL contract.
-await import('./validate-major-workday-requisition-integrity.mjs');
+await runValidator(new URL('./validate-major-workday-requisition-integrity.mjs', import.meta.url));
 
 // The parity validator already runs in refresh and deploy validation. Chain the
 // source-health guard here so incomplete/failed Workday listings cannot silently
 // bypass deployment protection once per-employer collector diagnostics exist.
-await import('./validate-major-workday-health.mjs');
+await runValidator(new URL('./validate-major-workday-health.mjs', import.meta.url));
 
 // Deployment must also refuse stale source evidence or an expired verified
 // fallback. Chaining freshness here closes the gap between the six-hour stale
 // fallback watcher and any push-triggered Pages deployment.
-await import('./validate-major-workday-freshness-state.mjs');
+await runValidator(new URL('./validate-major-workday-freshness-state.mjs', import.meta.url));

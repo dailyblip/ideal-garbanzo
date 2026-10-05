@@ -26,6 +26,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -59,20 +60,66 @@ jobs:
         run: cat data/qa-report.json
       - name: Commit safe QA corrections when needed
         id: corrections
+        shell: bash
         run: |
-          if git diff --quiet -- data/jobs.json data/amazon-jobs.json data/tierpoint-jobs.json data/job-history.json data/career-events.json data/collector-status.json; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No substantive QA corrections required."
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/jobs.json data/amazon-jobs.json data/tierpoint-jobs.json data/job-history.json data/career-events.json data/collector-status.json data/qa-report.json
-            git commit -m "Apply nightly site QA corrections"
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Use the reconciler's ownership manifest, including wrapped snapshots
+          # and count-only sidecars. Every confirmed-dead removal must be atomic.
+          load_qa_paths() {
+            node scripts/reconcile-qa-dead-snapshots.mjs --list-paths > /tmp/qa-snapshot-paths.txt
+            mapfile -t snapshot_paths < /tmp/qa-snapshot-paths.txt
+            test "${#snapshot_paths[@]}" -gt 0
+            qa_paths=(data/jobs.json data/job-history.json data/career-events.json data/collector-status.json data/qa-report.json "${snapshot_paths[@]}")
+          }
+          load_qa_paths
+
+          rebuild_from_latest_main() {
             git fetch origin main
-            git rebase origin/main
-            git push origin HEAD:main
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
+            git reset --hard origin/main
+            load_qa_paths
+            node scripts/apply-coresite-verified-fallback.mjs
+            node scripts/enforce-coresite-fallback-freshness.mjs
+            node scripts/normalize-job-locations.mjs
+            node scripts/dedupe-normalized-jobs.mjs
+            node scripts/qa-site.mjs
+            node scripts/reconcile-qa-dead-snapshots.mjs --test
+            node scripts/reconcile-qa-dead-snapshots.mjs
+            node scripts/refresh-region-status.mjs
+            node scripts/stamp-job-history.mjs
+            node scripts/validate.mjs
+            node scripts/validate-promotions.mjs
+            node scripts/validate-job-history.mjs
+            node scripts/validate-homepage-contract.mjs
+            node scripts/validate-priority-employer-sources.mjs
+            node scripts/validate-coresite-fallback.mjs
+          }
+
+          qa_base="$(git rev-parse HEAD)"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if [ "$(git rev-parse origin/main)" != "$qa_base" ] || [ "$(git rev-parse HEAD)" != "$qa_base" ]; then
+              echo "Main moved during QA; rechecking current data before publishing."
+              rebuild_from_latest_main
+              qa_base="$(git rev-parse HEAD)"
+            fi
+            if git diff --quiet -- "${qa_paths[@]}"; then
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              echo "No QA corrections required."
+              exit 0
+            fi
+            git add -- "${qa_paths[@]}"
+            git commit -m "Apply nightly site QA corrections"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "Main moved before QA publication; rebuilding before retry."
+            sleep $((attempt * 2))
+          done
+          echo "::error::Could not publish QA corrections after three fresh-main attempts."
+          exit 1
       - name: Deploy corrected feed
         if: steps.corrections.outputs.changed == 'true'
         env:

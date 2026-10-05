@@ -11,6 +11,7 @@ const SNAPSHOT = 'data/h5-data-centers-jobs.json';
 const JOBS = 'data/jobs.json';
 const STATUS = 'data/collector-status.json';
 const PAGE_SIZE = 100;
+const MAX_FALLBACK_AGE_HOURS = 96;
 
 const seniorTitle = /\b(?:senior|sr\.?|lead|principal|manager|director|vice president|vp|head of|chief|supervisor)\b/i;
 const nonOpsTitle = /\b(?:sales|account executive|marketing|finance|legal|human resources|recruiter|product manager|program manager|project manager|business development)\b/i;
@@ -229,11 +230,13 @@ async function collectListing() {
 const base = await json(JOBS, []);
 const previous = await json(SNAPSHOT, []);
 const priorStatus = await json(STATUS, {});
+const priorSource = priorStatus.h5DataCenters || {};
 let snapshot = [];
 let sourceHealthy = true;
 let error = '';
 let listingStats = { advertised: 0, fetched: 0, drift: 0 };
-const drops = { missingDetailId: 0, detailFetch: 0, nonUs: 0, classification: 0 };
+const diagnostics = { listingComplete: false, detailAttempted: 0, detailSucceeded: 0 };
+const drops = { missingDetailId: 0, detailFetch: 0, invalidDetail: 0, nonUs: 0, classification: 0 };
 const samples = [];
 try {
   const listing = await collectListing();
@@ -241,6 +244,7 @@ try {
   // ADP's total can lag a just-opened role by one response. More rows than the
   // advertised count are safe to inspect; fewer rows would mean an incomplete crawl.
   if (listing.total > listing.rows.length) throw new Error(`ADP listing parity mismatch ${listing.rows.length}/${listing.total}`);
+  diagnostics.listingComplete = true;
   for (let offset = 0; offset < listing.rows.length; offset += 6) {
     const batch = listing.rows.slice(offset, offset + 6);
     const found = await Promise.all(batch.map(async item => {
@@ -253,6 +257,7 @@ try {
         return null;
       }
       let detail;
+      diagnostics.detailAttempted += 1;
       try {
         detail = await getJson(`${API}/${encodeURIComponent(externalId)}?${query()}`);
       } catch (detailError) {
@@ -260,8 +265,13 @@ try {
         if (samples.length < 8) samples.push({ itemId, title, reason: detailError.message });
         return null;
       }
-      if (clean(detail?.itemID) && clean(detail.itemID) !== itemId) throw new Error(`ADP detail identity mismatch for ${itemId}`);
       const description = clean(detail?.requisitionDescription);
+      if (clean(detail?.itemID) !== itemId || !description) {
+        drops.invalidDetail += 1;
+        if (samples.length < 8) samples.push({ itemId, title, reason: `ADP detail identity mismatch or missing description for ${itemId}` });
+        return null;
+      }
+      diagnostics.detailSucceeded += 1;
       const location = firstUsLocation(item);
       if (!location) {
         drops.nonUs += 1;
@@ -291,38 +301,80 @@ try {
     }));
     snapshot.push(...found.filter(Boolean));
   }
+  // Finish every attempted detail before stamping the source. A partially
+  // successful crawl must not replace or renew the previously verified set.
+  if (drops.missingDetailId || drops.detailFetch || drops.invalidDetail
+      || diagnostics.detailSucceeded !== listing.rows.length) {
+    throw new Error(`ADP incomplete detail verification ${diagnostics.detailSucceeded}/${listing.rows.length}; drops=${JSON.stringify(drops)}`);
+  }
   snapshot = dedupe(snapshot);
   if (listing.total > 0 && !snapshot.length) throw new Error(`ADP exposed ${listing.total} roles but zero mission-fit 0–5 year roles; drops=${JSON.stringify(drops)} samples=${JSON.stringify(samples)}`);
 } catch (sourceError) {
   sourceHealthy = false;
   error = sourceError.message;
-  if (Array.isArray(previous) && previous.length) snapshot = previous;
-  else throw sourceError;
+  snapshot = Array.isArray(previous) && previous.length ? previous : [];
 }
+
+// The completed source attempt owns these timestamps. Neither global updatedAt
+// nor a failed/partial retry can create verification evidence for older rows.
+const checkedAt = new Date().toISOString();
+const checkedAtMs = Date.parse(checkedAt);
+function priorAnchor(value) {
+  const timestamp = clean(value);
+  const parsed = Date.parse(timestamp);
+  return Number.isFinite(parsed) && parsed <= checkedAtMs ? timestamp : null;
+}
+const lastHealthyAt = sourceHealthy ? checkedAt : priorAnchor(priorSource.lastHealthyAt);
+const lastSuccessfulAt = sourceHealthy ? checkedAt : priorAnchor(priorSource.lastSuccessfulAt);
+const verifiedAt = lastSuccessfulAt || lastHealthyAt;
+const ageHours = verifiedAt ? (checkedAtMs - Date.parse(verifiedAt)) / 36e5 : null;
+const fallbackExpired = !sourceHealthy && (ageHours === null || ageHours >= MAX_FALLBACK_AGE_HOURS);
+const rolesRemoved = fallbackExpired ? snapshot.length : 0;
+if (fallbackExpired) snapshot = [];
+const usedPreviousSnapshot = !sourceHealthy && snapshot.length > 0;
 
 const merged = dedupe([...base.filter(job => clean(job?.company) !== COMPANY), ...snapshot]);
 merged.sort((a, b) => Number(a.postedHours ?? 9999) - Number(b.postedHours ?? 9999));
 const status = {
   ...priorStatus,
-  updatedAt: new Date().toISOString(),
+  updatedAt: checkedAt,
   jobs: merged.length,
+  countsByType: merged.reduce((counts, job) => { counts[job.type] = (counts[job.type] || 0) + 1; return counts; }, {}),
+  countsByExperience: merged.reduce((counts, job) => { counts[job.experience] = (counts[job.experience] || 0) + 1; return counts; }, {}),
   sourcesAttempted: Number(priorStatus.sourcesAttempted || 0) + 1,
   providers: { ...(priorStatus.providers || {}), adp: Number(priorStatus.providers?.adp || 0) + 1 },
   h5DataCenters: {
     officialSource: 'https://h5datacenters.com/data-center-careers.html',
     boardUrl: `${PORTAL}?${query()}`,
     sourceHealthy,
+    checkedAt,
+    lastHealthyAt,
+    lastSuccessfulAt,
     qualifyingRoles: snapshot.length,
-    usedPreviousSnapshot: !sourceHealthy,
+    usedPreviousSnapshot,
     listing: listingStats,
+    diagnostics,
     drops,
     samples,
+    fallbackFreshness: {
+      active: usedPreviousSnapshot,
+      expired: fallbackExpired,
+      lastSuccessfulAt: verifiedAt,
+      checkedAt,
+      expiresAt: verifiedAt ? new Date(Date.parse(verifiedAt) + MAX_FALLBACK_AGE_HOURS * 36e5).toISOString() : null,
+      maxAgeHours: MAX_FALLBACK_AGE_HOURS,
+      ageHours: ageHours === null ? null : Math.round(ageHours * 10) / 10,
+      rolesRemoved
+    },
     ...(error ? { error } : {})
   },
-  errors: error ? [...(priorStatus.errors || []), `H5 Data Centers: ${error} (kept previous verified snapshot)`] : (priorStatus.errors || [])
+  errors: [
+    ...(priorStatus.errors || []).filter(value => !String(value).startsWith('H5 Data Centers:')),
+    ...(error ? [`H5 Data Centers: ${error} (${usedPreviousSnapshot ? 'kept previous verified snapshot' : 'no unexpired verified snapshot available'})`] : [])
+  ]
 };
 
 await writeFile(SNAPSHOT, `${JSON.stringify(snapshot, null, 2)}\n`);
 await writeFile(JOBS, `${JSON.stringify(merged, null, 2)}\n`);
 await writeFile(STATUS, `${JSON.stringify(status, null, 2)}\n`);
-console.log(`H5 Data Centers ${sourceHealthy ? 'verified' : 'preserved'} ${snapshot.length} qualifying employer-direct role(s); ${merged.length} total jobs.`);
+console.log(`H5 Data Centers ${sourceHealthy ? 'verified' : usedPreviousSnapshot ? 'preserved' : 'withheld'} ${snapshot.length} qualifying employer-direct role(s); ${merged.length} total jobs.`);

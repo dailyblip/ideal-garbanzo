@@ -1,6 +1,8 @@
-import './validate-accessibility.mjs';
+import { runValidator } from './run-validator.mjs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+
+await runValidator(new URL('./validate-accessibility.mjs', import.meta.url));
 
 // Pages runs this validator after all authored and generated HTML exists.
 // Keep accessibility in the same final deployment gate so a structural

@@ -493,13 +493,22 @@ const countsByExperience = merged.reduce((acc, job) => {
   return acc;
 }, {});
 
-status.updatedAt = new Date().toISOString();
+const checkedAt = new Date().toISOString();
+const priorAmazon = status.amazonDatacenter || {};
+const lastHealthyAt = Object.hasOwn(priorAmazon, 'lastHealthyAt')
+  ? priorAmazon.lastHealthyAt
+  : (priorAmazon.fallbackFreshness?.lastHealthyAt ?? null);
+status.updatedAt = checkedAt;
 status.jobs = merged.length;
 status.countsByType = countsByType;
 status.countsByExperience = countsByExperience;
 status.amazonDetailRecovery = {
+  attemptSource:'detail-recovery',
+  checkedAt,
+  lastHealthyAt,
   officialSource:'https://www.amazon.jobs/en/search',
   fullSearchHealthy,
+  sourceHealthy:fullSearchHealthy && preservedPrevious === 0,
   queriesAttempted:SEARCH_QUERIES.length,
   queriesSucceeded,
   queryStats,

@@ -37,7 +37,16 @@ const status = await readJson(STATUS_PATH, {});
 if (!Array.isArray(jobs)) throw new Error('data/jobs.json must contain an array.');
 
 const microsoftStatus = status?.microsoftDatacenter || {};
-const sourceHealthy = microsoftStatus.sourceHealthy === true && microsoftStatus.sourceMode !== 'retained-previous';
+const checkedAtMs = Date.parse(String(microsoftStatus.checkedAt || ''));
+const sourceHealthy = microsoftStatus.sourceHealthy === true
+  && microsoftStatus.sourceMode === 'eightfold-pcsx'
+  && microsoftStatus.detailAttempts > 0
+  && microsoftStatus.detailVerified === microsoftStatus.detailAttempts
+  && !microsoftStatus.drops?.detailFailure
+  && Array.isArray(microsoftStatus.queryStats)
+  && microsoftStatus.queryStats.length === 4
+  && microsoftStatus.queryStats.every(query => query.healthy === true)
+  && Number.isFinite(checkedAtMs) && checkedAtMs <= Date.now();
 const microsoftJobs = jobs.filter(isMicrosoft).filter(job => clean(job.company) === COMPANY);
 
 if (!sourceHealthy) {
@@ -50,7 +59,8 @@ if (!microsoftJobs.length) {
 
 for (const job of microsoftJobs) validateJob(job);
 
-const verifiedAt = new Date();
+// Persist the completed source check, never the time this helper is rerun.
+const verifiedAt = new Date(checkedAtMs);
 const expiresAt = new Date(verifiedAt.getTime() + FALLBACK_DAYS * 24 * 60 * 60 * 1000);
 const snapshot = {
   verifiedAt: verifiedAt.toISOString(),

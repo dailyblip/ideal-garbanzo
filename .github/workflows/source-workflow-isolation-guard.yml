@@ -6,6 +6,34 @@ on:
     paths:
       - '.github/workflows/*.yml'
       - 'scripts/validate-source-workflow-isolation.mjs'
+      - 'scripts/validate-full-refresh-contract.mjs'
+      - 'scripts/validate*.mjs'
+      - 'scripts/run-validator.mjs'
+      - 'scripts/oracle-publication-policy.mjs'
+      - 'scripts/test-validator-isolation.mjs'
+      - 'scripts/refresh-region-status.mjs'
+      - 'scripts/test-google-collector-freshness.mjs'
+      - 'scripts/collect-google-careers.mjs'
+      - 'scripts/collect-equinix-early.mjs'
+      - 'scripts/collect-amazon-datacenter.mjs'
+      - 'scripts/recover-amazon-details.mjs'
+      - 'scripts/stamp-amazon-source-verification.mjs'
+      - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/collect-coresite.mjs'
+      - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/collect-microsoft-datacenter.mjs'
+      - 'scripts/persist-microsoft-snapshot.mjs'
+      - 'scripts/test-microsoft-collector-fallback.mjs'
+      - 'scripts/stamp-h5-source-verification.mjs'
+      - 'scripts/enforce-h5-fallback-freshness.mjs'
+      - 'scripts/test-h5-source-verification.mjs'
+      - 'scripts/test-amazon-source-verification.mjs'
+      - 'scripts/test-coresite-collector-persistence.mjs'
+      - 'scripts/collect-google-careers-fresh.mjs'
+      - 'scripts/reconcile-qa-dead-snapshots.mjs'
+      - 'scripts/test-qa-dead-snapshots.mjs'
+      - 'scripts/validate-novva.mjs'
+      - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/validate-source-deploy-dispatch.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history-group.mjs'
@@ -14,6 +42,34 @@ on:
     paths:
       - '.github/workflows/*.yml'
       - 'scripts/validate-source-workflow-isolation.mjs'
+      - 'scripts/validate-full-refresh-contract.mjs'
+      - 'scripts/validate*.mjs'
+      - 'scripts/run-validator.mjs'
+      - 'scripts/oracle-publication-policy.mjs'
+      - 'scripts/test-validator-isolation.mjs'
+      - 'scripts/refresh-region-status.mjs'
+      - 'scripts/test-google-collector-freshness.mjs'
+      - 'scripts/collect-google-careers.mjs'
+      - 'scripts/collect-equinix-early.mjs'
+      - 'scripts/collect-amazon-datacenter.mjs'
+      - 'scripts/recover-amazon-details.mjs'
+      - 'scripts/stamp-amazon-source-verification.mjs'
+      - 'scripts/enforce-amazon-fallback-freshness.mjs'
+      - 'scripts/collect-coresite.mjs'
+      - 'scripts/collect-h5-data-centers.mjs'
+      - 'scripts/collect-microsoft-datacenter.mjs'
+      - 'scripts/persist-microsoft-snapshot.mjs'
+      - 'scripts/test-microsoft-collector-fallback.mjs'
+      - 'scripts/stamp-h5-source-verification.mjs'
+      - 'scripts/enforce-h5-fallback-freshness.mjs'
+      - 'scripts/test-h5-source-verification.mjs'
+      - 'scripts/test-amazon-source-verification.mjs'
+      - 'scripts/test-coresite-collector-persistence.mjs'
+      - 'scripts/collect-google-careers-fresh.mjs'
+      - 'scripts/reconcile-qa-dead-snapshots.mjs'
+      - 'scripts/test-qa-dead-snapshots.mjs'
+      - 'scripts/validate-novva.mjs'
+      - 'scripts/stamp-oracle-source-freshness.mjs'
       - 'scripts/validate-source-deploy-dispatch.mjs'
       - 'scripts/preserve-source-group.mjs'
       - 'scripts/stamp-job-history-group.mjs'
@@ -31,6 +87,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate complete publication refresh contract
+        run: node scripts/validate-full-refresh-contract.mjs
+      - name: Test collector freshness and QA snapshot reconciliation
+        run: |
+          node scripts/test-validator-isolation.mjs
+          node scripts/test-google-collector-freshness.mjs
+          node scripts/test-amazon-source-verification.mjs
+          node scripts/test-coresite-collector-persistence.mjs
+          node scripts/test-h5-source-verification.mjs
+          node scripts/test-microsoft-collector-fallback.mjs
+          node scripts/reconcile-qa-dead-snapshots.mjs --test
+          node scripts/stamp-oracle-source-freshness.mjs --test
+          node scripts/validate-novva.mjs --test-freshness
+          node scripts/validate-priority-region-coverage.mjs --test
+          node scripts/validate-oracle-parity.mjs --test
+          node scripts/collect-equinix-early.mjs --test-source-isolation
       - name: Validate source workflow trigger isolation
         run: node scripts/validate-source-workflow-isolation.mjs
       - name: Validate source refresh deploy dispatch

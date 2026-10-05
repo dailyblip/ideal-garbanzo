@@ -1,3 +1,4 @@
+import { runValidator } from './run-validator.mjs';
 import { readFile } from 'node:fs/promises';
 
 const requiredFiles = ['index.html','employers/index.html','assets/styles.css','assets/app.js','data/jobs.json','data/amazon-jobs.json','data/google-jobs.json','data/career-events.json','data/featured-jobs.json','data/employer-products.json'];
@@ -9,14 +10,14 @@ for (const file of requiredFiles) {
 const jobs = JSON.parse(await readFile('data/jobs.json', 'utf8'));
 if (!Array.isArray(jobs)) throw new Error('jobs.json must contain an array');
 
-await import('./validate-priority-employer-sources.mjs');
-await import('./validate-priority-source-diagnostics.mjs');
-await import('./validate-direct-role-links.mjs');
-await import('./validate-cloudhq.mjs');
-await import('./validate-amazon-snapshot.mjs');
-await import('./validate-google-snapshot.mjs');
-await import('./validate-oracle-snapshot.mjs');
-await import('./validate-data-freshness.mjs');
+await runValidator(new URL('./validate-priority-employer-sources.mjs', import.meta.url));
+await runValidator(new URL('./validate-priority-source-diagnostics.mjs', import.meta.url));
+await runValidator(new URL('./validate-direct-role-links.mjs', import.meta.url));
+await runValidator(new URL('./validate-cloudhq.mjs', import.meta.url));
+await runValidator(new URL('./validate-amazon-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-google-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-oracle-snapshot.mjs', import.meta.url));
+await runValidator(new URL('./validate-data-freshness.mjs', import.meta.url));
 
 const amazonJobs = JSON.parse(await readFile('data/amazon-jobs.json', 'utf8'));
 if (!Array.isArray(amazonJobs)) throw new Error('amazon-jobs.json must contain an array');
@@ -51,7 +52,7 @@ for (const [i, event] of careerEvents.entries()) {
   if (!/^https:\/\//i.test(String(event.url))) throw new Error(`Career event ${event.id} requires an HTTPS organizer URL`);
   if (event.source !== 'Organizer page') throw new Error(`Career event ${event.id} must be verified from an organizer page`);
 }
-await import('./validate-career-event-freshness.mjs');
+await runValidator(new URL('./validate-career-event-freshness.mjs', import.meta.url));
 
 const normalizeIdentity = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const seniorTitlePattern = /\b(?:senior|sr\.?|lead|principal|chief|manager|mgr\.?|director|vice president|vp|head of|staff|supervisor|superintendent|foreman|counsel|attorney|architect|recruiter|sales|account executive)\b/i;

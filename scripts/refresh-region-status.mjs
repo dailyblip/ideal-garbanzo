@@ -1,5 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import './validate-major-workday-health.mjs';
+import { runValidator } from './run-validator.mjs';
+
+await runValidator(new URL('./validate-major-workday-health.mjs', import.meta.url));
 
 const JOBS_PATH = 'data/jobs.json';
 const STATUS_PATH = 'data/collector-status.json';

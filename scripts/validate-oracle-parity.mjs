@@ -1,18 +1,15 @@
 import { readFile } from 'node:fs/promises';
+import { oraclePublicationEligible as parityProtected } from './oracle-publication-policy.mjs';
 
 const COMPANY = 'Oracle';
 const SNAPSHOT_PATH = 'data/oracle-jobs.json';
 const JOBS_PATH = 'data/jobs.json';
 const OFFICIAL_HOST = 'eeho.fa.us2.oraclecloud.com';
 const OFFICIAL_PATH_PREFIX = '/hcmUI/CandidateExperience/en/sites/jobsearch/job/';
-const CLEARLY_NON_OPERATIONAL_TITLE = /\b(business analyst|business operations|cost management|cost estimator|cost analyst|cost controls|procurement|purchasing|finance|financial|security operations|cybersecurity|information security|software|application|frontend|backend|full[ -]?stack|database|product|ux|ui|machine learning|data scientist|talent sourcer|talent acquisition|recruiter|recruiting)\b/i;
 
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
-function parityProtected(job) {
-  return !CLEARLY_NON_OPERATIONAL_TITLE.test(clean(job?.title));
-}
 
 function canonicalOracleUrl(value) {
   let parsed;

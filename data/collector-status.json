@@ -267,24 +267,22 @@
         "qualifyingRoles": 26,
         "usedPreviousSnapshot": false,
         "fallbackFreshness": {
-          "sourceHealthy": false,
-          "active": true,
+          "sourceHealthy": true,
+          "active": false,
           "expired": false,
-          "checkedAt": "2026-10-05T15:06:01.271Z",
+          "checkedAt": "2026-10-06T00:13:36.513Z",
           "roles": 9,
           "maxAgeHours": 96,
-          "listingComplete": false,
-          "detailHealthy": false,
-          "detailAttempted": 0,
-          "detailSucceeded": 0,
+          "listingComplete": true,
+          "detailHealthy": true,
+          "detailAttempted": 3,
+          "detailSucceeded": 3,
           "reportedRows": 178,
-          "uniqueRows": 176,
+          "uniqueRows": 178,
           "pagesAttempted": 9,
           "pagesSucceeded": 9,
-          "lastHealthyAt": "2026-10-05T06:01:21.337Z",
-          "expiresAt": "2026-10-09T06:01:21.337Z",
-          "ageHours": 9.1,
-          "reason": "short page returned 17 rows at 177/178"
+          "lastHealthyAt": "2026-10-06T00:13:36.513Z",
+          "expiresAt": "2026-10-10T00:13:36.513Z"
         },
         "publishedRoles": 9,
         "publicationFilteredRoles": 17
@@ -459,24 +457,23 @@
       "summaries": [
         {
           "company": "Vantage Data Centers",
-          "state": "fallback",
+          "state": "healthy",
           "roles": 9,
-          "expiresAt": "2026-10-09T06:01:21.337Z",
-          "listingComplete": false,
-          "detailVerified": "0/0"
+          "reportedRows": 178,
+          "detailVerified": "3/3"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 275,
+          "reportedRows": 272,
           "detailVerified": "3/3"
         },
         {
           "company": "CyrusOne",
           "state": "healthy",
           "roles": 56,
-          "reportedRows": 124,
+          "reportedRows": 126,
           "detailVerified": "3/3"
         },
         {
@@ -490,14 +487,14 @@
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 22,
-          "reportedRows": 230,
+          "reportedRows": 231,
           "detailVerified": "3/3"
         },
         {
           "company": "Aligned Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 221,
+          "reportedRows": 219,
           "detailVerified": "3/3"
         }
       ]

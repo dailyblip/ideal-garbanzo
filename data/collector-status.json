@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-06T00:23:03.118Z",
-  "jobs": 635,
+  "updatedAt": "2026-10-06T05:44:59.552Z",
+  "jobs": 634,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,7 +10,7 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 610,
+    "entry-level": 609,
     "trainee": 10,
     "internship": 4,
     "apprenticeship": 11
@@ -18,7 +18,7 @@
   "countsByExperience": {
     "0-2-years": 373,
     "2-5-years": 248,
-    "no-experience": 14
+    "no-experience": 13
   },
   "errors": [
     "Google Careers fallback freshness: removed 42 stale role(s); last healthy verification is 96.3h old."
@@ -121,18 +121,18 @@
   "novvaCareers": {
     "officialSource": "https://www.novva.com/careers/",
     "sourceHealthy": false,
-    "checkedAt": "2026-09-30T05:57:09.505Z",
+    "checkedAt": "2026-10-06T05:44:59.552Z",
     "lastHealthyAt": "2026-09-28T23:29:33.585Z",
     "fallbackMaxAgeHours": 96,
-    "fallbackAgeHours": 30.5,
-    "fallbackExpired": false,
-    "usedPreviousSnapshot": true,
-    "fallbackPolicy": "Retain the last fully verified Novva snapshot for at most 96 hours after official-source failure; then remove Novva roles until fresh verification succeeds.",
+    "fallbackAgeHours": 174.3,
+    "fallbackExpired": true,
+    "usedPreviousSnapshot": false,
+    "fallbackPolicy": "Retain the last fully verified Novva snapshot for at most 96 hours after official-source verification; then remove Novva roles until fresh verification succeeds.",
     "candidateLinks": 1,
     "detailSucceeded": 0,
     "qualifyingRoles": 0,
-    "preservedPrevious": 1,
-    "removedExpiredFallback": 0,
+    "preservedPrevious": 0,
+    "removedExpiredFallback": 1,
     "drops": {
       "inactive": 0,
       "titleOrContext": 0,
@@ -142,7 +142,18 @@
     },
     "errors": [
       "job page: 404 https://www.novva.com/portfolio/command-center-operator-utah/"
-    ]
+    ],
+    "fallbackFreshness": {
+      "active": false,
+      "expired": true,
+      "lastHealthyAt": "2026-09-28T23:29:33.585Z",
+      "checkedAt": "2026-10-06T05:44:59.552Z",
+      "expiresAt": "2026-10-02T23:29:33.585Z",
+      "maxAgeHours": 96,
+      "expiredAgeHours": 174.3,
+      "rolesRemoved": 1,
+      "policy": "Novva Data Centers employer-direct roles may remain published for at most 96 hours after the last successful official-source verification."
+    }
   },
   "ironMountain": {
     "officialSource": "https://www.ironmountain.com/data-centers",
@@ -3306,18 +3317,18 @@
     "updatedAt": "2026-09-30T09:01:24.530Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 694,
+    "regionAssigned": 634,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 114,
-      "west": 105,
-      "midwest": 131,
-      "mid-atlantic": 131,
-      "texas": 117,
-      "southwest": 74,
-      "northeast": 21,
+      "southeast": 104,
+      "west": 104,
+      "midwest": 120,
+      "mid-atlantic": 124,
+      "texas": 104,
+      "southwest": 59,
+      "northeast": 18,
       "nationwide": 1
     }
   },
@@ -3339,9 +3350,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1408,
-    "currentJobs": 694,
-    "scopeCompany": "CloudHQ",
-    "scopedJobs": 1,
+    "currentJobs": 634,
+    "scopeCompany": "Novva Data Centers",
+    "scopedJobs": 0,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3349,8 +3360,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 1,
-    "updatedAt": "2026-09-30T10:01:23.965Z"
+    "firstSeenRecencyFallbackJobs": 0,
+    "updatedAt": "2026-10-06T05:44:59.552Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

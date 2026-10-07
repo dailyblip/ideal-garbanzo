@@ -281,19 +281,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-10-06T22:44:56.734Z",
+          "checkedAt": "2026-10-07T23:14:23.749Z",
           "roles": 9,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 178,
-          "uniqueRows": 178,
+          "reportedRows": 180,
+          "uniqueRows": 180,
           "pagesAttempted": 9,
           "pagesSucceeded": 9,
-          "lastHealthyAt": "2026-10-06T22:44:56.734Z",
-          "expiresAt": "2026-10-10T22:44:56.734Z"
+          "lastHealthyAt": "2026-10-07T23:14:23.749Z",
+          "expiresAt": "2026-10-11T23:14:23.749Z"
         },
         "publishedRoles": 9,
         "publicationFilteredRoles": 17
@@ -470,21 +470,21 @@
           "company": "Vantage Data Centers",
           "state": "healthy",
           "roles": 9,
-          "reportedRows": 178,
+          "reportedRows": 180,
           "detailVerified": "3/3"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 274,
+          "reportedRows": 275,
           "detailVerified": "3/3"
         },
         {
           "company": "CyrusOne",
           "state": "healthy",
           "roles": 56,
-          "reportedRows": 132,
+          "reportedRows": 134,
           "detailVerified": "3/3"
         },
         {
@@ -498,14 +498,14 @@
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 22,
-          "reportedRows": 240,
+          "reportedRows": 238,
           "detailVerified": "3/3"
         },
         {
           "company": "Aligned Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 219,
+          "reportedRows": 222,
           "detailVerified": "3/3"
         }
       ]

@@ -281,19 +281,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-10-08T23:29:29.217Z",
+          "checkedAt": "2026-10-09T22:47:32.371Z",
           "roles": 9,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 182,
-          "uniqueRows": 182,
-          "pagesAttempted": 10,
-          "pagesSucceeded": 10,
-          "lastHealthyAt": "2026-10-08T23:29:29.217Z",
-          "expiresAt": "2026-10-12T23:29:29.217Z"
+          "reportedRows": 180,
+          "uniqueRows": 180,
+          "pagesAttempted": 9,
+          "pagesSucceeded": 9,
+          "lastHealthyAt": "2026-10-09T22:47:32.371Z",
+          "expiresAt": "2026-10-13T22:47:32.371Z"
         },
         "publishedRoles": 9,
         "publicationFilteredRoles": 17
@@ -470,14 +470,14 @@
           "company": "Vantage Data Centers",
           "state": "healthy",
           "roles": 9,
-          "reportedRows": 179,
+          "reportedRows": 180,
           "detailVerified": "3/3"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 278,
+          "reportedRows": 274,
           "detailVerified": "3/3"
         },
         {
@@ -491,14 +491,14 @@
           "company": "STACK Infrastructure",
           "state": "healthy",
           "roles": 6,
-          "reportedRows": 48,
+          "reportedRows": 50,
           "detailVerified": "3/3"
         },
         {
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 22,
-          "reportedRows": 258,
+          "reportedRows": 259,
           "detailVerified": "3/3"
         },
         {

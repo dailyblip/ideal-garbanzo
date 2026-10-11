@@ -60,7 +60,7 @@
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-10-10T06:10:48.983Z",
+      "checkedAt": "2026-10-11T06:08:12.532Z",
       "roles": 6,
       "maxAgeHours": 96,
       "listingComplete": true,
@@ -71,32 +71,32 @@
       "uniqueRows": 50,
       "pagesAttempted": 3,
       "pagesSucceeded": 3,
-      "lastHealthyAt": "2026-10-10T06:10:48.983Z",
-      "expiresAt": "2026-10-14T06:10:48.983Z"
+      "lastHealthyAt": "2026-10-11T06:08:12.532Z",
+      "expiresAt": "2026-10-15T06:08:12.532Z"
     },
     "NTT Global Data Centers": {
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-10-10T06:10:48.983Z",
+      "checkedAt": "2026-10-11T06:08:12.532Z",
       "roles": 22,
       "maxAgeHours": 96,
       "listingComplete": true,
       "detailHealthy": true,
       "detailAttempted": 3,
       "detailSucceeded": 3,
-      "reportedRows": 259,
-      "uniqueRows": 259,
+      "reportedRows": 260,
+      "uniqueRows": 260,
       "pagesAttempted": 13,
       "pagesSucceeded": 13,
-      "lastHealthyAt": "2026-10-10T06:10:48.983Z",
-      "expiresAt": "2026-10-14T06:10:48.983Z"
+      "lastHealthyAt": "2026-10-11T06:08:12.532Z",
+      "expiresAt": "2026-10-15T06:08:12.532Z"
     },
     "Aligned Data Centers": {
       "sourceHealthy": true,
       "active": false,
       "expired": false,
-      "checkedAt": "2026-10-10T06:10:48.983Z",
+      "checkedAt": "2026-10-11T06:08:12.532Z",
       "roles": 36,
       "maxAgeHours": 96,
       "listingComplete": true,
@@ -107,8 +107,8 @@
       "uniqueRows": 222,
       "pagesAttempted": 12,
       "pagesSucceeded": 12,
-      "lastHealthyAt": "2026-10-10T06:10:48.983Z",
-      "expiresAt": "2026-10-14T06:10:48.983Z"
+      "lastHealthyAt": "2026-10-11T06:08:12.532Z",
+      "expiresAt": "2026-10-15T06:08:12.532Z"
     }
   },
   "verificationPolicy": "complete Workday listing plus sampled current job-detail JSON"

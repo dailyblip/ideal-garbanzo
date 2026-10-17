@@ -398,24 +398,22 @@
         "qualifyingRoles": 51,
         "usedPreviousSnapshot": false,
         "fallbackFreshness": {
-          "sourceHealthy": false,
-          "active": true,
+          "sourceHealthy": true,
+          "active": false,
           "expired": false,
-          "checkedAt": "2026-10-17T15:48:06.345Z",
+          "checkedAt": "2026-10-17T20:47:53.940Z",
           "roles": 22,
           "maxAgeHours": 96,
-          "listingComplete": false,
-          "detailHealthy": false,
-          "detailAttempted": 0,
-          "detailSucceeded": 0,
-          "reportedRows": null,
-          "uniqueRows": 0,
-          "pagesAttempted": 0,
-          "pagesSucceeded": 0,
-          "lastHealthyAt": "2026-10-16T11:44:03.309Z",
-          "expiresAt": "2026-10-20T11:44:03.309Z",
-          "ageHours": 28.1,
-          "reason": "expected JSON but received text/html; charset=utf-8"
+          "listingComplete": true,
+          "detailHealthy": true,
+          "detailAttempted": 3,
+          "detailSucceeded": 3,
+          "reportedRows": 259,
+          "uniqueRows": 259,
+          "pagesAttempted": 13,
+          "pagesSucceeded": 13,
+          "lastHealthyAt": "2026-10-17T20:47:53.940Z",
+          "expiresAt": "2026-10-21T20:47:53.940Z"
         },
         "publishedRoles": 22,
         "publicationFilteredRoles": 29
@@ -498,11 +496,10 @@
         },
         {
           "company": "NTT Global Data Centers",
-          "state": "fallback",
+          "state": "healthy",
           "roles": 22,
-          "expiresAt": "2026-10-20T11:44:03.309Z",
-          "listingComplete": false,
-          "detailVerified": "0/0"
+          "reportedRows": 259,
+          "detailVerified": "3/3"
         },
         {
           "company": "Aligned Data Centers",

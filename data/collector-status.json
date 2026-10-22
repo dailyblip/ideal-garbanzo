@@ -398,22 +398,24 @@
         "qualifyingRoles": 51,
         "usedPreviousSnapshot": false,
         "fallbackFreshness": {
-          "sourceHealthy": true,
-          "active": false,
+          "sourceHealthy": false,
+          "active": true,
           "expired": false,
-          "checkedAt": "2026-10-21T21:52:44.270Z",
+          "checkedAt": "2026-10-22T17:27:26.080Z",
           "roles": 22,
           "maxAgeHours": 96,
-          "listingComplete": true,
-          "detailHealthy": true,
-          "detailAttempted": 3,
-          "detailSucceeded": 3,
-          "reportedRows": 264,
-          "uniqueRows": 264,
+          "listingComplete": false,
+          "detailHealthy": false,
+          "detailAttempted": 0,
+          "detailSucceeded": 0,
+          "reportedRows": 266,
+          "uniqueRows": 265,
           "pagesAttempted": 14,
           "pagesSucceeded": 14,
           "lastHealthyAt": "2026-10-21T21:52:44.270Z",
-          "expiresAt": "2026-10-25T21:52:44.270Z"
+          "expiresAt": "2026-10-25T21:52:44.270Z",
+          "ageHours": 19.6,
+          "reason": "listing returned 265 unique postings for a reported total of 266"
         },
         "publishedRoles": 22,
         "publicationFilteredRoles": 29
@@ -470,36 +472,37 @@
           "company": "Vantage Data Centers",
           "state": "healthy",
           "roles": 9,
-          "reportedRows": 182,
+          "reportedRows": 181,
           "detailVerified": "3/3"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 265,
+          "reportedRows": 266,
           "detailVerified": "3/3"
         },
         {
           "company": "CyrusOne",
           "state": "healthy",
           "roles": 56,
-          "reportedRows": 152,
+          "reportedRows": 153,
           "detailVerified": "3/3"
         },
         {
           "company": "STACK Infrastructure",
           "state": "healthy",
           "roles": 6,
-          "reportedRows": 51,
+          "reportedRows": 52,
           "detailVerified": "3/3"
         },
         {
           "company": "NTT Global Data Centers",
-          "state": "healthy",
+          "state": "fallback",
           "roles": 22,
-          "reportedRows": 265,
-          "detailVerified": "3/3"
+          "expiresAt": "2026-10-25T21:52:44.270Z",
+          "listingComplete": false,
+          "detailVerified": "0/0"
         },
         {
           "company": "Aligned Data Centers",

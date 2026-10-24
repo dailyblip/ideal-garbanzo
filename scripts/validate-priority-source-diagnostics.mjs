@@ -81,7 +81,11 @@ console.log(`Priority source diagnostics present for all ${prioritySources.lengt
 // Dedicated hyperscaler/operator snapshots can outlive the source workflow that
 // created them. Validate freshness at deployment too so another healthy source
 // cannot keep stale retained roles deployable past their verification window.
-await import('./validate-dedicated-fallback-freshness.mjs');
+if (!process.argv.includes('--qa-precommit')) {
+  await import('./validate-dedicated-fallback-freshness.mjs');
+} else {
+  console.log('QA pre-commit: dedicated-source freshness is enforced separately before deployment.');
+}
 
 // AWS is a primary early-career source and can publish from a bounded verified
 // fallback during Amazon Jobs outages. Reuse the established source guard here so

@@ -1,18 +1,928 @@
 {
-  "checkedAt": "2026-09-28T11:31:35.075Z",
-  "jobsBefore": 713,
-  "jobsAfter": 713,
+  "checkedAt": "2026-10-24T05:53:30.038Z",
+  "jobsBefore": 634,
+  "jobsAfter": 533,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10564076",
+      "company": "Amazon Web Services",
+      "title": "Data Center Controls Engineer, US-West, SFO",
+      "url": "https://www.amazon.jobs/en/jobs/10564076/data-center-controls-engineer-us-west-sfo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10564076/data-center-controls-engineer-us-west-sfo"
+    },
+    {
+      "id": "amazon-10564277",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10564277/engineering-operation-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10564277/engineering-operation-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10564326",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10564326/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10564326/data-center-technician"
+    },
+    {
+      "id": "amazon-10562844",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10562844/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10562844/data-center-technician"
+    },
+    {
+      "id": "amazon-10562253",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician, DCEO",
+      "url": "https://www.amazon.jobs/en/jobs/10562253/engineering-operation-technician-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10562253/engineering-operation-technician-dceo"
+    },
+    {
+      "id": "amazon-10562011",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10562011/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10562011/data-center-technician"
+    },
+    {
+      "id": "amazon-10562271",
+      "company": "Amazon Web Services",
+      "title": "Data Center Network Deploy Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10562271/data-center-network-deploy-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10562271/data-center-network-deploy-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10560996",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10560996/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10560996/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10560148",
+      "company": "Amazon Web Services",
+      "title": "Data Center Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10560148/data-center-engineering-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10560148/data-center-engineering-operations-technician"
+    },
+    {
+      "id": "amazon-10560909",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities, DCO Tech",
+      "url": "https://www.amazon.jobs/en/jobs/10560909/data-center-technician-dcc-communities-dco-tech",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10560909/data-center-technician-dcc-communities-dco-tech"
+    },
+    {
+      "id": "amazon-10560896",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities, DCO Tech",
+      "url": "https://www.amazon.jobs/en/jobs/10560896/data-center-technician-dcc-communities-dco-tech",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10560896/data-center-technician-dcc-communities-dco-tech"
+    },
+    {
+      "id": "amazon-10559374",
+      "company": "Amazon Web Services",
+      "title": "Decom Tech, ADC InfraOps Decom",
+      "url": "https://www.amazon.jobs/en/jobs/10559374/decom-tech-adc-infraops-decom",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10559374/decom-tech-adc-infraops-decom"
+    },
+    {
+      "id": "amazon-10558958",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10558958/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10558958/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10559352",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10559352/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10559352/data-center-technician"
+    },
+    {
+      "id": "amazon-10558318",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10558318/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10558318/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10558300",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10558300/engineering-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10558300/engineering-operations-technician"
+    },
+    {
+      "id": "amazon-10558097",
+      "company": "Amazon Web Services",
+      "title": "Data Center Network Deploy Technician, DCC Communities, GND-Deploy-IAD-ARG",
+      "url": "https://www.amazon.jobs/en/jobs/10558097/data-center-network-deploy-technician-dcc-communities-gnd-deploy-iad-arg",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10558097/data-center-network-deploy-technician-dcc-communities-gnd-deploy-iad-arg"
+    },
+    {
+      "id": "amazon-10556236",
+      "company": "Amazon Web Services",
+      "title": "Data Center Network Deploy Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10556236/data-center-network-deploy-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10556236/data-center-network-deploy-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10556131",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10556131/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10556131/data-center-technician"
+    },
+    {
+      "id": "amazon-10556857",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10556857/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10556857/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10556190",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10556190/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10556190/data-center-technician"
+    },
+    {
+      "id": "amazon-10555540",
+      "company": "Amazon Web Services",
+      "title": "Work Based Learning Program Data Center Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10555540/work-based-learning-program-data-center-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10555540/work-based-learning-program-data-center-operations-technician"
+    },
+    {
+      "id": "amazon-10554938",
+      "company": "Amazon Web Services",
+      "title": "Data Center Network Deploy Technician 3, DCC Communities, GND IAD Deploy",
+      "url": "https://www.amazon.jobs/en/jobs/10554938/data-center-network-deploy-technician-3-dcc-communities-gnd-iad-deploy",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10554938/data-center-network-deploy-technician-3-dcc-communities-gnd-iad-deploy"
+    },
+    {
+      "id": "amazon-10553127",
+      "company": "Amazon Web Services",
+      "title": "Data Center Controls Engineer, AWS Data Center Controls Team",
+      "url": "https://www.amazon.jobs/en/jobs/10553127/data-center-controls-engineer-aws-data-center-controls-team",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10553127/data-center-controls-engineer-aws-data-center-controls-team"
+    },
+    {
+      "id": "amazon-10553685",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10553685/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10553685/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10553520",
+      "company": "Amazon Web Services",
+      "title": "Data Center Network Deploy Technician, DCC Communities, ID Deploy",
+      "url": "https://www.amazon.jobs/en/jobs/10553520/data-center-network-deploy-technician-dcc-communities-id-deploy",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10553520/data-center-network-deploy-technician-dcc-communities-id-deploy"
+    },
+    {
+      "id": "amazon-10553809",
+      "company": "Amazon Web Services",
+      "title": "Infra Delivery Install Technician, Data Center Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10553809/infra-delivery-install-technician-data-center-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10553809/infra-delivery-install-technician-data-center-communities"
+    },
+    {
+      "id": "amazon-10553823",
+      "company": "Amazon Web Services",
+      "title": "Infra Delivery Install Tech IV, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10553823/infra-delivery-install-tech-iv-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10553823/infra-delivery-install-tech-iv-dcc-communities"
+    },
+    {
+      "id": "amazon-10552696",
+      "company": "Amazon Web Services",
+      "title": "Data Center Engineering Operations Technician , DCEO Engr 3",
+      "url": "https://www.amazon.jobs/en/jobs/10552696/data-center-engineering-operations-technician-dceo-engr-3",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10552696/data-center-engineering-operations-technician-dceo-engr-3"
+    },
+    {
+      "id": "amazon-10552777",
+      "company": "Amazon Web Services",
+      "title": "Infra Delivery Install Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10552777/infra-delivery-install-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10552777/infra-delivery-install-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10544696",
+      "company": "Amazon Web Services",
+      "title": "Data Center Engineering Operations Technician, DCC Communities, Amazon Web Services",
+      "url": "https://www.amazon.jobs/en/jobs/10544696/data-center-engineering-operations-technician-dcc-communities-amazon-web-services",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10544696/data-center-engineering-operations-technician-dcc-communities-amazon-web-services"
+    },
+    {
+      "id": "amazon-10544827",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10544827/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10544827/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10541178",
+      "company": "Amazon Web Services",
+      "title": "Product Lifecycle Mechanical Engineer, Data Center Mechanical Products & Services",
+      "url": "https://www.amazon.jobs/en/jobs/10541178/product-lifecycle-mechanical-engineer-data-center-mechanical-products-services",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10541178/product-lifecycle-mechanical-engineer-data-center-mechanical-products-services"
+    },
+    {
+      "id": "amazon-10538667",
+      "company": "Amazon Web Services",
+      "title": "Data Center Controls Engineer, AWS Data Center Controls Team",
+      "url": "https://www.amazon.jobs/en/jobs/10538667/data-center-controls-engineer-aws-data-center-controls-team",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10538667/data-center-controls-engineer-aws-data-center-controls-team"
+    },
+    {
+      "id": "amazon-10538991",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10538991/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10538991/data-center-technician"
+    },
+    {
+      "id": "amazon-10538990",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10538990/engineering-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10538990/engineering-operations-technician"
+    },
+    {
+      "id": "amazon-10537367",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, Amazon Ads BLX",
+      "url": "https://www.amazon.jobs/en/jobs/10537367/engineering-operations-technician-amazon-ads-blx",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10537367/engineering-operations-technician-amazon-ads-blx"
+    },
+    {
+      "id": "amazon-10536759",
+      "company": "Amazon Web Services",
+      "title": "Work Based Learning Program Data Center Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10536759/work-based-learning-program-data-center-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10536759/work-based-learning-program-data-center-operations-technician"
+    },
+    {
+      "id": "amazon-10536109",
+      "company": "Amazon Web Services",
+      "title": "ID Flex Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10536109/id-flex-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10536109/id-flex-technician"
+    },
+    {
+      "id": "amazon-10531731",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician - Night Shift, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10531731/data-center-technician-night-shift-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10531731/data-center-technician-night-shift-dcc-communities"
+    },
+    {
+      "id": "amazon-10531456",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, DCEO",
+      "url": "https://www.amazon.jobs/en/jobs/10531456/engineering-operations-technician-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10531456/engineering-operations-technician-dceo"
+    },
+    {
+      "id": "amazon-10531729",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician - Night Shift",
+      "url": "https://www.amazon.jobs/en/jobs/10531729/data-center-technician-night-shift",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10531729/data-center-technician-night-shift"
+    },
+    {
+      "id": "amazon-10529236",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, DCEO",
+      "url": "https://www.amazon.jobs/en/jobs/10529236/engineering-operations-technician-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10529236/engineering-operations-technician-dceo"
+    },
+    {
+      "id": "amazon-10528810",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10528810/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10528810/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10528819",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10528819/engineering-operations-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10528819/engineering-operations-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10526541",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician (Night Shift)",
+      "url": "https://www.amazon.jobs/en/jobs/10526541/engineering-operations-technician-night-shift",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10526541/engineering-operations-technician-night-shift"
+    },
+    {
+      "id": "amazon-10521901",
+      "company": "Amazon Web Services",
+      "title": "Cable Installation Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10521901/cable-installation-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10521901/cable-installation-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10522832",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, ADC InfraOps DCO",
+      "url": "https://www.amazon.jobs/en/jobs/10522832/data-center-technician-adc-infraops-dco",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10522832/data-center-technician-adc-infraops-dco"
+    },
+    {
+      "id": "amazon-10518974",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10518974/engineering-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10518974/engineering-operations-technician"
+    },
+    {
+      "id": "amazon-10520537",
+      "company": "Amazon Web Services",
+      "title": "Night Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10520537/night-data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10520537/night-data-center-technician"
+    },
+    {
+      "id": "amazon-10517116",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10517116/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10517116/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10516936",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10516936/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10516936/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10515850",
+      "company": "Amazon Web Services",
+      "title": "Data Center Engineering Operations Tech III, CMH58, CMH58",
+      "url": "https://www.amazon.jobs/en/jobs/10515850/data-center-engineering-operations-tech-iii-cmh58-cmh58",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10515850/data-center-engineering-operations-tech-iii-cmh58-cmh58"
+    },
+    {
+      "id": "amazon-10515688",
+      "company": "Amazon Web Services",
+      "title": "Data Center Engineering Operations Technician , DCEO Engr 4",
+      "url": "https://www.amazon.jobs/en/jobs/10515688/data-center-engineering-operations-technician-dceo-engr-4",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10515688/data-center-engineering-operations-technician-dceo-engr-4"
+    },
+    {
+      "id": "amazon-10516270",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, Data Center Engineering Operations (DCEO)",
+      "url": "https://www.amazon.jobs/en/jobs/10516270/engineering-operations-technician-data-center-engineering-operations-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10516270/engineering-operations-technician-data-center-engineering-operations-dceo"
+    },
+    {
+      "id": "amazon-10512849",
+      "company": "Amazon Web Services",
+      "title": "Data Center Controls Engineer, Data Center Capacity Delivery - Controls",
+      "url": "https://www.amazon.jobs/en/jobs/10512849/data-center-controls-engineer-data-center-capacity-delivery-controls",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10512849/data-center-controls-engineer-data-center-capacity-delivery-controls"
+    },
+    {
+      "id": "amazon-10511580",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10511580/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10511580/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10510193",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10510193/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10510193/data-center-technician"
+    },
+    {
+      "id": "amazon-10506948",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10506948/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10506948/data-center-technician"
+    },
+    {
+      "id": "amazon-10504947",
+      "company": "Amazon Web Services",
+      "title": "Night Data Center Technician, Data Center Operations",
+      "url": "https://www.amazon.jobs/en/jobs/10504947/night-data-center-technician-data-center-operations",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10504947/night-data-center-technician-data-center-operations"
+    },
+    {
+      "id": "amazon-10505734",
+      "company": "Amazon Web Services",
+      "title": "Work Based Learning Program Data Center Operations Technician - Night Shift",
+      "url": "https://www.amazon.jobs/en/jobs/10505734/work-based-learning-program-data-center-operations-technician-night-shift",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10505734/work-based-learning-program-data-center-operations-technician-night-shift"
+    },
+    {
+      "id": "amazon-10502971",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10502971/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10502971/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10499285",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician (AWS GovCloud Region)",
+      "url": "https://www.amazon.jobs/en/jobs/10499285/engineering-operations-technician-aws-govcloud-region",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10499285/engineering-operations-technician-aws-govcloud-region"
+    },
+    {
+      "id": "amazon-10493986",
+      "company": "Amazon Web Services",
+      "title": "Project Engineer, DC Construction, Data Center Construction",
+      "url": "https://www.amazon.jobs/en/jobs/10493986/project-engineer-dc-construction-data-center-construction",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10493986/project-engineer-dc-construction-data-center-construction"
+    },
+    {
+      "id": "amazon-10493037",
+      "company": "Amazon Web Services",
+      "title": "Data center technician 3, DCO",
+      "url": "https://www.amazon.jobs/en/jobs/10493037/data-center-technician-3-dco",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10493037/data-center-technician-3-dco"
+    },
+    {
+      "id": "amazon-10491668",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician (Night Shift), DCEO Engr",
+      "url": "https://www.amazon.jobs/en/jobs/10491668/engineering-operations-technician-night-shift-dceo-engr",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10491668/engineering-operations-technician-night-shift-dceo-engr"
+    },
+    {
+      "id": "amazon-10490822",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10490822/engineering-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10490822/engineering-operations-technician"
+    },
+    {
+      "id": "amazon-10482502",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10482502/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10482502/engineering-operation-technician"
+    },
+    {
+      "id": "amazon-10482552",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician Night Role",
+      "url": "https://www.amazon.jobs/en/jobs/10482552/data-center-technician-night-role",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10482552/data-center-technician-night-role"
+    },
+    {
+      "id": "amazon-10476326",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, South Central Region, Military & Veterans Encouraged",
+      "url": "https://www.amazon.jobs/en/jobs/10476326/data-center-technician-south-central-region-military-veterans-encouraged",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10476326/data-center-technician-south-central-region-military-veterans-encouraged"
+    },
+    {
+      "id": "amazon-10479086",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10479086/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "lever-cologix-5465ac4b-a315-439f-b325-8a742d4f4a88",
+      "company": "Cologix",
+      "title": "Data Center Electrician- 2nd shift (Sunday- Wednesday)",
+      "url": "https://jobs.lever.co/cologix/5465ac4b-a315-439f-b325-8a742d4f4a88",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/cologix/5465ac4b-a315-439f-b325-8a742d4f4a88"
+    },
+    {
+      "id": "lever-cologix-b4eabb77-fd33-4ccc-9555-586befae1e83",
+      "company": "Cologix",
+      "title": "Data Center Technician- 3rd shift (Sunday- Wednesday)",
+      "url": "https://jobs.lever.co/cologix/b4eabb77-fd33-4ccc-9555-586befae1e83",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/cologix/b4eabb77-fd33-4ccc-9555-586befae1e83"
+    },
+    {
+      "id": "amazon-10401649",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, DCEO",
+      "url": "https://www.amazon.jobs/en/jobs/10401649/engineering-operations-technician-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10401649/engineering-operations-technician-dceo"
+    },
+    {
+      "id": "icims-tierpoint-3045",
+      "company": "TierPoint",
+      "title": "Operations Technician I",
+      "url": "https://careers-tierpoint.icims.com/jobs/3045/operations-technician-i/job",
+      "state": "dead",
+      "status": 410,
+      "finalUrl": "https://careers-tierpoint.icims.com/jobs/3045/operations-technician-i/job"
+    },
+    {
+      "id": "icims-tierpoint-3041",
+      "company": "TierPoint",
+      "title": "Operations Technician I",
+      "url": "https://careers-tierpoint.icims.com/jobs/3041/operations-technician-i/job",
+      "state": "dead",
+      "status": 410,
+      "finalUrl": "https://careers-tierpoint.icims.com/jobs/3041/operations-technician-i/job"
+    },
+    {
+      "id": "icims-tierpoint-3036",
+      "company": "TierPoint",
+      "title": "Operations Technician I",
+      "url": "https://careers-tierpoint.icims.com/jobs/3036/operations-technician-i/job",
+      "state": "dead",
+      "status": 410,
+      "finalUrl": "https://careers-tierpoint.icims.com/jobs/3036/operations-technician-i/job"
+    },
+    {
+      "id": "icims-tierpoint-3028",
+      "company": "TierPoint",
+      "title": "Operations Technician I",
+      "url": "https://careers-tierpoint.icims.com/jobs/3028/operations-technician-i/job",
+      "state": "dead",
+      "status": 410,
+      "finalUrl": "https://careers-tierpoint.icims.com/jobs/3028/operations-technician-i/job"
+    },
+    {
+      "id": "lever-t5-290bc834-72f8-4134-bfad-5ed5fb1c2ef5",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/290bc834-72f8-4134-bfad-5ed5fb1c2ef5",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/290bc834-72f8-4134-bfad-5ed5fb1c2ef5"
+    },
+    {
+      "id": "lever-t5-35219eee-b456-4bd9-a9db-b0637a778dee",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/35219eee-b456-4bd9-a9db-b0637a778dee",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/35219eee-b456-4bd9-a9db-b0637a778dee"
+    },
+    {
+      "id": "lever-t5-42562b49-8abc-4cbd-be7f-7d446b6e9093",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/42562b49-8abc-4cbd-be7f-7d446b6e9093",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/42562b49-8abc-4cbd-be7f-7d446b6e9093"
+    },
+    {
+      "id": "lever-t5-5f313e75-c1d7-4f86-b5ac-740710cea4a5",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/5f313e75-c1d7-4f86-b5ac-740710cea4a5",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/5f313e75-c1d7-4f86-b5ac-740710cea4a5"
+    },
+    {
+      "id": "lever-t5-63688729-9ff4-44ed-a1c1-dd11e925a379",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/63688729-9ff4-44ed-a1c1-dd11e925a379",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/63688729-9ff4-44ed-a1c1-dd11e925a379"
+    },
+    {
+      "id": "lever-t5-67be2ccb-3e0c-490f-8f9d-9728f0b0bed4",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/67be2ccb-3e0c-490f-8f9d-9728f0b0bed4",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/67be2ccb-3e0c-490f-8f9d-9728f0b0bed4"
+    },
+    {
+      "id": "lever-t5-713777d9-7dd6-4a16-82e0-b4ff6204940f",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/713777d9-7dd6-4a16-82e0-b4ff6204940f",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/713777d9-7dd6-4a16-82e0-b4ff6204940f"
+    },
+    {
+      "id": "lever-t5-74d8cf0c-08b9-4640-afc0-56fa034d64b1",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/74d8cf0c-08b9-4640-afc0-56fa034d64b1",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/74d8cf0c-08b9-4640-afc0-56fa034d64b1"
+    },
+    {
+      "id": "lever-t5-827ecb9b-e17c-446b-a197-0afe2ff0b567",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/827ecb9b-e17c-446b-a197-0afe2ff0b567",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/827ecb9b-e17c-446b-a197-0afe2ff0b567"
+    },
+    {
+      "id": "lever-t5-a80ac706-6d94-4a6d-ba03-05d1213affe9",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/a80ac706-6d94-4a6d-ba03-05d1213affe9",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/a80ac706-6d94-4a6d-ba03-05d1213affe9"
+    },
+    {
+      "id": "lever-t5-b574f158-be7e-46c9-b734-c1940990fd35",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/b574f158-be7e-46c9-b734-c1940990fd35",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/b574f158-be7e-46c9-b734-c1940990fd35"
+    },
+    {
+      "id": "lever-t5-be338550-d13e-4498-9f91-39ea9b8460ed",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/be338550-d13e-4498-9f91-39ea9b8460ed",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/be338550-d13e-4498-9f91-39ea9b8460ed"
+    },
+    {
+      "id": "lever-t5-d6d609a6-2912-4a77-a8f3-e2da287cd484",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/d6d609a6-2912-4a77-a8f3-e2da287cd484",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/d6d609a6-2912-4a77-a8f3-e2da287cd484"
+    },
+    {
+      "id": "lever-t5-e9de6c61-e245-4b7d-a3af-b6bca9e0a5b3",
+      "company": "T5 Data Centers",
+      "title": "Critical Facilities Technician",
+      "url": "https://jobs.lever.co/t5datacenters/e9de6c61-e245-4b7d-a3af-b6bca9e0a5b3",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/e9de6c61-e245-4b7d-a3af-b6bca9e0a5b3"
+    },
+    {
+      "id": "lever-t5-06ea43fc-90c9-4384-a95e-febda331756e",
+      "company": "T5 Data Centers",
+      "title": "Electrical Apprentice",
+      "url": "https://jobs.lever.co/t5datacenters/06ea43fc-90c9-4384-a95e-febda331756e",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/06ea43fc-90c9-4384-a95e-febda331756e"
+    },
+    {
+      "id": "lever-t5-7cc92e72-0ae9-4610-9d01-339d6ff10253",
+      "company": "T5 Data Centers",
+      "title": "Electrical Apprentice",
+      "url": "https://jobs.lever.co/t5datacenters/7cc92e72-0ae9-4610-9d01-339d6ff10253",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/7cc92e72-0ae9-4610-9d01-339d6ff10253"
+    },
+    {
+      "id": "lever-t5-c713b793-3a1f-477c-92f2-e36bde5e25f6",
+      "company": "T5 Data Centers",
+      "title": "Electrical Apprentice",
+      "url": "https://jobs.lever.co/t5datacenters/c713b793-3a1f-477c-92f2-e36bde5e25f6",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/c713b793-3a1f-477c-92f2-e36bde5e25f6"
+    },
+    {
+      "id": "lever-t5-118b820a-cf06-45f4-8ae4-7878d6f4b7aa",
+      "company": "T5 Data Centers",
+      "title": "General Maintenance Technician",
+      "url": "https://jobs.lever.co/t5datacenters/118b820a-cf06-45f4-8ae4-7878d6f4b7aa",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/118b820a-cf06-45f4-8ae4-7878d6f4b7aa"
+    },
+    {
+      "id": "lever-t5-5ee06c9d-8049-48dc-8d46-768cdbb03311",
+      "company": "T5 Data Centers",
+      "title": "General Maintenance Technician",
+      "url": "https://jobs.lever.co/t5datacenters/5ee06c9d-8049-48dc-8d46-768cdbb03311",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/5ee06c9d-8049-48dc-8d46-768cdbb03311"
+    },
+    {
+      "id": "lever-t5-2174dae8-417b-4523-893b-c79c5773a45b",
+      "company": "T5 Data Centers",
+      "title": "Jr. Critical Facilities Technician (CFTJ)",
+      "url": "https://jobs.lever.co/t5datacenters/2174dae8-417b-4523-893b-c79c5773a45b",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/2174dae8-417b-4523-893b-c79c5773a45b"
+    },
+    {
+      "id": "lever-t5-5d997e4e-23da-4903-b875-9cf929a2c875",
+      "company": "T5 Data Centers",
+      "title": "Jr. Critical Facilities Technician (CFTJ)",
+      "url": "https://jobs.lever.co/t5datacenters/5d997e4e-23da-4903-b875-9cf929a2c875",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/5d997e4e-23da-4903-b875-9cf929a2c875"
+    },
+    {
+      "id": "lever-t5-653500cb-fa35-45ff-a34c-aeefb509d9f9",
+      "company": "T5 Data Centers",
+      "title": "Mechanical Apprentice",
+      "url": "https://jobs.lever.co/t5datacenters/653500cb-fa35-45ff-a34c-aeefb509d9f9",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/653500cb-fa35-45ff-a34c-aeefb509d9f9"
+    },
+    {
+      "id": "lever-t5-9e2a439e-c188-4b49-9bd7-bcf9d82aec95",
+      "company": "T5 Data Centers",
+      "title": "Mechanical Apprentice",
+      "url": "https://jobs.lever.co/t5datacenters/9e2a439e-c188-4b49-9bd7-bcf9d82aec95",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.lever.co/t5datacenters/9e2a439e-c188-4b49-9bd7-bcf9d82aec95"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],
   "warningJobLinks": [],
-  "careerEventsBefore": 7,
-  "careerEventsAfter": 7,
+  "careerEventsBefore": 0,
+  "careerEventsAfter": 0,
   "expiredCareerEventsRemoved": [],
   "deadCareerEventLinksRemoved": [],
   "blockedCareerEventLinks": [],

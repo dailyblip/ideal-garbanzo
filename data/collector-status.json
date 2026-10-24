@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-24T05:06:01.723Z",
-  "jobs": 634,
+  "updatedAt": "2026-10-24T05:53:14.816Z",
+  "jobs": 533,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,15 +10,15 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 609,
-    "trainee": 10,
+    "entry-level": 516,
+    "trainee": 7,
     "internship": 4,
-    "apprenticeship": 11
+    "apprenticeship": 6
   },
   "countsByExperience": {
-    "0-2-years": 373,
-    "2-5-years": 248,
-    "no-experience": 13
+    "0-2-years": 300,
+    "2-5-years": 227,
+    "no-experience": 6
   },
   "errors": [
     "Google Careers fallback freshness: removed 42 stale role(s); last healthy verification is 96.3h old."
@@ -34,7 +34,7 @@
     "officialSource": "https://www.tierpoint.com/about-us/careers/",
     "boardUrl": "https://careers-tierpoint.icims.com/jobs/search?hashed=-626007049&ss=1",
     "sourceHealthy": true,
-    "qualifyingRoles": 8,
+    "qualifyingRoles": 4,
     "usedPreviousSnapshot": false,
     "listing": {
       "pagesAttempted": 2,
@@ -74,7 +74,18 @@
         "title": "Sr Revenue Assurance Analyst",
         "location": ""
       }
-    ]
+    ],
+    "qaDeadSnapshotReconciliation": {
+      "checkedAt": "2026-10-24T05:53:30.038Z",
+      "removedRoles": 4,
+      "removedRequisitionIds": [
+        "3045",
+        "3041",
+        "3036",
+        "3028"
+      ],
+      "policy": "Nightly QA-confirmed dead TierPoint detail links are removed from the authoritative iCIMS snapshot so stale roles do not return after live QA removes them from the public feed."
+    }
   },
   "sabeyCareers": {
     "officialSource": "https://sabey.com/about/careers",
@@ -247,11 +258,41 @@
     "listedJobs": 97,
     "usJobs": 87,
     "candidateRoles": 30,
-    "qualifyingRoles": 23,
+    "qualifyingRoles": 0,
     "rejectedOutOfScopeTitle": 57,
     "rejectedSeniorTitle": 4,
     "rejectedOver5Years": 0,
-    "rejectedUnknownExperience": 3
+    "rejectedUnknownExperience": 3,
+    "qaDeadSnapshotReconciliation": {
+      "checkedAt": "2026-10-24T05:53:30.038Z",
+      "removedRoles": 23,
+      "removedRequisitionIds": [
+        "290bc834-72f8-4134-bfad-5ed5fb1c2ef5",
+        "35219eee-b456-4bd9-a9db-b0637a778dee",
+        "42562b49-8abc-4cbd-be7f-7d446b6e9093",
+        "5f313e75-c1d7-4f86-b5ac-740710cea4a5",
+        "63688729-9ff4-44ed-a1c1-dd11e925a379",
+        "67be2ccb-3e0c-490f-8f9d-9728f0b0bed4",
+        "713777d9-7dd6-4a16-82e0-b4ff6204940f",
+        "74d8cf0c-08b9-4640-afc0-56fa034d64b1",
+        "827ecb9b-e17c-446b-a197-0afe2ff0b567",
+        "a80ac706-6d94-4a6d-ba03-05d1213affe9",
+        "b574f158-be7e-46c9-b734-c1940990fd35",
+        "be338550-d13e-4498-9f91-39ea9b8460ed",
+        "d6d609a6-2912-4a77-a8f3-e2da287cd484",
+        "e9de6c61-e245-4b7d-a3af-b6bca9e0a5b3",
+        "06ea43fc-90c9-4384-a95e-febda331756e",
+        "7cc92e72-0ae9-4610-9d01-339d6ff10253",
+        "c713b793-3a1f-477c-92f2-e36bde5e25f6",
+        "118b820a-cf06-45f4-8ae4-7878d6f4b7aa",
+        "5ee06c9d-8049-48dc-8d46-768cdbb03311",
+        "2174dae8-417b-4523-893b-c79c5773a45b",
+        "5d997e4e-23da-4903-b875-9cf929a2c875",
+        "653500cb-fa35-45ff-a34c-aeefb509d9f9",
+        "9e2a439e-c188-4b49-9bd7-bcf9d82aec95"
+      ],
+      "policy": "Remove only T5 requisitions whose exact official Lever detail URL was confirmed dead by current nightly QA."
+    }
   },
   "majorSources": {
     "attempted": 6,
@@ -2890,7 +2931,7 @@
     "uniqueCandidates": 1194,
     "freshQualifyingRoles": 27,
     "preservedPreviousRoles": 0,
-    "qualifyingRoles": 27,
+    "qualifyingRoles": 174,
     "drops": {
       "nonUs": 319,
       "title": 560,
@@ -2910,6 +2951,85 @@
       "checkedAt": "2026-09-30T05:27:25.850Z",
       "maxAgeHours": 96,
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
+    },
+    "qaDeadSnapshotReconciliation": {
+      "checkedAt": "2026-10-24T05:53:30.038Z",
+      "removedRoles": 72,
+      "removedRequisitionIds": [
+        "10564076",
+        "10555540",
+        "10553127",
+        "10536759",
+        "10521901",
+        "10538667",
+        "10505734",
+        "10512849",
+        "10564277",
+        "10562844",
+        "10560896",
+        "10560909",
+        "10562253",
+        "10562011",
+        "10559374",
+        "10560996",
+        "10558318",
+        "10564326",
+        "10560148",
+        "10558300",
+        "10562271",
+        "10558097",
+        "10556236",
+        "10556190",
+        "10556131",
+        "10558958",
+        "10554938",
+        "10552696",
+        "10553685",
+        "10544696",
+        "10544827",
+        "10553520",
+        "10541178",
+        "10537367",
+        "10536109",
+        "10552777",
+        "10553809",
+        "10553823",
+        "10538991",
+        "10556857",
+        "10529236",
+        "10538990",
+        "10559352",
+        "10531731",
+        "10531456",
+        "10522832",
+        "10518974",
+        "10531729",
+        "10526541",
+        "10516936",
+        "10520537",
+        "10517116",
+        "10515850",
+        "10515688",
+        "10516270",
+        "10510193",
+        "10511580",
+        "10506948",
+        "10528819",
+        "10528810",
+        "10504947",
+        "10502971",
+        "10499285",
+        "10493986",
+        "10493037",
+        "10490822",
+        "10482552",
+        "10482502",
+        "10476326",
+        "10479086",
+        "10401649",
+        "10491668"
+      ],
+      "policy": "Nightly QA-confirmed 404/410 or generic-career redirects are removed from the preserved AWS snapshot so stale roles do not return during an active source fallback."
     }
   },
   "microsoftDatacenter": {
@@ -3182,9 +3302,9 @@
       "retiredEarly": false,
       "retiredBeforeOriginalExpiryAt": null,
       "minimumRemainingHours": 0,
-      "checkedAt": "2026-10-24T05:06:01.723Z",
+      "checkedAt": "2026-10-24T05:53:14.816Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 838.4,
+      "expiredAgeHours": 839.2,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3314,45 +3434,43 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-09-30T09:01:24.530Z",
+    "updatedAt": "2026-10-24T05:53:14.879Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 634,
+    "regionAssigned": 533,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
-      "southeast": 104,
-      "west": 104,
-      "midwest": 120,
-      "mid-atlantic": 124,
-      "texas": 104,
-      "southwest": 59,
-      "northeast": 18,
+      "southeast": 85,
+      "west": 88,
+      "midwest": 95,
+      "mid-atlantic": 102,
+      "texas": 94,
+      "southwest": 55,
+      "northeast": 13,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-09-30T09:01:24.586Z",
-    "before": 694,
-    "after": 694,
+    "checkedAt": "2026-10-24T05:53:14.923Z",
+    "before": 634,
+    "after": 634,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-09-28T11:31:35.075Z",
-    "publishedJobs": 713,
-    "removedJobs": 0,
-    "activeCareerEvents": 7,
+    "checkedAt": "2026-10-24T05:53:30.038Z",
+    "publishedJobs": 533,
+    "removedJobs": 101,
+    "activeCareerEvents": 0,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1408,
-    "currentJobs": 634,
-    "scopeCompany": "Novva Data Centers",
-    "scopedJobs": 0,
+    "currentJobs": 533,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3360,8 +3478,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 0,
-    "updatedAt": "2026-10-06T05:44:59.552Z"
+    "firstSeenRecencyFallbackJobs": 36,
+    "updatedAt": "2026-10-24T05:53:30.566Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3477,11 +3595,20 @@
     "listedJobs": 23,
     "usJobs": 16,
     "candidateRoles": 8,
-    "qualifyingRoles": 7,
+    "qualifyingRoles": 5,
     "rejectedOutOfScopeTitle": 8,
     "rejectedSeniorTitle": 0,
     "rejectedOver5Years": 0,
-    "rejectedUnknownExperience": 0
+    "rejectedUnknownExperience": 0,
+    "qaDeadSnapshotReconciliation": {
+      "checkedAt": "2026-10-24T05:53:30.038Z",
+      "removedRoles": 2,
+      "removedRequisitionIds": [
+        "5465ac4b-a315-439f-b325-8a742d4f4a88",
+        "b4eabb77-fd33-4ccc-9555-586befae1e83"
+      ],
+      "policy": "Remove only Cologix requisitions whose exact official Lever detail URL was confirmed dead by current nightly QA."
+    }
   },
   "flexential": {
     "checkedAt": "2026-09-30T04:18:05.801Z",

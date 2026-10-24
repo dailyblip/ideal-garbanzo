@@ -18,6 +18,20 @@ const SOURCES = [
     statusKey: 'tierPoint',
     identity: tierPointRequisitionId,
     policy: 'Nightly QA-confirmed dead TierPoint detail links are removed from the authoritative iCIMS snapshot so stale roles do not return after live QA removes them from the public feed.'
+  },
+  {
+    company: 'Cologix',
+    snapshotPath: 'data/cologix-jobs.json',
+    statusKey: 'cologix',
+    identity: record => leverRequisitionId(record, 'cologix', 'lever-cologix'),
+    policy: 'Remove only Cologix requisitions whose exact official Lever detail URL was confirmed dead by current nightly QA.'
+  },
+  {
+    company: 'T5 Data Centers',
+    snapshotPath: 'data/t5-data-centers-jobs.json',
+    statusKey: 't5DataCenters',
+    identity: record => leverRequisitionId(record, 't5datacenters', 'lever-t5'),
+    policy: 'Remove only T5 requisitions whose exact official Lever detail URL was confirmed dead by current nightly QA.'
   }
 ];
 
@@ -47,6 +61,22 @@ function tierPointRequisitionId(record = {}) {
   } catch {
     return '';
   }
+}
+
+// Return an exact employer-board requisition ID only when the official Lever
+// detail URL is valid and agrees with its stored ID (when one is provided).
+// This deliberately rejects cross-employer and generic-careers redirects.
+function leverRequisitionId(record = {}, employerBoard, recordIdPrefix) {
+  let parsed;
+  try { parsed = new URL(clean(record?.sourceUrl || record?.url)); }
+  catch { return ''; }
+  if (parsed.protocol !== 'https:' || parsed.hostname.toLowerCase() !== 'jobs.lever.co') return '';
+  const match = parsed.pathname.match(/^\/([^/]+)\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/?$/i);
+  if (!match || match[1].toLowerCase() !== employerBoard) return '';
+  const fromUrl = match[2].toLowerCase();
+  const fromId = clean(record?.id);
+  if (fromId && fromId.toLowerCase() !== `${recordIdPrefix}-${fromUrl}`) return '';
+  return fromUrl;
 }
 
 function reportIsCurrent(report = {}, status = {}, nowMs = Date.now()) {
@@ -118,22 +148,40 @@ function sampleTierPoint(number) {
   };
 }
 
+function sampleLever(company, board, prefix, uuid) {
+  return {
+    id: `${prefix}-${uuid}`,
+    company,
+    sourceUrl: `https://jobs.lever.co/${board}/${uuid}`
+  };
+}
+
 function runTests() {
   const checkedAt = '2026-09-22T09:40:00.000Z';
   const nowMs = Date.parse('2026-09-22T09:41:00.000Z');
   const status = {
     postQa: { checkedAt },
     amazonDatacenter: { qualifyingRoles: 3, preservedPreviousRoles: 3 },
-    tierPoint: { qualifyingRoles: 3, sourceHealthy: true }
+    tierPoint: { qualifyingRoles: 3, sourceHealthy: true },
+    cologix: { qualifyingRoles: 3, sourceHealthy: true },
+    t5DataCenters: { qualifyingRoles: 3, sourceHealthy: true }
   };
   const amazon = SOURCES[0];
   const tierPoint = SOURCES[1];
+  const cologix = SOURCES[2];
+  const t5 = SOURCES[3];
+  const c1 = sampleLever('Cologix', 'cologix', 'lever-cologix', '5465ac4b-a315-439f-b325-8a742d4f4a88');
+  const c2 = sampleLever('Cologix', 'cologix', 'lever-cologix', 'aed96509-3f41-487e-acd0-8d7fbaa386b5');
+  const t1 = sampleLever('T5 Data Centers', 't5datacenters', 'lever-t5', '290bc834-72f8-4134-bfad-5ed5fb1c2ef5');
+  const t2 = sampleLever('T5 Data Centers', 't5datacenters', 'lever-t5', '35219eee-b456-4bd9-a9db-b0637a778dee');
   const report = {
     checkedAt,
     deadJobLinksRemoved: [
       { ...sampleAmazon(1002), state: 'dead', status: 404, url: sampleAmazon(1002).sourceUrl },
       { id: '', company: 'Amazon Web Services', state: 'dead', status: 410, url: sampleAmazon(1003).sourceUrl },
       { ...sampleTierPoint(2959), state: 'dead', status: 404, url: sampleTierPoint(2959).sourceUrl },
+      { ...c1, url: c1.sourceUrl, state: 'dead', status: 404 },
+      { ...t1, url: t1.sourceUrl, state: 'dead', status: 410 },
       { id: 'other-1', company: 'Other Employer', state: 'dead', status: 404, url: 'https://example.com/jobs/1' }
     ]
   };
@@ -154,12 +202,27 @@ function runTests() {
   assert(tierPointStatus.tierPoint.qualifyingRoles === 2, 'TierPoint qualifying count must follow the reconciled snapshot.');
   assert(tierPointStatus.tierPoint.sourceHealthy === true, 'Nightly detail-link reconciliation must not invent a new listing-source health state.');
 
+  result = reconcileSnapshot({ snapshot: [c1, c2], report, status, source: cologix, nowMs });
+  assert(result.removed.length === 1 && result.kept.length === 1 && result.kept[0].id === c2.id, 'current QA must prune only the exact dead Cologix requisition.');
+  const cStatus = structuredClone(status);
+  applySourceStatus(cStatus, cologix, result.kept.length, result.removed, checkedAt);
+  assert(cStatus.cologix.qualifyingRoles === 1 && cStatus.cologix.sourceHealthy, 'Cologix status count must follow the pruned snapshot without fabricating source-health evidence.');
+
+  result = reconcileSnapshot({ snapshot: [t1, t2], report, status, source: t5, nowMs });
+  assert(result.removed.length === 1 && result.kept.length === 1 && result.kept[0].id === t2.id, 'current QA must prune only the exact dead T5 requisition.');
+  assert(leverRequisitionId({ ...t1, sourceUrl: c1.sourceUrl }, 't5datacenters', 'lever-t5') === '', 'Lever evidence from a different employer board must not match.');
+  assert(leverRequisitionId({ ...t1, sourceUrl: 'https://jobs.lever.co/t5datacenters' }, 't5datacenters', 'lever-t5') === '', 'Generic Lever careers pages must not be treated as requisition URLs.');
+  assert(leverRequisitionId({ ...t1, id: t2.id }, 't5datacenters', 'lever-t5') === '', 'Conflicting stored Lever IDs must not be reconciled.');
+
+  result = reconcileSnapshot({ snapshot: [c1], report: { ...report, checkedAt: '2026-09-22T06:00:00.000Z' }, status, source: cologix, nowMs });
+  assert(result.skipped && result.removed.length === 0, 'outdated Cologix QA evidence must never prune a snapshot.');
+
   result = reconcileSnapshot({ snapshot: [sampleAmazon(1001)], report: { ...report, checkedAt: '2026-09-22T06:00:00.000Z' }, status, source: amazon, nowMs });
   assert(result.skipped && result.removed.length === 0, 'mismatched QA report/status timestamps must never prune a snapshot.');
   result = reconcileSnapshot({ snapshot: [sampleTierPoint(2959)], report, status, source: tierPoint, nowMs: Date.parse('2026-09-22T12:01:00.000Z') });
   assert(result.skipped && result.removed.length === 0, 'stale QA reports must never prune a snapshot.');
 
-  console.log('QA dead-snapshot reconciliation regression tests passed for AWS and TierPoint.');
+  console.log('QA dead-snapshot reconciliation regression tests passed for AWS, TierPoint, Cologix and T5.');
 }
 
 if (process.argv.includes('--test')) {

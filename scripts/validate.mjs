@@ -16,14 +16,7 @@ await import('./validate-cloudhq.mjs');
 await import('./validate-amazon-snapshot.mjs');
 await import('./validate-google-snapshot.mjs');
 await import('./validate-oracle-snapshot.mjs');
-// Nightly QA may commit verified removals even when upstream collectors are stale.
-// This explicit flag is for pre-commit structural checks only; production deploy
-// runs the full freshness guard without exception.
-if (process.argv.includes('--qa-precommit')) {
-  console.log('QA pre-commit validation: source freshness will be gated separately before deployment.');
-} else {
-  await import('./validate-data-freshness.mjs');
-}
+await import('./validate-data-freshness.mjs');
 
 const amazonJobs = JSON.parse(await readFile('data/amazon-jobs.json', 'utf8'));
 if (!Array.isArray(amazonJobs)) throw new Error('amazon-jobs.json must contain an array');

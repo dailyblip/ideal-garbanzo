@@ -189,7 +189,7 @@ const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>
 if (stylesheetLinks.length !== 1 || !stylesheetLinks[0][0].includes('assets/styles.css')) throw new Error('Homepage must use exactly one stylesheet: assets/styles.css');
 
 const employerHtml = await readFile('employers/index.html','utf8');
-for (const phrase of ['FEATURE A JOB','$99','$149','HIGHLIGHTED JOB','SPOTLIGHT POSITION','LIVE PLACEMENT EXAMPLES']) {
+for (const phrase of ['FEATURE A JOB','$99','$149','HIGHLIGHTED JOB','SPOTLIGHT POSITION','PLACEMENT STATUS']) {
   if (!employerHtml.includes(phrase)) throw new Error(`Employer promotion page missing: ${phrase}`);
 }
 if (/<style[\s>]/i.test(employerHtml) || /\sstyle=["']/i.test(employerHtml)) throw new Error('Employer promotion page must not use inline styles');

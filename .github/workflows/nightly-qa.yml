@@ -47,16 +47,18 @@ jobs:
         run: node scripts/refresh-region-status.mjs
       - name: Preserve job discovery history after QA
         run: node scripts/stamp-job-history.mjs
-      # Safe, confirmed-dead removals must not be lost solely because a separate
-      # collector is older than its deployment verification window.
-      - name: Validate cleaned site data (no freshness bypass in deploy)
+      # Structural QA and authoritative snapshot parity before committing safe
+      # removals. The full deployed feed still requires every freshness guard.
+      - name: Validate confirmed-dead cleanup and source parity
         run: |
-          node scripts/validate.mjs --qa-precommit
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs
           node scripts/validate-promotions.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-homepage-contract.mjs
-          node scripts/validate-priority-employer-sources.mjs
           node scripts/validate-coresite-fallback.mjs
+          node scripts/validate-career-event-freshness.mjs
+          node scripts/validate-priority-region-coverage.mjs
       - name: Print QA report
         run: cat data/qa-report.json
       - name: Commit safe QA corrections when needed

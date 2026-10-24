@@ -47,9 +47,11 @@ jobs:
         run: node scripts/refresh-region-status.mjs
       - name: Preserve job discovery history after QA
         run: node scripts/stamp-job-history.mjs
-      - name: Validate cleaned site data
+      # Safe, confirmed-dead removals must not be lost solely because a separate
+      # collector is older than its deployment verification window.
+      - name: Validate cleaned site data (no freshness bypass in deploy)
         run: |
-          node scripts/validate.mjs
+          node scripts/validate.mjs --qa-precommit
           node scripts/validate-promotions.mjs
           node scripts/validate-job-history.mjs
           node scripts/validate-homepage-contract.mjs
@@ -73,6 +75,10 @@ jobs:
             git push origin HEAD:main
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+      # Preserve fail-closed source freshness for any production deployment.
+      - name: Enforce all source freshness checks before deployment
+        if: steps.corrections.outputs.changed == 'true'
+        run: node scripts/validate-data-freshness.mjs
       - name: Deploy corrected feed
         if: steps.corrections.outputs.changed == 'true'
         env:

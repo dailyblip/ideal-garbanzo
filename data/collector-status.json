@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T05:43:41.130Z",
+  "updatedAt": "2026-10-25T09:37:16.340Z",
   "jobs": 520,
   "sourcesAttempted": 20,
   "providers": {
@@ -3243,9 +3243,9 @@
       "retiredEarly": false,
       "retiredBeforeOriginalExpiryAt": null,
       "minimumRemainingHours": 0,
-      "checkedAt": "2026-10-25T05:43:41.130Z",
+      "checkedAt": "2026-10-25T09:37:16.340Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 863,
+      "expiredAgeHours": 866.9,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3375,7 +3375,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-10-25T05:43:41.185Z",
+    "updatedAt": "2026-10-25T09:37:16.407Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 520,
@@ -3394,7 +3394,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-10-25T05:43:41.219Z",
+    "checkedAt": "2026-10-25T09:37:16.448Z",
     "before": 520,
     "after": 520,
     "removed": 0,
@@ -3402,7 +3402,7 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-10-25T05:43:55.325Z",
+    "checkedAt": "2026-10-25T09:37:34.985Z",
     "publishedJobs": 520,
     "removedJobs": 0,
     "activeCareerEvents": 0,
@@ -3420,7 +3420,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 36,
-    "updatedAt": "2026-10-25T05:44:02.238Z"
+    "updatedAt": "2026-10-25T09:37:35.176Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

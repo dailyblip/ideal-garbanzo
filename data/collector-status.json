@@ -442,19 +442,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-10-26T22:48:59.621Z",
+          "checkedAt": "2026-10-27T22:27:56.516Z",
           "roles": 22,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 271,
-          "uniqueRows": 271,
+          "reportedRows": 268,
+          "uniqueRows": 268,
           "pagesAttempted": 14,
           "pagesSucceeded": 14,
-          "lastHealthyAt": "2026-10-26T22:48:59.621Z",
-          "expiresAt": "2026-10-30T22:48:59.621Z"
+          "lastHealthyAt": "2026-10-27T22:27:56.516Z",
+          "expiresAt": "2026-10-31T22:27:56.516Z"
         },
         "publishedRoles": 22,
         "publicationFilteredRoles": 29
@@ -511,42 +511,42 @@
           "company": "Vantage Data Centers",
           "state": "healthy",
           "roles": 9,
-          "reportedRows": 181,
+          "reportedRows": 184,
           "detailVerified": "3/3"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 271,
+          "reportedRows": 265,
           "detailVerified": "3/3"
         },
         {
           "company": "CyrusOne",
           "state": "healthy",
           "roles": 56,
-          "reportedRows": 150,
+          "reportedRows": 148,
           "detailVerified": "3/3"
         },
         {
           "company": "STACK Infrastructure",
           "state": "healthy",
           "roles": 6,
-          "reportedRows": 50,
+          "reportedRows": 54,
           "detailVerified": "3/3"
         },
         {
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 22,
-          "reportedRows": 270,
+          "reportedRows": 268,
           "detailVerified": "3/3"
         },
         {
           "company": "Aligned Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 166,
+          "reportedRows": 165,
           "detailVerified": "3/3"
         }
       ]

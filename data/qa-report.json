@@ -1,12 +1,67 @@
 {
-  "checkedAt": "2026-10-26T10:49:22.574Z",
+  "checkedAt": "2026-10-27T05:53:55.508Z",
   "jobsBefore": 520,
-  "jobsAfter": 520,
+  "jobsAfter": 514,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10543897",
+      "company": "Amazon Web Services",
+      "title": "Electrical Engineer, Data Center, Colocation Regional Engineering - AMER",
+      "url": "https://www.amazon.jobs/en/jobs/10543897/electrical-engineer-data-center-colocation-regional-engineering-amer",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10543897/electrical-engineer-data-center-colocation-regional-engineering-amer"
+    },
+    {
+      "id": "amazon-10530378",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician - Night Shift, DCEO",
+      "url": "https://www.amazon.jobs/en/jobs/10530378/engineering-operations-technician-night-shift-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10530378/engineering-operations-technician-night-shift-dceo"
+    },
+    {
+      "id": "ashby-lambda-0bdbbcbdc49122",
+      "company": "Lambda",
+      "title": "Data Center Asset Management Specialist",
+      "url": "https://jobs.ashbyhq.com/lambda/4f11316f-81fe-4871-86ff-e65b167741d3",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.ashbyhq.com/lambda/4f11316f-81fe-4871-86ff-e65b167741d3"
+    },
+    {
+      "id": "ashby-crusoe-70ba1809ab44f2",
+      "company": "Crusoe",
+      "title": "Commissioning Engineer II",
+      "url": "https://jobs.ashbyhq.com/crusoe/e1dc74de-20ae-43f3-bb72-e545bab59db4",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.ashbyhq.com/crusoe/e1dc74de-20ae-43f3-bb72-e545bab59db4"
+    },
+    {
+      "id": "amazon-10487091",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician Nights Shift",
+      "url": "https://www.amazon.jobs/en/jobs/10487091/data-center-technician-nights-shift",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10487091/data-center-technician-nights-shift"
+    },
+    {
+      "id": "ashby-lambda-623bc02be173a8",
+      "company": "Lambda",
+      "title": "Data Center Operations Systems Engineer III (Los Angeles)",
+      "url": "https://jobs.ashbyhq.com/lambda/250d4eab-8ebf-4a56-b7f2-b3044bbbda48",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.ashbyhq.com/lambda/250d4eab-8ebf-4a56-b7f2-b3044bbbda48"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

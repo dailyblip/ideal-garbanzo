@@ -1,12 +1,67 @@
 {
-  "checkedAt": "2026-10-27T10:15:25.973Z",
+  "checkedAt": "2026-10-28T05:49:41.319Z",
   "jobsBefore": 514,
-  "jobsAfter": 514,
+  "jobsAfter": 508,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10558960",
+      "company": "Amazon Web Services",
+      "title": "Data Center Tech Mid Shift",
+      "url": "https://www.amazon.jobs/en/jobs/10558960/data-center-tech-mid-shift",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10558960/data-center-tech-mid-shift"
+    },
+    {
+      "id": "amazon-10530055",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, DCEO",
+      "url": "https://www.amazon.jobs/en/jobs/10530055/engineering-operations-technician-dceo",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10530055/engineering-operations-technician-dceo"
+    },
+    {
+      "id": "amazon-10525840",
+      "company": "Amazon Web Services",
+      "title": "Installation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10525840/installation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10525840/installation-technician"
+    },
+    {
+      "id": "amazon-10499587",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, CLT DCO",
+      "url": "https://www.amazon.jobs/en/jobs/10499587/data-center-technician-clt-dco",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10499587/data-center-technician-clt-dco"
+    },
+    {
+      "id": "amazon-10473324",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10473324/engineering-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10473324/engineering-operations-technician"
+    },
+    {
+      "id": "amazon-10444674",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10444674/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10444674/data-center-technician-dcc-communities"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

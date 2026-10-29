@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-29T06:32:01.428Z",
-  "jobs": 503,
+  "updatedAt": "2026-10-29T11:21:07.736Z",
+  "jobs": 502,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,13 +10,13 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 487,
+    "entry-level": 486,
     "trainee": 6,
     "internship": 4,
     "apprenticeship": 6
   },
   "countsByExperience": {
-    "0-2-years": 275,
+    "0-2-years": 274,
     "2-5-years": 223,
     "no-experience": 5
   },
@@ -2928,7 +2928,7 @@
     "uniqueCandidates": 1194,
     "freshQualifyingRoles": 27,
     "preservedPreviousRoles": 0,
-    "qualifyingRoles": 148,
+    "qualifyingRoles": 147,
     "drops": {
       "nonUs": 319,
       "title": 560,
@@ -2950,13 +2950,10 @@
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     },
     "qaDeadSnapshotReconciliation": {
-      "checkedAt": "2026-10-29T05:50:52.009Z",
-      "removedRoles": 4,
+      "checkedAt": "2026-10-29T11:21:23.208Z",
+      "removedRoles": 1,
       "removedRequisitionIds": [
-        "10543952",
-        "10535608",
-        "10509698",
-        "10528397"
+        "10482557"
       ],
       "policy": "Nightly QA-confirmed 404/410 or generic-career redirects are removed from the preserved AWS snapshot so stale roles do not return during an active source fallback."
     }
@@ -3231,9 +3228,9 @@
       "retiredEarly": false,
       "retiredBeforeOriginalExpiryAt": null,
       "minimumRemainingHours": 0,
-      "checkedAt": "2026-10-29T06:32:01.428Z",
+      "checkedAt": "2026-10-29T11:21:07.736Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 959.8,
+      "expiredAgeHours": 964.7,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3363,10 +3360,10 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-10-29T05:50:38.730Z",
+    "updatedAt": "2026-10-29T11:21:07.782Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 503,
+    "regionAssigned": 502,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
@@ -3375,31 +3372,31 @@
       "west": 83,
       "midwest": 88,
       "mid-atlantic": 98,
-      "texas": 85,
+      "texas": 84,
       "southwest": 53,
       "northeast": 13,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-10-29T05:50:38.784Z",
-    "before": 508,
-    "after": 508,
+    "checkedAt": "2026-10-29T11:21:07.817Z",
+    "before": 503,
+    "after": 503,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-10-29T05:50:52.009Z",
-    "publishedJobs": 503,
-    "removedJobs": 5,
+    "checkedAt": "2026-10-29T11:21:23.208Z",
+    "publishedJobs": 502,
+    "removedJobs": 1,
     "activeCareerEvents": 0,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1408,
-    "currentJobs": 503,
+    "currentJobs": 502,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3408,7 +3405,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 35,
-    "updatedAt": "2026-10-29T05:50:59.640Z"
+    "updatedAt": "2026-10-29T11:21:30.201Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

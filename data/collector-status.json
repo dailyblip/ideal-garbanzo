@@ -439,19 +439,19 @@
           "sourceHealthy": true,
           "active": false,
           "expired": false,
-          "checkedAt": "2026-10-28T22:44:28.358Z",
+          "checkedAt": "2026-10-29T22:54:19.784Z",
           "roles": 22,
           "maxAgeHours": 96,
           "listingComplete": true,
           "detailHealthy": true,
           "detailAttempted": 3,
           "detailSucceeded": 3,
-          "reportedRows": 264,
-          "uniqueRows": 264,
-          "pagesAttempted": 14,
-          "pagesSucceeded": 14,
-          "lastHealthyAt": "2026-10-28T22:44:28.358Z",
-          "expiresAt": "2026-11-01T22:44:28.358Z"
+          "reportedRows": 260,
+          "uniqueRows": 260,
+          "pagesAttempted": 13,
+          "pagesSucceeded": 13,
+          "lastHealthyAt": "2026-10-29T22:54:19.784Z",
+          "expiresAt": "2026-11-02T22:54:19.784Z"
         },
         "publishedRoles": 22,
         "publicationFilteredRoles": 29
@@ -508,42 +508,42 @@
           "company": "Vantage Data Centers",
           "state": "healthy",
           "roles": 9,
-          "reportedRows": 178,
+          "reportedRows": 177,
           "detailVerified": "3/3"
         },
         {
           "company": "QTS Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 270,
+          "reportedRows": 271,
           "detailVerified": "3/3"
         },
         {
           "company": "CyrusOne",
           "state": "healthy",
           "roles": 56,
-          "reportedRows": 145,
+          "reportedRows": 142,
           "detailVerified": "3/3"
         },
         {
           "company": "STACK Infrastructure",
           "state": "healthy",
           "roles": 6,
-          "reportedRows": 53,
+          "reportedRows": 50,
           "detailVerified": "3/3"
         },
         {
           "company": "NTT Global Data Centers",
           "state": "healthy",
           "roles": 22,
-          "reportedRows": 261,
+          "reportedRows": 260,
           "detailVerified": "3/3"
         },
         {
           "company": "Aligned Data Centers",
           "state": "healthy",
           "roles": 36,
-          "reportedRows": 168,
+          "reportedRows": 169,
           "detailVerified": "3/3"
         }
       ]

@@ -1,12 +1,58 @@
 {
-  "checkedAt": "2026-10-28T11:05:25.607Z",
+  "checkedAt": "2026-10-29T05:50:52.009Z",
   "jobsBefore": 508,
-  "jobsAfter": 508,
+  "jobsAfter": 503,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10543952",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10543952/engineering-operations-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10543952/engineering-operations-technician"
+    },
+    {
+      "id": "amazon-10535608",
+      "company": "Amazon Web Services",
+      "title": "Clearable Engineering Operations Technician, ADC InfraOps DCEO, ADC (Amazon Dedicated Cloud)",
+      "url": "https://www.amazon.jobs/en/jobs/10535608/clearable-engineering-operations-technician-adc-infraops-dceo-adc-amazon-dedicated-cloud",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10535608/clearable-engineering-operations-technician-adc-infraops-dceo-adc-amazon-dedicated-cloud"
+    },
+    {
+      "id": "amazon-10528397",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operations Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10528397/engineering-operations-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10528397/engineering-operations-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10509698",
+      "company": "Amazon Web Services",
+      "title": "Mechanical Product Design Engineer, Data Center Eng, Mech Products and Services",
+      "url": "https://www.amazon.jobs/en/jobs/10509698/mechanical-product-design-engineer-data-center-eng-mech-products-and-services",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10509698/mechanical-product-design-engineer-data-center-eng-mech-products-and-services"
+    },
+    {
+      "id": "icims-tierpoint-3034",
+      "company": "TierPoint",
+      "title": "Operations Technician II",
+      "url": "https://careers-tierpoint.icims.com/jobs/3034/operations-technician-ii/job",
+      "state": "dead",
+      "status": 410,
+      "finalUrl": "https://careers-tierpoint.icims.com/jobs/3034/operations-technician-ii/job"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

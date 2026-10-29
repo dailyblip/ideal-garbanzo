@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-28T22:53:18.038Z",
-  "jobs": 508,
+  "updatedAt": "2026-10-29T05:50:38.664Z",
+  "jobs": 503,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 492,
+    "entry-level": 487,
     "trainee": 6,
     "internship": 4,
     "apprenticeship": 6
   },
   "countsByExperience": {
-    "0-2-years": 278,
-    "2-5-years": 225,
+    "0-2-years": 275,
+    "2-5-years": 223,
     "no-experience": 5
   },
   "errors": [
@@ -34,7 +34,7 @@
     "officialSource": "https://www.tierpoint.com/about-us/careers/",
     "boardUrl": "https://careers-tierpoint.icims.com/jobs/search?hashed=-626007049&ss=1",
     "sourceHealthy": true,
-    "qualifyingRoles": 4,
+    "qualifyingRoles": 3,
     "usedPreviousSnapshot": false,
     "listing": {
       "pagesAttempted": 2,
@@ -76,13 +76,10 @@
       }
     ],
     "qaDeadSnapshotReconciliation": {
-      "checkedAt": "2026-10-24T05:53:30.038Z",
-      "removedRoles": 4,
+      "checkedAt": "2026-10-29T05:50:52.009Z",
+      "removedRoles": 1,
       "removedRequisitionIds": [
-        "3045",
-        "3041",
-        "3036",
-        "3028"
+        "3034"
       ],
       "policy": "Nightly QA-confirmed dead TierPoint detail links are removed from the authoritative iCIMS snapshot so stale roles do not return after live QA removes them from the public feed."
     }
@@ -2931,7 +2928,7 @@
     "uniqueCandidates": 1194,
     "freshQualifyingRoles": 27,
     "preservedPreviousRoles": 0,
-    "qualifyingRoles": 152,
+    "qualifyingRoles": 148,
     "drops": {
       "nonUs": 319,
       "title": 560,
@@ -2953,15 +2950,13 @@
       "policy": "Retain previously verified AWS employer-direct roles for at most 96 hours after the last evidenced complete official Amazon Jobs search."
     },
     "qaDeadSnapshotReconciliation": {
-      "checkedAt": "2026-10-28T05:49:41.319Z",
-      "removedRoles": 6,
+      "checkedAt": "2026-10-29T05:50:52.009Z",
+      "removedRoles": 4,
       "removedRequisitionIds": [
-        "10558960",
-        "10530055",
-        "10525840",
-        "10499587",
-        "10444674",
-        "10473324"
+        "10543952",
+        "10535608",
+        "10509698",
+        "10528397"
       ],
       "policy": "Nightly QA-confirmed 404/410 or generic-career redirects are removed from the preserved AWS snapshot so stale roles do not return during an active source fallback."
     }
@@ -3236,9 +3231,9 @@
       "retiredEarly": false,
       "retiredBeforeOriginalExpiryAt": null,
       "minimumRemainingHours": 0,
-      "checkedAt": "2026-10-28T22:53:18.038Z",
+      "checkedAt": "2026-10-29T05:50:38.664Z",
       "maxAgeHours": 96,
-      "expiredAgeHours": 952.2,
+      "expiredAgeHours": 959.2,
       "rolesRemoved": 0,
       "policy": "CoreSite fallback roles may remain published for at most 96 hours after their last official verification."
     }
@@ -3368,26 +3363,26 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-10-28T11:05:09.298Z",
+    "updatedAt": "2026-10-29T05:50:38.730Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 508,
+    "regionAssigned": 503,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 82,
-      "west": 84,
-      "midwest": 90,
-      "mid-atlantic": 99,
-      "texas": 86,
+      "west": 83,
+      "midwest": 88,
+      "mid-atlantic": 98,
+      "texas": 85,
       "southwest": 53,
       "northeast": 13,
       "nationwide": 1
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-10-28T11:05:09.355Z",
+    "checkedAt": "2026-10-29T05:50:38.784Z",
     "before": 508,
     "after": 508,
     "removed": 0,
@@ -3395,16 +3390,16 @@
     "examples": []
   },
   "postQa": {
-    "checkedAt": "2026-10-28T11:05:25.607Z",
-    "publishedJobs": 508,
-    "removedJobs": 0,
+    "checkedAt": "2026-10-29T05:50:52.009Z",
+    "publishedJobs": 503,
+    "removedJobs": 5,
     "activeCareerEvents": 0,
     "providerVerifiedRetained": 0
   },
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1408,
-    "currentJobs": 508,
+    "currentJobs": 503,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3412,8 +3407,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 36,
-    "updatedAt": "2026-10-28T11:05:25.825Z"
+    "firstSeenRecencyFallbackJobs": 35,
+    "updatedAt": "2026-10-29T05:50:59.640Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",

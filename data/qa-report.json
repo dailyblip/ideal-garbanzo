@@ -1,20 +1,38 @@
 {
-  "checkedAt": "2026-10-29T11:21:23.208Z",
-  "jobsBefore": 503,
-  "jobsAfter": 502,
+  "checkedAt": "2026-10-30T05:45:33.203Z",
+  "jobsBefore": 502,
+  "jobsAfter": 499,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
     {
-      "id": "amazon-10482557",
+      "id": "amazon-10556859",
       "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician Night Role",
-      "url": "https://www.amazon.jobs/en/jobs/10482557/engineering-operation-technician-night-role",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10556859/data-center-technician-dcc-communities",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10482557/engineering-operation-technician-night-role"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10556859/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10553853",
+      "company": "Amazon Web Services",
+      "title": "Infra Install Tech Night Shift, Data Center Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10553853/infra-install-tech-night-shift-data-center-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10553853/infra-install-tech-night-shift-data-center-communities"
+    },
+    {
+      "id": "ashby-tensorwave-3731c4ccf4b096",
+      "company": "TensorWave",
+      "title": "Data Center Technician",
+      "url": "https://jobs.ashbyhq.com/tensorwave/6700a3bc-b357-4545-81b7-52697474a07e",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.ashbyhq.com/tensorwave/6700a3bc-b357-4545-81b7-52697474a07e"
     }
   ],
   "providerVerifiedJobLinksRetained": [],

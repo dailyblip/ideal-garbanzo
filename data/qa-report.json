@@ -1,43 +1,53 @@
 {
-  "checkedAt": "2026-10-30T05:45:33.203Z",
-  "jobsBefore": 502,
-  "jobsAfter": 499,
+  "checkedAt": "2026-10-30T11:13:31.625Z",
+  "jobsBefore": 499,
+  "jobsAfter": 497,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
     {
-      "id": "amazon-10556859",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician, DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10556859/data-center-technician-dcc-communities",
+      "id": "ashby-fluidstack-55736a473897fd",
+      "company": "Fluidstack",
+      "title": "Network Operator, Data Center Operations",
+      "url": "https://jobs.ashbyhq.com/fluidstack/f0256ec7-0405-49c5-a6ec-c9657f2c4252",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10556859/data-center-technician-dcc-communities"
+      "finalUrl": "https://jobs.ashbyhq.com/fluidstack/f0256ec7-0405-49c5-a6ec-c9657f2c4252"
     },
     {
-      "id": "amazon-10553853",
+      "id": "amazon-10537405",
       "company": "Amazon Web Services",
-      "title": "Infra Install Tech Night Shift, Data Center Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10553853/infra-install-tech-night-shift-data-center-communities",
+      "title": "Engineering Operation Technician, DCEO",
+      "url": "https://www.amazon.jobs/en/jobs/10537405/engineering-operation-technician-dceo",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10553853/infra-install-tech-night-shift-data-center-communities"
-    },
-    {
-      "id": "ashby-tensorwave-3731c4ccf4b096",
-      "company": "TensorWave",
-      "title": "Data Center Technician",
-      "url": "https://jobs.ashbyhq.com/tensorwave/6700a3bc-b357-4545-81b7-52697474a07e",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://jobs.ashbyhq.com/tensorwave/6700a3bc-b357-4545-81b7-52697474a07e"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10537405/engineering-operation-technician-dceo"
     }
   ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "lever-cologix-787878af-acd2-41d8-b559-a5b420ddd3f8",
+      "company": "Cologix",
+      "title": "Data Center Technician- 2nd shift (Wednesday- Saturday)",
+      "url": "https://jobs.lever.co/cologix/787878af-acd2-41d8-b559-a5b420ddd3f8",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    },
+    {
+      "id": "lever-cologix-aed96509-3f41-487e-acd0-8d7fbaa386b5",
+      "company": "Cologix",
+      "title": "Data Center Technician- 1st shift (Sunday- Wednesday)",
+      "url": "https://jobs.lever.co/cologix/aed96509-3f41-487e-acd0-8d7fbaa386b5",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 0,
   "careerEventsAfter": 0,

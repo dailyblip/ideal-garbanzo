@@ -1,53 +1,25 @@
 {
-  "checkedAt": "2026-10-30T11:13:31.625Z",
-  "jobsBefore": 499,
-  "jobsAfter": 497,
+  "checkedAt": "2026-10-31T05:36:31.053Z",
+  "jobsBefore": 497,
+  "jobsAfter": 496,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
     {
-      "id": "ashby-fluidstack-55736a473897fd",
-      "company": "Fluidstack",
-      "title": "Network Operator, Data Center Operations",
-      "url": "https://jobs.ashbyhq.com/fluidstack/f0256ec7-0405-49c5-a6ec-c9657f2c4252",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://jobs.ashbyhq.com/fluidstack/f0256ec7-0405-49c5-a6ec-c9657f2c4252"
-    },
-    {
-      "id": "amazon-10537405",
+      "id": "amazon-10535493",
       "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician, DCEO",
-      "url": "https://www.amazon.jobs/en/jobs/10537405/engineering-operation-technician-dceo",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10535493/data-center-technician",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10537405/engineering-operation-technician-dceo"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10535493/data-center-technician"
     }
   ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "lever-cologix-787878af-acd2-41d8-b559-a5b420ddd3f8",
-      "company": "Cologix",
-      "title": "Data Center Technician- 2nd shift (Wednesday- Saturday)",
-      "url": "https://jobs.lever.co/cologix/787878af-acd2-41d8-b559-a5b420ddd3f8",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    },
-    {
-      "id": "lever-cologix-aed96509-3f41-487e-acd0-8d7fbaa386b5",
-      "company": "Cologix",
-      "title": "Data Center Technician- 1st shift (Sunday- Wednesday)",
-      "url": "https://jobs.lever.co/cologix/aed96509-3f41-487e-acd0-8d7fbaa386b5",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 0,
   "careerEventsAfter": 0,

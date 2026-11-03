@@ -1,15 +1,62 @@
 {
-  "checkedAt": "2026-11-02T13:13:54.616Z",
+  "checkedAt": "2026-11-03T12:39:49.635Z",
   "jobsBefore": 496,
-  "jobsAfter": 496,
+  "jobsAfter": 492,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "amazon-10547044",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician, RNO101",
+      "url": "https://www.amazon.jobs/en/jobs/10547044/engineering-operation-technician-rno101",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10547044/engineering-operation-technician-rno101"
+    },
+    {
+      "id": "amazon-10541984",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10541984/data-center-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10541984/data-center-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10535494",
+      "company": "Amazon Web Services",
+      "title": "Data Center Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10535494/data-center-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10535494/data-center-technician"
+    },
+    {
+      "id": "amazon-10512847",
+      "company": "Amazon Web Services",
+      "title": "Data Center Controls Technician, Data Center Capacity Delivery",
+      "url": "https://www.amazon.jobs/en/jobs/10512847/data-center-controls-technician-data-center-capacity-delivery",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10512847/data-center-controls-technician-data-center-capacity-delivery"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "microsoft-1970393556958319",
+      "company": "Microsoft",
+      "title": "Critical Environment Ops Tech",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393556958319",
+      "state": "transient",
+      "status": null,
+      "error": "fetch failed"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 0,
   "careerEventsAfter": 0,

@@ -1,60 +1,51 @@
 {
-  "checkedAt": "2026-11-03T12:39:49.635Z",
-  "jobsBefore": 496,
-  "jobsAfter": 492,
+  "checkedAt": "2026-11-04T06:24:29.273Z",
+  "jobsBefore": 492,
+  "jobsAfter": 490,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
     {
-      "id": "amazon-10547044",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operation Technician, RNO101",
-      "url": "https://www.amazon.jobs/en/jobs/10547044/engineering-operation-technician-rno101",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10547044/engineering-operation-technician-rno101"
-    },
-    {
-      "id": "amazon-10541984",
-      "company": "Amazon Web Services",
-      "title": "Data Center Technician, DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/10541984/data-center-technician-dcc-communities",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10541984/data-center-technician-dcc-communities"
-    },
-    {
-      "id": "amazon-10535494",
+      "id": "amazon-10562842",
       "company": "Amazon Web Services",
       "title": "Data Center Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10535494/data-center-technician",
+      "url": "https://www.amazon.jobs/en/jobs/10562842/data-center-technician",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10535494/data-center-technician"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10562842/data-center-technician"
     },
     {
-      "id": "amazon-10512847",
+      "id": "amazon-3198767",
       "company": "Amazon Web Services",
-      "title": "Data Center Controls Technician, Data Center Capacity Delivery",
-      "url": "https://www.amazon.jobs/en/jobs/10512847/data-center-controls-technician-data-center-capacity-delivery",
+      "title": "Engineering Operations Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/3198767/engineering-operations-technician-dcc-communities",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10512847/data-center-controls-technician-data-center-capacity-delivery"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/3198767/engineering-operations-technician-dcc-communities"
     }
   ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [
     {
-      "id": "microsoft-1970393556958319",
-      "company": "Microsoft",
-      "title": "Critical Environment Ops Tech",
-      "url": "https://apply.careers.microsoft.com/careers/job/1970393556958319",
+      "id": "lever-lightedge-0765f29e-ee42-4aa3-bd86-80adfa1a3bf5",
+      "company": "LightEdge Solutions",
+      "title": "Data Center Operations Tier 1 Technician (Night Shift)",
+      "url": "https://jobs.lever.co/lightedge/0765f29e-ee42-4aa3-bd86-80adfa1a3bf5",
       "state": "transient",
       "status": null,
-      "error": "fetch failed"
+      "error": "timeout"
+    },
+    {
+      "id": "lever-cologix-51987705-c2be-456e-88c3-48345e0f9b6c",
+      "company": "Cologix",
+      "title": "Data Center Technician- 1st shift (Wednesday- Saturday)",
+      "url": "https://jobs.lever.co/cologix/51987705-c2be-456e-88c3-48345e0f9b6c",
+      "state": "transient",
+      "status": null,
+      "error": "timeout"
     }
   ],
   "warningJobLinks": [],

@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/nightly-qa.yml'
       - 'scripts/reconcile-qa-dead-snapshots.mjs'
+      - 'scripts/qa-production-live.mjs'
   workflow_dispatch:
   schedule:
     - cron: '5 5 * * *'
@@ -39,6 +40,20 @@ jobs:
           node scripts/dedupe-normalized-jobs.mjs
       - name: Run full live QA
         run: node scripts/qa-site.mjs
+      # Inspect the actual published inventory separately; never prune source
+      # snapshots based solely on an older production deployment.
+      - name: Audit every published production job and apply URL
+        continue-on-error: true
+        timeout-minutes: 25
+        run: node scripts/qa-production-live.mjs
+      - name: Preserve production link audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-qa-evidence
+          path: /tmp/production-qa-report.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Reconcile confirmed-dead source snapshots
         run: |
           node scripts/reconcile-qa-dead-snapshots.mjs --test

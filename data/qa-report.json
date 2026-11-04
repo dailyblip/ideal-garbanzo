@@ -1,53 +1,25 @@
 {
-  "checkedAt": "2026-11-04T06:24:29.273Z",
-  "jobsBefore": 492,
-  "jobsAfter": 490,
+  "checkedAt": "2026-11-04T12:50:03.937Z",
+  "jobsBefore": 490,
+  "jobsAfter": 489,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
   "deadJobLinksRemoved": [
     {
-      "id": "amazon-10562842",
+      "id": "amazon-10556361",
       "company": "Amazon Web Services",
-      "title": "Data Center Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10562842/data-center-technician",
+      "title": "Cable Installation Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10556361/cable-installation-technician-dcc-communities",
       "state": "dead",
       "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10562842/data-center-technician"
-    },
-    {
-      "id": "amazon-3198767",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician, DCC Communities",
-      "url": "https://www.amazon.jobs/en/jobs/3198767/engineering-operations-technician-dcc-communities",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/3198767/engineering-operations-technician-dcc-communities"
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10556361/cable-installation-technician-dcc-communities"
     }
   ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [
-    {
-      "id": "lever-lightedge-0765f29e-ee42-4aa3-bd86-80adfa1a3bf5",
-      "company": "LightEdge Solutions",
-      "title": "Data Center Operations Tier 1 Technician (Night Shift)",
-      "url": "https://jobs.lever.co/lightedge/0765f29e-ee42-4aa3-bd86-80adfa1a3bf5",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    },
-    {
-      "id": "lever-cologix-51987705-c2be-456e-88c3-48345e0f9b6c",
-      "company": "Cologix",
-      "title": "Data Center Technician- 1st shift (Wednesday- Saturday)",
-      "url": "https://jobs.lever.co/cologix/51987705-c2be-456e-88c3-48345e0f9b6c",
-      "state": "transient",
-      "status": null,
-      "error": "timeout"
-    }
-  ],
+  "transientJobLinks": [],
   "warningJobLinks": [],
   "careerEventsBefore": 0,
   "careerEventsAfter": 0,

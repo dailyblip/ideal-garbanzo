@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-11-05T06:28:27.637Z",
-  "jobs": 489,
+  "updatedAt": "2026-11-05T06:32:52.085Z",
+  "jobs": 487,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,14 +10,14 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 473,
+    "entry-level": 471,
     "trainee": 6,
     "internship": 4,
     "apprenticeship": 6
   },
   "countsByExperience": {
     "0-2-years": 262,
-    "2-5-years": 222,
+    "2-5-years": 220,
     "no-experience": 5
   },
   "errors": [
@@ -3538,20 +3538,31 @@
   },
   "flexential": {
     "checkedAt": "2026-09-30T04:18:05.801Z",
-    "sourceHealthy": true,
-    "listingComplete": true,
+    "sourceHealthy": false,
+    "listingComplete": false,
     "officialCareerPage": "https://www.flexential.com/careers",
     "officialGreenhouseBoard": "https://job-boards.greenhouse.io/flexentialcorp",
     "api": "https://boards-api.greenhouse.io/v1/boards/flexentialcorp/jobs?content=true",
-    "authoritativeSnapshot": true,
+    "authoritativeSnapshot": false,
     "listedJobs": 22,
     "missionCandidates": 2,
-    "qualifyingRoles": 2,
+    "qualifyingRoles": 0,
     "rejectedOutOfScopeTitle": 18,
     "rejectedExcludedTitle": 2,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0,
-    "rejectedInvalidUrl": 0
+    "rejectedInvalidUrl": 0,
+    "fallbackFreshness": {
+      "active": false,
+      "expired": true,
+      "lastHealthyAt": "2026-09-30T04:18:05.801Z",
+      "checkedAt": "2026-11-05T06:32:52.085Z",
+      "expiresAt": "2026-10-04T04:18:05.801Z",
+      "maxAgeHours": 96,
+      "expiredAgeHours": 866.2,
+      "rolesRemoved": 2,
+      "policy": "Flexential employer-direct roles may remain published for at most 96 hours after the last successful official Greenhouse verification."
+    }
   },
   "switchCareers": {
     "checkedAt": "2026-09-30T05:05:20.458Z",

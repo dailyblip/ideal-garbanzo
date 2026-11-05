@@ -290,4 +290,7 @@ for (const fallback of genericFallbackAges) {
 }
 
 await import('./validate-flexential-freshness.mjs');
+// Preserve fail-closed Crusoe source verification at deployment, independent
+// of Flexential's source-scoped refresh and freshness validation.
+await import('./validate-crusoe.mjs');
 await import('./validate-novva.mjs');

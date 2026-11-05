@@ -76,7 +76,5 @@ if (publishedCount === 0) {
   );
 }
 
-// Crusoe shares the generic ATS ingestion path but is now treated as a protected
-// comparable infrastructure operator. Keep its official-source and freshness
-// checks in the same deployment freshness chain so stale or misrouted roles fail closed.
-await import('./validate-crusoe.mjs');
+// Crusoe is guarded independently by the global deployment-freshness chain.
+// A standalone Flexential source refresh must not fail due to unrelated Crusoe age.

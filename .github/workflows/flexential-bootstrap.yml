@@ -72,7 +72,10 @@ jobs:
         run: node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json --verify
       - name: Validate updated feed
         run: |
-          node scripts/validate.mjs
+          # Source-scoped checks: deployment performs complete cross-source freshness validation.
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs
+          node scripts/validate-flexential-freshness.mjs
           node scripts/validate-job-history.mjs --allow-aging
           node scripts/validate-homepage-contract.mjs
           node scripts/validate-source-workflow-isolation.mjs
@@ -101,7 +104,10 @@ jobs:
             node scripts/validate-flexential-freshness.mjs
             node scripts/stamp-job-history.mjs --company "Flexential"
             node scripts/preserve-source-group.mjs "Flexential" /tmp/flexential-public-before.json --verify
-            node scripts/validate.mjs
+            # Source-scoped checks: deployment performs complete cross-source freshness validation.
+          node scripts/validate-priority-employer-sources.mjs
+          node scripts/validate-direct-role-links.mjs
+          node scripts/validate-flexential-freshness.mjs
             node scripts/validate-job-history.mjs --allow-aging
             node scripts/validate-homepage-contract.mjs
             node scripts/validate-source-workflow-isolation.mjs

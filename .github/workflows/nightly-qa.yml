@@ -1,6 +1,7 @@
 name: Nightly site QA
 
 # Production QA entrypoint for scheduled, manual, and on-demand verification.
+# Re-run production-wide QA after live deployment parity failures reported Nov 4, 2026.
 on:
   push:
     branches: [main]

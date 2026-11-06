@@ -1,12 +1,40 @@
 {
-  "checkedAt": "2026-11-05T12:58:18.887Z",
-  "jobsBefore": 498,
-  "jobsAfter": 498,
+  "checkedAt": "2026-11-06T06:29:06.244Z",
+  "jobsBefore": 497,
+  "jobsAfter": 494,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [],
+  "deadJobLinksRemoved": [
+    {
+      "id": "ashby-fluidstack-f53d7ea4422bc5",
+      "company": "Fluidstack",
+      "title": "Cx, QA, & Field Engineer, Electrical",
+      "url": "https://jobs.ashbyhq.com/fluidstack/985e25a6-5089-451a-ae68-3ebfcd0de52b",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://jobs.ashbyhq.com/fluidstack/985e25a6-5089-451a-ae68-3ebfcd0de52b"
+    },
+    {
+      "id": "amazon-10445850",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician, DCC Communities",
+      "url": "https://www.amazon.jobs/en/jobs/10445850/engineering-operation-technician-dcc-communities",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10445850/engineering-operation-technician-dcc-communities"
+    },
+    {
+      "id": "amazon-10411716",
+      "company": "Amazon Web Services",
+      "title": "Engineering Operation Technician",
+      "url": "https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician",
+      "state": "dead",
+      "status": 404,
+      "finalUrl": "https://www.amazon.jobs/en/jobs/10411716/engineering-operation-technician"
+    }
+  ],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
   "transientJobLinks": [],

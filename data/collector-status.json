@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-11-05T20:18:52.376Z",
-  "jobs": 498,
+  "updatedAt": "2026-11-06T05:25:42.097Z",
+  "jobs": 497,
   "sourcesAttempted": 20,
   "providers": {
     "lever": 7,
@@ -10,7 +10,7 @@
     "googleCareers": 1
   },
   "countsByType": {
-    "entry-level": 482,
+    "entry-level": 481,
     "trainee": 6,
     "internship": 4,
     "apprenticeship": 6
@@ -18,7 +18,7 @@
   "countsByExperience": {
     "0-2-years": 267,
     "2-5-years": 224,
-    "no-experience": 7
+    "no-experience": 6
   },
   "errors": [
     "Google Careers fallback freshness: removed 42 stale role(s); last healthy verification is 96.3h old."
@@ -3352,7 +3352,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-11-05T19:35:26.626Z",
+    "checkedAt": "2026-11-06T05:25:42.165Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3360,16 +3360,16 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-11-05T19:35:26.693Z",
+    "updatedAt": "2026-11-06T05:25:42.233Z",
     "changed": 0,
     "samples": [],
-    "regionAssigned": 498,
+    "regionAssigned": 497,
     "regionMissing": 0,
     "coveragePct": 100,
     "missingSamples": [],
     "countsByRegion": {
       "southeast": 84,
-      "west": 81,
+      "west": 80,
       "midwest": 88,
       "mid-atlantic": 95,
       "texas": 85,
@@ -3379,9 +3379,9 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-11-05T19:35:26.755Z",
-    "before": 498,
-    "after": 498,
+    "checkedAt": "2026-11-06T05:25:42.298Z",
+    "before": 497,
+    "after": 497,
     "removed": 0,
     "policy": "one representative posting per normalized employer + shift-aware title + location",
     "examples": []
@@ -3396,9 +3396,9 @@
   "jobHistory": {
     "initializedAt": "2026-09-02T10:45:49.306Z",
     "trackedJobs": 1419,
-    "currentJobs": 498,
+    "currentJobs": 497,
     "scopeCompany": "Flexential",
-    "scopedJobs": 11,
+    "scopedJobs": 10,
     "newJobsThisRun": 0,
     "changedJobsThisRun": 0,
     "migratedEntriesThisRun": 0,
@@ -3406,8 +3406,8 @@
     "repairedEntriesThisRun": 0,
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
-    "firstSeenRecencyFallbackJobs": 11,
-    "updatedAt": "2026-11-05T19:35:27.070Z"
+    "firstSeenRecencyFallbackJobs": 10,
+    "updatedAt": "2026-11-06T05:25:42.624Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3539,16 +3539,16 @@
     }
   },
   "flexential": {
-    "checkedAt": "2026-11-05T19:35:26.555Z",
+    "checkedAt": "2026-11-06T05:25:42.097Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",
     "officialGreenhouseBoard": "https://job-boards.greenhouse.io/flexentialcorp",
     "api": "https://boards-api.greenhouse.io/v1/boards/flexentialcorp/jobs?content=true",
     "authoritativeSnapshot": true,
-    "listedJobs": 24,
-    "missionCandidates": 11,
-    "qualifyingRoles": 11,
+    "listedJobs": 23,
+    "missionCandidates": 10,
+    "qualifyingRoles": 10,
     "rejectedOutOfScopeTitle": 12,
     "rejectedExcludedTitle": 1,
     "rejectedOver5Years": 0,

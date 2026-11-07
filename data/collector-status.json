@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T19:43:26.715Z",
+  "updatedAt": "2026-11-07T04:54:17.232Z",
   "jobs": 492,
   "sourcesAttempted": 20,
   "providers": {
@@ -3353,7 +3353,7 @@
     "directDetailProbes": []
   },
   "missionFit": {
-    "checkedAt": "2026-11-06T18:57:27.187Z",
+    "checkedAt": "2026-11-07T04:54:17.294Z",
     "removedCount": 0,
     "removedByReason": {},
     "removed": [],
@@ -3361,7 +3361,7 @@
     "majorSnapshotRemoved": []
   },
   "locationNormalization": {
-    "updatedAt": "2026-11-06T18:57:27.243Z",
+    "updatedAt": "2026-11-07T04:54:17.355Z",
     "changed": 0,
     "samples": [],
     "regionAssigned": 492,
@@ -3380,7 +3380,7 @@
     }
   },
   "normalizationDedupe": {
-    "checkedAt": "2026-11-06T18:57:27.296Z",
+    "checkedAt": "2026-11-07T04:54:17.411Z",
     "before": 492,
     "after": 492,
     "removed": 0,
@@ -3408,7 +3408,7 @@
     "recencySentinelsRepairedThisRun": 0,
     "normalizedWorkdayPostingDatesThisRun": 0,
     "firstSeenRecencyFallbackJobs": 10,
-    "updatedAt": "2026-11-06T18:57:27.565Z"
+    "updatedAt": "2026-11-07T04:54:17.702Z"
   },
   "amazonDetailRecovery": {
     "officialSource": "https://www.amazon.jobs/en/search",
@@ -3540,17 +3540,17 @@
     }
   },
   "flexential": {
-    "checkedAt": "2026-11-06T18:57:27.128Z",
+    "checkedAt": "2026-11-07T04:54:17.232Z",
     "sourceHealthy": true,
     "listingComplete": true,
     "officialCareerPage": "https://www.flexential.com/careers",
     "officialGreenhouseBoard": "https://job-boards.greenhouse.io/flexentialcorp",
     "api": "https://boards-api.greenhouse.io/v1/boards/flexentialcorp/jobs?content=true",
     "authoritativeSnapshot": true,
-    "listedJobs": 24,
+    "listedJobs": 23,
     "missionCandidates": 10,
     "qualifyingRoles": 10,
-    "rejectedOutOfScopeTitle": 13,
+    "rejectedOutOfScopeTitle": 12,
     "rejectedExcludedTitle": 1,
     "rejectedOver5Years": 0,
     "rejectedUnknownExperience": 0,

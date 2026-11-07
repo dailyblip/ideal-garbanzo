@@ -1,34 +1,25 @@
 {
-  "checkedAt": "2026-11-07T06:26:57.606Z",
-  "jobsBefore": 492,
+  "checkedAt": "2026-11-07T11:34:08.220Z",
+  "jobsBefore": 490,
   "jobsAfter": 490,
   "demoJobsRemoved": [],
   "nonUsJobsRemoved": [],
   "unresolvedLocationJobsRemoved": [],
   "duplicatesRemoved": [],
-  "deadJobLinksRemoved": [
-    {
-      "id": "amazon-10479164",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician, Data Center Engineering Operations (DCEO)",
-      "url": "https://www.amazon.jobs/en/jobs/10479164/engineering-operations-technician-data-center-engineering-operations-dceo",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10479164/engineering-operations-technician-data-center-engineering-operations-dceo"
-    },
-    {
-      "id": "amazon-10427544",
-      "company": "Amazon Web Services",
-      "title": "Engineering Operations Technician",
-      "url": "https://www.amazon.jobs/en/jobs/10427544/engineering-operations-technician",
-      "state": "dead",
-      "status": 404,
-      "finalUrl": "https://www.amazon.jobs/en/jobs/10427544/engineering-operations-technician"
-    }
-  ],
+  "deadJobLinksRemoved": [],
   "providerVerifiedJobLinksRetained": [],
   "blockedJobLinks": [],
-  "transientJobLinks": [],
+  "transientJobLinks": [
+    {
+      "id": "lever-cologix-aed96509-3f41-487e-acd0-8d7fbaa386b5",
+      "company": "Cologix",
+      "title": "Data Center Technician- 1st shift (Sunday- Wednesday)",
+      "url": "https://jobs.lever.co/cologix/aed96509-3f41-487e-acd0-8d7fbaa386b5",
+      "state": "transient",
+      "status": 502,
+      "finalUrl": "https://jobs.lever.co/cologix/aed96509-3f41-487e-acd0-8d7fbaa386b5"
+    }
+  ],
   "warningJobLinks": [],
   "careerEventsBefore": 0,
   "careerEventsAfter": 0,
